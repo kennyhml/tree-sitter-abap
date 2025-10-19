@@ -1,0 +1,42 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "abap",
+      "camelcase": "Abap",
+      "title": "Abap",
+      "scope": "source.abap",
+      "file-types": [
+        ".intf",
+        ".clas",
+        ".prog",
+        ".incl"
+      ],
+      "injection-regex": "^abap$",
+      "class-name": "TreeSitterAbap"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Abap grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Kendrick Hommel",
+        "email": "kendrick.hommel@gmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/kennyhml/tree-sitter-abap"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
