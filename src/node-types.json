@@ -17,6 +17,20 @@
     "type": "data_declaration",
     "named": true,
     "fields": {
+      "length": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "literal_int",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -33,6 +47,16 @@
         "types": [
           {
             "type": "type_reference",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "literal_string",
             "named": true
           }
         ]
@@ -56,6 +80,11 @@
     }
   },
   {
+    "type": "literal_string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source",
     "named": true,
     "root": true,
@@ -72,6 +101,10 @@
     }
   },
   {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -84,7 +117,15 @@
     "named": false
   },
   {
+    "type": "`",
+    "named": false
+  },
+  {
     "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "literal_int",
     "named": true
   },
   {

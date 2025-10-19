@@ -7,6 +7,9 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+
+const CONSUME_ANY_WS = repeat(/\s+/);
+
 module.exports = grammar({
   name: "abap",
   extras: $ => [
@@ -30,11 +33,11 @@ module.exports = grammar({
 
   rules: {
     source: $ => repeat(seq(
-      repeat($._at_least_one_ws),
-      $._statement,
-    )
-
-    ),
+      // Indentation in abap never matters.
+      CONSUME_ANY_WS,
+      // There is no guarantee a statement is in this line, it could be empty.
+      $._statement
+    )),
 
     _statement: $ => choice(
       $._simple_statement
@@ -64,20 +67,45 @@ module.exports = grammar({
       /type/i,
       $._at_least_one_ws,
       field("type", $.type_reference),
-      repeat($._at_least_one_ws),
+      choice(
+        seq(
+          optional(field("length", $._data_length)),
+          optional(field("value", $._data_value))
+        ),
+        seq(
+          optional(field("value", $._data_value)),
+          optional(field("length", $._data_length))
+        )
+      ),
+      CONSUME_ANY_WS,
       ".",
     ),
+
+
+    _data_value: $ => seq($._at_least_one_ws, /value/i, $._at_least_one_ws, $.literal_string),
+    _data_length: $ => seq($._at_least_one_ws, /length/i, $._at_least_one_ws, choice($.literal_int, $.literal_string)),
+
 
     type_reference: $ => /[a-zA-Z][a-zA-Z0-9_\/-]*/,
 
     identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
     field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
 
+    literal_string: $ => choice(
+      seq(
+        "'",
+        field("content", /[^']*/), // Match any characters except the closing quote
+        "'"
+      ),
+      seq(
+        "`",
+        field("content", /[^`]*/),
+        "`"
+      )
+    ),
+    literal_int: $ => /-?\d+/,
+
     // Enforces that at least one whitespace is present, but more are ok.
     _at_least_one_ws: $ => /\s+/,
-
-    // Consumes any number of whitespaces, or none. For example, the dot (.) to
-    // terminate might be directly after the last token or with n spaces between.
-    // _optional_ws: $ => repeat1(' ')
   },
 });

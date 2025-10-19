@@ -1,2 +1,1 @@
-data lv_test type string.
-data(   lv_test)
+data lv_test type p length 3 value `100`.

@@ -9,6 +9,43 @@ data /www/std_decl type string.
     (identifier)
     (type_reference)))
 
+==================
+Standard declaration + value
+==================
+
+data /www/std_decl type string value 'MY_VALUE'.
+---
+(source
+    (data_declaration
+    (identifier)
+    (type_reference)
+    (literal_string)))
+
+==================
+Standard declaration + length + value
+==================
+
+data /www/std_decl type p length 3 value '100'.
+---
+(source
+    (data_declaration
+    (identifier)
+    (type_reference)
+    (literal_int)
+    (literal_string)))
+
+==================
+Standard declaration + value + length
+==================
+
+data /www/std_decl type p value '100' length 3.
+---
+(source
+    (data_declaration
+    (identifier)
+    (type_reference)
+    (literal_string)
+    (literal_int)))
 
 ==================
 Inline declaration
