@@ -1,0 +1,2 @@
+data lv_test type string.
+data(   lv_test)

@@ -1,0 +1,31 @@
+==================
+Standard declaration
+==================
+
+data /www/std_decl type string.
+---
+(source
+    (data_declaration
+    (identifier)
+    (type_reference)))
+
+
+==================
+Inline declaration
+==================
+
+data(/zzada/_inline_decl)
+---
+(source
+    (inline_declaration
+    (identifier)))
+
+==================
+Final Inline declaration
+==================
+
+final(/iwfnd/my_var)
+---
+(source
+    (inline_declaration
+    (identifier)))
