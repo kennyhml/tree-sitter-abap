@@ -31,6 +31,10 @@ module.exports = grammar({
     $._compound_statement
   ],
 
+  conflicts: $ => [
+    [$.inline_declaration, $.inline_decl_assignment]
+  ],
+
   rules: {
     source: $ => repeat(seq(
       // Indentation in abap never matters.
@@ -45,7 +49,7 @@ module.exports = grammar({
 
     // Statements that dont contain a body/block. For example a data declaration.
     // method definitions, import statements, etc..
-    _simple_statement: $ => choice($.inline_declaration, $.data_declaration),
+    _simple_statement: $ => choice($.inline_declaration, $.data_declaration, $.inline_decl_assignment),
 
     // Statements that start a block and have a body. For example method implementations,
     // class /function definitions and implementations, etc..
@@ -55,11 +59,25 @@ module.exports = grammar({
       choice(/data/i, /final/i),
       "(",
       field("name", $.identifier),
-      ")"
+      ")",
     ),
 
+    inline_decl_assignment: $ => seq(
+      choice(/data/i, /final/i),
+      "(",
+      field("name", $.identifier),
+      ")",
+      $._at_least_one_ws,
+      "=",
+      $._at_least_one_ws,
+      field("value", $._expression),
+      CONSUME_ANY_WS,
+      "."
+    ),
+
+    _expression: $ => choice($.literal_int, $.literal_string),
+
     data_declaration: $ => seq(
-      // final declarations are only possible as inline decls.
       /data/i,
       $._at_least_one_ws,
       field("name", $.identifier),
@@ -67,14 +85,13 @@ module.exports = grammar({
       /type/i,
       $._at_least_one_ws,
       field("type", $.type_reference),
-      choice(
-        seq(
-          optional(field("length", $._data_length)),
-          optional(field("value", $._data_value))
-        ),
-        seq(
-          optional(field("value", $._data_value)),
-          optional(field("length", $._data_length))
+      optional(
+        repeat1(
+          choice(
+            field("length", $._data_length),
+            field("value", $._data_value),
+            field("decimals", $._data_decimals)
+          )
         )
       ),
       CONSUME_ANY_WS,
@@ -82,8 +99,10 @@ module.exports = grammar({
     ),
 
 
+    //FIXME: Constants are also possible
     _data_value: $ => seq($._at_least_one_ws, /value/i, $._at_least_one_ws, $.literal_string),
     _data_length: $ => seq($._at_least_one_ws, /length/i, $._at_least_one_ws, choice($.literal_int, $.literal_string)),
+    _data_decimals: $ => seq($._at_least_one_ws, /decimals/i, $._at_least_one_ws, $.literal_int),
 
 
     type_reference: $ => /[a-zA-Z][a-zA-Z0-9_\/-]*/,

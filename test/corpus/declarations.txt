@@ -48,6 +48,20 @@ data /www/std_decl type p value '100' length 3.
     (literal_int)))
 
 ==================
+Standard declaration + value + length + decimals
+==================
+
+data /www/std_decl type p value '100.22' length 3 decimals 5.
+---
+(source
+    (data_declaration
+    (identifier)
+    (type_reference)
+    (literal_string)
+    (literal_int)
+    (literal_int)))
+
+==================
 Inline declaration
 ==================
 
@@ -66,3 +80,14 @@ final(/iwfnd/my_var)
 (source
     (inline_declaration
     (identifier)))
+
+==================
+Final Inline declaration + assignment
+==================
+
+final(/iwfnd/my_var) = 100.
+---
+(source
+    (inline_decl_assignment
+    (identifier)
+    (literal_int)))
