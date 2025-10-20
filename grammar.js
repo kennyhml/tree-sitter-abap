@@ -106,7 +106,7 @@ module.exports = grammar({
     _data_decimals: $ => seq($._at_least_one_ws, /decimals/i, $._at_least_one_ws, $.literal_int),
 
 
-    type_reference: $ => /[a-zA-Z][a-zA-Z0-9_\/-]*/,
+    type_reference: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
 
     identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
     field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,

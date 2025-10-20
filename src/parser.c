@@ -476,9 +476,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '-', 40,
         '.', 53,
         '=', 52,
-        '`', 111,
-        '/', 108,
         '_', 108,
+        '`', 111,
         'D', 69,
         'd', 69,
         'F', 84,
@@ -497,7 +496,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(45);
       if (('0' <= lookahead && lookahead <= '9')) ADVANCE(113);
-      if (('A' <= lookahead && lookahead <= 'Z') ||
+      if (lookahead == '/' ||
+          ('A' <= lookahead && lookahead <= 'Z') ||
           ('a' <= lookahead && lookahead <= 'z')) ADVANCE(107);
       END_STATE();
     case 1:
@@ -663,7 +663,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (('0' <= lookahead && lookahead <= '9')) ADVANCE(113);
       END_STATE();
     case 41:
-      if (('A' <= lookahead && lookahead <= 'Z') ||
+      if (lookahead == '/' ||
+          ('A' <= lookahead && lookahead <= 'Z') ||
           ('a' <= lookahead && lookahead <= 'z')) ADVANCE(107);
       END_STATE();
     case 42:

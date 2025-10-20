@@ -116,3 +116,33 @@ final(/iwfnd/my_var) = 100.
     (inline_decl_assignment
         (identifier)
         (literal_int)))
+
+==================
+Data declaration multi line.
+==================
+
+data  /www/std_decl 
+type    string
+.
+---
+(source
+    (data_declaration
+        (identifier)
+        (type_reference)))
+
+==================
+Multiple data declarations
+==================
+
+data  /www/std_decl type /aawd/da/_some_type length 10 value is initial.
+data  /www/sec_valu type /typ/_some_type length 10 read-only.
+---
+(source
+    (data_declaration
+        (identifier)
+        (type_reference)
+        (literal_int))
+    (data_declaration
+        (identifier)
+        (type_reference)
+        (literal_int)))
