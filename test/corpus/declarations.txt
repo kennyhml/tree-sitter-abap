@@ -6,8 +6,8 @@ data /www/std_decl type string.
 ---
 (source
     (data_declaration
-    (identifier)
-    (type_reference)))
+        (identifier)
+        (type_reference)))
 
 ==================
 Standard declaration + value
@@ -17,9 +17,9 @@ data /www/std_decl type string value 'MY_VALUE'.
 ---
 (source
     (data_declaration
-    (identifier)
-    (type_reference)
-    (literal_string)))
+        (identifier)
+        (type_reference)
+        (literal_string)))
 
 ==================
 Data decl with explicit initial value
@@ -29,8 +29,8 @@ data /www/std_decl type string value is initial.
 ---
 (source
     (data_declaration
-    (identifier)
-    (type_reference)))
+        (identifier)
+        (type_reference)))
 
 ==================
 Standard declaration + length + value
@@ -53,10 +53,10 @@ data /www/std_decl type p value '100' length 3.
 ---
 (source
     (data_declaration
-    (identifier)
-    (type_reference)
-    (literal_string)
-    (literal_int)))
+        (identifier)
+        (type_reference)
+        (literal_string)
+        (literal_int)))
 
 ==================
 Standard declaration + value + length + decimals
@@ -66,11 +66,25 @@ data /www/std_decl type p value '100.22' length 3 decimals 5.
 ---
 (source
     (data_declaration
-    (identifier)
-    (type_reference)
-    (literal_string)
-    (literal_int)
-    (literal_int)))
+        (identifier)
+        (type_reference)
+        (literal_string)
+        (literal_int)
+        (literal_int)))
+
+==================
+Standard declaration + read-only
+==================
+
+data /www/std_decl type p value '100.22' length 3 decimals 5 read-only.
+---
+(source
+    (data_declaration
+        (identifier)
+        (type_reference)
+        (literal_string)
+        (literal_int)
+        (literal_int)))
 
 ==================
 Inline declaration
@@ -80,7 +94,7 @@ data(/zzada/_inline_decl)
 ---
 (source
     (inline_declaration
-    (identifier)))
+        (identifier)))
 
 ==================
 Final Inline declaration
@@ -90,7 +104,7 @@ final(/iwfnd/my_var)
 ---
 (source
     (inline_declaration
-    (identifier)))
+        (identifier)))
 
 ==================
 Final Inline declaration + assignment
@@ -100,5 +114,5 @@ final(/iwfnd/my_var) = 100.
 ---
 (source
     (inline_decl_assignment
-    (identifier)
-    (literal_int)))
+        (identifier)
+        (literal_int)))

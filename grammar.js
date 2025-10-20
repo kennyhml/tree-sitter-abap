@@ -94,6 +94,7 @@ module.exports = grammar({
           )
         )
       ),
+      field("readonly", optional(seq($._at_least_one_ws, /read-only/i))),
       CONSUME_ANY_WS,
       ".",
     ),

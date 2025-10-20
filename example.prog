@@ -1,1 +1,1 @@
-data lv_test type p length 3 value `100`.
+data /www/std_decl type p value is initial length 3 decimals 5.

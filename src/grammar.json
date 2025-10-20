@@ -249,6 +249,32 @@
           ]
         },
         {
+          "type": "FIELD",
+          "name": "readonly",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_at_least_one_ws"
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "read-only",
+                    "flags": "i"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "PATTERN",
