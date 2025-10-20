@@ -100,7 +100,7 @@ module.exports = grammar({
 
 
     //FIXME: Constants are also possible
-    _data_value: $ => seq($._at_least_one_ws, /value/i, $._at_least_one_ws, $.literal_string),
+    _data_value: $ => seq($._at_least_one_ws, /value/i, $._at_least_one_ws, choice($.literal_string, seq(/is/i, $._at_least_one_ws, /initial/i))),
     _data_length: $ => seq($._at_least_one_ws, /length/i, $._at_least_one_ws, choice($.literal_int, $.literal_string)),
     _data_decimals: $ => seq($._at_least_one_ws, /decimals/i, $._at_least_one_ws, $.literal_int),
 

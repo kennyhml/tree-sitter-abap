@@ -278,8 +278,32 @@
           "name": "_at_least_one_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "literal_string"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "literal_string"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "is",
+                  "flags": "i"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_at_least_one_ws"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "initial",
+                  "flags": "i"
+                }
+              ]
+            }
+          ]
         }
       ]
     },

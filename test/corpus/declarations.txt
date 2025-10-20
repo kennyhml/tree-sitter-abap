@@ -22,6 +22,17 @@ data /www/std_decl type string value 'MY_VALUE'.
     (literal_string)))
 
 ==================
+Data decl with explicit initial value
+==================
+
+data /www/std_decl type string value is initial.
+---
+(source
+    (data_declaration
+    (identifier)
+    (type_reference)))
+
+==================
 Standard declaration + length + value
 ==================
 
