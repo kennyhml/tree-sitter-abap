@@ -72,8 +72,8 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_DOT] = ".",
   [anon_sym_LPAREN2] = "(",
   [anon_sym_RPAREN2] = ")",
-  [aux_sym_data_declaration_token1] = "data_declaration_token1",
-  [aux_sym_data_declaration_token2] = "data_declaration_token2",
+  [aux_sym_data_declaration_token1] = "type",
+  [aux_sym_data_declaration_token2] = "like",
   [aux_sym_data_declaration_token3] = "data_declaration_token3",
   [aux_sym__data_value_token1] = "_data_value_token1",
   [aux_sym__data_value_token2] = "_data_value_token2",
@@ -189,11 +189,11 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = false,
   },
   [aux_sym_data_declaration_token1] = {
-    .visible = false,
+    .visible = true,
     .named = false,
   },
   [aux_sym_data_declaration_token2] = {
-    .visible = false,
+    .visible = true,
     .named = false,
   },
   [aux_sym_data_declaration_token3] = {

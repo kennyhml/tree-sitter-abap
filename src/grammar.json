@@ -241,9 +241,14 @@
                           "name": "_at_least_one_ws"
                         },
                         {
-                          "type": "PATTERN",
-                          "value": "type",
-                          "flags": "i"
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "type",
+                            "flags": "i"
+                          },
+                          "named": false,
+                          "value": "type"
                         },
                         {
                           "type": "SYMBOL",
@@ -267,9 +272,14 @@
                           "name": "_at_least_one_ws"
                         },
                         {
-                          "type": "PATTERN",
-                          "value": "like",
-                          "flags": "i"
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "like",
+                            "flags": "i"
+                          },
+                          "named": false,
+                          "value": "like"
                         },
                         {
                           "type": "SYMBOL",

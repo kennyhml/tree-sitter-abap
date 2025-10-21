@@ -93,8 +93,8 @@ module.exports = grammar({
       optional(
         repeat(
           choice(
-            field("type", seq($._at_least_one_ws, /type/i, $._at_least_one_ws, $.type_reference)),
-            field("like", seq($._at_least_one_ws, /like/i, $._at_least_one_ws, $.identifier)),
+            field("type", seq($._at_least_one_ws, alias(/type/i, "type"), $._at_least_one_ws, $.type_reference)),
+            field("like", seq($._at_least_one_ws, alias(/like/i, "like"), $._at_least_one_ws, $.identifier)),
             field("length", $._data_length),
             field("value", $._data_value),
             field("decimals", $._data_decimals),

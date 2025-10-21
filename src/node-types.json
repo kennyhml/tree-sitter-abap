@@ -70,6 +70,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "like",
+            "named": false
           }
         ]
       },
@@ -87,6 +91,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "type",
+            "named": false
+          },
           {
             "type": "type_reference",
             "named": true
@@ -201,8 +209,16 @@
     "named": true
   },
   {
+    "type": "like",
+    "named": false
+  },
+  {
     "type": "literal_int",
     "named": true
+  },
+  {
+    "type": "type",
+    "named": false
   },
   {
     "type": "type_reference",
