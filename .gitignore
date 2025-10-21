@@ -48,3 +48,7 @@ zig-out/
 *.tar.gz
 *.tgz
 *.zip
+
+
+# debug / test
+log.html

@@ -110,6 +110,30 @@ data /www/std_decl(20) type c.
         (type_reference)))
 
 ==================
+Multiple declarations
+==================
+
+data /www/std_decl1(30) type c value 'BUFFER_TEST'.
+data /www/std_decl2 like some_ref_var read-only.
+data /www/std_decl3 type p length 5 decimals 2 value '12.34'.
+---
+(source
+    (data_declaration
+        (identifier)
+        (literal_int)
+        (type_reference)
+        (literal_string))
+    (data_declaration
+        (identifier)
+        (identifier))
+    (data_declaration
+        (identifier)
+        (type_reference)
+        (literal_int)
+        (literal_int)
+        (literal_string)))
+
+==================
 Inline declaration
 ==================
 
