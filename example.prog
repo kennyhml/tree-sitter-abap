@@ -1,1 +1,1 @@
-data /www/std_decl type p value is initial length 3 decimals 5.
+data /www/std_decl(20) type c.

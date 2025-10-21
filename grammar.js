@@ -81,20 +81,27 @@ module.exports = grammar({
       /data/i,
       $._at_least_one_ws,
       field("name", $.identifier),
-      $._at_least_one_ws,
-      /type/i,
-      $._at_least_one_ws,
-      field("type", $.type_reference),
+      optional(field("bufsize", seq(token.immediate("("), $.literal_int, token.immediate(")")))),
+
+      // Its actually possible to define data with nothing but `data foo.` which will be a C1.
+      // Any of the below keywords can come in literally ANY order and all are optional.
+      // Yes, you can specify read-only before you specify even the type of the variable T.T
+      // There IS some post processing that needs to be done. Particularly, the `length` specifier
+      // is only valid for certain types and the `read-only` modifier only works in classes.
+      // But since tree-sitter is inherently context free, it is easier to treat it as valid
+      // syntax and then catch those errors in post processing.
       optional(
-        repeat1(
+        repeat(
           choice(
+            field("type", seq($._at_least_one_ws, /type/i, $._at_least_one_ws, $.type_reference)),
+            field("like", seq($._at_least_one_ws, /like/i, $._at_least_one_ws, $.identifier)),
             field("length", $._data_length),
             field("value", $._data_value),
-            field("decimals", $._data_decimals)
+            field("decimals", $._data_decimals),
+            field("readonly", seq($._at_least_one_ws, /read-only/i)),
           )
         )
       ),
-      field("readonly", optional(seq($._at_least_one_ws, /read-only/i))),
       CONSUME_ANY_WS,
       ".",
     ),

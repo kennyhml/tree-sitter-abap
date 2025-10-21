@@ -10,6 +10,17 @@ data /www/std_decl type string.
         (type_reference)))
 
 ==================
+Data declaration with like reference
+==================
+
+data /www/std_decl like some_other_variable.
+---
+(source
+    (data_declaration
+        (identifier)
+        (identifier)))
+
+==================
 Standard declaration + value
 ==================
 
@@ -85,6 +96,18 @@ data /www/std_decl type p value '100.22' length 3 decimals 5 read-only.
         (literal_string)
         (literal_int)
         (literal_int)))
+
+==================
+Standard declaration with buffer notation
+==================
+
+data /www/std_decl(20) type c.
+---
+(source
+    (data_declaration
+        (identifier)
+        (literal_int)
+        (type_reference)))
 
 ==================
 Inline declaration

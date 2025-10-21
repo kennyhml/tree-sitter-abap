@@ -21,6 +21,24 @@
     "type": "data_declaration",
     "named": true,
     "fields": {
+      "bufsize": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "literal_int",
+            "named": true
+          }
+        ]
+      },
       "decimals": {
         "multiple": true,
         "required": false,
@@ -45,6 +63,16 @@
           }
         ]
       },
+      "like": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -56,8 +84,8 @@
         ]
       },
       "type": {
-        "multiple": false,
-        "required": true,
+        "multiple": true,
+        "required": false,
         "types": [
           {
             "type": "type_reference",

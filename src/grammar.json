@@ -188,34 +188,100 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "_at_least_one_ws"
-        },
-        {
-          "type": "PATTERN",
-          "value": "type",
-          "flags": "i"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_at_least_one_ws"
-        },
-        {
-          "type": "FIELD",
-          "name": "type",
-          "content": {
-            "type": "SYMBOL",
-            "name": "type_reference"
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "bufsize",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "("
+                    }
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "literal_int"
+                  },
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": ")"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "REPEAT1",
+              "type": "REPEAT",
               "content": {
                 "type": "CHOICE",
                 "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "type",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_at_least_one_ws"
+                        },
+                        {
+                          "type": "PATTERN",
+                          "value": "type",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_at_least_one_ws"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "type_reference"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "like",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_at_least_one_ws"
+                        },
+                        {
+                          "type": "PATTERN",
+                          "value": "like",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_at_least_one_ws"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        }
+                      ]
+                    }
+                  },
                   {
                     "type": "FIELD",
                     "name": "length",
@@ -239,6 +305,24 @@
                       "type": "SYMBOL",
                       "name": "_data_decimals"
                     }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "readonly",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_at_least_one_ws"
+                        },
+                        {
+                          "type": "PATTERN",
+                          "value": "read-only",
+                          "flags": "i"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -247,32 +331,6 @@
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "FIELD",
-          "name": "readonly",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_at_least_one_ws"
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "read-only",
-                    "flags": "i"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
         },
         {
           "type": "REPEAT",
