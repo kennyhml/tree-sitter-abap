@@ -47,11 +47,15 @@ module.exports = grammar({
     $._compound_statement
   ],
 
+  // This makes sure that tree-sitter initially also parses keywords as identifiers and THEN
+  // checks whether it is a keyword in its entirety.
+  word: $ => $.identifier,
 
   rules: {
     source: $ => repeat(
       $._statement
     ),
+
 
     _statement: $ => choice(
       $._simple_statement
