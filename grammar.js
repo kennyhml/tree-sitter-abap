@@ -6,24 +6,40 @@
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
-
-
-const CONSUME_ANY_WS = repeat(/\s+/);
-
 module.exports = grammar({
   name: "abap",
+
+  externals: $ => [
+    /**
+     * ABAP is whitespace sensitive in SOME places, so letting the grammar 
+     * discard whitespaces as if they didnt exist per default wont cut it.
+     * 
+     * There are scenarios in which there can be 0 to n whitespaces, e.g
+     * ... into table @itab.
+     * or                  ^    v
+     * ... into table @itab     .
+     * are both valid.
+     * 
+     * For these cases, the external scanner can just regularly emits the whitespaces.
+     * 
+     * On the other hand, there are situations where n must be 0:
+     * data(foo) = ... is valid, unlike any of data (foo), data( foo), etc..
+     * 
+     * Which can sometimes be solved using token.immediate and other times requires
+     * the external scanner for context.
+     * 
+     * And finally, scenarios where n must be >= 1:
+     * ... = foo->bar( ).
+     *                ^
+     * Which can be solved by explicitly demanding at least one WS in the rules.
+     */
+    $._whitespace,
+    $._error_sentinel,
+  ],
+
   extras: $ => [
-    // Unfortunately, abap is in fact whitespace sensitive, so letting the parser
-    // discard whitespaces as if they didnt exist wont cut it.
-    //
-    // For example, inline declarations:
-    // data(num)    -> valid syntax
-    // data( num)   -> invalid syntax
-    // data (num)   -> invalid syntax
-    // 
-    // Or also method / function calls:
-    // obj->foo( ) -> valid syntax
-    // obj->foo()  -> invalid syntax
+    $._whitespace,
+    $.comment,
   ],
 
   supertypes: $ => [
@@ -31,17 +47,11 @@ module.exports = grammar({
     $._compound_statement
   ],
 
-  conflicts: $ => [
-    [$.inline_declaration, $.inline_decl_assignment]
-  ],
 
   rules: {
-    source: $ => repeat(seq(
-      // Indentation in abap never matters.
-      CONSUME_ANY_WS,
-      // There is no guarantee a statement is in this line, it could be empty.
+    source: $ => repeat(
       $._statement
-    )),
+    ),
 
     _statement: $ => choice(
       $._simple_statement
@@ -56,32 +66,30 @@ module.exports = grammar({
     _compound_statement: $ => choice(),
 
     inline_declaration: $ => seq(
-      choice(/data/i, /final/i),
-      "(",
+      choice(insensitiveAliased("data"), insensitiveAliased("final")),
+      token.immediate("("),
       field("name", $.identifier),
-      ")",
+      token.immediate(")"),
     ),
 
-    inline_decl_assignment: $ => seq(
-      choice(/data/i, /final/i),
-      "(",
+    inline_decl_assignment: $ => prec(10, seq(
+      choice(insensitiveAliased("data"), insensitiveAliased("final")),
+      token.immediate("("),
       field("name", $.identifier),
-      ")",
-      $._at_least_one_ws,
+      token.immediate(")"),
+
       "=",
-      $._at_least_one_ws,
+
       field("value", $._expression),
-      CONSUME_ANY_WS,
       "."
-    ),
+    )),
 
     _expression: $ => choice($.literal_int, $.literal_string),
 
     data_declaration: $ => seq(
-      /data/i,
-      $._at_least_one_ws,
+      insensitiveAliased("data"),
       field("name", $.identifier),
-      optional(field("bufsize", seq(token.immediate("("), $.literal_int, token.immediate(")")))),
+      optional(field("bufsize", seq("(", $.literal_int, ")"))),
 
       // Its actually possible to define data with nothing but `data foo.` which will be a C1.
       // Any of the below keywords can come in literally ANY order and all are optional.
@@ -93,28 +101,28 @@ module.exports = grammar({
       optional(
         repeat(
           choice(
-            field("type", seq($._at_least_one_ws, alias(/type/i, "type"), $._at_least_one_ws, $.type_reference)),
-            field("like", seq($._at_least_one_ws, alias(/like/i, "like"), $._at_least_one_ws, $.identifier)),
+            field("type", $._type_reference),
+            field("like", $._like_reference),
             field("length", $._data_length),
             field("value", $._data_value),
             field("decimals", $._data_decimals),
-            field("readonly", seq($._at_least_one_ws, /read-only/i)),
+            field("readonly", seq(insensitiveAliased("read-only"))),
           )
         )
       ),
-      CONSUME_ANY_WS,
       ".",
     ),
 
+    _type_reference: $ => seq(insensitiveAliased("type"), $.type),
+    _like_reference: $ => seq(insensitiveAliased("like"), $.identifier),
+
 
     //FIXME: Constants are also possible
-    _data_value: $ => seq($._at_least_one_ws, /value/i, $._at_least_one_ws, choice($.literal_string, seq(/is/i, $._at_least_one_ws, /initial/i))),
-    _data_length: $ => seq($._at_least_one_ws, /length/i, $._at_least_one_ws, choice($.literal_int, $.literal_string)),
-    _data_decimals: $ => seq($._at_least_one_ws, /decimals/i, $._at_least_one_ws, $.literal_int),
+    _data_value: $ => seq(insensitiveAliased("value"), choice($.literal_string, seq(insensitiveAliased("is"), insensitiveAliased("initial")))),
+    _data_length: $ => seq(insensitiveAliased("length"), choice($.literal_int, $.literal_string)),
+    _data_decimals: $ => seq(insensitiveAliased("decimals"), $.literal_int),
 
-
-    type_reference: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
-
+    type: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
     identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
     field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
 
@@ -134,5 +142,22 @@ module.exports = grammar({
 
     // Enforces that at least one whitespace is present, but more are ok.
     _at_least_one_ws: $ => /\s+/,
+
+    comment: _ => token(seq(choice('*', '"'), /[^\n\r]*/)),
   },
 });
+
+
+// @ts-check
+/**
+ * @param {string} keyword 
+ * @returns {AliasRule}
+ */
+function insensitiveAliased(keyword) {
+  let result = new RustRegex(keyword
+    .split('')
+    .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
+    .join('')
+  )
+  return alias(result, keyword);
+}

@@ -1,13 +1,12 @@
 ==================
 Standard declaration
 ==================
-
 data /www/std_decl type string.
 ---
 (source
     (data_declaration
         (identifier)
-        (type_reference)))
+        (type)))
 
 ==================
 Data declaration with like reference
@@ -29,7 +28,7 @@ data /www/std_decl type string value 'MY_VALUE'.
 (source
     (data_declaration
         (identifier)
-        (type_reference)
+        (type)
         (literal_string)))
 
 ==================
@@ -41,7 +40,7 @@ data /www/std_decl type string value is initial.
 (source
     (data_declaration
         (identifier)
-        (type_reference)))
+        (type)))
 
 ==================
 Standard declaration + length + value
@@ -52,7 +51,7 @@ data /www/std_decl type p length 3 value '100'.
 (source
     (data_declaration
     (identifier)
-    (type_reference)
+    (type)
     (literal_int)
     (literal_string)))
 
@@ -65,7 +64,7 @@ data /www/std_decl type p value '100' length 3.
 (source
     (data_declaration
         (identifier)
-        (type_reference)
+        (type)
         (literal_string)
         (literal_int)))
 
@@ -78,7 +77,7 @@ data /www/std_decl type p value '100.22' length 3 decimals 5.
 (source
     (data_declaration
         (identifier)
-        (type_reference)
+        (type)
         (literal_string)
         (literal_int)
         (literal_int)))
@@ -92,7 +91,7 @@ data /www/std_decl type p value '100.22' length 3 decimals 5 read-only.
 (source
     (data_declaration
         (identifier)
-        (type_reference)
+        (type)
         (literal_string)
         (literal_int)
         (literal_int)))
@@ -107,7 +106,7 @@ data /www/std_decl(20) type c.
     (data_declaration
         (identifier)
         (literal_int)
-        (type_reference)))
+        (type)))
 
 ==================
 Multiple declarations
@@ -121,14 +120,14 @@ data /www/std_decl3 type p length 5 decimals 2 value '12.34'.
     (data_declaration
         (identifier)
         (literal_int)
-        (type_reference)
+        (type)
         (literal_string))
     (data_declaration
         (identifier)
         (identifier))
     (data_declaration
         (identifier)
-        (type_reference)
+        (type)
         (literal_int)
         (literal_int)
         (literal_string)))
@@ -175,7 +174,7 @@ type    string
 (source
     (data_declaration
         (identifier)
-        (type_reference)))
+        (type)))
 
 ==================
 Multiple data declarations
@@ -187,9 +186,9 @@ data  /www/sec_valu type /typ/_some_type length 10 read-only.
 (source
     (data_declaration
         (identifier)
-        (type_reference)
+        (type)
         (literal_int))
     (data_declaration
         (identifier)
-        (type_reference)
+        (type)
         (literal_int)))

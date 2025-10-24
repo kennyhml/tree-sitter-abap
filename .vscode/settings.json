@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "cctype": "c",
+        "locale": "c",
+        "*.def": "c",
+        "xmemory": "c"
+    }
+}
