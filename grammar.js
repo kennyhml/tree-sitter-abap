@@ -68,7 +68,11 @@ module.exports = grammar({
 
     // Statements that dont contain a body/block. For example a data declaration.
     // method definitions, import statements, etc..
-    _simple_statement: $ => choice($.data_declaration, $.inline_declaration),
+    _simple_statement: $ => choice(
+      $.data_declaration,
+      $.inline_declaration,
+      $.report_statement
+    ),
 
     inline_declaration: $ => seq(
       choice(insensitiveAliased("data"), insensitiveAliased("final")),
@@ -119,6 +123,8 @@ module.exports = grammar({
       ),
       ".",
     ),
+
+    report_statement: $ => seq(insensitiveAliased("report"), $.identifier, "."),
 
     _type_reference: $ => seq(insensitiveAliased("type"), $.type),
     _like_reference: $ => seq(insensitiveAliased("like"), $.identifier),

@@ -29,6 +29,10 @@
         {
           "type": "SYMBOL",
           "name": "inline_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "report_statement"
         }
       ]
     },
@@ -259,6 +263,28 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "report_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][pP][oO][rR][tT]"
+          },
+          "named": false,
+          "value": "report"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
         },
         {
           "type": "STRING",

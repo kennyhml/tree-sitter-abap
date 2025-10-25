@@ -10,6 +10,10 @@
       {
         "type": "inline_declaration",
         "named": true
+      },
+      {
+        "type": "report_statement",
+        "named": true
       }
     ]
   },
@@ -185,6 +189,21 @@
     "fields": {}
   },
   {
+    "type": "report_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source",
     "named": true,
     "root": true,
@@ -262,6 +281,10 @@
   },
   {
     "type": "read-only",
+    "named": false
+  },
+  {
+    "type": "report",
     "named": false
   },
   {
