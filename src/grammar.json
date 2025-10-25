@@ -114,8 +114,16 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "[a-zA-Z_\\/][a-zA-Z0-9_\\/-]*"
+              }
+            },
+            "named": true,
+            "value": "identifier"
           }
         },
         {
@@ -692,6 +700,35 @@
       "type": "PATTERN",
       "value": "-?\\d+"
     },
+    "comment": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_inline_comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_comment"
+        }
+      ]
+    },
+    "_inline_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\""
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\n\\r]*"
+          }
+        ]
+      }
+    },
     "_linespace": {
       "type": "CHOICE",
       "members": [
@@ -762,8 +799,8 @@
   },
   "extras": [
     {
-      "type": "PATTERN",
-      "value": "[\\s\\f\\uFEFF\\u2060\\u200B]|\\r?\\n"
+      "type": "SYMBOL",
+      "name": "comment"
     }
   ],
   "conflicts": [
@@ -772,7 +809,12 @@
     ]
   ],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_line_comment"
+    }
+  ],
   "inline": [],
   "supertypes": [
     "_simple_statement",

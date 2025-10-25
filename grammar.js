@@ -9,6 +9,10 @@
 module.exports = grammar({
   name: "abap",
 
+  externals: $ => [
+    $._line_comment,
+  ],
+
   extras: $ => [
     /**
      * ABAP is whitespace sensitive in SOME places, so letting the grammar 
@@ -26,7 +30,7 @@ module.exports = grammar({
      * And finally, scenarios where n must be >= 1:
      * ... = foo->bar( ).
      */
-    /[\s\f\uFEFF\u2060\u200B]|\r?\n/,
+    $.comment,
   ],
 
   conflicts: $ => [
@@ -137,6 +141,16 @@ module.exports = grammar({
       )
     ),
     literal_int: $ => /-?\d+/,
+
+
+    comment: $ => choice(
+      $._inline_comment,
+      $._line_comment,
+    ),
+
+    _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
+
+
 
     _linespace: $ => choice($._newline, $._ws),
 
