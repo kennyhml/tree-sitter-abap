@@ -1,9 +1,42 @@
 ==================
-Full Line Comment
+Line Comment
 ==================
-
 *This is a comment
-
 ---
 (source
     (comment))
+
+==================
+Invalid line comment
+==================
+ *This is a comment
+---
+(source
+    (ERROR
+    (UNEXPECTED '*')
+    (identifier)
+    (UNEXPECTED ' ')
+    (identifier)
+    (UNEXPECTED ' ')
+    (identifier)
+    (UNEXPECTED ' ')
+    (identifier)))
+
+==================
+Inline Comment
+==================
+    " This is an inline comment
+---
+(source
+    (comment))
+
+==================
+Inline Comment inside declaration
+==================
+data foo value " this is a comment and the declaration continues next line
+is initial.
+---
+(source
+    (data_declaration
+    (identifier)
+    (comment)))

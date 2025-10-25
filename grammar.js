@@ -10,31 +10,44 @@ module.exports = grammar({
   name: "abap",
 
   externals: $ => [
-    $._line_comment,
+    /**
+     * The line comment is initiated with a '*' character which has to be in
+     * the first column of the line. Tree sitter does not provide any way to
+     * enforce column position other than using an external scanner.
+     */
+    $._begin_line_comment,
+    /**
+     * For some reason, when using a regex to parse out newlines / whitespaces, 
+     * treesitter doesnt give the external scanner control sometimes and we cant
+     * correctly identify the start of a comment.
+     */
+    $._whitespace,
+    $._error_sentinel,
   ],
 
   extras: $ => [
     /**
-     * ABAP is whitespace sensitive in SOME places, so letting the grammar 
-     * discard whitespaces as if they didnt exist per default wont cut it.
+     * ABAP is whitespace sensitive in certain places, so its a little awkward.
      * 
      * There are scenarios in which there can be 0 to n whitespaces, e.g
      * ... into table @itab.
      * or                  ^    v
      * ... into table @itab     .
-     * are both valid.
+     * are both valid, this is easily taken care of by just allowing extras.
      * 
      * On the other hand, there are situations where n must be 0:
      * data(foo) = ... is valid, unlike any of data (foo), data( foo), etc..
      * 
+     * This can be solved carefully using token.immediate as long as the token is a terminal.
+     * 
      * And finally, scenarios where n must be >= 1:
      * ... = foo->bar( ).
+     * 
+     * Which must sometimes be manually enforced.
+     * 
      */
+    $._whitespace,
     $.comment,
-  ],
-
-  conflicts: $ => [
-    [$.source],
   ],
 
   supertypes: $ => [
@@ -47,18 +60,7 @@ module.exports = grammar({
   word: $ => $.identifier,
 
   rules: {
-    source: $ =>
-      seq(
-        repeat($._linespace),
-        optional(seq(
-          $._statement,
-          repeat(seq(
-            repeat($._linespace),
-            $._statement,
-          )),
-        )),
-        repeat($._linespace),
-      ),
+    source: $ => repeat($._statement),
 
     _statement: $ => choice(
       $._simple_statement
@@ -70,12 +72,14 @@ module.exports = grammar({
 
     inline_declaration: $ => seq(
       choice(insensitiveAliased("data"), insensitiveAliased("final")),
-      "(", field("name", $.identifier), ")",
+      token.immediate("("),
+      field("name", $._immediate_identifier),
+      token.immediate(")"),
 
       optional(seq(
-        lws("="),
-        field("value", lws($._expression)),
-        opt_lws(".")
+        "=",
+        field("value", $._expression),
+        "."
       ))
     ),
 
@@ -86,9 +90,13 @@ module.exports = grammar({
     _expression: $ => choice($.literal_int, $.literal_string),
 
     data_declaration: $ => seq(
-      rws(insensitiveAliased("data")),
+      insensitiveAliased("data"),
       field("name", $.identifier),
-      optional(field("bufsize", seq("(", $.literal_int, ")"))),
+      optional(field("bufsize", seq(
+        token.immediate("("),
+        alias(token.immediate(/-?\d+/), $.literal_int),
+        token.immediate(")"))
+      )),
 
       // Its actually possible to define data with nothing but `data foo.` which will be a C1.
       // Any of the below keywords can come in literally ANY order and all are optional.
@@ -100,33 +108,35 @@ module.exports = grammar({
       optional(
         repeat(
           choice(
-            field("type", lws($._type_reference)),
-            field("like", lws($._like_reference)),
-            field("length", lws($._data_length)),
-            field("value", lws($._data_value)),
-            field("decimals", lws($._data_decimals)),
-            field("readonly", lws(insensitiveAliased("read-only"))),
+            field("type", $._type_reference),
+            field("like", $._like_reference),
+            field("length", $._data_length),
+            field("value", $._data_value),
+            field("decimals", $._data_decimals),
+            field("readonly", insensitiveAliased("read-only")),
           )
         )
       ),
-      opt_lws("."),
+      ".",
     ),
 
-    _type_reference: $ => seq(rws(insensitiveAliased("type")), $.type),
-    _like_reference: $ => seq(rws(insensitiveAliased("like")), $.identifier),
+    _type_reference: $ => seq(insensitiveAliased("type"), $.type),
+    _like_reference: $ => seq(insensitiveAliased("like"), $.identifier),
 
 
     //FIXME: Constants are also possible
     _data_value: $ => seq(
-      rws(insensitiveAliased("value")),
-      choice($.literal_string, $.literal_int, seq(rws(insensitiveAliased("is")), insensitiveAliased("initial")))
+      insensitiveAliased("value"),
+      choice($.literal_string, $.literal_int, seq(insensitiveAliased("is"), insensitiveAliased("initial")))
     ),
-    _data_length: $ => seq(rws(insensitiveAliased("length")), choice($.literal_int, $.literal_string)),
-    _data_decimals: $ => seq(rws(insensitiveAliased("decimals")), $.literal_int),
+    _data_length: $ => seq(insensitiveAliased("length"), choice($.literal_int, $.literal_string)),
+    _data_decimals: $ => seq(insensitiveAliased("decimals"), $.literal_int),
 
     type: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
     identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
     field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
+
+    _immediate_identifier: $ => alias(token.immediate(/[a-zA-Z_\/][a-zA-Z0-9_\/-]*/), $.identifier),
 
     literal_string: $ => choice(
       seq(
@@ -142,26 +152,12 @@ module.exports = grammar({
     ),
     literal_int: $ => /-?\d+/,
 
-
     comment: $ => choice(
       $._inline_comment,
-      $._line_comment,
+      seq($._begin_line_comment, /[^\n\r]*/),
     ),
 
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
-
-
-
-    _linespace: $ => choice($._newline, $._ws),
-
-    _newline: _ => choice(/\r'/, /\n/, /\r\n/, /\u0085/, /\u000C/, /\u2028/, /\u2029/),
-
-    _ws: $ => choice($._bom, $._unicode_space),
-
-    _bom: _ => /\u{FEFF}/,
-
-    _unicode_space: _ =>
-      /[\u0009\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000]/,
   }
 
 });

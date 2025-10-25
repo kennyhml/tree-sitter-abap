@@ -4,7 +4,8 @@
 
 enum Token
 {
-    COMMENT,
+    BEGIN_LINE_COMMENT,
+    WHITESPACE,
     /**
      * Tree sitter first calls the external scanner during error recovery, the
      * error sentinel allows us to check whether we are currently in recovery
@@ -32,9 +33,39 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
         return false;
     }
 
-    if (valid_symbols[COMMENT]) {
+    if (valid_symbols[WHITESPACE]) {
+        if (lexer->lookahead == '\r' || lexer->lookahead == '\n' ||
+            lexer->lookahead == '\v' || lexer->lookahead == '\f') {
+            lexer->result_symbol = WHITESPACE;
+            if (lexer->lookahead == '\r') {
+                lexer->advance(lexer, false);
+                if (lexer->lookahead == '\n') {
+                    lexer->advance(lexer, false);
+                }
+            } else {
+                lexer->advance(lexer, false);
+            }
+            return true;
+        }
+
+        bool has_whitespace = false;
+        while (lexer->lookahead == ' ') {
+            lexer->advance(lexer, true);
+            has_whitespace = true;
+        }
+        if (has_whitespace) {
+            lexer->result_symbol = WHITESPACE;
+            lexer->mark_end(lexer);
+            return true;
+        }
     }
 
+    if (valid_symbols[BEGIN_LINE_COMMENT] && lexer->get_column(lexer) == 0 &&
+        lexer->lookahead == '*') {
+        lexer->advance(lexer, false);
+        lexer->result_symbol = BEGIN_LINE_COMMENT;
+        return true;
+    }
 
     return false;
 }
