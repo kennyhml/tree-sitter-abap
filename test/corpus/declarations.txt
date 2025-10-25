@@ -159,7 +159,7 @@ Final Inline declaration + assignment
 final(/iwfnd/my_var) = 100.
 ---
 (source
-    (inline_decl_assignment
+    (inline_declaration
         (identifier)
         (literal_int)))
 

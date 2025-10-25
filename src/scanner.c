@@ -5,6 +5,7 @@
 enum Token
 {
     WHITESPACE,
+    IMMEDIATE,
     /**
      * Tree sitter first calls the external scanner during error recovery, the
      * error sentinel allows us to check whether we are currently in recovery
@@ -32,6 +33,19 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
         return false;
     }
 
+    printf("At %c: WS allowed: %i, immediate expected: %i\n", lexer->lookahead,
+           valid_symbols[WHITESPACE], valid_symbols[IMMEDIATE]);
+
+    // If the immediate symbol is a valid path, then return a zero width token
+    // that something immediate is coming up (without whitespace)
+    if (valid_symbols[IMMEDIATE] && lexer->lookahead != ' ') {
+        printf("\tReturning immediate\n");
+        lexer->result_symbol = IMMEDIATE;
+        return true;
+    } else if (valid_symbols[IMMEDIATE]) {
+        return false;
+    }
+
     if (valid_symbols[WHITESPACE]) {
         if (lexer->lookahead == '\r' || lexer->lookahead == '\n' ||
             lexer->lookahead == '\v' || lexer->lookahead == '\f') {
@@ -55,6 +69,7 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
         if (has_whitespace) {
             lexer->result_symbol = WHITESPACE;
             lexer->mark_end(lexer);
+            printf("\tReturning WS\n");
             return true;
         }
     }

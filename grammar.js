@@ -5,11 +5,11 @@
  */
 
 /// <reference types="tree-sitter-cli/dsl" />
-// @ts-check
+// @ts-nocheck
 module.exports = grammar({
   name: "abap",
 
-  externals: $ => [
+  extras: $ => [
     /**
      * ABAP is whitespace sensitive in SOME places, so letting the grammar 
      * discard whitespaces as if they didnt exist per default wont cut it.
@@ -20,26 +20,17 @@ module.exports = grammar({
      * ... into table @itab     .
      * are both valid.
      * 
-     * For these cases, the external scanner can just regularly emits the whitespaces.
-     * 
      * On the other hand, there are situations where n must be 0:
      * data(foo) = ... is valid, unlike any of data (foo), data( foo), etc..
      * 
-     * Which can sometimes be solved using token.immediate and other times requires
-     * the external scanner for context.
-     * 
      * And finally, scenarios where n must be >= 1:
      * ... = foo->bar( ).
-     *                ^
-     * Which can be solved by explicitly demanding at least one WS in the rules.
      */
-    $._whitespace,
-    $._error_sentinel,
+    /[\s\f\uFEFF\u2060\u200B]|\r?\n/,
   ],
 
-  extras: $ => [
-    $._whitespace,
-    $.comment,
+  conflicts: $ => [
+    [$.source],
   ],
 
   supertypes: $ => [
@@ -47,15 +38,23 @@ module.exports = grammar({
     $._compound_statement
   ],
 
-  // This makes sure that tree-sitter initially also parses keywords as identifiers and THEN
-  // checks whether it is a keyword in its entirety.
+  // This makes sure that tree-sitter initially also parses keywords as 
+  // identifiers and THEN checks whether it is a keyword in its entirety.
   word: $ => $.identifier,
 
   rules: {
-    source: $ => repeat(
-      $._statement
-    ),
-
+    source: $ =>
+      seq(
+        repeat($._linespace),
+        optional(seq(
+          $._statement,
+          repeat(seq(
+            repeat($._linespace),
+            $._statement,
+          )),
+        )),
+        repeat($._linespace),
+      ),
 
     _statement: $ => choice(
       $._simple_statement
@@ -63,35 +62,27 @@ module.exports = grammar({
 
     // Statements that dont contain a body/block. For example a data declaration.
     // method definitions, import statements, etc..
-    _simple_statement: $ => choice($.inline_declaration, $.data_declaration, $.inline_decl_assignment),
+    _simple_statement: $ => choice($.data_declaration, $.inline_declaration),
+
+    inline_declaration: $ => seq(
+      choice(insensitiveAliased("data"), insensitiveAliased("final")),
+      "(", field("name", $.identifier), ")",
+
+      optional(seq(
+        lws("="),
+        field("value", lws($._expression)),
+        opt_lws(".")
+      ))
+    ),
 
     // Statements that start a block and have a body. For example method implementations,
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
-    inline_declaration: $ => seq(
-      choice(insensitiveAliased("data"), insensitiveAliased("final")),
-      token.immediate("("),
-      field("name", $.identifier),
-      token.immediate(")"),
-    ),
-
-    inline_decl_assignment: $ => prec(10, seq(
-      choice(insensitiveAliased("data"), insensitiveAliased("final")),
-      token.immediate("("),
-      field("name", $.identifier),
-      token.immediate(")"),
-
-      "=",
-
-      field("value", $._expression),
-      "."
-    )),
-
     _expression: $ => choice($.literal_int, $.literal_string),
 
     data_declaration: $ => seq(
-      insensitiveAliased("data"),
+      rws(insensitiveAliased("data")),
       field("name", $.identifier),
       optional(field("bufsize", seq("(", $.literal_int, ")"))),
 
@@ -105,26 +96,29 @@ module.exports = grammar({
       optional(
         repeat(
           choice(
-            field("type", $._type_reference),
-            field("like", $._like_reference),
-            field("length", $._data_length),
-            field("value", $._data_value),
-            field("decimals", $._data_decimals),
-            field("readonly", seq(insensitiveAliased("read-only"))),
+            field("type", lws($._type_reference)),
+            field("like", lws($._like_reference)),
+            field("length", lws($._data_length)),
+            field("value", lws($._data_value)),
+            field("decimals", lws($._data_decimals)),
+            field("readonly", lws(insensitiveAliased("read-only"))),
           )
         )
       ),
-      ".",
+      opt_lws("."),
     ),
 
-    _type_reference: $ => seq(insensitiveAliased("type"), $.type),
-    _like_reference: $ => seq(insensitiveAliased("like"), $.identifier),
+    _type_reference: $ => seq(rws(insensitiveAliased("type")), $.type),
+    _like_reference: $ => seq(rws(insensitiveAliased("like")), $.identifier),
 
 
     //FIXME: Constants are also possible
-    _data_value: $ => seq(insensitiveAliased("value"), choice($.literal_string, seq(insensitiveAliased("is"), insensitiveAliased("initial")))),
-    _data_length: $ => seq(insensitiveAliased("length"), choice($.literal_int, $.literal_string)),
-    _data_decimals: $ => seq(insensitiveAliased("decimals"), $.literal_int),
+    _data_value: $ => seq(
+      rws(insensitiveAliased("value")),
+      choice($.literal_string, $.literal_int, seq(rws(insensitiveAliased("is")), insensitiveAliased("initial")))
+    ),
+    _data_length: $ => seq(rws(insensitiveAliased("length")), choice($.literal_int, $.literal_string)),
+    _data_decimals: $ => seq(rws(insensitiveAliased("decimals")), $.literal_int),
 
     type: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
     identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
@@ -144,11 +138,18 @@ module.exports = grammar({
     ),
     literal_int: $ => /-?\d+/,
 
-    // Enforces that at least one whitespace is present, but more are ok.
-    _at_least_one_ws: $ => /\s+/,
+    _linespace: $ => choice($._newline, $._ws),
 
-    comment: _ => token(seq(choice('*', '"'), /[^\n\r]*/)),
-  },
+    _newline: _ => choice(/\r'/, /\n/, /\r\n/, /\u0085/, /\u000C/, /\u2028/, /\u2029/),
+
+    _ws: $ => choice($._bom, $._unicode_space),
+
+    _bom: _ => /\u{FEFF}/,
+
+    _unicode_space: _ =>
+      /[\u0009\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000]/,
+  }
+
 });
 
 
@@ -164,4 +165,43 @@ function insensitiveAliased(keyword) {
     .join('')
   )
   return alias(result, keyword);
+}
+
+function whitespace_separated(...args) {
+  return seq(
+    ...args.flatMap((item, index) => index === 0 ? [item] : [repeat1(/\s/), item])
+  )
+}
+
+/**
+ * Wraps a rule to enforce that it is followed by one or more whitespaces.
+ * 
+ * @param {Rule} rule The rule to wrap, e.g $.identifier
+ * 
+ * @returns A new `seq` rule followed by a `repeat1` rule for whitspaces.
+ */
+function rws(rule) {
+  return seq(rule, repeat1(/\s/));
+}
+
+/**
+ * Wraps a rule to enforce that it is preceded by one or more whitespaces.
+ * 
+ * @param {Rule} rule The rule to wrap, e.g $.identifier
+ * 
+ * @returns A new `seq` rule preceded by a `repeat1` rule for whitspaces.
+ */
+function lws(rule) {
+  return seq(repeat1(/\s/), rule);
+}
+
+/**
+ * Wraps a rule to consume optional whitespaces that may or may not precede it.
+ * 
+ * @param {Rule} rule The rule to wrap, e.g $.identifier
+ * 
+ * @returns A new `seq` rule preceded by a `repeat` rule for whitspaces.
+ */
+function opt_lws(rule) {
+  return seq(repeat(/\s/), rule);
 }

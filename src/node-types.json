@@ -8,10 +8,6 @@
         "named": true
       },
       {
-        "type": "inline_decl_assignment",
-        "named": true
-      },
-      {
         "type": "inline_declaration",
         "named": true
       }
@@ -132,42 +128,16 @@
             "named": false
           },
           {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "value",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "inline_decl_assignment",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
             "type": "literal_int",
             "named": true
           },
           {
             "type": "literal_string",
             "named": true
+          },
+          {
+            "type": "value",
+            "named": false
           }
         ]
       }
@@ -183,6 +153,20 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "literal_int",
+            "named": true
+          },
+          {
+            "type": "literal_string",
             "named": true
           }
         ]
@@ -233,11 +217,6 @@
   {
     "type": "`",
     "named": false
-  },
-  {
-    "type": "comment",
-    "named": true,
-    "extra": true
   },
   {
     "type": "data",
