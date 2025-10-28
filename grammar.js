@@ -69,13 +69,14 @@ module.exports = grammar({
     // Statements that dont contain a body/block. For example a data declaration.
     // method definitions, import statements, etc..
     _simple_statement: $ => choice(
-      $.data_declaration,
+      $.single_data_declaration,
+      $.multi_data_declaration,
       $.inline_declaration,
       $.report_statement
     ),
 
     inline_declaration: $ => seq(
-      choice(insensitiveAliased("data"), insensitiveAliased("final")),
+      choice(kw("data"), kw("final")),
       token.immediate("("),
       field("name", $._immediate_identifier),
       token.immediate(")"),
@@ -91,58 +92,62 @@ module.exports = grammar({
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
-    _expression: $ => choice($.literal_int, $.literal_string),
+    _expression: $ => choice($.number, $.literal_string),
 
-    data_declaration: $ => seq(
-      insensitiveAliased("data"),
-      field("name", $.identifier),
+    _scalar_declaration_body: $ => seq(
       optional(field("bufsize", seq(
         token.immediate("("),
-        alias(token.immediate(/-?\d+/), $.literal_int),
+        alias(token.immediate(/-?\d+/), $.number),
         token.immediate(")"))
       )),
-
-      // Its actually possible to define data with nothing but `data foo.` which will be a C1.
-      // Any of the below keywords can come in literally ANY order and all are optional.
-      // Yes, you can specify read-only before you specify even the type of the variable T.T
-      // There IS some post processing that needs to be done. Particularly, the `length` specifier
-      // is only valid for certain types and the `read-only` modifier only works in classes.
-      // But since tree-sitter is inherently context free, it is easier to treat it as valid
-      // syntax and then catch those errors in post processing.
-      optional(
-        repeat(
-          choice(
-            field("type", $._type_reference),
-            field("like", $._like_reference),
-            field("length", $._data_length),
-            field("value", $._data_value),
-            field("decimals", $._data_decimals),
-            field("readonly", insensitiveAliased("read-only")),
-          )
+      repeat1(
+        choice(
+          field("type", $._type_reference),
+          field("like", $._like_reference),
+          field("length", $._data_length),
+          field("value", $._data_value),
+          field("decimals", $._data_decimals),
+          field("readonly", kw("read-only")),
         )
-      ),
-      ".",
+      )
     ),
 
-    report_statement: $ => seq(insensitiveAliased("report"), $.identifier, "."),
+    data_declaration: $ => seq(
+      field("name", $.identifier),
+      optional(choice($._scalar_declaration_body)),
+    ),
 
-    _type_reference: $ => seq(insensitiveAliased("type"), $.type),
-    _like_reference: $ => seq(insensitiveAliased("like"), $.identifier),
+    single_data_declaration: $ => seq(
+      kw("data"),
+      $.data_declaration,
+      "."
+    ),
+
+    multi_data_declaration: $ => seq(
+      kw("data"), ":", commaSep1($.data_declaration), "."
+    ),
+
+    report_statement: $ => seq(kw("report"), $.identifier, "."),
+
+    _type_reference: $ => seq(kw("type"), $.type),
+    _like_reference: $ => seq(kw("like"), $.identifier),
 
 
     //FIXME: Constants are also possible
     _data_value: $ => seq(
-      insensitiveAliased("value"),
-      choice($.literal_string, $.literal_int, seq(insensitiveAliased("is"), insensitiveAliased("initial")))
+      kw("value"),
+      choice($.literal_string, $.number, seq(kw("is"), kw("initial")))
     ),
-    _data_length: $ => seq(insensitiveAliased("length"), choice($.literal_int, $.literal_string)),
-    _data_decimals: $ => seq(insensitiveAliased("decimals"), $.literal_int),
+    _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
+    _data_decimals: $ => seq(kw("decimals"), $.number),
 
     type: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
     identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
     field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
+    number: $ => /-?\d+/,
 
     _immediate_identifier: $ => alias(token.immediate(/[a-zA-Z_\/][a-zA-Z0-9_\/-]*/), $.identifier),
+    _immediate_number: $ => alias(token.immediate(/-?\d+/), $.number),
 
     literal_string: $ => choice(
       seq(
@@ -156,7 +161,6 @@ module.exports = grammar({
         "`"
       )
     ),
-    literal_int: $ => /-?\d+/,
 
     comment: $ => choice(
       $._inline_comment,
@@ -174,7 +178,7 @@ module.exports = grammar({
  * @param {string} keyword 
  * @returns {AliasRule}
  */
-function insensitiveAliased(keyword) {
+function kw(keyword) {
   let result = new RustRegex(keyword
     .split('')
     .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
@@ -183,10 +187,8 @@ function insensitiveAliased(keyword) {
   return alias(result, keyword);
 }
 
-function whitespace_separated(...args) {
-  return seq(
-    ...args.flatMap((item, index) => index === 0 ? [item] : [repeat1(/\s/), item])
-  )
+function commaSep1(rule) {
+  return seq(rule, repeat(seq(',', rule)))
 }
 
 /**
@@ -209,15 +211,4 @@ function rws(rule) {
  */
 function lws(rule) {
   return seq(repeat1(/\s/), rule);
-}
-
-/**
- * Wraps a rule to consume optional whitespaces that may or may not precede it.
- * 
- * @param {Rule} rule The rule to wrap, e.g $.identifier
- * 
- * @returns A new `seq` rule preceded by a `repeat` rule for whitspaces.
- */
-function opt_lws(rule) {
-  return seq(repeat(/\s/), rule);
 }

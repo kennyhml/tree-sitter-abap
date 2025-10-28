@@ -6,6 +6,10 @@
 (literal_string) @string
 
 [   
+    "="
+] @operator
+
+[   
     "data"
     "type"
     "like"
