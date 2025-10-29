@@ -71,7 +71,7 @@ module.exports = grammar({
     _simple_statement: $ => choice(
       $.data_declaration,
       $.inline_declaration,
-      $.report_statement
+      $.report_initiator
     ),
 
     inline_declaration: $ => seq(
@@ -166,7 +166,7 @@ module.exports = grammar({
     data_declaration: $ => seq(
       kw("data"),
       choice(
-        // In case of `data:`, multiple specs and structs are possible
+        // In case of `data:`, multiple specs and collapsed structs are possible
         seq(
           ":",
           commaSep1(
@@ -177,12 +177,33 @@ module.exports = grammar({
           ),
         ),
         $.data_spec,
+        // Expanded structs only possible without :
         alias($._struct_data_spec_expanded, $.struct_data_spec)
       ),
       "."
     ),
 
-    report_statement: $ => seq(kw("report"), $.identifier, "."),
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
+    report_initiator: $ => seq(
+      kw("report"),
+      $.identifier,
+      repeat(
+        choice(
+          ...kws("reduced", "functionality"),
+          ...kws("no", "standard", "page", "heading"),
+          seq(...kws("defining", "database"), field("logical_db", $.identifier)),
+          seq(kw("line-size"), field("line_size", $.number)),
+          seq(
+            kw("line-count"),
+            field("page_lines", $.number),
+            token.immediate("("),
+            field("footer_lines", $._immediate_number),
+            token.immediate(")")
+          ),
+          seq(kw("message-id"), field("message_class", $.identifier)),
+        )
+      ),
+      "."),
 
     _type_reference: $ => seq(kw("type"), $.type),
     _like_reference: $ => seq(kw("like"), $.identifier),

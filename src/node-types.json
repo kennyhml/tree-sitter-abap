@@ -12,7 +12,7 @@
         "named": true
       },
       {
-        "type": "report_statement",
+        "type": "report_initiator",
         "named": true
       }
     ]
@@ -208,9 +208,60 @@
     "fields": {}
   },
   {
-    "type": "report_statement",
+    "type": "report_initiator",
     "named": true,
-    "fields": {},
+    "fields": {
+      "footer_lines": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "line_size": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "logical_db": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "message_class": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "page_lines": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -319,7 +370,15 @@
     "named": false
   },
   {
+    "type": "database",
+    "named": false
+  },
+  {
     "type": "decimals",
+    "named": false
+  },
+  {
+    "type": "defining",
     "named": false
   },
   {
@@ -328,6 +387,14 @@
   },
   {
     "type": "final",
+    "named": false
+  },
+  {
+    "type": "functionality",
+    "named": false
+  },
+  {
+    "type": "heading",
     "named": false
   },
   {
@@ -351,6 +418,22 @@
     "named": false
   },
   {
+    "type": "line-count",
+    "named": false
+  },
+  {
+    "type": "line-size",
+    "named": false
+  },
+  {
+    "type": "message-id",
+    "named": false
+  },
+  {
+    "type": "no",
+    "named": false
+  },
+  {
     "type": "number",
     "named": true
   },
@@ -359,11 +442,23 @@
     "named": false
   },
   {
+    "type": "page",
+    "named": false
+  },
+  {
     "type": "read-only",
     "named": false
   },
   {
+    "type": "reduced",
+    "named": false
+  },
+  {
     "type": "report",
+    "named": false
+  },
+  {
+    "type": "standard",
     "named": false
   },
   {
