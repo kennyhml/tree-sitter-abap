@@ -246,7 +246,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "struct_spec"
+          "name": "struct_data_spec"
         },
         {
           "type": "SYMBOL",
@@ -254,7 +254,20 @@
         }
       ]
     },
-    "struct_spec": {
+    "struct_data_spec": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_struct_data_spec_collapsed"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_struct_data_spec_expanded"
+        }
+      ]
+    },
+    "_struct_data_spec_collapsed": {
       "type": "SEQ",
       "members": [
         {
@@ -352,6 +365,122 @@
         }
       ]
     },
+    "_struct_data_spec_expanded": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[bB][eE][gG][iI][nN]"
+          },
+          "named": false,
+          "value": "begin"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][fF]"
+          },
+          "named": false,
+          "value": "of"
+        },
+        {
+          "type": "FIELD",
+          "name": "nameOpen",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[rR][eE][aA][dD]-[oO][nN][lL][yY]"
+              },
+              "named": false,
+              "value": "read-only"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[dD][aA][tT][aA]"
+                },
+                "named": false,
+                "value": "data"
+              },
+              {
+                "type": "FIELD",
+                "name": "field",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_struct_field"
+                }
+              },
+              {
+                "type": "STRING",
+                "value": "."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][aA][tT][aA]"
+          },
+          "named": false,
+          "value": "data"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD]"
+          },
+          "named": false,
+          "value": "end"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][fF]"
+          },
+          "named": false,
+          "value": "of"
+        },
+        {
+          "type": "FIELD",
+          "name": "nameClose",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "data_spec": {
       "type": "SEQ",
       "members": [
@@ -410,8 +539,13 @@
                           "name": "data_spec"
                         },
                         {
-                          "type": "SYMBOL",
-                          "name": "struct_spec"
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_struct_data_spec_collapsed"
+                          },
+                          "named": true,
+                          "value": "struct_data_spec"
                         }
                       ]
                     },
@@ -432,8 +566,13 @@
                                 "name": "data_spec"
                               },
                               {
-                                "type": "SYMBOL",
-                                "name": "struct_spec"
+                                "type": "ALIAS",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "_struct_data_spec_collapsed"
+                                },
+                                "named": true,
+                                "value": "struct_data_spec"
                               }
                             ]
                           }
@@ -447,6 +586,15 @@
             {
               "type": "SYMBOL",
               "name": "data_spec"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_struct_data_spec_expanded"
+              },
+              "named": true,
+              "value": "struct_data_spec"
             }
           ]
         },

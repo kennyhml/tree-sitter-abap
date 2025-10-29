@@ -242,3 +242,141 @@ data:
             (number)
             (number)
             (literal_string))))
+
+==================
+Complex Collapsed Nested Struct Declaration 
+==================
+DATA: BEGIN OF customer_order,
+        order_id     TYPE i,
+        status       TYPE string,
+        BEGIN OF customer,
+          customer_no TYPE p LENGTH 10 DECIMALS 0 VALUE '1000000001',
+          BEGIN OF contact,
+            name      TYPE string,
+            email     TYPE string,
+            BEGIN OF address,
+              street  TYPE string,
+              city    TYPE string,
+              zipcode TYPE p LENGTH 5 DECIMALS 0,
+              country TYPE string VALUE 'US',
+            END OF address,
+          END OF contact,
+        END OF customer,
+      END OF customer_order.
+---
+(source
+    (data_declaration
+    (struct_data_spec
+        (identifier)
+        (data_spec
+            (identifier)
+            (type))
+        (data_spec
+            (identifier)
+            (type))
+        (struct_data_spec
+            (identifier)
+            (data_spec
+                (identifier)
+                (type)
+                (number)
+                (number)
+                (literal_string))
+        (struct_data_spec
+            (identifier)
+            (data_spec
+                (identifier)
+                (type))
+            (data_spec
+                (identifier)
+                (type))
+            (struct_data_spec
+                (identifier)
+                (data_spec
+                    (identifier)
+                    (type))
+                (data_spec
+                    (identifier)
+                    (type))
+                (data_spec
+                    (identifier)
+                    (type)
+                    (number)
+                    (number))
+                (data_spec
+                    (identifier)
+                    (type)
+                    (literal_string))
+                (identifier))
+            (identifier))
+        (identifier))
+        (identifier))))
+
+==================
+Complex Expanded Nested Struct Declaration 
+==================
+DATA BEGIN OF customer_order.
+DATA order_id TYPE i.
+DATA status TYPE string.
+    DATA BEGIN OF customer.
+        DATA customer_no TYPE p LENGTH 10 DECIMALS 0 VALUE '1000000001'.
+        DATA BEGIN OF contact.
+            DATA name TYPE string.
+            DATA email TYPE string.
+            DATA BEGIN OF address.
+                DATA street TYPE string.
+                DATA city TYPE string.
+                DATA zipcode TYPE p LENGTH 5 DECIMALS 0.
+                DATA country TYPE string VALUE 'US'.
+            DATA END OF address.
+        DATA END OF contact.
+    DATA END OF customer.
+DATA END OF customer_order.
+---
+(source
+    (data_declaration
+    (struct_data_spec
+        (identifier)
+        (data_spec
+            (identifier)
+            (type))
+        (data_spec
+            (identifier)
+            (type))
+        (struct_data_spec
+            (identifier)
+            (data_spec
+                (identifier)
+                (type)
+                (number)
+                (number)
+                (literal_string))
+        (struct_data_spec
+            (identifier)
+            (data_spec
+                (identifier)
+                (type))
+            (data_spec
+                (identifier)
+                (type))
+            (struct_data_spec
+                (identifier)
+                (data_spec
+                    (identifier)
+                    (type))
+                (data_spec
+                    (identifier)
+                    (type))
+                (data_spec
+                    (identifier)
+                    (type)
+                    (number)
+                    (number))
+                (data_spec
+                    (identifier)
+                    (type)
+                    (literal_string))
+                (identifier))
+            (identifier))
+        (identifier))
+        (identifier))))

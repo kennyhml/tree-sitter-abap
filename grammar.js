@@ -112,27 +112,49 @@ module.exports = grammar({
     ),
 
     _struct_field: $ => choice(
-      $.struct_spec,
+      $.struct_data_spec,
       $.data_spec
     ),
 
     /**
-     * Structure specification (not structure type), e.g data: begin of ...
+     * Two ways to declare data structures:
      * 
-     * While a data struct decl and a types struct decl seem largely the same,
-     * there are actually some pretty significant differences hidden underneath.
+     * The old & more verbose version
+     * ```
+     * DATA BEGIN OF xyz.
+     * DATA field1.
+     * DATA field2 TYPE i.
+     * DATA END OF xyz.
+     * ``` 
+     * And the modern, concise version:
+     * ```
+     * ```
+     * DATA: BEGIN OF xyz,
+     *       field1,
+     *       field2 TYPE i,
+     *       END OF xyz.
+     * ```
      */
-    struct_spec: $ => seq(
-      kw("begin"),
-      kw("of"),
-      field("nameOpen", $.identifier),
-      // read-only is actually allowed on structs :o of course only in classes
-      optional(kw("read-only")), ",",
+    struct_data_spec: $ => choice(
+      $._struct_data_spec_collapsed,
+      $._struct_data_spec_expanded
+    ),
 
-      // fields
+    _struct_data_spec_collapsed: $ => seq(
+      ...kws("begin", "of"),
+      field("nameOpen", $.identifier),
+      optional(kw("read-only")), ",",
       repeat(seq(field("field", $._struct_field), ",")),
-      kw("end"),
-      kw("of"),
+      ...kws("end", "of"),
+      field("nameClose", $.identifier)
+    ),
+
+    _struct_data_spec_expanded: $ => seq(
+      ...kws("begin", "of"),
+      field("nameOpen", $.identifier),
+      optional(kw("read-only")), ".",
+      repeat(seq(kw("data"), field("field", $._struct_field), ".")),
+      ...kws("data", "end", "of"),
       field("nameClose", $.identifier)
     ),
 
@@ -145,9 +167,17 @@ module.exports = grammar({
       kw("data"),
       choice(
         // In case of `data:`, multiple specs and structs are possible
-        seq(":", commaSep1(choice($.data_spec, $.struct_spec))),
-        // In case of `data`, only a regular spec is possible
+        seq(
+          ":",
+          commaSep1(
+            choice(
+              $.data_spec,
+              alias($._struct_data_spec_collapsed, $.struct_data_spec)
+            )
+          ),
+        ),
         $.data_spec,
+        alias($._struct_data_spec_expanded, $.struct_data_spec)
       ),
       "."
     ),
@@ -198,7 +228,6 @@ module.exports = grammar({
 });
 
 
-// @ts-check
 /**
  * @param {string} keyword 
  * @returns {AliasRule}
@@ -210,6 +239,14 @@ function kw(keyword) {
     .join('')
   )
   return alias(result, keyword);
+}
+/**
+ * @param {string[]} keywords
+ * 
+ * @returns {Rule[]}
+ */
+function kws(...keywords) {
+  return keywords.map(kw)
 }
 
 function commaSep1(rule) {

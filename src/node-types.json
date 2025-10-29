@@ -36,7 +36,7 @@
           "named": true
         },
         {
-          "type": "struct_spec",
+          "type": "struct_data_spec",
           "named": true
         }
       ]
@@ -239,7 +239,7 @@
     }
   },
   {
-    "type": "struct_spec",
+    "type": "struct_data_spec",
     "named": true,
     "fields": {
       "field": {
@@ -251,7 +251,7 @@
             "named": true
           },
           {
-            "type": "struct_spec",
+            "type": "struct_data_spec",
             "named": true
           }
         ]
