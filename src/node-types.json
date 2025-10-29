@@ -103,10 +103,6 @@
           {
             "type": "identifier",
             "named": true
-          },
-          {
-            "type": "like",
-            "named": false
           }
         ]
       },
@@ -120,27 +116,57 @@
           }
         ]
       },
-      "readonly": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "read-only",
-            "named": false
-          }
-        ]
-      },
       "type": {
         "multiple": true,
         "required": false,
         "types": [
           {
+            "type": "decimals",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "initial",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "itab_spec",
+            "named": true
+          },
+          {
+            "type": "length",
+            "named": false
+          },
+          {
+            "type": "like",
+            "named": false
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
             "type": "type",
             "named": false
           },
           {
-            "type": "type",
+            "type": "typename",
             "named": true
+          },
+          {
+            "type": "value",
+            "named": false
           }
         ]
       },
@@ -203,9 +229,87 @@
     }
   },
   {
+    "type": "itab_spec",
+    "named": true,
+    "fields": {
+      "initial_size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "any",
+            "named": false
+          },
+          {
+            "type": "hashed",
+            "named": false
+          },
+          {
+            "type": "index",
+            "named": false
+          },
+          {
+            "type": "sorted",
+            "named": false
+          },
+          {
+            "type": "standard",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ref_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "literal_string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "ref_type",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "report_initiator",
@@ -362,6 +466,10 @@
     "named": false
   },
   {
+    "type": "any",
+    "named": false
+  },
+  {
     "type": "begin",
     "named": false
   },
@@ -394,12 +502,20 @@
     "named": false
   },
   {
+    "type": "hashed",
+    "named": false
+  },
+  {
     "type": "heading",
     "named": false
   },
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "index",
+    "named": false
   },
   {
     "type": "initial",
@@ -454,7 +570,19 @@
     "named": false
   },
   {
+    "type": "ref",
+    "named": false
+  },
+  {
     "type": "report",
+    "named": false
+  },
+  {
+    "type": "size",
+    "named": false
+  },
+  {
+    "type": "sorted",
     "named": false
   },
   {
@@ -462,11 +590,19 @@
     "named": false
   },
   {
-    "type": "type",
+    "type": "table",
+    "named": false
+  },
+  {
+    "type": "to",
     "named": false
   },
   {
     "type": "type",
+    "named": false
+  },
+  {
+    "type": "typename",
     "named": true
   },
   {

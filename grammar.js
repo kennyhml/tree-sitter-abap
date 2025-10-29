@@ -93,22 +93,24 @@ module.exports = grammar({
 
     _expression: $ => choice($.number, $.literal_string),
 
-    _scalar_declaration_body: $ => seq(
-      optional(field("bufsize", seq(
-        token.immediate("("),
-        alias(token.immediate(/-?\d+/), $.number),
-        token.immediate(")"))
-      )),
-      repeat1(
-        choice(
-          field("type", $._type_reference),
-          field("like", $._like_reference),
-          field("length", $._data_length),
-          field("value", $._data_value),
-          field("decimals", $._data_decimals),
-          field("readonly", kw("read-only")),
-        )
+    _scalar_spec: $ => repeat1(
+      choice(
+        seq(
+          kw("type"),
+          field("type", $.typename),
+        ),
+        seq(
+          kw("like"),
+          field("like", $.identifier)
+        ),
+        field("length", $._data_length),
+        field("value", $._data_value),
+        field("decimals", $._data_decimals)
       )
+    ),
+
+    _complex_spec: $ => choice(
+      $.itab_spec,
     ),
 
     _struct_field: $ => choice(
@@ -160,7 +162,20 @@ module.exports = grammar({
 
     data_spec: $ => seq(
       field("name", $.identifier),
-      optional($._scalar_declaration_body)
+      field("type", choice(
+        seq(
+          // If a buffer is specified, it must be a scalar: data foo(30) ...
+          field("bufsize", seq(
+            token.immediate("("),
+            alias(token.immediate(/-?\d+/), $.number),
+            token.immediate(")"))
+          ),
+          optional($._scalar_spec),
+        ),
+        // No buff size specified, might be a scalar or complex type.
+        optional($._scalar_spec),
+        $._complex_spec
+      )),
     ),
 
     data_declaration: $ => seq(
@@ -180,6 +195,7 @@ module.exports = grammar({
         // Expanded structs only possible without :
         alias($._struct_data_spec_expanded, $.struct_data_spec)
       ),
+      optional(kw("read-only")),
       "."
     ),
 
@@ -205,9 +221,37 @@ module.exports = grammar({
       ),
       "."),
 
-    _type_reference: $ => seq(kw("type"), $.type),
-    _like_reference: $ => seq(kw("like"), $.identifier),
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_REFERENCES.html
+    ref_type: $ => seq(...kws("ref", "to"), field("name", $.typename)),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
+    _table_category: $ => choice(
+      kw("standard"),
+      kw("sorted"),
+      kw("hashed"),
+      kw("any"),
+      kw("index"),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html
+    itab_spec: $ => seq(
+      choice(kw("type"), kw("like")),
+      optional(field("kind", $._table_category)),
+      ...kws("table", "of"),
+
+      // FIXME: when led on by a `like`, a scalar is not a valid ref type, e.g LIKE TABLE OF abap_bool
+      choice(
+        $.ref_type,
+        field("source", $.typename)
+      ),
+
+      optional(
+        seq(
+          ...kws("initial", "size"),
+          field("initial_size", $.number)
+        )
+      )
+    ),
 
     //FIXME: Constants are also possible
     _data_value: $ => seq(
@@ -217,7 +261,7 @@ module.exports = grammar({
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
-    type: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
+    typename: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
     identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
     field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
     number: $ => /-?\d+/,

@@ -7,7 +7,7 @@ data /www/std_decl type string.
     (data_declaration
         (data_spec
             (identifier)
-            (type))))
+            (typename))))
 
 ==================
 Data declaration with like reference
@@ -31,7 +31,7 @@ data /www/std_decl type string value 'MY_VALUE'.
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (literal_string))))
 
 ==================
@@ -44,7 +44,7 @@ data /www/std_decl type string value is initial.
     (data_declaration
         (data_spec
             (identifier)
-            (type))))
+            (typename))))
 
 ==================
 Standard declaration + length + value
@@ -56,7 +56,7 @@ data /www/std_decl type p length 3 value '100'.
     (data_declaration
     (data_spec
         (identifier)
-        (type)
+        (typename)
         (number)
         (literal_string))))
 
@@ -70,7 +70,7 @@ data /www/std_decl type p value '100' length 3.
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (literal_string)
             (number))))
 
@@ -84,7 +84,7 @@ data /www/std_decl type p value '100.22' length 3 decimals 5.
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (literal_string)
             (number)
             (number))))
@@ -99,7 +99,7 @@ data /www/std_decl type p value '100.22' length 3 decimals 5 read-only.
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (literal_string)
             (number)
             (number))))
@@ -115,7 +115,7 @@ data /www/std_decl(20) type c.
         (data_spec
             (identifier)
             (number)
-            (type))))
+            (typename))))
 
 ==================
 Multiple declarations
@@ -130,7 +130,7 @@ data /www/std_decl3 type p length 5 decimals 2 value '12.34'.
         (data_spec
             (identifier)
             (number)
-            (type)
+            (typename)
             (literal_string)))
     (data_declaration
         (data_spec
@@ -139,7 +139,7 @@ data /www/std_decl3 type p length 5 decimals 2 value '12.34'.
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (number)
             (number)
             (literal_string))))
@@ -187,7 +187,7 @@ type    string
     (data_declaration
         (data_spec
             (identifier)
-            (type))))
+            (typename))))
 
 ==================
 Multiple separate data declarations
@@ -200,12 +200,12 @@ data  /www/sec_valu type /typ/_some_type length 10 read-only.
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (number)))
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (number))))
 
 ==================
@@ -222,23 +222,23 @@ data:
     (data_declaration
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (literal_string))
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (number))
         (data_spec
             (identifier)
             (number)
-            (type))
+            (typename))
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (literal_string))
         (data_spec
             (identifier)
-            (type)
+            (typename)
             (number)
             (number)
             (literal_string))))
@@ -270,15 +270,15 @@ DATA: BEGIN OF customer_order,
         (identifier)
         (data_spec
             (identifier)
-            (type))
+            (typename))
         (data_spec
             (identifier)
-            (type))
+            (typename))
         (struct_data_spec
             (identifier)
             (data_spec
                 (identifier)
-                (type)
+                (typename)
                 (number)
                 (number)
                 (literal_string))
@@ -286,26 +286,26 @@ DATA: BEGIN OF customer_order,
             (identifier)
             (data_spec
                 (identifier)
-                (type))
+                (typename))
             (data_spec
                 (identifier)
-                (type))
+                (typename))
             (struct_data_spec
                 (identifier)
                 (data_spec
                     (identifier)
-                    (type))
+                    (typename))
                 (data_spec
                     (identifier)
-                    (type))
+                    (typename))
                 (data_spec
                     (identifier)
-                    (type)
+                    (typename)
                     (number)
                     (number))
                 (data_spec
                     (identifier)
-                    (type)
+                    (typename)
                     (literal_string))
                 (identifier))
             (identifier))
@@ -339,15 +339,15 @@ DATA END OF customer_order.
         (identifier)
         (data_spec
             (identifier)
-            (type))
+            (typename))
         (data_spec
             (identifier)
-            (type))
+            (typename))
         (struct_data_spec
             (identifier)
             (data_spec
                 (identifier)
-                (type)
+                (typename)
                 (number)
                 (number)
                 (literal_string))
@@ -355,26 +355,26 @@ DATA END OF customer_order.
             (identifier)
             (data_spec
                 (identifier)
-                (type))
+                (typename))
             (data_spec
                 (identifier)
-                (type))
+                (typename))
             (struct_data_spec
                 (identifier)
                 (data_spec
                     (identifier)
-                    (type))
+                    (typename))
                 (data_spec
                     (identifier)
-                    (type))
+                    (typename))
                 (data_spec
                     (identifier)
-                    (type)
+                    (typename)
                     (number)
                     (number))
                 (data_spec
                     (identifier)
-                    (type)
+                    (typename)
                     (literal_string))
                 (identifier))
             (identifier))
