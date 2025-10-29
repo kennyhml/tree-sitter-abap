@@ -34,6 +34,10 @@
         {
           "type": "data_spec",
           "named": true
+        },
+        {
+          "type": "struct_spec",
+          "named": true
         }
       ]
     }
@@ -235,6 +239,46 @@
     }
   },
   {
+    "type": "struct_spec",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "data_spec",
+            "named": true
+          },
+          {
+            "type": "struct_spec",
+            "named": true
+          }
+        ]
+      },
+      "nameClose": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "nameOpen": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "'",
     "named": false
   },
@@ -267,11 +311,19 @@
     "named": false
   },
   {
+    "type": "begin",
+    "named": false
+  },
+  {
     "type": "data",
     "named": false
   },
   {
     "type": "decimals",
+    "named": false
+  },
+  {
+    "type": "end",
     "named": false
   },
   {
@@ -301,6 +353,10 @@
   {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "of",
+    "named": false
   },
   {
     "type": "read-only",

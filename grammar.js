@@ -111,15 +111,44 @@ module.exports = grammar({
       )
     ),
 
+    _struct_field: $ => choice(
+      $.struct_spec,
+      $.data_spec
+    ),
+
+    /**
+     * Structure specification (not structure type), e.g data: begin of ...
+     * 
+     * While a data struct decl and a types struct decl seem largely the same,
+     * there are actually some pretty significant differences hidden underneath.
+     */
+    struct_spec: $ => seq(
+      kw("begin"),
+      kw("of"),
+      field("nameOpen", $.identifier),
+      // read-only is actually allowed on structs :o of course only in classes
+      optional(kw("read-only")), ",",
+
+      // fields
+      repeat(seq(field("field", $._struct_field), ",")),
+      kw("end"),
+      kw("of"),
+      field("nameClose", $.identifier)
+    ),
+
     data_spec: $ => seq(
       field("name", $.identifier),
-      optional(choice($._scalar_declaration_body)),
+      optional($._scalar_declaration_body)
     ),
 
     data_declaration: $ => seq(
       kw("data"),
-      optional(":"),
-      commaSep1($.data_spec),
+      choice(
+        // In case of `data:`, multiple specs and structs are possible
+        seq(":", commaSep1(choice($.data_spec, $.struct_spec))),
+        // In case of `data`, only a regular spec is possible
+        $.data_spec,
+      ),
       "."
     ),
 
