@@ -4,8 +4,8 @@ Standard declaration
 data /www/std_decl type string.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type))))
 
@@ -16,8 +16,8 @@ Data declaration with like reference
 data /www/std_decl like some_other_variable.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (identifier))))
 
@@ -28,8 +28,8 @@ Standard declaration + value
 data /www/std_decl type string value 'MY_VALUE'.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (literal_string))))
@@ -41,8 +41,8 @@ Data decl with explicit initial value
 data /www/std_decl type string value is initial.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type))))
 
@@ -53,8 +53,8 @@ Standard declaration + length + value
 data /www/std_decl type p length 3 value '100'.
 ---
 (source
-    (single_data_declaration
     (data_declaration
+    (data_spec
         (identifier)
         (type)
         (number)
@@ -67,8 +67,8 @@ Standard declaration + value + length
 data /www/std_decl type p value '100' length 3.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (literal_string)
@@ -81,8 +81,8 @@ Standard declaration + value + length + decimals
 data /www/std_decl type p value '100.22' length 3 decimals 5.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (literal_string)
@@ -96,8 +96,8 @@ Standard declaration + read-only
 data /www/std_decl type p value '100.22' length 3 decimals 5 read-only.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (literal_string)
@@ -111,8 +111,8 @@ Standard declaration with buffer notation
 data /www/std_decl(20) type c.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (number)
             (type))))
@@ -126,18 +126,18 @@ data /www/std_decl2 like some_ref_var read-only.
 data /www/std_decl3 type p length 5 decimals 2 value '12.34'.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (number)
             (type)
             (literal_string)))
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (identifier)))
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (number)
@@ -184,8 +184,8 @@ type    string
 .
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type))))
 
@@ -197,13 +197,13 @@ data  /www/std_decl type /aawd/da/_some_type length 10 value is initial.
 data  /www/sec_valu type /typ/_some_type length 10 read-only.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (number)))
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (number))))
@@ -219,24 +219,24 @@ data:
   score type p length 8 decimals 2 value '98.75'.
 ---
 (source
-    (multi_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (type)
             (literal_string))
-        (data_declaration
+        (data_spec
             (identifier)
             (type)
             (number))
-        (data_declaration
+        (data_spec
             (identifier)
             (number)
             (type))
-        (data_declaration
+        (data_spec
             (identifier)
             (type)
             (literal_string))
-        (data_declaration
+        (data_spec
             (identifier)
             (type)
             (number)

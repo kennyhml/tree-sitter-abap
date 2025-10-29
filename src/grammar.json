@@ -24,11 +24,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "single_data_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "multi_data_declaration"
+          "name": "data_declaration"
         },
         {
           "type": "SYMBOL",
@@ -245,7 +241,7 @@
         }
       ]
     },
-    "data_declaration": {
+    "data_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -275,7 +271,7 @@
         }
       ]
     },
-    "single_data_declaration": {
+    "data_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -288,37 +284,23 @@
           "value": "data"
         },
         {
-          "type": "SYMBOL",
-          "name": "data_declaration"
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "multi_data_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[dD][aA][tT][aA]"
-          },
-          "named": false,
-          "value": "data"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "data_declaration"
+              "name": "data_spec"
             },
             {
               "type": "REPEAT",
@@ -331,7 +313,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "data_declaration"
+                    "name": "data_spec"
                   }
                 ]
               }

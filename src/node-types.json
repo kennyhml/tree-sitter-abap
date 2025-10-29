@@ -4,19 +4,15 @@
     "named": true,
     "subtypes": [
       {
+        "type": "data_declaration",
+        "named": true
+      },
+      {
         "type": "inline_declaration",
         "named": true
       },
       {
-        "type": "multi_data_declaration",
-        "named": true
-      },
-      {
         "type": "report_statement",
-        "named": true
-      },
-      {
-        "type": "single_data_declaration",
         "named": true
       }
     ]
@@ -29,6 +25,21 @@
   },
   {
     "type": "data_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_spec",
     "named": true,
     "fields": {
       "bufsize": {
@@ -193,21 +204,6 @@
     "fields": {}
   },
   {
-    "type": "multi_data_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "data_declaration",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "report_statement",
     "named": true,
     "fields": {},
@@ -217,21 +213,6 @@
       "types": [
         {
           "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "single_data_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "data_declaration",
           "named": true
         }
       ]

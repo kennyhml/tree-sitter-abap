@@ -37,7 +37,7 @@ data foo value " this is a comment and the declaration continues next line
 is initial.
 ---
 (source
-    (single_data_declaration
-        (data_declaration
+    (data_declaration
+        (data_spec
             (identifier)
             (comment))))
