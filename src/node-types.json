@@ -84,6 +84,10 @@
             "named": true
           },
           {
+            "type": "ref_type",
+            "named": true
+          },
+          {
             "type": "simple_type",
             "named": true
           },
@@ -197,6 +201,10 @@
             "named": true
           },
           {
+            "type": "ref_type",
+            "named": true
+          },
+          {
             "type": "simple_type",
             "named": true
           },
@@ -222,6 +230,25 @@
     "type": "literal_string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "ref_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "typename",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "report_initiator",
@@ -384,6 +411,36 @@
     }
   },
   {
+    "type": "table_key_spec",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "table_component",
+          "named": true
+        },
+        {
+          "type": "table_key",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table_type",
     "named": true,
     "fields": {
@@ -437,6 +494,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "table_key_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -497,6 +564,10 @@
             "named": true
           },
           {
+            "type": "ref_type",
+            "named": true
+          },
+          {
             "type": "simple_type",
             "named": true
           },
@@ -547,11 +618,19 @@
     "named": false
   },
   {
+    "type": "alias",
+    "named": false
+  },
+  {
     "type": "any",
     "named": false
   },
   {
     "type": "begin",
+    "named": false
+  },
+  {
+    "type": "components",
     "named": false
   },
   {
@@ -567,7 +646,15 @@
     "named": false
   },
   {
+    "type": "default",
+    "named": false
+  },
+  {
     "type": "defining",
+    "named": false
+  },
+  {
+    "type": "empty",
     "named": false
   },
   {
@@ -603,6 +690,10 @@
     "named": false
   },
   {
+    "type": "key",
+    "named": false
+  },
+  {
     "type": "length",
     "named": false
   },
@@ -627,6 +718,10 @@
     "named": false
   },
   {
+    "type": "non-unique",
+    "named": false
+  },
+  {
     "type": "number",
     "named": true
   },
@@ -644,6 +739,10 @@
   },
   {
     "type": "reduced",
+    "named": false
+  },
+  {
+    "type": "ref",
     "named": false
   },
   {
@@ -667,6 +766,18 @@
     "named": false
   },
   {
+    "type": "table_component",
+    "named": true
+  },
+  {
+    "type": "table_key",
+    "named": true
+  },
+  {
+    "type": "to",
+    "named": false
+  },
+  {
     "type": "type",
     "named": false
   },
@@ -679,7 +790,15 @@
     "named": false
   },
   {
+    "type": "unique",
+    "named": false
+  },
+  {
     "type": "value",
+    "named": false
+  },
+  {
+    "type": "with",
     "named": false
   }
 ]

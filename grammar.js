@@ -55,6 +55,7 @@ module.exports = grammar({
     $._compound_statement
   ],
 
+
   // This makes sure that tree-sitter initially also parses keywords as 
   // identifiers and THEN checks whether it is a keyword in its entirety.
   word: $ => $.identifier,
@@ -159,10 +160,44 @@ module.exports = grammar({
       kw("index"),
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
+    table_key_spec: $ => seq(
+      kw("with"),
+
+      choice(
+        // empty and default key, nothing more to specify.
+        seq(...kws("default", "key")),
+        seq(...kws("empty", "key")),
+        seq(
+          // can be defined in any order or not at all
+          repeat(
+            choice(
+              kw("unique"),
+              kw("non-unique"),
+              kw("sorted"),
+              kw("hashed")
+            )
+          ),
+          kw("key"),
+          choice(
+            // either implicit primary key listing..
+            repeat1(alias($.identifier, $.table_component)),
+            // .. or an explicit key definition
+            seq(
+              alias($.identifier, $.table_key),
+              optional(seq(kw("alias"), field("alias", $.identifier))),
+              kw("components"),
+              repeat1(alias($.identifier, $.table_component)),
+            ),
+          ))
+      ),
+    ),
+
     _type_clause: $ => choice(
       $.table_type,
       $.simple_type,
-      $.copy_type
+      $.copy_type,
+      $.ref_type
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html
@@ -171,6 +206,13 @@ module.exports = grammar({
     table_type: $ => choice(
       tableType($, true),
       tableType($, false),
+    ),
+
+    ref_type: $ => seq(
+      choice(
+        seq(...kws("type", "ref", "to"), $.typename),
+        seq(...kws("like", "ref", "to"), $.identifier),
+      )
     ),
 
     simple_type: $ => seq(
@@ -324,6 +366,8 @@ function tableType($, likeReference) {
     ...kws("table", "of"),
 
     field("source", likeReference ? $.identifier : $.typename),
+
+    repeat($.table_key_spec),
 
     optional(
       seq(
