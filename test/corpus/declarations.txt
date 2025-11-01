@@ -266,7 +266,7 @@ DATA: BEGIN OF customer_order,
 ---
 (source
     (data_declaration
-    (struct_data_spec
+    (data_spec
         (identifier)
         (data_spec
             (identifier)
@@ -274,7 +274,7 @@ DATA: BEGIN OF customer_order,
         (data_spec
             (identifier)
             (typename))
-        (struct_data_spec
+        (data_spec
             (identifier)
             (data_spec
                 (identifier)
@@ -282,7 +282,7 @@ DATA: BEGIN OF customer_order,
                 (number)
                 (number)
                 (literal_string))
-        (struct_data_spec
+        (data_spec
             (identifier)
             (data_spec
                 (identifier)
@@ -290,7 +290,7 @@ DATA: BEGIN OF customer_order,
             (data_spec
                 (identifier)
                 (typename))
-            (struct_data_spec
+            (data_spec
                 (identifier)
                 (data_spec
                     (identifier)
@@ -335,7 +335,7 @@ DATA END OF customer_order.
 ---
 (source
     (data_declaration
-    (struct_data_spec
+    (data_spec
         (identifier)
         (data_spec
             (identifier)
@@ -343,7 +343,7 @@ DATA END OF customer_order.
         (data_spec
             (identifier)
             (typename))
-        (struct_data_spec
+        (data_spec
             (identifier)
             (data_spec
                 (identifier)
@@ -351,7 +351,7 @@ DATA END OF customer_order.
                 (number)
                 (number)
                 (literal_string))
-        (struct_data_spec
+        (data_spec
             (identifier)
             (data_spec
                 (identifier)
@@ -359,7 +359,7 @@ DATA END OF customer_order.
             (data_spec
                 (identifier)
                 (typename))
-            (struct_data_spec
+            (data_spec
                 (identifier)
                 (data_spec
                     (identifier)

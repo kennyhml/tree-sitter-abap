@@ -14,6 +14,10 @@
       {
         "type": "report_initiator",
         "named": true
+      },
+      {
+        "type": "type_declaration",
+        "named": true
       }
     ]
   },
@@ -22,6 +26,78 @@
     "named": true,
     "extra": true,
     "fields": {}
+  },
+  {
+    "type": "component_spec",
+    "named": true,
+    "fields": {
+      "bufsize": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "nameClose": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "nameOpen": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "like_reference",
+          "named": true
+        },
+        {
+          "type": "type_reference",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "data_declaration",
@@ -33,10 +109,6 @@
       "types": [
         {
           "type": "data_spec",
-          "named": true
-        },
-        {
-          "type": "struct_data_spec",
           "named": true
         }
       ]
@@ -64,51 +136,9 @@
           }
         ]
       },
-      "decimals": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "decimals",
-            "named": false
-          },
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "length": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "length",
-            "named": false
-          },
-          {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "like": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -116,86 +146,44 @@
           }
         ]
       },
-      "type": {
-        "multiple": true,
+      "nameClose": {
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "decimals",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
-          },
-          {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "itab_spec",
-            "named": true
-          },
-          {
-            "type": "length",
-            "named": false
-          },
-          {
-            "type": "like",
-            "named": false
-          },
-          {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "type",
-            "named": false
-          },
-          {
-            "type": "typename",
-            "named": true
-          },
-          {
-            "type": "value",
-            "named": false
           }
         ]
       },
-      "value": {
-        "multiple": true,
+      "nameOpen": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "literal_string",
+            "type": "identifier",
             "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "value",
-            "named": false
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "like_reference",
+          "named": true
+        },
+        {
+          "type": "type_reference",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -268,6 +256,28 @@
           }
         ]
       },
+      "reference_data": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "ref",
+            "named": false
+          },
+          {
+            "type": "ref_type",
+            "named": true
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
       "source": {
         "multiple": false,
         "required": false,
@@ -291,6 +301,32 @@
     }
   },
   {
+    "type": "like_reference",
+    "named": true,
+    "fields": {
+      "reference_data": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "itab_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "literal_string",
     "named": true,
     "fields": {}
@@ -301,7 +337,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "typename",
@@ -394,43 +430,160 @@
     }
   },
   {
-    "type": "struct_data_spec",
+    "type": "type_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_reference",
     "named": true,
     "fields": {
-      "field": {
+      "decimals": {
         "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "data_spec",
+            "type": "decimals",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "length": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "length",
+            "named": false
+          },
+          {
+            "type": "literal_string",
             "named": true
           },
           {
-            "type": "struct_data_spec",
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "reference_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "initial",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "itab_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typename",
             "named": true
           }
         ]
       },
       "nameClose": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "typename",
             "named": true
           }
         ]
       },
       "nameOpen": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "typename",
             "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "like_reference",
+          "named": true
+        },
+        {
+          "type": "type_reference",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -604,6 +757,10 @@
   {
     "type": "typename",
     "named": true
+  },
+  {
+    "type": "types",
+    "named": false
   },
   {
     "type": "value",

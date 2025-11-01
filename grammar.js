@@ -70,6 +70,7 @@ module.exports = grammar({
     // method definitions, import statements, etc..
     _simple_statement: $ => choice(
       $.data_declaration,
+      $.type_declaration,
       $.inline_declaration,
       $.report_initiator
     ),
@@ -82,7 +83,7 @@ module.exports = grammar({
 
       optional(seq(
         "=",
-        field("value", $._expression),
+        field("value", choice($.number, $.literal_string)),
         "."
       ))
     ),
@@ -91,112 +92,126 @@ module.exports = grammar({
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
-    _expression: $ => choice($.number, $.literal_string),
+    data_declaration: $ => oneOrMoreDeclarations("data", $.data_spec),
 
-    _scalar_spec: $ => repeat1(
-      choice(
-        seq(
-          kw("type"),
-          field("type", $.typename),
-        ),
-        seq(
-          kw("like"),
-          field("like", $.identifier)
-        ),
-        field("length", $._data_length),
-        field("value", $._data_value),
-        field("decimals", $._data_decimals)
-      )
+    type_declaration: $ => oneOrMoreDeclarations("types", $.type_spec),
+
+    data_spec: $ => choice(
+      $._simple_data_spec,
+      $._complex_data_spec,
     ),
 
-    _complex_spec: $ => choice(
-      $.itab_spec,
-    ),
-
-    _struct_field: $ => choice(
-      $.struct_data_spec,
-      $.data_spec
+    type_spec: $ => choice(
+      $._simple_type_spec,
+      $._complex_type_spec,
     ),
 
     /**
-     * Two ways to declare data structures:
+     * Specification for a single, simple type initiated by a {@link type_declaration}.
      * 
-     * The old & more verbose version
-     * ```
-     * DATA BEGIN OF xyz.
-     * DATA field1.
-     * DATA field2 TYPE i.
-     * DATA END OF xyz.
-     * ``` 
-     * And the modern, concise version:
-     * ```
-     * ```
-     * DATA: BEGIN OF xyz,
-     *       field1,
-     *       field2 TYPE i,
-     *       END OF xyz.
-     * ```
+     * This includes any type / like references but NOT structure types.
      */
-    struct_data_spec: $ => choice(
-      $._struct_data_spec_collapsed,
-      $._struct_data_spec_expanded
+    _simple_type_spec: $ => seq(
+      field("name", $.typename),
+      // just like data, literally just `types foo.` is valid and sets it to C1.
+      optional(choice($.like_reference, $.type_reference))
     ),
 
-    _struct_data_spec_collapsed: $ => seq(
-      ...kws("begin", "of"),
-      field("nameOpen", $.identifier),
-      optional(kw("read-only")), ",",
-      repeat(seq(field("field", $._struct_field), ",")),
-      ...kws("end", "of"),
-      field("nameClose", $.identifier)
-    ),
-
-    _struct_data_spec_expanded: $ => seq(
-      ...kws("begin", "of"),
-      field("nameOpen", $.identifier),
-      optional(kw("read-only")), ".",
-      repeat(seq(kw("data"), field("field", $._struct_field), ".")),
-      ...kws("data", "end", "of"),
-      field("nameClose", $.identifier)
-    ),
-
-    data_spec: $ => seq(
+    _simple_data_spec: $ => seq(
       field("name", $.identifier),
-      field("type", choice(
-        seq(
-          // If a buffer is specified, it must be a scalar: data foo(30) ...
-          field("bufsize", seq(
-            token.immediate("("),
-            alias(token.immediate(/-?\d+/), $.number),
-            token.immediate(")"))
-          ),
-          optional($._scalar_spec),
-        ),
-        // No buff size specified, might be a scalar or complex type.
-        optional($._scalar_spec),
-        $._complex_spec
+      optional(field("bufsize", seq(
+        token.immediate("("),
+        alias(token.immediate(/-?\d+/), $.number),
+        token.immediate(")"))
       )),
+      optional(choice($.type_reference, $.like_reference)),
     ),
 
-    data_declaration: $ => seq(
-      kw("data"),
+    _complex_data_spec: $ => choice(
+      structureSpec(",", $.identifier, undefined, $.data_spec, $),
+      structureSpec(".", $.identifier, "data", $.data_spec, $)
+    ),
+
+    /**
+     * Specification for a single, complex type initiated by a {@link type_declaration}.
+     * 
+     * More accurately, this currently only encompasses structure specifications.
+     */
+    _complex_type_spec: $ => choice(
+      structureSpec(",", $.typename, undefined, $.data_spec, $),
+      structureSpec(".", $.typename, "types", $.data_spec, $)
+    ),
+
+    /** The `type ...` part of a data / type declaration. Could either be...
+     * 
+     * ... a directly named (or reference) type already declared previously (or from ddic):
+     * >>> types sample_type type [ref to] existing_type.
+     *                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     * 
+     * ... a directly named scalar type with metadata:
+     * >>> types sample_type type i/p/c length 10 decimals 3.
+     *                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     * ... an internal table specification:
+     * >>> types sample_type type table hashed of some_type.
+     *                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     * This makes this node usable for data specifications and type specifications as they
+     * share the same syntax beyond that point.
+     */
+    type_reference: $ => seq(
+      kw("type"),
       choice(
-        // In case of `data:`, multiple specs and collapsed structs are possible
+        // Named (possibly scalar) reference
+        // For a DDIC type, its impossible for us to know whether its a scalar
+        // type, i.e. whether the scalar spec is valid here.
         seq(
-          ":",
-          commaSep1(
+          optional(seq(...kws("ref", "to"))),
+          field("reference_type", $.typename),
+          repeat(
             choice(
-              $.data_spec,
-              alias($._struct_data_spec_collapsed, $.struct_data_spec)
+              field("length", $._data_length),
+              field("decimals", $._data_decimals),
+
+              // FIXME This really shouldnt be part of a type reference, but unfortunately
+              // the values and read-only keyword from a data declaration can be mixed into it..
+              field("value", seq(
+                kw("value"), choice(
+                  $.number,
+                  $.literal_string,
+                  seq(...kws("is", "initial")),
+                  $.identifier // constants
+                )
+              )),
+              kw("read-only"),
             )
           ),
         ),
-        $.data_spec,
-        // Expanded structs only possible without :
-        alias($._struct_data_spec_expanded, $.struct_data_spec)
+        // Notice that itab specs has a dedicated rule for type specs
+        alias($._itab_type_spec, $.itab_spec),
       ),
-      optional(kw("read-only")),
-      "."
+    ),
+
+    /** The `like ...` part of a data / type declaration.
+     * 
+     * Surprisingly, this works almost the same as the {@link type_reference} does syntactically.
+     * The only difference is that the referenced source is itself also an identifier and is 
+     * essentially substituted with the type of the pointed to identifier. But, its not possible
+     * to overwrite the type meta of the identifier, e.g
+     * 
+     * >>> data foo type c length 10.
+     * >>> types bar like c length 200.
+     *                      ^^^^^^^^^^ this is not valid, bar always has length 10.
+     */
+    like_reference: $ => seq(
+      kw("like"),
+      choice(
+        // Named reference to another variable, meta is never valid
+        seq(
+          optional(seq(...kws("ref", "to"))),
+          field("reference_data", $.identifier),
+        ),
+        // Notice that itab specs has a dedicated rule for type specs
+        alias($._itab_like_spec, $.itab_spec),
+      ),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
@@ -234,16 +249,35 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html
-    itab_spec: $ => seq(
-      choice(kw("type"), kw("like")),
+    // The source field (TYPE OF src) can either be an identifier (when LIKE) or a type (when TYPE)
+    // and since TS is context free, I guess the easiest way to handle this is duplicating..
+    _itab_type_spec: $ => seq(
+      // Optional: Standard, Hashed, etc.
       optional(field("kind", $._table_category)),
       ...kws("table", "of"),
 
-      // FIXME: when led on by a `like`, a scalar is not a valid ref type, e.g LIKE TABLE OF abap_bool
       choice(
         $.ref_type,
         field("source", $.typename)
       ),
+
+      optional(
+        seq(
+          ...kws("initial", "size"),
+          field("initial_size", $.number)
+        )
+      )
+    ),
+
+    _itab_like_spec: $ => seq(
+      // Optional: Standard, Hashed, etc.
+      optional(field("kind", $._table_category)),
+      ...kws("table", "of"),
+
+      field("reference_data", choice(
+        alias(seq(...kws("ref", "to"), $.identifier), $.ref_type),
+        $.identifier
+      )),
 
       optional(
         seq(
@@ -316,6 +350,58 @@ function kws(...keywords) {
 
 function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))
+}
+
+/**
+ * Generates a structure specification rule.
+ * 
+ * This is neat because there are essentially 4 ways to define structures:
+ * 
+ * 1. TYPES: BEGIN OF foo, [...]
+ * 2. DATA BEGIN OF foo. [...]
+ * 3. DATA: BEGIN OF foo, [...]
+ * 4. TYPES BEGIN OF foo. [...]
+ * 
+ * Specifically, they differ in the way they are separated and what they declare:
+ * a type or an identifier. The fields are always identifiers, even inside types.
+ * 
+ * @param {string} separator The seperator for each line line.
+ * @param {string | undefined} keyword The keyword of the struct, either DATA, TYPES or undefined.
+ * @param {Rule} identifierType The identifier type for the structure (variable or type)
+ * @param {Rule} fieldRule The identifier type for the structure (variable or type)
+ * 
+ * @returns {Rule} A rule for the struct spec
+ */
+function structureSpec(separator, identifierType, keyword, fieldRule, $) {
+  let componentSequence = seq(alias(fieldRule, $.component_spec), separator);
+  if (keyword) {
+    componentSequence.members.unshift(kw(keyword))
+  }
+
+  return seq(
+    ...kws("begin", "of"),
+    field("nameOpen", identifierType),
+    optional(kw("read-only")),
+    separator,
+    // if a keyword is needed, it is an expanded (old style) declaration and must be part
+    // of each line, but wont be part of the rule.
+    repeat(componentSequence),
+    ...(keyword ? kws(keyword, "end", "of") : kws("end", "of")),
+    field("nameClose", identifierType)
+  );
+}
+
+function oneOrMoreDeclarations(keyword, rule) {
+  return seq(
+    kw(keyword),
+    // If the keyword is followed by a `:` then multiple declarations are allowed.
+    choice(
+      seq(":", commaSep1(rule)),
+      // FIXME: In the case of new-style structure declarations, a : is actually required.
+      // So the complex spec rules this leads into technically isnt entirely correct.
+      rule,
+    ),
+    ".");
 }
 
 /**
