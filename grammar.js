@@ -71,21 +71,7 @@ module.exports = grammar({
     _simple_statement: $ => choice(
       $.data_declaration,
       $.type_declaration,
-      $.inline_declaration,
       $.report_initiator
-    ),
-
-    inline_declaration: $ => seq(
-      choice(kw("data"), kw("final")),
-      token.immediate("("),
-      field("name", $._immediate_identifier),
-      token.immediate(")"),
-
-      optional(seq(
-        "=",
-        field("value", choice($.number, $.literal_string)),
-        "."
-      ))
     ),
 
     // Statements that start a block and have a body. For example method implementations,
@@ -106,6 +92,16 @@ module.exports = grammar({
       $._complex_type_spec,
     ),
 
+    _simple_data_spec: $ => seq(
+      field("name", $.identifier),
+      optional(field("bufsize", seq(
+        token.immediate("("),
+        alias(token.immediate(/-?\d+/), $.number),
+        token.immediate(")"))
+      )),
+      optional(field("type", $._type_clause)),
+    ),
+
     /**
      * Specification for a single, simple type initiated by a {@link type_declaration}.
      * 
@@ -114,17 +110,7 @@ module.exports = grammar({
     _simple_type_spec: $ => seq(
       field("name", $.typename),
       // just like data, literally just `types foo.` is valid and sets it to C1.
-      optional(choice($.like_reference, $.type_reference))
-    ),
-
-    _simple_data_spec: $ => seq(
-      field("name", $.identifier),
-      optional(field("bufsize", seq(
-        token.immediate("("),
-        alias(token.immediate(/-?\d+/), $.number),
-        token.immediate(")"))
-      )),
-      optional(choice($.type_reference, $.like_reference)),
+      optional(field("type", $._type_clause)),
     ),
 
     _complex_data_spec: $ => choice(
@@ -140,78 +126,6 @@ module.exports = grammar({
     _complex_type_spec: $ => choice(
       structureSpec(",", $.typename, undefined, $.data_spec, $),
       structureSpec(".", $.typename, "types", $.data_spec, $)
-    ),
-
-    /** The `type ...` part of a data / type declaration. Could either be...
-     * 
-     * ... a directly named (or reference) type already declared previously (or from ddic):
-     * >>> types sample_type type [ref to] existing_type.
-     *                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     * 
-     * ... a directly named scalar type with metadata:
-     * >>> types sample_type type i/p/c length 10 decimals 3.
-     *                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     * ... an internal table specification:
-     * >>> types sample_type type table hashed of some_type.
-     *                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     * This makes this node usable for data specifications and type specifications as they
-     * share the same syntax beyond that point.
-     */
-    type_reference: $ => seq(
-      kw("type"),
-      choice(
-        // Named (possibly scalar) reference
-        // For a DDIC type, its impossible for us to know whether its a scalar
-        // type, i.e. whether the scalar spec is valid here.
-        seq(
-          optional(seq(...kws("ref", "to"))),
-          field("reference_type", $.typename),
-          repeat(
-            choice(
-              field("length", $._data_length),
-              field("decimals", $._data_decimals),
-
-              // FIXME This really shouldnt be part of a type reference, but unfortunately
-              // the values and read-only keyword from a data declaration can be mixed into it..
-              field("value", seq(
-                kw("value"), choice(
-                  $.number,
-                  $.literal_string,
-                  seq(...kws("is", "initial")),
-                  $.identifier // constants
-                )
-              )),
-              kw("read-only"),
-            )
-          ),
-        ),
-        // Notice that itab specs has a dedicated rule for type specs
-        alias($._itab_type_spec, $.itab_spec),
-      ),
-    ),
-
-    /** The `like ...` part of a data / type declaration.
-     * 
-     * Surprisingly, this works almost the same as the {@link type_reference} does syntactically.
-     * The only difference is that the referenced source is itself also an identifier and is 
-     * essentially substituted with the type of the pointed to identifier. But, its not possible
-     * to overwrite the type meta of the identifier, e.g
-     * 
-     * >>> data foo type c length 10.
-     * >>> types bar like c length 200.
-     *                      ^^^^^^^^^^ this is not valid, bar always has length 10.
-     */
-    like_reference: $ => seq(
-      kw("like"),
-      choice(
-        // Named reference to another variable, meta is never valid
-        seq(
-          optional(seq(...kws("ref", "to"))),
-          field("reference_data", $.identifier),
-        ),
-        // Notice that itab specs has a dedicated rule for type specs
-        alias($._itab_like_spec, $.itab_spec),
-      ),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
@@ -236,9 +150,6 @@ module.exports = grammar({
       ),
       "."),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_REFERENCES.html
-    ref_type: $ => seq(...kws("ref", "to"), field("name", $.typename)),
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
     _table_category: $ => choice(
       kw("standard"),
@@ -248,50 +159,49 @@ module.exports = grammar({
       kw("index"),
     ),
 
+    _type_clause: $ => choice(
+      $.table_type,
+      $.simple_type,
+      $.copy_type
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html
     // The source field (TYPE OF src) can either be an identifier (when LIKE) or a type (when TYPE)
     // and since TS is context free, I guess the easiest way to handle this is duplicating..
-    _itab_type_spec: $ => seq(
-      // Optional: Standard, Hashed, etc.
-      optional(field("kind", $._table_category)),
-      ...kws("table", "of"),
+    table_type: $ => choice(
+      tableType($, true),
+      tableType($, false),
+    ),
 
-      choice(
-        $.ref_type,
-        field("source", $.typename)
+    simple_type: $ => seq(
+      kw("type"),
+      field("name", $.typename),
+      repeat(
+        choice(
+          field("length", $._data_length),
+          field("decimals", $._data_decimals),
+
+          // FIXME This really shouldnt be part of a type reference, but unfortunately
+          // the values and read-only keyword from a data declaration can be mixed into it..
+          field("value", seq(
+            kw("value"), choice(
+              $.number,
+              $.literal_string,
+              seq(...kws("is", "initial")),
+              $.identifier // constants
+            )
+          )),
+          kw("read-only"),
+        )
       ),
-
-      optional(
-        seq(
-          ...kws("initial", "size"),
-          field("initial_size", $.number)
-        )
-      )
     ),
 
-    _itab_like_spec: $ => seq(
-      // Optional: Standard, Hashed, etc.
-      optional(field("kind", $._table_category)),
-      ...kws("table", "of"),
-
-      field("reference_data", choice(
-        alias(seq(...kws("ref", "to"), $.identifier), $.ref_type),
-        $.identifier
-      )),
-
-      optional(
-        seq(
-          ...kws("initial", "size"),
-          field("initial_size", $.number)
-        )
-      )
+    copy_type: $ => seq(
+      kw("like"),
+      field("name", $.identifier),
+      optional(kw("read-only"))
     ),
 
-    //FIXME: Constants are also possible
-    _data_value: $ => seq(
-      kw("value"),
-      choice($.literal_string, $.number, seq(kw("is"), kw("initial")))
-    ),
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
@@ -402,6 +312,25 @@ function oneOrMoreDeclarations(keyword, rule) {
       rule,
     ),
     ".");
+}
+
+/**
+ * @param {boolean} likeReference Whether the table source is a like reference
+ */
+function tableType($, likeReference) {
+  return seq(
+    kw(likeReference ? "like" : "type"),
+    optional(field("kind", $._table_category)),
+    ...kws("table", "of"),
+
+    field("source", likeReference ? $.identifier : $.typename),
+
+    optional(
+      seq(
+        ...kws("initial", "size"),
+        field("initial_size", $.number)
+      )
+    ));
 }
 
 /**
