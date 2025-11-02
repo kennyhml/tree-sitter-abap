@@ -74,7 +74,7 @@
             "named": true
           },
           {
-            "type": "reference_type",
+            "type": "ref_data_type",
             "named": true
           },
           {
@@ -165,7 +165,7 @@
             "named": true
           },
           {
-            "type": "reference_type",
+            "type": "ref_data_type",
             "named": true
           },
           {
@@ -440,53 +440,55 @@
     }
   },
   {
-    "type": "reference_type",
+    "type": "ref_data_type",
     "named": true,
     "fields": {
-      "value": {
-        "multiple": true,
+      "dobj": {
+        "multiple": false,
         "required": false,
         "types": [
           {
             "type": "identifier",
             "named": true
-          },
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
           {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "literal_string",
+            "type": "typename",
             "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "value",
-            "named": false
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "typename",
-          "named": true
-        }
-      ]
+    }
+  },
+  {
+    "type": "ref_types_type",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -847,7 +849,7 @@
             "named": true
           },
           {
-            "type": "reference_type",
+            "type": "ref_types_type",
             "named": true
           },
           {

@@ -199,7 +199,7 @@ module.exports = grammar({
       $.simple_data_type,
       $.itab_data_type,
       $.derived_data_type,
-      $.reference_type,
+      $.ref_data_type,
       $.range_type,
     ),
 
@@ -210,7 +210,7 @@ module.exports = grammar({
       $.simple_types_type,
       $.itab_types_type,
       $.derived_types_type,
-      $.reference_type,
+      $.ref_types_type,
       $.range_type,
     ),
 
@@ -231,6 +231,10 @@ module.exports = grammar({
     /** Group the {@link derivedTypeClause} into nodes.  */
     derived_data_type: $ => derivedTypeClause($, { isData: true }),
     derived_types_type: $ => derivedTypeClause($, { isData: false }),
+
+    /** Group the {@link refTypeClause} into nodes.  */
+    ref_data_type: $ => refTypeClause($, { isData: true }),
+    ref_types_type: $ => refTypeClause($, { isData: false }),
 
     /**
      * Variable that references another dobj.
@@ -513,6 +517,8 @@ function simpleTypeClause($, { isData = false }) {
  * 
  * @param {boolean} derived Whether the table source is a `like` reference
  * @param {boolean} isData Whether the table clause applies to a `data` spec.
+ * 
+ * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
  */
 function itabTypeClause($, { derived = false, isData = false }) {
   let metaChoices = choice(
@@ -550,6 +556,8 @@ function itabTypeClause($, { derived = false, isData = false }) {
  * it is trivial to find the correct sequence here and same the rule can be used for both.
  * 
  * @param {boolean} isData Whether the clause applies to a `data` spec.
+ * 
+ * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
  */
 function derivedTypeClause($, { isData = false }) {
   return seq(
@@ -567,4 +575,40 @@ function derivedTypeClause($, { isData = false }) {
     ),
     typeMeta($, { isElementary: false, isData })
   )
+}
+
+/**
+ * Reference (NOT DERIVED) type to another type declared with `ref to`.
+ * 
+ * Because the type or dobj must appear directly after either `like` or `type`, 
+ * it is trivial to find the correct sequence here and same the rule can be used for both.
+ * 
+ * For the `value` addition, only `is initial` is valid in this context.
+ * 
+ * @param {boolean} isData Whether the clause applies to a `data` spec.
+ * 
+ * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
+ */
+function refTypeClause($, { isData = false }) {
+  let metaChoices = choice();
+  if (isData) {
+    metaChoices.members.push(seq(...kws("value", "is", "initial")));
+    metaChoices.members.push(seq(...kws("read-only")));
+  }
+
+  return seq(
+    choice(
+      seq(
+        kw("type"),
+        seq(...kws("ref", "to")),
+        field("type", $.typename)
+      ),
+      seq(
+        kw("like"),
+        seq(...kws("ref", "to")),
+        field("dobj", $.identifier)
+      ),
+    ),
+    repeat(metaChoices)
+  );
 }
