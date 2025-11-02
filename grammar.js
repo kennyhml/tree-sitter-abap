@@ -95,11 +95,6 @@ module.exports = grammar({
 
     _simple_data_spec: $ => seq(
       field("name", $.identifier),
-      optional(field("bufsize", seq(
-        token.immediate("("),
-        alias(token.immediate(/-?\d+/), $.number),
-        token.immediate(")"))
-      )),
       optional(field("type", $._type_clause)),
     ),
 
@@ -194,10 +189,10 @@ module.exports = grammar({
     ),
 
     _type_clause: $ => choice(
-      $.table_type,
       $.simple_type,
-      $.copy_type,
-      $.ref_type
+      $.derived_type,
+      $.table_type,
+      $.reference_type,
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html
@@ -208,23 +203,25 @@ module.exports = grammar({
       tableType($, false),
     ),
 
-    ref_type: $ => seq(
-      choice(
-        seq(...kws("type", "ref", "to"), $.typename),
-        seq(...kws("like", "ref", "to"), $.identifier),
-      )
-    ),
-
+    /**
+     * Type based on elementary {@link _abap_type}. Only here are `length` and `decimals` additions allowed.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
+     */
     simple_type: $ => seq(
+      optional(field("length", seq(
+        token.immediate("("),
+        alias(token.immediate(/-?\d+/), $.number),
+        token.immediate(")")
+      ))),
       kw("type"),
-      field("name", $.typename),
+      alias($._abap_type, $.typename),
       repeat(
         choice(
           field("length", $._data_length),
           field("decimals", $._data_decimals),
 
-          // FIXME This really shouldnt be part of a type reference, but unfortunately
-          // the values and read-only keyword from a data declaration can be mixed into it..
+          // FIXME value and read-only should not be possible in `types` context, only `data`...
           field("value", seq(
             kw("value"), choice(
               $.number,
@@ -238,10 +235,72 @@ module.exports = grammar({
       ),
     ),
 
-    copy_type: $ => seq(
-      kw("like"),
-      field("name", $.identifier),
-      optional(kw("read-only"))
+    /**
+     * Type derived using another type or type of a dobj
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
+     */
+    derived_type: $ => seq(
+      choice(
+        seq(
+          kw("type"),
+          optional(seq(...kws("line", "of"))),
+          $.typename
+        ),
+        seq(
+          kw("like"),
+          optional(seq(...kws("line", "of"))),
+          $.identifier
+        ),
+      ),
+      // FIXME value and read-only should not be possible in `types` context, only `data`...
+      repeat(
+        choice(
+          field("value", seq(
+            kw("value"), choice(
+              $.number,
+              $.literal_string,
+              seq(...kws("is", "initial")),
+              $.identifier // constants
+            )
+          )),
+          kw("read-only"),
+        )
+      ),
+    ),
+
+    /**
+     * Variable that references another dobj.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
+     */
+    reference_type: $ => seq(
+      choice(
+        seq(
+          kw("type"),
+          seq(...kws("ref", "to")),
+          $.typename
+        ),
+        seq(
+          kw("like"),
+          seq(...kws("ref", "to")),
+          $.identifier
+        ),
+      ),
+      // FIXME value and read-only should not be possible in `types` context, only `data`...
+      repeat(
+        choice(
+          field("value", seq(
+            kw("value"), choice(
+              $.number,
+              $.literal_string,
+              seq(...kws("is", "initial")),
+              $.identifier // constants
+            )
+          )),
+          kw("read-only"),
+        )
+      ),
     ),
 
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
@@ -274,6 +333,29 @@ module.exports = grammar({
     ),
 
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
+
+    /**
+     * Elementary types (abap_types)
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBUILTIN_ABAP_TYPE_GLOSRY.html
+     */
+    _abap_type: _ => choice(
+      /[bB]/,
+      /[cC]/,
+      /[dD]/,
+      /decfloat16/i,
+      /decfloat34/i,
+      /[fF]/,
+      /[iI]/,
+      /int8/i,
+      /[nN]/,
+      /[pP]/,
+      /[sS]/,
+      /string/i,
+      /[tT]/,
+      /utclong/i,
+      /[xX]/,
+      /xstring/i
+    )
   }
 
 });
