@@ -729,11 +729,6 @@
     }
   },
   {
-    "type": "typename",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "'",
     "named": false
   },
@@ -956,6 +951,10 @@
   {
     "type": "type",
     "named": false
+  },
+  {
+    "type": "typename",
+    "named": true
   },
   {
     "type": "types",

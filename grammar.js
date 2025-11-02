@@ -4,6 +4,9 @@
  * @license MIT
  */
 
+
+ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
+
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
 module.exports = grammar({
@@ -54,7 +57,6 @@ module.exports = grammar({
     $._simple_statement,
     $._compound_statement
   ],
-
 
   // This makes sure that tree-sitter initially also parses keywords as 
   // identifiers and THEN checks whether it is a keyword in its entirety.
@@ -209,14 +211,15 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
      */
-    simple_type: $ => seq(
+    simple_type: $ => prec(1, seq(
       optional(field("length", seq(
         token.immediate("("),
         alias(token.immediate(/-?\d+/), $.number),
         token.immediate(")")
       ))),
       kw("type"),
-      alias($._abap_type, $.typename),
+      // cant use a rule here, otherwise the derived type will match first.
+      alias(ABAP_TYPE, $.typename),
       repeat(
         choice(
           field("length", $._data_length),
@@ -234,7 +237,7 @@ module.exports = grammar({
           kw("read-only"),
         )
       ),
-    ),
+    )),
 
     /**
      * Type derived using another type or type of a dobj
@@ -382,27 +385,13 @@ module.exports = grammar({
      * Elementary types (abap_types)
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBUILTIN_ABAP_TYPE_GLOSRY.html
      */
-    _abap_type: _ => choice(
-      /[bB]/,
-      /[cC]/,
-      /[dD]/,
-      /decfloat16/i,
-      /decfloat34/i,
-      /[fF]/,
-      /[iI]/,
-      /int8/i,
-      /[nN]/,
-      /[pP]/,
-      /[sS]/,
-      /string/i,
-      /[tT]/,
-      /utclong/i,
-      /[xX]/,
-      /xstring/i
+    _abap_type: _ => token(
+      /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i
     )
   }
 
 });
+
 
 
 /**
@@ -512,26 +501,4 @@ function tableType($, likeReference) {
       )
     )
   );
-}
-
-/**
- * Wraps a rule to enforce that it is followed by one or more whitespaces.
- * 
- * @param {Rule} rule The rule to wrap, e.g $.identifier
- * 
- * @returns A new `seq` rule followed by a `repeat1` rule for whitspaces.
- */
-function rws(rule) {
-  return seq(rule, repeat1(/\s/));
-}
-
-/**
- * Wraps a rule to enforce that it is preceded by one or more whitespaces.
- * 
- * @param {Rule} rule The rule to wrap, e.g $.identifier
- * 
- * @returns A new `seq` rule preceded by a `repeat1` rule for whitspaces.
- */
-function lws(rule) {
-  return seq(repeat1(/\s/), rule);
 }
