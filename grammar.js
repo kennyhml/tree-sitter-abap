@@ -200,7 +200,7 @@ module.exports = grammar({
       $.itab_data_type,
       $.derived_data_type,
       $.ref_data_type,
-      $.range_type,
+      $.range_data_type,
     ),
 
     /**
@@ -211,7 +211,7 @@ module.exports = grammar({
       $.itab_types_type,
       $.derived_types_type,
       $.ref_types_type,
-      $.range_type,
+      $.range_types_type,
     ),
 
     /** Group the {@link simpleTypeClause} into nodes.  */
@@ -229,6 +229,10 @@ module.exports = grammar({
     /** Group the {@link refTypeClause} into nodes.  */
     ref_data_type: $ => refTypeClause($, { isData: true }),
     ref_types_type: $ => refTypeClause($, { isData: false }),
+
+    /** Group the {@link rangeTypeClause} into nodes.  */
+    range_data_type: $ => rangeTypeClause($, { isData: true }),
+    range_types_type: $ => rangeTypeClause($, { isData: false }),
 
     range_type: $ => seq(
       choice(
@@ -485,6 +489,7 @@ function itabTypeClause($, { isData = false }) {
       ...kws("initial", "size"),
       field("initial_size", $.number)
     ),
+    // obsolete
     seq(...kws("with", "header", "line")),
   );
 
@@ -580,29 +585,38 @@ function refTypeClause($, { isData = false }) {
   );
 }
 
-function rangeTabTypeClause($, { isData = false }) {
+/**
+ * Range Table declaration.
+ * 
+ * For data specifications, the `value` addition can only take on `is initial.
+ * 
+ * @param {boolean} isData Whether the clause applies to a `data` spec.
+ */
+function rangeTypeClause($, { isData = false }) {
+  let metaChoices = choice(
+    seq(...kws("initial", "size"), field("initial_size", $.number)),
+    // obsolete
+    seq(...kws("with", "header", "line")),
+  );
+
+  if (isData) {
+    metaChoices.members.push(seq(...kws("value", "is", "initial")));
+    metaChoices.members.push(seq(...kws("read-only")));
+  }
+
   return seq(
     choice(
       seq(
         kw("type"),
         seq(...kws("range", "of")),
-        $.typename
+        field("type", $.typename)
       ),
       seq(
         kw("like"),
         seq(...kws("range", "of")),
-        $.identifier
+        field("dobj", $.identifier)
       ),
     ),
-
-    // FIXME value and read-only should not be possible in `types` context, only `data`...
-    repeat(
-      choice(
-        seq(...kws("initial", "size"), field("initial_size", $.number)),
-        seq(...kws("with", "header", "line")),
-        seq(...kws("value", "is", "initial")),
-        seq(...kws("read-only")),
-      )
-    )
+    repeat(metaChoices)
   );
 }

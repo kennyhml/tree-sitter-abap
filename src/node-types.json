@@ -70,7 +70,7 @@
             "named": true
           },
           {
-            "type": "range_type",
+            "type": "range_data_type",
             "named": true
           },
           {
@@ -161,7 +161,7 @@
             "named": true
           },
           {
-            "type": "range_type",
+            "type": "range_data_type",
             "named": true
           },
           {
@@ -422,9 +422,19 @@
     "fields": {}
   },
   {
-    "type": "range_type",
+    "type": "range_data_type",
     "named": true,
     "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "initial_size": {
         "multiple": true,
         "required": false,
@@ -434,21 +444,53 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "typename",
-          "named": true
-        }
-      ]
+    }
+  },
+  {
+    "type": "range_types_type",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "initial_size": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -857,7 +899,7 @@
             "named": true
           },
           {
-            "type": "range_type",
+            "type": "range_types_type",
             "named": true
           },
           {
