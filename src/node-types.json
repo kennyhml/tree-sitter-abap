@@ -276,6 +276,16 @@
     "type": "itab_data_type",
     "named": true,
     "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "initial_size": {
         "multiple": true,
         "required": false,
@@ -312,14 +322,10 @@
           }
         ]
       },
-      "source": {
+      "type": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
           {
             "type": "typename",
             "named": true
@@ -342,6 +348,16 @@
     "type": "itab_types_type",
     "named": true,
     "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "initial_size": {
         "multiple": true,
         "required": false,
@@ -378,14 +394,10 @@
           }
         ]
       },
-      "source": {
+      "type": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
           {
             "type": "typename",
             "named": true

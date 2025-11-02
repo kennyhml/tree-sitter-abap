@@ -219,14 +219,8 @@ module.exports = grammar({
     simple_types_type: $ => simpleTypeClause($, { isData: false }),
 
     /** Group the {@link itabTypeClause} into nodes.  */
-    itab_data_type: $ => choice(
-      itabTypeClause($, { derived: true, isData: true }),
-      itabTypeClause($, { derived: false, isData: true }),
-    ),
-    itab_types_type: $ => choice(
-      itabTypeClause($, { derived: true, isData: false }),
-      itabTypeClause($, { derived: false, isData: false }),
-    ),
+    itab_data_type: $ => itabTypeClause($, { isData: true }),
+    itab_types_type: $ => itabTypeClause($, { isData: false }),
 
     /** Group the {@link derivedTypeClause} into nodes.  */
     derived_data_type: $ => derivedTypeClause($, { isData: true }),
@@ -235,40 +229,6 @@ module.exports = grammar({
     /** Group the {@link refTypeClause} into nodes.  */
     ref_data_type: $ => refTypeClause($, { isData: true }),
     ref_types_type: $ => refTypeClause($, { isData: false }),
-
-    /**
-     * Variable that references another dobj.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
-     */
-    reference_type: $ => seq(
-      choice(
-        seq(
-          kw("type"),
-          seq(...kws("ref", "to")),
-          $.typename
-        ),
-        seq(
-          kw("like"),
-          seq(...kws("ref", "to")),
-          $.identifier
-        ),
-      ),
-      // FIXME value and read-only should not be possible in `types` context, only `data`...
-      repeat(
-        choice(
-          field("value", seq(
-            kw("value"), choice(
-              $.number,
-              $.literal_string,
-              seq(...kws("is", "initial")),
-              $.identifier // constants
-            )
-          )),
-          kw("read-only"),
-        )
-      ),
-    ),
 
     range_type: $ => seq(
       choice(
@@ -515,12 +475,11 @@ function simpleTypeClause($, { isData = false }) {
  * The additions `read-only` and `value is initial` are onl allowed on
  * data specifications.
  * 
- * @param {boolean} derived Whether the table source is a `like` reference
  * @param {boolean} isData Whether the table clause applies to a `data` spec.
  * 
  * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
  */
-function itabTypeClause($, { derived = false, isData = false }) {
+function itabTypeClause($, { isData = false }) {
   let metaChoices = choice(
     seq(
       ...kws("initial", "size"),
@@ -535,12 +494,20 @@ function itabTypeClause($, { derived = false, isData = false }) {
   }
 
   return seq(
-    kw(derived ? "like" : "type"),
-    optional(field("kind", $._table_category)),
-    ...kws("table", "of"),
-
-    field("source", derived ? $.identifier : $.typename),
-
+    choice(
+      seq(
+        kw("like"),
+        optional(field("kind", $._table_category)),
+        ...kws("table", "of"),
+        field("dobj", $.identifier),
+      ),
+      seq(
+        kw("type"),
+        optional(field("kind", $._table_category)),
+        ...kws("table", "of"),
+        field("type", $.typename),
+      ),
+    ),
     repeat($.table_key_spec),
     repeat(metaChoices)
   );
@@ -610,5 +577,32 @@ function refTypeClause($, { isData = false }) {
       ),
     ),
     repeat(metaChoices)
+  );
+}
+
+function rangeTabTypeClause($, { isData = false }) {
+  return seq(
+    choice(
+      seq(
+        kw("type"),
+        seq(...kws("range", "of")),
+        $.typename
+      ),
+      seq(
+        kw("like"),
+        seq(...kws("range", "of")),
+        $.identifier
+      ),
+    ),
+
+    // FIXME value and read-only should not be possible in `types` context, only `data`...
+    repeat(
+      choice(
+        seq(...kws("initial", "size"), field("initial_size", $.number)),
+        seq(...kws("with", "header", "line")),
+        seq(...kws("value", "is", "initial")),
+        seq(...kws("read-only")),
+      )
+    )
   );
 }
