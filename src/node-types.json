@@ -91,6 +91,10 @@
         {
           "type": "component_spec",
           "named": true
+        },
+        {
+          "type": "struct_include",
+          "named": true
         }
       ]
     }
@@ -177,6 +181,10 @@
       "types": [
         {
           "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "struct_include",
           "named": true
         }
       ]
@@ -486,6 +494,54 @@
     }
   },
   {
+    "type": "struct_include",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "structure",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          },
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
+      },
+      "suffix": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "table_key_spec",
     "named": true,
     "fields": {
@@ -664,6 +720,10 @@
         {
           "type": "component_spec",
           "named": true
+        },
+        {
+          "type": "struct_include",
+          "named": true
         }
       ]
     }
@@ -707,6 +767,10 @@
   },
   {
     "type": "any",
+    "named": false
+  },
+  {
+    "type": "as",
     "named": false
   },
   {
@@ -764,6 +828,10 @@
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "include",
+    "named": false
   },
   {
     "type": "index",
@@ -842,6 +910,10 @@
     "named": false
   },
   {
+    "type": "renaming",
+    "named": false
+  },
+  {
     "type": "report",
     "named": false
   },
@@ -855,6 +927,14 @@
   },
   {
     "type": "standard",
+    "named": false
+  },
+  {
+    "type": "structure",
+    "named": false
+  },
+  {
+    "type": "suffix",
     "named": false
   },
   {

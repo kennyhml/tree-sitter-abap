@@ -329,6 +329,23 @@ module.exports = grammar({
       )
     ),
 
+    struct_include: $ => seq(
+      kw("include"),
+      field("name", choice(
+        seq(kw("type"), $.typename),
+        seq(kw("structure"), $.identifier),
+      )),
+      optional(
+        seq(kw("as"), field("alias", $.identifier)),
+      ),
+      optional(
+        seq(
+          ...kws("renaming", "with", "suffix"),
+          field("suffix", $.identifier)
+        )
+      ),
+    ),
+
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
@@ -357,6 +374,7 @@ module.exports = grammar({
       $._inline_comment,
       seq($._begin_line_comment, /[^\n\r]*/),
     ),
+
 
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
 
@@ -445,7 +463,12 @@ function structureSpec(separator, identifierType, keyword, fieldRule, $) {
     separator,
     // if a keyword is needed, it is an expanded (old style) declaration and must be part
     // of each line, but wont be part of the rule.
-    repeat(componentSequence),
+    repeat(
+      choice(
+        componentSequence,
+        seq($.struct_include, separator)
+      )
+    ),
     ...(keyword ? kws(keyword, "end", "of") : kws("end", "of")),
     field("nameClose", identifierType)
   );
