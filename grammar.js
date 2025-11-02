@@ -4,7 +4,6 @@
  * @license MIT
  */
 
-
 ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
 
 /// <reference types="tree-sitter-cli/dsl" />
@@ -97,7 +96,7 @@ module.exports = grammar({
 
     _simple_data_spec: $ => seq(
       field("name", $.identifier),
-      optional(field("type", $._type_clause)),
+      optional(field("type", $._data_type_clause)),
     ),
 
     /**
@@ -108,7 +107,7 @@ module.exports = grammar({
     _simple_type_spec: $ => seq(
       field("name", $.typename),
       // just like data, literally just `types foo.` is valid and sets it to C1.
-      optional(field("type", $._type_clause)),
+      optional(field("type", $._types_type_clause)),
     ),
 
     _complex_data_spec: $ => choice(
@@ -181,7 +180,7 @@ module.exports = grammar({
             repeat1(alias($.identifier, $.table_component)),
             // .. or an explicit key definition
             seq(
-              alias($.identifier, $.table_key),
+              field("name", alias($.identifier, $.table_key)),
               optional(seq(kw("alias"), field("alias", $.identifier))),
               kw("components"),
               repeat1(alias($.identifier, $.table_component)),
@@ -190,88 +189,48 @@ module.exports = grammar({
       ),
     ),
 
-    _type_clause: $ => choice(
-      $.simple_type,
-      $.derived_type,
+    /**
+     * Possible options for the type of a `data` declaration.
+     * 
+     * Unfortunately cannot reuse the type clauses from `types` declarations
+     * since `value` and `read-only` can be mixed into the specifications for data.
+     */
+    _data_type_clause: $ => choice(
+      $.simple_data_type,
+      $.itab_data_type,
+      $.derived_data_type,
       $.reference_type,
-      $.table_type,
       $.range_type,
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html
-    // The source field (TYPE OF src) can either be an identifier (when LIKE) or a type (when TYPE)
-    // and since TS is context free, I guess the easiest way to handle this is duplicating..
-    table_type: $ => choice(
-      tableType($, true),
-      tableType($, false),
+    /**
+     * Possible options for the type of a `types` declaration.
+     */
+    _types_type_clause: $ => choice(
+      $.simple_types_type,
+      $.itab_types_type,
+      $.derived_types_type,
+      $.reference_type,
+      $.range_type,
     ),
 
-    /**
-     * Type based on elementary {@link _abap_type}. Only here are `length` and `decimals` additions allowed.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
-     */
-    simple_type: $ => prec(1, seq(
-      optional(field("length", seq(
-        token.immediate("("),
-        alias(token.immediate(/-?\d+/), $.number),
-        token.immediate(")")
-      ))),
-      kw("type"),
-      // cant use a rule here, otherwise the derived type will match first.
-      alias(ABAP_TYPE, $.typename),
-      repeat(
-        choice(
-          field("length", $._data_length),
-          field("decimals", $._data_decimals),
+    /** Group the {@link simpleTypeClause} into nodes.  */
+    simple_data_type: $ => simpleTypeClause($, { isData: true }),
+    simple_types_type: $ => simpleTypeClause($, { isData: false }),
 
-          // FIXME value and read-only should not be possible in `types` context, only `data`...
-          field("value", seq(
-            kw("value"), choice(
-              $.number,
-              $.literal_string,
-              seq(...kws("is", "initial")),
-              $.identifier // constants
-            )
-          )),
-          kw("read-only"),
-        )
-      ),
-    )),
-
-    /**
-     * Type derived using another type or type of a dobj
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
-     */
-    derived_type: $ => seq(
-      choice(
-        seq(
-          kw("type"),
-          optional(seq(...kws("line", "of"))),
-          $.typename
-        ),
-        seq(
-          kw("like"),
-          optional(seq(...kws("line", "of"))),
-          $.identifier
-        ),
-      ),
-      // FIXME value and read-only should not be possible in `types` context, only `data`...
-      repeat(
-        choice(
-          field("value", seq(
-            kw("value"), choice(
-              $.number,
-              $.literal_string,
-              seq(...kws("is", "initial")),
-              $.identifier // constants
-            )
-          )),
-          kw("read-only"),
-        )
-      ),
+    /** Group the {@link itabTypeClause} into nodes.  */
+    itab_data_type: $ => choice(
+      itabTypeClause($, { derived: true, isData: true }),
+      itabTypeClause($, { derived: false, isData: true }),
     ),
+    itab_types_type: $ => choice(
+      itabTypeClause($, { derived: true, isData: false }),
+      itabTypeClause($, { derived: false, isData: false }),
+    ),
+
+    /** Group the {@link derivedTypeClause} into nodes.  */
+    derived_data_type: $ => derivedTypeClause($, { isData: true }),
+    derived_types_type: $ => derivedTypeClause($, { isData: false }),
 
     /**
      * Variable that references another dobj.
@@ -476,29 +435,136 @@ function oneOrMoreDeclarations(keyword, rule) {
     ".");
 }
 
+
 /**
- * @param {boolean} likeReference Whether the table source is a like reference
+ * @param {boolean} isElementary whether the type is an elementary data type.
+ * @param {boolean} isData whether its a data definition, so value and read-only are allowed.
+ * 
+ * @returns {Rule} A rule to match the type meta.
  */
-function tableType($, likeReference) {
+function typeMeta($, { isElementary = false, isData = true, require = false } = {}) {
+  let choices = choice();
+  if (isElementary) {
+    choices.members.push(field("length", $._data_length));
+    choices.members.push(field("decimals", $._data_decimals));
+  }
+  if (isData) {
+    choices.members.push(
+      field("value", seq(
+        kw("value"), choice(
+          $.number,
+          $.literal_string,
+          seq(...kws("is", "initial")),
+          $.identifier
+        )
+      ))
+    );
+    choices.members.push(kw("read-only"));
+  }
+  if (require) {
+    return repeat1(choices)
+  }
+  return repeat(choices);
+}
+/**
+ * Type based on elementary types. Only here are `length` and `decimals` additions allowed.
+ * 
+ * This clause is largely the same for data and types declarations with the only difference
+ * being that, when applied to a `data` declaration, its allowed to specify `value` and `read-only`.
+ * 
+ * Since they can literally be mixed into the relevant `type` specifications, theres no other way
+ * than to duplicate the logic to handle both individually.
+ * 
+ * While part of this statement is optional, tree sitter doesnt allow empty rules,
+ * so we kind of have to list possible combinations (in order).
+ * 
+ * @param {boolean} isData Whether the type clause applies to a `data` or `types` spec.
+ * 
+ * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
+ */
+function simpleTypeClause($, { isData = false }) {
+  const elementaryType = seq(
+    kw("type"),
+    field("name", alias(ABAP_TYPE, $.typename))
+  );
+
+  const bufferSize = seq(
+    token.immediate("("),
+    field("length", alias(token.immediate(/-?\d+/), $.number)),
+    token.immediate(")")
+  );
+
+  return choice(
+    // Optional Buff size + type + optional type meta
+    seq(optional(bufferSize), elementaryType, typeMeta($, { isElementary: true, isData })),
+    // Optional buff size + required type meta
+    seq(optional(bufferSize), typeMeta($, { isElementary: true, isData, require: true })),
+    // Only buf size
+    bufferSize
+  );
+}
+
+/**
+ * Internal Table type declaration.
+ * 
+ * When derived, the source type is an identifier, otherwise a typename.
+ * The additions `read-only` and `value is initial` are onl allowed on
+ * data specifications.
+ * 
+ * @param {boolean} derived Whether the table source is a `like` reference
+ * @param {boolean} isData Whether the table clause applies to a `data` spec.
+ */
+function itabTypeClause($, { derived = false, isData = false }) {
+  let metaChoices = choice(
+    seq(
+      ...kws("initial", "size"),
+      field("initial_size", $.number)
+    ),
+    seq(...kws("with", "header", "line")),
+  );
+
+  if (isData) {
+    metaChoices.members.push(seq(...kws("value", "is", "initial")));
+    metaChoices.members.push(seq(...kws("read-only")));
+  }
+
   return seq(
-    kw(likeReference ? "like" : "type"),
+    kw(derived ? "like" : "type"),
     optional(field("kind", $._table_category)),
     ...kws("table", "of"),
 
-    field("source", likeReference ? $.identifier : $.typename),
+    field("source", derived ? $.identifier : $.typename),
 
     repeat($.table_key_spec),
-
-    repeat(
-      choice(
-        seq(
-          ...kws("initial", "size"),
-          field("initial_size", $.number)
-        ),
-        seq(...kws("with", "header", "line")),
-        seq(...kws("value", "is", "initial")),
-        seq(...kws("read-only")),
-      )
-    )
+    repeat(metaChoices)
   );
+}
+
+/**
+ * Type that is derived from another type (declared elsewhere or in the DDIC) or
+ * taken over from a data object.
+ * 
+ * The additions `length` and `decimals` are forbidden in this context.
+ * 
+ * Because the type or dobj must appear directly after either `like` or `type`, 
+ * it is trivial to find the correct sequence here and same the rule can be used for both.
+ * 
+ * @param {boolean} isData Whether the clause applies to a `data` spec.
+ */
+function derivedTypeClause($, { isData = false }) {
+  return seq(
+    choice(
+      seq(
+        kw("type"),
+        optional(seq(...kws("line", "of"))),
+        field("type", $.typename)
+      ),
+      seq(
+        kw("like"),
+        optional(seq(...kws("line", "of"))),
+        field("dobj", $.identifier)
+      ),
+    ),
+    typeMeta($, { isElementary: false, isData })
+  )
 }
