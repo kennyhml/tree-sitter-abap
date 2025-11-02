@@ -191,8 +191,9 @@ module.exports = grammar({
     _type_clause: $ => choice(
       $.simple_type,
       $.derived_type,
-      $.table_type,
       $.reference_type,
+      $.table_type,
+      $.range_type,
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html
@@ -301,6 +302,31 @@ module.exports = grammar({
           kw("read-only"),
         )
       ),
+    ),
+
+    range_type: $ => seq(
+      choice(
+        seq(
+          kw("type"),
+          seq(...kws("range", "of")),
+          $.typename
+        ),
+        seq(
+          kw("like"),
+          seq(...kws("range", "of")),
+          $.identifier
+        ),
+      ),
+
+      // FIXME value and read-only should not be possible in `types` context, only `data`...
+      repeat(
+        choice(
+          seq(...kws("initial", "size"), field("initial_size", $.number)),
+          seq(...kws("with", "header", "line")),
+          seq(...kws("value", "is", "initial")),
+          seq(...kws("read-only")),
+        )
+      )
     ),
 
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
@@ -451,12 +477,18 @@ function tableType($, likeReference) {
 
     repeat($.table_key_spec),
 
-    optional(
-      seq(
-        ...kws("initial", "size"),
-        field("initial_size", $.number)
+    repeat(
+      choice(
+        seq(
+          ...kws("initial", "size"),
+          field("initial_size", $.number)
+        ),
+        seq(...kws("with", "header", "line")),
+        seq(...kws("value", "is", "initial")),
+        seq(...kws("read-only")),
       )
-    ));
+    )
+  );
 }
 
 /**

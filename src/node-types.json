@@ -66,6 +66,10 @@
             "named": true
           },
           {
+            "type": "range_type",
+            "named": true
+          },
+          {
             "type": "reference_type",
             "named": true
           },
@@ -149,6 +153,10 @@
             "named": true
           },
           {
+            "type": "range_type",
+            "named": true
+          },
+          {
             "type": "reference_type",
             "named": true
           },
@@ -228,6 +236,36 @@
     "type": "literal_string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "range_type",
+    "named": true,
+    "fields": {
+      "initial_size": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "typename",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "reference_type",
@@ -482,7 +520,7 @@
     "named": true,
     "fields": {
       "initial_size": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -601,6 +639,10 @@
             "named": true
           },
           {
+            "type": "range_type",
+            "named": true
+          },
+          {
             "type": "reference_type",
             "named": true
           },
@@ -712,6 +754,10 @@
     "named": false
   },
   {
+    "type": "header",
+    "named": false
+  },
+  {
     "type": "heading",
     "named": false
   },
@@ -777,6 +823,10 @@
   },
   {
     "type": "page",
+    "named": false
+  },
+  {
+    "type": "range",
     "named": false
   },
   {
