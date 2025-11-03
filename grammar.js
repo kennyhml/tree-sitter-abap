@@ -5,6 +5,11 @@
  */
 
 ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
+BUFF_SIZE = $ => seq(
+  token.immediate("("),
+  field("length", alias(token.immediate(/-?\d+/), $.number)),
+  token.immediate(")")
+);
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
@@ -85,7 +90,6 @@ module.exports = grammar({
 
     type_declaration: $ => oneOrMoreDeclarations("types", $.type_spec),
 
-    // FIXME: For constants, the `value` part of the declaration is not optional.
     const_declaration: $ => oneOrMoreDeclarations("constants", alias($.data_spec, $.const_spec)),
 
     data_spec: $ => choice(
@@ -100,24 +104,159 @@ module.exports = grammar({
 
     _simple_data_spec: $ => seq(
       field("name", $.identifier),
-      optional(field("type", choice(
-        $.simple_data_type,
-        $.itab_data_type,
-        // $.derived_data_type,
-        $.ref_data_type,
-        $.range_data_type,
-      ))),
+      optional(field("type", $._type_clause))
     ),
 
     _simple_type_spec: $ => seq(
       field("name", $.typename),
-      optional(field("type", choice(
-        $.simple_types_type,
-        $.itab_types_type,
-        $.derived_types_type,
-        $.ref_types_type,
-        $.range_types_type,
-      ))),
+      optional(field("type", $._type_clause))
+    ),
+
+    _type_clause: $ => choice(
+      $.simple_type,
+      $.derived_type,
+      $.ref_type,
+      $.table_type,
+      $.range_type,
+    ),
+
+    /**
+     * Type based on elementary types. Only here are `length` and `decimals` additions allowed.
+     * 
+     * While part of this statement is optional, tree sitter doesnt allow empty rules,
+     * so we kind of have to list possible combinations (in order).
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
+     */
+    simple_type: $ => choice(
+      // Optional Buff size + type + optional type meta
+      seq(optional(BUFF_SIZE($)), seq(kw("type"), ABAP_TYPE), typeMeta($, { isElementary: true })),
+      // Optional buff size + required type meta
+      seq(optional(BUFF_SIZE($)), typeMeta($, { isElementary: true, require: true })),
+      // Only buf size
+      BUFF_SIZE($)
+    ),
+
+    /**
+     * Internal Table type declaration.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
+     */
+    table_type: $ => seq(
+      choice(
+        seq(
+          kw("like"),
+          optional(field("kind", $._table_category)),
+          ...kws("table", "of"),
+          field("dobj", $.identifier),
+        ),
+        seq(
+          kw("type"),
+          optional(field("kind", $._table_category)),
+          ...kws("table", "of"),
+          field("type", $.typename),
+        ),
+      ),
+      repeat($.table_key_spec),
+      repeat(choice(
+        seq(
+          ...kws("initial", "size"),
+          field("initial_size", $.number)
+        ),
+        // Not technically valid for types declarations but intentionally tolerated.
+        seq(...kws("value", "is", "initial")),
+        seq(...kws("read-only")),
+        // obsolete
+        seq(...kws("with", "header", "line")),
+      ))
+    ),
+
+    /**
+     * Range Table declaration.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
+     */
+    range_type: $ => seq(
+      choice(
+        seq(
+          kw("type"),
+          seq(...kws("range", "of")),
+          field("type", $.typename)
+        ),
+        seq(
+          kw("like"),
+          seq(...kws("range", "of")),
+          field("dobj", $.identifier)
+        ),
+      ),
+      repeat(choice(
+        seq(...kws("initial", "size"), field("initial_size", $.number)),
+        // Not technically valid for types declarations but intentionally tolerated.
+        seq(...kws("value", "is", "initial")),
+        seq(...kws("read-only")),
+        // obsolete
+        seq(...kws("with", "header", "line")),
+      )
+      )
+    ),
+
+    /**
+     * Reference (NOT DERIVED) type to another type declared with `ref to`.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
+     */
+    ref_type: $ => seq(
+      choice(
+        seq(
+          kw("type"),
+          seq(...kws("ref", "to")),
+          field("type", $.typename)
+        ),
+        seq(
+          kw("like"),
+          seq(...kws("ref", "to")),
+          field("dobj", $.identifier)
+        ),
+      ),
+      // Not technically valid for types declarations but intentionally tolerated.
+      repeat(choice(
+        seq(...kws("value", "is", "initial")),
+        seq(...kws("read-only"))
+      ))
+    ),
+
+    /**
+     * Type that is derived from another type (declared elsewhere or in the DDIC) or
+     * taken over from a data object.
+     * 
+     * The additions `length` and `decimals` are forbidden in this context.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
+     */
+    derived_type: $ => seq(
+      choice(
+        seq(
+          kw("type"),
+          optional(seq(...kws("line", "of"))),
+          field("type", $.typename)
+        ),
+        seq(
+          kw("like"),
+          optional(seq(...kws("line", "of"))),
+          field("dobj", $.identifier)
+        ),
+      ),
+      repeat(choice(
+        field("value", seq(
+          kw("value"), choice(
+            $.number,
+            $.literal_string,
+            seq(...kws("is", "initial")),
+            $.identifier
+          )
+        )),
+        kw("read-only"))
+      )
     ),
 
     _complex_data_spec: $ => choice(
@@ -253,23 +392,8 @@ module.exports = grammar({
 
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
 
-    /**
-     * Elementary types (abap_types)
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBUILTIN_ABAP_TYPE_GLOSRY.html
-     */
-    _abap_type: _ => token(
-      /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i
-    ),
 
-    ...defineTypePairs({
-      simple: simpleTypeClause,
-      itab: itabTypeClause,
-      derived: derivedTypeClause,
-      ref: refTypeClause,
-      range: rangeTypeClause,
-    }),
   }
-
 });
 
 
@@ -362,231 +486,28 @@ function oneOrMoreDeclarations(keyword, rule) {
  * 
  * @returns {Rule} A rule to match the type meta.
  */
-function typeMeta($, { isElementary = false, isData = true, require = false } = {}) {
+function typeMeta($, { isElementary = false, require = false } = {}) {
   let choices = choice();
   if (isElementary) {
     choices.members.push(field("length", $._data_length));
     choices.members.push(field("decimals", $._data_decimals));
   }
-  if (isData) {
-    choices.members.push(
-      field("value", seq(
-        kw("value"), choice(
-          $.number,
-          $.literal_string,
-          seq(...kws("is", "initial")),
-          $.identifier
-        )
-      ))
-    );
-    choices.members.push(kw("read-only"));
-  }
+  choices.members.push(
+    field("value", seq(
+      kw("value"), choice(
+        $.number,
+        $.literal_string,
+        seq(...kws("is", "initial")),
+        $.identifier
+      )
+    ))
+  );
+  choices.members.push(kw("read-only"));
   if (require) {
     return repeat1(choices)
   }
   return repeat(choices);
 }
-/**
- * Type based on elementary types. Only here are `length` and `decimals` additions allowed.
- * 
- * This clause is largely the same for data and types declarations with the only difference
- * being that, when applied to a `data` declaration, its allowed to specify `value` and `read-only`.
- * 
- * Since they can literally be mixed into the relevant `type` specifications, theres no other way
- * than to duplicate the logic to handle both individually.
- * 
- * While part of this statement is optional, tree sitter doesnt allow empty rules,
- * so we kind of have to list possible combinations (in order).
- * 
- * @param {boolean} isData Whether the type clause applies to a `data` or `types` spec.
- * 
- * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
- */
-function simpleTypeClause($, { isData = false }) {
-  const elementaryType = seq(
-    kw("type"),
-    field("name", alias(ABAP_TYPE, $.typename))
-  );
 
-  const bufferSize = seq(
-    token.immediate("("),
-    field("length", alias(token.immediate(/-?\d+/), $.number)),
-    token.immediate(")")
-  );
 
-  return choice(
-    // Optional Buff size + type + optional type meta
-    seq(optional(bufferSize), elementaryType, typeMeta($, { isElementary: true, isData })),
-    // Optional buff size + required type meta
-    seq(optional(bufferSize), typeMeta($, { isElementary: true, isData, require: true })),
-    // Only buf size
-    bufferSize
-  );
-}
 
-/**
- * Internal Table type declaration.
- * 
- * When derived, the source type is an identifier, otherwise a typename.
- * The additions `read-only` and `value is initial` are onl allowed on
- * data specifications.
- * 
- * @param {boolean} isData Whether the table clause applies to a `data` spec.
- * 
- * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
- */
-function itabTypeClause($, { isData = false }) {
-  let metaChoices = choice(
-    seq(
-      ...kws("initial", "size"),
-      field("initial_size", $.number)
-    ),
-    // obsolete
-    seq(...kws("with", "header", "line")),
-  );
-
-  if (isData) {
-    metaChoices.members.push(seq(...kws("value", "is", "initial")));
-    metaChoices.members.push(seq(...kws("read-only")));
-  }
-
-  return seq(
-    choice(
-      seq(
-        kw("like"),
-        optional(field("kind", $._table_category)),
-        ...kws("table", "of"),
-        field("dobj", $.identifier),
-      ),
-      seq(
-        kw("type"),
-        optional(field("kind", $._table_category)),
-        ...kws("table", "of"),
-        field("type", $.typename),
-      ),
-    ),
-    repeat($.table_key_spec),
-    repeat(metaChoices)
-  );
-}
-
-/**
- * Type that is derived from another type (declared elsewhere or in the DDIC) or
- * taken over from a data object.
- * 
- * The additions `length` and `decimals` are forbidden in this context.
- * 
- * Because the type or dobj must appear directly after either `like` or `type`, 
- * it is trivial to find the correct sequence here and same the rule can be used for both.
- * 
- * @param {boolean} isData Whether the clause applies to a `data` spec.
- * 
- * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
- */
-function derivedTypeClause($, { isData = false }) {
-  return seq(
-    choice(
-      seq(
-        kw("type"),
-        optional(seq(...kws("line", "of"))),
-        field("type", $.typename)
-      ),
-      seq(
-        kw("like"),
-        optional(seq(...kws("line", "of"))),
-        field("dobj", $.identifier)
-      ),
-    ),
-    typeMeta($, { isElementary: false, isData })
-  )
-}
-
-/**
- * Reference (NOT DERIVED) type to another type declared with `ref to`.
- * 
- * Because the type or dobj must appear directly after either `like` or `type`, 
- * it is trivial to find the correct sequence here and same the rule can be used for both.
- * 
- * For the `value` addition, only `is initial` is valid in this context.
- * 
- * @param {boolean} isData Whether the clause applies to a `data` spec.
- * 
- * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
- */
-function refTypeClause($, { isData = false }) {
-  let metaChoices = choice();
-  if (isData) {
-    metaChoices.members.push(seq(...kws("value", "is", "initial")));
-    metaChoices.members.push(seq(...kws("read-only")));
-  }
-
-  return seq(
-    choice(
-      seq(
-        kw("type"),
-        seq(...kws("ref", "to")),
-        field("type", $.typename)
-      ),
-      seq(
-        kw("like"),
-        seq(...kws("ref", "to")),
-        field("dobj", $.identifier)
-      ),
-    ),
-    repeat(metaChoices)
-  );
-}
-
-/**
- * Range Table declaration.
- * 
- * For data specifications, the `value` addition can only take on `is initial.
- * 
- * @param {boolean} isData Whether the clause applies to a `data` spec.
- */
-function rangeTypeClause($, { isData = false }) {
-  let metaChoices = choice(
-    seq(...kws("initial", "size"), field("initial_size", $.number)),
-    // obsolete
-    seq(...kws("with", "header", "line")),
-  );
-
-  if (isData) {
-    metaChoices.members.push(seq(...kws("value", "is", "initial")));
-    metaChoices.members.push(seq(...kws("read-only")));
-  }
-
-  return seq(
-    choice(
-      seq(
-        kw("type"),
-        seq(...kws("range", "of")),
-        field("type", $.typename)
-      ),
-      seq(
-        kw("like"),
-        seq(...kws("range", "of")),
-        field("dobj", $.identifier)
-      ),
-    ),
-    repeat(metaChoices)
-  );
-}
-
-function defineTypePairs(clauses) {
-  const rules = {};
-
-  for (const [name, clauseFn] of Object.entries(clauses)) {
-    const dataRule = `${name}_data_type`;
-    const typesRule = `${name}_types_type`;
-
-    rules[dataRule] = $ => clauseFn($, { isData: true });
-    rules[typesRule] = $ => clauseFn($, { isData: false });
-
-    console.log("Added ", dataRule);
-
-  }
-  console.log(rules);
-
-  return rules;
-}
