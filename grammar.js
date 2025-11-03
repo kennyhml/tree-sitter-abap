@@ -98,7 +98,7 @@ module.exports = grammar({
     ),
 
     type_spec: $ => choice(
-      $._simple_type_spec,
+      $._elementary_type_spec,
       $._complex_type_spec,
     ),
 
@@ -107,13 +107,13 @@ module.exports = grammar({
       optional(field("type", $._type_clause))
     ),
 
-    _simple_type_spec: $ => seq(
+    _elementary_type_spec: $ => seq(
       field("name", $.typename),
       optional(field("type", $._type_clause))
     ),
 
     _type_clause: $ => choice(
-      $.simple_type,
+      $.elementary_type,
       $.derived_type,
       $.ref_type,
       $.table_type,
@@ -128,7 +128,7 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
      */
-    simple_type: $ => choice(
+    elementary_type: $ => choice(
       // Optional Buff size + type + optional type meta
       seq(optional(BUFF_SIZE($)), seq(kw("type"), ABAP_TYPE), typeMeta($, { isElementary: true })),
       // Optional buff size + required type meta
