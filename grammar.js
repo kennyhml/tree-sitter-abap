@@ -86,30 +86,65 @@ module.exports = grammar({
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
-    data_declaration: $ => oneOrMoreDeclarations("data", $.data_spec),
+    data_declaration: $ => decl("data", $._data_multi_spec, $._data_single_spec, $.data_spec),
+    type_declaration: $ => decl("types", $._type_multi_spec, $._type_single_spec, $.type_spec),
+    const_declaration: $ => decl("constants", $._const_multi_spec, $._const_single_spec, $.const_spec),
 
-    type_declaration: $ => oneOrMoreDeclarations("types", $.type_spec),
-
-    const_declaration: $ => oneOrMoreDeclarations("constants", alias($.data_spec, $.const_spec)),
-
-    data_spec: $ => choice(
-      $._simple_data_spec,
-      $._complex_data_spec,
+    _data_multi_spec: $ => choice(
+      seq(
+        field("name", $.identifier),
+        optional(field("type", $._type_clause))
+      ),
+      structureSpec(",", $.identifier, undefined, $._data_multi_spec, $),
+      structureSpec(".", $.identifier, "data", $._data_single_spec, $)
     ),
 
-    type_spec: $ => choice(
-      $._elementary_type_spec,
-      $._complex_type_spec,
+    _data_single_spec: $ => choice(
+      seq(
+        field("name", $.identifier),
+        optional(field("type", $._type_clause))
+      ),
+      structureSpec(".", $.identifier, "data", $._data_single_spec, $)
     ),
 
-    _simple_data_spec: $ => seq(
-      field("name", $.identifier),
-      optional(field("type", $._type_clause))
+    // FIXME: Using data single spec will lead to expecting DATA on old style
+    _type_multi_spec: $ => choice(
+      seq(
+        field("name", $.typename),
+        optional(field("type", $._type_clause))
+      ),
+      structureSpec(",", $.typename, undefined, $._data_multi_spec, $),
+      structureSpec(".", $.typename, "types", $._data_single_spec, $)
     ),
 
-    _elementary_type_spec: $ => seq(
-      field("name", $.typename),
-      optional(field("type", $._type_clause))
+    // FIXME: Using data single spec will lead to expecting DATA on old style, but using a type single
+    // spec will make the node a typename :/
+    _type_single_spec: $ => choice(
+      seq(
+        field("name", $.typename),
+        optional(field("type", $._type_clause))
+      ),
+      structureSpec(".", $.typename, "data", $._data_single_spec, $)
+    ),
+
+    // FIXME: Using data single spec will lead to expecting DATA on old style
+    _const_multi_spec: $ => choice(
+      seq(
+        field("name", alias($.identifier, $.constant)),
+        optional(field("type", $._type_clause))
+      ),
+      structureSpec(",", alias($.identifier, $.constant), undefined, $._data_multi_spec, $),
+      structureSpec(".", alias($.identifier, $.constant), "constants", $._data_single_spec, $)
+    ),
+
+    // FIXME: Using data single spec will lead to expecting DATA on old style, but using a type single
+    // spec will make the node a typename :/
+    _const_single_spec: $ => choice(
+      seq(
+        field("name", alias($.identifier, $.constant)),
+        optional(field("type", $._type_clause))
+      ),
+      structureSpec(".", alias($.identifier, $.constant), "constants", $._data_single_spec, $)
     ),
 
     _type_clause: $ => choice(
@@ -257,21 +292,6 @@ module.exports = grammar({
         )),
         kw("read-only"))
       )
-    ),
-
-    _complex_data_spec: $ => choice(
-      structureSpec(",", $.identifier, undefined, $.data_spec, $),
-      structureSpec(".", $.identifier, "data", $.data_spec, $)
-    ),
-
-    /**
-     * Specification for a single, complex type initiated by a {@link type_declaration}.
-     * 
-     * More accurately, this currently only encompasses structure specifications.
-     */
-    _complex_type_spec: $ => choice(
-      structureSpec(",", $.typename, undefined, $.data_spec, $),
-      structureSpec(".", $.typename, "types", $.data_spec, $)
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
@@ -422,6 +442,10 @@ function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))
 }
 
+function commaOrDotSep1(rule) {
+  return seq(rule, repeat(seq(choice(',', '.'), rule)))
+}
+
 /**
  * Generates a structure specification rule.
  * 
@@ -445,7 +469,18 @@ function commaSep1(rule) {
 function structureSpec(separator, identifierType, keyword, fieldRule, $) {
   let componentSequence = seq(alias(fieldRule, $.component_spec), separator);
   if (keyword) {
-    componentSequence.members.unshift(kw(keyword))
+    // Using e.g data: on each line is also legal.
+    if (separator == '.') {
+      componentSequence.members.unshift(optional(token(":")))
+    }
+    componentSequence.members.unshift(kw(keyword));
+  }
+
+  let endOf;
+  if (keyword) {
+    endOf = seq(kw(keyword), optional(":"), ...kws("end", "of"))
+  } else {
+    endOf = seq(...kws("end", "of"));
   }
 
   return seq(
@@ -453,32 +488,37 @@ function structureSpec(separator, identifierType, keyword, fieldRule, $) {
     field("nameOpen", identifierType),
     optional(kw("read-only")),
     separator,
-    // if a keyword is needed, it is an expanded (old style) declaration and must be part
-    // of each line, but wont be part of the rule.
+    // Technically at least one field is required, but this is another one
+    // of those situations where it makes more sense to just let it parse
+    // and pre process the problem.
     repeat(
       choice(
         componentSequence,
         seq($.struct_include, separator)
       )
     ),
-    ...(keyword ? kws(keyword, "end", "of") : kws("end", "of")),
+    endOf,
     field("nameClose", identifierType)
   );
 }
-
-function oneOrMoreDeclarations(keyword, rule) {
+/**
+ * 
+ * @param {string} keyword The keyword beginning the declaration
+ * @param {GrammarSymbol} multi_spec The rule to match any possible declaration specification
+ * @param {GrammarSymbol} single_spec The rule to match a single possible declaration.
+ * @param {GrammarSymbol} spec_alias The node alias to wrap both the spec rules in.
+ * 
+ * @returns {Record<string, Rule>} a map of rules to unpack
+ */
+function decl(keyword, multi_spec, single_spec, spec_alias) {
   return seq(
     kw(keyword),
-    // If the keyword is followed by a `:` then multiple declarations are allowed.
     choice(
-      seq(":", commaSep1(rule)),
-      // FIXME: In the case of new-style structure declarations, a : is actually required.
-      // So the complex spec rules this leads into technically isnt entirely correct.
-      rule,
+      seq(":", commaSep1(alias(multi_spec, spec_alias))),
+      alias(single_spec, spec_alias),
     ),
     ".");
 }
-
 
 /**
  * @param {boolean} isElementary whether the type is an elementary data type.

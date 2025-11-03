@@ -70,15 +70,15 @@
             "named": true
           },
           {
+            "type": "elementary_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
           {
             "type": "ref_type",
-            "named": true
-          },
-          {
-            "type": "simple_type",
             "named": true
           },
           {
@@ -127,7 +127,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "constant",
             "named": true
           }
         ]
@@ -137,7 +137,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "constant",
             "named": true
           }
         ]
@@ -147,7 +147,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "constant",
             "named": true
           }
         ]
@@ -161,15 +161,15 @@
             "named": true
           },
           {
+            "type": "elementary_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
           {
             "type": "ref_type",
-            "named": true
-          },
-          {
-            "type": "simple_type",
             "named": true
           },
           {
@@ -252,15 +252,15 @@
             "named": true
           },
           {
+            "type": "elementary_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
           {
             "type": "ref_type",
-            "named": true
-          },
-          {
-            "type": "simple_type",
             "named": true
           },
           {
@@ -305,6 +305,74 @@
         "types": [
           {
             "type": "typename",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "initial",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "elementary_type",
+    "named": true,
+    "fields": {
+      "decimals": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "decimals",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "length": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "length",
+            "named": false
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
             "named": true
           }
         ]
@@ -472,74 +540,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "simple_type",
-    "named": true,
-    "fields": {
-      "decimals": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "decimals",
-            "named": false
-          },
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "length": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "length",
-            "named": false
-          },
-          {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "value",
-            "named": false
-          }
-        ]
-      }
     }
   },
   {
@@ -772,15 +772,15 @@
             "named": true
           },
           {
+            "type": "elementary_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
           {
             "type": "ref_type",
-            "named": true
-          },
-          {
-            "type": "simple_type",
             "named": true
           },
           {
@@ -852,6 +852,10 @@
   {
     "type": "components",
     "named": false
+  },
+  {
+    "type": "constant",
+    "named": true
   },
   {
     "type": "constants",
