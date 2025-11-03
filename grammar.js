@@ -73,6 +73,7 @@ module.exports = grammar({
     _simple_statement: $ => choice(
       $.data_declaration,
       $.type_declaration,
+      $.const_declaration,
       $.report_initiator
     ),
 
@@ -83,6 +84,9 @@ module.exports = grammar({
     data_declaration: $ => oneOrMoreDeclarations("data", $.data_spec),
 
     type_declaration: $ => oneOrMoreDeclarations("types", $.type_spec),
+
+    // FIXME: For constants, the `value` part of the declaration is not optional.
+    const_declaration: $ => oneOrMoreDeclarations("constants", alias($.data_spec, $.const_spec)),
 
     data_spec: $ => choice(
       $._simple_data_spec,
@@ -96,18 +100,24 @@ module.exports = grammar({
 
     _simple_data_spec: $ => seq(
       field("name", $.identifier),
-      optional(field("type", $._data_type_clause)),
+      optional(field("type", choice(
+        $.simple_data_type,
+        $.itab_data_type,
+        // $.derived_data_type,
+        $.ref_data_type,
+        $.range_data_type,
+      ))),
     ),
 
-    /**
-     * Specification for a single, simple type initiated by a {@link type_declaration}.
-     * 
-     * This includes any type / like references but NOT structure types.
-     */
     _simple_type_spec: $ => seq(
       field("name", $.typename),
-      // just like data, literally just `types foo.` is valid and sets it to C1.
-      optional(field("type", $._types_type_clause)),
+      optional(field("type", choice(
+        $.simple_types_type,
+        $.itab_types_type,
+        $.derived_types_type,
+        $.ref_types_type,
+        $.range_types_type,
+      ))),
     ),
 
     _complex_data_spec: $ => choice(
@@ -190,75 +200,10 @@ module.exports = grammar({
     ),
 
     /**
-     * Possible options for the type of a `data` declaration.
+     * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).
      * 
-     * Unfortunately cannot reuse the type clauses from `types` declarations
-     * since `value` and `read-only` can be mixed into the specifications for data.
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINCLUDE_TYPE.html
      */
-    _data_type_clause: $ => choice(
-      $.simple_data_type,
-      $.itab_data_type,
-      $.derived_data_type,
-      $.ref_data_type,
-      $.range_data_type,
-    ),
-
-    /**
-     * Possible options for the type of a `types` declaration.
-     */
-    _types_type_clause: $ => choice(
-      $.simple_types_type,
-      $.itab_types_type,
-      $.derived_types_type,
-      $.ref_types_type,
-      $.range_types_type,
-    ),
-
-    /** Group the {@link simpleTypeClause} into nodes.  */
-    simple_data_type: $ => simpleTypeClause($, { isData: true }),
-    simple_types_type: $ => simpleTypeClause($, { isData: false }),
-
-    /** Group the {@link itabTypeClause} into nodes.  */
-    itab_data_type: $ => itabTypeClause($, { isData: true }),
-    itab_types_type: $ => itabTypeClause($, { isData: false }),
-
-    /** Group the {@link derivedTypeClause} into nodes.  */
-    derived_data_type: $ => derivedTypeClause($, { isData: true }),
-    derived_types_type: $ => derivedTypeClause($, { isData: false }),
-
-    /** Group the {@link refTypeClause} into nodes.  */
-    ref_data_type: $ => refTypeClause($, { isData: true }),
-    ref_types_type: $ => refTypeClause($, { isData: false }),
-
-    /** Group the {@link rangeTypeClause} into nodes.  */
-    range_data_type: $ => rangeTypeClause($, { isData: true }),
-    range_types_type: $ => rangeTypeClause($, { isData: false }),
-
-    range_type: $ => seq(
-      choice(
-        seq(
-          kw("type"),
-          seq(...kws("range", "of")),
-          $.typename
-        ),
-        seq(
-          kw("like"),
-          seq(...kws("range", "of")),
-          $.identifier
-        ),
-      ),
-
-      // FIXME value and read-only should not be possible in `types` context, only `data`...
-      repeat(
-        choice(
-          seq(...kws("initial", "size"), field("initial_size", $.number)),
-          seq(...kws("with", "header", "line")),
-          seq(...kws("value", "is", "initial")),
-          seq(...kws("read-only")),
-        )
-      )
-    ),
-
     struct_include: $ => seq(
       kw("include"),
       field("name", choice(
@@ -314,11 +259,18 @@ module.exports = grammar({
      */
     _abap_type: _ => token(
       /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i
-    )
+    ),
+
+    ...defineTypePairs({
+      simple: simpleTypeClause,
+      itab: itabTypeClause,
+      derived: derivedTypeClause,
+      ref: refTypeClause,
+      range: rangeTypeClause,
+    }),
   }
 
 });
-
 
 
 /**
@@ -619,4 +571,22 @@ function rangeTypeClause($, { isData = false }) {
     ),
     repeat(metaChoices)
   );
+}
+
+function defineTypePairs(clauses) {
+  const rules = {};
+
+  for (const [name, clauseFn] of Object.entries(clauses)) {
+    const dataRule = `${name}_data_type`;
+    const typesRule = `${name}_types_type`;
+
+    rules[dataRule] = $ => clauseFn($, { isData: true });
+    rules[typesRule] = $ => clauseFn($, { isData: false });
+
+    console.log("Added ", dataRule);
+
+  }
+  console.log(rules);
+
+  return rules;
 }

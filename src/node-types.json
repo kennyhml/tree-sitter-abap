@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "const_declaration",
+        "named": true
+      },
+      {
         "type": "data_declaration",
         "named": true
       },
@@ -62,9 +66,92 @@
         "required": false,
         "types": [
           {
-            "type": "derived_data_type",
+            "type": "itab_data_type",
             "named": true
           },
+          {
+            "type": "range_data_type",
+            "named": true
+          },
+          {
+            "type": "ref_data_type",
+            "named": true
+          },
+          {
+            "type": "simple_data_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "struct_include",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "const_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "const_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "const_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "nameClose": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "nameOpen": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
           {
             "type": "itab_data_type",
             "named": true
@@ -153,10 +240,6 @@
         "required": false,
         "types": [
           {
-            "type": "derived_data_type",
-            "named": true
-          },
-          {
             "type": "itab_data_type",
             "named": true
           },
@@ -188,62 +271,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "derived_data_type",
-    "named": true,
-    "fields": {
-      "dobj": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "typename",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "value",
-            "named": false
-          }
-        ]
-      }
     }
   },
   {
@@ -974,6 +1001,10 @@
   },
   {
     "type": "components",
+    "named": false
+  },
+  {
+    "type": "constants",
     "named": false
   },
   {
