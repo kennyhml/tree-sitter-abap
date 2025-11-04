@@ -2420,7 +2420,7 @@
                 },
                 {
                   "type": "FIELD",
-                  "name": "dobj",
+                  "name": "source_dobj",
                   "content": {
                     "type": "SYMBOL",
                     "name": "identifier"
@@ -2476,7 +2476,7 @@
                 },
                 {
                   "type": "FIELD",
-                  "name": "type",
+                  "name": "source_type",
                   "content": {
                     "type": "SYMBOL",
                     "name": "typename"

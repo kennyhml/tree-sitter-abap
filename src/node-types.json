@@ -656,16 +656,6 @@
     "type": "table_type",
     "named": true,
     "fields": {
-      "dobj": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "initial_size": {
         "multiple": true,
         "required": false,
@@ -702,7 +692,17 @@
           }
         ]
       },
-      "type": {
+      "source_dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source_type": {
         "multiple": false,
         "required": false,
         "types": [
