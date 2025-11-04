@@ -77,8 +77,8 @@ module.exports = grammar({
     // method definitions, import statements, etc..
     _simple_statement: $ => choice(
       $.data_declaration,
-      $.type_declaration,
-      $.const_declaration,
+      $.types_declaration,
+      $.constants_declaration,
       $.report_initiator
     ),
 
@@ -86,66 +86,11 @@ module.exports = grammar({
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
-    data_declaration: $ => decl("data", $._data_multi_spec, $._data_single_spec, $.data_spec),
-    type_declaration: $ => decl("types", $._type_multi_spec, $._type_single_spec, $.type_spec),
-    const_declaration: $ => decl("constants", $._const_multi_spec, $._const_single_spec, $.const_spec),
-
-    _data_multi_spec: $ => choice(
-      seq(
-        field("name", $.identifier),
-        optional(field("type", $._type_clause))
-      ),
-      structureSpec(",", $.identifier, undefined, $._data_multi_spec, $),
-      structureSpec(".", $.identifier, "data", $._data_single_spec, $)
-    ),
-
-    _data_single_spec: $ => choice(
-      seq(
-        field("name", $.identifier),
-        optional(field("type", $._type_clause))
-      ),
-      structureSpec(".", $.identifier, "data", $._data_single_spec, $)
-    ),
-
-    // FIXME: Using data single spec will lead to expecting DATA on old style
-    _type_multi_spec: $ => choice(
-      seq(
-        field("name", $.typename),
-        optional(field("type", $._type_clause))
-      ),
-      structureSpec(",", $.typename, undefined, $._data_multi_spec, $),
-      structureSpec(".", $.typename, "types", $._data_single_spec, $)
-    ),
-
-    // FIXME: Using data single spec will lead to expecting DATA on old style, but using a type single
-    // spec will make the node a typename :/
-    _type_single_spec: $ => choice(
-      seq(
-        field("name", $.typename),
-        optional(field("type", $._type_clause))
-      ),
-      structureSpec(".", $.typename, "data", $._data_single_spec, $)
-    ),
-
-    // FIXME: Using data single spec will lead to expecting DATA on old style
-    _const_multi_spec: $ => choice(
-      seq(
-        field("name", alias($.identifier, $.constant)),
-        optional(field("type", $._type_clause))
-      ),
-      structureSpec(",", alias($.identifier, $.constant), undefined, $._data_multi_spec, $),
-      structureSpec(".", alias($.identifier, $.constant), "constants", $._data_single_spec, $)
-    ),
-
-    // FIXME: Using data single spec will lead to expecting DATA on old style, but using a type single
-    // spec will make the node a typename :/
-    _const_single_spec: $ => choice(
-      seq(
-        field("name", alias($.identifier, $.constant)),
-        optional(field("type", $._type_clause))
-      ),
-      structureSpec(".", alias($.identifier, $.constant), "constants", $._data_single_spec, $)
-    ),
+    ...generate_decl_specs({
+      data: $ => $.identifier,
+      types: $ => $.typename,
+      constants: $ => alias($.identifier, $.constant),
+    }),
 
     _type_clause: $ => choice(
       $.elementary_type,
@@ -416,7 +361,6 @@ module.exports = grammar({
   }
 });
 
-
 /**
  * @param {string} keyword 
  * @returns {AliasRule}
@@ -442,9 +386,6 @@ function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))
 }
 
-function commaOrDotSep1(rule) {
-  return seq(rule, repeat(seq(choice(',', '.'), rule)))
-}
 
 /**
  * Generates a structure specification rule.
@@ -466,26 +407,19 @@ function commaOrDotSep1(rule) {
  * 
  * @returns {Rule} A rule for the struct spec
  */
-function structureSpec(separator, identifierType, keyword, fieldRule, $) {
-  let componentSequence = seq(alias(fieldRule, $.component_spec), separator);
-  if (keyword) {
-    // Using e.g data: on each line is also legal.
-    if (separator == '.') {
-      componentSequence.members.unshift(optional(token(":")))
-    }
-    componentSequence.members.unshift(kw(keyword));
-  }
+function structureSpec($, keyword, identifierNode, componentRule) {
+  // If a keyword is present, the separator MUST be a `.`
+  let separator = keyword ? '.' : ',';
 
-  let endOf;
-  if (keyword) {
-    endOf = seq(kw(keyword), optional(":"), ...kws("end", "of"))
-  } else {
-    endOf = seq(...kws("end", "of"));
+  let compRule = seq(alias(componentRule, $.component_spec), separator);
+  let endRule = seq(...kws("end", "of"));
+  if (separator == '.') {
+    compRule.members.unshift(kw(keyword), optional(":"))
+    endRule.members.unshift(kw(keyword), optional(":"));
   }
 
   return seq(
-    ...kws("begin", "of"),
-    field("nameOpen", identifierType),
+    ...kws("begin", "of"), field("nameOpen", identifierNode),
     optional(kw("read-only")),
     separator,
     // Technically at least one field is required, but this is another one
@@ -493,31 +427,12 @@ function structureSpec(separator, identifierType, keyword, fieldRule, $) {
     // and pre process the problem.
     repeat(
       choice(
-        componentSequence,
+        compRule,
         seq($.struct_include, separator)
       )
     ),
-    endOf,
-    field("nameClose", identifierType)
+    endRule, field("nameClose", identifierNode)
   );
-}
-/**
- * 
- * @param {string} keyword The keyword beginning the declaration
- * @param {GrammarSymbol} multi_spec The rule to match any possible declaration specification
- * @param {GrammarSymbol} single_spec The rule to match a single possible declaration.
- * @param {GrammarSymbol} spec_alias The node alias to wrap both the spec rules in.
- * 
- * @returns {Record<string, Rule>} a map of rules to unpack
- */
-function decl(keyword, multi_spec, single_spec, spec_alias) {
-  return seq(
-    kw(keyword),
-    choice(
-      seq(":", commaSep1(alias(multi_spec, spec_alias))),
-      alias(single_spec, spec_alias),
-    ),
-    ".");
 }
 
 /**
@@ -548,6 +463,75 @@ function typeMeta($, { isElementary = false, require = false } = {}) {
   }
   return repeat(choices);
 }
+/**
+ * 
+ * @param {Record<string, ($) => Rule>} spec_map 
+ * @returns 
+ */
+function generate_decl_specs(spec_map) {
+  rules = {}
+
+  function decl(keyword) {
+    const spec = `${keyword}_spec`;
+
+    rules[`${keyword}_declaration`] = $ => seq(
+      kw(keyword),
+      choice(
+        seq(":", commaSep1($[spec])),
+        $[spec]
+      ),
+      ".");
+  }
+
+  function spec(keyword, identifierNode) {
+    const name = `${keyword}_spec`;
+    const comp = `_${keyword}_comp_spec`;
+
+    /**
+     * Regardless of whether a struct is declared using CONSTANTS, TYPES, etc.
+     * the components (fields) that make up the structure should always be
+     * identifier nodes, not const and much less type nodes.
+     * 
+     * Because the keyword at the start of each line still needs to be taken into
+     * consideration, such a helper rule is necessary.
+     */
+    rules[comp] = $ => choice(
+      seq(
+        field("name", $.identifier),
+        optional(field("type", $._type_clause))
+      ),
+
+      structureSpec($, undefined, $.identifier, $[comp]),
+      structureSpec($, keyword, $.identifier, $[comp]),
+    );
+
+    rules[name] = $ => choice(
+      seq(
+        field("name", identifierNode($)),
+        optional(field("type", $._type_clause))
+      ),
+
+      /**
+       * This technically isnt completely legal since it allows sub structure specs preceded by a DATA
+       * keyword inside a `data:` block, but it is such a nice scenario worth keeping the grammar simpler over.
+       * 
+       * It is however quite important to generate two absolute paths here, because we at least dont want to allow
+       * the old-style struct declaration to be completed mixed into new-style declarations, i.e when the
+       * declaration block starts with DATA [...]., it shouldnt be allowed to have a component inside the
+       * block that does NOT start with DATA.
+       * */
+      structureSpec($, undefined, identifierNode($), $[comp]),
+      structureSpec($, keyword, identifierNode($), $[comp]),
+    );
+  }
+
+  for (const [keyword, node] of Object.entries(spec_map)) {
+    decl(keyword);
+    spec(keyword, node);
+  }
+  return rules;
+}
+
 
 
 

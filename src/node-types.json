@@ -4,7 +4,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "const_declaration",
+        "type": "constants_declaration",
         "named": true
       },
       {
@@ -16,7 +16,7 @@
         "named": true
       },
       {
-        "type": "type_declaration",
+        "type": "types_declaration",
         "named": true
       }
     ]
@@ -104,7 +104,7 @@
     }
   },
   {
-    "type": "const_declaration",
+    "type": "constants_declaration",
     "named": true,
     "fields": {},
     "children": {
@@ -112,14 +112,14 @@
       "required": true,
       "types": [
         {
-          "type": "const_spec",
+          "type": "constants_spec",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "const_spec",
+    "type": "constants_spec",
     "named": true,
     "fields": {
       "name": {
@@ -715,7 +715,7 @@
     }
   },
   {
-    "type": "type_declaration",
+    "type": "types_declaration",
     "named": true,
     "fields": {},
     "children": {
@@ -723,14 +723,14 @@
       "required": true,
       "types": [
         {
-          "type": "type_spec",
+          "type": "types_spec",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "type_spec",
+    "type": "types_spec",
     "named": true,
     "fields": {
       "name": {
