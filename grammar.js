@@ -110,9 +110,9 @@ module.exports = grammar({
      */
     elementary_type: $ => choice(
       // Optional Buff size + type + optional type meta
-      seq(optional(BUFF_SIZE($)), seq(kw("type"), ABAP_TYPE), typeMeta($, { isElementary: true })),
+      seq(optional(BUFF_SIZE($)), seq(kw("type"), ABAP_TYPE), repeat($._type_meta)),
       // Optional buff size + required type meta
-      seq(optional(BUFF_SIZE($)), typeMeta($, { isElementary: true, require: true })),
+      seq(optional(BUFF_SIZE($)), repeat1($._type_meta)),
       // Only buf size
       BUFF_SIZE($)
     ),
@@ -325,6 +325,29 @@ module.exports = grammar({
       ),
     ),
 
+    /**
+     * One of the possible specifications alongside a specification.
+     * 
+     * In reality, not all fields are possible in any context. For example, the `value`
+     * addition cannot be used for `types` declarations, but MUST be used for `constants`.
+     * 
+     * However, to keep things simple and provide better error messages, its far simpler to
+     * just parse it as valid grammar and then match invalid combinations in queries.
+     */
+    _type_meta: $ => choice(
+      field("length", $._data_length),
+      field("decimals", $._data_decimals),
+      field("value", seq(
+        kw("value"), choice(
+          $.number,
+          $.literal_string,
+          seq(...kws("is", "initial")),
+          $.identifier
+        )
+      )),
+      field("readonly", kw("read-only"))
+    ),
+
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
@@ -435,34 +458,6 @@ function structureSpec($, keyword, identifierNode, componentRule) {
   );
 }
 
-/**
- * @param {boolean} isElementary whether the type is an elementary data type.
- * @param {boolean} isData whether its a data definition, so value and read-only are allowed.
- * 
- * @returns {Rule} A rule to match the type meta.
- */
-function typeMeta($, { isElementary = false, require = false } = {}) {
-  let choices = choice();
-  if (isElementary) {
-    choices.members.push(field("length", $._data_length));
-    choices.members.push(field("decimals", $._data_decimals));
-  }
-  choices.members.push(
-    field("value", seq(
-      kw("value"), choice(
-        $.number,
-        $.literal_string,
-        seq(...kws("is", "initial")),
-        $.identifier
-      )
-    ))
-  );
-  choices.members.push(kw("read-only"));
-  if (require) {
-    return repeat1(choices)
-  }
-  return repeat(choices);
-}
 /**
  * 
  * @param {Record<string, ($) => Rule>} spec_map 

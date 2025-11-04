@@ -377,6 +377,16 @@
           }
         ]
       },
+      "readonly": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "read-only",
+            "named": false
+          }
+        ]
+      },
       "value": {
         "multiple": true,
         "required": false,
