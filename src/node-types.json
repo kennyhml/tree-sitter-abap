@@ -28,6 +28,36 @@
     "fields": {}
   },
   {
+    "type": "component_access",
+    "named": true,
+    "fields": {
+      "component": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "component_spec",
     "named": true,
     "fields": {
@@ -66,10 +96,6 @@
         "required": false,
         "types": [
           {
-            "type": "derived_type",
-            "named": true
-          },
-          {
             "type": "elementary_type",
             "named": true
           },
@@ -79,6 +105,10 @@
           },
           {
             "type": "ref_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
             "named": true
           },
           {
@@ -157,10 +187,6 @@
         "required": false,
         "types": [
           {
-            "type": "derived_type",
-            "named": true
-          },
-          {
             "type": "elementary_type",
             "named": true
           },
@@ -170,6 +196,10 @@
           },
           {
             "type": "ref_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
             "named": true
           },
           {
@@ -248,10 +278,6 @@
         "required": false,
         "types": [
           {
-            "type": "derived_type",
-            "named": true
-          },
-          {
             "type": "elementary_type",
             "named": true
           },
@@ -261,6 +287,10 @@
           },
           {
             "type": "ref_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
             "named": true
           },
           {
@@ -283,62 +313,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "derived_type",
-    "named": true,
-    "fields": {
-      "dobj": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "typename",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "value",
-            "named": false
-          }
-        ]
-      }
     }
   },
   {
@@ -391,6 +365,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -481,6 +459,66 @@
           {
             "type": "typename",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "referred_type",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typename",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "initial",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": false
           }
         ]
       }
@@ -778,10 +816,6 @@
         "required": false,
         "types": [
           {
-            "type": "derived_type",
-            "named": true
-          },
-          {
             "type": "elementary_type",
             "named": true
           },
@@ -791,6 +825,10 @@
           },
           {
             "type": "ref_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
             "named": true
           },
           {
@@ -829,6 +867,10 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {

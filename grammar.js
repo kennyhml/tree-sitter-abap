@@ -86,6 +86,8 @@ module.exports = grammar({
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
+
+
     ...generate_decl_specs({
       data: $ => $.identifier,
       types: $ => $.typename,
@@ -94,7 +96,7 @@ module.exports = grammar({
 
     _type_clause: $ => choice(
       $.elementary_type,
-      $.derived_type,
+      $.referred_type,
       $.ref_type,
       $.table_type,
       $.range_type,
@@ -206,14 +208,14 @@ module.exports = grammar({
     ),
 
     /**
-     * Type that is derived from another type (declared elsewhere or in the DDIC) or
+     * Type that refers to another type (declared elsewhere or in the DDIC) or
      * taken over from a data object.
      * 
      * The additions `length` and `decimals` are forbidden in this context.
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
      */
-    derived_type: $ => seq(
+    referred_type: $ => seq(
       choice(
         seq(
           kw("type"),
@@ -232,11 +234,30 @@ module.exports = grammar({
             $.number,
             $.literal_string,
             seq(...kws("is", "initial")),
-            $.identifier
+            $.identifier,
+            $.component_access
           )
         )),
         kw("read-only"))
       )
+    ),
+
+    /**
+     * Access to the component of a structure such as `foo-bar`.
+     * 
+     * Nested accesses are also supported recursively, e.g `foo-bar-baz`. Here, bar is
+     * a source and a component at the same time.
+     * 
+     * FIXME: The first accessed variable in the chain could be a typename or a constant,
+     * in which case it should not be an identifier node.
+     */
+    component_access: $ => seq(
+      field("source", $.identifier),
+      token.immediate("-"),
+      field("component", choice(
+        $.identifier,
+        $.component_access
+      ))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
@@ -262,7 +283,7 @@ module.exports = grammar({
       "."),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
-    _table_category: $ => choice(
+    _table_category: _ => choice(
       kw("standard"),
       kw("sorted"),
       kw("hashed"),
@@ -342,7 +363,8 @@ module.exports = grammar({
           $.number,
           $.literal_string,
           seq(...kws("is", "initial")),
-          $.identifier
+          $.identifier,
+          $.component_access
         )
       )),
       field("readonly", kw("read-only"))
@@ -352,7 +374,7 @@ module.exports = grammar({
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
     typename: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
-    identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/-]*/,
+    identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/]*/,
     field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
     number: $ => /-?\d+/,
 
@@ -379,8 +401,6 @@ module.exports = grammar({
 
 
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
-
-
   }
 });
 
@@ -409,7 +429,6 @@ function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))
 }
 
-
 /**
  * Generates a structure specification rule.
  * 
@@ -420,15 +439,9 @@ function commaSep1(rule) {
  * 3. DATA: BEGIN OF foo, [...]
  * 4. TYPES BEGIN OF foo. [...]
  * 
- * Specifically, they differ in the way they are separated and what they declare:
- * a type or an identifier. The fields are always identifiers, even inside types.
- * 
- * @param {string} separator The seperator for each line line.
  * @param {string | undefined} keyword The keyword of the struct, either DATA, TYPES or undefined.
- * @param {Rule} identifierType The identifier type for the structure (variable or type)
- * @param {Rule} fieldRule The identifier type for the structure (variable or type)
- * 
- * @returns {Rule} A rule for the struct spec
+ * @param {Rule} identifierNode The identifier type for the structure
+ * @param {Rule} componentRule The identifier type for components of the structure
  */
 function structureSpec($, keyword, identifierNode, componentRule) {
   // If a keyword is present, the separator MUST be a `.`
@@ -459,11 +472,20 @@ function structureSpec($, keyword, identifierNode, componentRule) {
 }
 
 /**
+ * Generates declarations and data specs for the given declaration kinds.
  * 
- * @param {Record<string, ($) => Rule>} spec_map 
- * @returns 
+ * There are many different ways to declare, e.g `data`, `types`, `constants`,
+ * `class-data`, `statics`.. which are all fundamentally the same and only differ
+ * in the preceding keyword and the type of nodes they eventually yield.
+ * 
+ * This generates the declaration and specification trees for each of the given
+ * declaration options to be unpacked into the grammar rules.
+ * 
+ * @param {Record<string, ($) => Rule>} decl_map A map of declaration keywords to their node type.
+ * 
+ * @returns A set of rules to be unpacked into the grammar.
  */
-function generate_decl_specs(spec_map) {
+function generate_decl_specs(decl_map) {
   rules = {}
 
   function decl(keyword) {
@@ -520,7 +542,7 @@ function generate_decl_specs(spec_map) {
     );
   }
 
-  for (const [keyword, node] of Object.entries(spec_map)) {
+  for (const [keyword, node] of Object.entries(decl_map)) {
     decl(keyword);
     spec(keyword, node);
   }

@@ -2181,7 +2181,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "derived_type"
+          "name": "referred_type"
         },
         {
           "type": "SYMBOL",
@@ -2983,7 +2983,7 @@
         }
       ]
     },
-    "derived_type": {
+    "referred_type": {
       "type": "SEQ",
       "members": [
         {
@@ -3154,6 +3154,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "component_access"
                         }
                       ]
                     }
@@ -3168,6 +3172,43 @@
                 },
                 "named": false,
                 "value": "read-only"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "component_access": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "-"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "component",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "component_access"
               }
             ]
           }
@@ -3844,6 +3885,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "identifier"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "component_access"
                   }
                 ]
               }
@@ -3916,7 +3961,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_\\/][a-zA-Z0-9_\\/-]*"
+      "value": "[a-zA-Z_\\/][a-zA-Z0-9_\\/]*"
     },
     "field_symbol": {
       "type": "PATTERN",
