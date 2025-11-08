@@ -54,9 +54,10 @@ module.exports = grammar({
      * 
      * Which must sometimes be manually enforced.
      * 
+     * Also make sure not to use a regex for the whitespace, it will have higher priority
+     * and thus our external scanner, wont be called to track when a line comment is coming up.
      */
-    // $._whitespace,
-    /\s/,
+    $._ws,
     $.comment,
   ],
 
@@ -431,6 +432,8 @@ module.exports = grammar({
       $._inline_comment,
       seq($._begin_line_comment, /[^\n\r]*/),
     ),
+
+    _ws: _ => /\s/,
 
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
   }

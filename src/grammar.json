@@ -4644,6 +4644,10 @@
         }
       ]
     },
+    "_ws": {
+      "type": "PATTERN",
+      "value": "\\s"
+    },
     "_inline_comment": {
       "type": "TOKEN",
       "content": {
@@ -4663,8 +4667,8 @@
   },
   "extras": [
     {
-      "type": "PATTERN",
-      "value": "\\s"
+      "type": "SYMBOL",
+      "name": "_ws"
     },
     {
       "type": "SYMBOL",
