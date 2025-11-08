@@ -2450,6 +2450,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_type_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }
@@ -2534,6 +2543,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_field_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }
@@ -2736,6 +2754,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_type_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }
@@ -2804,6 +2831,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_field_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }
@@ -2999,6 +3035,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_type_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }
@@ -3067,6 +3112,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_field_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }
@@ -3207,6 +3261,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_type_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }
@@ -3283,6 +3346,15 @@
                         },
                         "named": true,
                         "value": "instance_access"
+                      },
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_component_field_access"
+                        },
+                        "named": true,
+                        "value": "component_access"
                       }
                     ]
                   }

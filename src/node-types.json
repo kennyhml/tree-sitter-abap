@@ -116,6 +116,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
           }
         ]
       }
@@ -517,6 +521,10 @@
         "required": false,
         "types": [
           {
+            "type": "component_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -545,6 +553,10 @@
         "required": false,
         "types": [
           {
+            "type": "component_access",
+            "named": true
+          },
+          {
             "type": "instance_access",
             "named": true
           },
@@ -569,6 +581,10 @@
         "required": false,
         "types": [
           {
+            "type": "component_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -586,6 +602,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
           {
             "type": "instance_access",
             "named": true
@@ -611,6 +631,10 @@
         "required": false,
         "types": [
           {
+            "type": "component_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -628,6 +652,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
           {
             "type": "instance_access",
             "named": true
@@ -887,6 +915,10 @@
         "required": false,
         "types": [
           {
+            "type": "component_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -940,6 +972,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
           {
             "type": "instance_access",
             "named": true
