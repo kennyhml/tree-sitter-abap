@@ -22,6 +22,70 @@
     ]
   },
   {
+    "type": "_instance_field_access",
+    "named": true,
+    "fields": {
+      "member": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_instance_field_access",
+            "named": true
+          },
+          {
+            "type": "component_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "_instance_type_access",
+    "named": true,
+    "fields": {
+      "member": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_instance_type_access",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true,
@@ -366,10 +430,6 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           },
@@ -398,6 +458,52 @@
     }
   },
   {
+    "type": "instance_access",
+    "named": true,
+    "fields": {
+      "member": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_instance_field_access",
+            "named": true
+          },
+          {
+            "type": "_instance_type_access",
+            "named": true
+          },
+          {
+            "type": "component_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "literal_string",
     "named": true,
     "fields": {}
@@ -412,6 +518,14 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "static_access",
             "named": true
           }
         ]
@@ -431,7 +545,15 @@
         "required": false,
         "types": [
           {
-            "type": "typename",
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "static_access",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -449,6 +571,14 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "static_access",
+            "named": true
           }
         ]
       },
@@ -457,7 +587,15 @@
         "required": false,
         "types": [
           {
-            "type": "typename",
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "static_access",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -475,6 +613,14 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "static_access",
+            "named": true
           }
         ]
       },
@@ -483,7 +629,15 @@
         "required": false,
         "types": [
           {
-            "type": "typename",
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "static_access",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -492,10 +646,6 @@
         "multiple": true,
         "required": false,
         "types": [
-          {
-            "type": "component_access",
-            "named": true
-          },
           {
             "type": "identifier",
             "named": true
@@ -607,6 +757,44 @@
     }
   },
   {
+    "type": "static_access",
+    "named": true,
+    "fields": {
+      "member": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cls_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "struct_include",
     "named": true,
     "fields": {
@@ -637,7 +825,7 @@
             "named": false
           },
           {
-            "type": "typename",
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -694,6 +882,24 @@
     "type": "table_type",
     "named": true,
     "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "static_access",
+            "named": true
+          }
+        ]
+      },
       "initial_size": {
         "multiple": true,
         "required": false,
@@ -730,22 +936,20 @@
           }
         ]
       },
-      "source_dobj": {
+      "type": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "instance_access",
             "named": true
-          }
-        ]
-      },
-      "source_type": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
-            "type": "typename",
+            "type": "static_access",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -786,7 +990,7 @@
         "required": false,
         "types": [
           {
-            "type": "typename",
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -796,7 +1000,7 @@
         "required": false,
         "types": [
           {
-            "type": "typename",
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -806,7 +1010,7 @@
         "required": false,
         "types": [
           {
-            "type": "typename",
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -874,11 +1078,19 @@
     "named": false
   },
   {
+    "type": "->",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
   {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": "=>",
     "named": false
   },
   {
@@ -900,6 +1112,10 @@
   {
     "type": "begin",
     "named": false
+  },
+  {
+    "type": "cls_identifier",
+    "named": true
   },
   {
     "type": "components",
@@ -1090,7 +1306,7 @@
     "named": false
   },
   {
-    "type": "typename",
+    "type": "type_identifier",
     "named": true
   },
   {

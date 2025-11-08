@@ -4,12 +4,14 @@
  * @license MIT
  */
 
-ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
 BUFF_SIZE = $ => seq(
   token.immediate("("),
   field("length", alias(token.immediate(/-?\d+/), $.number)),
   token.immediate(")")
 );
+
+ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
+IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z0-9_\/]*/;
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
@@ -53,7 +55,8 @@ module.exports = grammar({
      * Which must sometimes be manually enforced.
      * 
      */
-    $._whitespace,
+    // $._whitespace,
+    /\s/,
     $.comment,
   ],
 
@@ -79,18 +82,16 @@ module.exports = grammar({
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
-      $.report_initiator
+      $.report_initiator,
     ),
 
     // Statements that start a block and have a body. For example method implementations,
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
-
-
     ...generate_decl_specs({
       data: $ => $.identifier,
-      types: $ => $.typename,
+      types: $ => $._type_identifier,
       constants: $ => alias($.identifier, $.constant),
     }),
 
@@ -125,19 +126,11 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
      */
     table_type: $ => seq(
-      choice(
+      typeOrLikeExpr($,
         seq(
-          kw("like"),
           optional(field("kind", $._table_category)),
           ...kws("table", "of"),
-          field("source_dobj", $.identifier),
-        ),
-        seq(
-          kw("type"),
-          optional(field("kind", $._table_category)),
-          ...kws("table", "of"),
-          field("source_type", $.typename),
-        ),
+        )
       ),
       repeat($.table_key_spec),
       repeat(choice(
@@ -159,18 +152,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
      */
     range_type: $ => seq(
-      choice(
-        seq(
-          kw("type"),
-          seq(...kws("range", "of")),
-          field("type", $.typename)
-        ),
-        seq(
-          kw("like"),
-          seq(...kws("range", "of")),
-          field("dobj", $.identifier)
-        ),
-      ),
+      typeOrLikeExpr($, seq(...kws("range", "of"))),
       repeat(choice(
         seq(...kws("initial", "size"), field("initial_size", $.number)),
         // Not technically valid for types declarations but intentionally tolerated.
@@ -188,18 +170,8 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
      */
     ref_type: $ => seq(
-      choice(
-        seq(
-          kw("type"),
-          seq(...kws("ref", "to")),
-          field("type", $.typename)
-        ),
-        seq(
-          kw("like"),
-          seq(...kws("ref", "to")),
-          field("dobj", $.identifier)
-        ),
-      ),
+      typeOrLikeExpr($, seq(...kws("ref", "to"))),
+
       // Not technically valid for types declarations but intentionally tolerated.
       repeat(choice(
         seq(...kws("value", "is", "initial")),
@@ -216,18 +188,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
      */
     referred_type: $ => seq(
-      choice(
-        seq(
-          kw("type"),
-          optional(seq(...kws("line", "of"))),
-          field("type", $.typename)
-        ),
-        seq(
-          kw("like"),
-          optional(seq(...kws("line", "of"))),
-          field("dobj", $.identifier)
-        ),
-      ),
+      typeOrLikeExpr($, optional(seq(...kws("line", "of")))),
       repeat(choice(
         field("value", seq(
           kw("value"), choice(
@@ -235,29 +196,10 @@ module.exports = grammar({
             $.literal_string,
             seq(...kws("is", "initial")),
             $.identifier,
-            $.component_access
           )
         )),
         kw("read-only"))
       )
-    ),
-
-    /**
-     * Access to the component of a structure such as `foo-bar`.
-     * 
-     * Nested accesses are also supported recursively, e.g `foo-bar-baz`. Here, bar is
-     * a source and a component at the same time.
-     * 
-     * FIXME: The first accessed variable in the chain could be a typename or a constant,
-     * in which case it should not be an identifier node.
-     */
-    component_access: $ => seq(
-      field("source", $.identifier),
-      token.immediate("-"),
-      field("component", choice(
-        $.identifier,
-        $.component_access
-      ))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
@@ -281,15 +223,6 @@ module.exports = grammar({
         )
       ),
       "."),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
-    _table_category: _ => choice(
-      kw("standard"),
-      kw("sorted"),
-      kw("hashed"),
-      kw("any"),
-      kw("index"),
-    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
     table_key_spec: $ => seq(
@@ -332,7 +265,7 @@ module.exports = grammar({
     struct_include: $ => seq(
       kw("include"),
       field("name", choice(
-        seq(kw("type"), $.typename),
+        seq(kw("type"), $._type_identifier),
         seq(kw("structure"), $.identifier),
       )),
       optional(
@@ -345,6 +278,104 @@ module.exports = grammar({
         )
       ),
     ),
+
+    /** 
+     * Static access to a member of a class using `cls=>member`.
+     * 
+     * Must be followed by immediate accesses.
+     */
+    _static_field_access: $ => seq(
+      field("source", $._cls_identifier),
+      token.immediate("=>"),
+      field("member", choice(
+        $._immediate_identifier,
+        alias($._immediate_instance_field_access, $.instance_access),
+        alias($._immediate_component_field_access, $.component_access)
+      ))
+    ),
+
+    /**
+     * Instance access to a class member using `instance->member`.
+     * 
+     * Must be followed by immediate accesses.
+     */
+    _instance_field_access: $ => seq(
+      field("source", $.identifier),
+      token.immediate("->"),
+      field("member", choice(
+        $._immediate_identifier,
+        alias($._immediate_instance_field_access, $.instance_access),
+        alias($._immediate_component_field_access, $.component_access)
+      ))
+    ),
+
+    /** 
+     * Static access to a type member of a class using `cls=>type`.
+     * 
+     * Must be followed by immediate accesses.
+     */
+    _static_type_access: $ => seq(
+      field("source", $._cls_identifier),
+      token.immediate("=>"),
+      field("member", choice(
+        $._immediate_type_identifier,
+        alias($._immediate_instance_type_access, $.instance_access),
+      ))
+    ),
+
+    /**
+     * Instance access to a class type member using `instance->type`
+     * 
+     * Must be followed by immediate accesses.
+     */
+    _instance_type_access: $ => seq(
+      field("source", $.identifier),
+      token.immediate("->"),
+      field("member", choice(
+        $._immediate_type_identifier,
+        alias($._immediate_instance_type_access, $._instance_type_access),
+      ))
+    ),
+
+    _immediate_instance_field_access: $ => seq(
+      field("source", $._immediate_identifier),
+      token.immediate("->"),
+      field("member", choice(
+        $._immediate_identifier,
+        alias($._immediate_component_field_access, $.component_access),
+        alias($._immediate_instance_field_access, $._instance_field_access)
+      ))
+    ),
+
+    _immediate_instance_type_access: $ => seq(
+      field("source", $._immediate_identifier),
+      token.immediate("->"),
+      field("member", choice(
+        $._immediate_type_identifier,
+        alias($._immediate_instance_type_access, $._instance_type_access)
+      ))
+    ),
+
+    _component_field_access: $ => componentAccess($, $.identifier),
+    _component_type_access: $ => componentAccess($, $._type_identifier),
+
+    /**
+     * Immediate component type access isnt possible because components cant have types.
+     * 
+     * Even a statement like `... type component-field->type` is invalid where field is a class reference.
+     */
+    _immediate_component_field_access: $ => componentAccess($, $._immediate_identifier),
+
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
+    _table_category: _ => choice(
+      kw("standard"),
+      kw("sorted"),
+      kw("hashed"),
+      kw("any"),
+      kw("index"),
+    ),
+
 
     /**
      * One of the possible specifications alongside a specification.
@@ -364,7 +395,6 @@ module.exports = grammar({
           $.literal_string,
           seq(...kws("is", "initial")),
           $.identifier,
-          $.component_access
         )
       )),
       field("readonly", kw("read-only"))
@@ -373,14 +403,17 @@ module.exports = grammar({
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
-    typename: $ => /[a-zA-Z\/][a-zA-Z0-9_\/-]*/,
-    identifier: $ => /[a-zA-Z_\/][a-zA-Z0-9_\/]*/,
-    field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
-    number: $ => /-?\d+/,
+    identifier: _ => IDENTIFIER_REGEX,
+    _type_identifier: $ => alias($.identifier, $.type_identifier),
+    _cls_identifier: $ => alias($.identifier, $.cls_identifier),
 
-    _immediate_identifier: $ => alias(token.immediate(/[a-zA-Z_\/][a-zA-Z0-9_\/-]*/), $.identifier),
+    field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
+
+    _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
+    _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
     _immediate_number: $ => alias(token.immediate(/-?\d+/), $.number),
 
+    number: $ => /-?\d+/,
     literal_string: $ => choice(
       seq(
         "'",
@@ -398,7 +431,6 @@ module.exports = grammar({
       $._inline_comment,
       seq($._begin_line_comment, /[^\n\r]*/),
     ),
-
 
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
   }
@@ -549,6 +581,51 @@ function generate_decl_specs(decl_map) {
   return rules;
 }
 
+/**
+ * Branches into a `type <addition> ... <type>` or `like <addition> <dobj>`.
+ * 
+ * Do not use this rule if you require the distinction between type and dobj
+ * beyond reaching the `type` clause.
+ * 
+ * @param {Rule} addition The addition to inject between the keywords.
+ */
+function typeOrLikeExpr($, addition) {
+  return choice(
+    seq(
+      kw("type"),
+      addition,
+      field("type", choice(
+        $._type_identifier,
+        alias($._static_type_access, $.static_access),
+        alias($._instance_type_access, $.instance_access)
+      ))
+    ),
+    seq(
+      kw("like"),
+      addition,
+      field("dobj", choice(
+        $.identifier,
+        alias($._static_field_access, $.static_access),
+        alias($._instance_field_access, $.instance_access)
+      ))
+    ),
+  );
+}
 
-
-
+/**
+ * Template function for component access to determine the source identifier kind.
+ */
+function componentAccess($, src) {
+  return seq(
+    field("source", src),
+    token.immediate("-"),
+    field("component", choice(
+      // Doesnt matter what the source of the component is, the fields are always idents
+      $._immediate_identifier,
+      // Could be a nested field access, but will always be an identifier and immediate.
+      // The exception here could be a field of a component that is a reference to a class
+      // which could then technically point to a field again.
+      alias($._immediate_component_field_access, $.component_access)
+    ))
+  );
+}
