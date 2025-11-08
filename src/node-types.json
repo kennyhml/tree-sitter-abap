@@ -187,16 +187,47 @@
   {
     "type": "class_declaration",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "class_options",
-          "named": true
-        }
-      ]
+    "fields": {
+      "options": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class_options",
+            "named": true
+          }
+        ]
+      },
+      "private": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "private_section",
+            "named": true
+          }
+        ]
+      },
+      "protected": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "protected_section",
+            "named": true
+          }
+        ]
+      },
+      "public": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "public_section",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -248,14 +279,6 @@
           {
             "type": "cls_identifier",
             "named": true
-          },
-          {
-            "type": "from",
-            "named": false
-          },
-          {
-            "type": "inheriting",
-            "named": false
           }
         ]
       },
@@ -764,6 +787,87 @@
     "type": "literal_string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "private_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "class_data_declaration",
+          "named": true
+        },
+        {
+          "type": "constants_declaration",
+          "named": true
+        },
+        {
+          "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "types_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "protected_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "class_data_declaration",
+          "named": true
+        },
+        {
+          "type": "constants_declaration",
+          "named": true
+        },
+        {
+          "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "types_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "public_section",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "class_data_declaration",
+          "named": true
+        },
+        {
+          "type": "constants_declaration",
+          "named": true
+        },
+        {
+          "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "types_declaration",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "range_type",
@@ -1487,6 +1591,10 @@
     "named": false
   },
   {
+    "type": "endclass",
+    "named": false
+  },
+  {
     "type": "final",
     "named": false
   },
@@ -1652,6 +1760,10 @@
   },
   {
     "type": "risk",
+    "named": false
+  },
+  {
+    "type": "section",
     "named": false
   },
   {

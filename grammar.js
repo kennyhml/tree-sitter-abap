@@ -95,6 +95,13 @@ module.exports = grammar({
     // class /function definitions and implementations, etc..
     _compound_statement: $ => choice(),
 
+    _class_component: $ => choice(
+      $.data_declaration,
+      $.class_data_declaration,
+      $.constants_declaration,
+      $.types_declaration
+    ),
+
     ...generate_decl_specs({
       data: $ => $.identifier,
       class_data: $ => $.identifier,
@@ -211,7 +218,14 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
     class_declaration: $ => seq(
-      $.class_options, "."
+      field("options", $.class_options), ".",
+
+      // These actually have to appear in order, private cant come before public if public is specified.
+      field("public", optional($.public_section)),
+      field("protected", optional($.protected_section)),
+      field("private", optional($.private_section)),
+
+      kw("endclass"), "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_OPTIONS.html
@@ -222,7 +236,7 @@ module.exports = grammar({
         choice(
           kw("public"),
           // classes can only inherit from 0 to 1 superclasses.
-          field("parent", seq(...kws("inheriting", "from"), $._cls_identifier)),
+          seq(...kws("inheriting", "from"), field("parent", $._cls_identifier)),
           kw("abstract"),
           kw("final"),
           seq(kw("create"), field("create_visibility", $._visibility)),
@@ -250,6 +264,21 @@ module.exports = grammar({
       optional(kw("global")),
       kw("friends"),
       repeat1($._cls_identifier)
+    ),
+
+    public_section: $ => seq(
+      ...kws("public", "section"), ".",
+      repeat($._class_component)
+    ),
+
+    protected_section: $ => seq(
+      ...kws("protected", "section"), ".",
+      repeat($._class_component)
+    ),
+
+    private_section: $ => seq(
+      ...kws("private", "section"), ".",
+      repeat($._class_component)
     ),
 
     _visibility: _ => choice(...kws("public", "protected", "private")),
