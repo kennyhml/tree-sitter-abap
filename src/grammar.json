@@ -28,10 +28,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "class_data_declaration"
-        },
-        {
-          "type": "SYMBOL",
           "name": "types_declaration"
         },
         {
@@ -41,6 +37,14 @@
         {
           "type": "SYMBOL",
           "name": "report_initiator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "class_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "class_data_declaration"
         }
       ]
     },
@@ -4142,6 +4146,448 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "class_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "class_options"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "class_options": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][lL][aA][sS][sS]"
+          },
+          "named": false,
+          "value": "class"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_cls_identifier"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][eE][fF][iI][nN][iI][tT][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "definition"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[pP][uU][bB][lL][iI][cC]"
+                },
+                "named": false,
+                "value": "public"
+              },
+              {
+                "type": "FIELD",
+                "name": "parent",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[iI][nN][hH][eE][rR][iI][tT][iI][nN][gG]"
+                      },
+                      "named": false,
+                      "value": "inheriting"
+                    },
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[fF][rR][oO][mM]"
+                      },
+                      "named": false,
+                      "value": "from"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_cls_identifier"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[aA][bB][sS][tT][rR][aA][cC][tT]"
+                },
+                "named": false,
+                "value": "abstract"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[fF][iI][nN][aA][lL]"
+                },
+                "named": false,
+                "value": "final"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[cC][rR][eE][aA][tT][eE]"
+                    },
+                    "named": false,
+                    "value": "create"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "create_visibility",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_visibility"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FIELD",
+                "name": "testing",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "for_testing_spec"
+                }
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[sS][hH][aA][rR][eE][dD]"
+                    },
+                    "named": false,
+                    "value": "shared"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[mM][eE][mM][oO][rR][yY]"
+                    },
+                    "named": false,
+                    "value": "memory"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[eE][nN][aA][bB][lL][eE][dD]"
+                    },
+                    "named": false,
+                    "value": "enabled"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[fF][oO][rR]"
+                    },
+                    "named": false,
+                    "value": "for"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[bB][eE][hH][aA][vV][iI][oO][rR]"
+                    },
+                    "named": false,
+                    "value": "behavior"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[oO][fF]"
+                    },
+                    "named": false,
+                    "value": "of"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "behavior_ref",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_type_identifier"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "friends"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "for_testing_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][oO][rR]"
+          },
+          "named": false,
+          "value": "for"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][eE][sS][tT][iI][nN][gG]"
+          },
+          "named": false,
+          "value": "testing"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[rR][iI][sS][kK]"
+                    },
+                    "named": false,
+                    "value": "risk"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[lL][eE][vV][eE][lL]"
+                    },
+                    "named": false,
+                    "value": "level"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "risk_level",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_test_risk_level"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[dD][uU][rR][aA][tT][iI][oO][nN]"
+                    },
+                    "named": false,
+                    "value": "duration"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "duration",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_test_duration"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "friends": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[gG][lL][oO][bB][aA][lL]"
+              },
+              "named": false,
+              "value": "global"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][rR][iI][eE][nN][dD][sS]"
+          },
+          "named": false,
+          "value": "friends"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_cls_identifier"
+          }
+        }
+      ]
+    },
+    "_visibility": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][uU][bB][lL][iI][cC]"
+          },
+          "named": false,
+          "value": "public"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][rR][oO][tT][eE][cC][tT][eE][dD]"
+          },
+          "named": false,
+          "value": "protected"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][rR][iI][vV][aA][tT][eE]"
+          },
+          "named": false,
+          "value": "private"
+        }
+      ]
+    },
+    "_test_risk_level": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][rR][iI][tT][iI][cC][aA][lL]"
+          },
+          "named": false,
+          "value": "critical"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][aA][nN][gG][eE][rR][oO][uU][sS]"
+          },
+          "named": false,
+          "value": "dangerous"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[hH][aA][rR][mM][lL][eE][sS][sS]"
+          },
+          "named": false,
+          "value": "harmless"
+        }
+      ]
+    },
+    "_test_duration": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][hH][oO][rR][tT]"
+          },
+          "named": false,
+          "value": "short"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[mM][eE][dD][iI][uU][mM]"
+          },
+          "named": false,
+          "value": "medium"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][oO][nN][gG]"
+          },
+          "named": false,
+          "value": "long"
         }
       ]
     },

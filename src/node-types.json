@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "class_declaration",
+        "named": true
+      },
+      {
         "type": "constants_declaration",
         "named": true
       },
@@ -175,6 +179,103 @@
         },
         {
           "type": "struct_include",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "class_options",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_options",
+    "named": true,
+    "fields": {
+      "behavior_ref": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "create_visibility": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "private",
+            "named": false
+          },
+          {
+            "type": "protected",
+            "named": false
+          },
+          {
+            "type": "public",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cls_identifier",
+            "named": true
+          }
+        ]
+      },
+      "parent": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "cls_identifier",
+            "named": true
+          },
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "inheriting",
+            "named": false
+          }
+        ]
+      },
+      "testing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "for_testing_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "friends",
           "named": true
         }
       ]
@@ -554,6 +655,63 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "for_testing_spec",
+    "named": true,
+    "fields": {
+      "duration": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "long",
+            "named": false
+          },
+          {
+            "type": "medium",
+            "named": false
+          },
+          {
+            "type": "short",
+            "named": false
+          }
+        ]
+      },
+      "risk_level": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "critical",
+            "named": false
+          },
+          {
+            "type": "dangerous",
+            "named": false
+          },
+          {
+            "type": "harmless",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "friends",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cls_identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1229,6 +1387,10 @@
     "named": false
   },
   {
+    "type": "abstract",
+    "named": false
+  },
+  {
     "type": "alias",
     "named": false
   },
@@ -1242,6 +1404,14 @@
   },
   {
     "type": "begin",
+    "named": false
+  },
+  {
+    "type": "behavior",
+    "named": false
+  },
+  {
+    "type": "class",
     "named": false
   },
   {
@@ -1265,6 +1435,18 @@
     "named": false
   },
   {
+    "type": "create",
+    "named": false
+  },
+  {
+    "type": "critical",
+    "named": false
+  },
+  {
+    "type": "dangerous",
+    "named": false
+  },
+  {
     "type": "data",
     "named": false
   },
@@ -1285,7 +1467,19 @@
     "named": false
   },
   {
+    "type": "definition",
+    "named": false
+  },
+  {
+    "type": "duration",
+    "named": false
+  },
+  {
     "type": "empty",
+    "named": false
+  },
+  {
+    "type": "enabled",
     "named": false
   },
   {
@@ -1293,7 +1487,31 @@
     "named": false
   },
   {
+    "type": "final",
+    "named": false
+  },
+  {
+    "type": "for",
+    "named": false
+  },
+  {
+    "type": "friends",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": false
+  },
+  {
     "type": "functionality",
+    "named": false
+  },
+  {
+    "type": "global",
+    "named": false
+  },
+  {
+    "type": "harmless",
     "named": false
   },
   {
@@ -1321,6 +1539,10 @@
     "named": false
   },
   {
+    "type": "inheriting",
+    "named": false
+  },
+  {
     "type": "initial",
     "named": false
   },
@@ -1337,6 +1559,10 @@
     "named": false
   },
   {
+    "type": "level",
+    "named": false
+  },
+  {
     "type": "like",
     "named": false
   },
@@ -1350,6 +1576,18 @@
   },
   {
     "type": "line-size",
+    "named": false
+  },
+  {
+    "type": "long",
+    "named": false
+  },
+  {
+    "type": "medium",
+    "named": false
+  },
+  {
+    "type": "memory",
     "named": false
   },
   {
@@ -1377,6 +1615,18 @@
     "named": false
   },
   {
+    "type": "private",
+    "named": false
+  },
+  {
+    "type": "protected",
+    "named": false
+  },
+  {
+    "type": "public",
+    "named": false
+  },
+  {
     "type": "range",
     "named": false
   },
@@ -1398,6 +1648,18 @@
   },
   {
     "type": "report",
+    "named": false
+  },
+  {
+    "type": "risk",
+    "named": false
+  },
+  {
+    "type": "shared",
+    "named": false
+  },
+  {
+    "type": "short",
     "named": false
   },
   {
@@ -1431,6 +1693,10 @@
   {
     "type": "table_key",
     "named": true
+  },
+  {
+    "type": "testing",
+    "named": false
   },
   {
     "type": "to",

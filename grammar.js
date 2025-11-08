@@ -84,6 +84,7 @@ module.exports = grammar({
       $.types_declaration,
       $.constants_declaration,
       $.report_initiator,
+      $.class_declaration,
 
       // Not technically allowed just randomly outside of classes, but we will allow it
       // since we just want to parse a superset of the actual syntax.
@@ -207,6 +208,53 @@ module.exports = grammar({
         kw("read-only"))
       )
     ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
+    class_declaration: $ => seq(
+      $.class_options, "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_OPTIONS.html
+    class_options: $ => seq(
+      kw("class"), field("name", $._cls_identifier), kw("definition"),
+      // can appear in any order
+      repeat(
+        choice(
+          kw("public"),
+          // classes can only inherit from 0 to 1 superclasses.
+          field("parent", seq(...kws("inheriting", "from"), $._cls_identifier)),
+          kw("abstract"),
+          kw("final"),
+          seq(kw("create"), field("create_visibility", $._visibility)),
+          field("testing", $.for_testing_spec),
+          seq(...kws("shared", "memory", "enabled")),
+          seq(...kws("for", "behavior", "of"), field("behavior_ref", $._type_identifier)),
+        )
+      ),
+      // friends must be specified at the end of the statement.
+      optional($.friends),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_TESTING.html
+    for_testing_spec: $ => seq(
+      ...kws("for", "testing"),
+      repeat(
+        choice(
+          seq(...kws("risk", "level"), field("risk_level", $._test_risk_level)),
+          seq(kw("duration"), field("duration", $._test_duration)),
+        )
+      )
+    ),
+
+    friends: $ => seq(
+      optional(kw("global")),
+      kw("friends"),
+      repeat1($._cls_identifier)
+    ),
+
+    _visibility: _ => choice(...kws("public", "protected", "private")),
+    _test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
+    _test_duration: _ => choice(...kws("short", "medium", "long")),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
     report_initiator: $ => seq(
@@ -588,7 +636,6 @@ function generate_decl_specs(decl_map) {
     decl(keyword);
     spec(keyword, node);
   }
-  console.log(rules);
   return rules;
 }
 
