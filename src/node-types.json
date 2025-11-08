@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "class_data_declaration",
+        "named": true
+      },
+      {
         "type": "constants_declaration",
         "named": true
       },
@@ -83,6 +87,97 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "class_data_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "class_data_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_data_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "nameClose": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "nameOpen": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "elementary_type",
+            "named": true
+          },
+          {
+            "type": "range_type",
+            "named": true
+          },
+          {
+            "type": "ref_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
+            "named": true
+          },
+          {
+            "type": "table_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "struct_include",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1147,6 +1242,10 @@
   },
   {
     "type": "begin",
+    "named": false
+  },
+  {
+    "type": "class-data",
     "named": false
   },
   {

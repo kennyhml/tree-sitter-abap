@@ -84,6 +84,10 @@ module.exports = grammar({
       $.types_declaration,
       $.constants_declaration,
       $.report_initiator,
+
+      // Not technically allowed just randomly outside of classes, but we will allow it
+      // since we just want to parse a superset of the actual syntax.
+      $.class_data_declaration,
     ),
 
     // Statements that start a block and have a body. For example method implementations,
@@ -92,6 +96,7 @@ module.exports = grammar({
 
     ...generate_decl_specs({
       data: $ => $.identifier,
+      class_data: $ => $.identifier,
       types: $ => $._type_identifier,
       constants: $ => alias($.identifier, $.constant),
     }),
@@ -527,7 +532,7 @@ function generate_decl_specs(decl_map) {
     const spec = `${keyword}_spec`;
 
     rules[`${keyword}_declaration`] = $ => seq(
-      kw(keyword),
+      kw(keyword.replace("_", "-")),
       choice(
         seq(":", commaSep1($[spec])),
         $[spec]
@@ -538,6 +543,8 @@ function generate_decl_specs(decl_map) {
   function spec(keyword, identifierNode) {
     const name = `${keyword}_spec`;
     const comp = `_${keyword}_comp_spec`;
+
+    keyword = keyword.replace("_", "-")
 
     /**
      * Regardless of whether a struct is declared using CONSTANTS, TYPES, etc.
@@ -581,6 +588,7 @@ function generate_decl_specs(decl_map) {
     decl(keyword);
     spec(keyword, node);
   }
+  console.log(rules);
   return rules;
 }
 
