@@ -84,8 +84,9 @@ module.exports = grammar({
       $.types_declaration,
       $.constants_declaration,
       $.report_initiator,
-      $.class_declaration,
-
+      $.class_definition,
+      $.deferred_class_definition,
+      $.local_friends_spec,
       // Not technically allowed just randomly outside of classes, but we will allow it
       // since we just want to parse a superset of the actual syntax.
       $.class_data_declaration,
@@ -217,7 +218,7 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
-    class_declaration: $ => seq(
+    class_definition: $ => seq(
       field("options", $.class_options), ".",
 
       // These actually have to appear in order, private cant come before public if public is specified.
@@ -226,6 +227,21 @@ module.exports = grammar({
       field("private", optional($.private_section)),
 
       kw("endclass"), "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
+    deferred_class_definition: $ => seq(
+      kw("class"), field("name", $._cls_identifier), ...kws("definition", "deferred"),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_LOCAL_FRIENDS.html
+    local_friends_spec: $ => seq(
+      kw("class"),
+      field("name", $._cls_identifier),
+      ...kws("definition", "local", "friends"),
+      repeat1($._cls_identifier),
+      "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_OPTIONS.html
@@ -246,7 +262,7 @@ module.exports = grammar({
         )
       ),
       // friends must be specified at the end of the statement.
-      optional($.friends),
+      optional($.global_friends),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_TESTING.html
@@ -260,7 +276,7 @@ module.exports = grammar({
       )
     ),
 
-    friends: $ => seq(
+    global_friends: $ => seq(
       optional(kw("global")),
       kw("friends"),
       repeat1($._cls_identifier)

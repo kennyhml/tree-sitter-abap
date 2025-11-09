@@ -8,7 +8,7 @@
         "named": true
       },
       {
-        "type": "class_declaration",
+        "type": "class_definition",
         "named": true
       },
       {
@@ -17,6 +17,14 @@
       },
       {
         "type": "data_declaration",
+        "named": true
+      },
+      {
+        "type": "deferred_class_definition",
+        "named": true
+      },
+      {
+        "type": "local_friends_spec",
         "named": true
       },
       {
@@ -185,7 +193,7 @@
     }
   },
   {
-    "type": "class_declaration",
+    "type": "class_definition",
     "named": true,
     "fields": {
       "options": {
@@ -298,7 +306,7 @@
       "required": false,
       "types": [
         {
-          "type": "friends",
+          "type": "global_friends",
           "named": true
         }
       ]
@@ -603,6 +611,22 @@
     }
   },
   {
+    "type": "deferred_class_definition",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cls_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "elementary_type",
     "named": true,
     "fields": {
@@ -723,7 +747,7 @@
     }
   },
   {
-    "type": "friends",
+    "type": "global_friends",
     "named": true,
     "fields": {},
     "children": {
@@ -787,6 +811,32 @@
     "type": "literal_string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "local_friends_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cls_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cls_identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "private_section",
@@ -1567,6 +1617,10 @@
     "named": false
   },
   {
+    "type": "deferred",
+    "named": false
+  },
+  {
     "type": "defining",
     "named": false
   },
@@ -1684,6 +1738,10 @@
   },
   {
     "type": "line-size",
+    "named": false
+  },
+  {
+    "type": "local",
     "named": false
   },
   {
