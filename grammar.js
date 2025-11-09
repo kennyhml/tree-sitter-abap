@@ -66,6 +66,15 @@ module.exports = grammar({
     $._compound_statement
   ],
 
+  // conflicts: $ => [
+  //   [$.elementary_type],
+  //   [$.referred_type],
+  //   [$.ref_type],
+  //   [$.table_type],
+  //   [$.range_type],
+  //   [$.table_key_spec],
+  // ],
+
   // This makes sure that tree-sitter initially also parses keywords as 
   // identifiers and THEN checks whether it is a keyword in its entirety.
   word: $ => $.identifier,
@@ -101,7 +110,8 @@ module.exports = grammar({
       $.data_declaration,
       $.class_data_declaration,
       $.constants_declaration,
-      $.types_declaration
+      $.types_declaration,
+      $.methods_declaration
     ),
 
     ...generate_decl_specs({
@@ -127,21 +137,21 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
      */
-    elementary_type: $ => choice(
+    elementary_type: $ => prec.right(choice(
       // Optional Buff size + type + optional type meta
       seq(optional(BUFF_SIZE($)), seq(kw("type"), ABAP_TYPE), repeat($._type_meta)),
       // Optional buff size + required type meta
       seq(optional(BUFF_SIZE($)), repeat1($._type_meta)),
       // Only buf size
       BUFF_SIZE($)
-    ),
+    )),
 
     /**
      * Internal Table type declaration.
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
      */
-    table_type: $ => seq(
+    table_type: $ => prec.right(seq(
       typeOrLikeExpr($,
         seq(
           optional(field("kind", $._table_category)),
@@ -160,14 +170,14 @@ module.exports = grammar({
         // obsolete
         seq(...kws("with", "header", "line")),
       ))
-    ),
+    )),
 
     /**
      * Range Table declaration.
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
      */
-    range_type: $ => seq(
+    range_type: $ => prec.right(seq(
       typeOrLikeExpr($, seq(...kws("range", "of"))),
       repeat(choice(
         seq(...kws("initial", "size"), field("initial_size", $.number)),
@@ -178,14 +188,14 @@ module.exports = grammar({
         seq(...kws("with", "header", "line")),
       )
       )
-    ),
+    )),
 
     /**
      * Reference (NOT DERIVED) type to another type declared with `ref to`.
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
      */
-    ref_type: $ => seq(
+    ref_type: $ => prec.right(seq(
       typeOrLikeExpr($, seq(...kws("ref", "to"))),
 
       // Not technically valid for types declarations but intentionally tolerated.
@@ -193,7 +203,7 @@ module.exports = grammar({
         seq(...kws("value", "is", "initial")),
         seq(...kws("read-only"))
       ))
-    ),
+    )),
 
     /**
      * Type that refers to another type (declared elsewhere or in the DDIC) or
@@ -203,7 +213,7 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
      */
-    referred_type: $ => seq(
+    referred_type: $ => prec.right(seq(
       typeOrLikeExpr($, optional(seq(...kws("line", "of")))),
       repeat(choice(
         field("value", seq(
@@ -216,7 +226,7 @@ module.exports = grammar({
         )),
         kw("read-only"))
       )
-    ),
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
     class_definition: $ => seq(
@@ -304,6 +314,148 @@ module.exports = grammar({
       repeat($._class_component)
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS.html
+    methods_declaration: $ => seq(
+      kw("methods"),
+      choice(
+        seq(":", commaSep1($._method_spec)),
+        $._method_spec
+      ),
+      "."
+    ),
+
+    _method_spec: $ => choice(
+      $.method_spec,
+      $.method_redefinition,
+    ),
+
+    /**
+     * Technically methods split into general and functional methods.
+     * 
+     * The distinction is that general methods cannot have a `returning` addition and retain
+     * their sy-subrc from their `exceptions`.
+     * 
+     * However, its simpler to just parse them as one.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_GENERAL.html
+     */
+    method_spec: $ => seq(
+      field("name", $.identifier),
+      optional(choice(...kws("abstract", "final"))),
+      optional($.intf_method_default),
+      // can appear in any order
+      repeat(
+        choice(
+          field("importing", $.importing_params),
+          field("exporting", $.exporting_params),
+          field("changing", $.changing_params),
+          field("raising", $.raising_params),
+          field("returning", $.returning_param),
+          field("exceptions", $.exceptions_params),
+        )
+      )
+    ),
+
+    method_redefinition: $ => seq(
+      field("name", $.identifier),
+      optional(kw("final")),
+      kw("redefinition"),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
+    intf_method_default: $ => seq(
+      kw("default"),
+      field("default", choice(...kws("ignore", "fail")))
+    ),
+
+    /**
+     * IMPORTING [...] <?PREFERRED PARAMETER [...]>
+     */
+    importing_params: $ => seq(
+      kw("importing"),
+      repeat1($.parameter),
+      optional(
+        seq(
+          ...kws("preferred", "parameter"),
+          field("preferred", $.identifier)
+        )
+      )
+    ),
+
+    /**
+     * EXPORTING [...]
+     * 
+     * Tolerates `reference` and `default` additions in the parameter list.
+     */
+    exporting_params: $ => seq(
+      kw("exporting"),
+      repeat1($.parameter),
+    ),
+
+    /**
+     * CHANGING [...]
+     * 
+     * Tolerates `value` and `default` additions in the parameter list.
+     */
+    changing_params: $ => seq(
+      kw("changing"),
+      repeat1($.parameter),
+    ),
+
+    /**
+     * RAISING [...]
+     */
+    raising_params: $ => seq(
+      kw("raising"),
+      repeat1($.exception)
+    ),
+
+    exceptions_params: $ => seq(
+      kw("exceptions"),
+      repeat1($.identifier)
+    ),
+
+    returning_param: $ => seq(
+      kw("returning"), $.parameter
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html
+    parameter: $ => seq(
+      // The addition `value` and `reference` is optional (reference is default)
+      choice(
+        field("name", $.identifier),
+        seq(
+          choice(...kws("value", "reference")),
+          token.immediate("("),
+          field("name", $._immediate_identifier),
+          token.immediate(")")
+        ),
+      ),
+      field("typing", choice($._type_clause)),
+      // Technically only allowed for importing parameters
+      optional(choice(
+        kw("optional"),
+        seq(
+          kw("default"),
+          choice(
+            $.identifier, // constant
+            $.number,
+            $.literal_string
+          )
+        )
+      ))
+    ),
+
+    exception: $ => choice(
+      field("name", $._cls_identifier),
+      seq(
+        kw("resumable"),
+        token.immediate("("),
+        field("name", $._cls_identifier),
+        token.immediate(")"),
+      )
+    ),
+
     _visibility: _ => choice(...kws("public", "protected", "private")),
     _test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
     _test_duration: _ => choice(...kws("short", "medium", "long")),
@@ -331,7 +483,7 @@ module.exports = grammar({
       "."),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
-    table_key_spec: $ => seq(
+    table_key_spec: $ => prec.right(seq(
       kw("with"),
 
       choice(
@@ -361,7 +513,7 @@ module.exports = grammar({
             ),
           ))
       ),
-    ),
+    )),
 
     /**
      * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).
