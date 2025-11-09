@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "class_implementation",
+        "named": true
+      },
+      {
         "type": "constants_declaration",
         "named": true
       },
@@ -196,9 +200,19 @@
     "type": "class_definition",
     "named": true,
     "fields": {
-      "options": {
+      "name": {
         "multiple": false,
         "required": true,
+        "types": [
+          {
+            "type": "cls_identifier",
+            "named": true
+          }
+        ]
+      },
+      "options": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "class_options",
@@ -239,6 +253,22 @@
     }
   },
   {
+    "type": "class_implementation",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cls_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "class_options",
     "named": true,
     "fields": {
@@ -267,16 +297,6 @@
           {
             "type": "public",
             "named": false
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "cls_identifier",
-            "named": true
           }
         ]
       },
@@ -1691,6 +1711,10 @@
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "implementation",
+    "named": false
   },
   {
     "type": "include",

@@ -85,6 +85,7 @@ module.exports = grammar({
       $.constants_declaration,
       $.report_initiator,
       $.class_definition,
+      $.class_implementation,
       $.deferred_class_definition,
       $.local_friends_spec,
       // Not technically allowed just randomly outside of classes, but we will allow it
@@ -219,13 +220,20 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
     class_definition: $ => seq(
-      field("options", $.class_options), ".",
+      kw("class"), field("name", $._cls_identifier), kw("definition"),
+      optional(field("options", $.class_options)), ".",
 
       // These actually have to appear in order, private cant come before public if public is specified.
       field("public", optional($.public_section)),
       field("protected", optional($.protected_section)),
       field("private", optional($.private_section)),
 
+      kw("endclass"), "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
+    class_implementation: $ => seq(
+      kw("class"), field("name", $._cls_identifier), kw("implementation"), ".",
       kw("endclass"), "."
     ),
 
@@ -246,9 +254,8 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_OPTIONS.html
     class_options: $ => seq(
-      kw("class"), field("name", $._cls_identifier), kw("definition"),
       // can appear in any order
-      repeat(
+      repeat1(
         choice(
           kw("public"),
           // classes can only inherit from 0 to 1 superclasses.

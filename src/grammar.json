@@ -44,6 +44,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "class_implementation"
+        },
+        {
+          "type": "SYMBOL",
           "name": "deferred_class_definition"
         },
         {
@@ -4182,12 +4186,46 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][lL][aA][sS][sS]"
+          },
+          "named": false,
+          "value": "class"
+        },
+        {
           "type": "FIELD",
-          "name": "options",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "class_options"
+            "name": "_cls_identifier"
           }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][eE][fF][iI][nN][iI][tT][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "definition"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "options",
+              "content": {
+                "type": "SYMBOL",
+                "name": "class_options"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -4240,6 +4278,54 @@
               }
             ]
           }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][cC][lL][aA][sS][sS]"
+          },
+          "named": false,
+          "value": "endclass"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "class_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][lL][aA][sS][sS]"
+          },
+          "named": false,
+          "value": "class"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_cls_identifier"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][mM][pP][lL][eE][mM][eE][nN][tT][aA][tT][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "implementation"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         },
         {
           "type": "ALIAS",
@@ -4364,33 +4450,7 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[cC][lL][aA][sS][sS]"
-          },
-          "named": false,
-          "value": "class"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_cls_identifier"
-          }
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[dD][eE][fF][iI][nN][iI][tT][iI][oO][nN]"
-          },
-          "named": false,
-          "value": "definition"
-        },
-        {
-          "type": "REPEAT",
+          "type": "REPEAT1",
           "content": {
             "type": "CHOICE",
             "members": [
