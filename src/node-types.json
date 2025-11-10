@@ -333,6 +333,11 @@
     }
   },
   {
+    "type": "cls_constructor",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true,
@@ -537,6 +542,54 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "constructor",
+    "named": true,
+    "fields": {
+      "exceptions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "exception_list",
+            "named": true
+          },
+          {
+            "type": "exceptions",
+            "named": false
+          }
+        ]
+      },
+      "importing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      },
+      "raising": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "raising",
+            "named": false
+          },
+          {
+            "type": "raising_list",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1103,6 +1156,14 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "cls_constructor",
+          "named": true
+        },
+        {
+          "type": "constructor",
+          "named": true
+        },
         {
           "type": "event_handler",
           "named": true
@@ -1994,6 +2055,10 @@
     "named": false
   },
   {
+    "type": "class_constructor",
+    "named": false
+  },
+  {
     "type": "cls_identifier",
     "named": true
   },
@@ -2007,6 +2072,10 @@
   },
   {
     "type": "constants",
+    "named": false
+  },
+  {
+    "type": "constructor",
     "named": false
   },
   {

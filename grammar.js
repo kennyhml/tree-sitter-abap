@@ -318,8 +318,10 @@ module.exports = grammar({
     _method_spec: $ => choice(
       $.method_spec,
       $.method_redefinition,
-      $.event_handler
-      //TODO: AMDP, Test
+      $.event_handler,
+      $.constructor,
+      $.cls_constructor
+      //TODO: AMDP, Tests..
     ),
 
     /**
@@ -376,6 +378,9 @@ module.exports = grammar({
         )
       )
     ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_CONSTRUCTOR.html
+    cls_constructor: _ => kw("class_constructor"),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
     method_redefinition: $ => seq(

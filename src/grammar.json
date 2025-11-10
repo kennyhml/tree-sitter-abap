@@ -4954,6 +4954,14 @@
         {
           "type": "SYMBOL",
           "name": "event_handler"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "constructor"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cls_constructor"
         }
       ]
     },
@@ -5386,6 +5394,15 @@
           }
         }
       ]
+    },
+    "cls_constructor": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[cC][lL][aA][sS][sS]_[cC][oO][nN][sS][tT][rR][uU][cC][tT][oO][rR]"
+      },
+      "named": false,
+      "value": "class_constructor"
     },
     "method_redefinition": {
       "type": "SEQ",
