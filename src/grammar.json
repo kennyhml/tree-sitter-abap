@@ -86,6 +86,10 @@
         {
           "type": "SYMBOL",
           "name": "methods_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cls_methods_declaration"
         }
       ]
     },
@@ -4890,6 +4894,67 @@
           },
           "named": false,
           "value": "methods"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_method_spec"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "_method_spec"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_method_spec"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "cls_methods_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][lL][aA][sS][sS]-[mM][eE][tT][hH][oO][dD][sS]"
+          },
+          "named": false,
+          "value": "class-methods"
         },
         {
           "type": "CHOICE",

@@ -338,6 +338,37 @@
     "fields": {}
   },
   {
+    "type": "cls_methods_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cls_constructor",
+          "named": true
+        },
+        {
+          "type": "constructor",
+          "named": true
+        },
+        {
+          "type": "event_handler",
+          "named": true
+        },
+        {
+          "type": "method_redefinition",
+          "named": true
+        },
+        {
+          "type": "method_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true,
@@ -1287,6 +1318,10 @@
           "named": true
         },
         {
+          "type": "cls_methods_declaration",
+          "named": true
+        },
+        {
           "type": "constants_declaration",
           "named": true
         },
@@ -1318,6 +1353,10 @@
           "named": true
         },
         {
+          "type": "cls_methods_declaration",
+          "named": true
+        },
+        {
           "type": "constants_declaration",
           "named": true
         },
@@ -1346,6 +1385,10 @@
       "types": [
         {
           "type": "class_data_declaration",
+          "named": true
+        },
+        {
+          "type": "cls_methods_declaration",
           "named": true
         },
         {
@@ -2052,6 +2095,10 @@
   },
   {
     "type": "class-data",
+    "named": false
+  },
+  {
+    "type": "class-methods",
     "named": false
   },
   {

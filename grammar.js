@@ -102,7 +102,8 @@ module.exports = grammar({
       $.class_data_declaration,
       $.constants_declaration,
       $.types_declaration,
-      $.methods_declaration
+      $.methods_declaration,
+      $.cls_methods_declaration
     ),
 
     ...generate_decl_specs({
@@ -315,6 +316,21 @@ module.exports = grammar({
       "."
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS.html
+    cls_methods_declaration: $ => seq(
+      kw("class-methods"),
+      choice(
+        seq(":", commaSep1($._method_spec)),
+        $._method_spec
+      ),
+      "."
+    ),
+
+    /**
+     * Branches into the possible method specifications as part of a method declaration.
+     * 
+     * Does **not** discriminate between static and instance methods, any are allowed.
+     */
     _method_spec: $ => choice(
       $.method_spec,
       $.method_redefinition,
