@@ -172,7 +172,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -492,7 +492,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -873,7 +873,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -1193,7 +1193,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -1574,7 +1574,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -1894,7 +1894,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -2275,7 +2275,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -2600,7 +2600,7 @@
                   "name": "type",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_type_clause"
+                    "name": "_typing"
                   }
                 },
                 {
@@ -2918,7 +2918,7 @@
         }
       ]
     },
-    "_type_clause": {
+    "_typing": {
       "type": "CHOICE",
       "members": [
         {
@@ -5631,7 +5631,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "_type_clause"
+                  "name": "_typing"
                 },
                 {
                   "type": "BLANK"

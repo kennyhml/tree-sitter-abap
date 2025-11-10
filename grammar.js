@@ -112,7 +112,7 @@ module.exports = grammar({
       constants: $ => alias($.identifier, $.constant),
     }),
 
-    _type_clause: $ => choice(
+    _typing: $ => choice(
       $.elementary_type,
       $.referred_type,
       $.ref_type,
@@ -418,7 +418,7 @@ module.exports = grammar({
           token.immediate(")")
         ),
       ),
-      field("typing", optional($._type_clause)),
+      field("typing", optional($._typing)),
       // Technically only allowed for importing parameters
       optional(choice(
         kw("optional"),
@@ -796,7 +796,7 @@ function generate_decl_specs(decl_map) {
     rules[comp] = $ => choice(
       seq(
         field("name", $.identifier),
-        optional(field("type", $._type_clause))
+        optional(field("type", $._typing))
       ),
 
       structureSpec($, undefined, $.identifier, $[comp]),
@@ -806,7 +806,7 @@ function generate_decl_specs(decl_map) {
     rules[name] = $ => choice(
       seq(
         field("name", identifierNode($)),
-        optional(field("type", $._type_clause))
+        optional(field("type", $._typing))
       ),
 
       /**
