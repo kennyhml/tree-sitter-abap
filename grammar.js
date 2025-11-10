@@ -66,15 +66,6 @@ module.exports = grammar({
     $._compound_statement
   ],
 
-  // conflicts: $ => [
-  //   [$.elementary_type],
-  //   [$.referred_type],
-  //   [$.ref_type],
-  //   [$.table_type],
-  //   [$.range_type],
-  //   [$.table_key_spec],
-  // ],
-
   // This makes sure that tree-sitter initially also parses keywords as 
   // identifiers and THEN checks whether it is a keyword in its entirety.
   word: $ => $.identifier,
@@ -327,6 +318,8 @@ module.exports = grammar({
     _method_spec: $ => choice(
       $.method_spec,
       $.method_redefinition,
+      $.event_handler
+      //TODO: AMDP, Test
     ),
 
     /**
@@ -346,16 +339,45 @@ module.exports = grammar({
       // can appear in any order
       repeat(
         choice(
-          field("importing", $.importing_params),
-          field("exporting", $.exporting_params),
-          field("changing", $.changing_params),
-          field("raising", $.raising_params),
-          field("returning", $.returning_param),
-          field("exceptions", $.exceptions_params),
+          params("importing", $.parameter_list),
+          params("exporting", $.parameter_list),
+          params("changing", $.parameter_list),
+          params("raising", $.raising_list),
+          params("exceptions", $.exception_list),
+          params("returning", $.return_value),
         )
       )
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
+    event_handler: $ => seq(
+      field("name", $.identifier),
+      optional(choice(...kws("abstract", "final"))),
+      optional($.intf_method_default),
+      ...kws("for", "event"),
+      field("event", $.identifier),
+      kw("of"),
+      field("source", $.identifier),
+      optional(
+        params("importing", $.parameter_list),
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
+    constructor: $ => seq(
+      kw("constructor"),
+      optional(kw("final")),
+      // can appear in any order
+      repeat(
+        choice(
+          params("importing", $.parameter_list),
+          params("raising", $.raising_list),
+          params("exceptions", $.exception_list),
+        )
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
     method_redefinition: $ => seq(
       field("name", $.identifier),
       optional(kw("final")),
@@ -368,59 +390,24 @@ module.exports = grammar({
       field("default", choice(...kws("ignore", "fail")))
     ),
 
-    /**
-     * IMPORTING [...] <?PREFERRED PARAMETER [...]>
-     */
-    importing_params: $ => seq(
-      kw("importing"),
+    parameter_list: $ => seq(
       repeat1($.parameter),
-      optional(
-        seq(
-          ...kws("preferred", "parameter"),
-          field("preferred", $.identifier)
-        )
-      )
+      optional($.preferred_parameter)
     ),
 
-    /**
-     * EXPORTING [...]
-     * 
-     * Tolerates `reference` and `default` additions in the parameter list.
-     */
-    exporting_params: $ => seq(
-      kw("exporting"),
-      repeat1($.parameter),
+    preferred_parameter: $ => seq(
+      ...kws("preferred", "parameter"),
+      field("name", $.identifier)
     ),
 
-    /**
-     * CHANGING [...]
-     * 
-     * Tolerates `value` and `default` additions in the parameter list.
-     */
-    changing_params: $ => seq(
-      kw("changing"),
-      repeat1($.parameter),
-    ),
-
-    /**
-     * RAISING [...]
-     */
-    raising_params: $ => seq(
-      kw("raising"),
-      repeat1($.exception)
-    ),
-
-    exceptions_params: $ => seq(
-      kw("exceptions"),
-      repeat1($.identifier)
-    ),
-
-    returning_param: $ => seq(
+    raising_list: $ => repeat1($.exception),
+    exception_list: $ => repeat1($.identifier),
+    return_value: $ => seq(
       kw("returning"), $.parameter
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html
-    parameter: $ => seq(
+    parameter: $ => prec.right(seq(
       // The addition `value` and `reference` is optional (reference is default)
       choice(
         field("name", $.identifier),
@@ -431,7 +418,7 @@ module.exports = grammar({
           token.immediate(")")
         ),
       ),
-      field("typing", choice($._type_clause)),
+      field("typing", optional($._type_clause)),
       // Technically only allowed for importing parameters
       optional(choice(
         kw("optional"),
@@ -444,7 +431,7 @@ module.exports = grammar({
           )
         )
       ))
-    ),
+    )),
 
     exception: $ => choice(
       field("name", $._cls_identifier),
@@ -892,4 +879,9 @@ function componentAccess($, src) {
       alias($._immediate_component_field_access, $.component_access)
     ))
   );
+}
+
+
+function params(keyword, rule) {
+  return field(keyword, seq(kw(keyword), rule));
 }

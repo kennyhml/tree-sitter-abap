@@ -106,21 +106,6 @@
     }
   },
   {
-    "type": "changing_params",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "parameter",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "class_data_declaration",
     "named": true,
     "fields": {},
@@ -740,6 +725,66 @@
     }
   },
   {
+    "type": "event_handler",
+    "named": true,
+    "fields": {
+      "event": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "importing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "intf_method_default",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exception",
     "named": true,
     "fields": {
@@ -756,7 +801,7 @@
     }
   },
   {
-    "type": "exceptions_params",
+    "type": "exception_list",
     "named": true,
     "fields": {},
     "children": {
@@ -765,21 +810,6 @@
       "types": [
         {
           "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "exporting_params",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "parameter",
           "named": true
         }
       ]
@@ -837,32 +867,6 @@
       "types": [
         {
           "type": "cls_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "importing_params",
-    "named": true,
-    "fields": {
-      "preferred": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "parameter",
           "named": true
         }
       ]
@@ -990,7 +994,11 @@
         "required": false,
         "types": [
           {
-            "type": "changing_params",
+            "type": "changing",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
             "named": true
           }
         ]
@@ -1000,8 +1008,12 @@
         "required": false,
         "types": [
           {
-            "type": "exceptions_params",
+            "type": "exception_list",
             "named": true
+          },
+          {
+            "type": "exceptions",
+            "named": false
           }
         ]
       },
@@ -1010,7 +1022,11 @@
         "required": false,
         "types": [
           {
-            "type": "exporting_params",
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
             "named": true
           }
         ]
@@ -1020,7 +1036,11 @@
         "required": false,
         "types": [
           {
-            "type": "importing_params",
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
             "named": true
           }
         ]
@@ -1040,7 +1060,11 @@
         "required": false,
         "types": [
           {
-            "type": "raising_params",
+            "type": "raising",
+            "named": false
+          },
+          {
+            "type": "raising_list",
             "named": true
           }
         ]
@@ -1050,8 +1074,12 @@
         "required": false,
         "types": [
           {
-            "type": "returning_param",
+            "type": "return_value",
             "named": true
+          },
+          {
+            "type": "returning",
+            "named": false
           }
         ]
       }
@@ -1075,6 +1103,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "event_handler",
+          "named": true
+        },
         {
           "type": "method_redefinition",
           "named": true
@@ -1102,7 +1134,7 @@
       },
       "typing": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "elementary_type",
@@ -1144,6 +1176,41 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "parameter_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "preferred_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preferred_parameter",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1240,7 +1307,7 @@
     }
   },
   {
-    "type": "raising_params",
+    "type": "raising_list",
     "named": true,
     "fields": {},
     "children": {
@@ -1511,7 +1578,7 @@
     }
   },
   {
-    "type": "returning_param",
+    "type": "return_value",
     "named": true,
     "fields": {},
     "children": {
@@ -2000,6 +2067,10 @@
   },
   {
     "type": "endclass",
+    "named": false
+  },
+  {
+    "type": "event",
     "named": false
   },
   {
