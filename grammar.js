@@ -426,7 +426,12 @@ module.exports = grammar({
     parameter: $ => prec.right(seq(
       // The addition `value` and `reference` is optional (reference is default)
       choice(
-        field("name", $.identifier),
+        seq(
+          // Old way to make sure the compiler would not mistake identifiers for keywords,
+          // not needed anymore but still seen alot.
+          optional("!"),
+          field("name", $.identifier),
+        ),
         seq(
           choice(...kws("value", "reference")),
           token.immediate("("),
