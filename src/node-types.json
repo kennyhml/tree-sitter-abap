@@ -106,6 +106,60 @@
     }
   },
   {
+    "type": "amdp_options",
+    "named": true,
+    "fields": {
+      "client": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "current",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "client_handling": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "cds",
+            "named": false
+          },
+          {
+            "type": "client",
+            "named": false
+          },
+          {
+            "type": "current",
+            "named": false
+          },
+          {
+            "type": "dependent",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "independent",
+            "named": false
+          },
+          {
+            "type": "session",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "class_data_declaration",
     "named": true,
     "fields": {},
@@ -363,6 +417,10 @@
         },
         {
           "type": "method_spec",
+          "named": true
+        },
+        {
+          "type": "test_method",
           "named": true
         }
       ]
@@ -1206,6 +1264,10 @@
         {
           "type": "method_spec",
           "named": true
+        },
+        {
+          "type": "test_method",
+          "named": true
         }
       ]
     }
@@ -1931,6 +1993,46 @@
     }
   },
   {
+    "type": "test_method",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "raising": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "raising",
+            "named": false
+          },
+          {
+            "type": "raising_list",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "amdp_options",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "types_declaration",
     "named": true,
     "fields": {},
@@ -2070,6 +2172,10 @@
     "named": false
   },
   {
+    "type": "amdp",
+    "named": false
+  },
+  {
     "type": "any",
     "named": false
   },
@@ -2083,6 +2189,10 @@
   },
   {
     "type": "behavior",
+    "named": false
+  },
+  {
+    "type": "cds",
     "named": false
   },
   {
@@ -2103,6 +2213,10 @@
   },
   {
     "type": "class_constructor",
+    "named": false
+  },
+  {
+    "type": "client",
     "named": false
   },
   {
@@ -2131,6 +2245,10 @@
   },
   {
     "type": "critical",
+    "named": false
+  },
+  {
+    "type": "current",
     "named": false
   },
   {
@@ -2163,6 +2281,10 @@
   },
   {
     "type": "definition",
+    "named": false
+  },
+  {
+    "type": "dependent",
     "named": false
   },
   {
@@ -2262,6 +2384,10 @@
     "named": false
   },
   {
+    "type": "independent",
+    "named": false
+  },
+  {
     "type": "index",
     "named": false
   },
@@ -2350,6 +2476,10 @@
     "named": false
   },
   {
+    "type": "options",
+    "named": false
+  },
+  {
     "type": "page",
     "named": false
   },
@@ -2423,6 +2553,10 @@
   },
   {
     "type": "section",
+    "named": false
+  },
+  {
+    "type": "session",
     "named": false
   },
   {
