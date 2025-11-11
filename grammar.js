@@ -4,14 +4,15 @@
  * @license MIT
  */
 
+// Cant be a rule due to priority, need to figure how to handle this better..
 BUFF_SIZE = $ => seq(
   token.immediate("("),
   field("length", alias(token.immediate(/-?\d+/), $.number)),
   token.immediate(")")
 );
 
-ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
-IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z0-9_\/]*/;
+const ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
+const IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z0-9_\/]*/;
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
@@ -74,28 +75,29 @@ module.exports = grammar({
     source: $ => repeat($._statement),
 
     _statement: $ => choice(
-      $._simple_statement
+      $._simple_statement,
+      $._compound_statement
     ),
 
-    // Statements that dont contain a body/block. For example a data declaration.
-    // method definitions, import statements, etc..
+    // Statements that dont have a body.
     _simple_statement: $ => choice(
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
       $.report_initiator,
-      $.class_definition,
-      $.class_implementation,
       $.deferred_class_definition,
       $.local_friends_spec,
-      // Not technically allowed just randomly outside of classes, but we will allow it
-      // since we just want to parse a superset of the actual syntax.
+
+      // Not technically legal but tolerated due to permissive philosophy:
       $.class_data_declaration,
     ),
 
-    // Statements that start a block and have a body. For example method implementations,
-    // class /function definitions and implementations, etc..
-    _compound_statement: $ => choice(),
+    // Statements that have a body. As a rule of thumb, that at least encompasses any kind of
+    // statement that needs to be terminated with `END[...]` such as `ENDWHILE`, `ENDMETHOD`..
+    _compound_statement: $ => choice(
+      $.class_definition,
+      $.class_implementation,
+    ),
 
     _class_component: $ => choice(
       $.data_declaration,
@@ -638,7 +640,6 @@ module.exports = grammar({
      */
     _immediate_component_field_access: $ => componentAccess($, $._immediate_identifier),
 
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
     _table_category: _ => choice(
       kw("standard"),
@@ -647,7 +648,6 @@ module.exports = grammar({
       kw("any"),
       kw("index"),
     ),
-
 
     /**
      * One of the possible specifications alongside a specification.

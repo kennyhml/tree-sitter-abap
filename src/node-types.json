@@ -1,18 +1,24 @@
 [
   {
-    "type": "_simple_statement",
+    "type": "_compound_statement",
     "named": true,
     "subtypes": [
-      {
-        "type": "class_data_declaration",
-        "named": true
-      },
       {
         "type": "class_definition",
         "named": true
       },
       {
         "type": "class_implementation",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_simple_statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "class_data_declaration",
         "named": true
       },
       {
@@ -1656,6 +1662,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "_compound_statement",
+          "named": true
+        },
         {
           "type": "_simple_statement",
           "named": true
