@@ -86,6 +86,7 @@ module.exports = grammar({
       $.constants_declaration,
       $.report_initiator,
       $.deferred_class_definition,
+      $.deferred_interface_definition,
       $.local_friends_spec,
 
       // Not technically legal but tolerated due to permissive philosophy:
@@ -97,6 +98,8 @@ module.exports = grammar({
     _compound_statement: $ => choice(
       $.class_definition,
       $.class_implementation,
+      $.interface_definition,
+      $.interface_implementation,
     ),
 
     _class_component: $ => choice(
@@ -226,13 +229,16 @@ module.exports = grammar({
     class_definition: $ => seq(
       kw("class"), field("name", $.identifier), kw("definition"),
       optional(field("options", $.class_options)), ".",
-
-      // These actually have to appear in order, private cant come before public if public is specified.
-      field("public", optional($.public_section)),
-      field("protected", optional($.protected_section)),
-      field("private", optional($.private_section)),
-
+      optional($._object_components),
       kw("endclass"), "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE.html
+    interface_definition: $ => seq(
+      kw("interface"), field("name", $.identifier), kw("definition"),
+      optional(kw("public")), ".",
+      optional($._object_components),
+      kw("endinterface"), "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
@@ -241,9 +247,21 @@ module.exports = grammar({
       kw("endclass"), "."
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
+    interface_implementation: $ => seq(
+      kw("interface"), field("name", $.identifier), kw("implementation"), ".",
+      kw("endinterface"), "."
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
     deferred_class_definition: $ => seq(
       kw("class"), field("name", $.identifier), ...kws("definition", "deferred"),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
+    deferred_interface_definition: $ => seq(
+      kw("interface"), field("name", $.identifier), ...kws("deferred"), optional(kw("public")),
       "."
     ),
 
@@ -291,6 +309,16 @@ module.exports = grammar({
       optional(kw("global")),
       kw("friends"),
       repeat1($.identifier)
+    ),
+
+    // Components of an object (e.g a class or an interface)
+    _object_components: $ => repeat1(
+      // Technically they have to be in order. But lets be permissive here..
+      choice(
+        field("public", $.public_section),
+        field("protected", $.protected_section),
+        field("private", $.private_section),
+      )
     ),
 
     public_section: $ => seq(
