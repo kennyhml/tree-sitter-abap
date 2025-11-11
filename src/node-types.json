@@ -10,6 +10,14 @@
       {
         "type": "class_implementation",
         "named": true
+      },
+      {
+        "type": "interface_definition",
+        "named": true
+      },
+      {
+        "type": "interface_implementation",
+        "named": true
       }
     ]
   },
@@ -31,6 +39,10 @@
       },
       {
         "type": "deferred_class_definition",
+        "named": true
+      },
+      {
+        "type": "deferred_interface_definition",
         "named": true
       },
       {
@@ -289,7 +301,7 @@
         ]
       },
       "private": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -299,7 +311,7 @@
         ]
       },
       "protected": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -309,7 +321,7 @@
         ]
       },
       "public": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -726,6 +738,22 @@
     }
   },
   {
+    "type": "deferred_interface_definition",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "elementary_type",
     "named": true,
     "fields": {
@@ -974,6 +1002,68 @@
           {
             "type": "ignore",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_definition",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "private": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "private_section",
+            "named": true
+          }
+        ]
+      },
+      "protected": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "protected_section",
+            "named": true
+          }
+        ]
+      },
+      "public": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "public_section",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_implementation",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -2159,6 +2249,10 @@
     "named": false
   },
   {
+    "type": "endinterface",
+    "named": false
+  },
+  {
     "type": "event",
     "named": false
   },
@@ -2252,6 +2346,10 @@
   },
   {
     "type": "initial",
+    "named": false
+  },
+  {
+    "type": "interface",
     "named": false
   },
   {

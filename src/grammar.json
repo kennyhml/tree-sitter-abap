@@ -48,6 +48,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "deferred_interface_definition"
+        },
+        {
+          "type": "SYMBOL",
           "name": "local_friends_spec"
         },
         {
@@ -66,6 +70,14 @@
         {
           "type": "SYMBOL",
           "name": "class_implementation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_implementation"
         }
       ]
     },
@@ -4265,52 +4277,16 @@
           "value": "."
         },
         {
-          "type": "FIELD",
-          "name": "public",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "public_section"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "protected",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "protected_section"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "private",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "private_section"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_object_components"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "ALIAS",
@@ -4320,6 +4296,83 @@
           },
           "named": false,
           "value": "endclass"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "interface_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][tT][eE][rR][fF][aA][cC][eE]"
+          },
+          "named": false,
+          "value": "interface"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][eE][fF][iI][nN][iI][tT][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "definition"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[pP][uU][bB][lL][iI][cC]"
+              },
+              "named": false,
+              "value": "public"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_object_components"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][iI][nN][tT][eE][rR][fF][aA][cC][eE]"
+          },
+          "named": false,
+          "value": "endinterface"
         },
         {
           "type": "STRING",
@@ -4375,6 +4428,54 @@
         }
       ]
     },
+    "interface_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][tT][eE][rR][fF][aA][cC][eE]"
+          },
+          "named": false,
+          "value": "interface"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][mM][pP][lL][eE][mM][eE][nN][tT][aA][tT][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "implementation"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][iI][nN][tT][eE][rR][fF][aA][cC][eE]"
+          },
+          "named": false,
+          "value": "endinterface"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "deferred_class_definition": {
       "type": "SEQ",
       "members": [
@@ -4412,6 +4513,58 @@
           },
           "named": false,
           "value": "deferred"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "deferred_interface_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][tT][eE][rR][fF][aA][cC][eE]"
+          },
+          "named": false,
+          "value": "interface"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][eE][fF][eE][rR][rR][eE][dD]"
+          },
+          "named": false,
+          "value": "deferred"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[pP][uU][bB][lL][iI][cC]"
+              },
+              "named": false,
+              "value": "public"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -4785,6 +4938,38 @@
           }
         }
       ]
+    },
+    "_object_components": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "public",
+            "content": {
+              "type": "SYMBOL",
+              "name": "public_section"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "protected",
+            "content": {
+              "type": "SYMBOL",
+              "name": "protected_section"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "private",
+            "content": {
+              "type": "SYMBOL",
+              "name": "private_section"
+            }
+          }
+        ]
+      }
     },
     "public_section": {
       "type": "SEQ",
