@@ -5063,10 +5063,6 @@
                 "value": "final"
               },
               {
-                "type": "SYMBOL",
-                "name": "interface_default"
-              },
-              {
                 "type": "ALIAS",
                 "content": {
                   "type": "PATTERN",
@@ -5097,6 +5093,14 @@
                     "value": "testing"
                   }
                 ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "interface_default"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cds_function_impl"
               },
               {
                 "type": "FIELD",
@@ -5592,6 +5596,91 @@
                     "value": "current"
                   }
                 ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "cds_function_impl": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[fF][oO][rR]"
+              },
+              "named": false,
+              "value": "for"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[tT][aA][bB][lL][eE]"
+              },
+              "named": false,
+              "value": "table"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[fF][uU][nN][cC][tT][iI][oO][nN]"
+              },
+              "named": false,
+              "value": "function"
+            },
+            {
+              "type": "FIELD",
+              "name": "view",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[fF][oO][rR]"
+              },
+              "named": false,
+              "value": "for"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[sS][cC][aA][lL][aA][rR]"
+              },
+              "named": false,
+              "value": "scalar"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[fF][uU][nN][cC][tT][iI][oO][nN]"
+              },
+              "named": false,
+              "value": "function"
+            },
+            {
+              "type": "FIELD",
+              "name": "function",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
               }
             }
           ]

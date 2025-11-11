@@ -160,6 +160,32 @@
     }
   },
   {
+    "type": "cds_function_impl",
+    "named": true,
+    "fields": {
+      "function": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "view": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "class_data_declaration",
     "named": true,
     "fields": {},
@@ -1135,6 +1161,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "cds_function_impl",
+          "named": true
+        },
         {
           "type": "interface_default",
           "named": true
@@ -2189,6 +2219,10 @@
     "named": false
   },
   {
+    "type": "function",
+    "named": false
+  },
+  {
     "type": "functionality",
     "named": false
   },
@@ -2398,6 +2432,10 @@
   },
   {
     "type": "risk",
+    "named": false
+  },
+  {
+    "type": "scalar",
     "named": false
   },
   {
