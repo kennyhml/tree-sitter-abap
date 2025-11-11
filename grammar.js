@@ -66,8 +66,6 @@ module.exports = grammar({
     $._compound_statement
   ],
 
-  conflicts: $ => [[$.event_handler, $.test_method]],
-
   // This makes sure that tree-sitter initially also parses keywords as 
   // identifiers and THEN checks whether it is a keyword in its entirety.
   word: $ => $.identifier,
@@ -312,8 +310,8 @@ module.exports = grammar({
     methods_declaration: $ => seq(
       kw("methods"),
       choice(
-        seq(":", commaSep1($._method_spec)),
-        $._method_spec
+        seq(":", commaSep1($.method_spec)),
+        $.method_spec
       ),
       "."
     ),
@@ -322,27 +320,10 @@ module.exports = grammar({
     cls_methods_declaration: $ => seq(
       kw("class-methods"),
       choice(
-        seq(":", commaSep1($._method_spec)),
-        $._method_spec
+        seq(":", commaSep1($.method_spec)),
+        $.method_spec
       ),
       "."
-    ),
-
-    /**
-     * Branches into the possible method specifications as part of a method declaration.
-     * 
-     * Does **not** discriminate between static and instance methods, any are allowed.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenmethods.html
-     */
-    _method_spec: $ => choice(
-      $.method_spec,
-      $.method_redefinition,
-      $.event_handler,
-      $.constructor,
-      $.cls_constructor,
-      $.test_method
-      //TODO: AMDP, Tests..
     ),
 
     /**
@@ -356,12 +337,26 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_GENERAL.html
      */
     method_spec: $ => seq(
-      field("name", $.identifier),
-      optional(choice(...kws("abstract", "final"))),
-      optional($.intf_method_default),
+      field("name", choice(
+        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
+        ...kws("constructor", "class_constructor"),
+        $.identifier,
+      )),
       // can appear in any order
       repeat(
         choice(
+          kw("abstract"),
+          kw("final"),
+          $.interface_default,
+          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
+          kw("redefinition"),
+          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_TESTING.html
+          seq(...kws("for", "testing")),
+          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
+          field("event", $.event_handling),
+          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_METHODS.html
+          field("amdp", $.amdp_options),
+          // Parameter lists
           params("importing", $.parameter_list),
           params("exporting", $.parameter_list),
           params("changing", $.parameter_list),
@@ -373,59 +368,15 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
-    event_handler: $ => seq(
-      field("name", $.identifier),
-      optional(choice(...kws("abstract", "final"))),
-      optional($.intf_method_default),
+    event_handling: $ => seq(
       ...kws("for", "event"),
       field("event", $.identifier),
       kw("of"),
       field("source", $.identifier),
-      optional(
-        params("importing", $.parameter_list),
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
-    constructor: $ => seq(
-      kw("constructor"),
-      optional(kw("final")),
-      // can appear in any order
-      repeat(
-        choice(
-          params("importing", $.parameter_list),
-          params("raising", $.raising_list),
-          params("exceptions", $.exception_list),
-        )
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_CONSTRUCTOR.html
-    cls_constructor: _ => kw("class_constructor"),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
-    method_redefinition: $ => seq(
-      field("name", $.identifier),
-      optional(kw("final")),
-      kw("redefinition"),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_TESTING.html
-    test_method: $ => seq(
-      field("name", $.identifier),
-      repeat(
-        choice(
-          kw("abstract"),
-          kw("final"),
-          $.amdp_options
-        )
-      ),
-      ...kws("for", "testing"),
-      optional(params("raising", $.raising_list)),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
-    intf_method_default: $ => seq(
+    interface_default: _ => seq(
       kw("default"),
       field("default", choice(...kws("ignore", "fail")))
     ),
