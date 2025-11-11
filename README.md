@@ -12,5 +12,5 @@ parser is compiled to **native C**, enabling significantly better performance th
 > In other words, it is intentionally **permissive**. For example, the following is invalid ABAP but will still be parsed:
 >
 > ```abap
-> type foo type i value 10.
+> types foo type i value 10.
 > ```
