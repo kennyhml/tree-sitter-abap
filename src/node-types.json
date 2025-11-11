@@ -387,11 +387,6 @@
     }
   },
   {
-    "type": "cls_constructor",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "cls_methods_declaration",
     "named": true,
     "fields": {},
@@ -400,27 +395,7 @@
       "required": true,
       "types": [
         {
-          "type": "cls_constructor",
-          "named": true
-        },
-        {
-          "type": "constructor",
-          "named": true
-        },
-        {
-          "type": "event_handler",
-          "named": true
-        },
-        {
-          "type": "method_redefinition",
-          "named": true
-        },
-        {
           "type": "method_spec",
-          "named": true
-        },
-        {
-          "type": "test_method",
           "named": true
         }
       ]
@@ -634,54 +609,6 @@
     }
   },
   {
-    "type": "constructor",
-    "named": true,
-    "fields": {
-      "exceptions": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "exception_list",
-            "named": true
-          },
-          {
-            "type": "exceptions",
-            "named": false
-          }
-        ]
-      },
-      "importing": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "importing",
-            "named": false
-          },
-          {
-            "type": "parameter_list",
-            "named": true
-          }
-        ]
-      },
-      "raising": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "raising",
-            "named": false
-          },
-          {
-            "type": "raising_list",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "data_declaration",
     "named": true,
     "fields": {},
@@ -867,34 +794,10 @@
     }
   },
   {
-    "type": "event_handler",
+    "type": "event_handling",
     "named": true,
     "fields": {
       "event": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "importing": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "importing",
-            "named": false
-          },
-          {
-            "type": "parameter_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -914,16 +817,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "intf_method_default",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1061,7 +954,7 @@
     }
   },
   {
-    "type": "intf_method_default",
+    "type": "interface_default",
     "named": true,
     "fields": {
       "default": {
@@ -1112,25 +1005,19 @@
     }
   },
   {
-    "type": "method_redefinition",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "method_spec",
     "named": true,
     "fields": {
+      "amdp": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "amdp_options",
+            "named": true
+          }
+        ]
+      },
       "changing": {
         "multiple": true,
         "required": false,
@@ -1141,6 +1028,16 @@
           },
           {
             "type": "parameter_list",
+            "named": true
+          }
+        ]
+      },
+      "event": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "event_handling",
             "named": true
           }
         ]
@@ -1192,6 +1089,14 @@
         "required": true,
         "types": [
           {
+            "type": "class_constructor",
+            "named": false
+          },
+          {
+            "type": "constructor",
+            "named": false
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -1227,11 +1132,11 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "intf_method_default",
+          "type": "interface_default",
           "named": true
         }
       ]
@@ -1246,27 +1151,7 @@
       "required": true,
       "types": [
         {
-          "type": "cls_constructor",
-          "named": true
-        },
-        {
-          "type": "constructor",
-          "named": true
-        },
-        {
-          "type": "event_handler",
-          "named": true
-        },
-        {
-          "type": "method_redefinition",
-          "named": true
-        },
-        {
           "type": "method_spec",
-          "named": true
-        },
-        {
-          "type": "test_method",
           "named": true
         }
       ]
@@ -1987,46 +1872,6 @@
       "types": [
         {
           "type": "table_key_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "test_method",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "raising": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "raising",
-            "named": false
-          },
-          {
-            "type": "raising_list",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "amdp_options",
           "named": true
         }
       ]
