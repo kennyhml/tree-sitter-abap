@@ -109,7 +109,7 @@ module.exports = grammar({
     ...generate_decl_specs({
       data: $ => $.identifier,
       class_data: $ => $.identifier,
-      types: $ => $._type_identifier,
+      types: $ => $.identifier,
       constants: $ => alias($.identifier, $.constant),
     }),
 
@@ -222,7 +222,7 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
     class_definition: $ => seq(
-      kw("class"), field("name", $._cls_identifier), kw("definition"),
+      kw("class"), field("name", $.identifier), kw("definition"),
       optional(field("options", $.class_options)), ".",
 
       // These actually have to appear in order, private cant come before public if public is specified.
@@ -235,22 +235,22 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
     class_implementation: $ => seq(
-      kw("class"), field("name", $._cls_identifier), kw("implementation"), ".",
+      kw("class"), field("name", $.identifier), kw("implementation"), ".",
       kw("endclass"), "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
     deferred_class_definition: $ => seq(
-      kw("class"), field("name", $._cls_identifier), ...kws("definition", "deferred"),
+      kw("class"), field("name", $.identifier), ...kws("definition", "deferred"),
       "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_LOCAL_FRIENDS.html
     local_friends_spec: $ => seq(
       kw("class"),
-      field("name", $._cls_identifier),
+      field("name", $.identifier),
       ...kws("definition", "local", "friends"),
-      repeat1($._cls_identifier),
+      repeat1($.identifier),
       "."
     ),
 
@@ -261,13 +261,13 @@ module.exports = grammar({
         choice(
           kw("public"),
           // classes can only inherit from 0 to 1 superclasses.
-          seq(...kws("inheriting", "from"), field("parent", $._cls_identifier)),
+          seq(...kws("inheriting", "from"), field("parent", $.identifier)),
           kw("abstract"),
           kw("final"),
           seq(kw("create"), field("create_visibility", $._visibility)),
           field("testing", $.for_testing_spec),
           seq(...kws("shared", "memory", "enabled")),
-          seq(...kws("for", "behavior", "of"), field("behavior_ref", $._type_identifier)),
+          seq(...kws("for", "behavior", "of"), field("behavior_ref", $.identifier)),
         )
       ),
       // friends must be specified at the end of the statement.
@@ -288,7 +288,7 @@ module.exports = grammar({
     global_friends: $ => seq(
       optional(kw("global")),
       kw("friends"),
-      repeat1($._cls_identifier)
+      repeat1($.identifier)
     ),
 
     public_section: $ => seq(
@@ -403,13 +403,13 @@ module.exports = grammar({
       repeat1(
         choice(
           kw("read-only"),
-          field("client_handling", $._amdp_client_handling)
+          field("client_handling", $.amdp_client_handling)
         )
       )
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS_CLIENT.html
-    _amdp_client_handling: $ => choice(
+    amdp_client_handling: $ => choice(
       seq(...kws("cds", "session", "client", "dependent")),
       seq(...kws("client", "independent")),
       seq(
@@ -461,11 +461,11 @@ module.exports = grammar({
     )),
 
     exception: $ => choice(
-      field("name", $._cls_identifier),
+      field("name", $.identifier),
       seq(
         kw("resumable"),
         token.immediate("("),
-        field("name", $._cls_identifier),
+        field("name", $.identifier),
         token.immediate(")"),
       )
     ),
@@ -537,7 +537,7 @@ module.exports = grammar({
     struct_include: $ => seq(
       kw("include"),
       field("name", choice(
-        seq(kw("type"), $._type_identifier),
+        seq(kw("type"), $.identifier),
         seq(kw("structure"), $.identifier),
       )),
       optional(
@@ -557,7 +557,7 @@ module.exports = grammar({
      * Must be followed by immediate accesses.
      */
     _static_field_access: $ => seq(
-      field("source", $._cls_identifier),
+      field("source", $.identifier),
       token.immediate("=>"),
       field("member", choice(
         $._immediate_identifier,
@@ -587,10 +587,10 @@ module.exports = grammar({
      * Must be followed by immediate accesses.
      */
     _static_type_access: $ => seq(
-      field("source", $._cls_identifier),
+      field("source", $.identifier),
       token.immediate("=>"),
       field("member", choice(
-        $._immediate_type_identifier,
+        $._immediate_identifier,
         alias($._immediate_instance_type_access, $.instance_access),
       ))
     ),
@@ -604,7 +604,7 @@ module.exports = grammar({
       field("source", $.identifier),
       token.immediate("->"),
       field("member", choice(
-        $._immediate_type_identifier,
+        $._immediate_identifier,
         alias($._immediate_instance_type_access, $._instance_type_access),
       ))
     ),
@@ -623,13 +623,13 @@ module.exports = grammar({
       field("source", $._immediate_identifier),
       token.immediate("->"),
       field("member", choice(
-        $._immediate_type_identifier,
+        $._immediate_identifier,
         alias($._immediate_instance_type_access, $._instance_type_access)
       ))
     ),
 
     _component_field_access: $ => componentAccess($, $.identifier),
-    _component_type_access: $ => componentAccess($, $._type_identifier),
+    _component_type_access: $ => componentAccess($, $.identifier),
 
     /**
      * Immediate component type access isnt possible because components cant have types.
@@ -676,20 +676,15 @@ module.exports = grammar({
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
     identifier: _ => IDENTIFIER_REGEX,
-    _type_identifier: $ => alias($.identifier, $.type_identifier),
-    _cls_identifier: $ => alias($.identifier, $.cls_identifier),
-
-    field_symbol: $ => /[a-zA-Z][a-zA-Z0-9_\/-<>]*/,
-
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
-    _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
-    _immediate_number: $ => alias(token.immediate(/-?\d+/), $.number),
 
     number: $ => /-?\d+/,
+    _immediate_number: $ => alias(token.immediate(/-?\d+/), $.number),
+
     literal_string: $ => choice(
       seq(
         "'",
-        field("content", /[^']*/), // Match any characters except the closing quote
+        field("content", /[^']*/),
         "'"
       ),
       seq(
@@ -705,7 +700,6 @@ module.exports = grammar({
     ),
 
     _ws: _ => /\s/,
-
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
   }
 });
@@ -871,7 +865,7 @@ function typeOrLikeExpr($, addition) {
       kw("type"),
       addition,
       field("type", choice(
-        $._type_identifier,
+        $.identifier,
         alias($._static_type_access, $.static_access),
         alias($._instance_type_access, $.instance_access),
         alias($._component_type_access, $.component_access),

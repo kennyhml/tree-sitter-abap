@@ -1887,7 +1887,7 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "_type_identifier"
+                "name": "identifier"
               }
             },
             {
@@ -1934,7 +1934,7 @@
               "name": "nameOpen",
               "content": {
                 "type": "SYMBOL",
-                "name": "_type_identifier"
+                "name": "identifier"
               }
             },
             {
@@ -2025,7 +2025,7 @@
               "name": "nameClose",
               "content": {
                 "type": "SYMBOL",
-                "name": "_type_identifier"
+                "name": "identifier"
               }
             }
           ]
@@ -2056,7 +2056,7 @@
               "name": "nameOpen",
               "content": {
                 "type": "SYMBOL",
-                "name": "_type_identifier"
+                "name": "identifier"
               }
             },
             {
@@ -2189,7 +2189,7 @@
               "name": "nameClose",
               "content": {
                 "type": "SYMBOL",
-                "name": "_type_identifier"
+                "name": "identifier"
               }
             }
           ]
@@ -3188,7 +3188,7 @@
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "_type_identifier"
+                          "name": "identifier"
                         },
                         {
                           "type": "ALIAS",
@@ -3496,7 +3496,7 @@
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "_type_identifier"
+                          "name": "identifier"
                         },
                         {
                           "type": "ALIAS",
@@ -3781,7 +3781,7 @@
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "_type_identifier"
+                          "name": "identifier"
                         },
                         {
                           "type": "ALIAS",
@@ -4011,7 +4011,7 @@
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "_type_identifier"
+                          "name": "identifier"
                         },
                         {
                           "type": "ALIAS",
@@ -4227,7 +4227,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -4339,7 +4339,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -4387,7 +4387,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -4431,7 +4431,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -4465,7 +4465,7 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -4517,7 +4517,7 @@
                     "name": "parent",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_cls_identifier"
+                      "name": "identifier"
                     }
                   }
                 ]
@@ -4637,7 +4637,7 @@
                     "name": "behavior_ref",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_type_identifier"
+                      "name": "identifier"
                     }
                   }
                 ]
@@ -4776,7 +4776,7 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         }
       ]
@@ -5471,7 +5471,7 @@
                 "name": "client_handling",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_amdp_client_handling"
+                  "name": "amdp_client_handling"
                 }
               }
             ]
@@ -5479,7 +5479,7 @@
         }
       ]
     },
-    "_amdp_client_handling": {
+    "amdp_client_handling": {
       "type": "CHOICE",
       "members": [
         {
@@ -5853,7 +5853,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -5880,7 +5880,7 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "_cls_identifier"
+                "name": "identifier"
               }
             },
             {
@@ -6438,7 +6438,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_type_identifier"
+                    "name": "identifier"
                   }
                 ]
               },
@@ -6551,7 +6551,7 @@
           "name": "source",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -6653,7 +6653,7 @@
           "name": "source",
           "content": {
             "type": "SYMBOL",
-            "name": "_cls_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -6671,7 +6671,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_immediate_type_identifier"
+                "name": "_immediate_identifier"
               },
               {
                 "type": "ALIAS",
@@ -6713,7 +6713,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_immediate_type_identifier"
+                "name": "_immediate_identifier"
               },
               {
                 "type": "ALIAS",
@@ -6806,7 +6806,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_immediate_type_identifier"
+                "name": "_immediate_identifier"
               },
               {
                 "type": "ALIAS",
@@ -6872,7 +6872,7 @@
           "name": "source",
           "content": {
             "type": "SYMBOL",
-            "name": "_type_identifier"
+            "name": "identifier"
           }
         },
         {
@@ -7139,28 +7139,6 @@
       "type": "PATTERN",
       "value": "[a-zA-Z_\\/][a-zA-Z0-9_\\/]*"
     },
-    "_type_identifier": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "identifier"
-      },
-      "named": true,
-      "value": "type_identifier"
-    },
-    "_cls_identifier": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "identifier"
-      },
-      "named": true,
-      "value": "cls_identifier"
-    },
-    "field_symbol": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z][a-zA-Z0-9_\\/-<>]*"
-    },
     "_immediate_identifier": {
       "type": "ALIAS",
       "content": {
@@ -7172,18 +7150,6 @@
       },
       "named": true,
       "value": "identifier"
-    },
-    "_immediate_type_identifier": {
-      "type": "ALIAS",
-      "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "PATTERN",
-          "value": "[a-zA-Z_\\/][a-zA-Z0-9_\\/]*"
-        }
-      },
-      "named": true,
-      "value": "type_identifier"
     },
     "_immediate_number": {
       "type": "ALIAS",

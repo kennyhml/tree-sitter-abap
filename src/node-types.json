@@ -88,7 +88,7 @@
             "named": true
           },
           {
-            "type": "type_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -106,11 +106,11 @@
     }
   },
   {
-    "type": "amdp_options",
+    "type": "amdp_client_handling",
     "named": true,
     "fields": {
       "client": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -122,38 +122,20 @@
             "named": true
           }
         ]
-      },
+      }
+    }
+  },
+  {
+    "type": "amdp_options",
+    "named": true,
+    "fields": {
       "client_handling": {
         "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "cds",
-            "named": false
-          },
-          {
-            "type": "client",
-            "named": false
-          },
-          {
-            "type": "current",
-            "named": false
-          },
-          {
-            "type": "dependent",
-            "named": false
-          },
-          {
-            "type": "identifier",
+            "type": "amdp_client_handling",
             "named": true
-          },
-          {
-            "type": "independent",
-            "named": false
-          },
-          {
-            "type": "session",
-            "named": false
           }
         ]
       }
@@ -285,7 +267,7 @@
         "required": true,
         "types": [
           {
-            "type": "cls_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -341,7 +323,7 @@
         "required": true,
         "types": [
           {
-            "type": "cls_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -357,7 +339,7 @@
         "required": false,
         "types": [
           {
-            "type": "type_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -385,7 +367,7 @@
         "required": false,
         "types": [
           {
-            "type": "cls_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -457,10 +439,6 @@
         "types": [
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
             "named": true
           }
         ]
@@ -734,7 +712,7 @@
         "required": true,
         "types": [
           {
-            "type": "cls_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -854,7 +832,7 @@
         "required": true,
         "types": [
           {
-            "type": "cls_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -927,7 +905,7 @@
       "required": true,
       "types": [
         {
-          "type": "cls_identifier",
+          "type": "identifier",
           "named": true
         }
       ]
@@ -959,10 +937,6 @@
           },
           {
             "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
             "named": true
           }
         ]
@@ -1013,7 +987,7 @@
         "required": true,
         "types": [
           {
-            "type": "cls_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1024,7 +998,7 @@
       "required": true,
       "types": [
         {
-          "type": "cls_identifier",
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1447,15 +1421,15 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "instance_access",
             "named": true
           },
           {
             "type": "static_access",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
             "named": true
           }
         ]
@@ -1497,15 +1471,15 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "instance_access",
             "named": true
           },
           {
             "type": "static_access",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
             "named": true
           }
         ]
@@ -1547,15 +1521,15 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "instance_access",
             "named": true
           },
           {
             "type": "static_access",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
             "named": true
           }
         ]
@@ -1708,10 +1682,6 @@
           {
             "type": "instance_access",
             "named": true
-          },
-          {
-            "type": "type_identifier",
-            "named": true
           }
         ]
       },
@@ -1720,7 +1690,7 @@
         "required": true,
         "types": [
           {
-            "type": "cls_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1756,10 +1726,6 @@
           {
             "type": "type",
             "named": false
-          },
-          {
-            "type": "type_identifier",
-            "named": true
           }
         ]
       },
@@ -1882,15 +1848,15 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "instance_access",
             "named": true
           },
           {
             "type": "static_access",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
             "named": true
           }
         ]
@@ -1931,7 +1897,7 @@
         "required": false,
         "types": [
           {
-            "type": "type_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1941,7 +1907,7 @@
         "required": false,
         "types": [
           {
-            "type": "type_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1951,7 +1917,7 @@
         "required": false,
         "types": [
           {
-            "type": "type_identifier",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -2097,10 +2063,6 @@
   {
     "type": "client",
     "named": false
-  },
-  {
-    "type": "cls_identifier",
-    "named": true
   },
   {
     "type": "components",
@@ -2497,10 +2459,6 @@
   {
     "type": "type",
     "named": false
-  },
-  {
-    "type": "type_identifier",
-    "named": true
   },
   {
     "type": "types",
