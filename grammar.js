@@ -66,6 +66,8 @@ module.exports = grammar({
     $._compound_statement
   ],
 
+  conflicts: $ => [[$.event_handler, $.test_method]],
+
   // This makes sure that tree-sitter initially also parses keywords as 
   // identifiers and THEN checks whether it is a keyword in its entirety.
   word: $ => $.identifier,
@@ -330,13 +332,16 @@ module.exports = grammar({
      * Branches into the possible method specifications as part of a method declaration.
      * 
      * Does **not** discriminate between static and instance methods, any are allowed.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenmethods.html
      */
     _method_spec: $ => choice(
       $.method_spec,
       $.method_redefinition,
       $.event_handler,
       $.constructor,
-      $.cls_constructor
+      $.cls_constructor,
+      $.test_method
       //TODO: AMDP, Tests..
     ),
 
@@ -405,6 +410,20 @@ module.exports = grammar({
       kw("redefinition"),
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_TESTING.html
+    test_method: $ => seq(
+      field("name", $.identifier),
+      repeat(
+        choice(
+          kw("abstract"),
+          kw("final"),
+          $.amdp_options
+        )
+      ),
+      ...kws("for", "testing"),
+      optional(params("raising", $.raising_list)),
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
     intf_method_default: $ => seq(
       kw("default"),
@@ -425,6 +444,31 @@ module.exports = grammar({
     exception_list: $ => repeat1($.identifier),
     return_value: $ => seq(
       kw("returning"), $.parameter
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS.html
+    amdp_options: $ => seq(
+      ...kws("amdp", "options"),
+      repeat1(
+        choice(
+          kw("read-only"),
+          field("client_handling", $._amdp_client_handling)
+        )
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS_CLIENT.html
+    _amdp_client_handling: $ => choice(
+      seq(...kws("cds", "session", "client", "dependent")),
+      seq(...kws("client", "independent")),
+      seq(
+        ...kws("cds", "session", "client"),
+        field("client", choice(
+          $.identifier,
+          kw("current")
+        )
+        )
+      ),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html
