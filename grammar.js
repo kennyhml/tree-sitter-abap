@@ -342,16 +342,16 @@ module.exports = grammar({
         ...kws("constructor", "class_constructor"),
         $.identifier,
       )),
-      // can appear in any order
       repeat(
         choice(
           kw("abstract"),
           kw("final"),
-          $.interface_default,
           // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
           kw("redefinition"),
           // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_TESTING.html
           seq(...kws("for", "testing")),
+          $.interface_default,
+          $.cds_function_impl,
           // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
           field("event", $.event_handling),
           // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_METHODS.html
@@ -420,6 +420,12 @@ module.exports = grammar({
         )
         )
       ),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_TABFUNC.html
+    cds_function_impl: $ => choice(
+      seq(...kws("for", "table", "function"), field("view", $.identifier)),
+      seq(...kws("for", "scalar", "function"), field("function", $.identifier)),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html
