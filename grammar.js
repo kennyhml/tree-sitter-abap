@@ -91,6 +91,8 @@ module.exports = grammar({
 
       // Not technically legal but tolerated due to permissive philosophy:
       $.class_data_declaration,
+
+      $._empty_statement,
     ),
 
     // Statements that have a body. As a rule of thumb, that at least encompasses any kind of
@@ -107,15 +109,18 @@ module.exports = grammar({
       $.class_data_declaration,
       $.constants_declaration,
       $.types_declaration,
+      $.alias_declaration,
+      $.interfaces_declaration,
       $.methods_declaration,
-      $.cls_methods_declaration
+      $.cls_methods_declaration,
+      $._empty_statement,
     ),
 
     ...generate_decl_specs({
       data: $ => $.identifier,
       class_data: $ => $.identifier,
       types: $ => $.identifier,
-      constants: $ => alias($.identifier, $.constant),
+      constants: $ => $.identifier
     }),
 
     _typing: $ => choice(
@@ -228,16 +233,16 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
     class_definition: $ => seq(
       kw("class"), field("name", $.identifier), kw("definition"),
-      optional(field("options", $.class_options)), ".",
-      optional($._object_components),
+      optional($.class_options), ".",
+      alias(optional($._class_sections), $.body),
       kw("endclass"), "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE.html
     interface_definition: $ => seq(
-      kw("interface"), field("name", $.identifier), kw("definition"),
-      optional(kw("public")), ".",
-      optional($._object_components),
+      kw("interface"), field("name", $.identifier), optional(kw("public")), ".",
+      // no public / protected / private sections in interfaces, all public.
+      alias(repeat($._class_component), $.body),
       kw("endinterface"), "."
     ),
 
@@ -311,13 +316,13 @@ module.exports = grammar({
       repeat1($.identifier)
     ),
 
-    // Components of an object (e.g a class or an interface)
-    _object_components: $ => repeat1(
+    // Components of a class
+    _class_sections: $ => repeat1(
       // Technically they have to be in order. But lets be permissive here..
       choice(
-        field("public", $.public_section),
-        field("protected", $.protected_section),
-        field("private", $.private_section),
+        $.public_section,
+        $.protected_section,
+        $.private_section,
       )
     ),
 
@@ -352,6 +357,25 @@ module.exports = grammar({
       choice(
         seq(":", commaSep1($.method_spec)),
         $.method_spec
+      ),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPALIASES.html
+    alias_declaration: $ => seq(
+      kw("aliases"),
+      choice(
+        seq(":", commaSep1($.alias_spec)),
+        $.alias_spec
+      ),
+      "."
+    ),
+
+    interfaces_declaration: $ => seq(
+      kw("interfaces"),
+      choice(
+        seq(":", commaSep1($.identifier)),
+        $.identifier
       ),
       "."
     ),
@@ -395,6 +419,13 @@ module.exports = grammar({
           params("returning", $.return_value),
         )
       )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPALIASES.html
+    alias_spec: $ => seq(
+      field("alias", $.identifier),
+      kw("for"),
+      $.interface_access
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
@@ -581,6 +612,12 @@ module.exports = grammar({
       ),
     ),
 
+    interface_access: $ => seq(
+      field("interface", $.identifier),
+      token.immediate("~"),
+      field("component", $._immediate_identifier)
+    ),
+
     /** 
      * Static access to a member of a class using `cls=>member`.
      * 
@@ -729,6 +766,25 @@ module.exports = grammar({
 
     _ws: _ => /\s/,
     _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
+
+    /**
+     * When not currently inside a statement, ABAP allows spraying `...` all over the place.
+     * 
+     * For example, this is valid:
+     * ```abap
+     * METHOD meth.
+     * ...  m2( ) ...
+     * ENDMETHOD.
+     * ```
+     * whereas this would be invalid...
+     * ```abap
+     * METHOD meth.
+     * data(lv_result) =  ... m2( ) ...
+     * ENDMETHOD.
+     * ```
+     * ... because it violates the 'not being inside a simple statement' rule.
+     */
+    _empty_statement: _ => token("."),
   }
 });
 

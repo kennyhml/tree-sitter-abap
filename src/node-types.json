@@ -26,6 +26,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": ".",
+        "named": false
+      },
+      {
         "type": "class_data_declaration",
         "named": true
       },
@@ -124,6 +128,47 @@
     }
   },
   {
+    "type": "alias_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alias_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alias_spec",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "interface_access",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "amdp_client_handling",
     "named": true,
     "fields": {
@@ -157,6 +202,61 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
+          "type": "class_data_declaration",
+          "named": true
+        },
+        {
+          "type": "cls_methods_declaration",
+          "named": true
+        },
+        {
+          "type": "constants_declaration",
+          "named": true
+        },
+        {
+          "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "interfaces_declaration",
+          "named": true
+        },
+        {
+          "type": "methods_declaration",
+          "named": true
+        },
+        {
+          "type": "private_section",
+          "named": true
+        },
+        {
+          "type": "protected_section",
+          "named": true
+        },
+        {
+          "type": "public_section",
+          "named": true
+        },
+        {
+          "type": "types_declaration",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -289,47 +389,21 @@
             "named": true
           }
         ]
-      },
-      "options": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "class_options",
-            "named": true
-          }
-        ]
-      },
-      "private": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "private_section",
-            "named": true
-          }
-        ]
-      },
-      "protected": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "protected_section",
-            "named": true
-          }
-        ]
-      },
-      "public": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "public_section",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "class_options",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -563,7 +637,7 @@
         "required": false,
         "types": [
           {
-            "type": "constant",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -573,7 +647,7 @@
         "required": false,
         "types": [
           {
-            "type": "constant",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -583,7 +657,7 @@
         "required": false,
         "types": [
           {
-            "type": "constant",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -988,6 +1062,32 @@
     }
   },
   {
+    "type": "interface_access",
+    "named": true,
+    "fields": {
+      "component": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "interface": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "interface_default",
     "named": true,
     "fields": {
@@ -1020,37 +1120,17 @@
             "named": true
           }
         ]
-      },
-      "private": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "private_section",
-            "named": true
-          }
-        ]
-      },
-      "protected": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "protected_section",
-            "named": true
-          }
-        ]
-      },
-      "public": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "public_section",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1067,6 +1147,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "interfaces_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1361,6 +1456,10 @@
       "required": false,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
           "type": "class_data_declaration",
           "named": true
         },
@@ -1374,6 +1473,10 @@
         },
         {
           "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "interfaces_declaration",
           "named": true
         },
         {
@@ -1396,6 +1499,10 @@
       "required": false,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
           "type": "class_data_declaration",
           "named": true
         },
@@ -1409,6 +1516,10 @@
         },
         {
           "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "interfaces_declaration",
           "named": true
         },
         {
@@ -1431,6 +1542,10 @@
       "required": false,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
           "type": "class_data_declaration",
           "named": true
         },
@@ -1444,6 +1559,10 @@
         },
         {
           "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "interfaces_declaration",
           "named": true
         },
         {
@@ -2117,6 +2236,10 @@
     "named": false
   },
   {
+    "type": "aliases",
+    "named": false
+  },
+  {
     "type": "amdp",
     "named": false
   },
@@ -2167,10 +2290,6 @@
   {
     "type": "components",
     "named": false
-  },
-  {
-    "type": "constant",
-    "named": true
   },
   {
     "type": "constants",
@@ -2350,6 +2469,10 @@
   },
   {
     "type": "interface",
+    "named": false
+  },
+  {
+    "type": "interfaces",
     "named": false
   },
   {
@@ -2582,6 +2705,10 @@
   },
   {
     "type": "with",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]
