@@ -43,6 +43,7 @@ parser is compiled to **native C**, enabling significantly better performance th
 - [ ] `WRITE` instruction
 - [ ] `CONCATENATE` instruction
 - [ ] `REPLACE` instruction
-- [ ] ATC pragmas
+- [x] Pragmas
+- [x] Pseudo Comments
 - [ ] Macros
 - [ ] Timestamp instructions
