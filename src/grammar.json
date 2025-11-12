@@ -5527,8 +5527,13 @@
                       "value": "returning"
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "return_value"
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "parameter"
+                      },
+                      "named": true,
+                      "value": "return_value"
                     }
                   ]
                 }
@@ -5721,24 +5726,6 @@
         "type": "SYMBOL",
         "name": "identifier"
       }
-    },
-    "return_value": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[rR][eE][tT][uU][rR][nN][iI][nN][gG]"
-          },
-          "named": false,
-          "value": "returning"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "parameter"
-        }
-      ]
     },
     "amdp_options": {
       "type": "SEQ",
