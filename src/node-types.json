@@ -1844,13 +1844,58 @@
   {
     "type": "return_value",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "typing": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "elementary_type",
+            "named": true
+          },
+          {
+            "type": "range_type",
+            "named": true
+          },
+          {
+            "type": "ref_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
+            "named": true
+          },
+          {
+            "type": "table_type",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "parameter",
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "literal_string",
+          "named": true
+        },
+        {
+          "type": "number",
           "named": true
         }
       ]

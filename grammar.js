@@ -431,7 +431,7 @@ module.exports = grammar({
           params("changing", $.parameter_list),
           params("raising", $.raising_list),
           params("exceptions", $.exception_list),
-          params("returning", $.return_value),
+          params("returning", alias($.parameter, $.return_value)),
         )
       )
     ),
@@ -469,9 +469,6 @@ module.exports = grammar({
 
     raising_list: $ => repeat1($.exception),
     exception_list: $ => repeat1($.identifier),
-    return_value: $ => seq(
-      kw("returning"), $.parameter
-    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS.html
     amdp_options: $ => seq(
