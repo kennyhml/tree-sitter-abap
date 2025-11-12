@@ -71,6 +71,8 @@ module.exports = grammar({
     $._ws,
     $.line_comment,
     $.inline_comment,
+    $.pseudo_comment,
+    $.pragma,
     $.multi_line_comment,
     $.docstring,
   ],
@@ -772,7 +774,25 @@ module.exports = grammar({
       )
     ),
 
-    inline_comment: _ => token(seq('"', /[^\n\r]*/)),
+    inline_comment: _ => token(prec(0, seq('"', /[^\n\r]*/))),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenpseudo_comment.html
+    pseudo_comment: _ => token(
+      prec(1, seq(
+        '"#',
+        field("class", token.immediate(/[^ ][^ ] /)),
+        field("parameter", token(IDENTIFIER_REGEX))
+      ))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPRAGMA.html
+    pragma: _ => token(
+      seq(
+        '##',
+        // consume any until end of line or another pragma in the same line
+        token.immediate(/[^\n\r#]*/),
+      )
+    ),
     _ws: _ => /\s/,
 
     /**
