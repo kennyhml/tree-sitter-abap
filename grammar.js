@@ -20,12 +20,22 @@ module.exports = grammar({
   name: "abap",
 
   externals: $ => [
+    // A single full-line comment. External scanner is due to column check.
+    $.line_comment,
+
+    // Repeated full-line comments without a gap.
+    $.multi_line_comment,
+
     /**
-     * The line comment is initiated with a '*' character which has to be in
-     * the first column of the line. Tree sitter does not provide any way to
-     * enforce column position other than using an external scanner.
+     * One or more lines beginning with `"!" without a gap.
+     * 
+     * FIXME: ABAPDoc is something we will want to parse sooner or later, since
+     * they can contain references, links etc. to other objects.
+     * That cant really be done in the external scanner, so it must be a rule, 
+     * meaning it also cant be in extras and must be explicitly checked.
      */
-    $._begin_line_comment,
+    $.docstring,
+
     /**
      * For some reason, when using a regex to parse out newlines / whitespaces, 
      * treesitter doesnt give the external scanner control sometimes and we cant
@@ -59,7 +69,10 @@ module.exports = grammar({
      * and thus our external scanner, wont be called to track when a line comment is coming up.
      */
     $._ws,
-    $.comment,
+    $.line_comment,
+    $.inline_comment,
+    $.multi_line_comment,
+    $.docstring,
   ],
 
   supertypes: $ => [
@@ -759,13 +772,8 @@ module.exports = grammar({
       )
     ),
 
-    comment: $ => choice(
-      $._inline_comment,
-      seq($._begin_line_comment, /[^\n\r]*/),
-    ),
-
+    inline_comment: _ => token(seq('"', /[^\n\r]*/)),
     _ws: _ => /\s/,
-    _inline_comment: _ => token(seq('"', /[^\n\r]*/)),
 
     /**
      * When not currently inside a statement, ABAP allows spraying `...` all over the place.
