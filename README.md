@@ -14,3 +14,35 @@ parser is compiled to **native C**, enabling significantly better performance th
 > ```abap
 > types foo type i value 10.
 > ```
+
+## WIP
+- [x] Data Declarations
+- [x] Elementary Types
+- [x] Table Types & Keys
+- [x] Range Table Types
+- [x] Struct Types
+- [x] Class/Interface Definitions
+- [x] Method Declarations (Events, AMDP, Tests..)
+- [x] Basic Comments
+- [ ] Inline declarations
+- [ ] Unary & Binary expressions
+- [ ] ABAP SQL, including CTE
+- [ ] Table access
+- [ ] ABAPdoc
+- [ ] IF statements
+- [ ] Loops (while, do, loop at..)
+- [ ] Value statements
+- [ ] Reduce Statements
+- [ ] Method Calls
+- [ ] (Async) Function Calls
+- [ ] Class-based exceptions
+- [ ] Builtins
+- [ ] String-Templates
+- [ ] Dynpro Selection Screen
+- [ ] `MESSAGE` instruction
+- [ ] `WRITE` instruction
+- [ ] `CONCATENATE` instruction
+- [ ] `REPLACE` instruction
+- [ ] ATC pragmas
+- [ ] Macros
+- [ ] Timestamp instructions
