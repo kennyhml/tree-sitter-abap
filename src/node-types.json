@@ -502,12 +502,6 @@
     }
   },
   {
-    "type": "comment",
-    "named": true,
-    "extra": true,
-    "fields": {}
-  },
-  {
     "type": "component_access",
     "named": true,
     "fields": {
@@ -2348,6 +2342,11 @@
     "named": false
   },
   {
+    "type": "docstring",
+    "named": true,
+    "extra": true
+  },
+  {
     "type": "duration",
     "named": false
   },
@@ -2468,6 +2467,11 @@
     "named": false
   },
   {
+    "type": "inline_comment",
+    "named": true,
+    "extra": true
+  },
+  {
     "type": "interface",
     "named": false
   },
@@ -2508,6 +2512,11 @@
     "named": false
   },
   {
+    "type": "line_comment",
+    "named": true,
+    "extra": true
+  },
+  {
     "type": "local",
     "named": false
   },
@@ -2530,6 +2539,11 @@
   {
     "type": "methods",
     "named": false
+  },
+  {
+    "type": "multi_line_comment",
+    "named": true,
+    "extra": true
   },
   {
     "type": "no",

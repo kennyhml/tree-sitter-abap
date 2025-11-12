@@ -4,7 +4,12 @@
 
 enum Token
 {
-    BEGIN_LINE_COMMENT,
+    LINE_COMMENT,
+
+    MULTI_LINE_COMMENT,
+
+    DOCSTRING,
+
     WHITESPACE,
     /**
      * Tree sitter first calls the external scanner during error recovery, the
@@ -20,6 +25,51 @@ typedef struct
 {
     bool placeholder;
 } Scanner;
+
+bool is_at_comment_start(TSLexer* lexer)
+{
+    return lexer->get_column(lexer) == 0 && lexer->lookahead == '*';
+}
+
+bool consume_docstring_start(TSLexer* lexer)
+{
+    if (lexer->lookahead != '"') {
+        return false;
+    }
+    lexer->advance(lexer, false);
+    if (lexer->lookahead != '!') {
+        return false;
+    }
+    lexer->advance(lexer, false);
+    return true;
+}
+
+void skip_all_whitespaces(TSLexer* lexer)
+{
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\v' ||
+           lexer->lookahead == '\f' || lexer->lookahead == '\t') {
+        // The whitespaces need to be part of the token for docstrings,
+        // otherwise it gets cut into little parts.
+        lexer->advance(lexer, false);
+    }
+}
+
+bool consume_end_of_line(TSLexer* lexer)
+{
+    if (lexer->lookahead == '\n') {
+        lexer->advance(lexer, false);
+        return true;
+    }
+
+    if (lexer->lookahead == '\r') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\n') {
+            lexer->advance(lexer, false);
+        }
+        return true;
+    }
+    return false;
+}
 
 /**
  * Hook to implement our scanner logic in.
@@ -60,13 +110,43 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
         }
     }
 
-    if (valid_symbols[BEGIN_LINE_COMMENT] && lexer->get_column(lexer) == 0 &&
-        lexer->lookahead == '*') {
-        lexer->advance(lexer, false);
-        lexer->result_symbol = BEGIN_LINE_COMMENT;
-        return true;
+    if (valid_symbols[LINE_COMMENT]) {
+        uint32_t lines = 0;
+        while (is_at_comment_start(lexer)) {
+            // We are at at least one line comment
+            do {
+                lexer->advance(lexer, false);
+            } while (!lexer->eof(lexer) && !consume_end_of_line(lexer));
+            lines++;
+        }
+        if (lines != 0) {
+            lexer->result_symbol =
+                    lines > 1 ? MULTI_LINE_COMMENT : LINE_COMMENT;
+            lexer->mark_end(lexer);
+            return true;
+        }
+        // we didnt need to consume anything to check line comment so its safe
+        // to continue
     }
 
+    if (valid_symbols[DOCSTRING]) {
+        uint32_t lines = 0;
+        while (consume_docstring_start(lexer)) {
+            do {
+                lexer->advance(lexer, false);
+            } while (!lexer->eof(lexer) && !consume_end_of_line(lexer));
+            // Docstrings may be indented, so we need to make sure to skip
+            // whitespaces prior to checking if another docstring starts.
+            skip_all_whitespaces(lexer);
+            lines++;
+        }
+        if (lines != 0) {
+            lexer->result_symbol = DOCSTRING;
+            lexer->mark_end(lexer);
+        }
+        // we might have consumed a token while checking. not safe to continue
+        return lines != 0;
+    }
     return false;
 }
 
