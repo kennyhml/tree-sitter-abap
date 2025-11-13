@@ -771,22 +771,24 @@ module.exports = grammar({
       )
     ),
 
-    inline_comment: _ => token(prec(0, seq('"', /[^\n\r]*/))),
+    inline_comment: _ => prec(0, seq('"', /[^\n\r]*/)),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenpseudo_comment.html
-    pseudo_comment: $ => token(prec(1, seq(
+    pseudo_comment: $ => prec(1, seq(
       '"#',
-      token.immediate(/[^ ][^ ] /),
-      alias(IDENTIFIER_REGEX, $.test)
-    ))),
+      alias(token.immediate(/[^ ][^ ]/), $.kind),
+      alias(/[^\n\r ]*/, $.code)
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPRAGMA.html
-    pragma: _ => token(
-      seq(
-        '##',
-        // consume any until end of line or another pragma in the same line
-        token.immediate(/[^\n\r#]*/),
-      )
+    pragma: $ => seq(
+      '##',
+      alias(token.immediate(/[^\n\r\[ ]+/), $.code),
+      // Up to 2 parameters are possible, but extras dont allow optionals in extras.
+      // While this hack does work fine, it unfortunately causes the parameter nodes
+      // to always show up in the tree even when no parameter are specified.
+      /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
+      /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
     ),
 
     _ws: _ => /\s/,

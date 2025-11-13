@@ -1014,6 +1014,12 @@
     }
   },
   {
+    "type": "inline_comment",
+    "named": true,
+    "extra": true,
+    "fields": {}
+  },
+  {
     "type": "instance_access",
     "named": true,
     "fields": {
@@ -1426,6 +1432,26 @@
     }
   },
   {
+    "type": "pragma",
+    "named": true,
+    "extra": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "param",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "preferred_parameter",
     "named": true,
     "fields": {
@@ -1522,6 +1548,26 @@
         },
         {
           "type": "types_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pseudo_comment",
+    "named": true,
+    "extra": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "kind",
           "named": true
         }
       ]
@@ -2227,6 +2273,18 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "\"#",
+    "named": false
+  },
+  {
+    "type": "##",
+    "named": false
+  },
+  {
     "type": "'",
     "named": false
   },
@@ -2325,6 +2383,10 @@
   {
     "type": "client",
     "named": false
+  },
+  {
+    "type": "code",
+    "named": true
   },
   {
     "type": "components",
@@ -2512,11 +2574,6 @@
     "named": false
   },
   {
-    "type": "inline_comment",
-    "named": true,
-    "extra": true
-  },
-  {
     "type": "interface",
     "named": false
   },
@@ -2531,6 +2588,10 @@
   {
     "type": "key",
     "named": false
+  },
+  {
+    "type": "kind",
+    "named": true
   },
   {
     "type": "length",
@@ -2619,13 +2680,12 @@
     "named": false
   },
   {
-    "type": "parameter",
-    "named": false
+    "type": "param",
+    "named": true
   },
   {
-    "type": "pragma",
-    "named": true,
-    "extra": true
+    "type": "parameter",
+    "named": false
   },
   {
     "type": "preferred",
@@ -2638,11 +2698,6 @@
   {
     "type": "protected",
     "named": false
-  },
-  {
-    "type": "pseudo_comment",
-    "named": true,
-    "extra": true
   },
   {
     "type": "public",
