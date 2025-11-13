@@ -777,7 +777,8 @@ module.exports = grammar({
     pseudo_comment: $ => prec(1, seq(
       '"#',
       alias(token.immediate(/[^ ][^ ]/), $.kind),
-      alias(/[^\n\r ]*/, $.code)
+      $._ws,
+      alias(/[^\n\r]*/, $.code)
     )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPRAGMA.html
