@@ -7538,63 +7538,30 @@
         }
       ]
     },
-    "inline_comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 0,
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "\""
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^\\n\\r]*"
-            }
-          ]
-        }
-      }
-    },
     "pseudo_comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 1,
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "\"#"
-            },
-            {
-              "type": "FIELD",
-              "name": "class",
-              "content": {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[^ ][^ ] "
-                }
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "parameter",
-              "content": {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[a-zA-Z_\\/][a-zA-Z0-9_\\/]*"
-                }
-              }
-            }
-          ]
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\"#"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^ ][^ ] "
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[a-zA-Z_\\/][a-zA-Z0-9_\\/]*"
+          },
+          "named": true,
+          "value": "test"
         }
-      }
+      ]
     },
     "pragma": {
       "type": "TOKEN",
@@ -7635,10 +7602,6 @@
     {
       "type": "SYMBOL",
       "name": "line_comment"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "inline_comment"
     },
     {
       "type": "SYMBOL",

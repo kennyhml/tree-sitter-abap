@@ -774,13 +774,11 @@ module.exports = grammar({
     inline_comment: _ => token(prec(0, seq('"', /[^\n\r]*/))),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenpseudo_comment.html
-    pseudo_comment: _ => token(
-      prec(1, seq(
-        '"#',
-        field("class", token.immediate(/[^ ][^ ] /)),
-        field("parameter", token(IDENTIFIER_REGEX))
-      ))
-    ),
+    pseudo_comment: $ => token(prec(1, seq(
+      '"#',
+      token.immediate(/[^ ][^ ] /),
+      alias(IDENTIFIER_REGEX, $.test)
+    ))),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPRAGMA.html
     pragma: _ => token(
@@ -790,6 +788,7 @@ module.exports = grammar({
         token.immediate(/[^\n\r#]*/),
       )
     ),
+
     _ws: _ => /\s/,
 
     /**
