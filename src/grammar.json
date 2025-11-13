@@ -7578,10 +7578,14 @@
             "value": "kind"
           },
           {
+            "type": "SYMBOL",
+            "name": "_ws"
+          },
+          {
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[^\\n\\r ]*"
+              "value": "[^\\n\\r]*"
             },
             "named": true,
             "value": "code"
