@@ -37,7 +37,7 @@ parser is compiled to **native C**, enabling significantly better performance th
 - [ ] (Async) Function Calls
 - [ ] Class-based exceptions
 - [x] Builtins
-- [ ] String-Templates
+- [x] String-Templates
 - [ ] Dynpro Selection Screen
 - [ ] `MESSAGE` instruction
 - [ ] `WRITE` instruction
