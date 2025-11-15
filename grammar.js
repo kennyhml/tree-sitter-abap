@@ -99,6 +99,9 @@ module.exports = grammar({
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
+
+      $.assignment,
+
       $.report_initiator,
       $.deferred_class_definition,
       $.deferred_interface_definition,
@@ -117,6 +120,18 @@ module.exports = grammar({
       $.class_implementation,
       $.interface_definition,
       $.interface_implementation,
+    ),
+
+    _expression: $ => choice(
+      $.identifier,
+      $.number,
+      $.literal_string,
+      // FIXME: Can we get rid of the aliasing mess?..
+      alias($._component_field_access, $.component_access),
+      alias($._static_field_access, $.static_access),
+      alias($._instance_field_access, $.instance_access),
+      // method / builtin function calls
+      // calculations
     ),
 
     _class_component: $ => choice(
@@ -144,6 +159,26 @@ module.exports = grammar({
       $.ref_type,
       $.table_type,
       $.range_type,
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINLINE_DECLARATIONS.html
+    inline_declaration: $ => seq(
+      choice(...kws("final", "data", "field-symbol")),
+      // Do we use immediate here? Does that fall under being permissive?..
+      token.immediate("("),
+      field("name", $._immediate_identifier),
+      token.immediate(")")
+    ),
+
+    assignment: $ => seq(
+      field("lhs", choice(
+        $.identifier,
+        $.inline_declaration
+      )),
+      "=",
+      // rhs
+      field("rhs", $._expression),
+      "."
     ),
 
     /**
@@ -784,13 +819,15 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPRAGMA.html
     pragma: $ => seq(
       '##',
-      alias(token.immediate(/[^\n\r\[ ]+/), $.code),
-      // Up to 2 parameters are possible, but extras dont allow optionals in extras.
+      alias(token.immediate(/[^\n\r# ]+/), $.code),
+      // Up to 2 parameters are possible, but extras dont allow optionals.
       // While this hack does work fine, it unfortunately causes the parameter nodes
       // to always show up in the tree even when no parameter are specified.
-      /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
-      /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
+      // So im not sure if I want to have it that way.
+      // /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
+      // /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
     ),
+
 
     _ws: _ => /\s/,
 

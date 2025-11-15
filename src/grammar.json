@@ -40,6 +40,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "assignment"
+        },
+        {
+          "type": "SYMBOL",
           "name": "report_initiator"
         },
         {
@@ -82,6 +86,50 @@
         {
           "type": "SYMBOL",
           "name": "interface_implementation"
+        }
+      ]
+    },
+    "_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal_string"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_component_field_access"
+          },
+          "named": true,
+          "value": "component_access"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_static_field_access"
+          },
+          "named": true,
+          "value": "static_access"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_instance_field_access"
+          },
+          "named": true,
+          "value": "instance_access"
         }
       ]
     },
@@ -2952,6 +3000,103 @@
         {
           "type": "SYMBOL",
           "name": "range_type"
+        }
+      ]
+    },
+    "inline_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[fF][iI][nN][aA][lL]"
+              },
+              "named": false,
+              "value": "final"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[dD][aA][tT][aA]"
+              },
+              "named": false,
+              "value": "data"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[fF][iI][eE][lL][dD]-[sS][yY][mM][bB][oO][lL]"
+              },
+              "named": false,
+              "value": "field-symbol"
+            }
+          ]
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          }
+        }
+      ]
+    },
+    "assignment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "lhs",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "inline_declaration"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "rhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -7606,51 +7751,11 @@
             "type": "IMMEDIATE_TOKEN",
             "content": {
               "type": "PATTERN",
-              "value": "[^\\n\\r\\[ ]+"
+              "value": "[^\\n\\r# ]+"
             }
           },
           "named": true,
           "value": "code"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\[?"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "[^\\n\\r\\]]*"
-            }
-          },
-          "named": true,
-          "value": "param"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\]?"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\[?"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "[^\\n\\r\\]]*"
-            }
-          },
-          "named": true,
-          "value": "param"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\]?"
         }
       ]
     },
