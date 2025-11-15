@@ -3067,7 +3067,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "lhs",
+          "name": "target",
           "content": {
             "type": "CHOICE",
             "members": [
@@ -3088,17 +3088,35 @@
         },
         {
           "type": "FIELD",
-          "name": "rhs",
+          "name": "source",
           "content": {
-            "type": "SYMBOL",
-            "name": "_expression"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "."
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "assignment"
+              }
+            ]
           }
-        },
-        {
-          "type": "STRING",
-          "value": "."
         }
       ]
+    },
+    "method_call": {
+      "type": "SEQ",
+      "members": []
     },
     "elementary_type": {
       "type": "PREC_RIGHT",

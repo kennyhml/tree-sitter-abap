@@ -170,16 +170,29 @@ module.exports = grammar({
       token.immediate(")")
     ),
 
+    /**
+     * In ABAP, assignments are also **expressions**!
+     * 
+     * This means a statement like `foo = bar = baz = 'Hello'` is possible.
+     * See https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE_MULTIPLES.html
+     * 
+     *  https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_ASSIGNMENTS.html
+     */
     assignment: $ => seq(
-      field("lhs", choice(
+      field("target", choice(
         $.identifier,
         $.inline_declaration
       )),
       "=",
-      // rhs
-      field("rhs", $._expression),
-      "."
+      field("source", choice(
+        // can only expect a dot on the final expression, this also means we wont
+        // generally put assignments into the _expressions.
+        seq($._expression, "."),
+        $.assignment
+      )),
     ),
+
+    method_call: $ => seq(),
 
     /**
      * Type based on elementary types. Only here are `length` and `decimals` additions allowed.
