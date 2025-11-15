@@ -30,6 +30,10 @@
         "named": false
       },
       {
+        "type": "assignment",
+        "named": true
+      },
+      {
         "type": "class_data_declaration",
         "named": true
       },
@@ -198,6 +202,56 @@
         "types": [
           {
             "type": "amdp_client_handling",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "assignment",
+    "named": true,
+    "fields": {
+      "lhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "inline_declaration",
+            "named": true
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "static_access",
             "named": true
           }
         ]
@@ -1020,6 +1074,22 @@
     "fields": {}
   },
   {
+    "type": "inline_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "instance_access",
     "named": true,
     "fields": {
@@ -1437,15 +1507,11 @@
     "extra": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "code",
-          "named": true
-        },
-        {
-          "type": "param",
           "named": true
         }
       ]
@@ -2317,6 +2383,10 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "=>",
     "named": false
   },
@@ -2491,6 +2561,10 @@
   },
   {
     "type": "fail",
+    "named": false
+  },
+  {
+    "type": "field-symbol",
     "named": false
   },
   {
@@ -2678,10 +2752,6 @@
   {
     "type": "page",
     "named": false
-  },
-  {
-    "type": "param",
-    "named": true
   },
   {
     "type": "parameter",
