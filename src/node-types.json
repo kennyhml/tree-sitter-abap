@@ -1440,12 +1440,36 @@
           }
         ]
       },
-      "object": {
-        "multiple": false,
+      "source": {
+        "multiple": true,
         "required": true,
         "types": [
           {
+            "type": "->",
+            "named": false
+          },
+          {
+            "type": "=>",
+            "named": false
+          },
+          {
+            "type": "component_access",
+            "named": true
+          },
+          {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "instance_access",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "static_access",
             "named": true
           }
         ]

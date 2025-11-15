@@ -205,10 +205,27 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
     method_call: $ => seq(
-      field("object", $.identifier),
+      // only a single identifier allowed for static calls
       choice(
-        token.immediate("=>"),
-        token.immediate("->"),
+        field("source",
+          seq(
+            $.identifier,
+            token.immediate("=>")
+          ),
+        ),
+        field("source",
+          seq(
+            choice(
+              $.identifier,
+              $.method_call,
+              // access rules must be left associative for this to not conflict
+              alias($._component_field_access, $.component_access),
+              alias($._static_field_access, $.static_access),
+              alias($._instance_field_access, $.instance_access),
+            ),
+            token.immediate("->")
+          ),
+        ),
       ),
       field("name", $._immediate_identifier),
       $.call_arguments
@@ -740,7 +757,7 @@ module.exports = grammar({
      * 
      * Must be followed by immediate accesses.
      */
-    _static_field_access: $ => seq(
+    _static_field_access: $ => prec.left(seq(
       field("source", $.identifier),
       token.immediate("=>"),
       field("member", choice(
@@ -748,14 +765,14 @@ module.exports = grammar({
         alias($._immediate_instance_field_access, $.instance_access),
         alias($._immediate_component_field_access, $.component_access)
       ))
-    ),
+    )),
 
     /**
      * Instance access to a class member using `instance->member`.
      * 
      * Must be followed by immediate accesses.
      */
-    _instance_field_access: $ => seq(
+    _instance_field_access: $ => prec.left(seq(
       field("source", $.identifier),
       token.immediate("->"),
       field("member", choice(
@@ -763,7 +780,7 @@ module.exports = grammar({
         alias($._immediate_instance_field_access, $.instance_access),
         alias($._immediate_component_field_access, $.component_access)
       ))
-    ),
+    )),
 
     /** 
      * Static access to a type member of a class using `cls=>type`.
@@ -793,7 +810,7 @@ module.exports = grammar({
       ))
     ),
 
-    _immediate_instance_field_access: $ => seq(
+    _immediate_instance_field_access: $ => prec.left(seq(
       field("source", $._immediate_identifier),
       token.immediate("->"),
       field("member", choice(
@@ -801,7 +818,7 @@ module.exports = grammar({
         alias($._immediate_component_field_access, $.component_access),
         alias($._immediate_instance_field_access, $._instance_field_access)
       ))
-    ),
+    )),
 
     _immediate_instance_type_access: $ => seq(
       field("source", $._immediate_identifier),
