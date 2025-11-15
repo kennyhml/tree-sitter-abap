@@ -1127,7 +1127,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -1140,6 +1140,10 @@
         },
         {
           "type": "component_access",
+          "named": true
+        },
+        {
+          "type": "format_option",
           "named": true
         },
         {
@@ -1267,6 +1271,52 @@
           {
             "type": "harmless",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_option",
+    "named": true,
+    "fields": {
+      "parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
           }
         ]
       }
