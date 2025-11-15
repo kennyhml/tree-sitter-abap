@@ -211,22 +211,64 @@
   {
     "type": "argument_list",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "builtin_function_call",
+          "named": true
+        },
+        {
+          "type": "component_access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "instance_access",
+          "named": true
+        },
+        {
+          "type": "literal_string",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "static_access",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "assignment",
     "named": true,
     "fields": {
       "source": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": ".",
-            "named": false
+            "type": "assignment",
+            "named": true
           },
           {
-            "type": "assignment",
+            "type": "builtin_function_call",
             "named": true
           },
           {
@@ -328,6 +370,108 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "builtin_function_call",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "call_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "call_arguments",
+    "named": true,
+    "fields": {
+      "changing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "changing",
+            "named": false
+          }
+        ]
+      },
+      "exceptions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "exceptions",
+            "named": false
+          }
+        ]
+      },
+      "exporting": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "exporting",
+            "named": false
+          }
+        ]
+      },
+      "importing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "importing",
+            "named": false
+          }
+        ]
+      },
+      "receiving": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "assignment",
+            "named": true
+          },
+          {
+            "type": "receiving",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -1312,7 +1456,7 @@
       "required": true,
       "types": [
         {
-          "type": "argument_list",
+          "type": "call_arguments",
           "named": true
         }
       ]
@@ -2836,6 +2980,10 @@
   },
   {
     "type": "read-only",
+    "named": false
+  },
+  {
+    "type": "receiving",
     "named": false
   },
   {
