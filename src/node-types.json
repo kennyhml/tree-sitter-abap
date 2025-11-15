@@ -212,24 +212,18 @@
     "type": "assignment",
     "named": true,
     "fields": {
-      "lhs": {
-        "multiple": false,
+      "source": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
+            "type": ".",
+            "named": false
           },
           {
-            "type": "inline_declaration",
+            "type": "assignment",
             "named": true
-          }
-        ]
-      },
-      "rhs": {
-        "multiple": false,
-        "required": true,
-        "types": [
+          },
           {
             "type": "component_access",
             "named": true
@@ -252,6 +246,20 @@
           },
           {
             "type": "static_access",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "inline_declaration",
             "named": true
           }
         ]
