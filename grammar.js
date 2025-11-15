@@ -7,12 +7,15 @@
 // Cant be a rule due to priority, need to figure how to handle this better..
 BUFF_SIZE = $ => seq(
   token.immediate("("),
-  field("length", alias(token.immediate(/-?\d+/), $.number)),
+  field("length", alias(token.immediate(NUMBER_REGEX), $.number)),
   token.immediate(")")
 );
 
 const ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
 const IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z0-9_\/]*/;
+
+// Allow a single plus or minus before the number literal
+const NUMBER_REGEX = /(\+|-)?\d+/;
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
@@ -878,8 +881,8 @@ module.exports = grammar({
     identifier: _ => IDENTIFIER_REGEX,
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
 
-    number: $ => /-?\d+/,
-    _immediate_number: $ => alias(token.immediate(/-?\d+/), $.number),
+    number: _ => NUMBER_REGEX,
+    _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
 
     literal_string: $ => choice(
       seq(
