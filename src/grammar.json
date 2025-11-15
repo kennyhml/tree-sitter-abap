@@ -109,6 +109,10 @@
           "name": "method_call"
         },
         {
+          "type": "SYMBOL",
+          "name": "builtin_function_call"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -134,6 +138,15 @@
           },
           "named": true,
           "value": "instance_access"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sub_assignment"
+          },
+          "named": true,
+          "value": "assignment"
         }
       ]
     },
@@ -3094,26 +3107,37 @@
           "type": "FIELD",
           "name": "source",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_expression"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "."
-                  }
-                ]
-              },
-              {
-                "type": "SYMBOL",
-                "name": "assignment"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "_sub_assignment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
           }
         }
       ]
@@ -3158,11 +3182,28 @@
         },
         {
           "type": "SYMBOL",
-          "name": "argument_list"
+          "name": "call_arguments"
         }
       ]
     },
-    "argument_list": {
+    "builtin_function_call": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "call_arguments"
+        }
+      ]
+    },
+    "call_arguments": {
       "type": "SEQ",
       "members": [
         {
@@ -3173,10 +3214,148 @@
           }
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "exporting",
+              "content": {
+                "type": "SYMBOL",
+                "name": "argument_list"
+              }
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "exporting",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[eE][xX][pP][oO][rR][tT][iI][nN][gG]"
+                          },
+                          "named": false,
+                          "value": "exporting"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "argument_list"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "importing",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[iI][mM][pP][oO][rR][tT][iI][nN][gG]"
+                          },
+                          "named": false,
+                          "value": "importing"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "argument_list"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "changing",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[cC][hH][aA][nN][gG][iI][nN][gG]"
+                          },
+                          "named": false,
+                          "value": "changing"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "argument_list"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "exceptions",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[eE][xX][cC][eE][pP][tT][iI][oO][nN][sS]"
+                          },
+                          "named": false,
+                          "value": "exceptions"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "argument_list"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "receiving",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[rR][eE][cC][eE][iI][vV][iI][nN][gG]"
+                          },
+                          "named": false,
+                          "value": "receiving"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "assignment"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
           "type": "STRING",
           "value": ")"
         }
       ]
+    },
+    "argument_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_expression"
+      }
     },
     "elementary_type": {
       "type": "PREC_RIGHT",

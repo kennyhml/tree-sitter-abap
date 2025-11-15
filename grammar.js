@@ -127,11 +127,15 @@ module.exports = grammar({
       $.number,
       $.literal_string,
       $.method_call,
+      $.builtin_function_call,
+
       // FIXME: Can we get rid of the aliasing mess?..
       alias($._component_field_access, $.component_access),
       alias($._static_field_access, $.static_access),
       alias($._instance_field_access, $.instance_access),
-      // method / builtin function calls
+
+      alias($._sub_assignment, $.assignment),
+      // builtin function calls
       // calculations
     ),
 
@@ -177,6 +181,9 @@ module.exports = grammar({
      * This means a statement like `foo = bar = baz = 'Hello'` is possible.
      * See https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE_MULTIPLES.html
      * 
+     * For easier delimiter handling, the {@link assignment} node isnt recursive and represents the parent.
+     * The recursive sub nodes are represented by the aliased {@link _sub_assignment}.
+     * 
      *  https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_ASSIGNMENTS.html
      */
     assignment: $ => seq(
@@ -185,12 +192,15 @@ module.exports = grammar({
         $.inline_declaration
       )),
       "=",
-      field("source", choice(
-        // can only expect a dot on the final expression, this also means we wont
-        // generally put assignments into the _expressions.
-        seq($._expression, "."),
-        $.assignment
-      )),
+      field("source", $._expression),
+      "."
+    ),
+
+    // A recursive compatible assignment node.
+    _sub_assignment: $ => seq(
+      field("target", $.identifier),
+      "=",
+      field("source", $._expression),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
@@ -201,12 +211,44 @@ module.exports = grammar({
         token.immediate("->"),
       ),
       field("name", $._immediate_identifier),
-      $.argument_list
+      $.call_arguments
     ),
 
-    argument_list: $ => seq(
+    /**
+     * Call of a builtin function. Technically it would be possible to make all
+     * of the functions known statically since they cannot be dynamically declared,
+     * but its easier to just do it dynamically.
+     * 
+     * Its not currently possible to declare functions to be called the same way builtin
+     * functions can be called, so theres no conflict.
+     */
+    builtin_function_call: $ => seq(
+      field("name", $.identifier),
+      $.call_arguments
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
+    call_arguments: $ => seq(
       token.immediate("("),
+
+      // If no exporting / importing  etc, is specified, all arguments are exporting
+      choice(
+        field("exporting", $.argument_list),
+        repeat(
+          choice(
+            args("exporting", $.argument_list),
+            args("importing", $.argument_list),
+            args("changing", $.argument_list),
+            args("exceptions", $.argument_list),
+            args("receiving", $.assignment),
+          )
+        ),
+      ),
       ")",
+    ),
+
+    argument_list: $ => repeat1(
+      $._expression,
     ),
 
     /**
@@ -1080,5 +1122,9 @@ function componentAccess($, src) {
 
 
 function params(keyword, rule) {
+  return field(keyword, seq(kw(keyword), rule));
+}
+
+function args(keyword, rule) {
   return field(keyword, seq(kw(keyword), rule));
 }
