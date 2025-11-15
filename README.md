@@ -24,7 +24,7 @@ parser is compiled to **native C**, enabling significantly better performance th
 - [x] Class/Interface Definitions
 - [x] Method Declarations (Events, AMDP, Tests..)
 - [x] Basic Comments
-- [ ] Inline declarations
+- [x] Inline declarations
 - [ ] Unary & Binary expressions
 - [ ] ABAP SQL, including CTE
 - [ ] Table access
@@ -33,10 +33,10 @@ parser is compiled to **native C**, enabling significantly better performance th
 - [ ] Loops (while, do, loop at..)
 - [ ] Value statements
 - [ ] Reduce Statements
-- [ ] Method Calls
+- [x] Method Calls
 - [ ] (Async) Function Calls
 - [ ] Class-based exceptions
-- [ ] Builtins
+- [x] Builtins
 - [ ] String-Templates
 - [ ] Dynpro Selection Screen
 - [ ] `MESSAGE` instruction
