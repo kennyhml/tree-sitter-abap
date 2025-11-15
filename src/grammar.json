@@ -3446,7 +3446,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "-?\\d+"
+                              "value": "(\\+|-)?\\d+"
                             }
                           },
                           "named": true,
@@ -3520,7 +3520,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "-?\\d+"
+                              "value": "(\\+|-)?\\d+"
                             }
                           },
                           "named": true,
@@ -3569,7 +3569,7 @@
                     "type": "IMMEDIATE_TOKEN",
                     "content": {
                       "type": "PATTERN",
-                      "value": "-?\\d+"
+                      "value": "(\\+|-)?\\d+"
                     }
                   },
                   "named": true,
@@ -7949,7 +7949,7 @@
     },
     "number": {
       "type": "PATTERN",
-      "value": "-?\\d+"
+      "value": "(\\+|-)?\\d+"
     },
     "_immediate_number": {
       "type": "ALIAS",
@@ -7957,7 +7957,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "-?\\d+"
+          "value": "(\\+|-)?\\d+"
         }
       },
       "named": true,
