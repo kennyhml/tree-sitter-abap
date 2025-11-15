@@ -126,6 +126,7 @@ module.exports = grammar({
       $.identifier,
       $.number,
       $.literal_string,
+      $.string_template,
       $.method_call,
       $.builtin_function_call,
 
@@ -891,6 +892,26 @@ module.exports = grammar({
         field("content", /[^`]*/),
         "`"
       )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES_EXPRESSIONS.html
+    string_template: $ => seq(
+      "|",
+      repeat(
+        choice(
+          // Allow { and } inside the literal chunks when escaped
+          /([^|{}]|\\\{|\\\})+/,
+          $.embed_expression
+        )
+      ),
+      "|"
+    ),
+
+    // A general expression position within a template string
+    //
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
+    embed_expression: $ => seq(
+      "{", $._expression, "}"
     ),
 
     inline_comment: _ => prec(0, seq('"', /[^\n\r]*/)),
