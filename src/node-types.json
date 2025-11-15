@@ -209,6 +209,11 @@
     }
   },
   {
+    "type": "argument_list",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "assignment",
     "named": true,
     "fields": {
@@ -238,6 +243,10 @@
           },
           {
             "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "method_call",
             "named": true
           },
           {
@@ -1268,6 +1277,42 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method_call",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
           "named": true
         }
       ]

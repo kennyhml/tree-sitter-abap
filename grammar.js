@@ -126,6 +126,7 @@ module.exports = grammar({
       $.identifier,
       $.number,
       $.literal_string,
+      $.method_call,
       // FIXME: Can we get rid of the aliasing mess?..
       alias($._component_field_access, $.component_access),
       alias($._static_field_access, $.static_access),
@@ -192,7 +193,21 @@ module.exports = grammar({
       )),
     ),
 
-    method_call: $ => seq(),
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
+    method_call: $ => seq(
+      field("object", $.identifier),
+      choice(
+        token.immediate("=>"),
+        token.immediate("->"),
+      ),
+      field("name", $._immediate_identifier),
+      $.argument_list
+    ),
+
+    argument_list: $ => seq(
+      token.immediate("("),
+      ")",
+    ),
 
     /**
      * Type based on elementary types. Only here are `length` and `decimals` additions allowed.
