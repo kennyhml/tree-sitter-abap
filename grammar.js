@@ -908,10 +908,34 @@ module.exports = grammar({
     ),
 
     // A general expression position within a template string
+    // TODO: Figure out general expression position & functional expression position
     //
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
     embed_expression: $ => seq(
-      "{", $._expression, "}"
+      "{",
+      $._expression,
+      repeat($.format_option),
+      "}"
+    ),
+
+    /**
+     * String template formatting arguments, e.g `ALPHA = IN`.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_STRING_FORMAT_OPTIONS.html
+     */
+    format_option: $ => seq(
+      // FIXME: Treated as keywords by eclipse..
+      field("parameter", $.identifier),
+      "=",
+      field("value", choice(
+        // FIXME: Technically these are keywords
+        $.identifier,
+        $.literal_string,
+        $.number,
+        // dynamic dobj specification, do we wrap this in something for querying?
+        seq("(", $._immediate_identifier, token.immediate(")")),
+        $.method_call
+      ))
     ),
 
     inline_comment: _ => prec(0, seq('"', /[^\n\r]*/)),
