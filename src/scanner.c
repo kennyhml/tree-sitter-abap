@@ -1,6 +1,7 @@
 #include "tree_sitter/parser.h"
 #include "tree_sitter/alloc.h"
 #include "tree_sitter/array.h"
+#include <wctype.h>
 
 enum Token
 {
@@ -10,14 +11,13 @@ enum Token
 
     DOCSTRING,
 
-    WHITESPACE,
     /**
-     * Tree sitter first calls the external scanner during error recovery, the
-     * error sentinel allows us to check whether we are currently in recovery
-     * mode. It is not a token that will ever actually be emitted.
-     *
-     * https://tree-sitter.github.io/tree-sitter/creating-parsers/4-external-scanners.html#other-external-scanner-details
+     * Message type can be the prefix of a message number, and this conflicts
+     * with the word rule. There might be a better way to work around this, but
+     * I could not find one.
      */
+    MESSAGE_TYPE,
+
     ERROR_SENTINEL
 };
 
@@ -25,6 +25,14 @@ typedef struct
 {
     bool placeholder;
 } Scanner;
+
+// i: information message
+// s: status message
+// e: error message
+// w: warning message
+// a: terminate message
+// x: exit message
+static const char* valid_message_types = "isewaxISEWAX";
 
 bool is_at_comment_start(TSLexer* lexer)
 {
@@ -83,29 +91,14 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
         return false;
     }
 
-    if (valid_symbols[WHITESPACE]) {
-        if (lexer->lookahead == '\r' || lexer->lookahead == '\n' ||
-            lexer->lookahead == '\v' || lexer->lookahead == '\f') {
-            lexer->result_symbol = WHITESPACE;
-            if (lexer->lookahead == '\r') {
-                lexer->advance(lexer, false);
-                if (lexer->lookahead == '\n') {
-                    lexer->advance(lexer, false);
-                }
-            } else {
-                lexer->advance(lexer, false);
-            }
-            return true;
-        }
-
-        bool has_whitespace = false;
-        while (lexer->lookahead == ' ') {
-            lexer->advance(lexer, true);
-            has_whitespace = true;
-        }
-        if (has_whitespace) {
-            lexer->result_symbol = WHITESPACE;
+    if (valid_symbols[MESSAGE_TYPE]) {
+        // For now, literally just allow any character to be more permissive.
+        // The restrictive logic is there if we need it..
+        if (iswalpha(lexer->lookahead)) {
+            // if (strchr(valid_message_types, lexer->lookahead)) {
+            lexer->advance(lexer, false);
             lexer->mark_end(lexer);
+            lexer->result_symbol = MESSAGE_TYPE;
             return true;
         }
     }
