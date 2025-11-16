@@ -105,6 +105,8 @@ module.exports = grammar({
 
       $.assignment,
 
+      $._constructor_expression,
+
       $.report_initiator,
       $.deferred_class_definition,
       $.deferred_interface_definition,
@@ -125,6 +127,8 @@ module.exports = grammar({
       $.interface_implementation,
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFUNCTIONS_EXPRESSIONS.html
+    // FIXME: Should probably model it more closely
     _expression: $ => choice(
       $.identifier,
       $.number,
@@ -170,6 +174,151 @@ module.exports = grammar({
       $.range_type,
     ),
 
+    /**
+     * A builtin (keyword) expression resulting in the creation of a certain value. 
+     * 
+     * For example `NEW`, `VALUE`, `COND`, etc.. Refer to the link for more examples.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_OPERATOR_GLOSRY.html 
+     */
+    _constructor_expression: $ => choice(
+      $.cond_expression
+    ),
+
+    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
+    _general_expression: $ => choice(
+      $.identifier,
+      // data objects
+      // constructor expressions
+      // table expressions
+      // calculation expressions
+      // builtin function expressions
+      // functional method calls
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html
+    _writeable_expression: $ => $._expression,
+
+    /**
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP.html
+     */
+    logical_expression: $ => choice(
+      $._relational_expression,
+      seq('(', $.logical_expression, ')'),
+      prec.right(4, seq(kw('not'), $.logical_expression)),
+
+      prec.left(3, seq(
+        $.logical_expression,
+        kw('and'),
+        $.logical_expression
+      )),
+      prec.left(2, seq(
+        $.logical_expression,
+        kw('or'),
+        $.logical_expression
+      )),
+      prec.left(1, seq(
+        $.logical_expression,
+        kw('equiv'),
+        $.logical_expression
+      ))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
+    _relational_expression: $ => choice(
+      $.comparison_expression,
+      $.predicate_expression
+    ),
+
+    /**
+     * Comparison of two or more operands represented as {@link _general_expression}.
+     * 
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_COMP.html
+     */
+    comparison_expression: $ => seq(
+      $._general_expression,
+      choice(
+        seq($._comparison_operator, $._general_expression),
+        seq(
+          optional(kw("not")),
+          kw("between"),
+          $._general_expression,
+          kw("and"),
+          $._general_expression
+        ),
+        seq(
+          optional(kw("not")),
+          kw("in"),
+          //FIXME: Anything that can evaluate into a range table
+          choice(
+            $.identifier,
+            $.method_call
+          )
+        )
+      ),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
+    // NOTE: Not all general expressions apparently? The docs are kind of vague here..
+    predicate_expression: $ => choice(
+      // operand
+      seq($.identifier, kw("is"), optional(kw("not")), kw("initial")),
+      // ref
+      seq($.identifier, kw("is"), optional(kw("not")), kw("bound")),
+      // oref
+      seq($.identifier, kw("is"), optional(kw("not")), kw("instance"), kw("of")),
+      // <fs>
+      seq($.identifier, kw("is"), optional(kw("not")), kw("assigned")),
+      // parameter
+      seq($.identifier, kw("is"), optional(kw("not")), kw("supplied")),
+    ),
+
+    _comparison_operator: _ => choice(
+      "=", "EQ", "<>", "NE", ">", "GT", "<", "LT", ">=", "GE", "<=", "LE",
+      "CO", "CN", "CA", "NA", "CS", "NS", "CP", "NP",
+      "BYTE-CO", "BYTE-CN", "BYTE-CA", "BYTE-NA", "BYTE-CS", "BYTE-NS",
+      "O", "Z", "M"
+    ),
+
+    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
+    cond_expression: $ => seq(
+      kw("cond"),
+      field("type", $._constructor_result),
+      "(",
+      optional(seq($.let_expression, kw("in"))),
+
+      repeat1(
+        seq(
+          kw("when"), $.logical_expression, kw("then"),
+          optional(seq($.let_expression, kw("in"))),
+          $._expression
+        )
+      ),
+      optional(
+        seq(
+          kw("else"), optional(seq($.let_expression, kw("in"))),
+          $._expression
+        )
+      ),
+      ")"
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
+    let_expression: $ => seq(
+      kw("let"),
+      repeat1($.helper_spec)
+    ),
+
+    helper_spec: $ => choice(
+      seq(field("name", $.identifier), "=", $._expression),
+      seq(field("name", $.field_symbol), "=", $._writeable_expression),
+    ),
+
+    _constructor_result: $ => choice(
+      "#", // inferred
+      $.identifier // explicit
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINLINE_DECLARATIONS.html
     inline_declaration: $ => seq(
       choice(...kws("final", "data", "field-symbol")),
@@ -206,6 +355,8 @@ module.exports = grammar({
       "=",
       field("source", $._expression),
     ),
+
+
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
     method_call: $ => seq(
@@ -879,6 +1030,8 @@ module.exports = grammar({
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
     identifier: _ => IDENTIFIER_REGEX,
+    field_symbol: _ => /<[a-zA-Z0-9_\/^>]+>/,
+
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
 
     number: _ => NUMBER_REGEX,
