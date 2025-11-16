@@ -76,6 +76,10 @@
         "named": true
       },
       {
+        "type": "new_expression",
+        "named": true
+      },
+      {
         "type": "switch_expression",
         "named": true
       }
@@ -2036,6 +2040,36 @@
     }
   },
   {
+    "type": "new_expression",
+    "named": true,
+    "fields": {
+      "args": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "call_arguments",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "parameter",
     "named": true,
     "fields": {
@@ -3681,6 +3715,10 @@
   },
   {
     "type": "ne",
+    "named": false
+  },
+  {
+    "type": "new",
     "named": false
   },
   {
