@@ -40,11 +40,12 @@ module.exports = grammar({
     $.docstring,
 
     /**
-     * For some reason, when using a regex to parse out newlines / whitespaces, 
-     * treesitter doesnt give the external scanner control sometimes and we cant
-     * correctly identify the start of a comment.
+     * Message type can be the prefix of a message number, and this conflicts
+     * with the word rule. There might be a better way to work around this, but
+     * I could not find one.
      */
-    $._whitespace,
+    $.message_type,
+
     $._error_sentinel,
   ],
 
@@ -188,6 +189,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
     _general_expression: $ => choice(
       $.identifier,
+      $.literal_string
       // data objects
       // constructor expressions
       // table expressions
@@ -236,26 +238,27 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_COMP.html
      */
     comparison_expression: $ => seq(
-      $._general_expression,
+      field("left", $._general_expression),
       choice(
-        seq($._comparison_operator, $._general_expression),
-        seq(
-          optional(kw("not")),
-          kw("between"),
-          $._general_expression,
-          kw("and"),
-          $._general_expression
-        ),
+        seq($._comparison_operator, field("right", $._general_expression)),
+        seq(optional(kw("not")), field("right", $.range_expression)),
         seq(
           optional(kw("not")),
           kw("in"),
           //FIXME: Anything that can evaluate into a range table
-          choice(
+          field("right", choice(
             $.identifier,
             $.method_call
-          )
+          ))
         )
       ),
+    ),
+
+    range_expression: $ => seq(
+      kw("between"),
+      field("low", $._general_expression),
+      kw("and"),
+      field("high", $._general_expression)
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
@@ -273,12 +276,12 @@ module.exports = grammar({
       seq($.identifier, kw("is"), optional(kw("not")), kw("supplied")),
     ),
 
-    _comparison_operator: _ => choice(
-      "=", "EQ", "<>", "NE", ">", "GT", "<", "LT", ">=", "GE", "<=", "LE",
-      "CO", "CN", "CA", "NA", "CS", "NS", "CP", "NP",
-      "BYTE-CO", "BYTE-CN", "BYTE-CA", "BYTE-NA", "BYTE-CS", "BYTE-NS",
-      "O", "Z", "M"
-    ),
+    _comparison_operator: _ => choice(...kws(
+      "=", "eq", "<>", "ne", ">", "gt", "<", "lt", ">=", "ge", "<=", "le",
+      "co", "cn", "ca", "na", "cs", "ns", "cp", "np",
+      "byte-co", "byte-cn", "byte-ca", "byte-na", "byte-cs", "byte-ns",
+      "o", "z", "m"
+    )),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
     cond_expression: $ => seq(
@@ -291,13 +294,13 @@ module.exports = grammar({
         seq(
           kw("when"), $.logical_expression, kw("then"),
           optional(seq($.let_expression, kw("in"))),
-          $._expression
+          field("result", $._conditional_result)
         )
       ),
       optional(
         seq(
           kw("else"), optional(seq($.let_expression, kw("in"))),
-          $._expression
+          field("result", $._conditional_result)
         )
       ),
       ")"
@@ -308,6 +311,99 @@ module.exports = grammar({
       kw("let"),
       repeat1($.helper_spec)
     ),
+
+    /**
+     * Possible of a {@link cond_expression} or {@link switch_expression}.
+     * 
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
+     */
+    _conditional_result: $ => choice(
+      $._general_expression,
+      $.throw_exception
+    ),
+
+    throw_exception: $ => seq(
+      kw("throw"),
+      optional(kw("resumable")),
+      optional(kw("shortdump")),
+      field("name", $.identifier),
+      "(", kw("message"), $.message_spec, ")",
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
+     */
+    message: $ => choice(
+      seq(
+        kw("message"),
+        $.message_spec,
+      )
+    ),
+
+    message_spec: $ => seq(
+      choice(
+        // { tn } / { tn(id) }
+        seq(
+          field("type", $.message_type),
+          field("num", $._immediate_number),
+          // Optional if specified at program level
+          optional(
+            seq(
+              token.immediate("("),
+              field("id", $._immediate_identifier),
+              token.immediate(")"),
+            )
+          )
+        ),
+        // { ID mid TYPE mtype NUMBER num }
+        seq(
+          kw("id"), field("id", $.identifier),
+          kw("type"), field("type", $.message_type),
+          kw("number"), field("num", $.number),
+        ),
+        // { oref [TYPE mtype] }
+        seq(
+          field("oref", $.identifier),
+          optional(seq(kw("type"), field("type", $.message_type)))
+        ),
+        // text TYPE mtype
+        seq(
+          field("text", $.literal_string),
+          optional(seq(kw("type"), field("type", $.message_type)))
+        ),
+      ),
+      // [DISPLAY LIKE dtype]
+      optional(field("display", $.display_override)),
+      // [WITH dobj1 ... dobj4]
+      field("arguments", optional($.message_arguments)),
+
+      // Do we make these into their own nodes? Probably should..
+      optional(
+        choice(
+          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_INTO.html
+          seq(kw("into"), field("text", $.identifier)),
+          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_RAISING.html
+          seq(kw("raising"), field("exception", $.identifier)),
+        )
+      )
+    ),
+
+    message_arguments: $ => seq(
+      kw("with"), repeat1($._general_expression)
+    ),
+
+    display_override: $ => seq(
+      seq(...kws("display", "like"), field("type", $.message_type))
+    ),
+
+    message_type: _ => token(choice(
+      /i/i, // information message
+      /s/i, // status message
+      /e/i, // error message
+      /w/i, // warning message
+      /a/i, // termination message
+      /x/i, // exit message
+    )),
 
     helper_spec: $ => choice(
       seq(field("name", $.identifier), "=", $._expression),
