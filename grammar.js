@@ -576,12 +576,17 @@ module.exports = grammar({
           ...kws("table", "of"),
         )
       ),
+      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
       repeat($.table_key_spec),
       repeat(choice(
         seq(
           ...kws("initial", "size"),
           field("initial_size", $.number)
         ),
+        seq(...kws("value", "is", "initial")),
+
+        seq(...kws("with", "further", "secondary", "keys")),
+        seq(...kws("without", "further", "secondary", "keys")),
         // Not technically valid for types declarations but intentionally tolerated.
         seq(...kws("value", "is", "initial")),
         seq(...kws("read-only")),
@@ -974,37 +979,57 @@ module.exports = grammar({
       "."),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
-    table_key_spec: $ => prec.right(seq(
-      kw("with"),
+    table_key_spec: $ => prec.right(
+      seq(
+        kw("with"),
+        choice(
+          $._primary_key,
+          $._secondary_key,
+        )
+      )
+    ),
 
-      choice(
-        // empty and default key, nothing more to specify.
-        seq(...kws("default", "key")),
-        seq(...kws("empty", "key")),
-        seq(
-          // can be defined in any order or not at all
-          repeat(
-            choice(
-              kw("unique"),
-              kw("non-unique"),
-              kw("sorted"),
-              kw("hashed")
-            )
-          ),
-          kw("key"),
-          choice(
-            // either implicit primary key listing..
-            repeat1(alias($.identifier, $.table_component)),
-            // .. or an explicit key definition
-            seq(
-              field("name", alias($.identifier, $.table_key)),
-              optional(seq(kw("alias"), field("alias", $.identifier))),
-              kw("components"),
-              repeat1(alias($.identifier, $.table_component)),
+    /**
+     * Primary table key, works a little different than secondary keys.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
+     */
+    _primary_key: $ => choice(
+      seq(...kws("empty", "key")),
+      seq(
+        optional(choice(...kws("unique", "non-unique"))),
+        choice(
+          seq(...kws("default", "key")),
+          seq(
+            kw("key"),
+            optional(
+              seq(
+                field("name", kw("primary_key")),
+                optional(seq(kw("alias"), field("alias", $.identifier))),
+                kw("components")
+              )
             ),
-          ))
+            $.table_components
+          )
+        )
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_SECONDARY_KEY.html
+    _secondary_key: $ => seq(
+      choice(
+        seq(...kws("unique", "hashed")),
+        seq(...kws("unique", "sorted")),
+        seq(...kws("non-unique", "sorted")),
       ),
-    )),
+      kw("key"),
+      field("name", $.identifier),
+      optional(seq(kw("alias"), field("alias", $.identifier))),
+      kw("components"), $.table_components
+
+    ),
+
+    table_components: $ => prec.right(repeat1($.identifier)),
 
     /**
      * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).
