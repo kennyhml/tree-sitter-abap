@@ -166,7 +166,8 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_OPERATOR_GLOSRY.html 
      */
     constructor_expression: $ => choice(
-      $.cond_expression
+      $.cond_expression,
+      $.switch_expression
     ),
 
     /**
@@ -291,21 +292,42 @@ module.exports = grammar({
       field("type", $._constructor_result),
       "(",
       optional(seq($.let_expression, kw("in"))),
-
-      repeat1(
-        seq(
-          kw("when"), $.logical_expression, kw("then"),
-          optional(seq($.let_expression, kw("in"))),
-          field("result", $._conditional_result)
-        )
-      ),
-      optional(
-        seq(
-          kw("else"), optional(seq($.let_expression, kw("in"))),
-          field("result", $._conditional_result)
-        )
-      ),
+      repeat1(alias($._cond_case, $.case)),
+      optional(alias($._else_case, $.case)),
       ")"
+    ),
+
+    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_switch.html
+    switch_expression: $ => seq(
+      kw("switch"),
+      field("type", $._constructor_result),
+      "(",
+      field("operand", $.data_object),
+      optional(seq($.let_expression, kw("in"))),
+      repeat1(alias($._switch_case, $.case)),
+      optional(alias($._else_case, $.case)),
+      ")"
+    ),
+
+    _cond_case: $ => seq(
+      kw("when"),
+      field("predicate", $.logical_expression),
+      kw("then"),
+      optional(seq($.let_expression, kw("in"))),
+      field("result", $._conditional_result)
+    ),
+
+    _switch_case: $ => seq(
+      kw("when"),
+      field("predicate", $.data_object),
+      kw("then"),
+      optional(seq($.let_expression, kw("in"))),
+      field("result", $._conditional_result)
+    ),
+
+    _else_case: $ => seq(
+      kw("else"), optional(seq($.let_expression, kw("in"))),
+      field("result", $._conditional_result)
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
