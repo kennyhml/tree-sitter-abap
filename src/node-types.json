@@ -2770,6 +2770,21 @@
     }
   },
   {
+    "type": "table_components",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table_key_spec",
     "named": true,
     "fields": {
@@ -2788,18 +2803,22 @@
         "required": false,
         "types": [
           {
-            "type": "table_key",
+            "type": "identifier",
             "named": true
+          },
+          {
+            "type": "primary_key",
+            "named": false
           }
         ]
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "table_component",
+          "type": "table_components",
           "named": true
         }
       ]
@@ -3389,6 +3408,10 @@
     "named": false
   },
   {
+    "type": "further",
+    "named": false
+  },
+  {
     "type": "ge",
     "named": false
   },
@@ -3482,6 +3505,10 @@
   },
   {
     "type": "key",
+    "named": false
+  },
+  {
+    "type": "keys",
     "named": false
   },
   {
@@ -3600,11 +3627,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",
@@ -3636,6 +3663,10 @@
   },
   {
     "type": "preferred",
+    "named": false
+  },
+  {
+    "type": "primary_key",
     "named": false
   },
   {
@@ -3707,6 +3738,10 @@
     "named": false
   },
   {
+    "type": "secondary",
+    "named": false
+  },
+  {
     "type": "section",
     "named": false
   },
@@ -3755,14 +3790,6 @@
     "named": false
   },
   {
-    "type": "table_component",
-    "named": true
-  },
-  {
-    "type": "table_key",
-    "named": true
-  },
-  {
     "type": "testing",
     "named": false
   },
@@ -3800,6 +3827,10 @@
   },
   {
     "type": "with",
+    "named": false
+  },
+  {
+    "type": "without",
     "named": false
   },
   {
