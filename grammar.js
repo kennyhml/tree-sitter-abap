@@ -167,7 +167,8 @@ module.exports = grammar({
      */
     constructor_expression: $ => choice(
       $.cond_expression,
-      $.switch_expression
+      $.switch_expression,
+      $.new_expression,
     ),
 
     /**
@@ -285,6 +286,14 @@ module.exports = grammar({
       "byte-co", "byte-cn", "byte-ca", "byte-na", "byte-cs", "byte-ns",
       "o", "z", "m"
     )),
+
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
+    new_expression: $ => seq(
+      kw("new"),
+      field("type", $._constructor_result),
+      field("args", $.call_arguments)
+    ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
     cond_expression: $ => seq(
