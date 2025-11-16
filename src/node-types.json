@@ -74,6 +74,10 @@
       {
         "type": "cond_expression",
         "named": true
+      },
+      {
+        "type": "switch_expression",
+        "named": true
       }
     ]
   },
@@ -497,6 +501,50 @@
     }
   },
   {
+    "type": "case",
+    "named": true,
+    "fields": {
+      "predicate": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "throw_exception",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "cds_function_impl",
     "named": true,
     "fields": {
@@ -882,20 +930,6 @@
     "type": "cond_expression",
     "named": true,
     "fields": {
-      "result": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          },
-          {
-            "type": "throw_exception",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": false,
         "required": true,
@@ -916,11 +950,11 @@
       "required": true,
       "types": [
         {
-          "type": "let_expression",
+          "type": "case",
           "named": true
         },
         {
-          "type": "logical_expression",
+          "type": "let_expression",
           "named": true
         }
       ]
@@ -2770,6 +2804,50 @@
     }
   },
   {
+    "type": "switch_expression",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table_components",
     "named": true,
     "fields": {},
@@ -3627,11 +3705,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "o",
@@ -3783,6 +3861,10 @@
   },
   {
     "type": "supplied",
+    "named": false
+  },
+  {
+    "type": "switch",
     "named": false
   },
   {
