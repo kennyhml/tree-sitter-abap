@@ -82,12 +82,17 @@ module.exports = grammar({
   ],
 
   supertypes: $ => [
+    // I'll worry about which nodes should be hidden vs supertypes later
+    // once I get to working out the querying. It doesnt matter for tests.
+    $.constructor_expression,
+    $.general_expression,
+    $.relational_expression,
+    $.data_object,
+
     $._simple_statement,
-    $._compound_statement
+    $._compound_statement,
   ],
 
-  // This makes sure that tree-sitter initially also parses keywords as 
-  // identifiers and THEN checks whether it is a keyword in its entirety.
   word: $ => $.identifier,
 
   rules: {
@@ -105,8 +110,6 @@ module.exports = grammar({
       $.constants_declaration,
 
       $.assignment,
-
-      $._constructor_expression,
 
       $.report_initiator,
       $.deferred_class_definition,
@@ -126,26 +129,6 @@ module.exports = grammar({
       $.class_implementation,
       $.interface_definition,
       $.interface_implementation,
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFUNCTIONS_EXPRESSIONS.html
-    // FIXME: Should probably model it more closely
-    _expression: $ => choice(
-      $.identifier,
-      $.number,
-      $.literal_string,
-      $.string_template,
-      $.method_call,
-      $.builtin_function_call,
-
-      // FIXME: Can we get rid of the aliasing mess?..
-      alias($._component_field_access, $.component_access),
-      alias($._static_field_access, $.static_access),
-      alias($._instance_field_access, $.instance_access),
-
-      alias($._sub_assignment, $.assignment),
-      // builtin function calls
-      // calculations
     ),
 
     _class_component: $ => choice(
@@ -182,30 +165,49 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_OPERATOR_GLOSRY.html 
      */
-    _constructor_expression: $ => choice(
+    constructor_expression: $ => choice(
       $.cond_expression
     ),
 
-    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
-    _general_expression: $ => choice(
+    /**
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDATA_OBJECTS.html
+     * 
+     * Named data objects vs anonymous?
+     */
+    data_object: $ => choice(
       $.identifier,
-      $.literal_string
-      // data objects
-      // constructor expressions
-      // table expressions
-      // calculation expressions
-      // builtin function expressions
-      // functional method calls
+      $.number,
+      $.literal_string,
+      $.string_template,
+      // TODO: Access to data objects (fields) of structs / objects
+      // Explicit text symbols? https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENTEXT_SYMBOLS.html
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html
-    _writeable_expression: $ => $._expression,
+    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
+    general_expression: $ => choice(
+      $.data_object,
+      $.constructor_expression,
+      $.builtin_function_call,
+      $.method_call, // By design, this also covers chained method calls
+      // TODO: table expressions
+      // TODO: calculation expressions
+    ),
+
+    /**
+     * A LHS operand that can be written to, can be specified in **write positions**.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html
+     */
+    writable_expression: $ => choice(
+      // TODO: Table expressions
+      // TODO: NEW/CAST expressions
+    ),
 
     /**
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP.html
      */
     logical_expression: $ => choice(
-      $._relational_expression,
+      $.relational_expression,
       seq('(', $.logical_expression, ')'),
       prec.right(4, seq(kw('not'), $.logical_expression)),
 
@@ -227,20 +229,20 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
-    _relational_expression: $ => choice(
+    relational_expression: $ => choice(
       $.comparison_expression,
       $.predicate_expression
     ),
 
     /**
-     * Comparison of two or more operands represented as {@link _general_expression}.
+     * Comparison of two or more operands represented as {@link general_expression}.
      * 
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_COMP.html
      */
     comparison_expression: $ => seq(
-      field("left", $._general_expression),
+      field("left", $.general_expression),
       choice(
-        seq($._comparison_operator, field("right", $._general_expression)),
+        seq($._comparison_operator, field("right", $.general_expression)),
         seq(optional(kw("not")), field("right", $.range_expression)),
         seq(
           optional(kw("not")),
@@ -256,9 +258,9 @@ module.exports = grammar({
 
     range_expression: $ => seq(
       kw("between"),
-      field("low", $._general_expression),
+      field("low", $.general_expression),
       kw("and"),
-      field("high", $._general_expression)
+      field("high", $.general_expression)
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
@@ -309,7 +311,21 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
     let_expression: $ => seq(
       kw("let"),
-      repeat1($.helper_spec)
+      repeat1($.let_spec)
+    ),
+
+    /** Specification for a single local helper variable in a {@link let_expression}. */
+    let_spec: $ => choice(
+      seq(
+        field("name", $.identifier),
+        "=",
+        field("value", $.general_expression)
+      ),
+      seq(
+        field("name", $.field_symbol),
+        "=",
+        field("value", $.writable_expression)
+      ),
     ),
 
     /**
@@ -318,7 +334,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
      */
     _conditional_result: $ => choice(
-      $._general_expression,
+      $.general_expression,
       $.throw_exception
     ),
 
@@ -327,7 +343,7 @@ module.exports = grammar({
       optional(kw("resumable")),
       optional(kw("shortdump")),
       field("name", $.identifier),
-      "(", kw("message"), $.message_spec, ")",
+      "(", optional(seq(kw("message"), $.message_spec,)), ")",
     ),
 
     /**
@@ -340,6 +356,17 @@ module.exports = grammar({
       )
     ),
 
+    /**
+     * Inner specification of a {@link message}.
+     * 
+     * Needed as `message` can either be a statement that displays multiple messages at once..
+     * ```
+     * message: e888(msg_class) with 'Foo' 'Bar' 'Baz', 
+     *          i222(msg_class) with '1' '2' '3'.
+     * ```
+     * Or, in certain other contexts, a `message` can also be a statement for raising
+     * an exception from a message. See {@link throw_exception}
+     */
     message_spec: $ => seq(
       choice(
         // { tn } / { tn(id) }
@@ -389,26 +416,13 @@ module.exports = grammar({
     ),
 
     message_arguments: $ => seq(
-      kw("with"), repeat1($._general_expression)
+      kw("with"), repeat1($.general_expression)
     ),
 
     display_override: $ => seq(
       seq(...kws("display", "like"), field("type", $.message_type))
     ),
 
-    message_type: _ => token(choice(
-      /i/i, // information message
-      /s/i, // status message
-      /e/i, // error message
-      /w/i, // warning message
-      /a/i, // termination message
-      /x/i, // exit message
-    )),
-
-    helper_spec: $ => choice(
-      seq(field("name", $.identifier), "=", $._expression),
-      seq(field("name", $.field_symbol), "=", $._writeable_expression),
-    ),
 
     _constructor_result: $ => choice(
       "#", // inferred
@@ -416,7 +430,7 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINLINE_DECLARATIONS.html
-    inline_declaration: $ => seq(
+    declaration_expression: $ => seq(
       choice(...kws("final", "data", "field-symbol")),
       // Do we use immediate here? Does that fall under being permissive?..
       token.immediate("("),
@@ -425,34 +439,38 @@ module.exports = grammar({
     ),
 
     /**
-     * In ABAP, assignments are also **expressions**!
+     * An assignment **statement**, not an expression!
      * 
-     * This means a statement like `foo = bar = baz = 'Hello'` is possible.
-     * See https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE_MULTIPLES.html
+     * TODO: Calculation assignments:
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCALCULATION_ASSIGNMENT_GLOSRY.html
      * 
-     * For easier delimiter handling, the {@link assignment} node isnt recursive and represents the parent.
-     * The recursive sub nodes are represented by the aliased {@link _sub_assignment}.
+     * Operand rules: 
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENEQUALS_OPERATOR.html
      * 
-     *  https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_ASSIGNMENTS.html
+     * See: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_ASSIGNMENTS.html
      */
     assignment: $ => seq(
-      field("target", choice(
-        $.identifier,
-        $.inline_declaration
-      )),
-      "=",
-      field("source", $._expression),
+      // Either a single destination or multiple, restrictions apply when multiple.
+      choice(
+        seq(
+          field("left",
+            choice(
+              $.data_object,
+              $.declaration_expression,
+              $.writable_expression,
+            )
+          ),
+          "=",
+        ),
+        field("destination",
+          repeat1(
+            prec.left(seq($.data_object, "="))
+          )
+        )
+      ),
+      field("right", $.general_expression),
       "."
     ),
-
-    // A recursive compatible assignment node.
-    _sub_assignment: $ => seq(
-      field("target", $.identifier),
-      "=",
-      field("source", $._expression),
-    ),
-
-
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
     method_call: $ => seq(
@@ -508,7 +526,7 @@ module.exports = grammar({
             args("importing", $.argument_list),
             args("changing", $.argument_list),
             args("exceptions", $.argument_list),
-            args("receiving", $.assignment),
+            args("receiving", $.receiving_value),
           )
         ),
       ),
@@ -516,7 +534,17 @@ module.exports = grammar({
     ),
 
     argument_list: $ => repeat1(
-      $._expression,
+      $.general_expression,
+    ),
+
+    receiving_value: $ => seq(
+      $.identifier,
+      "=",
+      choice(
+        $.writable_expression,
+        $.data_object,
+        $.declaration_expression
+      )
     ),
 
     /**
@@ -601,7 +629,10 @@ module.exports = grammar({
      * 
      * The additions `length` and `decimals` are forbidden in this context.
      * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
+     * Standalone Data Types vs Bound Data Types: 
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDOBJ_GENERAL.html
+     * 
+     * See also: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
      */
     referred_type: $ => prec.right(seq(
       typeOrLikeExpr($, optional(seq(...kws("line", "of")))),
@@ -1153,7 +1184,7 @@ module.exports = grammar({
         choice(
           // Allow { and } inside the literal chunks when escaped
           /([^|{}]|\\\{|\\\})+/,
-          $.embed_expression
+          $.embedded_expression
         )
       ),
       "|"
@@ -1163,9 +1194,9 @@ module.exports = grammar({
     // TODO: Figure out general expression position & functional expression position
     //
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
-    embed_expression: $ => seq(
+    embedded_expression: $ => seq(
       "{",
-      $._expression,
+      $.general_expression,
       repeat($.format_option),
       "}"
     ),
