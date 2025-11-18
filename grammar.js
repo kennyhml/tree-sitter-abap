@@ -12,7 +12,7 @@ BUFF_SIZE = $ => seq(
 );
 
 const ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
-const IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z0-9_\/]*/;
+const IDENTIFIER_REGEX = /<?[a-zA-Z_\/]+>?/;
 
 // Allow a single plus or minus before the number literal
 const NUMBER_REGEX = /(\+|-)?\d+/;
@@ -265,6 +265,17 @@ module.exports = grammar({
       field("high", $.general_expression)
     ),
 
+    /**
+     * FOR [...] UNTIL/WHILE helper expression in constructor expressions.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR.html
+     */
+    iteration_expression: $ => seq(
+      kw("for"),
+      $.identifier
+
+    ),
+
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
     // NOTE: Not all general expressions apparently? The docs are kind of vague here..
     predicate_expression: $ => choice(
@@ -288,16 +299,30 @@ module.exports = grammar({
     )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
-    new_expression: $ => seq(
+    new_expression: $ => prec(10, seq(
       kw("new"),
       field("type", $._constructor_result),
-
-      choice(
-        $.constructor_arguments
-      )
+      token.immediate("("),
 
       // can be empty (initial, a single operand (value), )
-
+      optional(
+        choice(
+          // let expressions can be specified before dobj or argument list.
+          // whether as single argument is a parameter or a dobj is impossible
+          // to tell purely from context, it depends on the `type`.
+          seq(
+            optional(seq($.let_expression, kw("in"))),
+            choice(
+              $.component_list,
+              $.argument_list,
+              $.general_expression,
+              // internal table expression
+            ),
+          ),
+        ),
+      ),
+      ")",
+    )
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
@@ -367,12 +392,7 @@ module.exports = grammar({
         field("name", $.identifier),
         "=",
         field("value", $.general_expression)
-      ),
-      seq(
-        field("name", $.field_symbol),
-        "=",
-        field("value", $.writable_expression)
-      ),
+      )
     ),
 
     /**
@@ -580,19 +600,24 @@ module.exports = grammar({
       ")",
     ),
 
-    constructor_arguments: $ => seq(
-      token.immediate("("),
-      optional(seq($.let_expression, kw("in"))),
-      $.argument_list,
-      ")",
-    ),
 
     argument_list: $ => choice(
       repeat1($.general_expression),
       repeat1($.parameter_assignment)
     ),
 
-    parameter_assignment: $ => seq(
+    component_list: $ => seq(
+      optional(seq(kw("base"), field("base", $.identifier))),
+      repeat1($.comp_assignment)
+    ),
+
+    comp_assignment: $ => seq(
+      field("param", $.identifier), // or a component selector
+      "=",
+      field("value", $.general_expression)
+    ),
+
+    parameter_assignment: $ => prec(7, seq(
       field("param", $.identifier),
       "=",
       field("value",
@@ -602,7 +627,7 @@ module.exports = grammar({
           $.declaration_expression
         )
       )
-    ),
+    )),
 
     /**
      * Type based on elementary types. Only here are `length` and `decimals` additions allowed.
@@ -1239,7 +1264,6 @@ module.exports = grammar({
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
     identifier: _ => IDENTIFIER_REGEX,
-    field_symbol: _ => /<[a-zA-Z0-9_\/^>]+>/,
 
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
 

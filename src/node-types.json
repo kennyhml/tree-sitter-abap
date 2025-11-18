@@ -795,6 +795,32 @@
     }
   },
   {
+    "type": "comp_assignment",
+    "named": true,
+    "fields": {
+      "param": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "comparison_expression",
     "named": true,
     "fields": {
@@ -856,6 +882,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "component_list",
+    "named": true,
+    "fields": {
+      "base": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comp_assignment",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1054,25 +1106,6 @@
         },
         {
           "type": "struct_include",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "constructor_arguments",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "argument_list",
-          "named": true
-        },
-        {
-          "type": "let_expression",
           "named": true
         }
       ]
@@ -1665,10 +1698,6 @@
         "required": true,
         "types": [
           {
-            "type": "field_symbol",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           }
@@ -1680,10 +1709,6 @@
         "types": [
           {
             "type": "general_expression",
-            "named": true
-          },
-          {
-            "type": "writable_expression",
             "named": true
           }
         ]
@@ -2082,11 +2107,23 @@
       }
     },
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "constructor_arguments",
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "component_list",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        },
+        {
+          "type": "let_expression",
           "named": true
         }
       ]
@@ -3305,6 +3342,10 @@
     "named": false
   },
   {
+    "type": "base",
+    "named": false
+  },
+  {
     "type": "begin",
     "named": false
   },
@@ -3524,10 +3565,6 @@
   {
     "type": "field-symbol",
     "named": false
-  },
-  {
-    "type": "field_symbol",
-    "named": true
   },
   {
     "type": "final",
@@ -3777,11 +3814,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",
