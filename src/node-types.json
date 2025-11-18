@@ -295,6 +295,10 @@
         {
           "type": "general_expression",
           "named": true
+        },
+        {
+          "type": "parameter_assignment",
+          "named": true
         }
       ]
     }
@@ -493,12 +497,12 @@
         "required": false,
         "types": [
           {
-            "type": "receiving",
-            "named": false
+            "type": "parameter_assignment",
+            "named": true
           },
           {
-            "type": "receiving_value",
-            "named": true
+            "type": "receiving",
+            "named": false
           }
         ]
       }
@@ -1050,6 +1054,25 @@
         },
         {
           "type": "struct_include",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constructor_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "let_expression",
           "named": true
         }
       ]
@@ -2043,16 +2066,6 @@
     "type": "new_expression",
     "named": true,
     "fields": {
-      "args": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "call_arguments",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": false,
         "required": true,
@@ -2067,6 +2080,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "constructor_arguments",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2127,6 +2150,40 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "parameter_assignment",
+    "named": true,
+    "fields": {
+      "param": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2443,29 +2500,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "receiving_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "data_object",
-          "named": true
-        },
-        {
-          "type": "declaration_expression",
-          "named": true
-        },
-        {
-          "type": "writable_expression",
-          "named": true
-        }
-      ]
     }
   },
   {
