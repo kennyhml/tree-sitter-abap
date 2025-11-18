@@ -287,12 +287,28 @@ module.exports = grammar({
       "o", "z", "m"
     )),
 
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
     new_expression: $ => seq(
       kw("new"),
       field("type", $._constructor_result),
-      field("args", $.call_arguments)
+
+      choice(
+        $.constructor_arguments
+      )
+
+      // can be empty (initial, a single operand (value), )
+
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
+    value_expression: $ => seq(
+      kw("value"),
+      field("type", $._constructor_result),
+      "(",
+      optional(seq($.let_expression, kw("in"))),
+      repeat1(alias($._cond_case, $.case)),
+      optional(alias($._else_case, $.case)),
+      ")"
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
@@ -557,24 +573,34 @@ module.exports = grammar({
             args("importing", $.argument_list),
             args("changing", $.argument_list),
             args("exceptions", $.argument_list),
-            args("receiving", $.receiving_value),
+            args("receiving", $.parameter_assignment),
           )
         ),
       ),
       ")",
     ),
 
-    argument_list: $ => repeat1(
-      $.general_expression,
+    constructor_arguments: $ => seq(
+      token.immediate("("),
+      optional(seq($.let_expression, kw("in"))),
+      $.argument_list,
+      ")",
     ),
 
-    receiving_value: $ => seq(
-      $.identifier,
+    argument_list: $ => choice(
+      repeat1($.general_expression),
+      repeat1($.parameter_assignment)
+    ),
+
+    parameter_assignment: $ => seq(
+      field("param", $.identifier),
       "=",
-      choice(
-        $.writable_expression,
-        $.data_object,
-        $.declaration_expression
+      field("value",
+        choice(
+          $.writable_expression,
+          $.data_object,
+          $.declaration_expression
+        )
       )
     ),
 
