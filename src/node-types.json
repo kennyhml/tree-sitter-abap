@@ -144,20 +144,6 @@
     ]
   },
   {
-    "type": "line_spec",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "component_list",
-        "named": true
-      },
-      {
-        "type": "lines_of",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "relational_expression",
     "named": true,
     "subtypes": [
@@ -1949,6 +1935,30 @@
         "types": [
           {
             "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "line_spec",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_list",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "lines_of",
             "named": true
           }
         ]
