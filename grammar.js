@@ -89,8 +89,6 @@ module.exports = grammar({
     $.general_expression,
     $.relational_expression,
     $.data_object,
-    $.line_spec,
-
     $._simple_statement,
     $._compound_statement,
   ],
@@ -280,10 +278,8 @@ module.exports = grammar({
       // Optionally any number of nested for expressions
       repeat($.iteration_expression),
 
-      repeat1(
-        seq("(", $.line_spec, ")")
-        // TODO: Or a single field assignment to provide a subsequent default
-      )
+      // TODO: Or a single field assignment to provide a subsequent default
+      repeat1($.line_spec)
     ),
 
     base_spec: $ => seq(
@@ -291,9 +287,16 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_LSPC.html
-    line_spec: $ => choice(
-      $.lines_of,
-      $.component_list
+    // Empty line specs are possible and create initial lines.
+    line_spec: $ => seq(
+      "(",
+      field("value", optional(
+        choice(
+          $.lines_of,
+          $.component_list,
+          $.general_expression,
+        ))),
+      ")"
     ),
 
     lines_of: $ => seq(

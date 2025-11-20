@@ -3342,21 +3342,8 @@
         {
           "type": "REPEAT1",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "("
-              },
-              {
-                "type": "SYMBOL",
-                "name": "line_spec"
-              },
-              {
-                "type": "STRING",
-                "value": ")"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "line_spec"
           }
         }
       ]
@@ -3389,15 +3376,44 @@
       ]
     },
     "line_spec": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "lines_of"
+          "type": "STRING",
+          "value": "("
         },
         {
-          "type": "SYMBOL",
-          "name": "component_list"
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "lines_of"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "component_list"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "general_expression"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
@@ -11541,7 +11557,6 @@
     "general_expression",
     "relational_expression",
     "data_object",
-    "line_spec",
     "_simple_statement",
     "_compound_statement"
   ],
