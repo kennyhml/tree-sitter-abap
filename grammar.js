@@ -270,10 +270,109 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR.html
      */
-    iteration_expression: $ => seq(
-      kw("for"),
-      $.identifier
+    iteration_expression: $ => choice(
+      $.conditional_iteration,
+      $.table_iteration
+    ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_CONDITIONAL.html
+    conditional_iteration: $ => seq(
+      kw("for"),
+      alias($.parameter_assignment, $.assignment),
+
+      // Optional when `var` is numeric as it will be incremeted implicitly
+      optional(
+        seq(
+          kw("then"),
+          $.general_expression
+        )
+      ),
+      choice(...kws("until", "while")),
+      $.logical_expression,
+      optional(seq($.let_expression, kw("in")))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_ITAB.html
+    table_iteration: $ => seq(
+      kw("for"),
+
+      choice(
+        // simple internal table read
+        seq(
+          alias($.parameter_assignment, $.assignment),
+          kw("in"),
+          field("itab", $.identifier),
+          optional(
+            seq(...kws("index", "into"), field("index", $.number))
+          ),
+          optional($.iteration_cond),
+        ),
+        seq(
+          kw("groups"), field("group", $.identifier),
+          kw("of"), field("iterator", $.identifier),
+          kw("in"), field("itab", $.identifier),
+          optional(
+            seq(...kws("index", "into"), field("index", $.number))
+          ),
+          ...kws("group", "by"),
+          optional($.iteration_cond),
+        ),
+
+      ),
+
+      optional(seq($.let_expression, kw("in")))
+    ),
+
+
+    /**
+     * Iteration condition for a table iteration {@link loop} or {@link table_iteration}
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_COND.html
+     */
+    iteration_cond: $ => seq(
+      optional(
+        seq(
+          ...kws("using", "key"),
+          field("keyname", $.identifier)
+        ),
+      ),
+
+      optional(seq(kw("from"), field("from", $.number))),
+      optional(seq(kw("to"), field("to", $.number))),
+      optional(seq(kw("step"), field("step", $.number))),
+
+      kw("where"),
+      choice(
+        seq($.logical_expression),
+        // statically specified logical expression log_exp must be placed in parenthese (table iterations)
+        seq("(", $.logical_expression, ")"),
+        // dynamic where clause
+        "(", $._immediate_identifier, token.immediate(")"),
+        // special case, dynamic tab inside a table iteration
+        seq("(", "(", $._immediate_identifier, token.immediate(")"), ")"),
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_KEY.html
+    group_key: $ => choice(
+      field("name", $.identifier),
+      seq(
+        "(",
+        repeat1(group_key_component_spec),
+        ")"
+      )
+    ),
+
+    group_key_component_spec: $ => seq(
+      field("field", $.identifier),
+      "=",
+      field("value",
+        choice(
+          seq(...kws("group", "index")),
+          seq(...kws("group", "size")),
+          $.general_expression
+        )
+      )
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
