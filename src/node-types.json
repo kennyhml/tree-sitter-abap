@@ -130,6 +130,34 @@
     ]
   },
   {
+    "type": "iteration_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "conditional_iteration",
+        "named": true
+      },
+      {
+        "type": "table_iteration",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "line_spec",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "component_list",
+        "named": true
+      },
+      {
+        "type": "lines_of",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "relational_expression",
     "named": true,
     "subtypes": [
@@ -339,12 +367,56 @@
           }
         ]
       },
+      "param": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "right": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "base_spec",
+    "named": true,
+    "fields": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1021,6 +1093,33 @@
     }
   },
   {
+    "type": "conditional_iteration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        },
+        {
+          "type": "let_expression",
+          "named": true
+        },
+        {
+          "type": "logical_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "constants_declaration",
     "named": true,
     "fields": {},
@@ -1524,6 +1623,70 @@
     }
   },
   {
+    "type": "group_key",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "group_key_component_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "group_key_component_spec",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": false
+          },
+          {
+            "type": "index",
+            "named": false
+          },
+          {
+            "type": "size",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "inline_comment",
     "named": true,
     "extra": true,
@@ -1675,6 +1838,83 @@
     }
   },
   {
+    "type": "itab_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "base_spec",
+          "named": true
+        },
+        {
+          "type": "iteration_expression",
+          "named": true
+        },
+        {
+          "type": "line_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "iteration_cond",
+    "named": true,
+    "fields": {
+      "from": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "step": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "to": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "logical_expression",
+          "named": true
+        },
+        {
+          "type": "using_key_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "let_expression",
     "named": true,
     "fields": {},
@@ -1713,6 +1953,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "lines_of",
+    "named": true,
+    "fields": {
+      "jtab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "using_key_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2120,6 +2386,10 @@
         },
         {
           "type": "general_expression",
+          "named": true
+        },
+        {
+          "type": "itab_expression",
           "named": true
         },
         {
@@ -2968,6 +3238,80 @@
     }
   },
   {
+    "type": "table_iteration",
+    "named": true,
+    "fields": {
+      "group": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "group_key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "group_key",
+            "named": true
+          }
+        ]
+      },
+      "index": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "itab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "iterator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "iteration_cond",
+          "named": true
+        },
+        {
+          "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table_key_spec",
     "named": true,
     "fields": {
@@ -3221,6 +3565,22 @@
     }
   },
   {
+    "type": "using_key_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "writable_expression",
     "named": true,
     "fields": {}
@@ -3338,6 +3698,10 @@
     "named": false
   },
   {
+    "type": "ascending",
+    "named": false
+  },
+  {
     "type": "assigned",
     "named": false
   },
@@ -3359,6 +3723,10 @@
   },
   {
     "type": "bound",
+    "named": false
+  },
+  {
+    "type": "by",
     "named": false
   },
   {
@@ -3502,6 +3870,10 @@
     "named": false
   },
   {
+    "type": "descending",
+    "named": false
+  },
+  {
     "type": "display",
     "named": false
   },
@@ -3600,6 +3972,14 @@
   },
   {
     "type": "global",
+    "named": false
+  },
+  {
+    "type": "group",
+    "named": false
+  },
+  {
+    "type": "groups",
     "named": false
   },
   {
@@ -3736,6 +4116,10 @@
     "extra": true
   },
   {
+    "type": "lines",
+    "named": false
+  },
+  {
     "type": "local",
     "named": false
   },
@@ -3753,6 +4137,10 @@
   },
   {
     "type": "medium",
+    "named": false
+  },
+  {
+    "type": "members",
     "named": false
   },
   {
@@ -3814,11 +4202,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "o",
@@ -3961,6 +4349,10 @@
     "named": false
   },
   {
+    "type": "step",
+    "named": false
+  },
+  {
     "type": "structure",
     "named": false
   },
@@ -3982,6 +4374,10 @@
   },
   {
     "type": "testing",
+    "named": false
+  },
+  {
+    "type": "text",
     "named": false
   },
   {
@@ -4009,11 +4405,27 @@
     "named": false
   },
   {
+    "type": "until",
+    "named": false
+  },
+  {
+    "type": "using",
+    "named": false
+  },
+  {
     "type": "value",
     "named": false
   },
   {
     "type": "when",
+    "named": false
+  },
+  {
+    "type": "where",
+    "named": false
+  },
+  {
+    "type": "while",
     "named": false
   },
   {

@@ -85,9 +85,11 @@ module.exports = grammar({
     // I'll worry about which nodes should be hidden vs supertypes later
     // once I get to working out the querying. It doesnt matter for tests.
     $.constructor_expression,
+    $.iteration_expression,
     $.general_expression,
     $.relational_expression,
     $.data_object,
+    $.line_spec,
 
     $._simple_statement,
     $._compound_statement,
@@ -208,7 +210,7 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP.html
      */
-    logical_expression: $ => choice(
+    logical_expression: $ => prec(10, choice(
       $.relational_expression,
       seq('(', $.logical_expression, ')'),
       prec.right(4, seq(kw('not'), $.logical_expression)),
@@ -228,7 +230,7 @@ module.exports = grammar({
         kw('equiv'),
         $.logical_expression
       ))
-    ),
+    )),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
     relational_expression: $ => choice(
@@ -263,6 +265,44 @@ module.exports = grammar({
       field("low", $.general_expression),
       kw("and"),
       field("high", $.general_expression)
+    ),
+
+    /**
+     * Constructs an internal table in {@link new_expression} and {@link reduce_expression}
+     * 
+     * Syntactically, there are no differences.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_ITAB.html
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_CONSTRUCTOR_PARAMS_ITAB.html
+     */
+    itab_expression: $ => seq(
+      optional($.base_spec),
+      // Optionally any number of nested for expressions
+      repeat($.iteration_expression),
+
+      repeat1(
+        seq("(", $.line_spec, ")")
+        // TODO: Or a single field assignment to provide a subsequent default
+      )
+    ),
+
+    base_spec: $ => seq(
+      seq(kw("base"), field("name", $.identifier))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_LSPC.html
+    line_spec: $ => choice(
+      $.lines_of,
+      $.component_list
+    ),
+
+    lines_of: $ => seq(
+      // LINES OF ...
+      ...kws("lines", "of"), field("jtab", $.identifier),
+      optional(seq(kw("from", field("from", $.data_object)))),
+      optional(seq(kw("to", field("to", $.data_object)))),
+      optional(seq(kw("step", field("step", $.data_object)))),
+      optional($.using_key_spec)
     ),
 
     /**
@@ -314,8 +354,15 @@ module.exports = grammar({
           optional(
             seq(...kws("index", "into"), field("index", $.number))
           ),
-          ...kws("group", "by"),
           optional($.iteration_cond),
+          ...kws("group", "by"), field("group_key", $.group_key),
+          optional(
+            seq(
+              choice(...kws("ascending", "descending")),
+              optional(seq(...kws("as", "text")))
+            )
+          ),
+          optional(seq(...kws("without", "members")))
         ),
 
       ),
@@ -323,6 +370,10 @@ module.exports = grammar({
       optional(seq($.let_expression, kw("in")))
     ),
 
+    using_key_spec: $ => seq(
+      ...kws("using", "key"),
+      field("name", $.identifier)
+    ),
 
     /**
      * Iteration condition for a table iteration {@link loop} or {@link table_iteration}
@@ -330,12 +381,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_COND.html
      */
     iteration_cond: $ => seq(
-      optional(
-        seq(
-          ...kws("using", "key"),
-          field("keyname", $.identifier)
-        ),
-      ),
+      optional($.using_key_spec),
 
       optional(seq(kw("from"), field("from", $.number))),
       optional(seq(kw("to"), field("to", $.number))),
@@ -343,11 +389,12 @@ module.exports = grammar({
 
       kw("where"),
       choice(
-        seq($.logical_expression),
+        $.logical_expression,
         // statically specified logical expression log_exp must be placed in parenthese (table iterations)
+        // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
         seq("(", $.logical_expression, ")"),
         // dynamic where clause
-        "(", $._immediate_identifier, token.immediate(")"),
+        seq("(", $._immediate_identifier, token.immediate(")")),
         // special case, dynamic tab inside a table iteration
         seq("(", "(", $._immediate_identifier, token.immediate(")"), ")"),
       )
@@ -358,11 +405,12 @@ module.exports = grammar({
       field("name", $.identifier),
       seq(
         "(",
-        repeat1(group_key_component_spec),
+        repeat1($.group_key_component_spec),
         ")"
       )
     ),
 
+    /** Specifcation of a {@link group_key} component. */
     group_key_component_spec: $ => seq(
       field("field", $.identifier),
       "=",
@@ -415,7 +463,7 @@ module.exports = grammar({
               $.component_list,
               $.argument_list,
               $.general_expression,
-              // internal table expression
+              $.itab_expression
             ),
           ),
         ),
