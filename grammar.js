@@ -12,7 +12,7 @@ BUFF_SIZE = $ => seq(
 );
 
 const ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
-const IDENTIFIER_REGEX = /<?[a-zA-Z_\/]+>?/;
+const IDENTIFIER_REGEX = /<?[a-zA-Z_\/][a-zA-Z\d_/]*>?/;
 
 // Allow a single plus or minus before the number literal
 const NUMBER_REGEX = /(\+|-)?\d+/;
