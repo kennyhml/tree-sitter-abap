@@ -11200,7 +11200,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "<?[a-zA-Z_\\/]+>?"
+      "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
     },
     "_immediate_identifier": {
       "type": "ALIAS",
@@ -11208,7 +11208,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "<?[a-zA-Z_\\/]+>?"
+          "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
         }
       },
       "named": true,
