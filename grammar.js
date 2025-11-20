@@ -302,9 +302,9 @@ module.exports = grammar({
     lines_of: $ => seq(
       // LINES OF ...
       ...kws("lines", "of"), field("jtab", $.identifier),
-      optional(seq(kw("from", field("from", $.data_object)))),
-      optional(seq(kw("to", field("to", $.data_object)))),
-      optional(seq(kw("step", field("step", $.data_object)))),
+      optional(seq(kw("from"), field("from", $.data_object))),
+      optional(seq(kw("to"), field("to", $.data_object))),
+      optional(seq(kw("step"), field("step", $.data_object))),
       optional($.using_key_spec)
     ),
 
