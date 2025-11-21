@@ -351,11 +351,11 @@ module.exports = grammar({
       choice(
         // simple internal table read
         seq(
-          alias($.parameter_assignment, $.assignment),
+          field("iterator", $.identifier),
           kw("in"),
           field("itab", $.identifier),
           optional(
-            seq(...kws("index", "into"), field("index", $.number))
+            seq(...kws("index", "into"), field("index", $.identifier))
           ),
           optional($.iteration_cond),
         ),

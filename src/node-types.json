@@ -3303,6 +3303,10 @@
         "required": false,
         "types": [
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           }
@@ -3320,7 +3324,7 @@
       },
       "iterator": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -3333,10 +3337,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "assignment",
-          "named": true
-        },
         {
           "type": "iteration_cond",
           "named": true
