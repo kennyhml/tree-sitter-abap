@@ -3701,13 +3701,12 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "iterator",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "parameter_assignment"
-                  },
-                  "named": true,
-                  "value": "assignment"
+                    "name": "identifier"
+                  }
                 },
                 {
                   "type": "ALIAS",
@@ -3755,7 +3754,7 @@
                           "name": "index",
                           "content": {
                             "type": "SYMBOL",
-                            "name": "number"
+                            "name": "identifier"
                           }
                         }
                       ]
