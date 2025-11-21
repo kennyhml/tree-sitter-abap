@@ -93,6 +93,10 @@ module.exports = grammar({
     $._compound_statement,
   ],
 
+  conflicts: $ => [
+    [$.argument_list]
+  ],
+
   word: $ => $.identifier,
 
   rules: {
@@ -279,7 +283,12 @@ module.exports = grammar({
       repeat($.iteration_expression),
 
       // TODO: Or a single field assignment to provide a subsequent default
-      repeat1($.line_spec)
+      repeat1(
+        seq(
+          repeat(alias($.parameter_assignment, $.assignment)),
+          $.line_spec
+        )
+      )
     ),
 
     base_spec: $ => seq(
@@ -757,7 +766,7 @@ module.exports = grammar({
     ),
 
     component_list: $ => seq(
-      optional(seq(kw("base"), field("base", $.identifier))),
+      optional($.base_spec),
       repeat1($.comp_assignment)
     ),
 

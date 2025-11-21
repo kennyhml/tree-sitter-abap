@@ -945,22 +945,15 @@
   {
     "type": "component_list",
     "named": true,
-    "fields": {
-      "base": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "base_spec",
+          "named": true
+        },
         {
           "type": "comp_assignment",
           "named": true
@@ -1831,6 +1824,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
         {
           "type": "base_spec",
           "named": true
