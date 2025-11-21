@@ -3342,8 +3342,25 @@
         {
           "type": "REPEAT1",
           "content": {
-            "type": "SYMBOL",
-            "name": "line_spec"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "parameter_assignment"
+                  },
+                  "named": true,
+                  "value": "assignment"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "line_spec"
+              }
+            ]
           }
         }
       ]
@@ -6363,26 +6380,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[bB][aA][sS][eE]"
-                  },
-                  "named": false,
-                  "value": "base"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "base",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  }
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "base_spec"
             },
             {
               "type": "BLANK"
@@ -11550,7 +11549,11 @@
       "name": "docstring"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "argument_list"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {
