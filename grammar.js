@@ -1301,6 +1301,7 @@ module.exports = grammar({
       $.struct_component_selector,
       $.object_component_selector,
       $.class_component_selector,
+      $.dereference
     ),
 
     static_component: $ => choice(
@@ -1396,6 +1397,33 @@ module.exports = grammar({
       field("intf", $.identifier),
       token.immediate("~"),
       field("comp", $._immediate_identifier)
+    ),
+
+    /**
+     * Accesses the content of a data object  pointed to by a data reference `dref`.
+     * 
+     * `dref->*`
+     * 
+     * Similar to the {@link object_component_selector} except that the immediate dref is accessed.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDEREFERENCING_OPERATOR.html
+     */
+    dereference: $ => seq(
+      // - Name of a reference variable that can itself be a composite.
+      // - Functional method call or method chaining with a reference variable as a result.
+      // - Single or chained table expression whose result is a reference variable.
+      // - Constructor expression with the instance operator NEW or the casting operator CAST
+      field("dref",
+        choice(
+          $.identifier,
+          $.data_component_selector,
+          $.method_call,
+          $.new_expression,
+          // TODO: Table expression
+          // TODO: Cast expression
+        )
+      ),
+      token.immediate("->*"),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html

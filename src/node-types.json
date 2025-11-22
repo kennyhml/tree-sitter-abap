@@ -98,6 +98,10 @@
         "named": true
       },
       {
+        "type": "dereference",
+        "named": true
+      },
+      {
         "type": "object_component_selector",
         "named": true
       },
@@ -1276,6 +1280,34 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dereference",
+    "named": true,
+    "fields": {
+      "dref": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           }
         ]
@@ -3546,6 +3578,10 @@
   },
   {
     "type": "->",
+    "named": false
+  },
+  {
+    "type": "->*",
     "named": false
   },
   {
