@@ -44,10 +44,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "data_component_selector"
-        },
-        {
-          "type": "SYMBOL",
           "name": "report_initiator"
         },
         {
@@ -2998,6 +2994,10 @@
         {
           "type": "SYMBOL",
           "name": "string_template"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_component_selector"
         }
       ]
     },
@@ -6137,6 +6137,10 @@
                       {
                         "type": "SYMBOL",
                         "name": "method_call"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "data_component_selector"
                       }
                     ]
                   },
@@ -10382,6 +10386,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "interface_component_selector"
+        },
+        {
+          "type": "SYMBOL",
           "name": "dereference"
         }
       ]
@@ -10565,8 +10573,25 @@
           "type": "FIELD",
           "name": "intf",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "data_component_selector"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "method_call"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "new_expression"
+              }
+            ]
           }
         },
         {

@@ -115,7 +115,6 @@ module.exports = grammar({
       $.constants_declaration,
 
       $.assignment,
-      $.data_component_selector,
 
       $.report_initiator,
       $.deferred_class_definition,
@@ -187,6 +186,7 @@ module.exports = grammar({
       $.number,
       $.literal_string,
       $.string_template,
+      $.data_component_selector,
       // TODO: Access to data objects (fields) of structs / objects
       // Explicit text symbols? https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENTEXT_SYMBOLS.html
     ),
@@ -715,10 +715,7 @@ module.exports = grammar({
             choice(
               $.identifier,
               $.method_call,
-              // access rules must be left associative for this to not conflict
-              // alias($._component_field_access, $.component_access),
-              // alias($._static_field_access, $.static_access),
-              // alias($._instance_field_access, $.instance_access),
+              $.data_component_selector
             ),
             token.immediate("->")
           ),
@@ -1301,6 +1298,7 @@ module.exports = grammar({
       $.struct_component_selector,
       $.object_component_selector,
       $.class_component_selector,
+      $.interface_component_selector,
       $.dereference
     ),
 
@@ -1394,7 +1392,14 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERFACE_COMPONENT_SELECTOR.html
      */
     interface_component_selector: $ => seq(
-      field("intf", $.identifier),
+      field("intf",
+        choice(
+          $.identifier,
+          $.data_component_selector,
+          $.method_call,
+          $.new_expression,
+        )
+      ),
       token.immediate("~"),
       field("comp", $._immediate_identifier)
     ),
