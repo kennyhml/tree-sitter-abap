@@ -1300,7 +1300,7 @@ module.exports = grammar({
     data_component_selector: $ => choice(
       $.struct_component_selector,
       $.object_component_selector,
-      // $.class_component_selector,
+      $.class_component_selector,
     ),
 
     static_component: $ => choice(
@@ -1314,7 +1314,7 @@ module.exports = grammar({
     ),
 
     /**
-     * Accesses accesses a component comp of a structure or structured data type 
+     * Accesses a component `comp` of a structure or structured data type `struct`.
      * 
      * `struct-comp` or `struc-(comp)`
      * 
@@ -1342,10 +1342,11 @@ module.exports = grammar({
     ),
 
     /**
-     * Accesses a component comp of an object
+     * Accesses a component `comp` of an object
      * 
      * `ref->comp` or `ref->(comp)`
      * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJECT_COMPONENT_SELECTOR.html
      */
     object_component_selector: $ => seq(
       // - Name of a reference variable that can itself be a composite.
@@ -1371,9 +1372,18 @@ module.exports = grammar({
       )
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
-    // TODO
-    class_component_selector: $ => seq(),
+    /**
+     * Accesses a static component `comp` of class `class`. Dynamic access is not possible.
+     * 
+     * Can also be used to access types `type` or constants `const` of interfaces.
+     * 
+     * `class=>comp` or `intf=>type` or `intf=>const`
+     */
+    class_component_selector: $ => seq(
+      field("class", $.identifier),
+      token.immediate("=>"),
+      field("comp", $._immediate_identifier)
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
     // TODO

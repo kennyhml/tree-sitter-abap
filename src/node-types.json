@@ -94,6 +94,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "class_component_selector",
+        "named": true
+      },
+      {
         "type": "object_component_selector",
         "named": true
       },
@@ -571,6 +575,32 @@
       "view": {
         "multiple": false,
         "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "class_component_selector",
+    "named": true,
+    "fields": {
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "comp": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
