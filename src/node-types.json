@@ -42,6 +42,10 @@
         "named": true
       },
       {
+        "type": "data_component_selector",
+        "named": true
+      },
+      {
         "type": "data_declaration",
         "named": true
       },
@@ -81,6 +85,16 @@
       },
       {
         "type": "switch_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "data_component_selector",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "struct_component_selector",
         "named": true
       }
     ]
@@ -1338,6 +1352,22 @@
         "types": [
           {
             "type": "message_type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dynamic_component",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -3157,6 +3187,22 @@
     }
   },
   {
+    "type": "static_component",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "string_template",
     "named": true,
     "fields": {},
@@ -3169,6 +3215,44 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "struct_component_selector",
+    "named": true,
+    "fields": {
+      "comp": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_component",
+            "named": true
+          },
+          {
+            "type": "static_component",
+            "named": true
+          }
+        ]
+      },
+      "struct": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3660,6 +3744,10 @@
   },
   {
     "type": "-",
+    "named": false
+  },
+  {
+    "type": "---",
     "named": false
   },
   {
@@ -4239,11 +4327,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",
