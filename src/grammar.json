@@ -10371,6 +10371,10 @@
         {
           "type": "SYMBOL",
           "name": "object_component_selector"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "class_component_selector"
         }
       ]
     },
@@ -10520,7 +10524,31 @@
     },
     "class_component_selector": {
       "type": "SEQ",
-      "members": []
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "class",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "=>"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "comp",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
+          }
+        }
+      ]
     },
     "interface_component_selector": {
       "type": "SEQ",
