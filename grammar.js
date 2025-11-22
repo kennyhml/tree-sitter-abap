@@ -87,6 +87,7 @@ module.exports = grammar({
     $.constructor_expression,
     $.iteration_expression,
     $.general_expression,
+    $.data_component_selector,
     $.relational_expression,
     $.data_object,
     $._simple_statement,
@@ -114,6 +115,7 @@ module.exports = grammar({
       $.constants_declaration,
 
       $.assignment,
+      $.data_component_selector,
 
       $.report_initiator,
       $.deferred_class_definition,
@@ -1377,6 +1379,63 @@ module.exports = grammar({
       ))
     ),
 
+    // A component selector superclass that can return a data type
+    data_component_selector: $ => choice(
+      $.struct_component_selector,
+      // $.class_component_selector,
+      // $.object_component_selector,
+    ),
+
+    static_component: $ => choice(
+      field("name", $.identifier)
+    ),
+
+    dynamic_component: $ => seq(
+      token.immediate("("),
+      field("name", $.identifier),
+      token.immediate(")")
+    ),
+
+    /**
+     * Accesses accesses a component comp of a structure or structured data type 
+     * 
+     * `struct-comp` or `struc-(comp)`
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
+     */
+    struct_component_selector: $ => seq(
+      // Name of a structure or a structured type that can itself be linked.
+      // Functional method call or method chaining with a structured result.
+      // Single or chained table expression that returns a structured table line.
+      field("struct",
+        choice(
+          $.identifier,
+          $.data_component_selector,
+          $.method_call,
+          // TODO: Table expression
+        )
+      ),
+      token.immediate("-"),
+      field("comp",
+        choice(
+          $.dynamic_component,
+          $.static_component
+        )
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
+    // TODO
+    object_component_selector: $ => seq(),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
+    // TODO
+    class_component_selector: $ => seq(),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
+    // TODO
+    interface_component_selector: $ => seq(),
+
     _component_field_access: $ => componentAccess($, $.identifier),
     _component_type_access: $ => componentAccess($, $.identifier),
 
@@ -1718,7 +1777,7 @@ function typeOrLikeExpr($, addition) {
 function componentAccess($, src) {
   return seq(
     field("source", src),
-    token.immediate("-"),
+    token.immediate("---"),
     field("component", choice(
       // Doesnt matter what the source of the component is, the fields are always idents
       $._immediate_identifier,
