@@ -8945,6 +8945,10 @@
           },
           "named": false,
           "value": "for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_component_selector"
         }
       ]
     },
@@ -10552,7 +10556,31 @@
     },
     "interface_component_selector": {
       "type": "SEQ",
-      "members": []
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "intf",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "~"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "comp",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
+          }
+        }
+      ]
     },
     "_table_category": {
       "type": "CHOICE",
