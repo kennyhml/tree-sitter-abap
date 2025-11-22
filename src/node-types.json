@@ -42,10 +42,6 @@
         "named": true
       },
       {
-        "type": "data_component_selector",
-        "named": true
-      },
-      {
         "type": "data_declaration",
         "named": true
       },
@@ -102,6 +98,10 @@
         "named": true
       },
       {
+        "type": "interface_component_selector",
+        "named": true
+      },
+      {
         "type": "object_component_selector",
         "named": true
       },
@@ -115,6 +115,10 @@
     "type": "data_object",
     "named": true,
     "subtypes": [
+      {
+        "type": "data_component_selector",
+        "named": true
+      },
       {
         "type": "identifier",
         "named": true
@@ -1692,7 +1696,19 @@
         "required": true,
         "types": [
           {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           }
         ]
@@ -2158,6 +2174,10 @@
           {
             "type": "=>",
             "named": false
+          },
+          {
+            "type": "data_component_selector",
+            "named": true
           },
           {
             "type": "identifier",
