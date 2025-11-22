@@ -94,6 +94,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "object_component_selector",
+        "named": true
+      },
+      {
         "type": "struct_component_selector",
         "named": true
       }
@@ -172,70 +176,6 @@
     ]
   },
   {
-    "type": "_instance_field_access",
-    "named": true,
-    "fields": {
-      "member": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_instance_field_access",
-            "named": true
-          },
-          {
-            "type": "component_access",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "_instance_type_access",
-    "named": true,
-    "fields": {
-      "member": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_instance_type_access",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "alias_declaration",
     "named": true,
     "fields": {},
@@ -264,16 +204,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "interface_access",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -920,36 +850,6 @@
           },
           {
             "type": "range_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "component_access",
-    "named": true,
-    "fields": {
-      "component": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "component_access",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -1702,74 +1602,6 @@
     "fields": {}
   },
   {
-    "type": "instance_access",
-    "named": true,
-    "fields": {
-      "member": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_instance_field_access",
-            "named": true
-          },
-          {
-            "type": "_instance_type_access",
-            "named": true
-          },
-          {
-            "type": "component_access",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_access",
-    "named": true,
-    "fields": {
-      "component": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "interface_default",
     "named": true,
     "fields": {
@@ -2230,23 +2062,11 @@
             "named": false
           },
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           },
           {
-            "type": "instance_access",
-            "named": true
-          },
-          {
             "type": "method_call",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -2464,6 +2284,48 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "object_component_selector",
+    "named": true,
+    "fields": {
+      "comp": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_component",
+            "named": true
+          },
+          {
+            "type": "static_component",
+            "named": true
+          }
+        ]
+      },
+      "ref": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2825,19 +2687,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -2857,19 +2707,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -2885,19 +2723,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -2907,19 +2733,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -2935,19 +2749,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -2957,19 +2759,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -3150,40 +2940,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "static_access",
-    "named": true,
-    "fields": {
-      "member": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "component_access",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -3481,19 +3237,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -3539,19 +3283,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_access",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "instance_access",
-            "named": true
-          },
-          {
-            "type": "static_access",
             "named": true
           }
         ]
@@ -3744,10 +3476,6 @@
   },
   {
     "type": "-",
-    "named": false
-  },
-  {
-    "type": "---",
     "named": false
   },
   {
@@ -4327,11 +4055,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "o",
@@ -4575,10 +4303,6 @@
   },
   {
     "type": "}",
-    "named": false
-  },
-  {
-    "type": "~",
     "named": false
   }
 ]

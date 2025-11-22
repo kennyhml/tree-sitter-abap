@@ -716,9 +716,9 @@ module.exports = grammar({
               $.identifier,
               $.method_call,
               // access rules must be left associative for this to not conflict
-              alias($._component_field_access, $.component_access),
-              alias($._static_field_access, $.static_access),
-              alias($._instance_field_access, $.instance_access),
+              // alias($._component_field_access, $.component_access),
+              // alias($._static_field_access, $.static_access),
+              // alias($._instance_field_access, $.instance_access),
             ),
             token.immediate("->")
           ),
@@ -1092,7 +1092,7 @@ module.exports = grammar({
     alias_spec: $ => seq(
       field("alias", $.identifier),
       kw("for"),
-      $.interface_access
+      // $.interface_access
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
@@ -1296,103 +1296,20 @@ module.exports = grammar({
       ),
     ),
 
-    interface_access: $ => seq(
-      field("interface", $.identifier),
-      token.immediate("~"),
-      field("component", $._immediate_identifier)
-    ),
-
-    /** 
-     * Static access to a member of a class using `cls=>member`.
-     * 
-     * Must be followed by immediate accesses.
-     */
-    _static_field_access: $ => prec.left(seq(
-      field("source", $.identifier),
-      token.immediate("=>"),
-      field("member", choice(
-        $._immediate_identifier,
-        alias($._immediate_instance_field_access, $.instance_access),
-        alias($._immediate_component_field_access, $.component_access)
-      ))
-    )),
-
-    /**
-     * Instance access to a class member using `instance->member`.
-     * 
-     * Must be followed by immediate accesses.
-     */
-    _instance_field_access: $ => prec.left(seq(
-      field("source", $.identifier),
-      token.immediate("->"),
-      field("member", choice(
-        $._immediate_identifier,
-        alias($._immediate_instance_field_access, $.instance_access),
-        alias($._immediate_component_field_access, $.component_access)
-      ))
-    )),
-
-    /** 
-     * Static access to a type member of a class using `cls=>type`.
-     * 
-     * Must be followed by immediate accesses.
-     */
-    _static_type_access: $ => seq(
-      field("source", $.identifier),
-      token.immediate("=>"),
-      field("member", choice(
-        $._immediate_identifier,
-        alias($._immediate_instance_type_access, $.instance_access),
-      ))
-    ),
-
-    /**
-     * Instance access to a class type member using `instance->type`
-     * 
-     * Must be followed by immediate accesses.
-     */
-    _instance_type_access: $ => seq(
-      field("source", $.identifier),
-      token.immediate("->"),
-      field("member", choice(
-        $._immediate_identifier,
-        alias($._immediate_instance_type_access, $._instance_type_access),
-      ))
-    ),
-
-    _immediate_instance_field_access: $ => prec.left(seq(
-      field("source", $._immediate_identifier),
-      token.immediate("->"),
-      field("member", choice(
-        $._immediate_identifier,
-        alias($._immediate_component_field_access, $.component_access),
-        alias($._immediate_instance_field_access, $._instance_field_access)
-      ))
-    )),
-
-    _immediate_instance_type_access: $ => seq(
-      field("source", $._immediate_identifier),
-      token.immediate("->"),
-      field("member", choice(
-        $._immediate_identifier,
-        alias($._immediate_instance_type_access, $._instance_type_access)
-      ))
-    ),
-
     // A component selector superclass that can return a data type
     data_component_selector: $ => choice(
       $.struct_component_selector,
+      $.object_component_selector,
       // $.class_component_selector,
-      // $.object_component_selector,
     ),
 
     static_component: $ => choice(
-      field("name", $.identifier)
+      field("name", $._immediate_identifier)
     ),
 
     dynamic_component: $ => seq(
       token.immediate("("),
-      field("name", $.identifier),
+      field("name", $._immediate_identifier),
       token.immediate(")")
     ),
 
@@ -1424,9 +1341,35 @@ module.exports = grammar({
       )
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
-    // TODO
-    object_component_selector: $ => seq(),
+    /**
+     * Accesses a component comp of an object
+     * 
+     * `ref->comp` or `ref->(comp)`
+     * 
+     */
+    object_component_selector: $ => seq(
+      // - Name of a reference variable that can itself be a composite.
+      // - Functional method call or method chaining with a reference variable as a result.
+      // - Single or chained table expression whose result is a reference variable.
+      // - Constructor expression with the instance operator NEW or the casting operator CAST
+      field("ref",
+        choice(
+          $.identifier,
+          $.data_component_selector,
+          $.method_call,
+          $.new_expression,
+          // TODO: Table expression
+          // TODO: Cast expression
+        )
+      ),
+      token.immediate("->"),
+      field("comp",
+        choice(
+          $.dynamic_component,
+          $.static_component
+        )
+      )
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
     // TODO
@@ -1435,16 +1378,6 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
     // TODO
     interface_component_selector: $ => seq(),
-
-    _component_field_access: $ => componentAccess($, $.identifier),
-    _component_type_access: $ => componentAccess($, $.identifier),
-
-    /**
-     * Immediate component type access isnt possible because components cant have types.
-     * 
-     * Even a statement like `... type component-field->type` is invalid where field is a class reference.
-     */
-    _immediate_component_field_access: $ => componentAccess($, $._immediate_identifier),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
     _table_category: _ => choice(
@@ -1753,9 +1686,9 @@ function typeOrLikeExpr($, addition) {
       addition,
       field("type", choice(
         $.identifier,
-        alias($._static_type_access, $.static_access),
-        alias($._instance_type_access, $.instance_access),
-        alias($._component_type_access, $.component_access),
+        // alias($._static_type_access, $.static_access),
+        // alias($._instance_type_access, $.instance_access),
+        // alias($._component_type_access, $.component_access),
       ))
     ),
     seq(
@@ -1763,32 +1696,13 @@ function typeOrLikeExpr($, addition) {
       addition,
       field("dobj", choice(
         $.identifier,
-        alias($._static_field_access, $.static_access),
-        alias($._instance_field_access, $.instance_access),
-        alias($._component_field_access, $.component_access),
+        // alias($._static_field_access, $.static_access),
+        // alias($._instance_field_access, $.instance_access),
+        // alias($._component_field_access, $.component_access),
       ))
     ),
   );
 }
-
-/**
- * Template function for component access to determine the source identifier kind.
- */
-function componentAccess($, src) {
-  return seq(
-    field("source", src),
-    token.immediate("---"),
-    field("component", choice(
-      // Doesnt matter what the source of the component is, the fields are always idents
-      $._immediate_identifier,
-      // Could be a nested field access, but will always be an identifier and immediate.
-      // The exception here could be a field of a component that is a reference to a class
-      // which could then technically point to a field again.
-      alias($._immediate_component_field_access, $.component_access)
-    ))
-  );
-}
-
 
 function params(keyword, rule) {
   return field(keyword, seq(kw(keyword), rule));
