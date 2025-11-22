@@ -208,6 +208,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "interface_component_selector",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1630,6 +1640,32 @@
     "named": true,
     "extra": true,
     "fields": {}
+  },
+  {
+    "type": "interface_component_selector",
+    "named": true,
+    "fields": {
+      "comp": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "intf": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "interface_default",
@@ -4333,6 +4369,10 @@
   },
   {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]

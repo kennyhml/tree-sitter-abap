@@ -1092,7 +1092,7 @@ module.exports = grammar({
     alias_spec: $ => seq(
       field("alias", $.identifier),
       kw("for"),
-      // $.interface_access
+      $.interface_component_selector
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
@@ -1385,9 +1385,18 @@ module.exports = grammar({
       field("comp", $._immediate_identifier)
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
-    // TODO
-    interface_component_selector: $ => seq(),
+    /**
+     * Accesses component `comp` of an interface `intf`.
+     * 
+     * `intf~comp`
+     *
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERFACE_COMPONENT_SELECTOR.html
+     */
+    interface_component_selector: $ => seq(
+      field("intf", $.identifier),
+      token.immediate("~"),
+      field("comp", $._immediate_identifier)
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
     _table_category: _ => choice(
