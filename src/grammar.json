@@ -10379,6 +10379,10 @@
         {
           "type": "SYMBOL",
           "name": "class_component_selector"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dereference"
         }
       ]
     },
@@ -10578,6 +10582,43 @@
           "content": {
             "type": "SYMBOL",
             "name": "_immediate_identifier"
+          }
+        }
+      ]
+    },
+    "dereference": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "dref",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "data_component_selector"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "method_call"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "new_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "->*"
           }
         }
       ]
