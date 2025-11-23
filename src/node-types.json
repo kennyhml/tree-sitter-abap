@@ -277,6 +277,10 @@
           "named": true
         },
         {
+          "type": "let_expression",
+          "named": true
+        },
+        {
           "type": "parameter_assignment",
           "named": true
         }
@@ -845,7 +849,7 @@
     }
   },
   {
-    "type": "comp_assignment",
+    "type": "comp_spec",
     "named": true,
     "fields": {
       "param": {
@@ -917,7 +921,11 @@
           "named": true
         },
         {
-          "type": "comp_assignment",
+          "type": "comp_spec",
+          "named": true
+        },
+        {
+          "type": "let_expression",
           "named": true
         }
       ]
@@ -1801,15 +1809,19 @@
       "required": true,
       "types": [
         {
-          "type": "assignment",
-          "named": true
-        },
-        {
           "type": "base_spec",
           "named": true
         },
         {
+          "type": "comp_spec",
+          "named": true
+        },
+        {
           "type": "iteration_expression",
+          "named": true
+        },
+        {
+          "type": "let_expression",
           "named": true
         },
         {
@@ -2378,7 +2390,7 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
@@ -2390,15 +2402,7 @@
           "named": true
         },
         {
-          "type": "general_expression",
-          "named": true
-        },
-        {
           "type": "itab_expression",
-          "named": true
-        },
-        {
-          "type": "let_expression",
           "named": true
         }
       ]
@@ -3055,6 +3059,10 @@
         },
         {
           "type": "_simple_statement",
+          "named": true
+        },
+        {
+          "type": "general_expression",
           "named": true
         }
       ]

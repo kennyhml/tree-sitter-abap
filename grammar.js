@@ -94,10 +94,6 @@ module.exports = grammar({
     $._compound_statement,
   ],
 
-  conflicts: $ => [
-    [$.argument_list]
-  ],
-
   word: $ => $.identifier,
 
   rules: {
@@ -105,7 +101,8 @@ module.exports = grammar({
 
     _statement: $ => choice(
       $._simple_statement,
-      $._compound_statement
+      $._compound_statement,
+      $.general_expression
     ),
 
     // Statements that dont have a body.
@@ -280,14 +277,16 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_CONSTRUCTOR_PARAMS_ITAB.html
      */
     itab_expression: $ => seq(
+      optional(seq($.let_expression, kw("in"))),
       optional($.base_spec),
+
       // Optionally any number of nested for expressions
       repeat($.iteration_expression),
 
-      // TODO: Or a single field assignment to provide a subsequent default
       repeat1(
         seq(
-          repeat(alias($.parameter_assignment, $.assignment)),
+          // Optionally any number of component defaults that apply to subsequent line specs
+          repeat($.comp_spec),
           $.line_spec
         )
       )
@@ -468,18 +467,11 @@ module.exports = grammar({
       // can be empty (initial, a single operand (value), )
       optional(
         choice(
-          // let expressions can be specified before dobj or argument list.
           // whether as single argument is a parameter or a dobj is impossible
           // to tell purely from context, it depends on the `type`.
-          seq(
-            optional(seq($.let_expression, kw("in"))),
-            choice(
-              $.component_list,
-              $.argument_list,
-              $.general_expression,
-              $.itab_expression
-            ),
-          ),
+          $.component_list,
+          $.argument_list,
+          $.itab_expression
         ),
       ),
       ")",
@@ -759,17 +751,21 @@ module.exports = grammar({
     ),
 
 
-    argument_list: $ => choice(
-      repeat1($.general_expression),
-      repeat1($.parameter_assignment)
+    argument_list: $ => seq(
+      optional(seq($.let_expression, kw("in"))),
+      choice(
+        repeat1($.general_expression),
+        repeat1($.parameter_assignment)
+      )
     ),
 
     component_list: $ => seq(
+      optional(seq($.let_expression, kw("in"))),
       optional($.base_spec),
-      repeat1($.comp_assignment)
+      repeat1($.comp_spec)
     ),
 
-    comp_assignment: $ => seq(
+    comp_spec: $ => seq(
       field("param", $.identifier), // or a component selector
       "=",
       field("value", $.general_expression)

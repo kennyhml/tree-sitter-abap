@@ -20,6 +20,10 @@
         {
           "type": "SYMBOL",
           "name": "_compound_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "general_expression"
         }
       ]
     },
@@ -3328,6 +3332,32 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "let_expression"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[iI][nN]"
+                  },
+                  "named": false,
+                  "value": "in"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "base_spec"
             },
@@ -3351,13 +3381,8 @@
               {
                 "type": "REPEAT",
                 "content": {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "parameter_assignment"
-                  },
-                  "named": true,
-                  "value": "assignment"
+                  "type": "SYMBOL",
+                  "name": "comp_spec"
                 }
               },
               {
@@ -4910,56 +4935,16 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SEQ",
-                            "members": [
-                              {
-                                "type": "SYMBOL",
-                                "name": "let_expression"
-                              },
-                              {
-                                "type": "ALIAS",
-                                "content": {
-                                  "type": "PATTERN",
-                                  "value": "[iI][nN]"
-                                },
-                                "named": false,
-                                "value": "in"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "BLANK"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "component_list"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "argument_list"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "general_expression"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "itab_expression"
-                          }
-                        ]
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "component_list"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "argument_list"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "itab_expression"
                   }
                 ]
               },
@@ -6335,27 +6320,84 @@
       ]
     },
     "argument_list": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "general_expression"
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "let_expression"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[iI][nN]"
+                  },
+                  "named": false,
+                  "value": "in"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "parameter_assignment"
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "general_expression"
+              }
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "parameter_assignment"
+              }
+            }
+          ]
         }
       ]
     },
     "component_list": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "let_expression"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[iI][nN]"
+                  },
+                  "named": false,
+                  "value": "in"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "CHOICE",
           "members": [
@@ -6372,12 +6414,12 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "comp_assignment"
+            "name": "comp_spec"
           }
         }
       ]
     },
-    "comp_assignment": {
+    "comp_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -11147,11 +11189,7 @@
       "name": "docstring"
     }
   ],
-  "conflicts": [
-    [
-      "argument_list"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [],
   "externals": [
     {
