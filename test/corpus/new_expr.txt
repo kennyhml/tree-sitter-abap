@@ -1,0 +1,33 @@
+==================
+With explicit type and value
+==================
+NEW i( 555 )
+---
+(source
+    (new_expression
+        (identifier)
+        (argument_list
+        (number))))
+==================
+Initial derived value
+==================
+NEW #( )
+---
+(source
+    (new_expression))
+==================
+Value with let expr
+==================
+NEW string( let var = 'A String' in |Using let expression { var }| )
+---
+(source
+    (new_expression
+        (identifier)
+        (argument_list
+            (let_expression
+            (let_spec
+                (identifier)
+                (literal_string)))
+            (string_template
+            (embedded_expression
+                (identifier))))))
