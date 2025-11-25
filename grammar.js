@@ -293,7 +293,7 @@ module.exports = grammar({
     ),
 
     base_spec: $ => seq(
-      seq(kw("base"), field("name", $.identifier))
+      seq(kw("base"), field("value", $.data_object))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_LSPC.html
