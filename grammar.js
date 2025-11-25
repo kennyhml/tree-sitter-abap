@@ -286,7 +286,7 @@ module.exports = grammar({
       repeat1(
         seq(
           // Optionally any number of component defaults that apply to subsequent line specs
-          repeat($.comp_spec),
+          repeat($.named_argument),
           $.line_spec
         )
       )
@@ -303,8 +303,7 @@ module.exports = grammar({
       field("value", optional(
         choice(
           $.lines_of,
-          $.component_list,
-          $.general_expression,
+          $.argument_list,
         ))),
       ")"
     ),
@@ -331,8 +330,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_CONDITIONAL.html
     conditional_iteration: $ => seq(
       kw("for"),
-      alias($.parameter_assignment, $.assignment),
-
+      $.iterator_var_spec,
       // Optional when `var` is numeric as it will be incremeted implicitly
       optional(
         seq(
@@ -343,6 +341,13 @@ module.exports = grammar({
       choice(...kws("until", "while")),
       $.logical_expression,
       optional(seq($.let_expression, kw("in")))
+    ),
+
+    // Specification of an iterator variable
+    iterator_var_spec: $ => seq(
+      field("name", $.identifier),
+      "=",
+      field("value", $.general_expression)
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_ITAB.html
@@ -467,9 +472,7 @@ module.exports = grammar({
       // can be empty (initial, a single operand (value), )
       optional(
         choice(
-          // whether as single argument is a parameter or a dobj is impossible
-          // to tell purely from context, it depends on the `type`.
-          $.component_list,
+          /** See {@link argument_list} for the ambiguity */
           $.argument_list,
           $.itab_expression
         ),
@@ -743,45 +746,43 @@ module.exports = grammar({
             args("importing", $.argument_list),
             args("changing", $.argument_list),
             args("exceptions", $.argument_list),
-            args("receiving", $.parameter_assignment),
+            args("receiving", $.named_argument),
           )
         ),
       ),
       ")",
     ),
 
-
+    /**
+     * In something like a {@link new_expression}, an assignment list could either 
+     * refer to constructor parameters or components of a structure, it is completely
+     * ambiguous and can only be resolved knowing the actual type of the expression result.
+     */
     argument_list: $ => seq(
       optional(seq($.let_expression, kw("in"))),
       choice(
-        repeat1($.general_expression),
-        repeat1($.parameter_assignment)
+        repeat1($.named_argument),
+        repeat1($._positional_argument)
       )
     ),
 
-    component_list: $ => seq(
-      optional(seq($.let_expression, kw("in"))),
-      optional($.base_spec),
-      repeat1($.comp_spec)
-    ),
-
-    comp_spec: $ => seq(
-      field("param", $.identifier), // or a component selector
-      "=",
-      field("value", $.general_expression)
-    ),
-
-    parameter_assignment: $ => prec(7, seq(
-      field("param", $.identifier),
+    named_argument: $ => seq(
+      field("param",
+        choice(
+          $.identifier,
+          $.struct_component_selector // for components of structures
+        )
+      ),
       "=",
       field("value",
         choice(
-          $.writable_expression,
-          $.data_object,
+          $.general_expression,
           $.declaration_expression
         )
       )
-    )),
+    ),
+
+    _positional_argument: $ => alias($.general_expression, $.positional_argument),
 
     /**
      * Type based on elementary types. Only here are `length` and `decimals` additions allowed.

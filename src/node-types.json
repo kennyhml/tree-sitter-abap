@@ -273,15 +273,15 @@
       "required": true,
       "types": [
         {
-          "type": "general_expression",
-          "named": true
-        },
-        {
           "type": "let_expression",
           "named": true
         },
         {
-          "type": "parameter_assignment",
+          "type": "named_argument",
+          "named": true
+        },
+        {
+          "type": "positional_argument",
           "named": true
         }
       ]
@@ -323,40 +323,12 @@
           }
         ]
       },
-      "param": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "right": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
-          {
-            "type": "writable_expression",
             "named": true
           }
         ]
@@ -525,7 +497,7 @@
         "required": false,
         "types": [
           {
-            "type": "parameter_assignment",
+            "type": "named_argument",
             "named": true
           },
           {
@@ -849,32 +821,6 @@
     }
   },
   {
-    "type": "comp_spec",
-    "named": true,
-    "fields": {
-      "param": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "comparison_expression",
     "named": true,
     "fields": {
@@ -906,29 +852,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "component_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "base_spec",
-          "named": true
-        },
-        {
-          "type": "comp_spec",
-          "named": true
-        },
-        {
-          "type": "let_expression",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1050,11 +973,11 @@
       "required": true,
       "types": [
         {
-          "type": "assignment",
+          "type": "general_expression",
           "named": true
         },
         {
-          "type": "general_expression",
+          "type": "iterator_var_spec",
           "named": true
         },
         {
@@ -1813,10 +1736,6 @@
           "named": true
         },
         {
-          "type": "comp_spec",
-          "named": true
-        },
-        {
           "type": "iteration_expression",
           "named": true
         },
@@ -1826,6 +1745,10 @@
         },
         {
           "type": "line_spec",
+          "named": true
+        },
+        {
+          "type": "named_argument",
           "named": true
         }
       ]
@@ -1886,6 +1809,32 @@
     }
   },
   {
+    "type": "iterator_var_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "let_expression",
     "named": true,
     "fields": {},
@@ -1935,11 +1884,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_list",
-            "named": true
-          },
-          {
-            "type": "general_expression",
+            "type": "argument_list",
             "named": true
           },
           {
@@ -2371,6 +2316,40 @@
     }
   },
   {
+    "type": "named_argument",
+    "named": true,
+    "fields": {
+      "param": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "new_expression",
     "named": true,
     "fields": {
@@ -2395,10 +2374,6 @@
       "types": [
         {
           "type": "argument_list",
-          "named": true
-        },
-        {
-          "type": "component_list",
           "named": true
         },
         {
@@ -2508,40 +2483,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "parameter_assignment",
-    "named": true,
-    "fields": {
-      "param": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -4185,11 +4126,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",
