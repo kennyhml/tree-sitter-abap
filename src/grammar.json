@@ -3358,8 +3358,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "base_spec"
+              "type": "FIELD",
+              "name": "base",
+              "content": {
+                "type": "SYMBOL",
+                "name": "base_spec"
+              }
             },
             {
               "type": "BLANK"
@@ -3394,6 +3398,31 @@
         }
       ]
     },
+    "itab_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "base",
+              "content": {
+                "type": "SYMBOL",
+                "name": "base_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "argument_list"
+        }
+      ]
+    },
     "base_spec": {
       "type": "SEQ",
       "members": [
@@ -3411,7 +3440,7 @@
             },
             {
               "type": "FIELD",
-              "name": "name",
+              "name": "value",
               "content": {
                 "type": "SYMBOL",
                 "name": "data_object"
@@ -4953,6 +4982,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "argument_list"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "itab_spec"
                   },
                   {
                     "type": "SYMBOL",

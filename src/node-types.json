@@ -339,7 +339,7 @@
     "type": "base_spec",
     "named": true,
     "fields": {
-      "name": {
+      "value": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1726,15 +1726,22 @@
   {
     "type": "itab_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "base": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "base_spec",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "base_spec",
-          "named": true
-        },
         {
           "type": "iteration_expression",
           "named": true
@@ -1749,6 +1756,32 @@
         },
         {
           "type": "named_argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "itab_spec",
+    "named": true,
+    "fields": {
+      "base": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "base_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
           "named": true
         }
       ]
@@ -2378,6 +2411,10 @@
         },
         {
           "type": "itab_expression",
+          "named": true
+        },
+        {
+          "type": "itab_spec",
           "named": true
         }
       ]
@@ -4126,11 +4163,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "o",

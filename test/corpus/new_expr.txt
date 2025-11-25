@@ -33,3 +33,38 @@ NEW string( let var = 'A String' in |Using let expression { var }| )
             (string_template
                 (embedded_expression
                 (identifier)))))))
+==================
+Itab with base spec
+==================
+NEW #( BASE base1 col2 = 'BB' ). 
+NEW #( BASE base1->* col2 = 'BB' ). 
+NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ). 
+---
+(source
+    (new_expression
+        (itab_spec
+            (base_spec
+                (identifier))
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (literal_string)))))
+    (new_expression
+        (itab_spec
+            (base_spec
+                (dereference
+                (identifier)))
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (literal_string)))))
+    (new_expression
+        (itab_spec
+            (base_spec
+                (class_component_selector
+                (identifier)
+                (identifier)))
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (literal_string))))))
