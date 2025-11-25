@@ -68,3 +68,24 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
                 (named_argument
                     (identifier)
                     (literal_string))))))
+==================
+itab sub-component assignment
+==================
+NEW t_struct( col2-col1 = 2 col2-col2 = itab ).
+---
+(source
+    (new_expression
+        (identifier)
+        (argument_list
+            (named_argument
+                (struct_component_selector
+                    (identifier)
+                    (static_component
+                    (identifier)))
+                (number))
+            (named_argument
+                (struct_component_selector
+                    (identifier)
+                    (static_component
+                    (identifier)))
+                (identifier)))))
