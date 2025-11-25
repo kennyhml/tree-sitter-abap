@@ -716,7 +716,8 @@ module.exports = grammar({
             choice(
               $.identifier,
               $.method_call,
-              $.data_component_selector
+              $.data_component_selector,
+              $.new_expression
             ),
             token.immediate("->")
           ),

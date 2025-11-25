@@ -6171,6 +6171,10 @@
                       {
                         "type": "SYMBOL",
                         "name": "data_component_selector"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "new_expression"
                       }
                     ]
                   },
