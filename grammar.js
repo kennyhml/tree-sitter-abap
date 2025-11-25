@@ -278,7 +278,7 @@ module.exports = grammar({
      */
     itab_expression: $ => seq(
       optional(seq($.let_expression, kw("in"))),
-      optional($.base_spec),
+      optional(field("base", $.base_spec)),
 
       // Optionally any number of nested for expressions
       repeat($.iteration_expression),
@@ -290,6 +290,12 @@ module.exports = grammar({
           $.line_spec
         )
       )
+    ),
+
+    // Specification / initialization of an itab with arguments (components)
+    itab_spec: $ => seq(
+      optional(field("base", $.base_spec)),
+      $.argument_list
     ),
 
     base_spec: $ => seq(
@@ -474,12 +480,12 @@ module.exports = grammar({
         choice(
           /** See {@link argument_list} for the ambiguity */
           $.argument_list,
+          $.itab_spec,
           $.itab_expression
         ),
       ),
       ")",
-    )
-    ),
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
     value_expression: $ => seq(
