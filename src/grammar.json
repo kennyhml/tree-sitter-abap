@@ -3414,7 +3414,7 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "data_object"
               }
             }
           ]

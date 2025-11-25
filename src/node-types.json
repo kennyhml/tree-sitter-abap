@@ -344,7 +344,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "data_object",
             "named": true
           }
         ]
