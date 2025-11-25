@@ -1,0 +1,10 @@
+==================
+Dynamic object selector
+==================
+obj->('foobarbaz').
+---
+(source
+    (object_component_selector
+        (identifier)
+        (dynamic_component
+        (literal_string))))

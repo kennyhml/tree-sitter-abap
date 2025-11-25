@@ -1312,7 +1312,10 @@ module.exports = grammar({
 
     dynamic_component: $ => seq(
       token.immediate("("),
-      field("name", $._immediate_identifier),
+      field("name", choice(
+        $._immediate_identifier,
+        $._immediate_literal_string
+      )),
       token.immediate(")")
     ),
 
@@ -1476,6 +1479,13 @@ module.exports = grammar({
 
     number: _ => NUMBER_REGEX,
     _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
+    _immediate_literal_string: $ => alias(
+      choice(
+        token.immediate(/'[^']*'/),
+        token.immediate(/`[^`]*`/),
+      ),
+      $.literal_string
+    ),
 
     literal_string: $ => choice(
       seq(
