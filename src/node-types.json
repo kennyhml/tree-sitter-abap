@@ -1276,6 +1276,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
           }
         ]
       }

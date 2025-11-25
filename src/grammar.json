@@ -10447,8 +10447,17 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "_immediate_identifier"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_literal_string"
+              }
+            ]
           }
         },
         {
@@ -10892,6 +10901,30 @@
       },
       "named": true,
       "value": "number"
+    },
+    "_immediate_literal_string": {
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "'[^']*'"
+            }
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "`[^`]*`"
+            }
+          }
+        ]
+      },
+      "named": true,
+      "value": "literal_string"
     },
     "literal_string": {
       "type": "CHOICE",
