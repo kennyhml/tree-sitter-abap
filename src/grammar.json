@@ -2977,6 +2977,10 @@
         {
           "type": "SYMBOL",
           "name": "new_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value_expression"
         }
       ]
     },
@@ -4943,6 +4947,10 @@
         }
       ]
     },
+    "table_expression": {
+      "type": "SEQ",
+      "members": []
+    },
     "new_expression": {
       "type": "PREC",
       "value": 10,
@@ -5006,89 +5014,66 @@
       }
     },
     "value_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[vV][aA][lL][uU][eE]"
-          },
-          "named": false,
-          "value": "value"
-        },
-        {
-          "type": "FIELD",
-          "name": "type",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_constructor_result"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "let_expression"
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[iI][nN]"
-                  },
-                  "named": false,
-                  "value": "in"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "ALIAS",
             "content": {
+              "type": "PATTERN",
+              "value": "[vV][aA][lL][uU][eE]"
+            },
+            "named": false,
+            "value": "value"
+          },
+          {
+            "type": "FIELD",
+            "name": "type",
+            "content": {
               "type": "SYMBOL",
-              "name": "_cond_case"
-            },
-            "named": true,
-            "value": "case"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_else_case"
-              },
-              "named": true,
-              "value": "case"
-            },
-            {
-              "type": "BLANK"
+              "name": "_constructor_result"
             }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "("
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "argument_list"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "itab_spec"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "itab_expression"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
     },
     "cond_expression": {
       "type": "SEQ",
