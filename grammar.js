@@ -171,6 +171,7 @@ module.exports = grammar({
       $.cond_expression,
       $.switch_expression,
       $.new_expression,
+      $.value_expression,
     ),
 
     /**
@@ -469,13 +470,16 @@ module.exports = grammar({
       "o", "z", "m"
     )),
 
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
+     */
+    table_expression: $ => seq(),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
     new_expression: $ => prec(10, seq(
       kw("new"),
       field("type", $._constructor_result),
       token.immediate("("),
-
-      // can be empty (initial, a single operand (value), )
       optional(
         choice(
           /** See {@link argument_list} for the ambiguity */
@@ -488,15 +492,22 @@ module.exports = grammar({
     )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
-    value_expression: $ => seq(
+    value_expression: $ => prec(10, seq(
       kw("value"),
       field("type", $._constructor_result),
-      "(",
-      optional(seq($.let_expression, kw("in"))),
-      repeat1(alias($._cond_case, $.case)),
-      optional(alias($._else_case, $.case)),
-      ")"
-    ),
+      token.immediate("("),
+      optional(
+        choice(
+          // We technically know that this cant be an argument list and has to be
+          // a list of field assignments since objects are not possible in `value`
+          // but its better to avoid inconsistency with new expressions.
+          $.argument_list,
+          $.itab_spec,
+          $.itab_expression
+        ),
+      ),
+      ")",
+    )),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
     cond_expression: $ => seq(

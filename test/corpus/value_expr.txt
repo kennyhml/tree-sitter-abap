@@ -1,0 +1,121 @@
+==================
+With explicit type and value
+==================
+VALUE i( 555 )
+---
+(source
+    (value_expression
+        (identifier)
+        (argument_list
+            (positional_argument
+            (number)))))
+==================
+Initial derived value
+==================
+VALUE #( )
+---
+(source
+    (value_expression))
+==================
+Value with let expr
+==================
+VALUE string( let var = 'A String' in |Using let expression { var }| )
+---
+(source
+    (value_expression
+    (identifier)
+    (argument_list
+        (let_expression
+            (let_spec
+                (identifier)
+                (literal_string)))
+        (positional_argument
+            (string_template
+                (embedded_expression
+                (identifier)))))))
+==================
+Itab with base spec
+==================
+VALUE #( BASE base1 col2 = 'BB' ). 
+VALUE #( BASE base1->* col2 = 'BB' ). 
+VALUE #( BASE /www/my_class=>base_itab col2 = 'BB' ). 
+---
+(source
+    (value_expression
+        (itab_spec
+            (base_spec
+                (identifier))
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (literal_string)))))
+    (value_expression
+        (itab_spec
+            (base_spec
+                (dereference
+                (identifier)))
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (literal_string)))))
+    (value_expression
+        (itab_spec
+            (base_spec
+                (class_component_selector
+                (identifier)
+                (identifier)))
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (literal_string))))))
+==================
+itab sub-component assignment
+==================
+VALUE t_struct( col2-col1 = 2 col2-col2 = itab ).
+---
+(source
+    (value_expression
+        (identifier)
+        (argument_list
+            (named_argument
+                (struct_component_selector
+                    (identifier)
+                    (static_component
+                    (identifier)))
+                (number))
+            (named_argument
+                (struct_component_selector
+                    (identifier)
+                    (static_component
+                    (identifier)))
+                (identifier)))))
+==================
+Nested table assignments
+==================
+VALUE #( ( itab1 ) ( VALUE t_itab1( ( 4 ) ( 5 ) ( 6 ) ) ) ).
+---
+(source
+    (value_expression
+        (itab_expression
+            (line_spec
+                (argument_list
+                    (positional_argument
+                        (identifier))))
+            (line_spec
+                (argument_list
+                    (positional_argument
+                        (value_expression
+                            (identifier)
+                            (itab_expression
+                                (line_spec
+                                    (argument_list
+                                        (positional_argument
+                                            (number))))
+                                (line_spec
+                                    (argument_list
+                                        (positional_argument
+                                            (number))))
+                                (line_spec
+                                    (argument_list
+                                        (positional_argument
+                                            (number))))))))))))

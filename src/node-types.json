@@ -82,6 +82,10 @@
       {
         "type": "switch_expression",
         "named": true
+      },
+      {
+        "type": "value_expression",
+        "named": true
       }
     ]
   },
@@ -3546,6 +3550,44 @@
     }
   },
   {
+    "type": "value_expression",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "itab_expression",
+          "named": true
+        },
+        {
+          "type": "itab_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "writable_expression",
     "named": true,
     "fields": {}
@@ -4171,11 +4213,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",
