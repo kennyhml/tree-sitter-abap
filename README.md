@@ -16,4 +16,4 @@ The syntactical structure adheres closely to the conventions provided in the pub
 > types foo type i value 10.
 > ```
 
-Heads up: If you think you know most of the ABAP syntax, try writing a parser and enjoy a humiliating experience :D
+If you think you know most of the ABAP syntax, try writing a parser. Certainly a humbling experience :D
