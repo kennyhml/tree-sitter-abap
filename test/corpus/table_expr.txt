@@ -1,0 +1,135 @@
+==================
+Simple index read
+==================
+itab[ 1 ].
+itab[ idx ].
+itab[ lines( itab ) ].
+---
+(source
+    (table_expression
+        (identifier)
+        (index_read
+            (number)))
+    (table_expression
+        (identifier)
+        (index_read
+            (identifier)))
+    (table_expression
+        (identifier)
+        (index_read
+          (builtin_function_call
+            (identifier)
+            (call_arguments
+              (argument_list
+                (positional_argument
+                  (identifier))))))))
+==================
+Simple free key read
+==================
+itab[ carrid = 'AAA' ]
+---
+(source
+    (table_expression
+        (identifier)
+        (search_key_read
+            (search_key_components
+                (itab_comp_spec
+                    (static_itab_comp
+                        (identifier))
+                    (literal_string))))))
+==================
+Simple table key read
+==================
+itab[ key my_awesome_key connid = zclass=>get_connid( ) ]
+itab[ key my_awesome_key components connid = zclass=>get_connid( ) ]
+---
+    (source
+      (table_expression
+        (identifier)
+        (search_key_read
+            (read_key_spec
+                (identifier))
+            (search_key_components
+                (itab_comp_spec
+                    (static_itab_comp
+                        (identifier))
+                    (method_call
+                        (identifier)
+                        (identifier)
+                        (call_arguments))))))
+      (table_expression
+        (identifier)
+        (search_key_read
+            (read_key_spec
+                (identifier))
+            (search_key_components
+                (itab_comp_spec
+                    (static_itab_comp
+                        (identifier))
+                    (method_call
+                        (identifier)
+                        (identifier)
+                        (call_arguments)))))))
+==================
+Secondary index read
+==================
+itab[ key secondary_key index 15 ].
+---
+(source
+    (table_expression
+        (identifier)
+        (index_read
+            (read_key_spec
+                (identifier))
+            (number))))
+==================
+Search key sub-component read
+==================
+itab[ foo-bar = obj->meth( ) ].
+---
+(source
+    (table_expression
+        (identifier)
+        (search_key_read
+            (search_key_components
+                (itab_comp_spec
+                    (static_itab_comp
+                        (struct_component_selector
+                            (identifier)
+                            (static_component
+                            (identifier))))
+                    (method_call
+                        (identifier)
+                        (identifier)
+                        (call_arguments)))))))
+==================
+Search key object attr read
+==================
+itab[ foo->attr = 'A' ].
+---
+(source
+    (table_expression
+        (identifier)
+        (search_key_read
+            (search_key_components
+                (itab_comp_spec
+                    (static_itab_comp
+                        (object_component_selector
+                            (identifier)
+                            (static_component
+                            (identifier))))
+                    (literal_string))))))
+==================
+Search key dynamic comp read
+==================
+itab[ (comp) = 999 ].
+---
+(source
+    (table_expression
+        (identifier)
+        (search_key_read
+            (search_key_components
+                (itab_comp_spec
+                    (dynamic_itab_comp
+                        (identifier))
+                    (number))))))

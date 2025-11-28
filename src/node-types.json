@@ -160,6 +160,38 @@
       {
         "type": "method_call",
         "named": true
+      },
+      {
+        "type": "table_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "itab_comp",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "dynamic_itab_comp",
+        "named": true
+      },
+      {
+        "type": "static_itab_comp",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "itab_line",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "index_read",
+        "named": true
+      },
+      {
+        "type": "search_key_read",
+        "named": true
       }
     ]
   },
@@ -173,6 +205,32 @@
       },
       {
         "type": "table_iteration",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "numeric_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "builtin_function_call",
+        "named": true
+      },
+      {
+        "type": "constructor_expression",
+        "named": true
+      },
+      {
+        "type": "data_object",
+        "named": true
+      },
+      {
+        "type": "method_call",
+        "named": true
+      },
+      {
+        "type": "table_expression",
         "named": true
       }
     ]
@@ -1248,6 +1306,10 @@
           {
             "type": "new_expression",
             "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
           }
         ]
       }
@@ -1271,6 +1333,26 @@
   },
   {
     "type": "dynamic_component",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dynamic_itab_comp",
     "named": true,
     "fields": {
       "name": {
@@ -1611,6 +1693,32 @@
     }
   },
   {
+    "type": "index_read",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      },
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "read_key_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "inline_comment",
     "named": true,
     "extra": true,
@@ -1648,6 +1756,10 @@
           },
           {
             "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "table_expression",
             "named": true
           }
         ]
@@ -1729,6 +1841,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "itab_comp_spec",
+    "named": true,
+    "fields": {
+      "comp": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "itab_comp",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2469,6 +2607,10 @@
           {
             "type": "new_expression",
             "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
           }
         ]
       }
@@ -2827,6 +2969,22 @@
     }
   },
   {
+    "type": "read_key_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ref_type",
     "named": true,
     "fields": {
@@ -3035,6 +3193,47 @@
     }
   },
   {
+    "type": "search_key_components",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "itab_comp_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "search_key_read",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "read_key_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "search_key_components",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source",
     "named": true,
     "root": true,
@@ -3072,6 +3271,29 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "static_itab_comp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "object_component_selector",
+          "named": true
+        },
+        {
+          "type": "struct_component_selector",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3225,6 +3447,32 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_expression",
+    "named": true,
+    "fields": {
+      "itab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "itab_line",
           "named": true
         }
       ]
@@ -3674,6 +3922,14 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {
