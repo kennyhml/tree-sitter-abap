@@ -87,6 +87,9 @@ module.exports = grammar({
     $.constructor_expression,
     $.iteration_expression,
     $.general_expression,
+    $.itab_line,
+    $.itab_comp,
+    $.numeric_expression,
     $.data_component_selector,
     $.relational_expression,
     $.data_object,
@@ -185,7 +188,6 @@ module.exports = grammar({
       $.literal_string,
       $.string_template,
       $.data_component_selector,
-      // TODO: Access to data objects (fields) of structs / objects
       // Explicit text symbols? https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENTEXT_SYMBOLS.html
     ),
 
@@ -194,9 +196,19 @@ module.exports = grammar({
       $.data_object,
       $.constructor_expression,
       $.builtin_function_call,
-      $.method_call, // By design, this also covers chained method calls
-      // TODO: table expressions
-      // TODO: calculation expressions
+      $.method_call,
+      $.table_expression
+      // TODO: arithmetic expressions
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
+    numeric_expression: $ => choice(
+      $.data_object,
+      $.constructor_expression,
+      $.builtin_function_call,
+      $.method_call,
+      $.table_expression
+      // TODO: arithmetic expressions
     ),
 
     /**
@@ -400,6 +412,11 @@ module.exports = grammar({
       field("name", $.identifier)
     ),
 
+    read_key_spec: $ => seq(
+      kw("key"),
+      field("name", $.identifier)
+    ),
+
     /**
      * Iteration condition for a table iteration {@link loop} or {@link table_iteration}
      * 
@@ -473,7 +490,77 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
      */
-    table_expression: $ => seq(),
+    table_expression: $ => seq(
+      field("itab", $.data_object),
+      "[",
+      $.itab_line,
+      "]"
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_ITAB_LINE.html
+     */
+    itab_line: $ => choice(
+      $.index_read,
+      $.search_key_read
+    ),
+
+    /**
+     * Index read variant of {@link itab_line}
+     */
+    index_read: $ => seq(
+      // If a key is specified, `INDEX` must also be used.
+      optional(
+        seq(
+          field("key", $.read_key_spec),
+          kw("index")
+        )
+      ),
+      field("index", $.numeric_expression)
+    ),
+
+    /**
+     * Search key read variant of {@link itab_line}
+     */
+    search_key_read: $ => seq(
+      // If a key is specified, `INDEX` must also be used.
+      optional(
+        seq(
+          field("key", $.read_key_spec),
+          optional(kw("components")) // can be omitted
+        )
+      ),
+      $.search_key_components
+    ),
+
+    search_key_components: $ => repeat1($.itab_comp_spec),
+
+    itab_comp_spec: $ => seq(
+      field("comp", $.itab_comp),
+      "=",
+      field("value", $.general_expression)
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
+    itab_comp: $ => choice(
+      $.static_itab_comp,
+      $._dynamic_itab_comp,
+    ),
+
+    /**
+     * Static variant of {@link itab_comp}: `{ comp_name[-sub_comp][{+off(len)}|{->attr}] }`
+     */
+    static_itab_comp: $ => choice(
+      $.identifier,
+      $.struct_component_selector,
+      $.object_component_selector
+      // TODO: String access
+    ),
+
+    /**
+     * Dynamic variant of {@link itab_comp}: `{ (name) }`
+     */
+    _dynamic_itab_comp: $ => alias($.dynamic_component, $.dynamic_itab_comp),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
     new_expression: $ => prec(10, seq(
@@ -713,7 +800,7 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
-    method_call: $ => seq(
+    method_call: $ => prec.right(5, seq(
       // only a single identifier allowed for static calls
       choice(
         field("source",
@@ -736,7 +823,7 @@ module.exports = grammar({
       ),
       field("name", $._immediate_identifier),
       $.call_arguments
-    ),
+    )),
 
     /**
      * Call of a builtin function. Technically it would be possible to make all
@@ -746,10 +833,10 @@ module.exports = grammar({
      * Its not currently possible to declare functions to be called the same way builtin
      * functions can be called, so theres no conflict.
      */
-    builtin_function_call: $ => seq(
+    builtin_function_call: $ => prec.right(5, seq(
       field("name", $.identifier),
       $.call_arguments
-    ),
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
     call_arguments: $ => seq(
@@ -1376,7 +1463,7 @@ module.exports = grammar({
           $.data_component_selector,
           $.method_call,
           $.new_expression,
-          // TODO: Table expression
+          $.table_expression
           // TODO: Cast expression
         )
       ),
@@ -1416,6 +1503,7 @@ module.exports = grammar({
           $.data_component_selector,
           $.method_call,
           $.new_expression,
+          $.table_expression
         )
       ),
       token.immediate("~"),
@@ -1442,7 +1530,7 @@ module.exports = grammar({
           $.data_component_selector,
           $.method_call,
           $.new_expression,
-          // TODO: Table expression
+          $.table_expression
           // TODO: Cast expression
         )
       ),
