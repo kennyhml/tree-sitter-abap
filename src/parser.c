@@ -12546,8 +12546,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 513:
       ACCEPT_TOKEN(aux_sym_string_template_token2);
       if (lookahead == '\\') ADVANCE(513);
-      if (lookahead != 0 &&
-          lookahead != '|') ADVANCE(512);
+      if (lookahead != 0) ADVANCE(512);
       END_STATE();
     case 514:
       ACCEPT_TOKEN(anon_sym_PIPE);

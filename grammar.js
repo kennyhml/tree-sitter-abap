@@ -1677,8 +1677,8 @@ module.exports = grammar({
       /[|](["]*)/,
       repeat(
         choice(
-          // Allow { and } inside the literal chunks when escaped
-          /([^|{}]|\\\{|\\\})+/,
+          // Allow {,  } and | when escaped
+          /(?:\\.|[^{}|])+/,
           $.embedded_expression
         )
       ),

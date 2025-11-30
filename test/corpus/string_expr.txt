@@ -42,11 +42,18 @@ String concatenation
             (identifier)
             (call_arguments))))
 =======
-Double Quote in template string
+Template string with double quotes
 =======
-|"{ 200 } 321txeT;|.
+|"{ 200 }" 321txeT;|.
 ---
 (source
     (string_template
         (embedded_expression
             (number))))
+=======
+Template string escape characters
+=======
+|\\ \\|\|\|\|\ \| \{\} \{    \} \{ \}|.
+---
+(source
+    (string_template))
