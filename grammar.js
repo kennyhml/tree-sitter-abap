@@ -1916,9 +1916,7 @@ function typeOrLikeExpr($, addition) {
       addition,
       field("type", choice(
         $.identifier,
-        // alias($._static_type_access, $.static_access),
-        // alias($._instance_type_access, $.instance_access),
-        // alias($._component_type_access, $.component_access),
+        $.data_component_selector
       ))
     ),
     seq(
@@ -1926,9 +1924,7 @@ function typeOrLikeExpr($, addition) {
       addition,
       field("dobj", choice(
         $.identifier,
-        // alias($._static_field_access, $.static_access),
-        // alias($._instance_field_access, $.instance_access),
-        // alias($._component_field_access, $.component_access),
+        $.data_component_selector
       ))
     ),
   );
