@@ -18,6 +18,10 @@
       {
         "type": "interface_implementation",
         "named": true
+      },
+      {
+        "type": "method_implementation",
+        "named": true
       }
     ]
   },
@@ -911,6 +915,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "method_implementation",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2392,6 +2406,29 @@
     }
   },
   {
+    "type": "method_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_compound_statement",
+          "named": true
+        },
+        {
+          "type": "_simple_statement",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "method_call",
     "named": true,
     "fields": {
@@ -2442,6 +2479,36 @@
       "types": [
         {
           "type": "call_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method_implementation",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "interface_component_selector",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "method_body",
           "named": true
         }
       ]
@@ -4412,6 +4479,10 @@
     "named": false
   },
   {
+    "type": "endmethod",
+    "named": false
+  },
+  {
     "type": "eq",
     "named": false
   },
@@ -4659,6 +4730,10 @@
   {
     "type": "message_type",
     "named": true
+  },
+  {
+    "type": "method",
+    "named": false
   },
   {
     "type": "methods",

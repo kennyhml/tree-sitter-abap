@@ -90,6 +90,10 @@
         {
           "type": "SYMBOL",
           "name": "interface_implementation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "method_implementation"
         }
       ]
     },
@@ -8463,6 +8467,13 @@
           "value": "."
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "method_implementation"
+          }
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "PATTERN",
@@ -10255,6 +10266,73 @@
           ]
         }
       ]
+    },
+    "method_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[mM][eE][tT][hH][oO][dD]"
+          },
+          "named": false,
+          "value": "method"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "interface_component_selector"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "method_body"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][mM][eE][tT][hH][oO][dD]"
+          },
+          "named": false,
+          "value": "endmethod"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "method_body": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_statement"
+      }
     },
     "_visibility": {
       "type": "CHOICE",
