@@ -87,6 +87,7 @@ module.exports = grammar({
     $.constructor_expression,
     $.iteration_expression,
     $.general_expression,
+    $.writable_expression,
     $.itab_line,
     $.itab_comp,
     $.numeric_expression,
@@ -217,7 +218,6 @@ module.exports = grammar({
      */
     writable_expression: $ => choice(
       $.table_expression,
-      $.new_expression
     ),
 
     /**
@@ -1451,7 +1451,7 @@ module.exports = grammar({
           $.identifier,
           $.data_component_selector,
           $.method_call,
-          // TODO: Table expression
+          $.table_expression
         )
       ),
       token.immediate("-"),

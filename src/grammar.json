@@ -3060,12 +3060,21 @@
         {
           "type": "SYMBOL",
           "name": "table_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "arithmetic_expression"
         }
       ]
     },
     "writable_expression": {
       "type": "CHOICE",
-      "members": []
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "table_expression"
+        }
+      ]
     },
     "logical_expression": {
       "type": "PREC",
@@ -3396,49 +3405,6 @@
         ]
       }
     },
-    "_arithmetic_operator": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "DIV"
-          },
-          "named": false,
-          "value": "DIV"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "MOD"
-          },
-          "named": false,
-          "value": "MOD"
-        },
-        {
-          "type": "STRING",
-          "value": "+"
-        },
-        {
-          "type": "STRING",
-          "value": "-"
-        },
-        {
-          "type": "STRING",
-          "value": "*"
-        },
-        {
-          "type": "STRING",
-          "value": "/"
-        },
-        {
-          "type": "STRING",
-          "value": "**"
-        }
-      ]
-    },
     "relational_expression": {
       "type": "CHOICE",
       "members": [
@@ -3550,7 +3516,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "identifier"
+                        "name": "data_object"
                       },
                       {
                         "type": "SYMBOL",
@@ -10974,6 +10940,10 @@
               {
                 "type": "SYMBOL",
                 "name": "method_call"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "table_expression"
               }
             ]
           }
@@ -11732,6 +11702,7 @@
     "constructor_expression",
     "iteration_expression",
     "general_expression",
+    "writable_expression",
     "itab_line",
     "itab_comp",
     "numeric_expression",
