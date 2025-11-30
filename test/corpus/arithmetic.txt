@@ -10,25 +10,25 @@ Binary expression
 10 ** 10.
 ---
 (source
-    (arithmetic_expression
+    (binary_operator
         (number)
         (number))
-    (arithmetic_expression
+    (binary_operator
         (number)
         (number))
-    (arithmetic_expression
+    (binary_operator
         (number)
         (number))
-    (arithmetic_expression
+    (binary_operator
         (number)
         (number))
-    (arithmetic_expression
+    (binary_operator
         (number)
         (number))
-    (arithmetic_expression
+    (binary_operator
         (number)
         (number))
-    (arithmetic_expression
+    (binary_operator
         (number)
         (number)))
 ==================
@@ -37,18 +37,17 @@ Unary expression
 -lv_count.
 ---
 (source
-    (arithmetic_expression
-        (unary_expression
-            (identifier))))
+    (unary_operator
+        (identifier)))
 ==================
 Multiplicative Precedence
 ==================
 10 + 20 * 20
 ---
 (source
-    (arithmetic_expression
+    (binary_operator
         (number)
-        (arithmetic_expression
+        (binary_operator
             (number)
             (number))))
 ==================
@@ -57,9 +56,9 @@ Division Precendence
 10 + 20 / 20
 ---
 (source
-    (arithmetic_expression
+    (binary_operator
         (number)
-        (arithmetic_expression
+        (binary_operator
             (number)
             (number))))
 ==================
@@ -68,9 +67,9 @@ Parenthesized Precendence
 (10 + 20) / 20
 ---
 (source
-    (arithmetic_expression
-        (arithmetic_expression
-            (arithmetic_expression
-            (number)
-            (number)))
+    (binary_operator
+        (parenthesized_expression
+            (binary_operator
+                (number)
+                (number)))
         (number)))

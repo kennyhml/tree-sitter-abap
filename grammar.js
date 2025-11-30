@@ -17,6 +17,14 @@ const IDENTIFIER_REGEX = /<?[a-zA-Z_\/][a-zA-Z\d_/]*>?/;
 // Allow a single plus or minus before the number literal
 const NUMBER_REGEX = /(\+|-)?\d+/;
 
+const PREC = {
+  parenthesized_expression: 1,
+  plus: 18,
+  times: 19,
+  unary: 20,
+  power: 21,
+};
+
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
 module.exports = grammar({
@@ -88,6 +96,7 @@ module.exports = grammar({
     $.iteration_expression,
     $.general_expression,
     $.writable_expression,
+    $.arithmetic_expression,
     $.itab_line,
     $.itab_comp,
     $.numeric_expression,
@@ -247,21 +256,39 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_ARITH.html
     arithmetic_expression: $ => choice(
-      // parenthesized expression always highest precendence
-      prec(4, seq("(", $.arithmetic_expression, ")")),
-
-      // unary expression
-      $.unary_expression,
-
-      // binary expressions
-      prec.right(3, binary_expr($, "**")),
-      prec.left(2, binary_expr($, "*", "/", ...kws("div", "mod"))),
-      prec.left(1, binary_expr($, "+", "-")),
+      $.binary_operator,
+      $.unary_operator,
     ),
 
-    unary_expression: $ => prec.right(5, seq(
+    binary_operator: $ => {
+      const table = [
+        [prec.left, '+', PREC.plus],
+        [prec.left, '-', PREC.plus],
+        [prec.left, '*', PREC.times],
+        [prec.left, '/', PREC.times],
+        [prec.left, kw("div"), PREC.times],
+        [prec.left, kw("mod"), PREC.times],
+        [prec.right, '**', PREC.power],
+      ];
+
+      return choice(...table.map(([fn, op, prec]) => fn(prec, seq(
+        field('left', choice($.general_expression, $.parenthesized_expression)),
+        field('operator', op),
+        field('right', choice($.general_expression, $.parenthesized_expression)),
+      ))));
+    },
+
+    unary_operator: $ => prec(PREC.unary, seq(
       field("operator", choice("+", "-")),
-      field("value", $.general_expression)
+      field("value", choice($.general_expression, $.parenthesized_expression))
+    )),
+
+    // In ABAP, parenthesized expressions are only possible in arithmetic expressions.
+    // They cannot just be arbitrarily added into the source code like in modern languages.
+    parenthesized_expression: $ => prec(PREC.parenthesized_expression, seq(
+      '(',
+      choice($.arithmetic_expression),
+      ')',
     )),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
@@ -1884,15 +1911,6 @@ function typeOrLikeExpr($, addition) {
         // alias($._component_field_access, $.component_access),
       ))
     ),
-  );
-}
-
-
-function binary_expr($, ...ops) {
-  return seq(
-    field("left", $.general_expression),
-    field("operator", ops.length === 1 ? ops[0] : choice(...ops)),
-    field("right", $.general_expression),
   );
 }
 
