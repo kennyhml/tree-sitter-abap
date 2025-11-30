@@ -1,0 +1,43 @@
+=======
+Literal Strings
+=======
+`Literal String`.
+'Literal char*'.
+---
+(source
+    (literal_string)
+    (literal_string))
+=======
+Template Strings without embeds
+=======
+|Template String without embedded expresion|
+---
+(source
+    (string_template))
+=======
+Template strings with embed
+=======
+|Template String with { 1 } embedded expresion|
+---
+(source
+    (string_template
+        (embedded_expression
+            (number))))
+=======
+String concatenation
+=======
+`ABAP` && `is` && 'a' && gc_programming && cls=>language( ).
+---
+(source
+    (string_operator
+        (string_operator
+            (string_operator
+                (string_operator
+                    (literal_string)
+                    (literal_string))
+                (literal_string))
+            (identifier))
+        (method_call
+            (identifier)
+            (identifier)
+            (call_arguments))))
