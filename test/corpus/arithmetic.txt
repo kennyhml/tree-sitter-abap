@@ -62,6 +62,16 @@ Division Precendence
             (number)
             (number))))
 ==================
+Parenthesized Expression
+==================
+(10 + 10)
+---
+(source
+    (parenthesized_expression
+        (binary_operator
+            (number)
+            (number))))
+==================
 Parenthesized Precendence
 ==================
 (10 + 20) / 20

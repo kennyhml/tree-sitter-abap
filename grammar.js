@@ -266,6 +266,7 @@ module.exports = grammar({
     arithmetic_expression: $ => choice(
       $.binary_operator,
       $.unary_operator,
+      $.parenthesized_expression
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
@@ -293,15 +294,15 @@ module.exports = grammar({
       ];
 
       return choice(...table.map(([fn, op, prec]) => fn(prec, seq(
-        field('left', choice($.general_expression, $.parenthesized_expression)),
+        field('left', $.general_expression),
         field('operator', op),
-        field('right', choice($.general_expression, $.parenthesized_expression)),
+        field('right', $.general_expression),
       ))));
     },
 
     unary_operator: $ => prec(PREC.unary, seq(
       field("operator", choice("+", "-")),
-      field("value", choice($.general_expression, $.parenthesized_expression))
+      field("value", $.general_expression)
     )),
 
     /**
