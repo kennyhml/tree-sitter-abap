@@ -41,3 +41,12 @@ String concatenation
             (identifier)
             (identifier)
             (call_arguments))))
+=======
+Double Quote in template string
+=======
+|"{ 200 } 321txeT;|.
+---
+(source
+    (string_template
+        (embedded_expression
+            (number))))
