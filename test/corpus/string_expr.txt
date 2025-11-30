@@ -2,9 +2,15 @@
 Literal Strings
 =======
 `Literal String`.
-'Literal char*'.
+'Literal char'.
+`##`.
+'##'.
+`"foo`.
 ---
 (source
+    (literal_string)
+    (literal_string)
+    (literal_string)
     (literal_string)
     (literal_string))
 =======
@@ -42,11 +48,15 @@ String concatenation
             (identifier)
             (call_arguments))))
 =======
-Template string with double quotes
+Template string with extra prefixes
 =======
 |"{ 200 }" 321txeT;|.
+|##{ 200 }" 321txeT;|.
 ---
 (source
+    (string_template
+        (embedded_expression
+            (number)))
     (string_template
         (embedded_expression
             (number))))
