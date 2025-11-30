@@ -17,12 +17,19 @@ const IDENTIFIER_REGEX = /<?[a-zA-Z_\/][a-zA-Z\d_/]*>?/;
 // Allow a single plus or minus before the number literal
 const NUMBER_REGEX = /(\+|-)?\d+/;
 
+/**
+ * Arithmetic: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
+ */
 const PREC = {
-  parenthesized_expression: 1,
-  plus: 18,
-  times: 19,
-  unary: 20,
-  power: 21,
+  plus: 1,
+  minus: 1,
+  times: 2,
+  division: 2,
+  floor_div: 2,
+  modulo: 2,
+  power: 3,
+  unary: 4,
+  parenthesized_expression: 5,
 };
 
 /// <reference types="tree-sitter-cli/dsl" />
@@ -97,6 +104,7 @@ module.exports = grammar({
     $.general_expression,
     $.writable_expression,
     $.arithmetic_expression,
+    $.string_expression,
     $.itab_line,
     $.itab_comp,
     $.numeric_expression,
@@ -196,7 +204,6 @@ module.exports = grammar({
       $.identifier,
       $.number,
       $.literal_string,
-      $.string_template,
       $.data_component_selector,
     ),
 
@@ -207,7 +214,8 @@ module.exports = grammar({
       $.builtin_function_call,
       $.method_call,
       $.table_expression,
-      $.arithmetic_expression
+      $.arithmetic_expression,
+      $.string_expression
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
@@ -260,6 +268,19 @@ module.exports = grammar({
       $.unary_operator,
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
+    string_expression: $ => choice(
+      $.string_template,
+      $.string_operator
+    ),
+
+    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
+    relational_expression: $ => choice(
+      $.comparison_expression,
+      $.predicate_expression
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
     binary_operator: $ => {
       const table = [
         [prec.left, '+', PREC.plus],
@@ -283,19 +304,24 @@ module.exports = grammar({
       field("value", choice($.general_expression, $.parenthesized_expression))
     )),
 
-    // In ABAP, parenthesized expressions are only possible in arithmetic expressions.
-    // They cannot just be arbitrarily added into the source code like in modern languages.
+    /**
+     * In ABAP, parentheses cant just arbitrarly be added anywhere like in most modern languages.
+     * They can, however, be used in arithmetic expressions to control precendence.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
+     */
     parenthesized_expression: $ => prec(PREC.parenthesized_expression, seq(
       '(',
       choice($.arithmetic_expression),
       ')',
     )),
 
-    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
-    relational_expression: $ => choice(
-      $.comparison_expression,
-      $.predicate_expression
-    ),
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_OPERATORS.html
+    string_operator: $ => prec.left(seq(
+      field("left", $.general_expression),
+      field("operator", "&&"), // only possible operator right now.
+      field("right", $.general_expression)
+    )),
 
     /**
      * Comparison of two or more operands represented as {@link general_expression}.
