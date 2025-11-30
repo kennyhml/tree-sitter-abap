@@ -1673,7 +1673,8 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES_EXPRESSIONS.html
     string_template: $ => seq(
-      "|",
+      // Must allow " directly after the pipe, otherwise the inline comment rule strikes..
+      /[|](["]*)/,
       repeat(
         choice(
           // Allow { and } inside the literal chunks when escaped
