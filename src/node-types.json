@@ -218,6 +218,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "arithmetic_expression",
+        "named": true
+      },
+      {
         "type": "builtin_function_call",
         "named": true
       },
@@ -249,6 +253,16 @@
       },
       {
         "type": "predicate_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "writable_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "table_expression",
         "named": true
       }
     ]
@@ -980,10 +994,6 @@
         "types": [
           {
             "type": "general_expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -3422,6 +3432,10 @@
           {
             "type": "method_call",
             "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
           }
         ]
       }
@@ -3942,11 +3956,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "writable_expression",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "!",

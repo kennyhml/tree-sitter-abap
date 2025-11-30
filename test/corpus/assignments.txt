@@ -1,0 +1,42 @@
+==================
+Assign to table expression
+==================
+itab[ 0 ] = 'New value'.
+itab[ field = 'AAA'  ]-value = 10.
+---
+(source
+    (assignment
+        (table_expression
+            (identifier)
+            (index_read
+                (number)))
+        (literal_string))
+    (assignment
+        (struct_component_selector
+            (table_expression
+                (identifier)
+                (search_key_read
+                    (search_key_components
+                        (itab_comp_spec
+                            (static_itab_comp
+                            (identifier))
+                            (literal_string)))))
+                (static_component
+                    (identifier)))
+        (number)))
+==================
+Assign to new expression
+==================
+new #( field = 10 )->attr = 'AAA'.
+---
+(source
+    (assignment
+        (object_component_selector
+            (new_expression
+                (argument_list
+                    (named_argument
+                        (identifier)
+                        (number))))
+            (static_component
+                (identifier)))
+        (literal_string)))
