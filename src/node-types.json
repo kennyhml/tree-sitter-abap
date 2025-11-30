@@ -76,6 +76,10 @@
         "named": true
       },
       {
+        "type": "parenthesized_expression",
+        "named": true
+      },
+      {
         "type": "unary_operator",
         "named": true
       }
@@ -470,10 +474,6 @@
           {
             "type": "general_expression",
             "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
           }
         ]
       },
@@ -517,10 +517,6 @@
         "types": [
           {
             "type": "general_expression",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
             "named": true
           }
         ]
@@ -3970,10 +3966,6 @@
         "types": [
           {
             "type": "general_expression",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
             "named": true
           }
         ]
