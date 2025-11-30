@@ -7333,6 +7333,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }
@@ -7399,6 +7403,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }
@@ -7701,6 +7709,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }
@@ -7751,6 +7763,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }
@@ -7932,6 +7948,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }
@@ -7982,6 +8002,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }
@@ -8108,6 +8132,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }
@@ -8166,6 +8194,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_component_selector"
                         }
                       ]
                     }

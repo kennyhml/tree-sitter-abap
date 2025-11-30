@@ -3062,6 +3062,10 @@
         "required": false,
         "types": [
           {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -3081,6 +3085,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -3114,6 +3122,10 @@
         "required": false,
         "types": [
           {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -3123,6 +3135,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -3140,6 +3156,10 @@
         "required": false,
         "types": [
           {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -3149,6 +3169,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -3762,6 +3786,10 @@
         "required": false,
         "types": [
           {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -3807,6 +3835,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
