@@ -197,8 +197,8 @@ module.exports = grammar({
       $.constructor_expression,
       $.builtin_function_call,
       $.method_call,
-      $.table_expression
-      // TODO: arithmetic expressions
+      $.table_expression,
+      $.arithmetic_expression
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
@@ -245,6 +245,28 @@ module.exports = grammar({
         $.logical_expression
       ))
     )),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_ARITH.html
+    arithmetic_expression: $ => choice(
+      // parenthesized expression always highest precendence
+      prec(4, seq("(", $.arithmetic_expression, ")")),
+
+      // unary expression
+      $.unary_expression,
+
+      // binary expressions
+      prec.right(3, binary_expr($, "**")),
+      prec.left(2, binary_expr($, "*", "/", ...kws("div", "mod"))),
+      prec.left(1, binary_expr($, "+", "-")),
+    ),
+
+    unary_expression: $ => prec.right(5, seq(
+      field("operator", choice("+", "-")),
+      field("value", $.general_expression)
+    )),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
+    _arithmetic_operator: _ => choice(...kws("DIV", "MOD"), "+", "-", "*", "/", "**"),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
     relational_expression: $ => choice(
@@ -486,6 +508,7 @@ module.exports = grammar({
       "byte-co", "byte-cn", "byte-ca", "byte-na", "byte-cs", "byte-ns",
       "o", "z", "m"
     )),
+
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
@@ -1866,6 +1889,15 @@ function typeOrLikeExpr($, addition) {
         // alias($._component_field_access, $.component_access),
       ))
     ),
+  );
+}
+
+
+function binary_expr($, ...ops) {
+  return seq(
+    field("left", $.general_expression),
+    field("operator", ops.length === 1 ? ops[0] : choice(...ops)),
+    field("right", $.general_expression),
   );
 }
 

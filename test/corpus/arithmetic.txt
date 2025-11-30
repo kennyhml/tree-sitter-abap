@@ -1,0 +1,76 @@
+==================
+Binary expression
+==================
+10 + 10.
+10 - 10.
+10 * 10.
+10 / 10.
+10 MOD 10.
+10 DIV 10.
+10 ** 10.
+---
+(source
+    (arithmetic_expression
+        (number)
+        (number))
+    (arithmetic_expression
+        (number)
+        (number))
+    (arithmetic_expression
+        (number)
+        (number))
+    (arithmetic_expression
+        (number)
+        (number))
+    (arithmetic_expression
+        (number)
+        (number))
+    (arithmetic_expression
+        (number)
+        (number))
+    (arithmetic_expression
+        (number)
+        (number)))
+==================
+Unary expression
+==================
+-lv_count.
+---
+(source
+    (arithmetic_expression
+        (unary_expression
+            (identifier))))
+==================
+Multiplicative Precedence
+==================
+10 + 20 * 20
+---
+(source
+    (arithmetic_expression
+        (number)
+        (arithmetic_expression
+            (number)
+            (number))))
+==================
+Division Precendence
+==================
+10 + 20 / 20
+---
+(source
+    (arithmetic_expression
+        (number)
+        (arithmetic_expression
+            (number)
+            (number))))
+==================
+Parenthesized Precendence
+==================
+(10 + 20) / 20
+---
+(source
+    (arithmetic_expression
+        (arithmetic_expression
+            (arithmetic_expression
+            (number)
+            (number)))
+        (number)))
