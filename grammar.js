@@ -188,7 +188,6 @@ module.exports = grammar({
       $.literal_string,
       $.string_template,
       $.data_component_selector,
-      // Explicit text symbols? https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENTEXT_SYMBOLS.html
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
@@ -207,8 +206,8 @@ module.exports = grammar({
       $.constructor_expression,
       $.builtin_function_call,
       $.method_call,
-      $.table_expression
-      // TODO: arithmetic expressions
+      $.table_expression,
+      $.arithmetic_expression
     ),
 
     /**
@@ -217,8 +216,8 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html
      */
     writable_expression: $ => choice(
-      // TODO: Table expressions
-      // TODO: NEW/CAST expressions
+      $.table_expression,
+      $.new_expression
     ),
 
     /**
@@ -265,9 +264,6 @@ module.exports = grammar({
       field("value", $.general_expression)
     )),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
-    _arithmetic_operator: _ => choice(...kws("DIV", "MOD"), "+", "-", "*", "/", "**"),
-
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
     relational_expression: $ => choice(
       $.comparison_expression,
@@ -287,9 +283,8 @@ module.exports = grammar({
         seq(
           optional(kw("not")),
           kw("in"),
-          //FIXME: Anything that can evaluate into a range table
           field("right", choice(
-            $.identifier,
+            $.data_object,
             $.method_call
           ))
         )
