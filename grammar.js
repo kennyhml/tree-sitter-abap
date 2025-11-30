@@ -152,6 +152,7 @@ module.exports = grammar({
       $.class_implementation,
       $.interface_definition,
       $.interface_implementation,
+      $.method_implementation
     ),
 
     _class_component: $ => choice(
@@ -1087,6 +1088,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
     class_implementation: $ => seq(
       kw("class"), field("name", $.identifier), kw("implementation"), ".",
+      repeat($.method_implementation),
       kw("endclass"), "."
     ),
 
@@ -1365,6 +1367,23 @@ module.exports = grammar({
         token.immediate(")"),
       )
     ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHOD.html
+    method_implementation: $ => seq(
+      kw("method"),
+      field("name",
+        choice(
+          $.identifier,
+          $.interface_component_selector
+        )
+      ),
+      ".",
+      optional($.method_body),
+      kw("endmethod"),
+      "."
+    ),
+
+    method_body: $ => repeat1($._statement),
 
     _visibility: _ => choice(...kws("public", "protected", "private")),
     _test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
