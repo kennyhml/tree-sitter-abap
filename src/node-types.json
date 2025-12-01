@@ -42,6 +42,10 @@
         "named": true
       },
       {
+        "type": "concatenate",
+        "named": true
+      },
+      {
         "type": "constants_declaration",
         "named": true
       },
@@ -1113,6 +1117,57 @@
     }
   },
   {
+    "type": "concat_separator_spec",
+    "named": true,
+    "fields": {
+      "sep": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "concatenate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_separator_spec",
+          "named": true
+        },
+        {
+          "type": "data_object_list",
+          "named": true
+        },
+        {
+          "type": "into_clause",
+          "named": true
+        },
+        {
+          "type": "lines_of",
+          "named": true
+        },
+        {
+          "type": "respecting_blanks",
+          "named": true
+        },
+        {
+          "type": "string_processing_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "cond_expression",
     "named": true,
     "fields": {
@@ -1274,6 +1329,21 @@
       "types": [
         {
           "type": "data_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_object_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_object",
           "named": true
         }
       ]
@@ -1961,6 +2031,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "into_clause",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3345,6 +3435,11 @@
     }
   },
   {
+    "type": "respecting_blanks",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "return_value",
     "named": true,
     "fields": {
@@ -3539,6 +3634,26 @@
           {
             "type": "general_expression",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "string_processing_spec",
+    "named": true,
+    "fields": {
+      "mode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "byte",
+            "named": false
+          },
+          {
+            "type": "character",
+            "named": false
           }
         ]
       }
@@ -4286,11 +4401,19 @@
     "named": false
   },
   {
+    "type": "blanks",
+    "named": false
+  },
+  {
     "type": "bound",
     "named": false
   },
   {
     "type": "by",
+    "named": false
+  },
+  {
+    "type": "byte",
     "named": false
   },
   {
@@ -4330,6 +4453,10 @@
     "named": false
   },
   {
+    "type": "character",
+    "named": false
+  },
+  {
     "type": "class",
     "named": false
   },
@@ -4363,6 +4490,10 @@
   },
   {
     "type": "components",
+    "named": false
+  },
+  {
+    "type": "concatenate",
     "named": false
   },
   {
@@ -4744,6 +4875,10 @@
     "named": false
   },
   {
+    "type": "mode",
+    "named": false
+  },
+  {
     "type": "multi_line_comment",
     "named": true,
     "extra": true
@@ -4782,11 +4917,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",
@@ -4877,6 +5012,10 @@
     "named": false
   },
   {
+    "type": "respecting",
+    "named": false
+  },
+  {
     "type": "resumable",
     "named": false
   },
@@ -4898,6 +5037,10 @@
   },
   {
     "type": "section",
+    "named": false
+  },
+  {
+    "type": "separated",
     "named": false
   },
   {
