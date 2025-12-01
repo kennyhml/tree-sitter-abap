@@ -142,6 +142,8 @@ module.exports = grammar({
       // Not technically legal but tolerated due to permissive philosophy:
       $.class_data_declaration,
 
+      $.concatenate,
+
       $._empty_statement,
     ),
 
@@ -823,6 +825,62 @@ module.exports = grammar({
       seq(...kws("display", "like"), field("type", $.message_type))
     ),
 
+    /**
+     * Concatenate statement to produce a string.
+     *
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html
+     */
+    concatenate: $ => seq(
+      kw("concatenate"),
+      choice(
+        $.data_object_list,
+        $.lines_of,
+      ),
+      $.into_clause,
+      optional($.string_processing_spec),
+      optional($.concat_separator_spec),
+      optional($.respecting_blanks),
+      "."
+    ),
+
+    // `... INTO <target>` part of various expressions.
+    into_clause: $ => seq(
+      kw("into"),
+      field("target", choice(
+        $.data_object,
+        $.declaration_expression
+      ))
+    ),
+
+    /**
+     * Specification of the processing mode (byte | character) for various statements.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_STATEMENTS.html
+     */
+    string_processing_spec: $ => seq(
+      kw("in"),
+      field("mode", choice(...kws("character", "byte"))),
+      kw("mode")
+    ),
+
+    /**
+     * Specification of a seperation character in {@link concatenate} statements.
+     */
+    concat_separator_spec: $ => seq(
+      ...kws("separated", "by"), field("sep", $.data_object)
+    ),
+
+    /**
+     * Specifies that a {@link concatenate} statement should respect blanks.
+     */
+    respecting_blanks: $ => seq(
+      ...kws("respecting", "blanks")
+    ),
+
+    /**
+     * A list of {@link data_object} for various expressions.
+     */
+    data_object_list: $ => repeat1($.data_object),
 
     _constructor_result: $ => choice(
       "#", // inferred
