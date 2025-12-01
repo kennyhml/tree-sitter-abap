@@ -46,6 +46,10 @@
         "named": true
       },
       {
+        "type": "condense",
+        "named": true
+      },
+      {
         "type": "constants_declaration",
         "named": true
       },
@@ -1196,6 +1200,32 @@
         },
         {
           "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "condense",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "no_gaps",
           "named": true
         }
       ]
@@ -4501,6 +4531,10 @@
     "named": false
   },
   {
+    "type": "condense",
+    "named": false
+  },
+  {
     "type": "constants",
     "named": false
   },
@@ -4898,6 +4932,10 @@
   {
     "type": "no",
     "named": false
+  },
+  {
+    "type": "no_gaps",
+    "named": true
   },
   {
     "type": "non-unique",
