@@ -79,8 +79,8 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
             (literal_string)
             (struct_component_selector
                 (identifier)
-            (static_component
-              (identifier)))
+                (static_component
+                (identifier)))
             (object_component_selector
                 (identifier)
                 (static_component
@@ -127,3 +127,35 @@ CONCATENATE LINES OF itab INTO result RESPECTING BLANKS.
         (into_clause
             (identifier))
         (respecting_blanks)))
+======
+Condense with gaps
+======
+CONDENSE text.
+CONDENSE 'aaaaaa'.
+CONDENSE foo-bar.
+CONDENSE obj->attr.
+---
+(source
+    (condense
+        (identifier))
+    (condense
+        (literal_string))
+    (condense
+        (struct_component_selector
+            (identifier)
+            (static_component
+            (identifier))))
+    (condense
+        (object_component_selector
+            (identifier)
+            (static_component
+                (identifier)))))
+======
+Condense without gaps
+======
+CONDENSE text no-gaps.
+---
+(source
+    (condense
+        (identifier)
+        (no_gaps)))

@@ -72,6 +72,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "condense"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_empty_statement"
         }
       ]
@@ -6657,6 +6661,54 @@
             {
               "type": "SYMBOL",
               "name": "respecting_blanks"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "condense": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][oO][nN][dD][eE][nN][sS][eE]"
+          },
+          "named": false,
+          "value": "condense"
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[nN][oO]-[gG][aA][pP][sS]"
+                },
+                "named": false,
+                "value": "no-gaps"
+              },
+              "named": true,
+              "value": "no_gaps"
             },
             {
               "type": "BLANK"

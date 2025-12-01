@@ -143,6 +143,7 @@ module.exports = grammar({
       $.class_data_declaration,
 
       $.concatenate,
+      $.condense,
 
       $._empty_statement,
     ),
@@ -843,13 +844,25 @@ module.exports = grammar({
       "."
     ),
 
+    /**
+     * Condensese statement to produce a string with whitespaces removed.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONDENSE.html
+     */
+    condense: $ => seq(
+      kw("condense"),
+      field("text", $.data_object),
+      optional(alias(kw("no-gaps"), $.no_gaps)),
+      "."
+    ),
+
     // `... INTO <target>` part of various expressions.
     into_clause: $ => seq(
       kw("into"),
       field("target", choice(
         $.data_object,
         $.declaration_expression
-      ))
+      )),
     ),
 
     /**
