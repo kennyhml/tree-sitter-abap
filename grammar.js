@@ -113,6 +113,8 @@ module.exports = grammar({
     $.data_object,
     $._simple_statement,
     $._compound_statement,
+    $.pattern,
+    $.replace
   ],
 
   word: $ => $.identifier,
@@ -144,6 +146,7 @@ module.exports = grammar({
 
       $.concatenate,
       $.condense,
+      $.replace,
 
       $._empty_statement,
     ),
@@ -826,11 +829,7 @@ module.exports = grammar({
       seq(...kws("display", "like"), field("type", $.message_type))
     ),
 
-    /**
-     * Concatenate statement to produce a string.
-     *
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html
-     */
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html
     concatenate: $ => seq(
       kw("concatenate"),
       choice(
@@ -839,21 +838,50 @@ module.exports = grammar({
       ),
       $.into_clause,
       optional($.string_processing_spec),
-      optional($.concat_separator_spec),
+      optional($.separator_spec),
       optional($.respecting_blanks),
       "."
     ),
 
-    /**
-     * Condensese statement to produce a string with whitespaces removed.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONDENSE.html
-     */
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONDENSE.html
     condense: $ => seq(
       kw("condense"),
       field("text", $.data_object),
       optional(alias(kw("no-gaps"), $.no_gaps)),
       "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSPLIT.html
+    split: $ => seq(),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE.html
+    replace: $ => choice(
+      $.pattern_based_replacement,
+      $.position_based_replacement
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_IN_PATTERN.html
+    pattern_based_replacement: $ => seq(
+      kw("replace"),
+      optional($.occurrence_spec),
+      $.pattern,
+      kw("in"),
+      optional($.section),
+      field("dobj", $.identifier),
+      kw("with"),
+      field("new", $.data_object),
+      optional($.string_processing_spec),
+      optional($.replace_options)
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_IN_POSITION.html
+    position_based_replacement: $ => seq(
+      kw("replace"),
+      optional($.section),
+      field("dobj", $.identifier),
+      kw("with"),
+      field("new", $.data_object),
+      optional($.string_processing_spec)
     ),
 
     // `... INTO <target>` part of various expressions.
@@ -870,17 +898,95 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_STATEMENTS.html
      */
-    string_processing_spec: $ => seq(
+    string_processing_spec: _ => seq(
       kw("in"),
       field("mode", choice(...kws("character", "byte"))),
       kw("mode")
     ),
 
+    // Specification of a separator character in various statements.
+    separator_spec: $ => seq(
+      choice(
+        ...kws("seperated", "by"),
+        kw("at")
+      ),
+      field("sep", $.data_object)
+    ),
+
     /**
-     * Specification of a seperation character in {@link concatenate} statements.
+     * Specifies occurrences in a {@link replace} statement.
      */
-    concat_separator_spec: $ => seq(
-      ...kws("separated", "by"), field("sep", $.data_object)
+    occurrence_spec: _ => seq(
+      choice(
+        seq(...kws("first", "occurrence")),
+        seq(...kws("all", "occurrences")),
+      ),
+      kw("of")
+    ),
+
+    /**
+     * Specifies a pattern to replace for a {@link replace} statement.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_PATTERN.html
+     */
+    pattern: $ => choice(
+      $.substring_spec,
+      $.pcre_spec,
+      $.regex_spec
+    ),
+
+    substring_spec: $ => seq(optional(kw("substring")), field("value", $.data_object)),
+    pcre_spec: $ => seq(kw("pcre"), field("value", $.data_object)),
+    regex_spec: $ => seq(kw("regex"), field("value", $.data_object)),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_OPTIONS.html
+    // FIXME: Since the individual options are reused in multiple statements, they should be rules.
+    replace_options: $ => repeat1(
+      choice(
+        kw("verbatim"),
+        seq(choice(...kws("respecting", "ignoring")), kw("case")),
+        seq(
+          ...kws("replacement", "count"),
+          field("rcnt", choice(
+            $.data_object,
+            $.declaration_expression)
+          )
+        ),
+        seq(
+          ...kws("replacement", "offset"),
+          field("roff", choice(
+            $.data_object,
+            $.declaration_expression)
+          )
+        ),
+        seq(
+          ...kws("replacement", "length"),
+          field("rlen", choice(
+            $.data_object,
+            $.declaration_expression)
+          )
+        ),
+        seq(
+          kw("results"),
+          field("result", $.declaration_expression)
+        ),
+      )
+    ),
+
+    /**
+     * Section specification used in various string processing statements.
+     *
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND_SECTION_OF.html
+     */
+    section: $ => seq(
+      kw("section"),
+      repeat(
+        choice(
+          seq(kw("offset"), field("off", $.numeric_expression)),
+          seq(kw("length"), field("len", $.numeric_expression)),
+        )
+      ),
+      kw("of")
     ),
 
     /**
