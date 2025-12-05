@@ -4,8 +4,9 @@
 Tree-sitter performs **incremental parsing**, making it ideal for working with large or legacy ABAP codebases that often span thousands of lines in a single report. The resulting 
 parser is compiled to **native C**, enabling significantly better performance than typical regex-based parsers (such as TextMate).
 
-The syntactical structure adheres closely to the conventions provided in the publicly available documentation.
-If you think you know most of the ABAP syntax, try writing a parser. Certainly a humbling (but surprisingly educational) experience.
+The syntactical structure adheres closely to the conventions provided in the publicly available documentation. Certain inconsistencies exist for the sake
+of better integrating with tree-sitters grammar system as well as being more permissive. If you think you know most of the ABAP syntax, try writing a parser. 
+Certainly a humbling (but surprisingly educational) experience.
 
 > [!NOTE]  
 > This grammar is designed to parse a **superset** of valid ABAP syntax. Its goal is to produce a concrete syntax tree (CST) suitable 
