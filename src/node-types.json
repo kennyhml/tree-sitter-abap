@@ -66,6 +66,10 @@
         "named": true
       },
       {
+        "type": "find",
+        "named": true
+      },
+      {
         "type": "local_friends_spec",
         "named": true
       },
@@ -1786,6 +1790,79 @@
     }
   },
   {
+    "type": "find",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "find_options",
+          "named": true
+        },
+        {
+          "type": "occurrence_spec",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        },
+        {
+          "type": "string_processing_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "find_options",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "case_sensitivity_spec",
+          "named": true
+        },
+        {
+          "type": "operation_count_spec",
+          "named": true
+        },
+        {
+          "type": "operation_length_spec",
+          "named": true
+        },
+        {
+          "type": "operation_offset_spec",
+          "named": true
+        },
+        {
+          "type": "operation_results_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "for_testing_spec",
     "named": true,
     "fields": {
@@ -2955,6 +3032,86 @@
     "fields": {}
   },
   {
+    "type": "operation_count_spec",
+    "named": true,
+    "fields": {
+      "cnt": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "operation_length_spec",
+    "named": true,
+    "fields": {
+      "len": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "operation_offset_spec",
+    "named": true,
+    "fields": {
+      "off": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "operation_results_spec",
+    "named": true,
+    "fields": {
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "parameter",
     "named": true,
     "fields": {
@@ -3580,19 +3737,19 @@
           "named": true
         },
         {
-          "type": "replacement_count_spec",
+          "type": "operation_count_spec",
           "named": true
         },
         {
-          "type": "replacement_length_spec",
+          "type": "operation_length_spec",
           "named": true
         },
         {
-          "type": "replacement_offset_spec",
+          "type": "operation_offset_spec",
           "named": true
         },
         {
-          "type": "replacement_results_spec",
+          "type": "operation_results_spec",
           "named": true
         },
         {
@@ -3600,86 +3757,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "replacement_count_spec",
-    "named": true,
-    "fields": {
-      "rcnt": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "replacement_length_spec",
-    "named": true,
-    "fields": {
-      "rlen": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "replacement_offset_spec",
-    "named": true,
-    "fields": {
-      "roff": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "replacement_results_spec",
-    "named": true,
-    "fields": {
-      "result": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -5043,6 +5120,10 @@
     "named": false
   },
   {
+    "type": "find",
+    "named": false
+  },
+  {
     "type": "first",
     "named": false
   },
@@ -5244,6 +5325,10 @@
     "named": false
   },
   {
+    "type": "match",
+    "named": false
+  },
+  {
     "type": "medium",
     "named": false
   },
@@ -5326,11 +5411,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",

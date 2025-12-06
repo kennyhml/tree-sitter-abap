@@ -150,13 +150,13 @@ REPLACE ALL OCCURRENCES OF 'know' IN
         (identifier)
         (literal_string)
         (replace_options
-            (replacement_count_spec
+            (operation_count_spec
                 (declaration_expression
                     (identifier)))
-            (replacement_offset_spec
+            (operation_offset_spec
                 (declaration_expression
                     (identifier)))
-            (replacement_length_spec
+            (operation_length_spec
                 (declaration_expression
                     (identifier))))))
 ========
@@ -175,6 +175,6 @@ REPLACE ALL OCCURRENCES OF `d` IN str WITH 't'
         (literal_string)
         (replace_options
             (case_sensitivity_spec)
-            (replacement_results_spec
+            (operation_results_spec
                 (declaration_expression
                     (identifier))))))
