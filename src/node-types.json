@@ -773,6 +773,26 @@
     }
   },
   {
+    "type": "case_sensitivity_spec",
+    "named": true,
+    "fields": {
+      "case": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ignoring",
+            "named": false
+          },
+          {
+            "type": "respecting",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "cds_function_impl",
     "named": true,
     "fields": {
@@ -3550,10 +3570,45 @@
   {
     "type": "replace_options",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "case_sensitivity_spec",
+          "named": true
+        },
+        {
+          "type": "replacement_count_spec",
+          "named": true
+        },
+        {
+          "type": "replacement_length_spec",
+          "named": true
+        },
+        {
+          "type": "replacement_offset_spec",
+          "named": true
+        },
+        {
+          "type": "replacement_results_spec",
+          "named": true
+        },
+        {
+          "type": "verbatim",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "replacement_count_spec",
+    "named": true,
     "fields": {
       "rcnt": {
-        "multiple": true,
-        "required": false,
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "data_object",
@@ -3564,20 +3619,16 @@
             "named": true
           }
         ]
-      },
-      "result": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      },
+      }
+    }
+  },
+  {
+    "type": "replacement_length_spec",
+    "named": true,
+    "fields": {
       "rlen": {
-        "multiple": true,
-        "required": false,
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "data_object",
@@ -3588,10 +3639,36 @@
             "named": true
           }
         ]
-      },
+      }
+    }
+  },
+  {
+    "type": "replacement_offset_spec",
+    "named": true,
+    "fields": {
       "roff": {
-        "multiple": true,
-        "required": false,
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "replacement_results_spec",
+    "named": true,
+    "fields": {
+      "result": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "data_object",
@@ -4536,6 +4613,11 @@
     }
   },
   {
+    "type": "verbatim",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -5244,11 +5326,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "o",
@@ -5399,7 +5481,7 @@
     "named": false
   },
   {
-    "type": "seperated",
+    "type": "separated",
     "named": false
   },
   {
