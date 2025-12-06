@@ -907,7 +907,7 @@ module.exports = grammar({
     // Specification of a separator character in various statements.
     separator_spec: $ => seq(
       choice(
-        ...kws("seperated", "by"),
+        seq(...kws("separated", "by")),
         kw("at")
       ),
       field("sep", $.data_object)
@@ -940,37 +940,77 @@ module.exports = grammar({
     regex_spec: $ => seq(kw("regex"), field("value", $.data_object)),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_OPTIONS.html
-    // FIXME: Since the individual options are reused in multiple statements, they should be rules.
     replace_options: $ => repeat1(
       choice(
-        kw("verbatim"),
-        seq(choice(...kws("respecting", "ignoring")), kw("case")),
-        seq(
-          ...kws("replacement", "count"),
-          field("rcnt", choice(
-            $.data_object,
-            $.declaration_expression)
-          )
-        ),
-        seq(
-          ...kws("replacement", "offset"),
-          field("roff", choice(
-            $.data_object,
-            $.declaration_expression)
-          )
-        ),
-        seq(
-          ...kws("replacement", "length"),
-          field("rlen", choice(
-            $.data_object,
-            $.declaration_expression)
-          )
-        ),
-        seq(
-          kw("results"),
-          field("result", $.declaration_expression)
-        ),
+        $.verbatim,
+        $.case_sensitivity_spec,
+        $.replacement_count_spec,
+        $.replacement_offset_spec,
+        $.replacement_length_spec,
+        $.replacement_results_spec
       )
+    ),
+
+    /**
+     * Specification of a case sensitivity in various string operations.
+     * 
+     * `RESPECTING/IGNORING CASE`
+     */
+    case_sensitivity_spec: _ => seq(
+      field("case", choice(...kws("respecting", "ignoring"))),
+      kw("case")
+    ),
+
+    /**
+     * Specification of replacement count result variable in various string operations.
+     * 
+     * `REPLACEMENT COUNT rcnt`
+     */
+    replacement_count_spec: $ => seq(
+      ...kws("replacement", "count"),
+      field("rcnt", choice(
+        $.data_object,
+        $.declaration_expression
+      ))
+    ),
+
+    /**
+     * Specification of replacement offset result variable in various string operations.
+     * 
+     * `REPLACEMENT OFFSET roff`
+     */
+    replacement_offset_spec: $ => seq(
+      ...kws("replacement", "offset"),
+      field("roff", choice(
+        $.data_object,
+        $.declaration_expression
+      ))
+    ),
+
+    /**
+     * Specification of replacement length result variable in various string operations.
+     * 
+     * `REPLACEMENT LENGTH rlen`
+     */
+    replacement_length_spec: $ => seq(
+      ...kws("replacement", "length"),
+      field("rlen", choice(
+        $.data_object,
+        $.declaration_expression
+      ))
+    ),
+
+    /**
+     * Specifies a target variable to safe the individual replacement operations to.
+     * 
+     * RESULTS result_tab|result_wa
+     */
+    replacement_results_spec: $ => seq(
+      kw("results"),
+      field("result", choice(
+        $.data_object,
+        $.declaration_expression
+      ))
     ),
 
     /**
@@ -988,6 +1028,8 @@ module.exports = grammar({
       ),
       kw("of")
     ),
+
+    verbatim: _ => kw("verbatim"),
 
     /**
      * Specifies that a {@link concatenate} statement should respect blanks.

@@ -6993,22 +6993,27 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": "[sS][eE][pP][eE][rR][aA][tT][eE][dD]"
-              },
-              "named": false,
-              "value": "seperated"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": "[bB][yY]"
-              },
-              "named": false,
-              "value": "by"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[sS][eE][pP][aA][rR][aA][tT][eE][dD]"
+                  },
+                  "named": false,
+                  "value": "separated"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[bB][yY]"
+                  },
+                  "named": false,
+                  "value": "by"
+                }
+              ]
             },
             {
               "type": "ALIAS",
@@ -7193,195 +7198,223 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[vV][eE][rR][bB][aA][tT][iI][mM]"
-            },
-            "named": false,
-            "value": "verbatim"
+            "type": "SYMBOL",
+            "name": "verbatim"
           },
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[rR][eE][sS][pP][eE][cC][tT][iI][nN][gG]"
-                    },
-                    "named": false,
-                    "value": "respecting"
-                  },
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[iI][gG][nN][oO][rR][iI][nN][gG]"
-                    },
-                    "named": false,
-                    "value": "ignoring"
-                  }
-                ]
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[cC][aA][sS][eE]"
-                },
-                "named": false,
-                "value": "case"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "case_sensitivity_spec"
           },
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[rR][eE][pP][lL][aA][cC][eE][mM][eE][nN][tT]"
-                },
-                "named": false,
-                "value": "replacement"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[cC][oO][uU][nN][tT]"
-                },
-                "named": false,
-                "value": "count"
-              },
-              {
-                "type": "FIELD",
-                "name": "rcnt",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "data_object"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "declaration_expression"
-                    }
-                  ]
-                }
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "replacement_count_spec"
           },
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[rR][eE][pP][lL][aA][cC][eE][mM][eE][nN][tT]"
-                },
-                "named": false,
-                "value": "replacement"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[oO][fF][fF][sS][eE][tT]"
-                },
-                "named": false,
-                "value": "offset"
-              },
-              {
-                "type": "FIELD",
-                "name": "roff",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "data_object"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "declaration_expression"
-                    }
-                  ]
-                }
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "replacement_offset_spec"
           },
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[rR][eE][pP][lL][aA][cC][eE][mM][eE][nN][tT]"
-                },
-                "named": false,
-                "value": "replacement"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[lL][eE][nN][gG][tT][hH]"
-                },
-                "named": false,
-                "value": "length"
-              },
-              {
-                "type": "FIELD",
-                "name": "rlen",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "data_object"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "declaration_expression"
-                    }
-                  ]
-                }
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "replacement_length_spec"
           },
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[rR][eE][sS][uU][lL][tT][sS]"
-                },
-                "named": false,
-                "value": "results"
-              },
-              {
-                "type": "FIELD",
-                "name": "result",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "declaration_expression"
-                }
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "replacement_results_spec"
           }
         ]
       }
+    },
+    "case_sensitivity_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "case",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[rR][eE][sS][pP][eE][cC][tT][iI][nN][gG]"
+                },
+                "named": false,
+                "value": "respecting"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[iI][gG][nN][oO][rR][iI][nN][gG]"
+                },
+                "named": false,
+                "value": "ignoring"
+              }
+            ]
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][aA][sS][eE]"
+          },
+          "named": false,
+          "value": "case"
+        }
+      ]
+    },
+    "replacement_count_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][pP][lL][aA][cC][eE][mM][eE][nN][tT]"
+          },
+          "named": false,
+          "value": "replacement"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][oO][uU][nN][tT]"
+          },
+          "named": false,
+          "value": "count"
+        },
+        {
+          "type": "FIELD",
+          "name": "rcnt",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "data_object"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "declaration_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "replacement_offset_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][pP][lL][aA][cC][eE][mM][eE][nN][tT]"
+          },
+          "named": false,
+          "value": "replacement"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][fF][fF][sS][eE][tT]"
+          },
+          "named": false,
+          "value": "offset"
+        },
+        {
+          "type": "FIELD",
+          "name": "roff",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "data_object"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "declaration_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "replacement_length_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][pP][lL][aA][cC][eE][mM][eE][nN][tT]"
+          },
+          "named": false,
+          "value": "replacement"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][eE][nN][gG][tT][hH]"
+          },
+          "named": false,
+          "value": "length"
+        },
+        {
+          "type": "FIELD",
+          "name": "rlen",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "data_object"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "declaration_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "replacement_results_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][sS][uU][lL][tT][sS]"
+          },
+          "named": false,
+          "value": "results"
+        },
+        {
+          "type": "FIELD",
+          "name": "result",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "data_object"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "declaration_expression"
+              }
+            ]
+          }
+        }
+      ]
     },
     "section": {
       "type": "SEQ",
@@ -7457,6 +7490,15 @@
           "value": "of"
         }
       ]
+    },
+    "verbatim": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[vV][eE][rR][bB][aA][tT][iI][mM]"
+      },
+      "named": false,
+      "value": "verbatim"
     },
     "respecting_blanks": {
       "type": "SEQ",

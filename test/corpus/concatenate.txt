@@ -1,0 +1,60 @@
+======
+Simple concatenate statement
+======
+CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str). 
+---
+(source
+    (concatenate
+        (data_object_list
+            (identifier)
+            (literal_string)
+            (struct_component_selector
+                (identifier)
+                (static_component
+                (identifier)))
+            (object_component_selector
+                (identifier)
+                (static_component
+                    (identifier))))
+        (into_clause
+            (declaration_expression
+                (identifier)))))
+======
+Concatenate table lines
+======
+CONCATENATE LINES OF itab INTO FINAL(xstr).
+---
+(source
+    (concatenate
+        (lines_of
+            (identifier))
+        (into_clause
+            (declaration_expression
+                (identifier)))))
+======
+Concatenate with separator
+======
+CONCATENATE t1 t2 t3 INTO result SEPARATED BY space.
+---
+(source
+    (concatenate
+        (data_object_list
+            (identifier)
+            (identifier)
+            (identifier))
+        (into_clause
+            (identifier))
+        (separator_spec
+            (identifier))))
+======
+Concatenate with blanks
+======
+CONCATENATE LINES OF itab INTO result RESPECTING BLANKS.
+---
+(source
+    (concatenate
+        (lines_of
+            (identifier))
+        (into_clause
+            (identifier))
+        (respecting_blanks)))
