@@ -1858,6 +1858,10 @@
         {
           "type": "operation_results_spec",
           "named": true
+        },
+        {
+          "type": "submatches_spec",
+          "named": true
         }
       ]
     }
@@ -4194,6 +4198,25 @@
     }
   },
   {
+    "type": "submatches_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_object",
+          "named": true
+        },
+        {
+          "type": "declaration_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "substring_spec",
     "named": true,
     "fields": {
@@ -5411,11 +5434,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "o",
@@ -5603,6 +5626,10 @@
   },
   {
     "type": "structure",
+    "named": false
+  },
+  {
+    "type": "submatches",
     "named": false
   },
   {

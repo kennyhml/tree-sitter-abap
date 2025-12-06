@@ -971,10 +971,10 @@ module.exports = grammar({
         $.operation_count_spec,
         $.operation_offset_spec,
         $.operation_length_spec,
-        $.operation_results_spec
+        $.operation_results_spec,
+        $.submatches_spec
       )
     ),
-
 
     /**
      * Specification of a case sensitivity in various string operations.
@@ -987,9 +987,9 @@ module.exports = grammar({
     ),
 
     /**
-     * Specification of replacement count result variable in various string operations.
+     * Specification of an operation count result variable in various string operations.
      * 
-     * `REPLACEMENT COUNT rcnt`
+     * `REPLACEMENT/MATCH COUNT cnt`
      */
     operation_count_spec: $ => seq(
       choice(...kws("replacement", "match")),
@@ -1001,9 +1001,9 @@ module.exports = grammar({
     ),
 
     /**
-     * Specification of replacement offset result variable in various string operations.
+     * Specification of an operation offset result variable in various string operations.
      * 
-     * `REPLACEMENT OFFSET roff`
+     * `REPLACEMENT/MATCH OFFSET off`
      */
     operation_offset_spec: $ => seq(
       choice(...kws("replacement", "match")),
@@ -1015,9 +1015,9 @@ module.exports = grammar({
     ),
 
     /**
-     * Specification of replacement length result variable in various string operations.
+     * Specification of an operation length result variable in various string operations.
      * 
-     * `REPLACEMENT LENGTH rlen`
+     * `REPLACEMENT/MATCH LENGTH len`
      */
     operation_length_spec: $ => seq(
       choice(...kws("replacement", "match")),
@@ -1029,7 +1029,7 @@ module.exports = grammar({
     ),
 
     /**
-     * Specifies a target variable to safe the individual replacement operations to.
+     * Specifies a target variable to safe the individual operations to.
      * 
      * RESULTS result_tab|result_wa
      */
@@ -1039,6 +1039,23 @@ module.exports = grammar({
         $.data_object,
         $.declaration_expression
       ))
+    ),
+
+    /**
+     * Specifies subgroup registers in a {@link find} statement.
+     * 
+     * `SUBMATCHES s1 s2 ...`
+     */
+    submatches_spec: $ => prec.right(
+      seq(
+        kw("submatches"),
+        repeat1(
+          choice(
+            $.data_object,
+            $.declaration_expression
+          )
+        )
+      )
     ),
 
     /**

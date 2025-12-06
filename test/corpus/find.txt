@@ -69,3 +69,99 @@ FIND ALL OCCURRENCES OF substr IN str IN CHARACTER MODE.
             (identifier))
         (identifier)
         (string_processing_spec)))
+========
+Find respecting case
+========
+FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str RESPECTING CASE. 
+---
+(source
+    (find
+        (occurrence_spec)
+        (pcre_spec
+            (literal_string))
+        (identifier)
+        (find_options
+            (case_sensitivity_spec))))
+========
+Find ignoring case
+========
+FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str IGNORING CASE. 
+---
+(source
+    (find
+        (occurrence_spec)
+        (pcre_spec
+            (literal_string))
+        (identifier)
+        (find_options
+            (case_sensitivity_spec))))
+========
+Find options meta information
+========
+FIND ALL OCCURRENCES OF 'know' IN text1 
+        MATCH COUNT  DATA(cnt) 
+        MATCH OFFSET DATA(off) 
+        MATCH LENGTH DATA(len). 
+---
+(source
+    (find
+        (occurrence_spec)
+        (substring_spec
+            (literal_string))
+        (identifier)
+        (find_options
+            (operation_count_spec
+                (declaration_expression
+                    (identifier)))
+            (operation_offset_spec
+                (declaration_expression
+                    (identifier)))
+            (operation_length_spec
+                (declaration_expression
+                    (identifier))))))
+========
+Find options results variable
+========
+FIND ALL OCCURRENCES OF `d` IN str
+        IGNORING CASE 
+        RESULTS FINAL(results). 
+---
+(source
+    (find
+        (occurrence_spec)
+        (substring_spec
+            (literal_string))
+        (identifier)
+        (find_options
+            (case_sensitivity_spec)
+            (operation_results_spec
+                (declaration_expression
+                    (identifier))))))
+========
+Find pcre submatches
+========
+FIND PCRE `(\w+)\W+\1\W+(\w+)\W+\2` 
+     IN text 
+     IGNORING CASE 
+     MATCH OFFSET FINAL(moff) 
+     MATCH LENGTH FINAL(mlen) 
+     SUBMATCHES FINAL(s1) FINAL(s2).
+---
+(source
+    (find
+        (pcre_spec
+            (literal_string))
+        (identifier)
+        (find_options
+            (case_sensitivity_spec)
+            (operation_offset_spec
+                (declaration_expression
+                    (identifier)))
+            (operation_length_spec
+                (declaration_expression
+                    (identifier)))
+            (submatches_spec
+                (declaration_expression
+                    (identifier))
+                (declaration_expression
+                    (identifier))))))
