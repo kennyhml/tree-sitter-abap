@@ -7335,6 +7335,10 @@
           {
             "type": "SYMBOL",
             "name": "operation_results_spec"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "submatches_spec"
           }
         ]
       }
@@ -7572,6 +7576,40 @@
           }
         }
       ]
+    },
+    "submatches_spec": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[sS][uU][bB][mM][aA][tT][cC][hH][eE][sS]"
+            },
+            "named": false,
+            "value": "submatches"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "data_object"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "declaration_expression"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "section": {
       "type": "SEQ",
