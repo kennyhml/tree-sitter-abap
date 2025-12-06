@@ -147,6 +147,7 @@ module.exports = grammar({
       $.concatenate,
       $.condense,
       $.replace,
+      $.find,
 
       $._empty_statement,
     ),
@@ -854,6 +855,18 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSPLIT.html
     split: $ => seq(),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html
+    find: $ => seq(
+      kw("find"),
+      optional($.occurrence_spec),
+      $.pattern,
+      kw("in"),
+      optional($.section),
+      field("dobj", $.identifier),
+      optional($.string_processing_spec),
+      optional($.find_options)
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE.html
     replace: $ => choice(
       $.pattern_based_replacement,
@@ -944,12 +957,24 @@ module.exports = grammar({
       choice(
         $.verbatim,
         $.case_sensitivity_spec,
-        $.replacement_count_spec,
-        $.replacement_offset_spec,
-        $.replacement_length_spec,
-        $.replacement_results_spec
+        $.operation_count_spec,
+        $.operation_offset_spec,
+        $.operation_length_spec,
+        $.operation_results_spec
       )
     ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND_OPTIONS.html
+    find_options: $ => repeat1(
+      choice(
+        $.case_sensitivity_spec,
+        $.operation_count_spec,
+        $.operation_offset_spec,
+        $.operation_length_spec,
+        $.operation_results_spec
+      )
+    ),
+
 
     /**
      * Specification of a case sensitivity in various string operations.
@@ -966,9 +991,10 @@ module.exports = grammar({
      * 
      * `REPLACEMENT COUNT rcnt`
      */
-    replacement_count_spec: $ => seq(
-      ...kws("replacement", "count"),
-      field("rcnt", choice(
+    operation_count_spec: $ => seq(
+      choice(...kws("replacement", "match")),
+      kw("count"),
+      field("cnt", choice(
         $.data_object,
         $.declaration_expression
       ))
@@ -979,9 +1005,10 @@ module.exports = grammar({
      * 
      * `REPLACEMENT OFFSET roff`
      */
-    replacement_offset_spec: $ => seq(
-      ...kws("replacement", "offset"),
-      field("roff", choice(
+    operation_offset_spec: $ => seq(
+      choice(...kws("replacement", "match")),
+      kw("offset"),
+      field("off", choice(
         $.data_object,
         $.declaration_expression
       ))
@@ -992,9 +1019,10 @@ module.exports = grammar({
      * 
      * `REPLACEMENT LENGTH rlen`
      */
-    replacement_length_spec: $ => seq(
-      ...kws("replacement", "length"),
-      field("rlen", choice(
+    operation_length_spec: $ => seq(
+      choice(...kws("replacement", "match")),
+      kw("length"),
+      field("len", choice(
         $.data_object,
         $.declaration_expression
       ))
@@ -1005,7 +1033,7 @@ module.exports = grammar({
      * 
      * RESULTS result_tab|result_wa
      */
-    replacement_results_spec: $ => seq(
+    operation_results_spec: $ => seq(
       kw("results"),
       field("result", choice(
         $.data_object,

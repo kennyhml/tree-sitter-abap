@@ -1,0 +1,71 @@
+========
+Find substring first implicit occurrence
+========
+FIND 'a' in str.
+---
+(source
+    (find
+        (substring_spec
+            (literal_string))
+        (identifier)))
+========
+Find substring first explicit occurrence
+========
+FIND FIRST OCCURRENCE OF 'a' in str.
+---
+(source
+    (find
+        (occurrence_spec)
+        (substring_spec
+            (literal_string))
+        (identifier)))
+========
+Find substring all occurrences
+========
+FIND ALL OCCURRENCES OF 'a' in str.
+---
+(source
+    (find
+        (occurrence_spec)
+        (substring_spec
+            (literal_string))
+        (identifier)))
+========
+Find section 
+========
+FIND ALL OCCURRENCES OF foo 
+    IN SECTION OFFSET 12 LENGTH 5 OF str.
+---
+(source
+    (find
+        (occurrence_spec)
+        (substring_spec
+            value: (identifier))
+        (section
+            off: (number)
+            len: (number))
+        dobj: (identifier)))
+========
+Find in byte mode
+========
+FIND ALL OCCURRENCES OF lv_xvar IN xstr IN BYTE MODE. 
+---
+(source
+    (find
+        (occurrence_spec)
+        (substring_spec
+            (identifier))
+        (identifier)
+        (string_processing_spec)))
+========
+Find in character mode
+========
+FIND ALL OCCURRENCES OF substr IN str IN CHARACTER MODE. 
+---
+(source
+    (find
+        (occurrence_spec)
+        (substring_spec
+            (identifier))
+        (identifier)
+        (string_processing_spec)))
