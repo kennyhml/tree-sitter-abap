@@ -82,6 +82,10 @@
         "named": true
       },
       {
+        "type": "split",
+        "named": true
+      },
+      {
         "type": "types_declaration",
         "named": true
       }
@@ -1798,7 +1802,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -2187,21 +2191,20 @@
   {
     "type": "into_clause",
     "named": true,
-    "fields": {
-      "target": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "result_spec",
+          "named": true
+        },
+        {
+          "type": "table_result_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3218,7 +3221,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -3286,7 +3289,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -3835,6 +3838,25 @@
     "fields": {}
   },
   {
+    "type": "result_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_object",
+          "named": true
+        },
+        {
+          "type": "declaration_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "return_value",
     "named": true,
     "fields": {
@@ -3996,6 +4018,40 @@
         },
         {
           "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "split",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "into_clause",
+          "named": true
+        },
+        {
+          "type": "separator_spec",
+          "named": true
+        },
+        {
+          "type": "string_processing_spec",
           "named": true
         }
       ]
@@ -4426,6 +4482,25 @@
       "types": [
         {
           "type": "table_components",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_result_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_object",
+          "named": true
+        },
+        {
+          "type": "declaration_expression",
           "named": true
         }
       ]
@@ -5434,11 +5509,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "o",
@@ -5614,6 +5689,10 @@
   },
   {
     "type": "sorted",
+    "named": false
+  },
+  {
+    "type": "split",
     "named": false
   },
   {
