@@ -148,6 +148,7 @@ module.exports = grammar({
       $.condense,
       $.replace,
       $.find,
+      $.split,
 
       $._empty_statement,
     ),
@@ -853,7 +854,13 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSPLIT.html
-    split: $ => seq(),
+    split: $ => seq(
+      kw("split"),
+      field("dobj", $.data_object),
+      $.separator_spec,
+      $.into_clause,
+      optional($.string_processing_spec),
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html
     find: $ => seq(
@@ -862,7 +869,7 @@ module.exports = grammar({
       $.pattern,
       kw("in"),
       optional($.section),
-      field("dobj", $.identifier),
+      field("dobj", $.data_object),
       optional($.string_processing_spec),
       optional($.find_options)
     ),
@@ -880,7 +887,7 @@ module.exports = grammar({
       $.pattern,
       kw("in"),
       optional($.section),
-      field("dobj", $.identifier),
+      field("dobj", $.data_object),
       kw("with"),
       field("new", $.data_object),
       optional($.string_processing_spec),
@@ -891,19 +898,58 @@ module.exports = grammar({
     position_based_replacement: $ => seq(
       kw("replace"),
       optional($.section),
-      field("dobj", $.identifier),
+      field("dobj", $.data_object),
       kw("with"),
       field("new", $.data_object),
       optional($.string_processing_spec)
     ),
 
-    // `... INTO <target>` part of various expressions.
-    into_clause: $ => seq(
-      kw("into"),
-      field("target", choice(
+    /**
+     * Into clause of various expressions. The concrete form depends on the context.
+     * 
+     * `INTO { {result1 result2 [...]} | {TABLE result_tab} }`
+     * 
+     * For certain variants, like a {@link split} statement, scalar and tabular result variables
+     * can be defined within one statement: 
+     * 
+     * `... INTO: FINAL(str1) FINAL(str2) FINAL(str3), TABLE FINAL(itab).`
+     */
+    into_clause: $ => prec.right(
+      seq(
+        kw("into"),
+        choice(
+          // A single table result spec is allowed without colons..
+          $.table_result_spec,
+          // ... or multiple regular result specs without colon..
+          repeat1($.result_spec),
+          // ... or, with a colon, first 0 to n regular and 0 to k table results
+          seq(
+            ":",
+            choice(
+              repeat1($.table_result_spec),
+              repeat1($.result_spec),
+              seq(
+                repeat1($.result_spec),
+                ",",
+                repeat1($.table_result_spec)
+              ),
+            ),
+          ),
+        )
+      )
+    ),
+
+    result_spec: $ => choice(
+      $.data_object,
+      $.declaration_expression
+    ),
+
+    table_result_spec: $ => seq(
+      kw("table"),
+      choice(
         $.data_object,
         $.declaration_expression
-      )),
+      )
     ),
 
     /**
