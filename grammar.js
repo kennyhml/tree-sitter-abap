@@ -108,6 +108,7 @@ module.exports = grammar({
     $.itab_line,
     $.itab_comp,
     $.numeric_expression,
+    $.character_like_expression,
     $.data_component_selector,
     $.relational_expression,
     $.data_object,
@@ -237,6 +238,16 @@ module.exports = grammar({
       $.arithmetic_expression
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_EXPRESSION_POSITIONS.html
+    character_like_expression: $ => choice(
+      $.data_object,
+      $.constructor_expression,
+      $.string_expression,
+      $.table_expression,
+      $.builtin_function_call,
+      $.method_call
+    ),
+
     /**
      * A LHS operand that can be written to, can be specified in **write positions**.
      * 
@@ -328,9 +339,9 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_OPERATORS.html
     string_operator: $ => prec.left(seq(
-      field("left", $.general_expression),
+      field("left", $.character_like_expression),
       field("operator", "&&"), // only possible operator right now.
-      field("right", $.general_expression)
+      field("right", $.character_like_expression)
     )),
 
     /**
@@ -856,7 +867,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSPLIT.html
     split: $ => seq(
       kw("split"),
-      field("dobj", $.data_object),
+      field("dobj", $.character_like_expression),
       $.separator_spec,
       $.into_clause,
       optional($.string_processing_spec),
@@ -869,7 +880,7 @@ module.exports = grammar({
       $.pattern,
       kw("in"),
       optional($.section),
-      field("dobj", $.data_object),
+      field("dobj", $.character_like_expression),
       optional($.string_processing_spec),
       optional($.find_options)
     ),
@@ -969,7 +980,7 @@ module.exports = grammar({
         seq(...kws("separated", "by")),
         kw("at")
       ),
-      field("sep", $.data_object)
+      field("sep", $.character_like_expression)
     ),
 
     /**

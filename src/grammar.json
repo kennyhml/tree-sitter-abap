@@ -3091,6 +3091,35 @@
         }
       ]
     },
+    "character_like_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "data_object"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "constructor_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "builtin_function_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "method_call"
+        }
+      ]
+    },
     "writable_expression": {
       "type": "CHOICE",
       "members": [
@@ -3590,7 +3619,7 @@
             "name": "left",
             "content": {
               "type": "SYMBOL",
-              "name": "general_expression"
+              "name": "character_like_expression"
             }
           },
           {
@@ -3606,7 +3635,7 @@
             "name": "right",
             "content": {
               "type": "SYMBOL",
-              "name": "general_expression"
+              "name": "character_like_expression"
             }
           }
         ]
@@ -6750,7 +6779,7 @@
           "name": "dobj",
           "content": {
             "type": "SYMBOL",
-            "name": "data_object"
+            "name": "character_like_expression"
           }
         },
         {
@@ -6829,7 +6858,7 @@
           "name": "dobj",
           "content": {
             "type": "SYMBOL",
-            "name": "data_object"
+            "name": "character_like_expression"
           }
         },
         {
@@ -7254,7 +7283,7 @@
           "name": "sep",
           "content": {
             "type": "SYMBOL",
-            "name": "data_object"
+            "name": "character_like_expression"
           }
         }
       ]
@@ -13221,6 +13250,7 @@
     "itab_line",
     "itab_comp",
     "numeric_expression",
+    "character_like_expression",
     "data_component_selector",
     "relational_expression",
     "data_object",
