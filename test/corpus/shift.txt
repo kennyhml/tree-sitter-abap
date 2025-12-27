@@ -1,0 +1,82 @@
+======
+Simple implicit shift
+======
+SHIFT str.
+---
+(source
+    (shift
+        (identifier)))
+======
+Simple Byte mode shift
+======
+SHIFT xstr IN BYTE MODE.
+---
+(source
+    (shift
+        (identifier)
+        (string_processing_spec)))
+======
+Shift by places
+======
+SHIFT text BY off PLACES.
+---
+(source
+    (shift
+        (identifier)
+        (shift_by_places_spec
+            (identifier))))
+======
+Shift to substring
+======
+SHIFT text UP TO 'you'.
+---
+(source
+    (shift
+        (identifier)
+        (shift_to_substring_spec
+            (literal_string))))
+======
+Shift directions
+======
+SHIFT text RIGHT.
+SHIFT text LEFT. 
+SHIFT text LEFT CIRCULAR. 
+SHIFT text RIGHT CIRCULAR. 
+SHIFT text CIRCULAR. 
+---
+(source
+    (shift
+        (identifier)
+        (shift_direction_spec))
+    (shift
+        (identifier)
+        (shift_direction_spec))
+    (shift
+        (identifier)
+        (shift_direction_spec))
+    (shift
+        (identifier)
+        (shift_direction_spec))
+    (shift
+        (identifier)
+        (shift_direction_spec)))
+======
+Shift left deleting
+======
+SHIFT txt LEFT DELETING LEADING ` `.
+---
+(source
+    (shift
+        (identifier)
+        (shift_left_deleting_spec
+            (literal_string))))
+======
+Shift right deleting
+======
+SHIFT txt RIGHT DELETING TRAILING 'ab cd'.
+---
+(source
+    (shift
+        (identifier)
+        (shift_right_deleting_spec
+            (literal_string))))

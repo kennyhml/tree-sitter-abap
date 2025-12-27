@@ -146,10 +146,11 @@ module.exports = grammar({
       $.class_data_declaration,
 
       $.concatenate,
-      $.condense,
-      $.replace,
       $.find,
+      $.replace,
+      $.shift,
       $.split,
+      $.condense,
 
       $._empty_statement,
     ),
@@ -872,6 +873,68 @@ module.exports = grammar({
       $.into_clause,
       optional($.string_processing_spec),
       "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT.html
+    shift: $ => seq(
+      kw("shift"),
+      field("dobj", $.data_object),
+      optional(
+
+        choice(
+          // ... {[places][direction]} ...
+          seq(
+            choice(
+              $.shift_by_places_spec,
+              $.shift_to_substring_spec,
+              $.shift_direction_spec
+            ),
+            optional($.shift_direction_spec)
+          ),
+          // ... / deleting ...
+          choice(
+            $.shift_left_deleting_spec,
+            $.shift_right_deleting_spec
+          )
+        ),
+      ),
+      optional($.string_processing_spec),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
+    shift_by_places_spec: $ => seq(
+      kw("by"),
+      field("num", $.numeric_expression),
+      kw("places"),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
+    shift_to_substring_spec: $ => seq(
+      ...kws("up", "to"),
+      field("substring", $.character_like_expression),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DIRECTION.html
+    shift_direction_spec: _ => prec.right(
+      repeat1(
+        choice(
+          field("direction", choice(...kws("left", "right"))),
+          field("circular", kw("circular"))
+        )
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DELETING.html
+    shift_left_deleting_spec: $ => seq(
+      ...kws("left", "deleting", "leading"),
+      field("mask", $.character_like_expression)
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DELETING.html
+    shift_right_deleting_spec: $ => seq(
+      ...kws("right", "deleting", "trailing"),
+      field("mask", $.character_like_expression)
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html
