@@ -871,6 +871,7 @@ module.exports = grammar({
       $.separator_spec,
       $.into_clause,
       optional($.string_processing_spec),
+      "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html
@@ -882,7 +883,8 @@ module.exports = grammar({
       optional($.section),
       field("dobj", $.character_like_expression),
       optional($.string_processing_spec),
-      optional($.find_options)
+      optional($.find_options),
+      "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE.html
@@ -902,7 +904,8 @@ module.exports = grammar({
       kw("with"),
       field("new", $.data_object),
       optional($.string_processing_spec),
-      optional($.replace_options)
+      optional($.replace_options),
+      "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_IN_POSITION.html
@@ -912,7 +915,8 @@ module.exports = grammar({
       field("dobj", $.data_object),
       kw("with"),
       field("new", $.data_object),
-      optional($.string_processing_spec)
+      optional($.string_processing_spec),
+      "."
     ),
 
     /**
