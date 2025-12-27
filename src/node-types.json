@@ -82,6 +82,10 @@
         "named": true
       },
       {
+        "type": "shift",
+        "named": true
+      },
+      {
         "type": "split",
         "named": true
       },
@@ -4030,6 +4034,146 @@
     }
   },
   {
+    "type": "shift",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "shift_by_places_spec",
+          "named": true
+        },
+        {
+          "type": "shift_direction_spec",
+          "named": true
+        },
+        {
+          "type": "shift_left_deleting_spec",
+          "named": true
+        },
+        {
+          "type": "shift_right_deleting_spec",
+          "named": true
+        },
+        {
+          "type": "shift_to_substring_spec",
+          "named": true
+        },
+        {
+          "type": "string_processing_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shift_by_places_spec",
+    "named": true,
+    "fields": {
+      "num": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "shift_direction_spec",
+    "named": true,
+    "fields": {
+      "circular": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "circular",
+            "named": false
+          }
+        ]
+      },
+      "direction": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "left",
+            "named": false
+          },
+          {
+            "type": "right",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "shift_left_deleting_spec",
+    "named": true,
+    "fields": {
+      "mask": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "shift_right_deleting_spec",
+    "named": true,
+    "fields": {
+      "mask": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "shift_to_substring_spec",
+    "named": true,
+    "fields": {
+      "substring": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source",
     "named": true,
     "root": true,
@@ -5051,6 +5195,10 @@
     "named": false
   },
   {
+    "type": "circular",
+    "named": false
+  },
+  {
     "type": "class",
     "named": false
   },
@@ -5160,6 +5308,10 @@
   },
   {
     "type": "definition",
+    "named": false
+  },
+  {
+    "type": "deleting",
     "named": false
   },
   {
@@ -5400,6 +5552,14 @@
     "named": false
   },
   {
+    "type": "leading",
+    "named": false
+  },
+  {
+    "type": "left",
+    "named": false
+  },
+  {
     "type": "length",
     "named": false
   },
@@ -5539,11 +5699,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "o",
@@ -5587,6 +5747,10 @@
   },
   {
     "type": "pcre",
+    "named": false
+  },
+  {
+    "type": "places",
     "named": false
   },
   {
@@ -5678,6 +5842,10 @@
     "named": false
   },
   {
+    "type": "right",
+    "named": false
+  },
+  {
     "type": "risk",
     "named": false
   },
@@ -5703,6 +5871,10 @@
   },
   {
     "type": "shared",
+    "named": false
+  },
+  {
+    "type": "shift",
     "named": false
   },
   {
@@ -5782,6 +5954,10 @@
     "named": false
   },
   {
+    "type": "trailing",
+    "named": false
+  },
+  {
     "type": "type",
     "named": false
   },
@@ -5795,6 +5971,10 @@
   },
   {
     "type": "until",
+    "named": false
+  },
+  {
+    "type": "up",
     "named": false
   },
   {
