@@ -1,8 +1,6 @@
 ; highlights.scm
 (identifier) @variable
-(typename) @type
 (number) @number
-(comment) @comment
 (literal_string) @string
 
 [   
