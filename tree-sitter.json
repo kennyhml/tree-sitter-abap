@@ -7,13 +7,14 @@
       "title": "Abap",
       "scope": "source.abap",
       "file-types": [
-        ".intf",
-        ".clas",
-        ".prog",
-        ".incl"
+        "intf",
+        "clas",
+        "prog",
+        "incl"
       ],
       "injection-regex": "^abap$",
-      "class-name": "TreeSitterAbap"
+      "class-name": "TreeSitterAbap",
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
