@@ -1250,7 +1250,7 @@ module.exports = grammar({
           ),
           "=",
         ),
-        field("destination",
+        field("left",
           repeat1(
             prec.left(seq($.data_object, "="))
           )
