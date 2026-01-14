@@ -493,24 +493,14 @@
     "type": "assignment",
     "named": true,
     "fields": {
-      "destination": {
+      "left": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "=",
             "named": false
           },
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      },
-      "left": {
-        "multiple": false,
-        "required": false,
-        "types": [
           {
             "type": "data_object",
             "named": true

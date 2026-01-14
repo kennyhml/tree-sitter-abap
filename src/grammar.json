@@ -8312,7 +8312,7 @@
             },
             {
               "type": "FIELD",
-              "name": "destination",
+              "name": "left",
               "content": {
                 "type": "REPEAT1",
                 "content": {
