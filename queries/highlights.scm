@@ -3,6 +3,9 @@
 (number) @number
 (literal_string) @string
 
+(elementary_type) @type
+(referred) @type
+
 [   
     "="
 ] @operator
