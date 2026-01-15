@@ -110,6 +110,7 @@ module.exports = grammar({
     $.numeric_expression,
     $.character_like_expression,
     $.data_component_selector,
+    $.type_component_selector,
     $.relational_expression,
     $.data_object,
     $._simple_statement,
@@ -185,11 +186,11 @@ module.exports = grammar({
     }),
 
     _typing: $ => choice(
-      $.elementary_type,
-      $.referred_type,
-      $.ref_type,
-      $.table_type,
-      $.range_type,
+      $.builtin_type_spec,
+      $.referred_type_spec,
+      $.ref_type_spec,
+      $.table_type_spec,
+      $.range_type_spec,
     ),
 
     /**
@@ -1358,9 +1359,9 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
      */
-    elementary_type: $ => prec.right(choice(
+    builtin_type_spec: $ => prec.right(choice(
       // Optional Buff size + type + optional type meta
-      seq(optional(BUFF_SIZE($)), seq(kw("type"), ABAP_TYPE), repeat($._type_meta)),
+      seq(optional(BUFF_SIZE($)), seq(kw("type"), field("name", alias(ABAP_TYPE, $.type_identifier))), repeat($._type_meta)),
       // Optional buff size + required type meta
       seq(optional(BUFF_SIZE($)), repeat1($._type_meta)),
       // Only buf size
@@ -1368,11 +1369,37 @@ module.exports = grammar({
     )),
 
     /**
+     * Type that refers to another type (declared elsewhere or in the DDIC) or
+     * taken over from a data object.
+     * 
+     * The additions `length` and `decimals` are forbidden in this context.
+     * 
+     * Standalone Data Types vs Bound Data Types: 
+     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDOBJ_GENERAL.html
+     * 
+     * See also: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
+     */
+    referred_type_spec: $ => prec.right(seq(
+      typeOrLikeExpr($, optional(seq(...kws("line", "of")))),
+      repeat(choice(
+        field("value", seq(
+          kw("value"), choice(
+            $.number,
+            $.literal_string,
+            seq(...kws("is", "initial")),
+            $.identifier,
+          )
+        )),
+        kw("read-only"))
+      )
+    )),
+
+    /**
      * Internal Table type declaration.
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
      */
-    table_type: $ => prec.right(seq(
+    table_type_spec: $ => prec.right(seq(
       typeOrLikeExpr($,
         seq(
           optional(field("kind", $._table_category)),
@@ -1403,7 +1430,7 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
      */
-    range_type: $ => prec.right(seq(
+    range_type_spec: $ => prec.right(seq(
       typeOrLikeExpr($, seq(...kws("range", "of"))),
       repeat(choice(
         seq(...kws("initial", "size"), field("initial_size", $.number)),
@@ -1421,7 +1448,7 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
      */
-    ref_type: $ => prec.right(seq(
+    ref_type_spec: $ => prec.right(seq(
       typeOrLikeExpr($, seq(...kws("ref", "to"))),
 
       // Not technically valid for types declarations but intentionally tolerated.
@@ -1431,31 +1458,6 @@ module.exports = grammar({
       ))
     )),
 
-    /**
-     * Type that refers to another type (declared elsewhere or in the DDIC) or
-     * taken over from a data object.
-     * 
-     * The additions `length` and `decimals` are forbidden in this context.
-     * 
-     * Standalone Data Types vs Bound Data Types: 
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDOBJ_GENERAL.html
-     * 
-     * See also: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
-     */
-    referred_type: $ => prec.right(seq(
-      typeOrLikeExpr($, optional(seq(...kws("line", "of")))),
-      repeat(choice(
-        field("value", seq(
-          kw("value"), choice(
-            $.number,
-            $.literal_string,
-            seq(...kws("is", "initial")),
-            $.identifier,
-          )
-        )),
-        kw("read-only"))
-      )
-    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
     class_definition: $ => seq(
@@ -1883,6 +1885,11 @@ module.exports = grammar({
       $.dereference
     ),
 
+    // A component selector superclass that can return a type
+    type_component_selector: $ => choice(
+      alias($._struct_component_type_selector, $.struct_component_selector),
+    ),
+
     static_component: $ => choice(
       field("name", $._immediate_identifier)
     ),
@@ -1922,6 +1929,17 @@ module.exports = grammar({
           $.static_component
         )
       )
+    ),
+
+    _struct_component_type_selector: $ => seq(
+      field("struct",
+        choice(
+          $._type_identifier,
+          $.type_component_selector,
+        )
+      ),
+      token.immediate("-"),
+      field("comp", $._type_identifier)
     ),
 
     /**
@@ -2053,7 +2071,11 @@ module.exports = grammar({
 
     identifier: _ => IDENTIFIER_REGEX,
 
+    _type_identifier: $ => alias($.identifier, $.type_identifier),
+
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
+
+    _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
 
     number: _ => NUMBER_REGEX,
     _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
@@ -2321,9 +2343,9 @@ function typeOrLikeExpr($, addition) {
     seq(
       kw("type"),
       addition,
-      field("type", choice(
-        $.identifier,
-        $.data_component_selector
+      field("name", choice(
+        $._type_identifier,
+        $.type_component_selector
       ))
     ),
     seq(
