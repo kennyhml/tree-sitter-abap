@@ -5602,7 +5602,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "static_itab_comp"
+          "name": "_static_itab_comp"
         },
         {
           "type": "SYMBOL",
@@ -5610,7 +5610,7 @@
         }
       ]
     },
-    "static_itab_comp": {
+    "_static_itab_comp": {
       "type": "CHOICE",
       "members": [
         {
@@ -8211,7 +8211,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "_type_identifier"
         }
       ]
     },

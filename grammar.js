@@ -637,14 +637,14 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
     itab_comp: $ => choice(
-      $.static_itab_comp,
+      $._static_itab_comp,
       $._dynamic_itab_comp,
     ),
 
     /**
      * Static variant of {@link itab_comp}: `{ comp_name[-sub_comp][{+off(len)}|{->attr}] }`
      */
-    static_itab_comp: $ => choice(
+    _static_itab_comp: $ => choice(
       $.identifier,
       $.struct_component_selector,
       $.object_component_selector
@@ -1215,7 +1215,7 @@ module.exports = grammar({
 
     _constructor_result: $ => choice(
       "#", // inferred
-      $.identifier // explicit
+      $._type_identifier // explicit
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINLINE_DECLARATIONS.html

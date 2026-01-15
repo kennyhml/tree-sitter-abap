@@ -256,7 +256,15 @@
         "named": true
       },
       {
-        "type": "static_itab_comp",
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "object_component_selector",
+        "named": true
+      },
+      {
+        "type": "struct_component_selector",
         "named": true
       }
     ]
@@ -1362,7 +1370,7 @@
             "named": false
           },
           {
-            "type": "identifier",
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -3014,7 +3022,7 @@
             "named": false
           },
           {
-            "type": "identifier",
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -4266,29 +4274,6 @@
     }
   },
   {
-    "type": "static_itab_comp",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "object_component_selector",
-          "named": true
-        },
-        {
-          "type": "struct_component_selector",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "string_operator",
     "named": true,
     "fields": {
@@ -4515,7 +4500,7 @@
             "named": false
           },
           {
-            "type": "identifier",
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -4966,7 +4951,7 @@
             "named": false
           },
           {
-            "type": "identifier",
+            "type": "type_identifier",
             "named": true
           }
         ]
