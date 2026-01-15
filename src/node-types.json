@@ -384,6 +384,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "class_component_selector",
+        "named": true
+      },
+      {
         "type": "struct_component_selector",
         "named": true
       }
@@ -968,6 +972,10 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
             "named": true
           }
         ]

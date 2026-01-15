@@ -1888,6 +1888,10 @@ module.exports = grammar({
     // A component selector superclass that can return a type
     type_component_selector: $ => choice(
       alias($._struct_component_type_selector, $.struct_component_selector),
+      alias($._class_component_type_selector, $.class_component_selector),
+      // I dont think it is possible to get to a type through an interface component?
+      // That would imply types are accessibly through properties, which they shouldnt be.
+      // A dereference cant result in a type, so no need to copy that.
     ),
 
     static_component: $ => choice(
@@ -1931,6 +1935,11 @@ module.exports = grammar({
       )
     ),
 
+    /**
+     * The type identifier variant of {@link struct_component_selector}
+     * 
+     * The dynamic path can be stripped since its not allowed for typing.
+     */
     _struct_component_type_selector: $ => seq(
       field("struct",
         choice(
@@ -1986,6 +1995,12 @@ module.exports = grammar({
       field("comp", $._immediate_identifier)
     ),
 
+    _class_component_type_selector: $ => seq(
+      field("class", $.identifier),
+      token.immediate("=>"),
+      field("comp", $._immediate_type_identifier)
+    ),
+
     /**
      * Accesses component `comp` of an interface `intf`.
      * 
@@ -2006,6 +2021,7 @@ module.exports = grammar({
       token.immediate("~"),
       field("comp", $._immediate_identifier)
     ),
+
 
     /**
      * Accesses the content of a data object  pointed to by a data reference `dref`.

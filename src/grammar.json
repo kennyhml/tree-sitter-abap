@@ -12779,6 +12779,15 @@
           },
           "named": true,
           "value": "struct_component_selector"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_class_component_type_selector"
+          },
+          "named": true,
+          "value": "class_component_selector"
         }
       ]
     },
@@ -13004,6 +13013,34 @@
           "content": {
             "type": "SYMBOL",
             "name": "_immediate_identifier"
+          }
+        }
+      ]
+    },
+    "_class_component_type_selector": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "class",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "=>"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "comp",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_type_identifier"
           }
         }
       ]
