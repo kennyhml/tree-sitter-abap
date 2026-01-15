@@ -1405,16 +1405,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "no_gaps",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -5693,8 +5683,8 @@
     "named": false
   },
   {
-    "type": "no_gaps",
-    "named": true
+    "type": "no-gaps",
+    "named": false
   },
   {
     "type": "non-unique",

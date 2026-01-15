@@ -862,7 +862,7 @@ module.exports = grammar({
     condense: $ => seq(
       kw("condense"),
       field("text", $.data_object),
-      optional(alias(kw("no-gaps"), $.no_gaps)),
+      optional(kw("no-gaps")),
       "."
     ),
 
