@@ -1956,7 +1956,7 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "_type_identifier"
               }
             },
             {
@@ -2003,7 +2003,7 @@
               "name": "nameOpen",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "_type_identifier"
               }
             },
             {
@@ -2094,7 +2094,7 @@
               "name": "nameClose",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "_type_identifier"
               }
             }
           ]
@@ -2125,7 +2125,7 @@
               "name": "nameOpen",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "_type_identifier"
               }
             },
             {
@@ -2258,7 +2258,7 @@
               "name": "nameClose",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "_type_identifier"
               }
             }
           ]
