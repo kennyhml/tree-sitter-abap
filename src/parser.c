@@ -676,7 +676,7 @@ static const char * const ts_symbol_names[] = {
   [aux_sym_display_override_token2] = "like",
   [aux_sym_concatenate_token1] = "concatenate",
   [aux_sym_condense_token1] = "condense",
-  [aux_sym_condense_token2] = "no_gaps",
+  [aux_sym_condense_token2] = "no-gaps",
   [aux_sym_split_token1] = "split",
   [aux_sym_shift_token1] = "shift",
   [aux_sym_shift_by_places_spec_token1] = "places",
@@ -2090,7 +2090,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   },
   [aux_sym_condense_token2] = {
     .visible = true,
-    .named = true,
+    .named = false,
   },
   [aux_sym_split_token1] = {
     .visible = true,

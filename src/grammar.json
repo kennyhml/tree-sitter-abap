@@ -6744,16 +6744,11 @@
             {
               "type": "ALIAS",
               "content": {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[nN][oO]-[gG][aA][pP][sS]"
-                },
-                "named": false,
-                "value": "no-gaps"
+                "type": "PATTERN",
+                "value": "[nN][oO]-[gG][aA][pP][sS]"
               },
-              "named": true,
-              "value": "no_gaps"
+              "named": false,
+              "value": "no-gaps"
             },
             {
               "type": "BLANK"
