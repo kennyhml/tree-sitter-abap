@@ -1,4 +1,6 @@
 (literal_string) @string
+(string_template) @string
+
 (number) @number
 (type_identifier) @type
 (builtin_type_spec) @type.builtin
@@ -8,6 +10,14 @@
 (static_component (identifier) @variable.property )
 (itab_comp_spec (identifier) @variable.property )
 
+; TODO: differentiate between static / instance call
+(method_call name: 
+	(identifier) @function.method )
+    
+(builtin_function_call
+	(identifier) @function.builtin
+)
+    
 [   
     "="
     "-"
@@ -18,6 +28,9 @@
     "*"
     "/"
   	"**"
+    "->*"
+    "#"
+    "&&"
 ] @operator
 
 [
@@ -28,7 +41,8 @@
     ")"
     "["
     "]"
-    "#"
+    "{"
+    "}"
 ] @delimiter
 
 [   
@@ -48,6 +62,8 @@
     "end"
     "of"
     "lines"
+    "let"
+    "in"
     
     "table"
     "of"
@@ -74,6 +90,13 @@
     "mod"
     "div"
     "new"
+    
+    "value"
+    
+    "replace"
+    "with"
+    "verbatim"
+    "replacement"
     
     "concatenate"
     "into"
@@ -103,7 +126,29 @@
     "count"
     "results"
     "submatches"
-
+    
+    "shift"
+    "places"
+    "up"
+    "left"
+    "right"
+    "circular"
+    
+    "deleting"
+    "leading"
+    "trailing"
+    
+    "split"
+    "at"
+    "condense"
+    "no-gaps"
+    
+    "base"
+    "key"
+    "components"
+    
+    "index"
+  
 ] @keyword
 
 (identifier) @variable
