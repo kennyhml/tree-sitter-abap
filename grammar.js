@@ -181,7 +181,7 @@ module.exports = grammar({
     ...generate_decl_specs({
       data: $ => $.identifier,
       class_data: $ => $.identifier,
-      types: $ => $.identifier,
+      types: $ => $._type_identifier,
       constants: $ => $.identifier
     }),
 
@@ -2327,7 +2327,7 @@ function generate_decl_specs(decl_map) {
 
       /**
        * This technically isnt completely legal since it allows sub structure specs preceded by a DATA
-       * keyword inside a `data:` block, but it is such a nice scenario worth keeping the grammar simpler over.
+       * keyword inside a `data:` block, but it is such a niche scenario worth keeping the grammar simpler over.
        * 
        * It is however quite important to generate two absolute paths here, because we at least dont want to allow
        * the old-style struct declaration to be completed mixed into new-style declarations, i.e when the
