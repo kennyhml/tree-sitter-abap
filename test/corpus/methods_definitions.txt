@@ -1,0 +1,183 @@
+==================
+Instance declaration
+==================
+METHODS meth .
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier))))
+==================
+Static declaration
+==================
+CLASS-METHODS meth .
+---
+(source
+    (cls_methods_declaration
+        (method_spec
+            name: (identifier))))
+==================
+Multiple specifications per declaration
+==================
+METHODS: meth1, meth2, meth3.
+CLASS-METHODS: meth1, meth2, meth3.
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier))
+        (method_spec
+            name: (identifier))
+        (method_spec
+            name: (identifier)))
+    (cls_methods_declaration
+        (method_spec
+            name: (identifier))
+        (method_spec
+            name: (identifier))
+        (method_spec
+            name: (identifier))))
+==================
+Redefinition from superclass
+==================
+METHODS my_method redefinition.
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier))))
+==================
+Final definition
+==================
+METHODS my_method final.
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier))))
+==================
+Abstract method
+==================
+METHODS my_method abstract.
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier))))
+==================
+Interface method defaults
+==================
+CLASS-METHODS m1 DEFAULT FAIL. 
+METHODS       m2 DEFAULT IGNORE 
+    RETURNING VALUE(r) TYPE i. 
+---
+(source
+    (cls_methods_declaration
+        (method_spec
+            (identifier)
+                (interface_default)))
+    (methods_declaration
+        (method_spec
+            (identifier)
+            (interface_default)
+            (return_value
+                (identifier)
+                (builtin_type_spec
+                    (type_identifier))))))
+==================
+Importing parameters
+==================
+METHODS meth 
+    IMPORTING 
+        p1 TYPE i DEFAULT 111 
+        p2 TYPE i OPTIONAL 
+        p3 TYPE i OPTIONAL 
+        PREFERRED PARAMETER p1. 
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier)
+            importing: (parameter_list
+                (parameter
+                    name: (identifier)
+                    typing: (builtin_type_spec
+                        name: (type_identifier))
+                    default: (number))
+                (parameter
+                    name: (identifier)
+                    typing: (builtin_type_spec
+                        name: (type_identifier)))
+                (parameter
+                    name: (identifier)
+                    typing: (builtin_type_spec
+                        name: (type_identifier)))
+                (preferred_parameter
+                    name: (identifier))))))
+==================
+Exporting parameters
+==================
+METHODS read_spfli_into_table 
+    IMPORTING VALUE(id)  TYPE spfli-carrid 
+    EXPORTING flight_tab TYPE spfli_tab. 
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier)
+            importing: (parameter_list
+                (parameter
+                    name: (identifier)
+                    typing: (referred_type_spec
+                        name: (struct_component_selector
+                            struct: (type_identifier)
+                            comp: (type_identifier)))))
+            exporting: (parameter_list
+                (parameter
+                    name: (identifier)
+                    typing: (referred_type_spec
+                        name: (type_identifier)))))))
+==================
+Raising class based exceptions
+==================
+METHODS divide_1_by 
+    IMPORTING operand TYPE i 
+    RETURNING value(result) TYPE decfloat34 
+    RAISING   
+        cx_sy_arithmetic_error
+        resumable(cx_resumable_exception). 
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier)
+            importing: (parameter_list
+                (parameter
+                    name: (identifier)
+                    typing: (builtin_type_spec
+                        name: (type_identifier))))
+            returning: (return_value
+                name: (identifier)
+                typing: (builtin_type_spec
+                    name: (type_identifier)))
+            raising: (raising_list
+                (exception
+                    name: (identifier))
+                (exception
+                    name: (identifier))))))
+==================
+Constructors
+==================
+METHODS constructor importing iv_param type string. 
+CLASS-METHODS class_constructor. 
+---
+(source
+    (methods_declaration
+        (method_spec
+            (parameter_list
+                (parameter
+                    (identifier)
+                    (builtin_type_spec
+                        (type_identifier))))))
+    (cls_methods_declaration
+        (method_spec)))

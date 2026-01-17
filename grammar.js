@@ -138,6 +138,7 @@ module.exports = grammar({
 
       $.assignment,
 
+
       $.report_initiator,
       $.deferred_class_definition,
       $.deferred_interface_definition,
@@ -152,6 +153,9 @@ module.exports = grammar({
       $.shift,
       $.split,
       $.condense,
+
+      $.methods_declaration,
+      $.cls_methods_declaration,
 
       $._empty_statement,
     ),
@@ -1735,17 +1739,18 @@ module.exports = grammar({
       ),
       field("typing", optional($._typing)),
       // Technically only allowed for importing parameters
-      optional(choice(
-        kw("optional"),
-        seq(
-          kw("default"),
-          choice(
-            $.identifier, // constant
-            $.number,
-            $.literal_string
+      optional(
+        choice(
+          kw("optional"),
+          seq(
+            kw("default"),
+            field("default", choice(
+              $.identifier, // constant
+              $.number,
+              $.literal_string
+            ))
           )
-        )
-      ))
+        ))
     )),
 
     exception: $ => choice(

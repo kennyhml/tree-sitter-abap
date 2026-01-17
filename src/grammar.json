@@ -92,6 +92,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "methods_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cls_methods_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_empty_statement"
         }
       ]
@@ -11806,21 +11814,25 @@
                         "value": "default"
                       },
                       {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "identifier"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "number"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "literal_string"
-                          }
-                        ]
+                        "type": "FIELD",
+                        "name": "default",
+                        "content": {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "identifier"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "number"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "literal_string"
+                            }
+                          ]
+                        }
                       }
                     ]
                   }
