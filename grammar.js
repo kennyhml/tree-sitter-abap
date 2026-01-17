@@ -1404,14 +1404,25 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
      */
     table_type_spec: $ => prec.right(seq(
-      typeOrLikeExpr($,
+      choice(
+        // the 'modern' way
         seq(
-          optional(field("kind", $._table_category)),
-          ...kws("table", "of"),
+          typeOrLikeExpr($,
+            seq(
+              optional(field("kind", $._table_category)),
+              ...kws("table", "of"),
+            )
+          ),
+          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
+          repeat($.table_key_spec),
+        ),
+        // obsolete way
+        seq(
+          optional(BUFF_SIZE($)),
+          kw("occurs"),
+          field("occurs", $.number)
         )
       ),
-      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
-      repeat($.table_key_spec),
       repeat(choice(
         seq(
           ...kws("initial", "size"),

@@ -84,6 +84,9 @@
     "unique"
     "index"
     "any"
+    "occurs"
+    "header"
+    "line"
 
     "report"
     "no"

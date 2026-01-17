@@ -4892,6 +4892,16 @@
           }
         ]
       },
+      "length": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": false,
@@ -4902,6 +4912,16 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "occurs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
             "named": true
           }
         ]
@@ -5878,6 +5898,10 @@
   },
   {
     "type": "occurrences",
+    "named": false
+  },
+  {
+    "type": "occurs",
     "named": false
   },
   {
