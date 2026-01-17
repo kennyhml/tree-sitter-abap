@@ -1,0 +1,98 @@
+======
+Basic table type definition
+======
+types gtyt_std_tab1 type table of gtys_mystruct.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec
+                (type_identifier)))))
+======
+Table type with default key
+======
+types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec
+                (type_identifier)
+                (keys
+                    (table_key_spec))))))
+======
+Table type with non unique key
+======
+types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var1.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec
+                (type_identifier)
+                (keys
+                    (table_key_spec
+                        (key_components
+                            (identifier))))))))
+======
+Table type with empty key
+======
+types gtyt_std_tab1 type standard table of gtys_mystruct with empty key.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec
+                (type_identifier)
+                (keys
+                    (table_key_spec))))))
+======
+Explicit primary key
+======
+types gtyt_std_tab5 type standard table of gtys_mystruct with key primary_key components table_line.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec
+                (type_identifier)
+                (keys
+                    (table_key_spec
+                        (identifier)
+                        (key_components
+                            (identifier))))))))
+======
+Secondary keys
+======
+types gtyt_sec_tab1 type table of gtys_mystruct
+    with non-unique key primary_key components var1 var2
+    with non-unique sorted key secondary_key1 components var3 var4
+    with unique hashed key secondary_key2 components var1 var5.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec
+                (type_identifier)
+                (keys
+                    (table_key_spec
+                        (identifier)
+                        (key_components
+                            (identifier)
+                            (identifier)))
+                    (table_key_spec
+                        (identifier)
+                        (key_components
+                            (identifier)
+                            (identifier)))
+                    (table_key_spec
+                        (identifier)
+                        (key_components
+                            (identifier)
+                            (identifier))))))))

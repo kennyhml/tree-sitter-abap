@@ -2569,6 +2569,36 @@
     }
   },
   {
+    "type": "key_components",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "keys",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "table_key_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "let_expression",
     "named": true,
     "fields": {},
@@ -4665,21 +4695,6 @@
     }
   },
   {
-    "type": "table_components",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "table_expression",
     "named": true,
     "fields": {
@@ -4793,6 +4808,16 @@
           }
         ]
       },
+      "components": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "key_components",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": false,
@@ -4800,23 +4825,9 @@
           {
             "type": "identifier",
             "named": true
-          },
-          {
-            "type": "primary_key",
-            "named": false
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "table_components",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -4928,11 +4939,11 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "table_key_spec",
+          "type": "keys",
           "named": true
         }
       ]
@@ -5942,10 +5953,6 @@
   },
   {
     "type": "preferred",
-    "named": false
-  },
-  {
-    "type": "primary_key",
     "named": false
   },
   {

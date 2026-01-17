@@ -1413,8 +1413,7 @@ module.exports = grammar({
               ...kws("table", "of"),
             )
           ),
-          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
-          repeat($.table_key_spec),
+          optional($.keys)
         ),
         // obsolete way
         seq(
@@ -1473,6 +1472,8 @@ module.exports = grammar({
       ))
     )),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
+    keys: $ => prec.right(repeat1($.table_key_spec)),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
     class_definition: $ => seq(
@@ -1846,12 +1847,12 @@ module.exports = grammar({
             kw("key"),
             optional(
               seq(
-                field("name", kw("primary_key")),
+                field("name", alias(kw("primary_key"), $.identifier)),
                 optional(seq(kw("alias"), field("alias", $.identifier))),
                 kw("components")
               )
             ),
-            $.table_components
+            field("components", $.key_components)
           )
         )
       )
@@ -1867,11 +1868,11 @@ module.exports = grammar({
       kw("key"),
       field("name", $.identifier),
       optional(seq(kw("alias"), field("alias", $.identifier))),
-      kw("components"), $.table_components
+      kw("components"), field("components", $.key_components)
 
     ),
 
-    table_components: $ => prec.right(repeat1($.identifier)),
+    key_components: $ => prec.right(repeat1($.identifier)),
 
     /**
      * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).

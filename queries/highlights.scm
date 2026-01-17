@@ -1,7 +1,7 @@
 (literal_string) @string
 (string_template) @string
-
 (number) @number
+
 (type_identifier) @type
 (builtin_type_spec) @type.builtin
 
@@ -9,9 +9,12 @@
 
 (static_component (identifier) @variable.property )
 (itab_comp_spec (identifier) @variable.property )
+(key_components (identifier) @variable.property )
 
 (parameter name: (identifier) @variable.parameter )
 (preferred_parameter name: (identifier) @variable.parameter )
+
+(table_key_spec name: (identifier) @variable.key )
 
 (builtin_function_call (identifier) @function.builtin )
 (method_spec name: (identifier) @function.method ) 
@@ -82,11 +85,14 @@
     "sorted"
     "hashed"
     "unique"
+    "non-unique"
     "index"
     "any"
     "occurs"
     "header"
     "line"
+    "empty"
+
 
     "report"
     "no"
