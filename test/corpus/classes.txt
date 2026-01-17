@@ -1,0 +1,101 @@
+======
+Basic declaration and sections
+======
+CLASS cl_demo_spfli DEFINITION 
+  PUBLIC 
+  FINAL 
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+---
+(source
+    (class_definition
+    name: (identifier)
+    (class_options)
+    (body
+        (public_section)
+        (protected_section)
+        (private_section))))
+======
+Declaration with inheritance
+======
+CLASS cls2 DEFINITION 
+           INHERITING FROM cls1. 
+ENDCLASS.
+---
+(source
+    (class_definition
+        name: (identifier)
+        (class_options
+            parent: (identifier))))
+======
+Abstract base class
+======
+CLASS cls2 DEFINITION ABSTRACT.
+ENDCLASS.
+---
+(source
+    (class_definition
+        name: (identifier)
+        (class_options)))
+
+======
+Declaration with friend classes
+======
+CLASS cl_demo_flights DEFINITION 
+  PUBLIC 
+  INHERITING FROM cl_shm_area 
+  FINAL 
+  CREATE PRIVATE 
+  GLOBAL FRIENDS cl_shm_area.
+ENDCLASS.
+---
+(source
+    (class_definition
+        name: (identifier)
+        (class_options
+            parent: (identifier)
+            (global_friends
+                (identifier)))))
+======
+Declaration for shared memory
+======
+CLASS cl_demo_flight_list DEFINITION 
+  PUBLIC 
+  FINAL 
+  CREATE PUBLIC 
+  SHARED MEMORY ENABLED.
+ENDCLASS.
+---
+(source
+    (class_definition
+        (identifier)
+        (class_options)))
+======
+Declaration for abap unit
+======
+CLASS class DEFINITION
+    FOR TESTING RISK LEVEL HARMLESS
+    DURATION LONG.
+ENDCLASS.
+---
+(source
+    (class_definition
+        (identifier)
+        (class_options
+            (for_testing_spec))))
+======
+RAP Behavior declaration
+======
+CLASS bp_demo_managed_additional_sav DEFINITION PUBLIC 
+   ABSTRACT FINAL FOR BEHAVIOR OF demo_managed_additional_save. 
+ENDCLASS. 
+---
+(source
+    (class_definition
+        name: (identifier)
+        (class_options
+            behavior_ref: (identifier))))

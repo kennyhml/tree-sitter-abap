@@ -43,12 +43,17 @@
     "]"
     "{"
     "}"
+    "~"
 ] @delimiter
 
 [   
     "data"
     "final"
+    "constants"
     "type"
+    "types"
+    "aliases"
+    "class-data"
     "ref"
     "to"
     "like"
@@ -71,6 +76,7 @@
     "standard"
     "sorted"
     "hashed"
+    "unique"
     "index"
     "any"
 
@@ -86,13 +92,10 @@
     "functionality"
     "message-id"
     "range"
-    "types"
     "mod"
     "div"
     "new"
-    
-    "value"
-    
+
     "replace"
     "with"
     "verbatim"
@@ -148,6 +151,33 @@
     "components"
     
     "index"
+    
+    "class"
+    "definition"
+    "create"
+    "public"
+    "protected"
+    "private"
+    "inheriting"
+    "from"
+    "abstract"
+    "global"
+    "friends"
+    "shared"
+    "memory"
+    "enabled"
+    "for"
+    "behavior"
+    "testing"
+    "risk"
+    "level"
+    "harmless"
+    "medium"
+    "critical"
+    "duration"
+    "short"
+    "long"
+    "endclass"
   
 ] @keyword
 
