@@ -173,14 +173,14 @@ CLASS-METHODS class_constructor.
 ---
 (source
     (methods_declaration
-        (method_spec
+        (constructor_spec
             (parameter_list
                 (parameter
                     (identifier)
                     (builtin_type_spec
                         (type_identifier))))))
     (cls_methods_declaration
-        (method_spec)))
+        (constructor_spec)))
 ==================
 Simple event handler
 ==================

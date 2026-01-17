@@ -1579,8 +1579,8 @@ module.exports = grammar({
     methods_declaration: $ => seq(
       kw("methods"),
       choice(
-        seq(":", commaSep1($.method_spec)),
-        $.method_spec
+        seq(":", commaSep1(choice($.method_spec, $.constructor_spec))),
+        choice($.method_spec, $.constructor_spec)
       ),
       "."
     ),
@@ -1589,8 +1589,8 @@ module.exports = grammar({
     cls_methods_declaration: $ => seq(
       kw("class-methods"),
       choice(
-        seq(":", commaSep1($.method_spec)),
-        $.method_spec
+        seq(":", commaSep1(choice($.method_spec, $.constructor_spec))),
+        choice($.method_spec, $.constructor_spec)
       ),
       "."
     ),
@@ -1625,33 +1625,36 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_GENERAL.html
      */
     method_spec: $ => seq(
-      field("name", choice(
-        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
-        ...kws("constructor", "class_constructor"),
-        $.identifier,
-      )),
-      repeat(
-        choice(
-          kw("abstract"),
-          kw("final"),
-          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
-          kw("redefinition"),
-          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_TESTING.html
-          seq(...kws("for", "testing")),
-          $.interface_default,
-          $.cds_function_impl,
-          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
-          field("event", $.event_handling),
-          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_METHODS.html
-          field("amdp", $.amdp_options),
-          // Parameter lists
-          params("importing", $.parameter_list),
-          params("exporting", $.parameter_list),
-          params("changing", $.parameter_list),
-          params("raising", $.raising_list),
-          params("exceptions", $.exception_list),
-          params("returning", alias($.parameter, $.return_value)),
-        )
+      field("name", $.identifier),
+      optional($._method_signature)
+    ),
+
+    constructor_spec: $ => seq(
+      choice(...kws("constructor", "class_constructor")),
+      optional($._method_signature)
+    ),
+
+    _method_signature: $ => repeat1(
+      choice(
+        kw("abstract"),
+        kw("final"),
+        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
+        kw("redefinition"),
+        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_TESTING.html
+        seq(...kws("for", "testing")),
+        $.interface_default,
+        $.cds_function_impl,
+        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
+        field("event", $.event_handling),
+        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_METHODS.html
+        field("amdp", $.amdp_options),
+        // Parameter lists
+        params("importing", $.parameter_list),
+        params("exporting", $.parameter_list),
+        params("changing", $.parameter_list),
+        params("raising", $.raising_list),
+        params("exceptions", $.exception_list),
+        params("returning", alias($.parameter, $.return_value)),
       )
     ),
 
