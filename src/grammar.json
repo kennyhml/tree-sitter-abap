@@ -10292,10 +10292,14 @@
           "value": "friends"
         },
         {
-          "type": "REPEAT1",
+          "type": "FIELD",
+          "name": "friend",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
           }
         },
         {

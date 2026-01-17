@@ -1505,7 +1505,7 @@ module.exports = grammar({
       kw("class"),
       field("name", $.identifier),
       ...kws("definition", "local", "friends"),
-      repeat1($.identifier),
+      field("friend", repeat1($.identifier)),
       "."
     ),
 

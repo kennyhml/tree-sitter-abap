@@ -99,3 +99,29 @@ ENDCLASS.
         name: (identifier)
         (class_options
             behavior_ref: (identifier))))
+======
+Class implementation part
+======
+CLASS zzz_my_class IMPLEMENTATION.
+ENDCLASS.
+---
+(source
+    (class_implementation
+        name: (identifier)))
+======
+Deferred class declaration
+======
+CLASS c1 DEFINITION DEFERRED. 
+---
+(source
+    (deferred_class_definition
+        name: (identifier)))
+======
+Declaration with local friends
+======
+CLASS cl_demo_amdp_mesh DEFINITION LOCAL FRIENDS cl_test_selects.
+---
+(source
+    (local_friends_spec
+        name: (identifier)
+        friend: (identifier)))
