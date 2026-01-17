@@ -6,6 +6,6 @@ NEW c1( )->m1( ).
 (source
     (method_call
         (new_expression
-            (identifier))
+            (type_identifier))
         (identifier)
         (call_arguments)))
