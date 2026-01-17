@@ -11293,7 +11293,7 @@
         },
         {
           "type": "FIELD",
-          "name": "event",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"

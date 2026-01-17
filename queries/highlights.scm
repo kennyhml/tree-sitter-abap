@@ -206,6 +206,7 @@
     "redefinition"
     "fail"
     "ignore"
+    "event"
     
   
 ] @keyword

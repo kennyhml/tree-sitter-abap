@@ -181,3 +181,24 @@ CLASS-METHODS class_constructor.
                         (type_identifier))))))
     (cls_methods_declaration
         (method_spec)))
+==================
+Simple event handler
+==================
+METHODS handle_double_click 
+    FOR EVENT picture_dblclick OF cl_gui_picture 
+    IMPORTING mouse_pos_x mouse_pos_y sender. 
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier)
+            event: (event_handling
+                name: (identifier)
+                source: (identifier))
+            importing: (parameter_list
+                (parameter
+                    name: (identifier))
+                (parameter
+                    name: (identifier))
+                (parameter
+                    name: (identifier))))))
