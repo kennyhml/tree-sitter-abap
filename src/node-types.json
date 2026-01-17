@@ -1798,7 +1798,7 @@
     "type": "event_handling",
     "named": true,
     "fields": {
-      "event": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

@@ -1665,7 +1665,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
     event_handling: $ => seq(
       ...kws("for", "event"),
-      field("event", $.identifier),
+      field("name", $.identifier),
       kw("of"),
       field("source", $.identifier),
     ),
