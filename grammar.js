@@ -1333,12 +1333,12 @@ module.exports = grammar({
       optional(seq($.let_expression, kw("in"))),
       choice(
         repeat1($.named_argument),
-        repeat1($._positional_argument)
+        repeat1($.positional_argument)
       )
     ),
 
     named_argument: $ => seq(
-      field("param",
+      field("name",
         choice(
           $.identifier,
           $.struct_component_selector // for components of structures
@@ -1353,7 +1353,7 @@ module.exports = grammar({
       )
     ),
 
-    _positional_argument: $ => alias($.general_expression, $.positional_argument),
+    positional_argument: $ => field("value", $.general_expression),
 
     /**
      * Type based on elementary types. Only here are `length` and `decimals` additions allowed.

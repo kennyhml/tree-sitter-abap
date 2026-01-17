@@ -202,3 +202,12 @@ METHODS handle_double_click
                     name: (identifier))
                 (parameter
                     name: (identifier))))))
+==================
+Method of abap unit test class
+==================
+METHODS mytest FOR TESTING. 
+---
+(source
+    (methods_declaration
+        (method_spec
+            name: (identifier))))

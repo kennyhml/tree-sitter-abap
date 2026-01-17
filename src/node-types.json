@@ -3101,7 +3101,7 @@
     "type": "named_argument",
     "named": true,
     "fields": {
-      "param": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -3500,6 +3500,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "positional_argument",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
