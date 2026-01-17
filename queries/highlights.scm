@@ -10,6 +10,13 @@
 (static_component (identifier) @variable.property )
 (itab_comp_spec (identifier) @variable.property )
 
+(parameter name: (identifier) @variable.parameter )
+(preferred_parameter name: (identifier) @variable.parameter )
+
+; Allow any node as long as its the name field for now since constructor and 
+; class_constructor are not quite identifiers.. not sure what to do with it yet
+(method_spec name: _ @function.method ) 
+
 ; TODO: differentiate between static / instance call
 (method_call name: 
 	(identifier) @function.method )
@@ -181,6 +188,25 @@
     "implementation"
     "deferred"
     "endclass"
+    
+    "methods"
+    "class-methods"
+    "importing"
+    "exporting"
+    "changing"
+    "returning"
+    "receiving"
+    "raising"
+    "exceptions"
+    "default"
+    "optional"
+    "preferred"
+    "parameter"
+    "resumable"
+    "redefinition"
+    "fail"
+    "ignore"
+    
   
 ] @keyword
 

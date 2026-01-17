@@ -42,6 +42,10 @@
         "named": true
       },
       {
+        "type": "cls_methods_declaration",
+        "named": true
+      },
+      {
         "type": "concatenate",
         "named": true
       },
@@ -71,6 +75,10 @@
       },
       {
         "type": "local_friends_spec",
+        "named": true
+      },
+      {
+        "type": "methods_declaration",
         "named": true
       },
       {
@@ -3172,6 +3180,24 @@
     "type": "parameter",
     "named": true,
     "fields": {
+      "default": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -3208,24 +3234,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "literal_string",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3910,6 +3918,24 @@
     "type": "return_value",
     "named": true,
     "fields": {
+      "default": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -3946,24 +3972,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "literal_string",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        }
-      ]
     }
   },
   {
