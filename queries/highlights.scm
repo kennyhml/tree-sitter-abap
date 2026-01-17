@@ -2,19 +2,29 @@
 (string_template) @string
 (number) @number
 
+[
+   (inline_comment)
+   (line_comment)
+   (docstring)
+] @comment
+
 (type_identifier) @type
 (builtin_type_spec) @type.builtin
 
 (class_component_selector class: (identifier) @class )
+(exception name: (identifier) @class )
 
 (static_component (identifier) @variable.property )
 (itab_comp_spec (identifier) @variable.property )
 (key_components (identifier) @variable.property )
 
+
 (parameter name: (identifier) @variable.parameter )
 (preferred_parameter name: (identifier) @variable.parameter )
 
 (table_key_spec name: (identifier) @variable.key )
+
+(exception_list (identifier) @variable.exception )
 
 (builtin_function_call (identifier) @function.builtin )
 (method_spec name: (identifier) @function.method ) 
@@ -39,6 +49,7 @@
     "->*"
     "#"
     "&&"
+    "!"
 ] @operator
 
 [
