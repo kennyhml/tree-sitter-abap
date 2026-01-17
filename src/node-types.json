@@ -2224,6 +2224,11 @@
     }
   },
   {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "index_read",
     "named": true,
     "fields": {
@@ -4940,6 +4945,11 @@
     }
   },
   {
+    "type": "type_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "types_declaration",
     "named": true,
     "fields": {},
@@ -5336,6 +5346,10 @@
     "named": false
   },
   {
+    "type": "cast",
+    "named": false
+  },
+  {
     "type": "cds",
     "named": false
   },
@@ -5623,10 +5637,6 @@
   {
     "type": "id",
     "named": false
-  },
-  {
-    "type": "identifier",
-    "named": true
   },
   {
     "type": "ignore",
@@ -6113,10 +6123,6 @@
   {
     "type": "type",
     "named": false
-  },
-  {
-    "type": "type_identifier",
-    "named": true
   },
   {
     "type": "types",
