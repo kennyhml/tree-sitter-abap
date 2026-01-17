@@ -18,8 +18,7 @@ itab[ field = 'AAA'  ]-value = 10.
                 (search_key_read
                     (search_key_components
                         (itab_comp_spec
-                            (static_itab_comp
-                            (identifier))
+                            (identifier)
                             (literal_string)))))
                 (static_component
                     (identifier)))

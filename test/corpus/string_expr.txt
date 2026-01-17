@@ -98,5 +98,4 @@ CONDENSE text no-gaps.
 ---
 (source
     (condense
-        (identifier)
-        (no_gaps)))
+        (identifier)))

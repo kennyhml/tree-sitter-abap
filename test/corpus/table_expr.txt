@@ -34,8 +34,7 @@ itab[ carrid = 'AAA' ]
         (search_key_read
             (search_key_components
                 (itab_comp_spec
-                    (static_itab_comp
-                        (identifier))
+                    (identifier)
                     (literal_string))))))
 ==================
 Simple table key read
@@ -51,8 +50,7 @@ itab[ key my_awesome_key components connid = zclass=>get_connid( ) ]
                 (identifier))
             (search_key_components
                 (itab_comp_spec
-                    (static_itab_comp
-                        (identifier))
+                    (identifier)
                     (method_call
                         (identifier)
                         (identifier)
@@ -64,8 +62,7 @@ itab[ key my_awesome_key components connid = zclass=>get_connid( ) ]
                 (identifier))
             (search_key_components
                 (itab_comp_spec
-                    (static_itab_comp
-                        (identifier))
+                    (identifier)
                     (method_call
                         (identifier)
                         (identifier)
@@ -93,11 +90,10 @@ itab[ foo-bar = obj->meth( ) ].
         (search_key_read
             (search_key_components
                 (itab_comp_spec
-                    (static_itab_comp
-                        (struct_component_selector
-                            (identifier)
-                            (static_component
-                            (identifier))))
+                    (struct_component_selector
+                        (identifier)
+                        (static_component
+                        (identifier)))
                     (method_call
                         (identifier)
                         (identifier)
@@ -113,11 +109,10 @@ itab[ foo->attr = 'A' ].
         (search_key_read
             (search_key_components
                 (itab_comp_spec
-                    (static_itab_comp
-                        (object_component_selector
-                            (identifier)
-                            (static_component
-                            (identifier))))
+                    (object_component_selector
+                        (identifier)
+                        (static_component
+                        (identifier)))
                     (literal_string))))))
 ==================
 Search key dynamic comp read

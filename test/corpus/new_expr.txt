@@ -5,7 +5,7 @@ NEW i( 555 )
 ---
 (source
     (new_expression
-        (identifier)
+        (type_identifier)
         (argument_list
             (positional_argument
             (number)))))
@@ -23,7 +23,7 @@ NEW string( let var = 'A String' in |Using let expression { var }| )
 ---
 (source
     (new_expression
-    (identifier)
+    (type_identifier)
     (argument_list
         (let_expression
             (let_spec
@@ -75,7 +75,7 @@ NEW t_struct( col2-col1 = 2 col2-col2 = itab ).
 ---
 (source
     (new_expression
-        (identifier)
+        (type_identifier)
         (argument_list
             (named_argument
                 (struct_component_selector
