@@ -119,7 +119,7 @@ module.exports = grammar({
     $.replace
   ],
 
-  word: $ => $.identifier,
+  word: $ => $._name,
 
   rules: {
     source: $ => repeat($._statement),
@@ -2093,28 +2093,6 @@ module.exports = grammar({
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
-    identifier: _ => IDENTIFIER_REGEX,
-
-    _type_identifier: $ => alias($.identifier, $.type_identifier),
-
-    _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
-
-    _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
-
-    number: _ => NUMBER_REGEX,
-    _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
-    _immediate_literal_string: $ => alias(
-      choice(
-        token.immediate(/'[^']*'/),
-        token.immediate(/`[^`]*`/),
-      ),
-      $.literal_string
-    ),
-
-    literal_string: $ => choice(
-      /'[^']*'/,
-      /`[^`]*`/
-    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES_EXPRESSIONS.html
     string_template: $ => seq(
@@ -2204,6 +2182,68 @@ module.exports = grammar({
      * ... because it violates the 'not being inside a simple statement' rule.
      */
     _empty_statement: _ => token("."),
+
+    _name: _ => IDENTIFIER_REGEX,
+
+    identifier: $ => choice($._name, $._contextual_keyword),
+
+    /**
+     * ABAP does not reserve keywords whatsoever. Any keyword is valid to be used as an identifier.
+     * 
+     * Why dont we just add all keywords to this list then? Because tree-sitter performs context-aware
+     * parsing, meaning it will only consider the keywords in a position where they could appear based on
+     * the grammars structure. For example, an "endclass" keyword wouldnt cause ambiguity because it can
+     * only appear in a very specific position, unlike keywords that introduce a {@link general_expression}.
+     * 
+     * Consider the following code:
+     * 
+     * ceil( value i( 10 )).
+     * 
+     * The builtin function could receive either a {@link named_argument} or a {@link positional_argument}
+     * so during lexical analysis, the parser considers that the word could either be a `value` 
+     * keyword or a `value` identifier. The keyword ends up taking higher lexical precendence (as it should)
+     * and as a result, the branch containing the identifier rule is never even considered during parsing.
+     * 
+     * The only way to resolve this is to make sure that the other branch doesnt get dropped, so both
+     * can be explored and the contextually correct one is chosen. For this reason, the keywords must
+     * be added to the {@link identifier} rule as well and aliased to an identifier. Do however make sure
+     * that they have a lower precedence to express: 
+     * If theres a keyword valid in that context, use that. Else consider the keyword to be an identifier.
+     * 
+     * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
+     */
+    _contextual_keyword: _ => prec(-1, choice(
+      ...kws(
+        "value",
+        "new",
+        "cond",
+        "switch",
+        "cast",
+        "class"
+      )
+    )),
+
+    _type_identifier: $ => alias($.identifier, $.type_identifier),
+
+    _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
+
+    _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
+
+    number: _ => NUMBER_REGEX,
+    _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
+    _immediate_literal_string: $ => alias(
+      choice(
+        token.immediate(/'[^']*'/),
+        token.immediate(/`[^`]*`/),
+      ),
+      $.literal_string
+    ),
+
+    literal_string: $ => choice(
+      /'[^']*'/,
+      /`[^`]*`/
+    ),
+
   }
 });
 

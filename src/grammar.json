@@ -1,7 +1,7 @@
 {
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "abap",
-  "word": "identifier",
+  "word": "_name",
   "rules": {
     "source": {
       "type": "REPEAT",
@@ -13415,96 +13415,6 @@
         }
       ]
     },
-    "identifier": {
-      "type": "PATTERN",
-      "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
-    },
-    "_type_identifier": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "identifier"
-      },
-      "named": true,
-      "value": "type_identifier"
-    },
-    "_immediate_identifier": {
-      "type": "ALIAS",
-      "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "PATTERN",
-          "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
-        }
-      },
-      "named": true,
-      "value": "identifier"
-    },
-    "_immediate_type_identifier": {
-      "type": "ALIAS",
-      "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "PATTERN",
-          "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
-        }
-      },
-      "named": true,
-      "value": "type_identifier"
-    },
-    "number": {
-      "type": "PATTERN",
-      "value": "(\\+|-)?\\d+"
-    },
-    "_immediate_number": {
-      "type": "ALIAS",
-      "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "PATTERN",
-          "value": "(\\+|-)?\\d+"
-        }
-      },
-      "named": true,
-      "value": "number"
-    },
-    "_immediate_literal_string": {
-      "type": "ALIAS",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "'[^']*'"
-            }
-          },
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "`[^`]*`"
-            }
-          }
-        ]
-      },
-      "named": true,
-      "value": "literal_string"
-    },
-    "literal_string": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "'[^']*'"
-        },
-        {
-          "type": "PATTERN",
-          "value": "`[^`]*`"
-        }
-      ]
-    },
     "string_template": {
       "type": "SEQ",
       "members": [
@@ -13706,6 +13616,172 @@
         "type": "STRING",
         "value": "."
       }
+    },
+    "_name": {
+      "type": "PATTERN",
+      "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
+    },
+    "identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_contextual_keyword"
+        }
+      ]
+    },
+    "_contextual_keyword": {
+      "type": "PREC",
+      "value": -1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[vV][aA][lL][uU][eE]"
+            },
+            "named": false,
+            "value": "value"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[nN][eE][wW]"
+            },
+            "named": false,
+            "value": "new"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[cC][oO][nN][dD]"
+            },
+            "named": false,
+            "value": "cond"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[sS][wW][iI][tT][cC][hH]"
+            },
+            "named": false,
+            "value": "switch"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[cC][aA][sS][tT]"
+            },
+            "named": false,
+            "value": "cast"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[cC][lL][aA][sS][sS]"
+            },
+            "named": false,
+            "value": "class"
+          }
+        ]
+      }
+    },
+    "_type_identifier": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "identifier"
+      },
+      "named": true,
+      "value": "type_identifier"
+    },
+    "_immediate_identifier": {
+      "type": "ALIAS",
+      "content": {
+        "type": "IMMEDIATE_TOKEN",
+        "content": {
+          "type": "PATTERN",
+          "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
+        }
+      },
+      "named": true,
+      "value": "identifier"
+    },
+    "_immediate_type_identifier": {
+      "type": "ALIAS",
+      "content": {
+        "type": "IMMEDIATE_TOKEN",
+        "content": {
+          "type": "PATTERN",
+          "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
+        }
+      },
+      "named": true,
+      "value": "type_identifier"
+    },
+    "number": {
+      "type": "PATTERN",
+      "value": "(\\+|-)?\\d+"
+    },
+    "_immediate_number": {
+      "type": "ALIAS",
+      "content": {
+        "type": "IMMEDIATE_TOKEN",
+        "content": {
+          "type": "PATTERN",
+          "value": "(\\+|-)?\\d+"
+        }
+      },
+      "named": true,
+      "value": "number"
+    },
+    "_immediate_literal_string": {
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "'[^']*'"
+            }
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "`[^`]*`"
+            }
+          }
+        ]
+      },
+      "named": true,
+      "value": "literal_string"
+    },
+    "literal_string": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "'[^']*'"
+        },
+        {
+          "type": "PATTERN",
+          "value": "`[^`]*`"
+        }
+      ]
     }
   },
   "extras": [
