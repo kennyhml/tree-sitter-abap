@@ -13,21 +13,16 @@
 (parameter name: (identifier) @variable.parameter )
 (preferred_parameter name: (identifier) @variable.parameter )
 
+(builtin_function_call (identifier) @function.builtin )
 (method_spec name: (identifier) @function.method ) 
+(method_call name: (identifier) @function.method )
 (constructor_spec
   [
     "constructor"
     "class_constructor"
-  ] @function.constructor)
-
-; TODO: differentiate between static / instance call
-(method_call name: 
-	(identifier) @function.method )
-    
-(builtin_function_call
-	(identifier) @function.builtin
+  ] @function.constructor
 )
-    
+ 
 [   
     "="
     "-"

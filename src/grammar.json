@@ -8647,7 +8647,7 @@
               "type": "REPEAT1",
               "content": {
                 "type": "SYMBOL",
-                "name": "_positional_argument"
+                "name": "positional_argument"
               }
             }
           ]
@@ -8659,7 +8659,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "param",
+          "name": "name",
           "content": {
             "type": "CHOICE",
             "members": [
@@ -8697,14 +8697,13 @@
         }
       ]
     },
-    "_positional_argument": {
-      "type": "ALIAS",
+    "positional_argument": {
+      "type": "FIELD",
+      "name": "value",
       "content": {
         "type": "SYMBOL",
         "name": "general_expression"
-      },
-      "named": true,
-      "value": "positional_argument"
+      }
     },
     "builtin_type_spec": {
       "type": "PREC_RIGHT",
