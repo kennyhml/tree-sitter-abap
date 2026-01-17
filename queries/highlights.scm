@@ -162,6 +162,7 @@
     "from"
     "abstract"
     "global"
+    "local"
     "friends"
     "shared"
     "memory"
@@ -177,6 +178,8 @@
     "duration"
     "short"
     "long"
+    "implementation"
+    "deferred"
     "endclass"
   
 ] @keyword
