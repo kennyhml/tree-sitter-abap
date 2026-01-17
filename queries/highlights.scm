@@ -13,9 +13,12 @@
 (parameter name: (identifier) @variable.parameter )
 (preferred_parameter name: (identifier) @variable.parameter )
 
-; Allow any node as long as its the name field for now since constructor and 
-; class_constructor are not quite identifiers.. not sure what to do with it yet
-(method_spec name: _ @function.method ) 
+(method_spec name: (identifier) @function.method ) 
+(constructor_spec
+  [
+    "constructor"
+    "class_constructor"
+  ] @function.constructor)
 
 ; TODO: differentiate between static / instance call
 (method_call name: 
