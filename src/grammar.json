@@ -13695,7 +13695,7 @@
             "type": "IMMEDIATE_TOKEN",
             "content": {
               "type": "PATTERN",
-              "value": "[^\\n\\r# ]+"
+              "value": "[^\\n\\r#. ]+"
             }
           },
           "named": true,
@@ -13879,10 +13879,6 @@
   },
   "extras": [
     {
-      "type": "PATTERN",
-      "value": "\\s"
-    },
-    {
       "type": "SYMBOL",
       "name": "line_comment"
     },
@@ -13903,8 +13899,8 @@
       "name": "multi_line_comment"
     },
     {
-      "type": "SYMBOL",
-      "name": "docstring"
+      "type": "PATTERN",
+      "value": "\\s"
     }
   ],
   "conflicts": [],
@@ -13917,10 +13913,6 @@
     {
       "type": "SYMBOL",
       "name": "multi_line_comment"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "docstring"
     },
     {
       "type": "SYMBOL",

@@ -45,16 +45,6 @@ module.exports = grammar({
     $.multi_line_comment,
 
     /**
-     * One or more lines beginning with `"!" without a gap.
-     * 
-     * FIXME: ABAPDoc is something we will want to parse sooner or later, since
-     * they can contain references, links etc. to other objects.
-     * That cant really be done in the external scanner, so it must be a rule, 
-     * meaning it also cant be in extras and must be explicitly checked.
-     */
-    $.docstring,
-
-    /**
      * Message type can be the prefix of a message number, and this conflicts
      * with the word rule. There might be a better way to work around this, but
      * I could not find one.
@@ -81,24 +71,22 @@ module.exports = grammar({
      * 
      * And finally, scenarios where n must be >= 1:
      * ... = foo->bar( ).
-     * 
-     * Which must sometimes be manually enforced.
-     * 
-     * Also make sure not to use a regex for the whitespace, it will have higher priority
-     * and thus our external scanner, wont be called to track when a line comment is coming up.
      */
-    /\s/,
     $.line_comment,
     $.inline_comment,
     $.pseudo_comment,
     $.pragma,
     $.multi_line_comment,
-    $.docstring,
+
+    /**
+     * THIS MUST BE A REGEX! Putting this inside a rule or the external scanner will
+     * token.immediate() to not enforce the absence of whitespaces. In return, that
+     * causes some complications inside the external scanner (explained there).
+     */
+    /\s/,
   ],
 
   supertypes: $ => [
-    // I'll worry about which nodes should be hidden vs supertypes later
-    // once I get to working out the querying. It doesnt matter for tests.
     $.constructor_expression,
     $.iteration_expression,
     $.general_expression,
@@ -2185,7 +2173,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPRAGMA.html
     pragma: $ => seq(
       '##',
-      alias(token.immediate(/[^\n\r# ]+/), $.code),
+      alias(token.immediate(/[^\n\r#. ]+/), $.code),
       // Up to 2 parameters are possible, but extras dont allow optionals.
       // While this hack does work fine, it unfortunately causes the parameter nodes
       // to always show up in the tree even when no parameter are specified.
