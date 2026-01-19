@@ -9,6 +9,10 @@ enum Token
 
     MULTI_LINE_COMMENT,
 
+    DOCTAG_TEXT,
+
+    DOCSTRING_CONTINUATION,
+
     /**
      * Message type can be the prefix of a message number, and this conflicts
      * with the word rule. There might be a better way to work around this, but
@@ -62,6 +66,19 @@ bool consume_end_of_line(TSLexer* lexer, bool include)
     return false;
 }
 
+bool consume_docstring_start(TSLexer* lexer, bool include)
+{
+    if (lexer->lookahead != '"') {
+        return false;
+    }
+    lexer->advance(lexer, !include);
+    if (lexer->lookahead != '!') {
+        return false;
+    }
+    lexer->advance(lexer, !include);
+    return true;
+}
+
 bool is_at_line_comment_start(TSLexer* lexer)
 {
     return lexer->get_column(lexer) == 0 && lexer->lookahead == '*';
@@ -109,10 +126,68 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
         }
     }
 
+    if (valid_symbols[DOCSTRING_CONTINUATION]) {
+        consume_end_of_line(lexer, false);
+
+        // start of the next line, "! must appear
+        advance_whitespaces(lexer, false);
+        if (consume_docstring_start(lexer, true)) {
+            lexer->result_symbol = DOCSTRING_CONTINUATION;
+            return true;
+        }
+        return false;
+    }
+
+    if (valid_symbols[DOCTAG_TEXT]) {
+        bool start_capture = false;
+        while (true) {
+            while (!lexer->eof(lexer) && lexer->lookahead != '\r' &&
+                   lexer->lookahead != '\n') {
+                start_capture |= lexer->lookahead != ' ';
+                lexer->advance(lexer, !start_capture);
+            }
+            // mark BEFORE consuming the end of the line, otherwise we mark
+            // at the start of the next line which is just awkward as hell..
+            lexer->mark_end(lexer);
+            consume_end_of_line(lexer, true);
+
+            const int32_t whitespaces = advance_whitespaces(lexer, true);
+            if (!consume_docstring_start(lexer, true)) {
+                // The next line is not a docstring anymore, ends at mark
+                lexer->result_symbol = DOCTAG_TEXT;
+                return true;
+            }
+
+
+            // This line is also a docstring, does it continue the text?
+            // Also end the documentation context on an empty line.
+            advance_whitespaces(lexer, true);
+            if (lexer->lookahead == '@' || lexer->lookahead == '\r' ||
+                lexer->lookahead == '\n' || lexer->eof(lexer)) {
+                lexer->result_symbol = DOCTAG_TEXT;
+                return true;
+            }
+
+            while (lexer->lookahead != '@') {
+                if (lexer->eof(lexer) || consume_end_of_line(lexer, true)) {
+                    // no @ occurred, so this text must be part of our doc
+                    lexer->mark_end(lexer);
+                    break;
+                }
+                lexer->advance(lexer, false);
+            }
+
+            if (lexer->lookahead == '@' || lexer->eof(lexer)) {
+                lexer->result_symbol = DOCTAG_TEXT;
+                return true;
+            }
+        }
+    }
+
     if (valid_symbols[LINE_COMMENT]) {
         uint32_t lines = 0;
-        // make sure the advanced whitespaces and newlines are not included in
-        // the range.
+        // make sure the advanced whitespaces and newlines are not included
+        // in the range.
         advance_whitespaces_and_newlines(lexer, false);
         while (is_at_line_comment_start(lexer)) {
             do {
@@ -158,7 +233,8 @@ void tree_sitter_abap_external_scanner_destroy(void* payload)
  * Called when the scanner identifies a token, should copy our context
  * into the given buffer and return the number of bytes written.
  *
- * This is used to store the state of the scanner and then restore it later on.
+ * This is used to store the state of the scanner and then restore it later
+ * on.
  *
  * Its on us to implement the (de)serialization efficiently and correctly.
  *

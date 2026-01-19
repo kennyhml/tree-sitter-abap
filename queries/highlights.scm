@@ -5,7 +5,32 @@
 [
    (inline_comment)
    (line_comment)
+   (multi_line_comment)
 ] @comment
+
+[
+   (pragma)
+   (pseudo_comment)
+] @comment.pragma
+
+
+(docstring) @abapdoc
+(docstring
+  [ 
+    (parameter_documentation
+      "@parameter" @abapdoc.tag
+      name: (identifier) @variable.param )
+
+    (raising_documentation
+      "@raising" @abapdoc.tag
+      name: (identifier) @class)
+
+    (exception_documentation
+      "@exception" @abapdoc.tag
+      name: (identifier) @variable.exception)
+  ]
+) @abapdoc
+
 
 (type_identifier) @type
 (builtin_type_spec) @type.builtin
@@ -225,7 +250,11 @@
     "ignore"
     "event"
     
-  
+    "cond"
+    "when"
+    "then"
+    "else"
 ] @keyword
+(format_option parameter: (identifier) @keyword )
 
 (identifier) @variable

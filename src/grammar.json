@@ -24,6 +24,10 @@
         {
           "type": "SYMBOL",
           "name": "general_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "docstring"
         }
       ]
     },
@@ -13703,6 +13707,234 @@
         }
       ]
     },
+    "docstring": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\"!"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[ ]+"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^\\@\\{\\}\\n\\r]+"
+                  }
+                },
+                "named": true,
+                "value": "paragraph"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "documentation_tag"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_docstring_continuation"
+                  },
+                  "named": false,
+                  "value": "\"!"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "IMMEDIATE_TOKEN",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[ ]+"
+                      }
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "[^\\@\\{\\}\\n\\r]+"
+                        }
+                      },
+                      "named": true,
+                      "value": "paragraph"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "documentation_tag"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "documentation_tag": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "parameter_documentation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "raising_documentation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exception_documentation"
+        }
+      ]
+    },
+    "parameter_documentation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@parameter"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "|"
+        },
+        {
+          "type": "FIELD",
+          "name": "documentation",
+          "content": {
+            "type": "SYMBOL",
+            "name": "doctag_text"
+          }
+        }
+      ]
+    },
+    "exception_documentation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@exception"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "|"
+        },
+        {
+          "type": "FIELD",
+          "name": "documentation",
+          "content": {
+            "type": "SYMBOL",
+            "name": "doctag_text"
+          }
+        }
+      ]
+    },
+    "raising_documentation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@raising"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "|"
+        },
+        {
+          "type": "FIELD",
+          "name": "documentation",
+          "content": {
+            "type": "SYMBOL",
+            "name": "doctag_text"
+          }
+        }
+      ]
+    },
     "_empty_statement": {
       "type": "TOKEN",
       "content": {
@@ -13916,6 +14148,14 @@
     },
     {
       "type": "SYMBOL",
+      "name": "doctag_text"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_docstring_continuation"
+    },
+    {
+      "type": "SYMBOL",
       "name": "message_type"
     },
     {
@@ -13942,7 +14182,8 @@
     "_simple_statement",
     "_compound_statement",
     "pattern",
-    "replace"
+    "replace",
+    "documentation_tag"
   ],
   "reserved": {}
 }

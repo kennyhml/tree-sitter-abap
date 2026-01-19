@@ -1,0 +1,76 @@
+======
+Plain docstring line
+======
+"! this is a docstring
+---
+(source
+    (docstring
+        (paragraph)))
+======
+Seperated docstrings
+======
+"! this is a docstring
+
+"! This is the second docstring
+---
+(source
+    (docstring
+        (paragraph))
+    (docstring
+        (paragraph)))
+======
+Multi line docstrings
+======
+"! this is a docstring
+"! This is the second docstring
+"! And this is the third
+"! And this the fourth
+---
+(source
+    (docstring
+        (paragraph)
+        (paragraph)
+        (paragraph)
+        (paragraph)))
+======
+Empty line docstring
+======
+"!
+
+test = 10.
+---
+(source
+    (docstring)
+    (assignment
+        (identifier)
+        (number)))
+======
+Split documentation tags
+======
+"! This is a generic docstring for your method that is undoubtedly completely free of bugs
+"! and entirely optimized.
+"!
+"! @parameter iv_param1 | Explains the parameters purpose, should be highlighted!
+"! @parameter iv_param2 | Explains the parameters purpose, should be highlighted!
+"!
+"! @raising cx_error | This is the class based error that can be raised
+"!
+"! @exception sleepy_gay | This is an exception that could be raised
+---
+(source
+    (docstring
+        (paragraph)
+        (paragraph)
+        (parameter_documentation
+            (identifier)
+            (doctag_text))
+        (parameter_documentation
+            (identifier)
+            (doctag_text))
+        (raising_documentation
+            (identifier)
+            (doctag_text))
+        (exception_documentation
+            (identifier)
+            (doctag_text))))
+
