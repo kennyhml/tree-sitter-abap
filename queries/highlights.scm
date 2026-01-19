@@ -5,7 +5,6 @@
 [
    (inline_comment)
    (line_comment)
-   (docstring)
 ] @comment
 
 (type_identifier) @type

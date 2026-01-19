@@ -1,0 +1,14 @@
+======
+Basic cond expression
+======
+COND #( WHEN var IS INITIAL THEN `INITIAL` ELSE `NOT INITIAL` )
+---
+(source
+    (cond_expression
+        (case
+            predicate: (logical_expression
+                (predicate_expression
+                    (identifier)))
+                result: (literal_string))
+        (case
+            result: (literal_string))))

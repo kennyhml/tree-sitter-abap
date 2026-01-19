@@ -34,49 +34,53 @@ typedef struct
 // x: exit message
 static const char* valid_message_types = "isewaxISEWAX";
 
-bool is_at_comment_start(TSLexer* lexer)
+int32_t advance_whitespaces(TSLexer* lexer, bool include)
 {
-    return lexer->get_column(lexer) == 0 && lexer->lookahead == '*';
-}
-
-bool consume_docstring_start(TSLexer* lexer)
-{
-    if (lexer->lookahead != '"') {
-        return false;
-    }
-    lexer->advance(lexer, false);
-    if (lexer->lookahead != '!') {
-        return false;
-    }
-    lexer->advance(lexer, false);
-    return true;
-}
-
-void skip_all_whitespaces(TSLexer* lexer)
-{
+    int32_t consumed = 0;
     while (lexer->lookahead == ' ' || lexer->lookahead == '\v' ||
            lexer->lookahead == '\f' || lexer->lookahead == '\t') {
         // The whitespaces need to be part of the token for docstrings,
         // otherwise it gets cut into little parts.
-        lexer->advance(lexer, false);
+        lexer->advance(lexer, !include);
+        consumed++;
     }
+    return consumed;
 }
 
-bool consume_end_of_line(TSLexer* lexer)
+bool consume_end_of_line(TSLexer* lexer, bool include)
 {
     if (lexer->lookahead == '\n') {
-        lexer->advance(lexer, false);
+        lexer->advance(lexer, !include);
         return true;
     }
 
     if (lexer->lookahead == '\r') {
-        lexer->advance(lexer, false);
+        lexer->advance(lexer, !include);
         if (lexer->lookahead == '\n') {
-            lexer->advance(lexer, false);
+            lexer->advance(lexer, !include);
         }
         return true;
     }
     return false;
+}
+
+bool is_at_line_comment_start(TSLexer* lexer)
+{
+    return lexer->get_column(lexer) == 0 && lexer->lookahead == '*';
+}
+
+// We must make whitespaces an inline regex in the extras to avoid it
+// rendering the immediate token enforcement useless (does not work in
+// rules / external scanner). Unfortunately, that also causes the parser
+// to not give control to the scanner in alot of scenarios and causes
+// failure to check whether a line comment is starting at any
+// opportunity. Due to the 'magical' nature of the scanner, im still not
+// fully sure what is actually going on.
+void advance_whitespaces_and_newlines(TSLexer* lexer, bool include)
+{
+    while (advance_whitespaces(lexer, include) > 0 ||
+           consume_end_of_line(lexer, include)) {
+    }
 }
 
 /**
@@ -87,6 +91,10 @@ bool consume_end_of_line(TSLexer* lexer)
 bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
                                             const bool* valid_symbols)
 {
+    // printf("Parser scans at %d (%c)\n", lexer->get_column(lexer),
+    //        lexer->lookahead == '\n'   ? 'N'
+    //        : lexer->lookahead == '\r' ? 'C'
+    //                                   : lexer->lookahead);
     if (valid_symbols[ERROR_SENTINEL]) {
         return false;
     }
@@ -105,40 +113,23 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
 
     if (valid_symbols[LINE_COMMENT]) {
         uint32_t lines = 0;
-        while (is_at_comment_start(lexer)) {
-            // We are at at least one line comment
+        // make sure the advanced whitespaces and newlines are not included in
+        // the range.
+        advance_whitespaces_and_newlines(lexer, false);
+        while (is_at_line_comment_start(lexer)) {
             do {
                 lexer->advance(lexer, false);
-            } while (!lexer->eof(lexer) && !consume_end_of_line(lexer));
+                if (lexer->lookahead != ' ') {
+                    lexer->mark_end(lexer);
+                }
+            } while (!lexer->eof(lexer) && !consume_end_of_line(lexer, true));
             lines++;
         }
         if (lines != 0) {
             lexer->result_symbol =
                     lines > 1 ? MULTI_LINE_COMMENT : LINE_COMMENT;
-            lexer->mark_end(lexer);
             return true;
         }
-        // we didnt need to consume anything to check line comment so its safe
-        // to continue
-    }
-
-    if (valid_symbols[DOCSTRING]) {
-        uint32_t lines = 0;
-        while (consume_docstring_start(lexer)) {
-            do {
-                lexer->advance(lexer, false);
-            } while (!lexer->eof(lexer) && !consume_end_of_line(lexer));
-            // Docstrings may be indented, so we need to make sure to skip
-            // whitespaces prior to checking if another docstring starts.
-            skip_all_whitespaces(lexer);
-            lines++;
-        }
-        if (lines != 0) {
-            lexer->result_symbol = DOCSTRING;
-            lexer->mark_end(lexer);
-        }
-        // we might have consumed a token while checking. not safe to continue
-        return lines != 0;
     }
     return false;
 }

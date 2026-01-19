@@ -87,7 +87,7 @@ module.exports = grammar({
      * Also make sure not to use a regex for the whitespace, it will have higher priority
      * and thus our external scanner, wont be called to track when a line comment is coming up.
      */
-    $._ws,
+    /\s/,
     $.line_comment,
     $.inline_comment,
     $.pseudo_comment,
@@ -127,7 +127,7 @@ module.exports = grammar({
     _statement: $ => choice(
       $._simple_statement,
       $._compound_statement,
-      $.general_expression
+      $.general_expression,
     ),
 
     // Statements that dont have a body.
@@ -137,7 +137,6 @@ module.exports = grammar({
       $.constants_declaration,
 
       $.assignment,
-
 
       $.report_initiator,
       $.deferred_class_definition,
@@ -209,6 +208,7 @@ module.exports = grammar({
       $.switch_expression,
       $.new_expression,
       $.value_expression,
+      // TODO: conv, ref, exact, corresponding, cast, reduce, filter
     ),
 
     /**
@@ -266,9 +266,10 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP.html
      */
-    logical_expression: $ => prec(10, choice(
+    logical_expression: $ => choice(
       $.relational_expression,
       seq('(', $.logical_expression, ')'),
+
       prec.right(4, seq(kw('not'), $.logical_expression)),
 
       prec.left(3, seq(
@@ -286,7 +287,7 @@ module.exports = grammar({
         kw('equiv'),
         $.logical_expression
       ))
-    )),
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_ARITH.html
     arithmetic_expression: $ => choice(
@@ -402,9 +403,16 @@ module.exports = grammar({
       )
     ),
 
-    // Specification / initialization of an itab with arguments (components)
+    /**
+     * Specification of lines of an internal table with the `BASE` addition, e.g:
+     * ... #( BASE itab1 ( field1 = 10 field2 = 20 ) ).
+     * 
+     * BASE cannot be optional in this secnario as the rule would then clash with 
+     * the generic {@link argument_list}. This only serves as a more contextualized
+     * sub-rule.
+     */
     itab_spec: $ => seq(
-      optional(field("base", $.base_spec)),
+      field("base", $.base_spec),
       $.argument_list
     ),
 
@@ -529,14 +537,28 @@ module.exports = grammar({
       kw("where"),
       choice(
         $.logical_expression,
+
         // statically specified logical expression log_exp must be placed in parenthese (table iterations)
         // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
-        seq("(", $.logical_expression, ")"),
+        prec(2, seq("(", $.logical_expression, ")")),
+
         // dynamic where clause
-        seq("(", $._immediate_identifier, token.immediate(")")),
-        // special case, dynamic tab inside a table iteration
-        seq("(", "(", $._immediate_identifier, token.immediate(")"), ")"),
+        $.dynamic_cond,
+        $.dynamic_cond_tab,
       )
+    ),
+
+    dynamic_cond: $ => seq(
+      "(",
+      field("name", $._immediate_identifier),
+      token.immediate(")")
+    ),
+
+    dynamic_cond_tab: $ => seq(
+      "(", "(",
+      field("name", $._immediate_identifier),
+      token.immediate(")"),
+      ")"
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_KEY.html
@@ -661,7 +683,7 @@ module.exports = grammar({
     _dynamic_itab_comp: $ => alias($.dynamic_component, $.dynamic_itab_comp),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
-    new_expression: $ => prec(10, seq(
+    new_expression: $ => seq(
       kw("new"),
       field("type", $._constructor_result),
       token.immediate("("),
@@ -674,10 +696,10 @@ module.exports = grammar({
         ),
       ),
       ")",
-    )),
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
-    value_expression: $ => prec(10, seq(
+    value_expression: $ => seq(
       kw("value"),
       field("type", $._constructor_result),
       token.immediate("("),
@@ -692,7 +714,7 @@ module.exports = grammar({
         ),
       ),
       ")",
-    )),
+    ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
     cond_expression: $ => seq(
@@ -1919,7 +1941,7 @@ module.exports = grammar({
     ),
 
     dynamic_component: $ => seq(
-      token.immediate("("),
+      "(",
       field("name", choice(
         $._immediate_identifier,
         $._immediate_literal_string
@@ -2157,7 +2179,6 @@ module.exports = grammar({
     pseudo_comment: $ => prec(1, seq(
       '"#',
       alias(token.immediate(/[^ ][^ ]/), $.kind),
-      $._ws,
       alias(/[^\n\r]*/, $.code)
     )),
 
@@ -2172,9 +2193,6 @@ module.exports = grammar({
       // /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
       // /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
     ),
-
-
-    _ws: _ => /\s/,
 
     /**
      * When not currently inside a statement, ABAP allows spraying `...` all over the place.
@@ -2238,6 +2256,8 @@ module.exports = grammar({
     _type_identifier: $ => alias($.identifier, $.type_identifier),
 
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
+
+    // _immediate_identifier: $ => alias(choice($._name, $._contextual_keyword), $.identifier),
 
     _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
 
