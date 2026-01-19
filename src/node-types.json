@@ -1884,6 +1884,38 @@
     }
   },
   {
+    "type": "dynamic_cond",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dynamic_cond_tab",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "dynamic_itab_comp",
     "named": true,
     "fields": {
@@ -2468,7 +2500,7 @@
     "fields": {
       "base": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "base_spec",
@@ -2528,7 +2560,11 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "dynamic_cond",
+          "named": true
+        },
+        {
+          "type": "dynamic_cond_tab",
           "named": true
         },
         {

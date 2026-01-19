@@ -119,3 +119,65 @@ VALUE #( ( itab1 ) ( VALUE t_itab1( ( 4 ) ( 5 ) ( 6 ) ) ) ).
                                     (argument_list
                                         (positional_argument
                                             (number))))))))))))
+==================
+Table expressions with static where clause
+==================
+value_tab = VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ). 
+---
+(source
+    (assignment
+        (identifier)
+        (value_expression
+            (itab_expression
+                (table_iteration
+                    (identifier)
+                    (identifier)
+                    (iteration_cond
+                        (logical_expression
+                            (comparison_expression
+                                (identifier)
+                                (literal_string)))))
+            (line_spec
+                (argument_list
+                    (positional_argument
+                        (identifier))))))))
+==================
+Table expressions with dynamic where clause
+==================
+value_tab = VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ). 
+---
+(source
+    (assignment
+        (identifier)
+        (value_expression
+            (itab_expression
+                (table_iteration
+                    (identifier)
+                    (identifier)
+                    (iteration_cond
+                        (dynamic_cond
+                            (identifier))))
+            (line_spec
+                (argument_list
+                    (positional_argument
+                        (identifier))))))))
+==================
+Table expressions with dynamic where clause table
+==================
+value_tab = VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ). 
+---
+(source
+    (assignment
+        (identifier)
+        (value_expression
+            (itab_expression
+                (table_iteration
+                    (identifier)
+                    (identifier)
+                    (iteration_cond
+                        (dynamic_cond_tab
+                            (identifier))))
+            (line_spec
+                (argument_list
+                    (positional_argument
+                        (identifier))))))))

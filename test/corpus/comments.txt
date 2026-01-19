@@ -1,0 +1,61 @@
+======
+Line commennt
+======
+* This is a line comment
+---
+(source
+    (line_comment))
+======
+Faulty line comment
+:error
+======
+ * This is not a  line comment but an error
+---
+======
+Multi line comment
+======
+* This is the first line
+* This is the second line
+* This is the third line
+---
+(source
+    (multi_line_comment))
+======
+Seperate line comments
+======
+* This is the first line
+
+* This is the second line
+
+
+* This is the third line
+---
+(source
+    (line_comment)
+    (line_comment)
+    (line_comment))
+======
+Inline comment
+======
+" This is an inline comment
+    " This is an indented inline comment """"
+---
+(source
+    (inline_comment)
+    (inline_comment))
+======
+Mixed comments
+======
+* it starts with a line comment " and this is still a line comment
+    " then it proceeds with an inline comment
+*&And continues with another line comment
+suddenly_there_is = another_inline_comment. " and thats where it ends
+---
+(source
+    (line_comment)
+    (inline_comment)
+    (line_comment)
+    (assignment
+        (identifier)
+        (identifier))
+        (inline_comment))
