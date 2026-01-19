@@ -59,3 +59,36 @@ suddenly_there_is = another_inline_comment. " and thats where it ends
         (identifier)
         (identifier))
         (inline_comment))
+======
+Pseudo comment
+======
+foo = 10 + 20. "#EC CI_BUFFJOIN 
+---
+(source
+    (assignment
+        (identifier)
+        (binary_operator
+            (number)
+            (number)))
+    (pseudo_comment
+        (kind)
+        (code)))
+======
+Pragma
+======
+DATA TEXT TYPE STRING   ##needed. 
+text  = 'Hello Pragmas' ##no_text.
+---
+(source
+    (data_declaration
+        (data_spec
+            (identifier)
+            (builtin_type_spec
+            (type_identifier)))
+        (pragma
+            (code)))
+    (assignment
+        (identifier)
+        (literal_string)
+        (pragma
+            (code))))

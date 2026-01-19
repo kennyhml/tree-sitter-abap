@@ -9,8 +9,6 @@ enum Token
 
     MULTI_LINE_COMMENT,
 
-    DOCSTRING,
-
     /**
      * Message type can be the prefix of a message number, and this conflicts
      * with the word rule. There might be a better way to work around this, but

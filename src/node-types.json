@@ -5565,11 +5565,6 @@
     "named": false
   },
   {
-    "type": "docstring",
-    "named": true,
-    "extra": true
-  },
-  {
     "type": "duration",
     "named": false
   },
