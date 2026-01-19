@@ -44,6 +44,10 @@ module.exports = grammar({
     // Repeated full-line comments without a gap.
     $.multi_line_comment,
 
+    $.doctag_text,
+
+    $._docstring_continuation,
+
     /**
      * Message type can be the prefix of a message number, and this conflicts
      * with the word rule. There might be a better way to work around this, but
@@ -104,7 +108,8 @@ module.exports = grammar({
     $._simple_statement,
     $._compound_statement,
     $.pattern,
-    $.replace
+    $.replace,
+    $.documentation_tag
   ],
 
   word: $ => $._name,
@@ -116,6 +121,7 @@ module.exports = grammar({
       $._simple_statement,
       $._compound_statement,
       $.general_expression,
+      $.docstring
     ),
 
     // Statements that dont have a body.
@@ -2183,6 +2189,56 @@ module.exports = grammar({
     ),
 
     /**
+     * Docstring (modern abap). Due to the more complex nature of its syntx, its not 
+     * 'extra-compatible'. However, since it typically doesnt occur inlined, its trivially
+     * checked for in the possible positions.
+     * 
+     * While HTML is allowed in the docstrings, theres not really any reason for us to
+     * actually parse said html to produce anything meaningful. The main thing we care about
+     * is the non-html features such as linking other components or listing parameters, etc.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDOCCOMMENT.html
+     * 
+     * The special characters ", ', <, >, @, {, |, and } can, if necessary, be escaped 
+     * using &quot;, &apos;, &lt;, &gt;, &#64;, &#123;, &#124;, and &#125;.
+     * 
+     * @parameter, @raising, and @exception must be placed directly after "! and thus introduce 
+     * a new line must be followed by the corresponding documentation, separated by |
+     * 
+     * In an ABAP Doc comment, the following syntax can be used to refer to the documentation of other repository objects:
+     * {@link [[[kind:]name.]...][kind:]name} ...
+     */
+    docstring: $ => prec.right(
+      seq(
+        // first line
+        "\"!",
+        optional(token.immediate(/[ ]+/)),
+        optional(alias(token.immediate(/[^\@\{\}\n\r]+/), $.paragraph)),
+        optional($.documentation_tag),
+
+        // subsequent lines need special external continuation handling
+        repeat(
+          seq(
+            alias($._docstring_continuation, "\"!"),
+            optional(token.immediate(/[ ]+/)),
+            optional(alias(token.immediate(/[^\@\{\}\n\r]+/), $.paragraph)),
+            optional($.documentation_tag),
+          )
+        )
+      )
+    ),
+
+    documentation_tag: $ => choice(
+      $.parameter_documentation,
+      $.raising_documentation,
+      $.exception_documentation,
+    ),
+
+    parameter_documentation: $ => doctag($, "parameter"),
+    exception_documentation: $ => doctag($, "exception"),
+    raising_documentation: $ => doctag($, "raising"),
+
+    /**
      * When not currently inside a statement, ABAP allows spraying `...` all over the place.
      * 
      * For example, this is valid:
@@ -2449,4 +2505,13 @@ function params(keyword, rule) {
 
 function args(keyword, rule) {
   return field(keyword, seq(kw(keyword), rule));
+}
+
+function doctag($, term) {
+  return seq(
+    `@${term}`,
+    field("name", $.identifier),
+    "|",
+    field("documentation", $.doctag_text)
+  );
 }
