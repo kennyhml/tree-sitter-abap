@@ -9,9 +9,9 @@ enum Token
 
     MULTI_LINE_COMMENT,
 
-    DOCTAG_TEXT,
-
     DOCSTRING_CONTINUATION,
+
+    DOCTAG_TEXT,
 
     /**
      * Message type can be the prefix of a message number, and this conflicts
@@ -140,48 +140,17 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
 
     if (valid_symbols[DOCTAG_TEXT]) {
         bool start_capture = false;
-        while (true) {
-            while (!lexer->eof(lexer) && lexer->lookahead != '\r' &&
-                   lexer->lookahead != '\n') {
-                start_capture |= lexer->lookahead != ' ';
-                lexer->advance(lexer, !start_capture);
-            }
-            // mark BEFORE consuming the end of the line, otherwise we mark
-            // at the start of the next line which is just awkward as hell..
-            lexer->mark_end(lexer);
-            consume_end_of_line(lexer, true);
 
-            const int32_t whitespaces = advance_whitespaces(lexer, true);
-            if (!consume_docstring_start(lexer, true)) {
-                // The next line is not a docstring anymore, ends at mark
-                lexer->result_symbol = DOCTAG_TEXT;
-                return true;
-            }
-
-
-            // This line is also a docstring, does it continue the text?
-            // Also end the documentation context on an empty line.
-            advance_whitespaces(lexer, true);
-            if (lexer->lookahead == '@' || lexer->lookahead == '\r' ||
-                lexer->lookahead == '\n' || lexer->eof(lexer)) {
-                lexer->result_symbol = DOCTAG_TEXT;
-                return true;
-            }
-
-            while (lexer->lookahead != '@') {
-                if (lexer->eof(lexer) || consume_end_of_line(lexer, true)) {
-                    // no @ occurred, so this text must be part of our doc
-                    lexer->mark_end(lexer);
-                    break;
-                }
-                lexer->advance(lexer, false);
-            }
-
-            if (lexer->lookahead == '@' || lexer->eof(lexer)) {
-                lexer->result_symbol = DOCTAG_TEXT;
-                return true;
-            }
+        // simply walk up to the end of the line or until the @ symbol.
+        while (!lexer->eof(lexer) && lexer->lookahead != '\r' &&
+               lexer->lookahead != '\n' && lexer->lookahead != '@') {
+            start_capture |= lexer->lookahead != ' ';
+            lexer->advance(lexer, !start_capture);
         }
+        if (start_capture) {
+            lexer->result_symbol = DOCTAG_TEXT;
+        }
+        return start_capture;
     }
 
     if (valid_symbols[LINE_COMMENT]) {

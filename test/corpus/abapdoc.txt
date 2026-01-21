@@ -5,7 +5,7 @@ Plain docstring line
 ---
 (source
     (docstring
-        (paragraph)))
+        (documentation_paragraph)))
 ======
 Seperated docstrings
 ======
@@ -15,9 +15,9 @@ Seperated docstrings
 ---
 (source
     (docstring
-        (paragraph))
+        (documentation_paragraph))
     (docstring
-        (paragraph)))
+        (documentation_paragraph)))
 ======
 Multi line docstrings
 ======
@@ -28,10 +28,10 @@ Multi line docstrings
 ---
 (source
     (docstring
-        (paragraph)
-        (paragraph)
-        (paragraph)
-        (paragraph)))
+        (documentation_paragraph)
+        (documentation_paragraph)
+        (documentation_paragraph)
+        (documentation_paragraph)))
 ======
 Empty line docstring
 ======
@@ -59,18 +59,21 @@ Split documentation tags
 ---
 (source
     (docstring
-        (paragraph)
-        (paragraph)
-        (parameter_documentation
+        (documentation_paragraph)
+        (documentation_paragraph)
+        (documentation_tag
+            (tag)
             (identifier)
-            (doctag_text))
-        (parameter_documentation
+            (documentation_paragraph))
+        (documentation_tag
+            (tag)
             (identifier)
-            (doctag_text))
-        (raising_documentation
+            (documentation_paragraph))
+        (documentation_tag
+            (tag)
             (identifier)
-            (doctag_text))
-        (exception_documentation
+            (documentation_paragraph))
+        (documentation_tag
+            (tag)
             (identifier)
-            (doctag_text))))
-
+            (documentation_paragraph))))
