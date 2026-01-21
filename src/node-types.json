@@ -222,24 +222,6 @@
     ]
   },
   {
-    "type": "documentation_tag",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "exception_documentation",
-        "named": true
-      },
-      {
-        "type": "parameter_documentation",
-        "named": true
-      },
-      {
-        "type": "raising_documentation",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "general_expression",
     "named": true,
     "subtypes": [
@@ -1890,14 +1872,80 @@
       "required": false,
       "types": [
         {
-          "type": "documentation_tag",
+          "type": "documentation_paragraph",
           "named": true
         },
         {
-          "type": "paragraph",
+          "type": "documentation_tag",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "documentation_link",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "link",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "documentation_paragraph",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "documentation_link",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "documentation_tag",
+    "named": true,
+    "fields": {
+      "documentation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "documentation_paragraph",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2021,32 +2069,6 @@
     "type": "exception",
     "named": true,
     "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "exception_documentation",
-    "named": true,
-    "fields": {
-      "documentation": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "doctag_text",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -3499,32 +3521,6 @@
     }
   },
   {
-    "type": "parameter_documentation",
-    "named": true,
-    "fields": {
-      "documentation": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "doctag_text",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "parameter_list",
     "named": true,
     "fields": {},
@@ -3876,32 +3872,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "raising_documentation",
-    "named": true,
-    "fields": {
-      "documentation": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "doctag_text",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -5424,15 +5394,7 @@
     "named": false
   },
   {
-    "type": "@exception",
-    "named": false
-  },
-  {
-    "type": "@parameter",
-    "named": false
-  },
-  {
-    "type": "@raising",
+    "type": "@link",
     "named": false
   },
   {
@@ -5704,10 +5666,6 @@
     "named": false
   },
   {
-    "type": "doctag_text",
-    "named": true
-  },
-  {
     "type": "duration",
     "named": false
   },
@@ -5965,6 +5923,10 @@
     "named": false
   },
   {
+    "type": "link",
+    "named": true
+  },
+  {
     "type": "local",
     "named": false
   },
@@ -6112,10 +6074,6 @@
   {
     "type": "page",
     "named": false
-  },
-  {
-    "type": "paragraph",
-    "named": true
   },
   {
     "type": "parameter",
@@ -6304,6 +6262,10 @@
   {
     "type": "table",
     "named": false
+  },
+  {
+    "type": "tag",
+    "named": true
   },
   {
     "type": "testing",

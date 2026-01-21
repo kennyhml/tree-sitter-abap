@@ -44,9 +44,9 @@ module.exports = grammar({
     // Repeated full-line comments without a gap.
     $.multi_line_comment,
 
-    $.doctag_text,
-
     $._docstring_continuation,
+
+    $.doctag_text,
 
     /**
      * Message type can be the prefix of a message number, and this conflicts
@@ -109,7 +109,6 @@ module.exports = grammar({
     $._compound_statement,
     $.pattern,
     $.replace,
-    $.documentation_tag
   ],
 
   word: $ => $._name,
@@ -2208,35 +2207,71 @@ module.exports = grammar({
      * In an ABAP Doc comment, the following syntax can be used to refer to the documentation of other repository objects:
      * {@link [[[kind:]name.]...][kind:]name} ...
      */
-    docstring: $ => prec.right(
-      seq(
-        // first line
-        "\"!",
-        optional(token.immediate(/[ ]+/)),
-        optional(alias(token.immediate(/[^\@\{\}\n\r]+/), $.paragraph)),
-        optional($.documentation_tag),
+    docstring: $ => seq(
+      // first line
+      "\"!",
+      optional($._docstring_content),
+      // subsequent lines need special external continuation handling
+      repeat(
+        seq(
+          alias($._docstring_continuation, "\"!"),
+          optional($._docstring_content)
+        )
+      ),
+    ),
 
-        // subsequent lines need special external continuation handling
-        repeat(
-          seq(
-            alias($._docstring_continuation, "\"!"),
-            optional(token.immediate(/[ ]+/)),
-            optional(alias(token.immediate(/[^\@\{\}\n\r]+/), $.paragraph)),
-            optional($.documentation_tag),
-          )
+    _docstring_content: $ => seq(
+      /[ \t]*/,
+      optional(
+        choice(
+          $.documentation_tag,
+          $.documentation_paragraph,
         )
       )
     ),
 
-    documentation_tag: $ => choice(
-      $.parameter_documentation,
-      $.raising_documentation,
-      $.exception_documentation,
+    /**
+     * A paragraph of documentation, within a single line of the docstring.
+     * 
+     * Example:
+     * ```
+     * This method provides an instance of {@link cl_abap_browser} for use.
+     * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ----------------------  ^^^^^^^
+     *        text                              doclink             text
+     * ```
+     * If the paragraph is continued in the next line of the docstring, it will
+     * be a seperate node. This is due to the intention to avoid making the `"!"`
+     * line start part of the paragraph, which it technically isnt.
+     */
+    documentation_paragraph: $ => repeat1(
+      choice(
+        token.immediate(/[ ]*[^\@\{\}\n\r\t ][^\{\}\n\r]*/),
+        $.documentation_link,
+      )
     ),
 
-    parameter_documentation: $ => doctag($, "parameter"),
-    exception_documentation: $ => doctag($, "exception"),
-    raising_documentation: $ => doctag($, "raising"),
+    documentation_tag: $ => choice(
+      // Structured tags: @parameter, @raising, @exception
+      prec(3, seq(
+        field("tag", alias(token(/@(parameter|raising|exception)/), $.tag)),
+        field("name", $.identifier),
+        "|",
+        optional(field("documentation", $.documentation_paragraph))
+      )),
+
+      // Custom tags (not technically supported by SAP)
+      prec(2, seq(
+        field("tag", alias(token(/@[a-zA-Z]+/), $.tag)),
+        optional(field("documentation", $.documentation_paragraph))
+      ))
+    ),
+
+    documentation_link: $ => seq(
+      token.immediate("{"),
+      "@link",
+      alias(/[^\}\n\r]+/, $.link), //TODO: make its own node
+      "}",
+    ),
 
     /**
      * When not currently inside a statement, ABAP allows spraying `...` all over the place.
@@ -2505,13 +2540,4 @@ function params(keyword, rule) {
 
 function args(keyword, rule) {
   return field(keyword, seq(kw(keyword), rule));
-}
-
-function doctag($, term) {
-  return seq(
-    `@${term}`,
-    field("name", $.identifier),
-    "|",
-    field("documentation", $.doctag_text)
-  );
 }
