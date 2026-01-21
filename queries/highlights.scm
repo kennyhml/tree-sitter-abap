@@ -13,24 +13,23 @@
    (pseudo_comment)
 ] @comment.pragma
 
+(documentation_tag
+  (tag) @abapdoc.tag
+  (#eq? @abapdoc.tag "@parameter")
+  name: (identifier) @variable.param)
 
+(documentation_tag
+  (tag) @abapdoc.tag
+  (#eq? @abapdoc.tag "@raising")
+  name: (identifier) @class)
+
+(documentation_tag
+  (tag) @abapdoc.tag
+  (#eq? @abapdoc.tag "@exception")
+  name: (identifier) @variable.exception)
+
+(documentation_tag (tag) @abapdoc.tag )
 (docstring) @abapdoc
-(docstring
-  [ 
-    (parameter_documentation
-      "@parameter" @abapdoc.tag
-      name: (identifier) @variable.param )
-
-    (raising_documentation
-      "@raising" @abapdoc.tag
-      name: (identifier) @class)
-
-    (exception_documentation
-      "@exception" @abapdoc.tag
-      name: (identifier) @variable.exception)
-  ]
-) @abapdoc
-
 
 (type_identifier) @type
 (builtin_type_spec) @type.builtin
