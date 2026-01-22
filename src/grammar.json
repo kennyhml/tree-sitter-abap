@@ -13796,7 +13796,7 @@
             "type": "IMMEDIATE_TOKEN",
             "content": {
               "type": "PATTERN",
-              "value": "[^\\@\\{\\n\\r][^\\{\\n\\r]*"
+              "value": "(?:\\\\[{}]|[^@{}\\n\\r])(?:\\\\[{}]|[^{}\\n\\r])*"
             }
           },
           {
@@ -13837,20 +13837,11 @@
               }
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "|"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "PATTERN",
-              "value": "[ \\t]*"
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "[ \\t]+[\\|]*[ \\t]*"
+              }
             },
             {
               "type": "CHOICE",

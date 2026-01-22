@@ -77,3 +77,49 @@ Split documentation tags
             (tag)
             (identifier)
             (paragraph))))
+======
+Predefined tag missing docstring
+======
+"! @parameter i_dont_have_documentation 
+---
+(source
+    (docstring
+        (doctag
+            (tag)
+            (identifier))))
+======
+Spacing required between docstring
+:error
+======
+"! @parameter exclamation_mark_is_not_valid!
+---
+(source)
+======
+User defined tags
+======
+"! Bla bla bla this is boring text!!
+"!
+"! @parameter iv_param1 | My parameter
+"! @note This technically isnt an @ABAPDOC@@ feature but I think its cool!
+---
+(source
+    (docstring
+        (paragraph)
+        (doctag
+            (tag)
+            (identifier)
+            (paragraph))
+        (doctag
+            (tag)
+            (paragraph))))
+======
+Escape doclinks
+======
+"! @parameter foo | An instance of something \{ I have no idea what im doing \}
+---
+(source
+    (docstring
+        (doctag
+            (tag)
+            (identifier)
+            (paragraph))))
