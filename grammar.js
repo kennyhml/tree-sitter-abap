@@ -2250,7 +2250,8 @@ module.exports = grammar({
       choice(
         // since a @ only starts a doctag at the beginning of the line,
         // we really just need to make sure the line doesnt start with it.
-        token.immediate(/[^\@\{\n\r][^\{\n\r]*/),
+        // Also make sure to allow '{' and '}' when escaped
+        token.immediate(/(?:\\[{}]|[^@{}\n\r])(?:\\[{}]|[^{}\n\r])*/),
         $.doclink,
       )
     ),
@@ -2260,10 +2261,7 @@ module.exports = grammar({
       seq(
         field("tag", alias(token(/@(parameter|raising|exception)/), $.tag)),
         field("name", $.identifier),
-        // making these optional has the advantage that we can already highlight
-        // the tag as its being typed, since we already know what it is..
-        optional("|"),
-        /[ \t]*/, // dont capture whitespaces between the | and the paragraph as documentation
+        token.immediate(/[ \t]+[\|]*[ \t]*/),
         optional(field("documentation", $.paragraph))
       ),
       // Custom tags, not technically a thing but might as well?.. always wanted this :D
