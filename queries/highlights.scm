@@ -13,22 +13,22 @@
    (pseudo_comment)
 ] @comment.pragma
 
-(documentation_tag
+(doctag
   (tag) @abapdoc.tag
   (#eq? @abapdoc.tag "@parameter")
   name: (identifier) @variable.param)
 
-(documentation_tag
+(doctag
   (tag) @abapdoc.tag
   (#eq? @abapdoc.tag "@raising")
   name: (identifier) @class)
 
-(documentation_tag
+(doctag
   (tag) @abapdoc.tag
   (#eq? @abapdoc.tag "@exception")
   name: (identifier) @variable.exception)
 
-(documentation_tag (tag) @abapdoc.tag )
+(doctag (tag) @abapdoc.tag )
 (docstring) @abapdoc
 
 (type_identifier) @type

@@ -13772,11 +13772,11 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "documentation_tag"
+                  "name": "doctag"
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "documentation_paragraph"
+                  "name": "paragraph"
                 }
               ]
             },
@@ -13787,7 +13787,7 @@
         }
       ]
     },
-    "documentation_paragraph": {
+    "paragraph": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",
@@ -13796,116 +13796,120 @@
             "type": "IMMEDIATE_TOKEN",
             "content": {
               "type": "PATTERN",
-              "value": "[ ]*[^\\@\\{\\}\\n\\r\\t ][^\\{\\}\\n\\r]*"
+              "value": "[^\\@\\{\\n\\r][^\\{\\n\\r]*"
             }
           },
           {
             "type": "SYMBOL",
-            "name": "documentation_link"
+            "name": "doclink"
           }
         ]
       }
     },
-    "documentation_tag": {
+    "doctag": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "PREC",
-          "value": 3,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "tag",
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "tag",
+              "content": {
+                "type": "ALIAS",
                 "content": {
-                  "type": "ALIAS",
+                  "type": "TOKEN",
                   "content": {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "@(parameter|raising|exception)"
-                    }
-                  },
-                  "named": true,
-                  "value": "tag"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "name",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                }
-              },
-              {
-                "type": "STRING",
-                "value": "|"
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "FIELD",
-                    "name": "documentation",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "documentation_paragraph"
-                    }
-                  },
-                  {
-                    "type": "BLANK"
+                    "type": "PATTERN",
+                    "value": "@(parameter|raising|exception)"
                   }
-                ]
+                },
+                "named": true,
+                "value": "tag"
               }
-            ]
-          }
+            },
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "|"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\t]*"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "documentation",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "paragraph"
+                  }
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
         },
         {
-          "type": "PREC",
-          "value": 2,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "tag",
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "tag",
+              "content": {
+                "type": "ALIAS",
                 "content": {
-                  "type": "ALIAS",
+                  "type": "TOKEN",
                   "content": {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "@[a-zA-Z]+"
-                    }
-                  },
-                  "named": true,
-                  "value": "tag"
-                }
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "FIELD",
-                    "name": "documentation",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "documentation_paragraph"
-                    }
-                  },
-                  {
-                    "type": "BLANK"
+                    "type": "PATTERN",
+                    "value": "@[a-zA-Z]+"
                   }
-                ]
+                },
+                "named": true,
+                "value": "tag"
               }
-            ]
-          }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "documentation",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "paragraph"
+                  }
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
-    "documentation_link": {
+    "doclink": {
       "type": "SEQ",
       "members": [
         {

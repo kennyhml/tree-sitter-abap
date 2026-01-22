@@ -2221,11 +2221,14 @@ module.exports = grammar({
     ),
 
     _docstring_content: $ => seq(
+      // for both options, its best to just preconsume any leading whitespaces
+      // to get a cleaner result. Otherwise, something like ` @parameter` could get
+      // captured instead..
       /[ \t]*/,
       optional(
         choice(
-          $.documentation_tag,
-          $.documentation_paragraph,
+          $.doctag,
+          $.paragraph,
         )
       )
     ),
@@ -2243,30 +2246,34 @@ module.exports = grammar({
      * be a seperate node. This is due to the intention to avoid making the `"!"`
      * line start part of the paragraph, which it technically isnt.
      */
-    documentation_paragraph: $ => repeat1(
+    paragraph: $ => repeat1(
       choice(
-        token.immediate(/[ ]*[^\@\{\}\n\r\t ][^\{\}\n\r]*/),
-        $.documentation_link,
+        // since a @ only starts a doctag at the beginning of the line,
+        // we really just need to make sure the line doesnt start with it.
+        token.immediate(/[^\@\{\n\r][^\{\n\r]*/),
+        $.doclink,
       )
     ),
 
-    documentation_tag: $ => choice(
-      // Structured tags: @parameter, @raising, @exception
-      prec(3, seq(
+    doctag: $ => choice(
+      // Defined tags: @parameter, @raising, @exception
+      seq(
         field("tag", alias(token(/@(parameter|raising|exception)/), $.tag)),
         field("name", $.identifier),
-        "|",
-        optional(field("documentation", $.documentation_paragraph))
-      )),
-
-      // Custom tags (not technically supported by SAP)
-      prec(2, seq(
+        // making these optional has the advantage that we can already highlight
+        // the tag as its being typed, since we already know what it is..
+        optional("|"),
+        /[ \t]*/, // dont capture whitespaces between the | and the paragraph as documentation
+        optional(field("documentation", $.paragraph))
+      ),
+      // Custom tags, not technically a thing but might as well?.. always wanted this :D
+      seq(
         field("tag", alias(token(/@[a-zA-Z]+/), $.tag)),
-        optional(field("documentation", $.documentation_paragraph))
-      ))
+        optional(field("documentation", $.paragraph))
+      )
     ),
 
-    documentation_link: $ => seq(
+    doclink: $ => seq(
       token.immediate("{"),
       "@link",
       alias(/[^\}\n\r]+/, $.link), //TODO: make its own node
