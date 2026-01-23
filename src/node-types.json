@@ -1872,7 +1872,7 @@
       "required": true,
       "types": [
         {
-          "type": "link",
+          "type": "linked_object_path",
           "named": true
         }
       ]
@@ -2819,6 +2819,71 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "linked_node",
+    "named": true,
+    "fields": {
+      "kind": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "linked_object_kind",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "linked_object_kind",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "linked_object_path",
+    "named": true,
+    "fields": {
+      "comp": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "linked_node",
+            "named": true
+          }
+        ]
+      },
+      "locator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "linked_node",
+            "named": true
+          },
+          {
+            "type": "linked_object_path",
+            "named": true
+          },
+          {
+            "type": "scope_directive",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -4275,6 +4340,11 @@
     }
   },
   {
+    "type": "scope_directive",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "search_key_components",
     "named": true,
     "fields": {},
@@ -5666,6 +5736,10 @@
     "named": false
   },
   {
+    "type": "doma",
+    "named": false
+  },
+  {
     "type": "duration",
     "named": false
   },
@@ -5710,6 +5784,10 @@
     "named": false
   },
   {
+    "type": "evnt",
+    "named": false
+  },
+  {
     "type": "exceptions",
     "named": false
   },
@@ -5742,11 +5820,23 @@
     "named": false
   },
   {
+    "type": "form",
+    "named": false
+  },
+  {
     "type": "friends",
     "named": false
   },
   {
     "type": "from",
+    "named": false
+  },
+  {
+    "type": "fugr",
+    "named": false
+  },
+  {
+    "type": "func",
     "named": false
   },
   {
@@ -5854,6 +5944,10 @@
     "named": false
   },
   {
+    "type": "intf",
+    "named": false
+  },
+  {
     "type": "into",
     "named": false
   },
@@ -5923,10 +6017,6 @@
     "named": false
   },
   {
-    "type": "link",
-    "named": true
-  },
-  {
     "type": "local",
     "named": false
   },
@@ -5969,6 +6059,10 @@
   {
     "type": "message_type",
     "named": true
+  },
+  {
+    "type": "meth",
+    "named": false
   },
   {
     "type": "method",
@@ -6096,6 +6190,10 @@
     "named": false
   },
   {
+    "type": "prog",
+    "named": false
+  },
+  {
     "type": "protected",
     "named": false
   },
@@ -6181,6 +6279,10 @@
   },
   {
     "type": "scalar",
+    "named": false
+  },
+  {
+    "type": "seam",
     "named": false
   },
   {
@@ -6341,6 +6443,10 @@
   },
   {
     "type": "without",
+    "named": false
+  },
+  {
+    "type": "xslt",
     "named": false
   },
   {

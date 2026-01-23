@@ -2271,12 +2271,61 @@ module.exports = grammar({
       )
     ),
 
+    /**
+     * In an ABAP Doc comment, the following syntax can be used to refer to 
+     * the documentation of other repository objects:
+     * 
+     * {@link [[[kind:]name.]...][kind:]name} ...
+     */
     doclink: $ => seq(
       token.immediate("{"),
       "@link",
-      alias(/[^\}\n\r]+/, $.link), //TODO: make its own node
+      $.linked_object_path,
       "}",
     ),
+
+    linked_object_path: $ => prec.right(choice(
+      field("locator", $.linked_node),
+      seq(
+        choice(
+          seq(
+            field("locator", choice(
+              $.linked_object_path,
+              $.linked_node,
+            )),
+            ".",
+          ),
+          field("locator", $.scope_directive)
+        ),
+        field("comp", $.linked_node)
+      )
+    )),
+
+    linked_node: $ => seq(
+      optional(
+        seq(
+          field("kind", $.linked_object_kind),
+          token.immediate(':'),
+        )
+      ),
+      field("name", $.identifier)
+    ),
+
+    scope_directive: _ => prec.left(repeat1(".")),
+
+    linked_object_kind: _ => choice(...caseInsensitives(
+      "data", // constants, variables, procedure parameters
+      "doma", // ddic domains
+      "evnt", // class based events
+      "func", // function modules in function pools
+      "form", // subroutines in programs
+      "fugr", // function pools
+      "intf", // interfaces implemented in a class
+      "meth", // methods
+      "prog", // abap programs
+      "seam", // test seams
+      "xslt"  // xslt programs and simple transformations
+    )),
 
     /**
      * When not currently inside a statement, ABAP allows spraying `...` all over the place.
@@ -2363,26 +2412,21 @@ module.exports = grammar({
   }
 });
 
-/**
- * @param {string} keyword 
- * @returns {AliasRule}
- */
-function kw(keyword) {
-  let result = new RustRegex(keyword
+function caseInsensitive(term) {
+  let result = new RustRegex(term
     .split('')
     .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
     .join('')
   )
-  return alias(result, keyword);
+  return alias(result, term);
 }
-/**
- * @param {string[]} keywords
- * 
- * @returns {Rule[]}
- */
-function kws(...keywords) {
-  return keywords.map(kw)
+
+function caseInsensitives(...terms) {
+  return terms.map(caseInsensitive)
 }
+
+function kw(keyword) { return caseInsensitive(keyword) };
+function kws(...keywords) { return caseInsensitives(...keywords) }
 
 function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))

@@ -123,3 +123,70 @@ Escape doclinks
             (tag)
             (identifier)
             (paragraph))))
+======
+Doclink to method of local class
+======
+"! Default html string for method {@link .html.METH:show} 
+---
+(source
+    (docstring
+        (paragraph
+            (doclink
+                (linked_object_path
+                    locator: (linked_object_path
+                        locator: (scope_directive)
+                        comp: (linked_node
+                            name: (identifier)))
+                    comp: (linked_node
+                        kind: (linked_object_kind)
+                        name: (identifier)))))))
+======
+Doclink to repository class object
+======
+"! @parameter html | Parameter for 
+"! {@link cl_abap_browser.METH:show_html.DATA:html_string}. 
+---
+(source
+    (docstring
+        (doctag
+            (tag)
+            (identifier)
+            (paragraph))
+        (paragraph
+            (doclink
+            (linked_object_path
+                (linked_object_path
+                    (linked_node
+                        (identifier))
+                    (linked_node
+                        (linked_object_kind)
+                        (identifier)))
+                (linked_node
+                    (linked_object_kind)
+                    (identifier)))))))
+======
+Doclink with only a single repository identifier
+======
+"! of {@link cl_abap_browser} 
+---
+(source
+    (docstring
+        (paragraph
+            (doclink
+                (linked_object_path
+                    (linked_node
+                        (identifier)))))))
+======
+Doclink with only a single typed repository identifier
+======
+"! The type must match the technical domain {@link DOMA:/AIF/ACTIONNR}.
+---
+(source
+    (docstring
+        (paragraph
+            (doclink
+                (linked_object_path
+                    (linked_node
+                        (linked_object_kind)
+                        (identifier)))))))
+    
