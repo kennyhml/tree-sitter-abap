@@ -13915,17 +13915,237 @@
           "value": "@link"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[^\\}\\n\\r]+"
-          },
-          "named": true,
-          "value": "link"
+          "type": "SYMBOL",
+          "name": "linked_object_path"
         },
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "linked_object_path": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "locator",
+            "content": {
+              "type": "SYMBOL",
+              "name": "linked_node"
+            }
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "FIELD",
+                        "name": "locator",
+                        "content": {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "linked_object_path"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "linked_node"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "locator",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "scope_directive"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FIELD",
+                "name": "comp",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "linked_node"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "linked_node": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "kind",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "linked_object_kind"
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "STRING",
+                    "value": ":"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "scope_directive": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "STRING",
+          "value": "."
+        }
+      }
+    },
+    "linked_object_kind": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][aA][tT][aA]"
+          },
+          "named": false,
+          "value": "data"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][oO][mM][aA]"
+          },
+          "named": false,
+          "value": "doma"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][vV][nN][tT]"
+          },
+          "named": false,
+          "value": "evnt"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][uU][nN][cC]"
+          },
+          "named": false,
+          "value": "func"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][oO][rR][mM]"
+          },
+          "named": false,
+          "value": "form"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][uU][gG][rR]"
+          },
+          "named": false,
+          "value": "fugr"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][tT][fF]"
+          },
+          "named": false,
+          "value": "intf"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[mM][eE][tT][hH]"
+          },
+          "named": false,
+          "value": "meth"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][rR][oO][gG]"
+          },
+          "named": false,
+          "value": "prog"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][eE][aA][mM]"
+          },
+          "named": false,
+          "value": "seam"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[xX][sS][lL][tT]"
+          },
+          "named": false,
+          "value": "xslt"
         }
       ]
     },
