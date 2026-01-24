@@ -181,3 +181,38 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ).
                 (argument_list
                     (positional_argument
                         (identifier))))))))
+==================
+Table expression with optional value
+==================
+value #( itab[ 1 ] OPTIONAL ). 
+---
+(source
+    (value_expression
+        (argument_list
+            (positional_argument
+                (table_expression
+                    (identifier)
+                    (index_read
+                    (number)))))))
+==================
+Table expression with default value
+==================
+value  #( itab[ 1 ] DEFAULT value #( carrid   = 'XXX' 
+                                     carrname = 'xxx' ) ). 
+---
+(source
+    (value_expression
+        (argument_list
+            (positional_argument
+                (table_expression
+                    (identifier)
+                    (index_read
+                        (number)))))
+        (value_expression
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (literal_string))
+                (named_argument
+                    (identifier)
+                    (literal_string))))))
