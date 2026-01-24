@@ -8566,8 +8566,8 @@
         {
           "type": "IMMEDIATE_TOKEN",
           "content": {
-            "type": "STRING",
-            "value": " "
+            "type": "PATTERN",
+            "value": "[\\t\\n\\r ]"
           }
         },
         {
@@ -14475,6 +14475,10 @@
           {
             "type": "PATTERN",
             "value": "[cC][lL][aA][sS][sS]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[aA][nN][yY]"
           }
         ]
       }

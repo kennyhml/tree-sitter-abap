@@ -13,6 +13,78 @@
    (pseudo_comment)
 ] @comment.pragma
 
+; ------------------------------------------
+; Class identifiers, ambiguity exists.
+; ------------------------------------------
+(class_component_selector class: (identifier) @class )
+(deferred_class_definition name: (identifier) @class )
+(class_definition name: (identifier) @class )
+(class_implementation name: (identifier) @class )
+(exception name: (identifier) @class )
+
+(class_options
+	parent: (identifier) @class
+)
+
+; Ambiguous case, its also possible to have a ref to a datatype
+; but in most cases it should be a class.
+(ref_type_spec name: (type_identifier) @class )
+
+; ------------------------------------------
+; Interface identifiers, ambiguity exists.
+; ------------------------------------------
+(deferred_interface_definition name: (identifier) @interface )
+(interfaces_declaration (identifier) @interface )
+(interface_definition name: (identifier) @interface )
+
+; The component could literally be anything, we have no idea,
+; but in 90% of cases it should be a method..
+(interface_component_selector 
+	intf: (identifier) @interface
+	comp: (identifier) @function.method
+ )
+ 
+; ------------------------------------------
+; Variable identifiers
+; ------------------------------------------
+(static_component (identifier) @variable.property )
+(itab_comp_spec (identifier) @variable.property )
+(key_components (identifier) @variable.property )
+
+(parameter name: (identifier) @variable.parameter )
+(preferred_parameter name: (identifier) @variable.parameter )
+
+(table_key_spec name: (identifier) @variable.key )
+
+(exception_list (identifier) @variable.exception )
+
+; ------------------------------------------
+; Method identifiers, ambiguity exists.
+; ------------------------------------------
+(builtin_function_call (identifier) @function.builtin )
+(method_spec name: (identifier) @function.method ) 
+(method_call name: (identifier) @function.method )
+(method_implementation name: (identifier) @function.method )
+
+; Could also be a data object but who on earth would do that..
+(alias_spec alias: (identifier) @function.method )
+
+(constructor_spec
+  [
+    "constructor"
+    "class_constructor"
+  ] @function.constructor
+)
+
+; ------------------------------------------
+; General type identifiers (if not specified elsewhere)
+; ------------------------------------------
+(type_identifier) @type
+(builtin_type_spec) @type.builtin
+
+; ------------------------------------------
+; ABAP Doc tags, links, etc.
+; ------------------------------------------
 (doctag
   (tag) @abapdoc.tag
   (#match? @abapdoc.tag "@parameter")
@@ -45,6 +117,8 @@
     (identifier) @variable
 )
 
+(docstring) @abapdoc
+
 ; No kind: is specified so the identifier is ambiguous. It could be
 ; a data element, global class / interface or a CDs entity.
 ; Could take a guess by looking at the prefix?
@@ -52,37 +126,9 @@
     (identifier) @type
 )
 
-(docstring) @abapdoc
-
-(type_identifier) @type
-(builtin_type_spec) @type.builtin
-
-(class_component_selector class: (identifier) @class )
-(exception name: (identifier) @class )
-
-(static_component (identifier) @variable.property )
-(itab_comp_spec (identifier) @variable.property )
-(key_components (identifier) @variable.property )
-
-
-(parameter name: (identifier) @variable.parameter )
-(preferred_parameter name: (identifier) @variable.parameter )
-
-(table_key_spec name: (identifier) @variable.key )
-
-(exception_list (identifier) @variable.exception )
-
-(builtin_function_call (identifier) @function.builtin )
-(method_spec name: (identifier) @function.method ) 
-(method_call name: (identifier) @function.method )
-(method_implementation name: (identifier) @function.method )
-(constructor_spec
-  [
-    "constructor"
-    "class_constructor"
-  ] @function.constructor
-)
- 
+; ------------------------------------------
+; Operators
+; ------------------------------------------
 [   
     "="
     "-"
@@ -99,6 +145,9 @@
     "!"
 ] @operator
 
+; ------------------------------------------
+; Delimiters
+; ------------------------------------------
 [
 	":"
     "."
@@ -112,6 +161,9 @@
     "~"
 ] @delimiter
 
+; ------------------------------------------
+; Keywords
+; ------------------------------------------
 [   
     "data"
     "final"
@@ -254,6 +306,10 @@
     "deferred"
     "endclass"
     
+    "interface"
+    "interfaces"
+    "endinterface"
+    
     "methods"
     "method"
     "endmethod"
@@ -284,4 +340,5 @@
 ] @keyword
 (format_option parameter: (identifier) @keyword )
 
+; Other identifiers not yet specified
 (identifier) @variable
