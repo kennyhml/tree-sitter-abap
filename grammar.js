@@ -12,7 +12,7 @@ BUFF_SIZE = $ => seq(
 );
 
 const ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
-const IDENTIFIER_REGEX = /<?[a-zA-Z_\/][a-zA-Z\d_/]*>?/;
+const IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z\d_/]*/;
 
 // ABAP does allow + and - before any number. However, allowing both inside the regex, we run
 // into an issue where the lexer considers the offset in a substring access like str+10 as 
@@ -215,6 +215,7 @@ module.exports = grammar({
     data_object: $ => choice(
       $.substring_access,
       $.identifier,
+      $.field_symbol,
       $.number,
       $.literal_string,
       $.data_component_selector,
@@ -2112,7 +2113,7 @@ module.exports = grammar({
           $.identifier,
           $.data_component_selector,
           $.dereference,
-          // field symbol
+          $.field_symbol
         )),
         choice(
           $._substring_length,
@@ -2439,11 +2440,15 @@ module.exports = grammar({
       )
     )),
 
+    field_symbol: $ => seq(
+      '<',
+      field("name", $._immediate_identifier),
+      token.immediate(">")
+    ),
+
     _type_identifier: $ => alias($.identifier, $.type_identifier),
 
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
-
-    // _immediate_identifier: $ => alias(choice($._name, $._contextual_keyword), $.identifier),
 
     _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
 

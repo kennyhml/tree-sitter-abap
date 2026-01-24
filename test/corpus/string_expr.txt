@@ -151,3 +151,26 @@ ref->*+10(length).
             dref: (identifier))
         offset: (number)
         length: (identifier)))
+======
+Substring access from field-symbol
+======
+<fs>+offset(10).
+---
+(source
+    (substring_access
+        target: (field_symbol
+            name: (identifier))
+        offset: (identifier)
+        length: (number)))
+======
+Substring access from comp access
+======
+test-var1(10)
+---
+(source
+    (substring_access
+        target: (struct_component_selector
+            struct: (identifier)
+            comp: (static_component
+                name: (identifier)))
+        length: (number)))

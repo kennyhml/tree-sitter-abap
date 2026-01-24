@@ -3037,6 +3037,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "field_symbol"
+        },
+        {
+          "type": "SYMBOL",
           "name": "number"
         },
         {
@@ -13412,6 +13416,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "dereference"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "field_symbol"
                 }
               ]
             }
@@ -14339,7 +14347,7 @@
     },
     "_name": {
       "type": "PATTERN",
-      "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
+      "value": "[a-zA-Z_\\/][a-zA-Z\\d_/]*"
     },
     "identifier": {
       "type": "CHOICE",
@@ -14387,6 +14395,30 @@
         ]
       }
     },
+    "field_symbol": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ">"
+          }
+        }
+      ]
+    },
     "_type_identifier": {
       "type": "ALIAS",
       "content": {
@@ -14402,7 +14434,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
+          "value": "[a-zA-Z_\\/][a-zA-Z\\d_/]*"
         }
       },
       "named": true,
@@ -14414,7 +14446,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "<?[a-zA-Z_\\/][a-zA-Z\\d_/]*>?"
+          "value": "[a-zA-Z_\\/][a-zA-Z\\d_/]*"
         }
       },
       "named": true,
