@@ -168,6 +168,10 @@
         "named": true
       },
       {
+        "type": "ref_expression",
+        "named": true
+      },
+      {
         "type": "switch_expression",
         "named": true
       },
@@ -4125,6 +4129,66 @@
     }
   },
   {
+    "type": "ref_expression",
+    "named": true,
+    "fields": {
+      "default": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "dobj": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "tab_expr": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ref_type_spec",
     "named": true,
     "fields": {
@@ -5474,6 +5538,16 @@
     "type": "value_expression",
     "named": true,
     "fields": {
+      "default": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": true,

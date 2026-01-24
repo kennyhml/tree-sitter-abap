@@ -3024,6 +3024,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "ref_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "conv_expression"
         }
       ]
@@ -5795,6 +5799,18 @@
           ]
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_table_expr_default"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "STRING",
           "value": ")"
         }
@@ -6220,6 +6236,95 @@
         }
       ]
     },
+    "ref_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][fF]"
+          },
+          "named": false,
+          "value": "ref"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_constructor_result"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "let_expression"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[iI][nN]"
+                  },
+                  "named": false,
+                  "value": "in"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "dobj",
+              "content": {
+                "type": "SYMBOL",
+                "name": "data_object"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "tab_expr",
+              "content": {
+                "type": "SYMBOL",
+                "name": "table_expression"
+              }
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_table_expr_default"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
     "let_expression": {
       "type": "SEQ",
       "members": [
@@ -6281,6 +6386,42 @@
         {
           "type": "SYMBOL",
           "name": "throw_exception"
+        }
+      ]
+    },
+    "_table_expr_default": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][pP][tT][iI][oO][nN][aA][lL]"
+          },
+          "named": false,
+          "value": "optional"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[dD][eE][fF][aA][uU][lL][tT]"
+              },
+              "named": false,
+              "value": "default"
+            },
+            {
+              "type": "FIELD",
+              "name": "default",
+              "content": {
+                "type": "SYMBOL",
+                "name": "general_expression"
+              }
+            }
+          ]
         }
       ]
     },
@@ -14475,6 +14616,14 @@
           {
             "type": "PATTERN",
             "value": "[cC][lL][aA][sS][sS]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[cC][oO][nN][vV]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[rR][eE][fF]"
           },
           {
             "type": "PATTERN",

@@ -204,8 +204,9 @@ module.exports = grammar({
       $.switch_expression,
       $.new_expression,
       $.value_expression,
-      $.conv_expression
-      // TODO: ref, exact, corresponding, cast, reduce, filter
+      $.ref_expression,
+      $.conv_expression,
+      // TODO: exact, corresponding, cast, reduce, filter
     ),
 
     /**
@@ -715,6 +716,7 @@ module.exports = grammar({
           $.itab_expression
         ),
       ),
+      optional($._table_expr_default),
       ")",
     ),
 
@@ -774,6 +776,22 @@ module.exports = grammar({
       ")"
     ),
 
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REF.html
+     */
+    ref_expression: $ => seq(
+      kw("ref"),
+      field("type", $._constructor_result),
+      "(",
+      optional(seq($.let_expression, kw("in"))),
+      choice(
+        field("dobj", $.data_object),
+        field("tab_expr", $.table_expression)
+      ),
+      optional($._table_expr_default),
+      ")"
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
     let_expression: $ => seq(
       kw("let"),
@@ -797,6 +815,20 @@ module.exports = grammar({
     _conditional_result: $ => choice(
       $.general_expression,
       $.throw_exception
+    ),
+
+    /**
+     * Modifiers for the evaluation of {@link table_expression} inside 
+     * {@link value_expression} and {@link ref_expression}.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_OPTIONAL_DEFAULT.html
+     */
+    _table_expr_default: $ => choice(
+      kw("optional"),
+      seq(
+        kw("default"),
+        field("default", $.general_expression)
+      )
     ),
 
     throw_exception: $ => seq(
@@ -2455,6 +2487,8 @@ module.exports = grammar({
         "switch",
         "cast",
         "class",
+        "conv",
+        "ref",
         "any"
       )
     )),
