@@ -1426,7 +1426,8 @@ module.exports = grammar({
             seq(
               optional(field("kind", $._table_category)),
               ...kws("table", "of"),
-            )
+            ),
+            alias($._inline_ref_type_spec, $.ref_type_spec)
           ),
           optional($.keys)
         ),
@@ -1486,6 +1487,18 @@ module.exports = grammar({
         seq(...kws("read-only"))
       ))
     )),
+
+    /**
+     * Only the `ref to xyz` part of a reference type specification to
+     * be inlined into other type specifications such as {@link table_type_spec}
+     */
+    _inline_ref_type_spec: $ => seq(
+      ...kws("ref", "to"),
+      choice(
+        $._type_identifier,
+        $.type_component_selector
+      )
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
     keys: $ => prec.right(repeat1($.table_key_spec)),
@@ -2555,14 +2568,15 @@ function generate_decl_specs(decl_map) {
  * 
  * @param {Rule} addition The addition to inject between the keywords.
  */
-function typeOrLikeExpr($, addition) {
+function typeOrLikeExpr($, addition, ...extraChoices) {
   return choice(
     seq(
       kw("type"),
       addition,
       field("name", choice(
         $._type_identifier,
-        $.type_component_selector
+        $.type_component_selector,
+        ...extraChoices
       ))
     ),
     seq(

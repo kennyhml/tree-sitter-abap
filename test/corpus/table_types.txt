@@ -23,6 +23,18 @@ types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
                 (keys
                     (table_key_spec))))))
 ======
+Table type with reference table line
+======
+types: gtyt_ref_table type standard table of ref to cl_my_class.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec
+                (ref_type_spec
+                    (type_identifier))))))
+======
 Table type with non unique key
 ======
 types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var1.

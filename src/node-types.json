@@ -4072,6 +4072,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "type_component_selector",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -5116,6 +5130,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "ref_type_spec",
+            "named": true
+          },
           {
             "type": "type_component_selector",
             "named": true
