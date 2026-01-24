@@ -28,3 +28,25 @@ lx->set_location(
                 (named_argument
                     (identifier)
                     (identifier))))))
+==================
+From cast expression
+==================
+CAST cls( iref )->meth1( )->meth2( ).
+---
+(source
+    (method_call
+        (method_call
+            (cast_expression
+                (type_identifier)
+                (identifier))
+            (identifier)
+            (call_arguments))
+        (identifier)
+        (call_arguments)))
+==================
+Linebreak after opening parenthesis
+==================
+lx->set_location(
+    iv_location = iv_location
+    is_node     = is_node ).
+---

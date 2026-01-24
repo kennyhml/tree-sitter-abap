@@ -3033,6 +3033,10 @@
         {
           "type": "SYMBOL",
           "name": "exact_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cast_expression"
         }
       ]
     },
@@ -6304,6 +6308,70 @@
         }
       ]
     },
+    "cast_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][aA][sS][tT]"
+          },
+          "named": false,
+          "value": "cast"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_constructor_result"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "let_expression"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[iI][nN]"
+                  },
+                  "named": false,
+                  "value": "in"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "dobj",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
     "ref_expression": {
       "type": "SEQ",
       "members": [
@@ -8711,6 +8779,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "new_expression"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "cast_expression"
                         }
                       ]
                     },
@@ -13510,6 +13582,10 @@
               {
                 "type": "SYMBOL",
                 "name": "table_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cast_expression"
               }
             ]
           }
@@ -13673,6 +13749,10 @@
               {
                 "type": "SYMBOL",
                 "name": "table_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cast_expression"
               }
             ]
           }

@@ -1,0 +1,77 @@
+======
+Simple cast assignment
+======
+oref2 =  CAST #( oref1 ).
+---
+(source
+    (assignment
+    (identifier)
+    (cast_expression
+        (identifier))))
+======
+Dereference cast
+======
+struc      = CAST t_struc( dref )->*. 
+---
+    (source
+      (assignment
+        (identifier)
+        (dereference
+          (cast_expression
+            (type_identifier)
+            (identifier)))))
+======
+Static component selector of cast expression
+======
+struc-col1 = CAST t_struc( dref )->col1. 
+---
+    (source
+      (assignment
+        (struct_component_selector
+          (identifier)
+          (static_component
+            (identifier)))
+        (object_component_selector
+          (cast_expression
+            (type_identifier)
+            (identifier))
+          (static_component
+            (identifier)))))
+======
+Dynamic component selector of cast expression
+======
+num = CAST struc( dref )->('col'). 
+---
+    (source
+      (assignment
+        (identifier)
+        (object_component_selector
+          (cast_expression
+            (type_identifier)
+            (identifier))
+          (dynamic_component
+            (literal_string)))))
+======
+RTTS downcast
+======
+FINAL(attributes) = 
+  CAST cl_abap_classdescr( 
+       cl_abap_classdescr=>describe_by_name( 'CL_ABAP_FORMAT' ) 
+       )->attributes. 
+---
+    (source
+      (assignment
+        (declaration_expression
+          (identifier))
+        (object_component_selector
+          (cast_expression
+            (type_identifier)
+            (method_call
+              (identifier)
+              (identifier)
+              (call_arguments
+                (argument_list
+                  (positional_argument
+                    (literal_string))))))
+          (static_component
+            (identifier)))))

@@ -156,6 +156,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "cast_expression",
+        "named": true
+      },
+      {
         "type": "cond_expression",
         "named": true
       },
@@ -976,6 +980,46 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "cast_expression",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "let_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1899,6 +1943,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
           {
             "type": "data_component_selector",
             "named": true
@@ -3227,6 +3275,10 @@
             "named": false
           },
           {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
             "type": "data_component_selector",
             "named": true
           },
@@ -3533,6 +3585,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
           {
             "type": "data_component_selector",
             "named": true
@@ -5853,6 +5909,10 @@
   },
   {
     "type": "case",
+    "named": false
+  },
+  {
+    "type": "cast",
     "named": false
   },
   {
