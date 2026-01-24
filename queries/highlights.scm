@@ -15,7 +15,7 @@
 
 (doctag
   (tag) @abapdoc.tag
-  (#eq? @abapdoc.tag "@parameter")
+  (#match? @abapdoc.tag "@parameter")
   name: (identifier) @variable.param)
 
 (doctag
@@ -29,6 +29,29 @@
   name: (identifier) @variable.exception)
 
 (doctag (tag) @abapdoc.tag )
+(doclink "@link" @abapdoc.tag )
+
+; METH for methods
+(linked_node
+	(linked_object_kind) @abapdoc.kind
+    (#match? @abapdoc.kind "[Mm][Ee][Tt][Hh]")
+    (identifier) @function.method
+)
+
+; DATA for constants, variables, and procedure parameters in the appropriate context
+(linked_node
+	(linked_object_kind) @abapdoc.kind
+    (#match? @abapdoc.kind "[Dd][Aa][Tt][Aa]")
+    (identifier) @variable
+)
+
+; No kind: is specified so the identifier is ambiguous. It could be
+; a data element, global class / interface or a CDs entity.
+; Could take a guess by looking at the prefix?
+(linked_node
+    (identifier) @type
+)
+
 (docstring) @abapdoc
 
 (type_identifier) @type
