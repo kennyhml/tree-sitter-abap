@@ -337,6 +337,18 @@
     "then"
     "else"
     "conv"
+    "exact"
+    "cast"
+    
+    "corresponding"
+    "appending"
+    "deep"
+    "discarding"
+    "duplicates"
+    "mapping"
+    "except"
+    "using"
+    
 ] @keyword
 (format_option parameter: (identifier) @keyword )
 

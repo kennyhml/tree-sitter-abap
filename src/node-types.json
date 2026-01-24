@@ -1796,12 +1796,47 @@
     }
   },
   {
+    "type": "corresponding_exception_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "corresponding_expression",
     "named": true,
     "fields": {
+      "itab": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "lookup_tab": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
       "source": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "general_expression",
@@ -1833,11 +1868,104 @@
           "named": true
         },
         {
-          "type": "field_exception_list",
+          "type": "corresponding_mapping_list",
           "named": true
         },
         {
-          "type": "field_mapping",
+          "type": "lookup_table_mapping_list",
+          "named": true
+        },
+        {
+          "type": "using_key_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "corresponding_mapping",
+    "named": true,
+    "fields": {
+      "default": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "corresponding_mapping_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "corresponding_exception_list",
+          "named": true
+        },
+        {
+          "type": "corresponding_mapping",
+          "named": true
+        },
+        {
+          "type": "corresponding_submapping",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "corresponding_submapping",
+    "named": true,
+    "fields": {
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "corresponding_mapping",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "corresponding_mapping_list",
           "named": true
         }
       ]
@@ -2302,110 +2430,6 @@
       "types": [
         {
           "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "field_exception_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "field_mapping",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "field_exception_list",
-          "named": true
-        },
-        {
-          "type": "field_mapping_spec",
-          "named": true
-        },
-        {
-          "type": "field_submapping",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "field_mapping_spec",
-    "named": true,
-    "fields": {
-      "default": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "default",
-            "named": false
-          },
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "left": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "field_submapping",
-    "named": true,
-    "fields": {
-      "level": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "field_mapping_spec",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "field_mapping",
           "named": true
         }
       ]
@@ -3277,6 +3301,47 @@
         },
         {
           "type": "relational_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lookup_table_mapping",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "lookup_table_mapping_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lookup_table_mapping",
           "named": true
         }
       ]

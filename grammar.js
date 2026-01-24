@@ -820,14 +820,33 @@ module.exports = grammar({
     ),
 
     /**
+     * Branches into multiple "forms".
+     *
+     * 1. {@link _corresponding_basic_form}
+     * 2. {@link _corresponding_lookup_table_form}
+     * 3. TODO: RAP form
+     * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPR_CORRESPONDING.html
      */
     corresponding_expression: $ => seq(
       kw("corresponding"),
       field("type", $._constructor_result),
       "(",
-      optional(kw("exact")),
+      choice(
+        $._corresponding_basic_form,
+        $._corresponding_lookup_table_form,
+      ),
+      ")"
+    ),
 
+    /**
+     * Basic form of {@link corresponding_expression} as mapping 
+     * between two structs / tables
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_ARG_TYPE.html
+     */
+    _corresponding_basic_form: $ => seq(
+      optional(kw("exact")),
       // only one of these can occur 
       optional(
         choice(
@@ -837,55 +856,75 @@ module.exports = grammar({
       ),
       field("source", $.general_expression),
       optional(seq(...kws("discarding", "duplicates"))),
-      optional(
-        choice(
-          $.field_mapping,
-          $.field_exception_list
-        )
+      optional($.corresponding_mapping_list),
+    ),
+
+    /**
+     * Lookup table form of {@link corresponding_expression} as a way to 
+     * attach data from a lookup table
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_USING.html
+     */
+    _corresponding_lookup_table_form: $ => seq(
+      field("itab", $.general_expression),
+      kw("from"),
+      field("lookup_tab", $.general_expression),
+      choice(
+        $.using_key_spec,
+        kw("using"), // primary key
       ),
-      ")"
+      $.lookup_table_mapping_list,
+      optional($.corresponding_mapping_list),
     ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_MAPPING.html
      */
-    field_mapping: $ => seq(
-      kw("mapping"),
-      choice(
-        seq(
-          repeat1(
-            choice(
-              $.field_submapping,
-              $.field_mapping_spec
-            )
-          ),
-          optional($.field_exception_list),
+    corresponding_mapping_list: $ => choice(
+      seq(
+        kw("mapping"),
+        repeat1(
+          choice(
+            $.corresponding_submapping,
+            $.corresponding_mapping
+          )
         ),
-        $.field_exception_list
-      )
+        optional($.corresponding_exception_list),
+      ),
+      $.corresponding_exception_list
     ),
 
-    field_submapping: $ => seq(
+    corresponding_submapping: $ => seq(
       "(",
-      field("level", $.field_mapping_spec),
-      $.field_mapping,
+      field("level", $.corresponding_mapping),
+      $.corresponding_mapping_list,
       ")"
     ),
 
-    field_mapping_spec: $ => prec.right(seq(
+    corresponding_mapping: $ => prec.right(
+      seq(
+        field("left", $.identifier),
+        "=",
+        choice(
+          seq(
+            field("right", $.identifier),
+            optional(field("default", $._mapping_default))
+          ),
+          field("default", $._mapping_default)
+        ),
+        optional(seq(...kws("discarding", "duplicates"))),
+      )
+    ),
+
+    lookup_table_mapping_list: $ => repeat1($.lookup_table_mapping),
+
+    lookup_table_mapping: $ => seq(
       field("left", $.identifier),
       "=",
-      choice(
-        seq(
-          field("right", $.identifier),
-          optional(field("default", $._mapping_default))
-        ),
-        field("default", $._mapping_default)
-      ),
-      optional(seq(...kws("discarding", "duplicates"))),
-    )),
+      field("right", $.identifier),
+    ),
 
-    field_exception_list: $ => seq(
+    corresponding_exception_list: $ => seq(
       kw("except"),
       choice(
         "*", // all
