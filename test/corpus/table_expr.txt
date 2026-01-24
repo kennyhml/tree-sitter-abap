@@ -128,3 +128,19 @@ itab[ (comp) = 999 ].
                     (dynamic_itab_comp
                         (identifier))
                     (number))))))
+==================
+Search key substring access read
+==================
+itab[ field1+off(5) = 'AABBC' ].
+---
+(source
+    (table_expression
+        (identifier)
+        (search_key_read
+            (search_key_components
+                (itab_comp_spec
+                    (substring_access
+                        (identifier)
+                        (identifier)
+                        (number))
+                    (literal_string))))))

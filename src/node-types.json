@@ -282,6 +282,10 @@
       {
         "type": "struct_component_selector",
         "named": true
+      },
+      {
+        "type": "substring_access",
+        "named": true
       }
     ]
   },
@@ -330,11 +334,23 @@
         "named": true
       },
       {
-        "type": "data_object",
+        "type": "data_component_selector",
+        "named": true
+      },
+      {
+        "type": "field_symbol",
+        "named": true
+      },
+      {
+        "type": "identifier",
         "named": true
       },
       {
         "type": "method_call",
+        "named": true
+      },
+      {
+        "type": "number",
         "named": true
       },
       {

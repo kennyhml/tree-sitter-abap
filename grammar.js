@@ -234,7 +234,10 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
     numeric_expression: $ => choice(
-      $.data_object,
+      $.identifier,
+      $.field_symbol,
+      $.number,
+      $.data_component_selector,
       $.constructor_expression,
       $.builtin_function_call,
       $.method_call,
@@ -671,8 +674,8 @@ module.exports = grammar({
     _static_itab_comp: $ => choice(
       $.identifier,
       $.struct_component_selector,
-      $.object_component_selector
-      // TODO: String access
+      $.object_component_selector,
+      $.substring_access,
     ),
 
     /**
