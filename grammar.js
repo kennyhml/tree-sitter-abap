@@ -1343,7 +1343,9 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
     call_arguments: $ => seq(
       token.immediate("("),
-      token.immediate(" "),
+
+      // avoid ambiguity, if theres no whitespace here it likely isnt a call.
+      token.immediate(/[\t\n\r ]/),
 
       // If no exporting / importing  etc, is specified, all arguments are exporting
       choice(
@@ -2452,7 +2454,8 @@ module.exports = grammar({
         "cond",
         "switch",
         "cast",
-        "class"
+        "class",
+        "any"
       )
     )),
 

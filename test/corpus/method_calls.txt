@@ -9,3 +9,22 @@ NEW c1( )->m1( ).
             (type_identifier))
         (identifier)
         (call_arguments)))
+==================
+Linebreak after opening parenthesis
+==================
+lx->set_location(
+    iv_location = iv_location
+    is_node     = is_node ).
+---
+(source
+    (method_call
+        (identifier)
+        (identifier)
+        (call_arguments
+            (argument_list
+                (named_argument
+                    (identifier)
+                    (identifier))
+                (named_argument
+                    (identifier)
+                    (identifier))))))
