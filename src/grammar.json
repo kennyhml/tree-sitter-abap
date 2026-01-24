@@ -6493,6 +6493,28 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "SYMBOL",
+              "name": "_corresponding_basic_form"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_corresponding_lookup_table_form"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "_corresponding_basic_form": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
@@ -6580,86 +6602,132 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "field_mapping"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "field_exception_list"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "corresponding_mapping_list"
             },
             {
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "STRING",
-          "value": ")"
         }
       ]
     },
-    "field_mapping": {
+    "_corresponding_lookup_table_form": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "FIELD",
+          "name": "itab",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
         {
           "type": "ALIAS",
           "content": {
             "type": "PATTERN",
-            "value": "[mM][aA][pP][pP][iI][nN][gG]"
+            "value": "[fF][rR][oO][mM]"
           },
           "named": false,
-          "value": "mapping"
+          "value": "from"
+        },
+        {
+          "type": "FIELD",
+          "name": "lookup_tab",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "REPEAT1",
-                  "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "field_submapping"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "field_mapping_spec"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "field_exception_list"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "using_key_spec"
             },
             {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[uU][sS][iI][nN][gG]"
+              },
+              "named": false,
+              "value": "using"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "lookup_table_mapping_list"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
-              "name": "field_exception_list"
+              "name": "corresponding_mapping_list"
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
       ]
     },
-    "field_submapping": {
+    "corresponding_mapping_list": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[mM][aA][pP][pP][iI][nN][gG]"
+              },
+              "named": false,
+              "value": "mapping"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "corresponding_submapping"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "corresponding_mapping"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "corresponding_exception_list"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "corresponding_exception_list"
+        }
+      ]
+    },
+    "corresponding_submapping": {
       "type": "SEQ",
       "members": [
         {
@@ -6671,12 +6739,12 @@
           "name": "level",
           "content": {
             "type": "SYMBOL",
-            "name": "field_mapping_spec"
+            "name": "corresponding_mapping"
           }
         },
         {
           "type": "SYMBOL",
-          "name": "field_mapping"
+          "name": "corresponding_mapping_list"
         },
         {
           "type": "STRING",
@@ -6684,7 +6752,7 @@
         }
       ]
     },
-    "field_mapping_spec": {
+    "corresponding_mapping": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -6778,7 +6846,39 @@
         ]
       }
     },
-    "field_exception_list": {
+    "lookup_table_mapping_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "lookup_table_mapping"
+      }
+    },
+    "lookup_table_mapping": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "left",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "right",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "corresponding_exception_list": {
       "type": "SEQ",
       "members": [
         {
