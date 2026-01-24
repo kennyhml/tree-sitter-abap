@@ -208,6 +208,10 @@
         "named": true
       },
       {
+        "type": "field_symbol",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
@@ -2083,6 +2087,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "field_symbol",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -4889,6 +4909,10 @@
         "types": [
           {
             "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "field_symbol",
             "named": true
           },
           {
