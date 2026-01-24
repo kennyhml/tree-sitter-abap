@@ -206,7 +206,8 @@ module.exports = grammar({
       $.value_expression,
       $.ref_expression,
       $.conv_expression,
-      // TODO: exact, corresponding, cast, reduce, filter
+      $.exact_expression,
+      // TODO: corresponding, cast, reduce, filter
     ),
 
     /**
@@ -769,6 +770,18 @@ module.exports = grammar({
      */
     conv_expression: $ => seq(
       kw("conv"),
+      field("type", $._constructor_result),
+      "(",
+      optional(seq($.let_expression, kw("in"))),
+      field("dobj", $.general_expression),
+      ")"
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_EXACT.html
+     */
+    exact_expression: $ => seq(
+      kw("exact"),
       field("type", $._constructor_result),
       "(",
       optional(seq($.let_expression, kw("in"))),

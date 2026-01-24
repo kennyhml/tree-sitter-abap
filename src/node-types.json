@@ -164,6 +164,10 @@
         "named": true
       },
       {
+        "type": "exact_expression",
+        "named": true
+      },
+      {
         "type": "new_expression",
         "named": true
       },
@@ -2120,6 +2124,46 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "exact_expression",
+    "named": true,
+    "fields": {
+      "dobj": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "let_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6013,6 +6057,10 @@
   },
   {
     "type": "evnt",
+    "named": false
+  },
+  {
+    "type": "exact",
     "named": false
   },
   {
