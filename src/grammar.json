@@ -14180,58 +14180,28 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[vV][aA][lL][uU][eE]"
-            },
-            "named": false,
-            "value": "value"
+            "type": "PATTERN",
+            "value": "[vV][aA][lL][uU][eE]"
           },
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[nN][eE][wW]"
-            },
-            "named": false,
-            "value": "new"
+            "type": "PATTERN",
+            "value": "[nN][eE][wW]"
           },
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[cC][oO][nN][dD]"
-            },
-            "named": false,
-            "value": "cond"
+            "type": "PATTERN",
+            "value": "[cC][oO][nN][dD]"
           },
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[sS][wW][iI][tT][cC][hH]"
-            },
-            "named": false,
-            "value": "switch"
+            "type": "PATTERN",
+            "value": "[sS][wW][iI][tT][cC][hH]"
           },
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[cC][aA][sS][tT]"
-            },
-            "named": false,
-            "value": "cast"
+            "type": "PATTERN",
+            "value": "[cC][aA][sS][tT]"
           },
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[cC][lL][aA][sS][sS]"
-            },
-            "named": false,
-            "value": "class"
+            "type": "PATTERN",
+            "value": "[cC][lL][aA][sS][sS]"
           }
         ]
       }

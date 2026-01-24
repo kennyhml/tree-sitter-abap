@@ -2200,12 +2200,6 @@ module.exports = grammar({
      * 
      * The special characters ", ', <, >, @, {, |, and } can, if necessary, be escaped 
      * using &quot;, &apos;, &lt;, &gt;, &#64;, &#123;, &#124;, and &#125;.
-     * 
-     * @parameter, @raising, and @exception must be placed directly after "! and thus introduce 
-     * a new line must be followed by the corresponding documentation, separated by |
-     * 
-     * In an ABAP Doc comment, the following syntax can be used to refer to the documentation of other repository objects:
-     * {@link [[[kind:]name.]...][kind:]name} ...
      */
     docstring: $ => seq(
       // first line
@@ -2313,7 +2307,7 @@ module.exports = grammar({
 
     scope_directive: _ => prec.left(repeat1(".")),
 
-    linked_object_kind: _ => choice(...caseInsensitives(
+    linked_object_kind: _ => choice(...caseInsensitiveAliased(
       "data", // constants, variables, procedure parameters
       "doma", // ddic domains
       "evnt", // class based events
@@ -2376,7 +2370,7 @@ module.exports = grammar({
      * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
     _contextual_keyword: _ => prec(-1, choice(
-      ...kws(
+      ...caseInsensitive(
         "value",
         "new",
         "cond",
@@ -2412,21 +2406,20 @@ module.exports = grammar({
   }
 });
 
-function caseInsensitive(term) {
-  let result = new RustRegex(term
+function caseInsensitive(...terms) {
+  return terms.map((t) => new RustRegex(t
     .split('')
     .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
     .join('')
-  )
-  return alias(result, term);
+  ));
 }
 
-function caseInsensitives(...terms) {
-  return terms.map(caseInsensitive)
+function caseInsensitiveAliased(...terms) {
+  return terms.map(t => alias(caseInsensitive(t).shift(), t))
 }
 
-function kw(keyword) { return caseInsensitive(keyword) };
-function kws(...keywords) { return caseInsensitives(...keywords) }
+function kw(keyword) { return caseInsensitiveAliased(keyword).shift() };
+function kws(...keywords) { return caseInsensitiveAliased(...keywords) }
 
 function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))
