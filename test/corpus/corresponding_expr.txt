@@ -1,0 +1,162 @@
+======
+Simple corresponding move
+======
+CORRESPONDING flights( spfli_tab )
+---
+    (source
+      (corresponding_expression
+        (type_identifier)
+        (identifier)))
+======
+Move exact corresponding
+======
+CORRESPONDING flights( exact spfli_tab )
+---
+    (source
+      (corresponding_expression
+        (type_identifier)
+        (identifier)))
+======
+Move deep corresponding
+======
+CORRESPONDING flights( deep spfli_tab )
+---
+    (source
+      (corresponding_expression
+        (type_identifier)
+        (identifier)))
+======
+Move exact deep corresponding
+======
+CORRESPONDING flights( exact deep spfli_tab )
+---
+    (source
+      (corresponding_expression
+        (type_identifier)
+        (identifier)))
+======
+Move corresponding with base
+======
+CORRESPONDING #( BASE ( struct2 ) struct1 )
+---
+    (source
+      (corresponding_expression
+        (base_spec
+            (identifier))
+        (identifier)))
+======
+Move corresponding with appending base
+======
+CORRESPONDING #( APPENDING ( struc2 ) struc1 )
+CORRESPONDING #( APPENDING BASE ( struc2 ) struc1 )
+---
+    (source
+      (corresponding_expression
+        (base_spec
+            (identifier))
+        (identifier))
+      (corresponding_expression
+        (base_spec
+            (identifier))
+        (identifier)))
+======
+Move corresponding with deep appending base
+======
+CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 ). 
+CORRESPONDING #( DEEP APPENDING BASE ( struc2 ) struc1 ).
+---
+    (source
+      (corresponding_expression
+        (base_spec
+            (identifier))
+        (identifier))
+      (corresponding_expression
+        (base_spec
+            (identifier))
+        (identifier)))
+======
+Move corresponding with duplicates discarded
+======
+CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 discarding duplicates ). 
+---
+    (source
+      (corresponding_expression
+        (base_spec
+            (identifier))
+        (identifier)))
+======
+Corresponding with custom mapping
+======
+CORRESPONDING itab2( itab MAPPING col1 = table_line )
+---
+    (source
+      (corresponding_expression
+        (type_identifier)
+        (identifier)
+        (field_mapping
+          (field_mapping_spec
+            (identifier)
+            (identifier)))))
+======
+Corresponding with default mapping
+======
+CORRESPONDING itab2( itab MAPPING col1 = default 10 )
+---
+    (source
+      (corresponding_expression
+        (type_identifier)
+        (identifier)
+        (field_mapping
+          (field_mapping_spec
+            (identifier)
+            (number)))))
+======
+Corresponding with exception field list
+======
+CORRESPONDING #( struct1 EXCEPT col2 col3 ).
+CORRESPONDING #( struct1 EXCEPT * ).
+---
+    (source
+      (corresponding_expression
+        (identifier)
+        (field_exception_list
+          (identifier)
+          (identifier)))
+      (corresponding_expression
+        (identifier)
+        (field_exception_list)))
+======
+Corresponding mapping with multiple sub-levels
+======
+CORRESPONDING #( str_deep1 mapping 
+                ( bati = itab discarding duplicates mapping d = c except * ) 
+                ( titi = itab mapping d = c except * ) 
+                pmoc = comp except *  ).
+---
+    (source
+      (corresponding_expression
+        (identifier)
+        (field_mapping
+          (field_submapping
+            (field_mapping_spec
+              (identifier)
+              (identifier))
+            (field_mapping
+              (field_mapping_spec
+                (identifier)
+                (identifier))
+              (field_exception_list)))
+          (field_submapping
+            (field_mapping_spec
+              (identifier)
+              (identifier))
+            (field_mapping
+              (field_mapping_spec
+                (identifier)
+                (identifier))
+              (field_exception_list)))
+          (field_mapping_spec
+            (identifier)
+            (identifier))
+          (field_exception_list))))
+

@@ -168,6 +168,10 @@
         "named": true
       },
       {
+        "type": "corresponding_expression",
+        "named": true
+      },
+      {
         "type": "exact_expression",
         "named": true
       },
@@ -601,9 +605,19 @@
     "type": "base_spec",
     "named": true,
     "fields": {
+      "base": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "data_object",
@@ -1782,6 +1796,54 @@
     }
   },
   {
+    "type": "corresponding_expression",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "base_spec",
+          "named": true
+        },
+        {
+          "type": "field_exception_list",
+          "named": true
+        },
+        {
+          "type": "field_mapping",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "data_declaration",
     "named": true,
     "fields": {},
@@ -2240,6 +2302,110 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field_exception_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field_mapping",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field_exception_list",
+          "named": true
+        },
+        {
+          "type": "field_mapping_spec",
+          "named": true
+        },
+        {
+          "type": "field_submapping",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field_mapping_spec",
+    "named": true,
+    "fields": {
+      "default": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "field_submapping",
+    "named": true,
+    "fields": {
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_mapping_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "field_mapping",
           "named": true
         }
       ]
@@ -5832,6 +5998,10 @@
     "named": false
   },
   {
+    "type": "appending",
+    "named": false
+  },
+  {
     "type": "as",
     "named": false
   },
@@ -5992,6 +6162,10 @@
     "named": false
   },
   {
+    "type": "corresponding",
+    "named": false
+  },
+  {
     "type": "count",
     "named": false
   },
@@ -6032,6 +6206,10 @@
     "named": false
   },
   {
+    "type": "deep",
+    "named": false
+  },
+  {
     "type": "default",
     "named": false
   },
@@ -6060,6 +6238,10 @@
     "named": false
   },
   {
+    "type": "discarding",
+    "named": false
+  },
+  {
     "type": "display",
     "named": false
   },
@@ -6069,6 +6251,10 @@
   },
   {
     "type": "doma",
+    "named": false
+  },
+  {
+    "type": "duplicates",
     "named": false
   },
   {
@@ -6121,6 +6307,10 @@
   },
   {
     "type": "exact",
+    "named": false
+  },
+  {
+    "type": "except",
     "named": false
   },
   {
@@ -6366,6 +6556,10 @@
   },
   {
     "type": "m",
+    "named": false
+  },
+  {
+    "type": "mapping",
     "named": false
   },
   {
