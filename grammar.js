@@ -208,7 +208,8 @@ module.exports = grammar({
       $.conv_expression,
       $.exact_expression,
       $.cast_expression,
-      // TODO: corresponding, cast, reduce, filter
+      $.corresponding_expression
+      // TODO: corresponding, reduce, filter
     ),
 
     /**
@@ -815,6 +816,99 @@ module.exports = grammar({
         field("tab_expr", $.table_expression)
       ),
       optional($._table_expr_default),
+      ")"
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPR_CORRESPONDING.html
+     */
+    corresponding_expression: $ => seq(
+      kw("corresponding"),
+      field("type", $._constructor_result),
+      "(",
+      optional(kw("exact")),
+
+      // only one of these can occur 
+      optional(
+        choice(
+          alias($._corresponding_base_spec, $.base_spec),
+          kw("deep")
+        )
+      ),
+      field("source", $.general_expression),
+      optional(seq(...kws("discarding", "duplicates"))),
+      optional(
+        choice(
+          $.field_mapping,
+          $.field_exception_list
+        )
+      ),
+      ")"
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_MAPPING.html
+     */
+    field_mapping: $ => seq(
+      kw("mapping"),
+      choice(
+        seq(
+          repeat1(
+            choice(
+              $.field_submapping,
+              $.field_mapping_spec
+            )
+          ),
+          optional($.field_exception_list),
+        ),
+        $.field_exception_list
+      )
+    ),
+
+    field_submapping: $ => seq(
+      "(",
+      field("level", $.field_mapping_spec),
+      $.field_mapping,
+      ")"
+    ),
+
+    field_mapping_spec: $ => prec.right(seq(
+      field("left", $.identifier),
+      "=",
+      choice(
+        seq(
+          field("right", $.identifier),
+          optional(field("default", $._mapping_default))
+        ),
+        field("default", $._mapping_default)
+      ),
+      optional(seq(...kws("discarding", "duplicates"))),
+    )),
+
+    field_exception_list: $ => seq(
+      kw("except"),
+      choice(
+        "*", // all
+        repeat1($.identifier)
+      )
+    ),
+
+    _mapping_default: $ => seq(
+      kw("default"),
+      $.general_expression
+    ),
+
+    _corresponding_base_spec: $ => seq(
+      choice(
+        // just the addition base, default..
+        kw("base"),
+        // if appending is specified, base has the same effect and is optional
+        seq(kw("appending"), optional(kw("base"))),
+        // the most specific form
+        seq(...kws("deep", "appending"), optional(kw("base")))
+      ),
+      "(",
+      field("base", $.data_object),
       ")"
     ),
 
