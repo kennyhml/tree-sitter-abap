@@ -9183,6 +9183,15 @@
                                 {
                                   "type": "SYMBOL",
                                   "name": "type_component_selector"
+                                },
+                                {
+                                  "type": "ALIAS",
+                                  "content": {
+                                    "type": "SYMBOL",
+                                    "name": "_inline_ref_type_spec"
+                                  },
+                                  "named": true,
+                                  "value": "ref_type_spec"
                                 }
                               ]
                             }
@@ -9990,6 +9999,42 @@
           }
         ]
       }
+    },
+    "_inline_ref_type_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][fF]"
+          },
+          "named": false,
+          "value": "ref"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][oO]"
+          },
+          "named": false,
+          "value": "to"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_type_identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "type_component_selector"
+            }
+          ]
+        }
+      ]
     },
     "keys": {
       "type": "PREC_RIGHT",
