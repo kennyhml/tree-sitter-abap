@@ -3091,7 +3091,19 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "data_object"
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field_symbol"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_component_selector"
         },
         {
           "type": "SYMBOL",
@@ -5652,6 +5664,10 @@
         {
           "type": "SYMBOL",
           "name": "object_component_selector"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "substring_access"
         }
       ]
     },
