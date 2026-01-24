@@ -204,7 +204,8 @@ module.exports = grammar({
       $.switch_expression,
       $.new_expression,
       $.value_expression,
-      // TODO: conv, ref, exact, corresponding, cast, reduce, filter
+      $.conv_expression
+      // TODO: ref, exact, corresponding, cast, reduce, filter
     ),
 
     /**
@@ -759,6 +760,18 @@ module.exports = grammar({
     _else_case: $ => seq(
       kw("else"), optional(seq($.let_expression, kw("in"))),
       field("result", $._conditional_result)
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_CONV.html
+     */
+    conv_expression: $ => seq(
+      kw("conv"),
+      field("type", $._constructor_result),
+      "(",
+      optional(seq($.let_expression, kw("in"))),
+      field("dobj", $.general_expression),
+      ")"
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html

@@ -75,6 +75,7 @@
 (builtin_function_call (identifier) @function.builtin )
 (method_spec name: (identifier) @function.method ) 
 (method_call name: (identifier) @function.method )
+(method_implementation name: (identifier) @function.method )
 (constructor_spec
   [
     "constructor"
@@ -254,12 +255,15 @@
     "endclass"
     
     "methods"
+    "method"
+    "endmethod"
     "class-methods"
     "importing"
     "exporting"
     "changing"
     "returning"
     "receiving"
+    "reference"
     "raising"
     "exceptions"
     "default"
@@ -276,6 +280,7 @@
     "when"
     "then"
     "else"
+    "conv"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
 

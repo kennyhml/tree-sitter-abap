@@ -3021,6 +3021,10 @@
         {
           "type": "SYMBOL",
           "name": "value_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "conv_expression"
         }
       ]
     },
@@ -6149,6 +6153,70 @@
             "type": "SYMBOL",
             "name": "_conditional_result"
           }
+        }
+      ]
+    },
+    "conv_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][oO][nN][vV]"
+          },
+          "named": false,
+          "value": "conv"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_constructor_result"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "let_expression"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[iI][nN]"
+                  },
+                  "named": false,
+                  "value": "in"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "dobj",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
