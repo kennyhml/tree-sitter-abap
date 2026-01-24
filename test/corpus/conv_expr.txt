@@ -1,0 +1,37 @@
+======
+Simple type conversion
+======
+DATA(dcfl34) = CONV decfloat34( '-123.45600' ). 
+---
+(source
+    (assignment
+        (declaration_expression
+            (identifier))
+        (conv_expression
+            (type_identifier)
+            (literal_string))))
+======
+Conversion in arithmetic expressions
+======
+int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
+---
+(source
+    (assignment
+        (identifier)
+        (binary_operator
+            (conv_expression
+                (type_identifier)
+                (builtin_function_call
+                    (identifier)
+                    (call_arguments
+                        (argument_list
+                            (positional_argument
+                                (number))))))
+            (conv_expression
+                (type_identifier)
+                (builtin_function_call
+                    (identifier)
+                    (call_arguments
+                        (argument_list
+                            (positional_argument
+                                (number)))))))))
