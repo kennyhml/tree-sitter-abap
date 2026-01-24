@@ -99,3 +99,55 @@ CONDENSE text no-gaps.
 (source
     (condense
         (identifier)))
+======
+Substring access offset only
+======
+my_string+off.
+my_string+10.
+---
+(source
+    (substring_access
+        target: (identifier)
+        offset: (identifier))
+    (substring_access
+        target: (identifier)
+        offset: (number)))
+======
+Substring access length only
+======
+my_string(len).
+my_string(10).
+---
+(source
+    (substring_access
+        target: (identifier)
+        length: (identifier))
+    (substring_access
+        target: (identifier)
+        length: (number)))
+======
+Substring access offset and length
+======
+my_string+off(len).
+my_string+10(10).
+---
+(source
+    (substring_access
+        target: (identifier)
+        offset: (identifier)
+        length: (identifier))
+    (substring_access
+        target: (identifier)
+        offset: (number)
+        length: (number)))
+======
+Substring access from dereference
+======
+ref->*+10(length).
+---
+(source
+    (substring_access
+        target: (dereference
+            dref: (identifier))
+        offset: (number)
+        length: (identifier)))

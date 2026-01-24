@@ -14,8 +14,11 @@ BUFF_SIZE = $ => seq(
 const ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
 const IDENTIFIER_REGEX = /<?[a-zA-Z_\/][a-zA-Z\d_/]*>?/;
 
-// Allow a single plus or minus before the number literal
-const NUMBER_REGEX = /(\+|-)?\d+/;
+// ABAP does allow + and - before any number. However, allowing both inside the regex, we run
+// into an issue where the lexer considers the offset in a substring access like str+10 as 
+// a single positive number token. I believe the minus should be safe though, so we can at
+// least allow that. An explicit + is rarely ever needed anyway..
+const NUMBER_REGEX = /-?\d+/;
 
 /**
  * Arithmetic: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
@@ -210,6 +213,7 @@ module.exports = grammar({
      * Named data objects vs anonymous?
      */
     data_object: $ => choice(
+      $.substring_access,
       $.identifier,
       $.number,
       $.literal_string,
@@ -1322,6 +1326,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
     call_arguments: $ => seq(
       token.immediate("("),
+      token.immediate(" "),
 
       // If no exporting / importing  etc, is specified, all arguments are exporting
       choice(
@@ -2096,6 +2101,47 @@ module.exports = grammar({
         )
       ),
       token.immediate("->*"),
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOFFSET_LENGTH.html
+     */
+    substring_access: $ => prec.right(1,
+      seq(
+        field("target", choice(
+          $.identifier,
+          $.data_component_selector,
+          $.dereference,
+          // field symbol
+        )),
+        choice(
+          $._substring_length,
+          seq(
+            $._substring_offset,
+            optional($._substring_length)
+          ),
+        )
+      )),
+
+    _substring_offset: $ => seq(
+      token.immediate("+"),
+      field("offset",
+        choice(
+          $._immediate_number,
+          $._immediate_identifier
+        )
+      )
+    ),
+
+    _substring_length: $ => seq(
+      token.immediate("("),
+      field("length",
+        choice(
+          $._immediate_number,
+          $._immediate_identifier
+        )
+      ),
+      token.immediate(")"),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html

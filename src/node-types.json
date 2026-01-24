@@ -218,6 +218,10 @@
       {
         "type": "number",
         "named": true
+      },
+      {
+        "type": "substring_access",
+        "named": true
       }
     ]
   },
@@ -4848,6 +4852,54 @@
     }
   },
   {
+    "type": "substring_access",
+    "named": true,
+    "fields": {
+      "length": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "offset": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "substring_spec",
     "named": true,
     "fields": {
@@ -5376,6 +5428,10 @@
     "type": "verbatim",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": " ",
+    "named": false
   },
   {
     "type": "!",
