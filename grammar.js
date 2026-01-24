@@ -207,6 +207,7 @@ module.exports = grammar({
       $.ref_expression,
       $.conv_expression,
       $.exact_expression,
+      $.cast_expression,
       // TODO: corresponding, cast, reduce, filter
     ),
 
@@ -790,6 +791,18 @@ module.exports = grammar({
     ),
 
     /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_EXACT.html
+     */
+    cast_expression: $ => seq(
+      kw("cast"),
+      field("type", $._constructor_result),
+      "(",
+      optional(seq($.let_expression, kw("in"))),
+      field("dobj", $.general_expression),
+      ")"
+    ),
+
+    /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REF.html
      */
     ref_expression: $ => seq(
@@ -1362,7 +1375,8 @@ module.exports = grammar({
               $.identifier,
               $.method_call,
               $.data_component_selector,
-              $.new_expression
+              $.new_expression,
+              $.cast_expression
             ),
             token.immediate("->")
           ),
@@ -2086,8 +2100,8 @@ module.exports = grammar({
           $.data_component_selector,
           $.method_call,
           $.new_expression,
-          $.table_expression
-          // TODO: Cast expression
+          $.table_expression,
+          $.cast_expression,
         )
       ),
       token.immediate("->"),
@@ -2160,8 +2174,8 @@ module.exports = grammar({
           $.data_component_selector,
           $.method_call,
           $.new_expression,
-          $.table_expression
-          // TODO: Cast expression
+          $.table_expression,
+          $.cast_expression
         )
       ),
       token.immediate("->*"),
