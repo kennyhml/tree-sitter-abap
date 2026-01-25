@@ -220,10 +220,14 @@ module.exports = grammar({
      */
     data_object: $ => choice(
       $.substring_access,
-      $.identifier,
-      $.field_symbol,
       $.number,
       $.literal_string,
+      $._named_data_object
+    ),
+
+    _named_data_object: $ => choice(
+      $.identifier,
+      $.field_symbol,
       $.data_component_selector,
     ),
 
@@ -466,7 +470,7 @@ module.exports = grammar({
       optional(
         seq(
           kw("then"),
-          $.general_expression
+          field("then", $.general_expression)
         )
       ),
       choice(...kws("until", "while")),
@@ -488,9 +492,9 @@ module.exports = grammar({
       choice(
         // simple internal table read
         seq(
-          field("iterator", $.identifier),
+          field("iterator", $._named_data_object),
           kw("in"),
-          field("itab", $.identifier),
+          field("itab", $._named_data_object),
           optional(
             seq(...kws("index", "into"), field("index", $.identifier))
           ),
@@ -536,22 +540,35 @@ module.exports = grammar({
      */
     iteration_cond: $ => seq(
       optional($.using_key_spec),
-
-      optional(seq(kw("from"), field("from", $.number))),
-      optional(seq(kw("to"), field("to", $.number))),
-      optional(seq(kw("step"), field("step", $.number))),
-
-      kw("where"),
       choice(
-        $.logical_expression,
+        // kind of a mess, probably clean this up at some point if we can..
+        seq(
+          seq(kw("from"), field("from", $.number)),
+          optional(seq(kw("to"), field("to", $.number))),
+          optional(seq(kw("step"), field("step", $.number))),
+        ),
+        seq(
+          seq(kw("to"), field("to", $.number)),
+          optional(seq(kw("step"), field("step", $.number))),
+        ),
+        seq(kw("step"), field("step", $.number)),
+        seq(
+          optional(seq(kw("from"), field("from", $.number))),
+          optional(seq(kw("to"), field("to", $.number))),
+          optional(seq(kw("step"), field("step", $.number))),
+          kw("where"),
+          choice(
+            $.logical_expression,
 
-        // statically specified logical expression log_exp must be placed in parenthese (table iterations)
-        // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
-        prec(2, seq("(", $.logical_expression, ")")),
+            // statically specified logical expression log_exp must be placed in parenthese (table iterations)
+            // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
+            prec(2, seq("(", $.logical_expression, ")")),
 
-        // dynamic where clause
-        $.dynamic_cond,
-        $.dynamic_cond_tab,
+            // dynamic where clause
+            $.dynamic_cond,
+            $.dynamic_cond_tab,
+          )
+        )
       )
     ),
 
@@ -985,7 +1002,7 @@ module.exports = grammar({
     /** Specification for a single local helper variable in a {@link let_expression}. */
     let_spec: $ => choice(
       seq(
-        field("name", $.identifier),
+        field("name", choice($.identifier, $.field_symbol)),
         "=",
         field("value", $.general_expression)
       )

@@ -1520,15 +1520,22 @@
   {
     "type": "conditional_iteration",
     "named": true,
-    "fields": {},
+    "fields": {
+      "then": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "general_expression",
-          "named": true
-        },
         {
           "type": "iterator_var_spec",
           "named": true
@@ -3075,7 +3082,7 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "dynamic_cond",
@@ -3175,6 +3182,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "field_symbol",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -5585,6 +5596,14 @@
         "required": true,
         "types": [
           {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "field_symbol",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -5594,6 +5613,14 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "field_symbol",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
