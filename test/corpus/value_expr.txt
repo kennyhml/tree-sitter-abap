@@ -26,7 +26,7 @@ VALUE string( let var = 'A String' in |Using let expression { var }| )
     (type_identifier)
     (argument_list
         (let_expression
-            (let_spec
+            (assignment
                 (identifier)
                 (literal_string)))
         (positional_argument

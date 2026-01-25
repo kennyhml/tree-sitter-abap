@@ -95,10 +95,15 @@ module.exports = grammar({
 
   supertypes: $ => [
     $.constructor_expression,
-    $.iteration_expression,
+
+    $.data_object,
+    $.named_data_object,
+
     $.general_expression,
+    $.iteration_expression,
     $.writable_expression,
     $.arithmetic_expression,
+    $.calculation_expression,
     $.string_expression,
     $.itab_line,
     $.itab_comp,
@@ -107,7 +112,6 @@ module.exports = grammar({
     $.data_component_selector,
     $.type_component_selector,
     $.relational_expression,
-    $.data_object,
     $._simple_statement,
     $._compound_statement,
     $.pattern,
@@ -209,23 +213,21 @@ module.exports = grammar({
       $.exact_expression,
       $.cast_expression,
       $.corresponding_expression,
-      $.filter_expression
-      // TODO: reduce, filter
+      $.filter_expression,
+      $.reduce_expression
     ),
 
     /**
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDATA_OBJECTS.html
-     * 
-     * Named data objects vs anonymous?
      */
     data_object: $ => choice(
       $.substring_access,
       $.number,
       $.literal_string,
-      $._named_data_object
+      $.named_data_object
     ),
 
-    _named_data_object: $ => choice(
+    named_data_object: $ => choice(
       $.identifier,
       $.field_symbol,
       $.data_component_selector,
@@ -240,6 +242,13 @@ module.exports = grammar({
       $.table_expression,
       $.arithmetic_expression,
       $.string_expression
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_EXPRESSION_GLOSRY.html
+    calculation_expression: $ => choice(
+      $.arithmetic_expression,
+      $.string_expression,
+      // TOOD: bit expression
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
@@ -271,6 +280,8 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html
      */
     writable_expression: $ => choice(
+      $.new_expression,
+      $.cast_expression,
       $.table_expression,
     ),
 
@@ -465,7 +476,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_CONDITIONAL.html
     conditional_iteration: $ => seq(
       kw("for"),
-      $.iterator_var_spec,
+      field("iter_var", $.assignment),
       // Optional when `var` is numeric as it will be incremeted implicitly
       optional(
         seq(
@@ -473,16 +484,17 @@ module.exports = grammar({
           field("then", $.general_expression)
         )
       ),
-      choice(...kws("until", "while")),
-      $.logical_expression,
+      choice(
+        seq(
+          kw("until"),
+          field("until", $.logical_expression)
+        ),
+        seq(
+          kw("while"),
+          field("while", $.logical_expression)
+        ),
+      ),
       optional(seq($.let_expression, kw("in")))
-    ),
-
-    // Specification of an iterator variable
-    iterator_var_spec: $ => seq(
-      field("name", $.identifier),
-      "=",
-      field("value", $.general_expression)
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_ITAB.html
@@ -492,9 +504,9 @@ module.exports = grammar({
       choice(
         // simple internal table read
         seq(
-          field("iterator", $._named_data_object),
+          field("iterator", $.named_data_object),
           kw("in"),
-          field("itab", $._named_data_object),
+          field("itab", $.general_expression),
           optional(
             seq(...kws("index", "into"), field("index", $.identifier))
           ),
@@ -630,6 +642,9 @@ module.exports = grammar({
       "o", "z", "m"
     )),
 
+    _calculation_assignment_operator: _ => choice(
+      "+=", "-=", "*=", "/=", "&&="
+    ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
@@ -993,19 +1008,59 @@ module.exports = grammar({
       optional($.using_key_spec),
     ),
 
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REDUCE.html
+     */
+    reduce_expression: $ => seq(
+      kw("reduce"),
+      field("type", $._constructor_result),
+      "(",
+      optional(seq($.let_expression, kw("in"))),
+      $.reduce_init,
+      repeat1($.iteration_expression),
+      $.reduce_next,
+      ")"
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
     let_expression: $ => seq(
       kw("let"),
-      repeat1($.let_spec)
+      repeat1($.assignment)
     ),
 
-    /** Specification for a single local helper variable in a {@link let_expression}. */
-    let_spec: $ => choice(
-      seq(
-        field("name", choice($.identifier, $.field_symbol)),
-        "=",
-        field("value", $.general_expression)
-      )
+    /**
+     * INIT part of a {@link reduce_expression}
+     */
+    reduce_init: $ => seq(
+      kw("init"),
+      repeat1($.init_spec)
+    ),
+
+    /**
+     * NEXT part of a {@link reduce_expression}
+     */
+    reduce_next: $ => seq(
+      kw("next"),
+      repeat1($.assignment)
+    ),
+
+    /**
+     * Cant use a simple {@link assignment} for this because its
+     * possible to declare initial values and specify a type for them.
+     * 
+     * TODO: Conflict with {@link assignment} rule if used in a choice,
+     * figure that out, would be nice to reuse that part at least and
+     * just add a choice for the data declaration.
+     */
+    init_spec: $ => seq(
+      field("name", choice($.identifier, $.field_symbol)),
+      choice(
+        seq(
+          "=",
+          field("value", $.general_expression)
+        ),
+        field("typing", $._typing)
+      ),
     ),
 
     /**
@@ -1501,37 +1556,52 @@ module.exports = grammar({
     ),
 
     /**
-     * An assignment **statement**, not an expression!
+     * The documentation is lacking as to what an assignment should be considered. In theory, it
+     * can make up a full statement on its own. However, it can also be specified in operand 
+     * positions and act as an expression, that is why e.g multiple assignments are possible:
+     * ```
+     * foo = bar = baz.
+     * ```
      * 
-     * TODO: Calculation assignments:
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCALCULATION_ASSIGNMENT_GLOSRY.html
-     * 
-     * Operand rules: 
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENEQUALS_OPERATOR.html
+     * The big question is how general to make the rule in order to allow it to work in various
+     * places without fighting over precedence / conflicts.
      * 
      * See: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_ASSIGNMENTS.html
      */
-    assignment: $ => seq(
-      // Either a single destination or multiple, restrictions apply when multiple.
-      choice(
-        seq(
-          field("left",
-            choice(
-              $.data_object,
-              $.declaration_expression,
-              $.writable_expression,
-            )
-          ),
-          "=",
-        ),
+    assignment: $ => prec.right(
+      seq(
         field("left",
-          repeat1(
-            prec.left(seq($.data_object, "="))
+          choice(
+            $.data_object,
+            $.declaration_expression,
+            $.writable_expression,
           )
-        )
-      ),
-      field("right", $.general_expression),
-      "."
+        ),
+        // for a regular assignment '=', the right side could be another
+        // assignment or a declaration expression, this doesnt make sense
+        // for calculation assignments using +=, *=, etc..
+        choice(
+          seq(
+            field("operator", "="),
+            field("right",
+              choice(
+                $.general_expression,
+                $.declaration_expression,
+                $.assignment
+              )
+            ),
+          ),
+          seq(
+            field("operator", $._calculation_assignment_operator),
+            field("right",
+              choice(
+                $.general_expression,
+              )
+            ),
+          ),
+        ),
+        optional(".")
+      )
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
