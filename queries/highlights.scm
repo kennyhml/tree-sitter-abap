@@ -147,6 +147,11 @@
     "<="
     ">"
     "<"
+    "+="
+    "-="
+    "*="
+    "/="
+    "&&="
     
 ] @operator
 
@@ -225,6 +230,7 @@
     "mod"
     "div"
     "new"
+    "switch"
 
     "replace"
     "with"
@@ -345,6 +351,7 @@
     "conv"
     "exact"
     "cast"
+	"step"
     
     "corresponding"
     "appending"
@@ -357,6 +364,10 @@
     
     "filter"
     "where"
+    "reduce"
+    "init"
+    "next"
+    "while"
     
     "and"
     "or"
