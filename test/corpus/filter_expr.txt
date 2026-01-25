@@ -1,0 +1,103 @@
+======
+Simple single value filter
+======
+FILTER #( messages WHERE sprsl = 'D' )
+---
+    (source
+      (filter_expression
+        (identifier)
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (literal_string)))))
+======
+Simple single reverted value filter
+======
+FILTER #( messages except WHERE sprsl = 'D' )
+---
+    (source
+      (filter_expression
+        (identifier)
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (literal_string)))))
+======
+Filter using specified key
+======
+FILTER #( spfli_tab EXCEPT USING KEY carr_city 
+            WHERE carrid   = CONV #( to_upper( carrid ) ) AND 
+                cityfrom = CONV #( to_upper( cityfrom ) ) ). 
+---
+    (source
+      (filter_expression
+        (identifier)
+        (using_key_spec
+          (identifier))
+        (logical_expression
+          (logical_expression
+            (comparison_expression
+              (identifier)
+              (conv_expression
+                (builtin_function_call
+                  (identifier)
+                  (call_arguments
+                    (argument_list
+                      (positional_argument
+                        (identifier))))))))
+          (logical_expression
+            (comparison_expression
+              (identifier)
+              (conv_expression
+                (builtin_function_call
+                  (identifier)
+                  (call_arguments
+                    (argument_list
+                      (positional_argument
+                        (identifier)))))))))))
+======
+Filter table with no keys specified
+======
+FILTER #( carriers IN filter WHERE carrid = table_line )
+---
+    (source
+      (filter_expression
+        (identifier)
+        (filter_tab_spec
+          (identifier))
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (identifier)))))
+======
+Filter table with source key
+======
+FILTER #( carriers using key foo IN filter WHERE carrid = table_line )
+---
+    (source
+      (filter_expression
+        (identifier)
+        (using_key_spec
+          (identifier))
+        (filter_tab_spec
+          (identifier))
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (identifier)))))
+======
+Filter table with filter key
+======
+FILTER #( carriers IN filter using key bar WHERE carrid = table_line )
+---
+    (source
+      (filter_expression
+        (identifier)
+        (filter_tab_spec
+          (identifier)
+          (using_key_spec
+            (identifier)))
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (identifier)))))

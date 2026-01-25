@@ -208,8 +208,9 @@ module.exports = grammar({
       $.conv_expression,
       $.exact_expression,
       $.cast_expression,
-      $.corresponding_expression
-      // TODO: corresponding, reduce, filter
+      $.corresponding_expression,
+      $.filter_expression
+      // TODO: reduce, filter
     ),
 
     /**
@@ -949,6 +950,30 @@ module.exports = grammar({
       "(",
       field("base", $.data_object),
       ")"
+    ),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_FILTER.html
+     */
+    filter_expression: $ => seq(
+      kw("filter"),
+      field("type", $._constructor_result),
+      "(",
+      field("itab", $.general_expression),
+      optional(kw("except")),
+
+      optional($.using_key_spec),
+      optional($.filter_tab_spec),
+
+      kw("where"),
+      $.logical_expression,
+      ")"
+    ),
+
+    filter_tab_spec: $ => seq(
+      kw("in"),
+      field("ftab", $.general_expression), // functional operand position?
+      optional($.using_key_spec),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
@@ -2649,7 +2674,8 @@ module.exports = grammar({
         "class",
         "conv",
         "ref",
-        "any"
+        "any",
+        "filter"
       )
     )),
 
