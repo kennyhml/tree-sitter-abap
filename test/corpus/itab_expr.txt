@@ -7,7 +7,7 @@ VALUE #( FOR j = 1 UNTIL j > 5 ( rnd1->get_next( ) ) )
       (value_expression
         (itab_expression
           (conditional_iteration
-            (iterator_var_spec
+            (assignment
               (identifier)
               (number))
             (logical_expression
@@ -211,7 +211,7 @@ VALUE itab1( FOR j = 41 THEN j - 10 UNTIL j < 10 ( ) )
         (type_identifier)
         (itab_expression
           (conditional_iteration
-            (iterator_var_spec
+            (assignment
               (identifier)
               (number))
             (binary_operator
@@ -263,11 +263,11 @@ VALUE itab(
         (type_identifier)
         (itab_expression
           (let_expression
-            (let_spec
+            (assignment
               (identifier)
               (number)))
           (conditional_iteration
-            (iterator_var_spec
+            (assignment
               (identifier)
               (number))
             (logical_expression
@@ -275,18 +275,18 @@ VALUE itab(
                 (identifier)
                 (number)))
             (let_expression
-              (let_spec
+              (assignment
                 (identifier)
                 (method_call
                   (identifier)
                   (identifier)
                   (call_arguments)))
-              (let_spec
+              (assignment
                 (identifier)
                 (binary_operator
                   (identifier)
                   (identifier)))
-              (let_spec
+              (assignment
                 (identifier)
                 (binary_operator
                   (identifier)
