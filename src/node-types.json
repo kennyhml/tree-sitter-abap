@@ -176,6 +176,10 @@
         "named": true
       },
       {
+        "type": "filter_expression",
+        "named": true
+      },
+      {
         "type": "new_expression",
         "named": true
       },
@@ -2449,6 +2453,80 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "filter_expression",
+    "named": true,
+    "fields": {
+      "itab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "filter_tab_spec",
+          "named": true
+        },
+        {
+          "type": "logical_expression",
+          "named": true
+        },
+        {
+          "type": "using_key_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "filter_tab_spec",
+    "named": true,
+    "fields": {
+      "ftab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "using_key_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6392,6 +6470,10 @@
   },
   {
     "type": "field-symbol",
+    "named": false
+  },
+  {
+    "type": "filter",
     "named": false
   },
   {

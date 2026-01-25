@@ -143,6 +143,11 @@
     "#"
     "&&"
     "!"
+    "<>"
+    "<="
+    ">"
+    "<"
+    
 ] @operator
 
 ; ------------------------------------------
@@ -187,6 +192,7 @@
     "lines"
     "let"
     "in"
+    "until"
     
     "table"
     "of"
@@ -349,6 +355,44 @@
     "except"
     "using"
     
+    "filter"
+    "where"
+    
+    "and"
+    "or"
+    "equiv"
+    
+    ; predicates
+    "not"
+    "bound"
+    "instance"
+    "assigned"
+    "supplied"
+    
+    ; comparison operators
+    "eq"
+    "ne"
+    "gt"
+    "lt"
+    "ge"
+    "le"
+    "co"
+    "cn"
+    "ca"
+    "na"
+    "cs"
+    "ns"
+    "cp"
+    "np"
+    "byte-co"
+    "byte-cn"
+    "byte-ca"
+    "byte-na"
+    "byte-cs"
+    "byte-ns"
+    "o"
+    "z"
+    "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
 
