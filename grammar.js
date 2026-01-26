@@ -168,6 +168,7 @@ module.exports = grammar({
       $.interface_implementation,
       $.method_implementation,
       $.if_statement,
+      $.case_statement,
     ),
 
     _class_component: $ => choice(
@@ -2181,6 +2182,47 @@ module.exports = grammar({
       kw("else"),
       ".",
       field("consequence", optional($.statement_block)),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE.html
+    case_statement: $ => seq(
+      kw("case"),
+      field("subject", $.general_expression),
+      ".",
+      repeat(field("alternative", $.case_clause)),
+      kw("endcase"), "."
+    ),
+
+    case_clause: $ => seq(
+      kw("when"),
+      choice(
+        kw("others"),
+        field("condition", $.case_operand_list),
+      ),
+      ".",
+      field("consequence", optional($.statement_block)),
+    ),
+
+    case_operand_list: $ => seq(
+      $._case_operand,
+      repeat(
+        seq(
+          kw("or"),
+          $._case_operand,
+        )
+      )
+    ),
+
+    /**
+     * These are 'extended functional positions' and considered obsolete
+     * 
+     * See https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_FUNCTIONAL_POSITIONS.html
+     */
+    _case_operand: $ => choice(
+      $.data_object,
+      $.builtin_function_call,
+      $.constructor_expression,
+      $.method_call
     ),
 
     statement_block: $ => repeat1($._statement),
