@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "case_statement",
+        "named": true
+      },
+      {
         "type": "class_definition",
         "named": true
       },
@@ -1049,6 +1053,59 @@
     }
   },
   {
+    "type": "case_clause",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "case_operand_list",
+            "named": true
+          }
+        ]
+      },
+      "consequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "case_operand_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "builtin_function_call",
+          "named": true
+        },
+        {
+          "type": "constructor_expression",
+          "named": true
+        },
+        {
+          "type": "data_object",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "case_sensitivity_spec",
     "named": true,
     "fields": {
@@ -1063,6 +1120,32 @@
           {
             "type": "respecting",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "case_statement",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "case_clause",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
           }
         ]
       }
@@ -6731,6 +6814,10 @@
     "named": false
   },
   {
+    "type": "endcase",
+    "named": false
+  },
+  {
     "type": "endclass",
     "named": false
   },
@@ -7166,6 +7253,10 @@
   },
   {
     "type": "or",
+    "named": false
+  },
+  {
+    "type": "others",
     "named": false
   },
   {

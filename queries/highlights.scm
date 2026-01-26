@@ -172,11 +172,12 @@
 ] @delimiter
 
 ; Control flow tagging
-(if_statement
-  "if" @keyword.control
-  "endif" @keyword.control)
+(if_statement [ "if" "endif" ] @keyword.control )
 (elseif_clause "elseif" @keyword.control)
 (else_clause "else" @keyword.control)
+
+(case_statement ["case" "endcase"] @keyword.control )
+(case_clause [ "when" "others" ] @keyword.control)
 
 ; ------------------------------------------
 ; Keywords
@@ -383,6 +384,10 @@
     "if"
     "elseif"
     "endif"
+    
+    "case"
+    "others"
+    "endcase"
     
     ; predicates
     "not"
