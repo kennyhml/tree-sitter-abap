@@ -170,7 +170,8 @@ module.exports = grammar({
       $.if_statement,
       $.case_statement,
       $.type_case_statement,
-      $.do_statement
+      $.do_statement,
+      $.while_statement
     ),
 
     _class_component: $ => choice(
@@ -2284,6 +2285,20 @@ module.exports = grammar({
       ".",
       optional(field("body", $.statement_block)),
       kw("enddo"), "."
+    ),
+
+    /**
+     * TODO: Add tests
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWHILE.html
+     */
+    while_statement: $ => seq(
+      kw("while"),
+      field("condition", $.logical_expression),
+      ".",
+      optional(field("body", $.statement_block)),
+      kw("endwhile"),
+      "."
     ),
 
     statement_block: $ => repeat1($._statement),

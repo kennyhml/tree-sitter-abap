@@ -38,6 +38,10 @@
       {
         "type": "type_case_statement",
         "named": true
+      },
+      {
+        "type": "while_statement",
+        "named": true
       }
     ]
   },
@@ -6466,6 +6470,32 @@
     "fields": {}
   },
   {
+    "type": "while_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -6939,6 +6969,10 @@
   },
   {
     "type": "endmethod",
+    "named": false
+  },
+  {
+    "type": "endwhile",
     "named": false
   },
   {
