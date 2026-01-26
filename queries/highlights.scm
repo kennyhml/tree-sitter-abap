@@ -182,6 +182,8 @@
 (type_case_statement ["case" "type" "of" "endcase" ] @keyword.control )
 (type_case_clause [ "when" "type" "others" ] @keyword.control)
 
+(do_statement ["do" "times" "enddo"  ] @keyword.control )
+
 ; ------------------------------------------
 ; Keywords
 ; ------------------------------------------
@@ -392,6 +394,10 @@
     "others"
     "endcase"
     
+    "do"
+    "times"
+    "enddo"
+    
     ; predicates
     "not"
     "bound"
@@ -425,6 +431,9 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
+
+
+
 
 ; Other identifiers not yet specified
 (identifier) @variable

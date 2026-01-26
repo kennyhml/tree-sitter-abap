@@ -16,6 +16,10 @@
         "named": true
       },
       {
+        "type": "do_statement",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -2359,6 +2363,32 @@
         "types": [
           {
             "type": "message_type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "do_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "repetitions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "numeric_expression",
             "named": true
           }
         ]
@@ -6852,6 +6882,10 @@
     "named": false
   },
   {
+    "type": "do",
+    "named": false
+  },
+  {
     "type": "doma",
     "named": false
   },
@@ -6889,6 +6923,10 @@
   },
   {
     "type": "endclass",
+    "named": false
+  },
+  {
+    "type": "enddo",
     "named": false
   },
   {
@@ -7551,6 +7589,10 @@
   },
   {
     "type": "throw",
+    "named": false
+  },
+  {
+    "type": "times",
     "named": false
   },
   {

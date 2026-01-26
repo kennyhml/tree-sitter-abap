@@ -142,6 +142,10 @@
         {
           "type": "SYMBOL",
           "name": "type_case_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "do_statement"
         }
       ]
     },
@@ -14276,6 +14280,83 @@
         {
           "type": "SYMBOL",
           "name": "method_call"
+        }
+      ]
+    },
+    "do_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][oO]"
+          },
+          "named": false,
+          "value": "do"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "repetitions",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "numeric_expression"
+                  }
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[tT][iI][mM][eE][sS]"
+                  },
+                  "named": false,
+                  "value": "times"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "statement_block"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][dD][oO]"
+          },
+          "named": false,
+          "value": "enddo"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
