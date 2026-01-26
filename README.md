@@ -17,6 +17,8 @@
 > It's impossible to know whether the constructor of the class `bar` is being invoked or if a char-like anonymous data object is being created on the heap.
 > This could only be determined by having context of the codebase and knowing the concrete type of `bar`. For this reason, the parser outputs a fairly
 > generic `argument_list`. If further detail is required, a semantic analysis is needed (with access to things such as the DDIC).
+>
+> **Obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.**
 
 ### Why tree-sitter?
 Tree-sitter performs **incremental parsing**, making it ideal for working with large or legacy ABAP codebases that often span thousands of lines in a single report. The resulting 
