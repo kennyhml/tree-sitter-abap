@@ -171,6 +171,13 @@
     "~"
 ] @delimiter
 
+; Control flow tagging
+(if_statement
+  "if" @keyword.control
+  "endif" @keyword.control)
+(elseif_clause "elseif" @keyword.control)
+(else_clause "else" @keyword.control)
+
 ; ------------------------------------------
 ; Keywords
 ; ------------------------------------------
@@ -373,6 +380,10 @@
     "or"
     "equiv"
     
+    "if"
+    "elseif"
+    "endif"
+    
     ; predicates
     "not"
     "bound"
@@ -406,6 +417,9 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
+
+
+
 
 ; Other identifiers not yet specified
 (identifier) @variable

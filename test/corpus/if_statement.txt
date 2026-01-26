@@ -1,0 +1,116 @@
+======
+Simple if condition
+======
+IF time < '120000'. 
+    result = abap_true.
+ENDIF. 
+---
+    (source
+      (if_statement
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (literal_string)))
+        (statement_block
+          (assignment
+            (identifier)
+            (identifier)))))
+======
+If statement with else clause
+======
+IF time < '120000'. 
+    result = abap_true.
+else.
+    result = abap_false.
+ENDIF. 
+---
+    (source
+      (if_statement
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (literal_string)))
+        (statement_block
+          (assignment
+            (identifier)
+            (identifier)))
+        (else_clause
+          (statement_block
+            (assignment
+              (identifier)
+              (identifier))))))
+======
+If statement with elseif clauses
+======
+IF time < '120000'. 
+    result = abap_true.
+elseif time > '600000'.
+    result = abap_undefined.
+elseif time = '0'.
+    result = 'oh no'
+else.
+    result = abap_false.
+ENDIF. 
+---
+    (source
+      (if_statement
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (literal_string)))
+        (statement_block
+          (assignment
+            (identifier)
+            (identifier)))
+        (elseif_clause
+          (logical_expression
+            (comparison_expression
+              (identifier)
+              (literal_string)))
+          (statement_block
+            (assignment
+              (identifier)
+              (identifier))))
+        (elseif_clause
+          (logical_expression
+            (comparison_expression
+              (identifier)
+              (literal_string)))
+          (statement_block
+            (assignment
+              (identifier)
+              (literal_string))))
+        (else_clause
+          (statement_block
+            (assignment
+              (identifier)
+              (identifier))))))
+======
+Nested if statement
+======
+IF time < '120000'. 
+    result = abap_true.
+    if result = abap_false.
+        result = abap_true.
+    endif.
+ENDIF. 
+---
+    (source
+      (if_statement
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (literal_string)))
+        (statement_block
+          (assignment
+            (identifier)
+            (identifier))
+          (if_statement
+            (logical_expression
+              (comparison_expression
+                (identifier)
+                (identifier)))
+            (statement_block
+              (assignment
+                (identifier)
+                (identifier)))))))

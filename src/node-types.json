@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "if_statement",
+        "named": true
+      },
+      {
         "type": "interface_definition",
         "named": true
       },
@@ -420,7 +424,15 @@
     "named": true,
     "subtypes": [
       {
+        "type": "builtin_function_call",
+        "named": true
+      },
+      {
         "type": "comparison_expression",
+        "named": true
+      },
+      {
+        "type": "method_call",
         "named": true
       },
       {
@@ -2409,6 +2421,48 @@
     }
   },
   {
+    "type": "else_clause",
+    "named": true,
+    "fields": {
+      "consequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "elseif_clause",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          }
+        ]
+      },
+      "consequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "embedded_expression",
     "named": true,
     "fields": {},
@@ -2862,6 +2916,46 @@
     "type": "identifier",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "if_statement",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "else_clause",
+            "named": true
+          },
+          {
+            "type": "elseif_clause",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          }
+        ]
+      },
+      "consequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "index_read",
@@ -5362,6 +5456,33 @@
     }
   },
   {
+    "type": "statement_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_compound_statement",
+          "named": true
+        },
+        {
+          "type": "_simple_statement",
+          "named": true
+        },
+        {
+          "type": "docstring",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "static_component",
     "named": true,
     "fields": {
@@ -6594,6 +6715,10 @@
     "named": false
   },
   {
+    "type": "elseif",
+    "named": false
+  },
+  {
     "type": "empty",
     "named": false
   },
@@ -6607,6 +6732,10 @@
   },
   {
     "type": "endclass",
+    "named": false
+  },
+  {
+    "type": "endif",
     "named": false
   },
   {
@@ -6747,6 +6876,10 @@
   },
   {
     "type": "id",
+    "named": false
+  },
+  {
+    "type": "if",
     "named": false
   },
   {

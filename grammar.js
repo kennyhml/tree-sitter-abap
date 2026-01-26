@@ -166,7 +166,8 @@ module.exports = grammar({
       $.class_implementation,
       $.interface_definition,
       $.interface_implementation,
-      $.method_implementation
+      $.method_implementation,
+      $.if_statement,
     ),
 
     _class_component: $ => choice(
@@ -327,7 +328,9 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
     relational_expression: $ => choice(
       $.comparison_expression,
-      $.predicate_expression
+      $.predicate_expression,
+      $.builtin_function_call,
+      $.method_call
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
@@ -2155,6 +2158,33 @@ module.exports = grammar({
     _test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
     _test_duration: _ => choice(...kws("short", "medium", "long")),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
+    if_statement: $ => seq(
+      kw("if"),
+      field("condition", $.logical_expression), ".",
+      field("consequence", optional($.statement_block)),
+
+      repeat(field("alternative", $.elseif_clause)),
+      optional(field("alternative", $.else_clause)),
+
+      kw("endif"), "."
+    ),
+
+    elseif_clause: $ => seq(
+      kw("elseif"),
+      field("condition", $.logical_expression),
+      ".",
+      field("consequence", optional($.statement_block)),
+    ),
+
+    else_clause: $ => seq(
+      kw("else"),
+      ".",
+      field("consequence", optional($.statement_block)),
+    ),
+
+    statement_block: $ => repeat1($._statement),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
     report_initiator: $ => seq(
       kw("report"),
@@ -2762,7 +2792,8 @@ module.exports = grammar({
         "conv",
         "ref",
         "any",
-        "filter"
+        "filter",
+        "data"
       )
     )),
 
