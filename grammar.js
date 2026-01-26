@@ -170,6 +170,7 @@ module.exports = grammar({
       $.if_statement,
       $.case_statement,
       $.type_case_statement,
+      $.do_statement
     ),
 
     _class_component: $ => choice(
@@ -2265,6 +2266,24 @@ module.exports = grammar({
       $.builtin_function_call,
       $.constructor_expression,
       $.method_call
+    ),
+
+    /**
+     * TODO: Add tests
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDO.html
+     */
+    do_statement: $ => seq(
+      kw("do"),
+      optional(
+        seq(
+          field("repetitions", $.numeric_expression),
+          kw("times")
+        )
+      ),
+      ".",
+      optional(field("body", $.statement_block)),
+      kw("enddo"), "."
     ),
 
     statement_block: $ => repeat1($._statement),
