@@ -183,6 +183,7 @@
 (type_case_clause [ "when" "type" "others" ] @keyword.control)
 
 (do_statement ["do" "times" "enddo"  ] @keyword.control )
+(while_statement ["while" "endwhile" ] @keyword.control )
 
 ; ------------------------------------------
 ; Keywords
@@ -397,6 +398,7 @@
     "do"
     "times"
     "enddo"
+    "endwhile"
     
     ; predicates
     "not"
