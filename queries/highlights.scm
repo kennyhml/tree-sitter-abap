@@ -179,6 +179,9 @@
 (case_statement ["case" "endcase"] @keyword.control )
 (case_clause [ "when" "others" ] @keyword.control)
 
+(type_case_statement ["case" "type" "of" "endcase" ] @keyword.control )
+(type_case_clause [ "when" "type" "others" ] @keyword.control)
+
 ; ------------------------------------------
 ; Keywords
 ; ------------------------------------------
@@ -422,9 +425,6 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
-
-
-
 
 ; Other identifiers not yet specified
 (identifier) @variable

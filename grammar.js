@@ -169,6 +169,7 @@ module.exports = grammar({
       $.method_implementation,
       $.if_statement,
       $.case_statement,
+      $.type_case_statement,
     ),
 
     _class_component: $ => choice(
@@ -2184,7 +2185,11 @@ module.exports = grammar({
       field("consequence", optional($.statement_block)),
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE.html
+    /**
+     * TODO: Add tests
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE.html
+     */
     case_statement: $ => seq(
       kw("case"),
       field("subject", $.general_expression),
@@ -2211,6 +2216,43 @@ module.exports = grammar({
           $._case_operand,
         )
       )
+    ),
+
+    /**
+     * TODO: Add tests
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE_TYPE.html
+     */
+    type_case_statement: $ => seq(
+      ...kws("case", "type", "of"),
+      field("subject", $.general_expression),
+      ".",
+      repeat(field("alternative", $.type_case_clause)),
+      kw("endcase"), "."
+    ),
+
+    type_case_clause: $ => seq(
+      kw("when"),
+      choice(
+        kw("others"),
+        seq(
+          kw("type"),
+          field("condition", $._type_identifier),
+          optional(
+            seq(
+              kw("into"),
+              field("target",
+                choice(
+                  $.named_data_object,
+                  $.declaration_expression
+                )
+              )
+            )
+          ),
+        ),
+      ),
+      ".",
+      field("consequence", optional($.statement_block)),
     ),
 
     /**
