@@ -1159,8 +1159,14 @@ module.exports = grammar({
           choice(
             field("display", $._message_display_override),
             field("arguments", $.message_arguments),
-            seq(kw("into"), field("target", $.identifier)),
-            seq(kw("raising"), field("exception", $.identifier)),
+            seq(
+              kw("into"),
+              field("into", choice(
+                $.named_data_object,
+                $.declaration_expression
+              ))
+            ),
+            seq(kw("raising"), field("raising", $.identifier)),
           )
         ),
       )
