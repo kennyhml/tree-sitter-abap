@@ -106,21 +106,21 @@ void advance_whitespaces_and_newlines(TSLexer* lexer, bool include)
 bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
                                             const bool* valid_symbols)
 {
-    // printf("Parser scans at %d (%c)\n", lexer->get_column(lexer),
-    //        lexer->lookahead == '\n'   ? 'N'
-    //        : lexer->lookahead == '\r' ? 'C'
-    //                                   : lexer->lookahead);
     if (valid_symbols[ERROR_SENTINEL]) {
         return false;
     }
 
     if (valid_symbols[MESSAGE_TYPE]) {
+        advance_whitespaces_and_newlines(lexer, false);
+
         // For now, literally just allow any character to be more permissive.
         // The restrictive logic is there if we need it..
         if (iswalpha(lexer->lookahead)) {
-            // if (strchr(valid_message_types, lexer->lookahead)) {
             lexer->advance(lexer, false);
             lexer->mark_end(lexer);
+            if (!iswdigit(lexer->lookahead)) {
+                return false;
+            }
             lexer->result_symbol = MESSAGE_TYPE;
             return true;
         }

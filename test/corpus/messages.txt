@@ -1,0 +1,137 @@
+======
+Static compact form message spec
+======
+message i333(zmessages).
+---
+(source
+    (message_declaration
+        (message_spec
+            type: (message_type)
+            number: (number)
+            id: (identifier))))
+======
+Static compact form message with default id
+======
+message e220.
+---
+(source
+    (message_declaration
+        (message_spec
+            type: (message_type)
+            number: (number))))
+======
+Message from plain text
+======
+message e220.
+---
+(source
+    (message_declaration
+        (message_spec
+            type: (message_type)
+            number: (number))))
+======
+Dynamic long form message spec
+======
+message id mid type mtyp number mnum.
+---
+(source
+    (message_declaration
+        (message_spec
+            id: (identifier)
+            type: (identifier)
+            number: (identifier))))
+======
+Dynamic long form with literals
+======
+message id 'ZMESSAGES' type 'A' number 999.
+---
+(source
+    (message_declaration
+        (message_spec
+            id: (literal_string)
+            type: (literal_string)
+            number: (number))))
+======
+Message spec with argument list
+======
+message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
+---
+(source
+    (message_declaration
+        (message_spec
+            type: (message_type)
+            number: (number)
+            id: (identifier)
+            arguments: (message_arguments
+                (literal_string)
+                (literal_string)
+                (literal_string)))))
+======
+Chained mixed message declarations
+======
+message: e888(msg_class) with 'Foo' 'Bar' 'Baz', 
+         i222 with '1' '2' '3',
+         id 'zbar' type 'X' number 11.
+---
+    (source
+      (message_declaration
+        (message_spec
+          type: (message_type)
+          number: (number)
+          id: (identifier)
+          arguments: (message_arguments
+            (literal_string)
+            (literal_string)
+            (literal_string)))
+        (message_spec
+          type: (message_type)
+          number: (number)
+          arguments: (message_arguments
+            (literal_string)
+            (literal_string)
+            (literal_string)))
+        (message_spec
+          id: (literal_string)
+          type: (literal_string)
+          number: (number))))
+======
+Message display type override
+======
+MESSAGE i200 DISPLAY LIKE 'S'.
+---
+(source
+    (message_declaration
+        (message_spec
+            type: (message_type)
+            number: (number)
+            display_type: (literal_string))))
+======
+Message from expressions
+======
+message conv string( lines( itab ) ) type 'I'.
+---
+    (source
+      (message_declaration
+        (message_spec
+          (conv_expression
+            (type_identifier)
+            (builtin_function_call
+              (identifier)
+              (call_arguments
+                (argument_list
+                  (positional_argument
+                    (identifier))))))
+          (literal_string))))
+======
+Message from method call
+======
+MESSAGE oref->get_text( ) TYPE 'I'. 
+---
+    (source
+      (message_declaration
+        (message_spec
+          (method_call
+            (identifier)
+            (identifier)
+            (call_arguments))
+          (literal_string))))
