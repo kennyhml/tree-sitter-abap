@@ -58,6 +58,8 @@
 
 (exception_list (identifier) @variable.exception )
 
+(message_spec type: (message_type) @variable.messagetype )
+
 ; ------------------------------------------
 ; Method identifiers, ambiguity exists.
 ; ------------------------------------------
@@ -399,6 +401,11 @@
     "times"
     "enddo"
     "endwhile"
+    
+    "message"
+    "id"
+    "number"
+    "display"
     
     ; predicates
     "not"

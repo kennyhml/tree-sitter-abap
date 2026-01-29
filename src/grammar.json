@@ -7912,10 +7912,19 @@
                     },
                     {
                       "type": "FIELD",
-                      "name": "target",
+                      "name": "into",
                       "content": {
-                        "type": "SYMBOL",
-                        "name": "identifier"
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "named_data_object"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "declaration_expression"
+                          }
+                        ]
                       }
                     }
                   ]
@@ -7934,7 +7943,7 @@
                     },
                     {
                       "type": "FIELD",
-                      "name": "exception",
+                      "name": "raising",
                       "content": {
                         "type": "SYMBOL",
                         "name": "identifier"

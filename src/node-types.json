@@ -3789,16 +3789,6 @@
           }
         ]
       },
-      "exception": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "id": {
         "multiple": false,
         "required": false,
@@ -3813,6 +3803,20 @@
           }
         ]
       },
+      "into": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
       "number": {
         "multiple": false,
         "required": false,
@@ -3823,22 +3827,22 @@
           }
         ]
       },
+      "raising": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "source": {
         "multiple": false,
         "required": false,
         "types": [
           {
             "type": "character_like_expression",
-            "named": true
-          }
-        ]
-      },
-      "target": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]

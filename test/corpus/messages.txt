@@ -135,3 +135,55 @@ MESSAGE oref->get_text( ) TYPE 'I'.
             (identifier)
             (call_arguments))
           (literal_string))))
+======
+Message raising an exception
+======
+MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1. 
+---
+(source
+    (message_declaration
+        (message_spec
+            text: (literal_string)
+            type: (literal_string)
+            raising: (identifier))))
+======
+Message into target variable / declaration
+======
+MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno 
+        INTO FINAL(mtext) 
+        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4. 
+---
+    (source
+      (message_declaration
+        (message_spec
+          (struct_component_selector
+            (identifier)
+            (static_component
+              (identifier)))
+          (struct_component_selector
+            (identifier)
+            (static_component
+              (identifier)))
+          (struct_component_selector
+            (identifier)
+            (static_component
+              (identifier)))
+          (declaration_expression
+            (identifier))
+          (message_arguments
+            (struct_component_selector
+              (identifier)
+              (static_component
+                (identifier)))
+            (struct_component_selector
+              (identifier)
+              (static_component
+                (identifier)))
+            (struct_component_selector
+              (identifier)
+              (static_component
+                (identifier)))
+            (struct_component_selector
+              (identifier)
+              (static_component
+                (identifier)))))))
