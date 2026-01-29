@@ -98,6 +98,10 @@
         "named": true
       },
       {
+        "type": "message_declaration",
+        "named": true
+      },
+      {
         "type": "methods_declaration",
         "named": true
       },
@@ -2358,22 +2362,6 @@
     }
   },
   {
-    "type": "display_override",
-    "named": true,
-    "fields": {
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "message_type",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "do_statement",
     "named": true,
     "fields": {
@@ -3745,11 +3733,26 @@
     }
   },
   {
+    "type": "message_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "message_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "message_spec",
     "named": true,
     "fields": {
       "arguments": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -3759,17 +3762,35 @@
         ]
       },
       "display": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "display_override",
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "display",
+            "named": false
+          },
+          {
+            "type": "like",
+            "named": false
+          }
+        ]
+      },
+      "display_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
             "named": true
           }
         ]
       },
       "exception": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -3783,23 +3804,37 @@
         "required": false,
         "types": [
           {
+            "type": "data_object",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
         ]
       },
-      "num": {
+      "number": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "number",
+            "type": "data_object",
             "named": true
           }
         ]
       },
-      "oref": {
+      "source": {
         "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -3809,13 +3844,9 @@
         ]
       },
       "text": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
           {
             "type": "literal_string",
             "named": true
@@ -3826,6 +3857,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "data_object",
+            "named": true
+          },
           {
             "type": "message_type",
             "named": true
@@ -6191,7 +6226,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "type_identifier",
             "named": true
           }
         ]

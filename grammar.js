@@ -135,6 +135,7 @@ module.exports = grammar({
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
+      $.message_declaration,
 
       $.assignment,
 
@@ -1094,22 +1095,37 @@ module.exports = grammar({
       )
     ),
 
+    /**
+     * THROW exception addition of {@link cond_expression}, {@link switch_expression}
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
+     */
     throw_exception: $ => seq(
       kw("throw"),
       optional(kw("resumable")),
       optional(kw("shortdump")),
-      field("name", $.identifier),
-      "(", optional(seq(kw("message"), $.message_spec,)), ")",
+      field("name", $._type_identifier),
+      "(",
+      optional(
+        // could use a message declaration here but doesnt feel right..
+        seq(
+          kw("message"),
+          $.message_spec
+        )
+      ),
+      ")"
     ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
      */
-    message: $ => choice(
-      seq(
-        kw("message"),
-        $.message_spec,
-      )
+    message_declaration: $ => seq(
+      kw("message"),
+      choice(
+        seq(":", commaSep1($.message_spec)),
+        $.message_spec
+      ),
+      "."
     ),
 
     /**
@@ -1122,61 +1138,84 @@ module.exports = grammar({
      * ```
      * Or, in certain other contexts, a `message` can also be a statement for raising
      * an exception from a message. See {@link throw_exception}
+     * 
+     * CAUTION: MESSAGE oref | text have identical syntax and are ambiguous.
      */
-    message_spec: $ => seq(
-      choice(
-        // { tn } / { tn(id) }
-        seq(
-          field("type", $.message_type),
-          field("num", $._immediate_number),
-          // Optional if specified at program level
-          optional(
-            seq(
-              token.immediate("("),
-              field("id", $._immediate_identifier),
-              token.immediate(")"),
-            )
+    message_spec: $ => prec.right(2,
+      seq(
+        choice(
+          $._compact_message_id,
+          $._long_form_message_id,
+          // message from an exception object or character-like data object
+          seq(
+            choice(
+              field("text", $.literal_string),
+              field("source", $.character_like_expression)
+            ),
+            optional($._message_type_spec)
+          ),
+        ),
+        repeat(
+          choice(
+            field("display", $._message_display_override),
+            field("arguments", $.message_arguments),
+            seq(kw("into"), field("target", $.identifier)),
+            seq(kw("raising"), field("exception", $.identifier)),
           )
         ),
-        // { ID mid TYPE mtype NUMBER num }
-        seq(
-          kw("id"), field("id", $.identifier),
-          kw("type"), field("type", $.message_type),
-          kw("number"), field("num", $.number),
-        ),
-        // { oref [TYPE mtype] }
-        seq(
-          field("oref", $.identifier),
-          optional(seq(kw("type"), field("type", $.message_type)))
-        ),
-        // text TYPE mtype
-        seq(
-          field("text", $.literal_string),
-          optional(seq(kw("type"), field("type", $.message_type)))
-        ),
-      ),
-      // [DISPLAY LIKE dtype]
-      optional(field("display", $.display_override)),
-      // [WITH dobj1 ... dobj4]
-      field("arguments", optional($.message_arguments)),
+      )
+    ),
 
-      // Do we make these into their own nodes? Probably should..
+    /**
+     * Compact specification of a message type, number and optionally, the ID.
+     * 
+     * For example, i333(zmessages) represents message Nr. 333 as type 'I' of
+     * message class zmessages, where the message class id can be omitted if
+     * its already set at a program level.
+     */
+    _compact_message_id: $ => seq(
+      // could not find a way to do this without help from an
+      // external scanner due to how grouping into word tokens
+      // behaves during lexing.
+      field("type", $.message_type),
+      field("number", $._immediate_number),
+
+      // Optional if specified at program level
       optional(
-        choice(
-          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_INTO.html
-          seq(kw("into"), field("text", $.identifier)),
-          // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_RAISING.html
-          seq(kw("raising"), field("exception", $.identifier)),
+        seq(
+          token.immediate("("),
+          field("id", $._immediate_identifier),
+          token.immediate(")"),
         )
       )
+    ),
+
+    /**
+     * Long form specification of a message type, number and ID where each
+     * can also be specified dynamically through the value of a data object.
+     */
+    _long_form_message_id: $ => seq(
+      kw("id"),
+      field("id", $.data_object),
+      $._message_type_spec,
+      kw("number"),
+      field("number", $.data_object),
+    ),
+
+    _message_type_spec: $ => seq(
+      kw("type"),
+      field("type", $.data_object)
     ),
 
     message_arguments: $ => seq(
       kw("with"), repeat1($.general_expression)
     ),
 
-    display_override: $ => seq(
-      seq(...kws("display", "like"), field("type", $.message_type))
+    _message_display_override: $ => seq(
+      seq(
+        ...kws("display", "like"),
+        field("display_type", $.data_object)
+      )
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html
