@@ -4,7 +4,7 @@ Static compact form message spec
 message i333(zmessages).
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             type: (message_type)
             number: (number)
@@ -15,7 +15,7 @@ Static compact form message with default id
 message e220.
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             type: (message_type)
             number: (number))))
@@ -25,7 +25,7 @@ Message from plain text
 message e220.
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             type: (message_type)
             number: (number))))
@@ -35,7 +35,7 @@ Dynamic long form message spec
 message id mid type mtyp number mnum.
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             id: (identifier)
             type: (identifier)
@@ -46,7 +46,7 @@ Dynamic long form with literals
 message id 'ZMESSAGES' type 'A' number 999.
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             id: (literal_string)
             type: (literal_string)
@@ -57,7 +57,7 @@ Message spec with argument list
 message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             type: (message_type)
             number: (number)
@@ -74,7 +74,7 @@ message: e888(msg_class) with 'Foo' 'Bar' 'Baz',
          id 'zbar' type 'X' number 11.
 ---
     (source
-      (message_declaration
+      (message
         (message_spec
           type: (message_type)
           number: (number)
@@ -100,7 +100,7 @@ Message display type override
 MESSAGE i200 DISPLAY LIKE 'S'.
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             type: (message_type)
             number: (number)
@@ -111,7 +111,7 @@ Message from expressions
 message conv string( lines( itab ) ) type 'I'.
 ---
     (source
-      (message_declaration
+      (message
         (message_spec
           (conv_expression
             (type_identifier)
@@ -128,7 +128,7 @@ Message from method call
 MESSAGE oref->get_text( ) TYPE 'I'. 
 ---
     (source
-      (message_declaration
+      (message
         (message_spec
           (method_call
             (identifier)
@@ -141,7 +141,7 @@ Message raising an exception
 MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1. 
 ---
 (source
-    (message_declaration
+    (message
         (message_spec
             text: (literal_string)
             type: (literal_string)
@@ -154,7 +154,7 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
         WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4. 
 ---
     (source
-      (message_declaration
+      (message
         (message_spec
           (struct_component_selector
             (identifier)

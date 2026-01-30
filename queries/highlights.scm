@@ -20,7 +20,9 @@
 (deferred_class_definition name: (identifier) @class )
 (class_definition name: (identifier) @class )
 (class_implementation name: (identifier) @class )
+
 (exception name: (identifier) @class )
+(raise_exception name: (identifier) @class )
 
 (class_options
 	parent: (identifier) @class
@@ -57,6 +59,7 @@
 (table_key_spec name: (identifier) @variable.key )
 
 (exception_list (identifier) @variable.exception )
+(message_spec raising: (identifier) @variable.exception )
 
 (message_spec type: (message_type) @variable.messagetype )
 
@@ -377,6 +380,7 @@
     "mapping"
     "except"
     "using"
+    "throw"
     
     "filter"
     "where"
@@ -396,6 +400,9 @@
     "case"
     "others"
     "endcase"
+    
+    "raise"
+    "exception"
     
     "do"
     "times"
