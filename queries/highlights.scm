@@ -22,7 +22,7 @@
 (class_implementation name: (identifier) @class )
 
 (exception name: (identifier) @class )
-(raise_exception name: (identifier) @class )
+(raise_exception_statement name: (identifier) @class )
 (catch_exception_list (identifier) @class )
 
 (class_options
@@ -61,7 +61,7 @@
 
 (exception_list (identifier) @variable.exception )
 (message_spec raising: (identifier) @variable.exception )
-(raise name: (identifier) @variable.exception )
+(raise_statement name: (identifier) @variable.exception )
 
 (message_spec type: (message_type) @variable.messagetype )
 
@@ -178,7 +178,13 @@
     "~"
 ] @delimiter
 
-; Control flow tagging
+; ------------------------------------------
+; Control Flow keywords
+; ------------------------------------------
+; For alot of keywords, the context matters. E.g "FOR" 
+; is a control keyword in a for loop, but not in
+; the combination of regular keywords "FOR TESTING"
+
 (if_statement [ "if" "endif" ] @keyword.control )
 (elseif_clause "elseif" @keyword.control)
 (else_clause "else" @keyword.control)
@@ -195,7 +201,18 @@
 (catch_clause ["catch" "before" "unwind" ] @keyword.control )
 (cleanup_clause "cleanup" @keyword.control )
 
-(raise_exception ["raise" "exception" ] @keyword.control )
+(raise_exception_statement ["raise" "exception" ] @keyword.control )
+
+; Keywords that can be considered control flow without context check
+; As of now, new keywords should be added to the uncontextualized
+; array and only moved to a context if needed.
+[
+	"return"
+	"exit"
+    "check"
+    "continue"
+    "resume"
+] @keyword.control
 
 ; ------------------------------------------
 ; Keywords
@@ -410,6 +427,7 @@
     
     "raise"
     "exception"
+    "return"
     
     "do"
     "times"
@@ -427,6 +445,11 @@
     "unwind"
     "endtry"
     "cleanup"
+    
+    "exit"
+    "check"
+    "continue"
+    "resume"
     
     ; predicates
     "not"

@@ -4,7 +4,7 @@ Raise exception
 RAISE EXCEPTION TYPE cx_demo.
 ---
 (source
-    (raise_exception
+    (raise_exception_statement
         name: (identifier)))
 ======
 Raise old style exception
@@ -12,7 +12,7 @@ Raise old style exception
 RAISE not_found.
 ---
 (source
-    (raise
+    (raise_statement
         name: (identifier)))
 ======
 Raise exception from oref
@@ -20,7 +20,7 @@ Raise exception from oref
 RAISE EXCEPTION oref. 
 ---
 (source
-    (raise_exception
+    (raise_exception_statement
         oref: (identifier)))
 ======
 Raise resumable exception
@@ -28,7 +28,7 @@ Raise resumable exception
 RAISE RESUMABLE EXCEPTION TYPE cx_demo. 
 ---
 (source
-    (raise_exception
+    (raise_exception_statement
         name: (identifier)))
 ======
 Raise exception with exporting parameters
@@ -39,7 +39,7 @@ RAISE EXCEPTION TYPE cx_sy_dynamic_osql_semantics
         token  = 'Test'. 
 ---
     (source
-      (raise_exception
+      (raise_exception_statement
         (identifier)
         (argument_list
           (named_argument
@@ -59,7 +59,7 @@ RAISE EXCEPTION TYPE /BOBF/CX_CONF
         mv_action_name  = 'Test'. 
 ---
     (source
-      (raise_exception
+      (raise_exception_statement
         (identifier)
         (message_spec
           (message_type)
@@ -80,7 +80,7 @@ RAISE EXCEPTION TYPE cx_demo_exception
   WITH 'Param1' 'Param2'
 ---
     (source
-      (raise_exception
+      (raise_exception_statement
         name: (identifier)
         (message_spec
           id: (literal_string)
@@ -95,7 +95,7 @@ Raise exception from system message fields
 RAISE EXCEPTION TYPE /brx/cx_error USING MESSAGE.
 ---
 (source
-    (raise_exception
+    (raise_exception_statement
         name: (identifier)))
 ======
 Simple try statement
@@ -225,7 +225,7 @@ ENDTRY.
         (try_block
           (try_statement
             (try_block
-              (raise_exception
+              (raise_exception_statement
                 (identifier)))
             (catch_clause
               (catch_exception_list

@@ -62,6 +62,10 @@
         "named": true
       },
       {
+        "type": "check_statement",
+        "named": true
+      },
+      {
         "type": "class_data_declaration",
         "named": true
       },
@@ -82,6 +86,10 @@
         "named": true
       },
       {
+        "type": "continue_statement",
+        "named": true
+      },
+      {
         "type": "data_declaration",
         "named": true
       },
@@ -91,6 +99,10 @@
       },
       {
         "type": "deferred_interface_definition",
+        "named": true
+      },
+      {
+        "type": "exit_statement",
         "named": true
       },
       {
@@ -110,11 +122,11 @@
         "named": true
       },
       {
-        "type": "raise",
+        "type": "raise_exception_statement",
         "named": true
       },
       {
-        "type": "raise_exception",
+        "type": "raise_statement",
         "named": true
       },
       {
@@ -123,6 +135,14 @@
       },
       {
         "type": "report_initiator",
+        "named": true
+      },
+      {
+        "type": "resume_statement",
+        "named": true
+      },
+      {
+        "type": "return_statement",
         "named": true
       },
       {
@@ -1328,6 +1348,22 @@
     }
   },
   {
+    "type": "check_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "class_component_selector",
     "named": true,
     "fields": {
@@ -2107,6 +2143,11 @@
     }
   },
   {
+    "type": "continue_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "conv_expression",
     "named": true,
     "fields": {
@@ -2837,6 +2878,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "exit_statement",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "field_symbol",
@@ -4931,23 +4977,7 @@
     }
   },
   {
-    "type": "raise",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "raise_exception",
+    "type": "raise_exception_statement",
     "named": true,
     "fields": {
       "exporting": {
@@ -4994,6 +5024,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "raise_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -5480,6 +5526,27 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "resume_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "return_statement",
+    "named": true,
+    "fields": {
+      "expr": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -7081,6 +7148,10 @@
     "named": false
   },
   {
+    "type": "check",
+    "named": false
+  },
+  {
     "type": "circular",
     "named": false
   },
@@ -7142,6 +7213,10 @@
   },
   {
     "type": "constructor",
+    "named": false
+  },
+  {
+    "type": "continue",
     "named": false
   },
   {
@@ -7334,6 +7409,10 @@
   },
   {
     "type": "exceptions",
+    "named": false
+  },
+  {
+    "type": "exit",
     "named": false
   },
   {
@@ -7840,6 +7919,14 @@
   },
   {
     "type": "resumable",
+    "named": false
+  },
+  {
+    "type": "resume",
+    "named": false
+  },
+  {
+    "type": "return",
     "named": false
   },
   {
