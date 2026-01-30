@@ -61,6 +61,7 @@
 
 (exception_list (identifier) @variable.exception )
 (message_spec raising: (identifier) @variable.exception )
+(raise name: (identifier) @variable.exception )
 
 (message_spec type: (message_type) @variable.messagetype )
 
@@ -460,6 +461,9 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
+
+
+
 
 ; Other identifiers not yet specified
 (identifier) @variable
