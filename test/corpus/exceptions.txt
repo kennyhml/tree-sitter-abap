@@ -1,0 +1,91 @@
+======
+Raise exception
+======
+RAISE EXCEPTION TYPE cx_demo.
+---
+(source
+    (raise_exception
+        name: (identifier)))
+======
+Raise exception from oref
+======
+RAISE EXCEPTION oref. 
+---
+(source
+    (raise_exception
+        oref: (identifier)))
+======
+Raise resumable exception
+======
+RAISE RESUMABLE EXCEPTION TYPE cx_demo. 
+---
+(source
+    (raise_exception
+        name: (identifier)))
+======
+Raise exception with exporting parameters
+======
+RAISE EXCEPTION TYPE cx_sy_dynamic_osql_semantics 
+    EXPORTING 
+        textid = cx_sy_dynamic_osql_semantics=>unknown_table_name 
+        token  = 'Test'. 
+---
+    (source
+      (raise_exception
+        (identifier)
+        (argument_list
+          (named_argument
+            (identifier)
+            (class_component_selector
+              (identifier)
+              (identifier)))
+          (named_argument
+            (identifier)
+            (literal_string)))))
+======
+Raise exception from message
+======
+RAISE EXCEPTION TYPE /BOBF/CX_CONF
+    message i001 with 'foo' 'bar'
+    EXPORTING 
+        mv_action_name  = 'Test'. 
+---
+    (source
+      (raise_exception
+        (identifier)
+        (message_spec
+          (message_type)
+          (number)
+          (message_arguments
+            (literal_string)
+            (literal_string)))
+        (argument_list
+          (named_argument
+            (identifier)
+            (literal_string)))))
+======
+Raise exception from long form message
+======
+RAISE EXCEPTION TYPE cx_demo_exception
+  MESSAGE ID 'Z_MY_MSG' type 'I'
+  NUMBER '001'
+  WITH 'Param1' 'Param2'
+---
+    (source
+      (raise_exception
+        name: (identifier)
+        (message_spec
+          id: (literal_string)
+          type: (literal_string)
+          number: (literal_string)
+          arguments: (message_arguments
+            (literal_string)
+            (literal_string)))))
+======
+Raise exception from system message fields
+======
+RAISE EXCEPTION TYPE /brx/cx_error USING MESSAGE.
+---
+(source
+    (raise_exception
+        name: (identifier)))

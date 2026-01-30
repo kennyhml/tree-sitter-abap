@@ -135,7 +135,7 @@ module.exports = grammar({
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
-      $.message_declaration,
+      $.message,
 
       $.assignment,
 
@@ -153,6 +153,13 @@ module.exports = grammar({
       $.shift,
       $.split,
       $.condense,
+
+      // Control flow
+      $.raise_exception,
+      // return
+      // exit
+      // continue
+      // ..
 
       $.methods_declaration,
       $.cls_methods_declaration,
@@ -1106,26 +1113,56 @@ module.exports = grammar({
       optional(kw("shortdump")),
       field("name", $._type_identifier),
       "(",
-      optional(
-        // could use a message declaration here but doesnt feel right..
-        seq(
-          kw("message"),
-          $.message_spec
-        )
-      ),
+      optional($._inline_message_spec),
       ")"
     ),
 
     /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_CLASS.html 
+     */
+    raise_exception: $ => prec.right(seq(
+      kw("raise"),
+      optional(kw("resumable")),
+      kw("exception"),
+      choice(
+        field("oref", $.general_expression),
+        seq(
+          kw("type"),
+          field("name", $.identifier),
+          optional(
+            choice(
+              seq(...kws("using", "message")),
+              // For some reason 'using message' went missing from the docs, but it
+              // just uses the system message fields (sy-msgid, etc..)
+              // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_MESSAGE.html
+              $._inline_message_spec,
+            )
+          ),
+          optional(args("exporting", $._named_argument_list))
+        )
+      )
+    )),
+
+    /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
      */
-    message_declaration: $ => seq(
+    message: $ => seq(
       kw("message"),
       choice(
         seq(":", commaSep1($.message_spec)),
         $.message_spec
       ),
       "."
+    ),
+
+    /**
+     * A message specification that is inlined into another statement, e.g
+     * a {@link throw_exception} or {@link raise_exception} and preceded by
+     * a 'message' keyword that doesnt technically serve as a declaration.
+     */
+    _inline_message_spec: $ => seq(
+      kw("message"),
+      $.message_spec
     ),
 
     /**
@@ -1203,9 +1240,16 @@ module.exports = grammar({
     _long_form_message_id: $ => seq(
       kw("id"),
       field("id", $.data_object),
-      $._message_type_spec,
-      kw("number"),
-      field("number", $.data_object),
+
+      // Not technically optional, but theres not really any ambiguity in
+      // this context and it makes highlighting smoother..
+      optional($._message_type_spec),
+      optional(
+        seq(
+          kw("number"),
+          field("number", $.data_object),
+        )
+      )
     ),
 
     _message_type_spec: $ => seq(
@@ -1214,7 +1258,7 @@ module.exports = grammar({
     ),
 
     message_arguments: $ => seq(
-      kw("with"), repeat1($.general_expression)
+      kw("with"), prec.right(repeat1($.general_expression))
     ),
 
     _message_display_override: $ => seq(
@@ -1730,6 +1774,15 @@ module.exports = grammar({
         repeat1($.named_argument),
         repeat1($.positional_argument)
       )
+    ),
+
+    /**
+     * An argument list where only named arguments can occur. This is needed
+     * in statements such as {@link raise_exception} because positional args
+     * are impossible in that position and cause parser conflicts.
+     */
+    _named_argument_list: $ => prec.right(
+      alias(repeat1($.named_argument), $.argument_list)
     ),
 
     named_argument: $ => seq(
@@ -2345,6 +2398,7 @@ module.exports = grammar({
       kw("endwhile"),
       "."
     ),
+
 
     statement_block: $ => repeat1($._statement),
 

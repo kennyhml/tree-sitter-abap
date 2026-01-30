@@ -98,11 +98,15 @@
         "named": true
       },
       {
-        "type": "message_declaration",
+        "type": "message",
         "named": true
       },
       {
         "type": "methods_declaration",
+        "named": true
+      },
+      {
+        "type": "raise_exception",
         "named": true
       },
       {
@@ -3718,6 +3722,21 @@
     }
   },
   {
+    "type": "message",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "message_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "message_arguments",
     "named": true,
     "fields": {},
@@ -3727,21 +3746,6 @@
       "types": [
         {
           "type": "general_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "message_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "message_spec",
           "named": true
         }
       ]
@@ -4774,6 +4778,56 @@
         },
         {
           "type": "types_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "raise_exception",
+    "named": true,
+    "fields": {
+      "exporting": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "exporting",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "oref": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "message_spec",
           "named": true
         }
       ]
@@ -7039,6 +7093,10 @@
     "named": false
   },
   {
+    "type": "exception",
+    "named": false
+  },
+  {
     "type": "exceptions",
     "named": false
   },
@@ -7474,6 +7532,10 @@
   },
   {
     "type": "public",
+    "named": false
+  },
+  {
+    "type": "raise",
     "named": false
   },
   {
