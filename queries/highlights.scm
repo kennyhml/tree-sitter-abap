@@ -23,6 +23,7 @@
 
 (exception name: (identifier) @class )
 (raise_exception name: (identifier) @class )
+(catch_exception_list (identifier) @class )
 
 (class_options
 	parent: (identifier) @class
@@ -189,6 +190,11 @@
 
 (do_statement ["do" "times" "enddo"  ] @keyword.control )
 (while_statement ["while" "endwhile" ] @keyword.control )
+(try_statement ["try" "endtry" ] @keyword.control )
+(catch_clause ["catch" "before" "unwind" ] @keyword.control )
+(cleanup_clause "cleanup" @keyword.control )
+
+(raise_exception ["raise" "exception" ] @keyword.control )
 
 ; ------------------------------------------
 ; Keywords
@@ -414,6 +420,13 @@
     "number"
     "display"
     
+    "try"
+    "catch"
+    "before"
+    "unwind"
+    "endtry"
+    "cleanup"
+    
     ; predicates
     "not"
     "bound"
@@ -447,9 +460,6 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
-
-
-
 
 ; Other identifiers not yet specified
 (identifier) @variable
