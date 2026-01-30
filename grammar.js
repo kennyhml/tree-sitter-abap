@@ -155,13 +155,13 @@ module.exports = grammar({
       $.condense,
 
       // Control flow
-      $.raise,
-      $.raise_exception,
-      // return
-      // exit
-      // continue
-      // resume
-      // ..
+      $.raise_statement,
+      $.raise_exception_statement,
+      $.return_statement,
+      $.exit_statement,
+      $.check_statement,
+      $.continue_statement,
+      $.resume_statement,
 
       $.methods_declaration,
       $.cls_methods_declaration,
@@ -1123,7 +1123,7 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_CLASS.html 
      */
-    raise_exception: $ => prec.right(seq(
+    raise_exception_statement: $ => prec.right(seq(
       kw("raise"),
       optional(kw("resumable")),
       kw("exception"),
@@ -1149,10 +1149,34 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION.html
      */
-    raise: $ => seq(
+    raise_statement: $ => seq(
       kw("raise"),
       field("name", $.identifier)
     ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRETURN.html
+    return_statement: $ => seq(
+      kw("return"),
+      optional(field("expr", $.general_expression)),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEXIT_PROCESSING_BLOCKS.html
+    exit_statement: _ => seq(
+      kw("exit"),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_PROCESSING_BLOCKS.html
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_LOOP.html
+    check_statement: $ => seq(
+      kw("check"),
+      field("condition", $.logical_expression),
+      "."
+    ),
+
+    continue_statement: _ => seq(kw("continue"), "."),
+    resume_statement: _ => seq(kw("resume"), "."),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
