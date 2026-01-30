@@ -36,6 +36,10 @@
         "named": true
       },
       {
+        "type": "try_statement",
+        "named": true
+      },
+      {
         "type": "type_case_statement",
         "named": true
       },
@@ -1212,6 +1216,82 @@
     }
   },
   {
+    "type": "catch_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_compound_statement",
+          "named": true
+        },
+        {
+          "type": "_simple_statement",
+          "named": true
+        },
+        {
+          "type": "docstring",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "catch_clause",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "catch_block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "catch_exception_list",
+          "named": true
+        },
+        {
+          "type": "declaration_expression",
+          "named": true
+        },
+        {
+          "type": "named_data_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "catch_exception_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "cds_function_impl",
     "named": true,
     "fields": {
@@ -1473,6 +1553,63 @@
       "types": [
         {
           "type": "global_friends",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cleanup_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_compound_statement",
+          "named": true
+        },
+        {
+          "type": "_simple_statement",
+          "named": true
+        },
+        {
+          "type": "docstring",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cleanup_clause",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cleanup_block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "declaration_expression",
+          "named": true
+        },
+        {
+          "type": "named_data_object",
           "named": true
         }
       ]
@@ -6302,6 +6439,63 @@
     }
   },
   {
+    "type": "try_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_compound_statement",
+          "named": true
+        },
+        {
+          "type": "_simple_statement",
+          "named": true
+        },
+        {
+          "type": "docstring",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "try_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "try_block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "catch_clause",
+          "named": true
+        },
+        {
+          "type": "cleanup_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_case_clause",
     "named": true,
     "fields": {
@@ -6777,6 +6971,10 @@
     "named": false
   },
   {
+    "type": "before",
+    "named": false
+  },
+  {
     "type": "begin",
     "named": false
   },
@@ -6841,6 +7039,10 @@
     "named": false
   },
   {
+    "type": "catch",
+    "named": false
+  },
+  {
     "type": "cds",
     "named": false
   },
@@ -6870,6 +7072,10 @@
   },
   {
     "type": "class_constructor",
+    "named": false
+  },
+  {
+    "type": "cleanup",
     "named": false
   },
   {
@@ -7062,6 +7268,10 @@
   },
   {
     "type": "endmethod",
+    "named": false
+  },
+  {
+    "type": "endtry",
     "named": false
   },
   {
@@ -7739,6 +7949,10 @@
     "named": false
   },
   {
+    "type": "try",
+    "named": false
+  },
+  {
     "type": "type",
     "named": false
   },
@@ -7752,6 +7966,10 @@
   },
   {
     "type": "until",
+    "named": false
+  },
+  {
+    "type": "unwind",
     "named": false
   },
   {

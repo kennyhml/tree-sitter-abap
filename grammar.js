@@ -159,6 +159,7 @@ module.exports = grammar({
       // return
       // exit
       // continue
+      // resume
       // ..
 
       $.methods_declaration,
@@ -179,7 +180,8 @@ module.exports = grammar({
       $.case_statement,
       $.type_case_statement,
       $.do_statement,
-      $.while_statement
+      $.while_statement,
+      $.try_statement
     ),
 
     _class_component: $ => choice(
@@ -2399,6 +2401,54 @@ module.exports = grammar({
       "."
     ),
 
+    /**
+     * TODO: Add tests
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTRY.html
+     */
+    try_statement: $ => seq(
+      kw("try"),
+      ".",
+      optional(field("body", alias($.statement_block, $.try_block))),
+      repeat($.catch_clause),
+      optional($.cleanup_clause),
+      kw("endtry"),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCATCH_TRY.html
+    catch_clause: $ => seq(
+      kw("catch"),
+      optional(seq(...kws("before", "unwind"))),
+      field("exceptions", alias($.exception_list, $.catch_exception_list)),
+      optional(
+        seq(
+          kw("into"),
+          field("into", choice(
+            $.named_data_object,
+            $.declaration_expression
+          ))
+        ),
+      ),
+      ".",
+      optional(field("body", alias($.statement_block, $.catch_block))),
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLEANUP.html
+    cleanup_clause: $ => seq(
+      kw("cleanup"),
+      optional(
+        seq(
+          kw("into"),
+          field("into", choice(
+            $.named_data_object,
+            $.declaration_expression
+          ))
+        ),
+      ),
+      ".",
+      optional(field("body", alias($.statement_block, $.cleanup_block))),
+    ),
 
     statement_block: $ => repeat1($._statement),
 
