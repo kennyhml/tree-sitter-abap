@@ -7,6 +7,14 @@ RAISE EXCEPTION TYPE cx_demo.
     (raise_exception
         name: (identifier)))
 ======
+Raise old style exception
+======
+RAISE not_found.
+---
+(source
+    (raise
+        name: (identifier)))
+======
 Raise exception from oref
 ======
 RAISE EXCEPTION oref. 

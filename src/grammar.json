@@ -100,6 +100,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "raise"
+        },
+        {
+          "type": "SYMBOL",
           "name": "raise_exception"
         },
         {
@@ -7902,6 +7906,28 @@
         ]
       }
     },
+    "raise": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][aA][iI][sS][eE]"
+          },
+          "named": false,
+          "value": "raise"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "message": {
       "type": "SEQ",
       "members": [
@@ -14739,13 +14765,17 @@
           ]
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "exceptions",
           "content": {
-            "type": "SYMBOL",
-            "name": "exception_list"
-          },
-          "named": true,
-          "value": "catch_exception_list"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "exception_list"
+            },
+            "named": true,
+            "value": "catch_exception_list"
+          }
         },
         {
           "type": "CHOICE",
@@ -14763,17 +14793,21 @@
                   "value": "into"
                 },
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "named_data_object"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "declaration_expression"
-                    }
-                  ]
+                  "type": "FIELD",
+                  "name": "into",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "named_data_object"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "declaration_expression"
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -14837,17 +14871,21 @@
                   "value": "into"
                 },
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "named_data_object"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "declaration_expression"
-                    }
-                  ]
+                  "type": "FIELD",
+                  "name": "into",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "named_data_object"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "declaration_expression"
+                      }
+                    ]
+                  }
                 }
               ]
             },

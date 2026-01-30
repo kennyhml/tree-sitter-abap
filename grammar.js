@@ -155,6 +155,7 @@ module.exports = grammar({
       $.condense,
 
       // Control flow
+      $.raise,
       $.raise_exception,
       // return
       // exit
@@ -1144,6 +1145,14 @@ module.exports = grammar({
         )
       )
     )),
+
+    /**
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION.html
+     */
+    raise: $ => seq(
+      kw("raise"),
+      field("name", $.identifier)
+    ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html

@@ -110,6 +110,10 @@
         "named": true
       },
       {
+        "type": "raise",
+        "named": true
+      },
+      {
         "type": "raise_exception",
         "named": true
       },
@@ -1255,25 +1259,31 @@
             "named": true
           }
         ]
+      },
+      "exceptions": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "catch_exception_list",
+            "named": true
+          }
+        ]
+      },
+      "into": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "catch_exception_list",
-          "named": true
-        },
-        {
-          "type": "declaration_expression",
-          "named": true
-        },
-        {
-          "type": "named_data_object",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1598,21 +1608,21 @@
             "named": true
           }
         ]
+      },
+      "into": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "declaration_expression",
-          "named": true
-        },
-        {
-          "type": "named_data_object",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -4918,6 +4928,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "raise",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
