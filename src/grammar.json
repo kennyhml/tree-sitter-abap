@@ -10351,6 +10351,27 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_rfc_destination_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_rfc_session_spec"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "call_argument_list"
             },
@@ -10365,35 +10386,9 @@
         }
       ]
     },
-    "remote_function_call": {
+    "_rfc_destination_spec": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[cC][aA][lL][lL]"
-          },
-          "named": false,
-          "value": "call"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[fF][uU][nN][cC][tT][iI][oO][nN]"
-          },
-          "named": false,
-          "value": "function"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "character_like_expression"
-          }
-        },
         {
           "type": "ALIAS",
           "content": {
@@ -10409,6 +10404,46 @@
           "content": {
             "type": "SYMBOL",
             "name": "character_like_expression"
+          }
+        }
+      ]
+    },
+    "_rfc_session_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN]"
+          },
+          "named": false,
+          "value": "in"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][mM][oO][tT][eE]"
+          },
+          "named": false,
+          "value": "remote"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][eE][sS][sS][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "session"
+        },
+        {
+          "type": "FIELD",
+          "name": "session",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
           }
         }
       ]
