@@ -10348,8 +10348,16 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "call_argument_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "call_argument_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",

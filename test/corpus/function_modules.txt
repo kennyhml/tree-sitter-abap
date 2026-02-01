@@ -1,0 +1,48 @@
+======
+Function Module Call without parameters
+======
+CALL FUNCTION 'Z_MY_FUNCTION'.
+---
+(source
+    (function_call
+        name: (literal_string)))
+======
+Function module call with parameters
+======
+CALL FUNCTION 'READ_SPFLI_INTO_TABLE' 
+  EXPORTING 
+    id        = 'LH' 
+  IMPORTING 
+    itab      = itab 
+  EXCEPTIONS 
+    not_found = 4. 
+---
+    (source
+      (function_call
+        name: (literal_string)
+        (call_argument_list
+          exporting: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (literal_string)))
+          importing: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (identifier)))
+          exceptions: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (number))))))
+======
+Function module call with table parameters
+======
+CALL FUNCTION 'READ_SPFLI_INTO_TABLE' 
+  parameter-table tab2
+  exception-table tab2.
+---
+    (source
+      (function_call
+        name: (literal_string)
+        (call_argument_list
+          parameter_table: (identifier)
+          exception_table: (identifier))))

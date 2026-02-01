@@ -451,6 +451,12 @@
     "continue"
     "resume"
     
+    "call"
+    "function"
+    "tables"
+    "parameter-table"
+    "exception-table"
+    
     ; predicates
     "not"
     "bound"
@@ -484,9 +490,6 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
-
-
-
 
 ; Other identifiers not yet specified
 (identifier) @variable
