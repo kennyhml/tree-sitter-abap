@@ -117,10 +117,9 @@ message conv string( lines( itab ) ) type 'I'.
             (type_identifier)
             (builtin_function_call
               (identifier)
-              (call_arguments
-                (argument_list
+              (call_argument_list
                   (positional_argument
-                    (identifier))))))
+                    (identifier)))))
           (literal_string))))
 ======
 Message from method call
@@ -132,8 +131,7 @@ MESSAGE oref->get_text( ) TYPE 'I'.
         (message_spec
           (method_call
             (identifier)
-            (identifier)
-            (call_arguments))
+            (identifier))
           (literal_string))))
 ======
 Message raising an exception

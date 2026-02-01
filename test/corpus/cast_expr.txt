@@ -69,9 +69,8 @@ FINAL(attributes) =
             (method_call
               (identifier)
               (identifier)
-              (call_arguments
-                (argument_list
+              (call_argument_list
                   (positional_argument
-                    (literal_string))))))
+                    (literal_string)))))
           (static_component
             (identifier)))))

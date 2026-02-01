@@ -19,8 +19,7 @@ VALUE #( FOR j = 1 UNTIL j > 5 ( rnd1->get_next( ) ) )
               (positional_argument
                 (method_call
                   (identifier)
-                  (identifier)
-                  (call_arguments))))))))
+                  (identifier))))))))
 ==================
 Table comprehension with index
 ==================
@@ -279,8 +278,7 @@ VALUE itab(
                 (identifier)
                 (method_call
                   (identifier)
-                  (identifier)
-                  (call_arguments)))
+                  (identifier)))
               (assignment
                 (identifier)
                 (binary_operator

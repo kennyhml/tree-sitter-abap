@@ -6,10 +6,9 @@ floor( my_variable ).
 (source
     (builtin_function_call
         name: (identifier)
-        (call_arguments
-            exporting: (argument_list
-                (positional_argument
-                    value: (identifier))))))
+        (call_argument_list
+            exporting: (positional_argument
+                value: (identifier)))))
 ======
 Parameter keyword ambiguity
 ======
@@ -18,7 +17,7 @@ floor( value = my_variable ).
 (source
     (builtin_function_call
         name: (identifier)
-        (call_arguments
+        (call_argument_list
             exporting: (argument_list
                 (named_argument
                     name: (identifier)
@@ -31,21 +30,20 @@ ceil( floor( min( val1 = var1 val2 = var2 ) ) ).
 (source
     (builtin_function_call
         name: (identifier)
-        (call_arguments
-            exporting: (argument_list
+        (call_argument_list
+            exporting: 
                 (positional_argument
                     value: (builtin_function_call
                         name: (identifier)
-                        (call_arguments
-                            exporting: (argument_list
-                                (positional_argument
+                        (call_argument_list
+                            exporting: (positional_argument
                                     value: (builtin_function_call
                                         name: (identifier)
-                                        (call_arguments
+                                        (call_argument_list
                                             exporting: (argument_list
                                                 (named_argument
                                                     name: (identifier)
                                                     value: (identifier))
                                                 (named_argument
                                                     name: (identifier)
-                                                    value: (identifier))))))))))))))
+                                                    value: (identifier))))))))))))

@@ -110,6 +110,10 @@
         "named": true
       },
       {
+        "type": "function_call",
+        "named": true
+      },
+      {
         "type": "local_friends_spec",
         "named": true
       },
@@ -883,10 +887,10 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "call_arguments",
+          "type": "call_argument_list",
           "named": true
         }
       ]
@@ -981,7 +985,7 @@
     }
   },
   {
-    "type": "call_arguments",
+    "type": "call_argument_list",
     "named": true,
     "fields": {
       "changing": {
@@ -995,6 +999,20 @@
           {
             "type": "changing",
             "named": false
+          }
+        ]
+      },
+      "exception_table": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "exception-table",
+            "named": false
+          },
+          {
+            "type": "named_data_object",
+            "named": true
           }
         ]
       },
@@ -1023,6 +1041,10 @@
           {
             "type": "exporting",
             "named": false
+          },
+          {
+            "type": "positional_argument",
+            "named": true
           }
         ]
       },
@@ -1040,16 +1062,44 @@
           }
         ]
       },
+      "parameter_table": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          },
+          {
+            "type": "parameter-table",
+            "named": false
+          }
+        ]
+      },
       "receiving": {
         "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "named_argument",
+            "type": "argument_list",
             "named": true
           },
           {
             "type": "receiving",
+            "named": false
+          }
+        ]
+      },
+      "tables": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "tables",
             "named": false
           }
         ]
@@ -3140,6 +3190,32 @@
     }
   },
   {
+    "type": "function_call",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "call_argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "global_friends",
     "named": true,
     "fields": {},
@@ -4148,10 +4224,10 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "call_arguments",
+          "type": "call_argument_list",
           "named": true
         }
       ]
@@ -7124,6 +7200,10 @@
     "named": false
   },
   {
+    "type": "call",
+    "named": false
+  },
+  {
     "type": "case",
     "named": false
   },
@@ -7405,6 +7485,10 @@
   },
   {
     "type": "exception",
+    "named": false
+  },
+  {
+    "type": "exception-table",
     "named": false
   },
   {
@@ -7822,6 +7906,10 @@
     "named": false
   },
   {
+    "type": "parameter-table",
+    "named": false
+  },
+  {
     "type": "pcre",
     "named": false
   },
@@ -8027,6 +8115,10 @@
   },
   {
     "type": "table",
+    "named": false
+  },
+  {
+    "type": "tables",
     "named": false
   },
   {

@@ -144,8 +144,9 @@ module.exports = grammar({
       $.deferred_interface_definition,
       $.local_friends_spec,
 
-      // Not technically legal but tolerated due to permissive philosophy:
       $.class_data_declaration,
+
+      $.function_call,
 
       $.concatenate,
       $.find,
@@ -1175,7 +1176,10 @@ module.exports = grammar({
       "."
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONTINUE.html
     continue_statement: _ => seq(kw("continue"), "."),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRESUME.html
     resume_statement: _ => seq(kw("resume"), "."),
 
     /**
@@ -1759,7 +1763,7 @@ module.exports = grammar({
         ),
       ),
       field("name", $._immediate_identifier),
-      $.call_arguments
+      $._parenthesized_call_arguments
     )),
 
     /**
@@ -1770,10 +1774,31 @@ module.exports = grammar({
      * Its not currently possible to declare functions to be called the same way builtin
      * functions can be called, so theres no conflict.
      */
-    builtin_function_call: $ => prec.right(5, seq(
+    builtin_function_call: $ => seq(
       field("name", $.identifier),
-      $.call_arguments
-    )),
+      $._parenthesized_call_arguments,
+    ),
+
+    /**
+     * Call of a function module using CALL FUNCTION ... DESTINATION
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION.html
+     */
+    function_call: $ => seq(
+      ...kws("call", "function"),
+      field("name", $.character_like_expression),
+      $.call_argument_list,
+      "."
+    ),
+
+    remote_function_call: $ => seq(
+      ...kws("call", "function"),
+      field("name", $.character_like_expression),
+
+      kw("destination"),
+      field("destination", $.character_like_expression)
+
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
     call_arguments: $ => seq(
@@ -1810,6 +1835,55 @@ module.exports = grammar({
         repeat1($.positional_argument)
       )
     ),
+
+    _parenthesized_call_arguments: $ => seq(
+      token.immediate("("),
+      token.immediate(/[\t\n\r ]/),
+      optional($.call_argument_list),
+      ")",
+    ),
+
+    /**
+     * The argument list of e.g a {@link method_call} or {@link function_call}, but also
+     * used for things such as implicit class initialization of {@link raise_exception}.
+     * 
+     * The difference between this and a generic {@link argument_list} is that no let
+     * expression is possible and only {@link named_argument} can be specified.
+     */
+    call_argument_list: $ => choice(
+      repeat1(
+        choice(
+          $._importing_args,
+          $._exporting_args,
+          $._changing_args,
+          $._receiving_args,
+          $._tables_args,
+          $._parameter_table_args,
+          $._exception_table_args,
+          $._tables_args,
+          $._exceptions_args,
+        )
+      ),
+      // In method calls, if the parameter is not preceded by the parameter type,
+      // its always exporting. Only one positional argument or any number of
+      // named arguments may follow.
+      field("exporting", choice(
+        $._named_argument_list,
+        $.positional_argument
+      )),
+    ),
+
+    _importing_args: $ => args("importing", $._named_argument_list),
+    _exporting_args: $ => args("exporting", $._named_argument_list),
+    _changing_args: $ => args("changing", $._named_argument_list),
+    _receiving_args: $ => args("receiving", $._named_argument_list),
+    _tables_args: $ => args("tables", $._named_argument_list),
+    _parameter_table_args: $ => args("parameter-table", $.named_data_object),
+    _exception_table_args: $ => args("exception-table", $.named_data_object),
+
+    // TODO: Need a special exception argument list here to handle
+    // message assignment, e.g not_found = 4 message lv_msg
+    _exceptions_args: $ => args("exceptions", $._named_argument_list),
 
     /**
      * An argument list where only named arguments can occur. This is needed
@@ -2665,10 +2739,6 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJECT_COMPONENT_SELECTOR.html
      */
     object_component_selector: $ => seq(
-      // - Name of a reference variable that can itself be a composite.
-      // - Functional method call or method chaining with a reference variable as a result.
-      // - Single or chained table expression whose result is a reference variable.
-      // - Constructor expression with the instance operator NEW or the casting operator CAST
       field("ref",
         choice(
           $.identifier,
@@ -2774,7 +2844,8 @@ module.exports = grammar({
             optional($._substring_length)
           ),
         )
-      )),
+      )
+    ),
 
     _substring_offset: $ => seq(
       token.immediate("+"),
@@ -3303,5 +3374,5 @@ function params(keyword, rule) {
 }
 
 function args(keyword, rule) {
-  return field(keyword, seq(kw(keyword), rule));
+  return field(keyword.replace("-", "_"), seq(kw(keyword), rule));
 }

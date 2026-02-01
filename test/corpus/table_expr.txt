@@ -19,10 +19,9 @@ itab[ lines( itab ) ].
         (index_read
           (builtin_function_call
             (identifier)
-            (call_arguments
-              (argument_list
+            (call_argument_list
                 (positional_argument
-                  (identifier))))))))
+                  (identifier)))))))
 ==================
 Simple free key read
 ==================
@@ -53,8 +52,7 @@ itab[ key my_awesome_key components connid = zclass=>get_connid( ) ]
                     (identifier)
                     (method_call
                         (identifier)
-                        (identifier)
-                        (call_arguments))))))
+                        (identifier))))))
       (table_expression
         (identifier)
         (search_key_read
@@ -65,8 +63,7 @@ itab[ key my_awesome_key components connid = zclass=>get_connid( ) ]
                     (identifier)
                     (method_call
                         (identifier)
-                        (identifier)
-                        (call_arguments)))))))
+                        (identifier)))))))
 ==================
 Secondary index read
 ==================
@@ -96,8 +93,7 @@ itab[ foo-bar = obj->meth( ) ].
                         (identifier)))
                     (method_call
                         (identifier)
-                        (identifier)
-                        (call_arguments)))))))
+                        (identifier)))))))
 ==================
 Search key object attr read
 ==================

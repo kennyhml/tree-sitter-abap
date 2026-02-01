@@ -6,7 +6,7 @@ ceil( value = 10 ).
 (source
     (builtin_function_call
     (identifier)
-    (call_arguments
+    (call_argument_list
         (argument_list
             (named_argument
                 (identifier)

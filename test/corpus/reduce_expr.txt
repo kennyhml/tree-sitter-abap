@@ -118,7 +118,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
                 (identifier)))
             (builtin_function_call
               (identifier)
-              (call_arguments
+              (call_argument_list
                 (argument_list
                   (named_argument
                     (identifier)

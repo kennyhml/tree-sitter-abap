@@ -41,20 +41,18 @@ FILTER #( spfli_tab EXCEPT USING KEY carr_city
               (conv_expression
                 (builtin_function_call
                   (identifier)
-                  (call_arguments
-                    (argument_list
+                  (call_argument_list
                       (positional_argument
-                        (identifier))))))))
+                        (identifier)))))))
           (logical_expression
             (comparison_expression
               (identifier)
               (conv_expression
                 (builtin_function_call
                   (identifier)
-                  (call_arguments
-                    (argument_list
+                  (call_argument_list
                       (positional_argument
-                        (identifier)))))))))))
+                        (identifier))))))))))
 ======
 Filter table with no keys specified
 ======
