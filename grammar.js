@@ -1787,7 +1787,7 @@ module.exports = grammar({
     function_call: $ => seq(
       ...kws("call", "function"),
       field("name", $.character_like_expression),
-      $.call_argument_list,
+      optional($.call_argument_list),
       "."
     ),
 
