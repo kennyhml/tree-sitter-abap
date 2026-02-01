@@ -3193,12 +3193,32 @@
     "type": "function_call",
     "named": true,
     "fields": {
+      "destination": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      },
+      "session": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "named_data_object",
             "named": true
           }
         ]
@@ -7380,6 +7400,10 @@
     "named": false
   },
   {
+    "type": "destination",
+    "named": false
+  },
+  {
     "type": "discarding",
     "named": false
   },
@@ -7979,6 +8003,10 @@
   },
   {
     "type": "regex",
+    "named": false
+  },
+  {
+    "type": "remote",
     "named": false
   },
   {

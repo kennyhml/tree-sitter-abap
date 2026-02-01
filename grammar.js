@@ -1780,24 +1780,32 @@ module.exports = grammar({
     ),
 
     /**
-     * Call of a function module using CALL FUNCTION ... DESTINATION
+     * Call of a function module using CALL FUNCTION
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION.html
      */
     function_call: $ => seq(
       ...kws("call", "function"),
       field("name", $.character_like_expression),
+
+      optional(
+        choice(
+          $._rfc_destination_spec,
+          $._rfc_session_spec
+        )
+      ),
       optional($.call_argument_list),
       "."
     ),
 
-    remote_function_call: $ => seq(
-      ...kws("call", "function"),
-      field("name", $.character_like_expression),
-
+    _rfc_destination_spec: $ => seq(
       kw("destination"),
       field("destination", $.character_like_expression)
+    ),
 
+    _rfc_session_spec: $ => seq(
+      ...kws("in", "remote", "session"),
+      field("session", $.named_data_object)
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html

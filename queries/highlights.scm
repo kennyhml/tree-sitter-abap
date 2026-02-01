@@ -454,6 +454,9 @@
     "call"
     "function"
     "tables"
+    "remote"
+    "session"
+    "destination"
     "parameter-table"
     "exception-table"
     
@@ -490,6 +493,9 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
+
+
+
 
 ; Other identifiers not yet specified
 (identifier) @variable

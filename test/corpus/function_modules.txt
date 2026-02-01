@@ -46,3 +46,53 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
         (call_argument_list
           parameter_table: (identifier)
           exception_table: (identifier))))
+======
+Remote function module call
+======
+CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
+    destination 'A4H'
+    EXPORTING 
+      count        = lines( itab ).
+---
+(source
+  (function_call
+    name: (literal_string)
+    destination: (literal_string)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (builtin_function_call
+            name: (identifier)
+            (call_argument_list
+              exporting: (positional_argument
+                value: (identifier)))))))))
+======
+Function module call in remote session
+======
+CALL FUNCTION 'DEMO_RFM_PARAMETERS' 
+    IN REMOTE SESSION stateful_session 
+    EXPORTING 
+        p_in     = val_in 
+    IMPORTING 
+        p_out    = val_out 
+    CHANGING 
+        p_in_out = val_in_out.
+---
+    (source
+      (function_call
+        name: (literal_string)
+        session: (identifier)
+        (call_argument_list
+          exporting: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (identifier)))
+          importing: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (identifier)))
+          changing: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (identifier))))))
