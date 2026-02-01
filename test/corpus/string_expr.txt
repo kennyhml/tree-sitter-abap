@@ -45,8 +45,7 @@ String concatenation
             (identifier))
         (method_call
             (identifier)
-            (identifier)
-            (call_arguments))))
+            (identifier))))
 =======
 Template string with extra prefixes
 =======

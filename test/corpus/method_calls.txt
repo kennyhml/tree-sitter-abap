@@ -7,8 +7,7 @@ NEW c1( )->m1( ).
     (method_call
         (new_expression
             (type_identifier))
-        (identifier)
-        (call_arguments)))
+        (identifier)))
 ==================
 Linebreak after opening parenthesis
 ==================
@@ -20,7 +19,7 @@ lx->set_location(
     (method_call
         (identifier)
         (identifier)
-        (call_arguments
+        (call_argument_list
             (argument_list
                 (named_argument
                     (identifier)
@@ -39,10 +38,8 @@ CAST cls( iref )->meth1( )->meth2( ).
             (cast_expression
                 (type_identifier)
                 (identifier))
-            (identifier)
-            (call_arguments))
-        (identifier)
-        (call_arguments)))
+            (identifier))
+        (identifier)))
 ==================
 Linebreak after opening parenthesis
 ==================

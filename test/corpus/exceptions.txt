@@ -234,19 +234,17 @@ ENDTRY.
                 (method_call
                   (identifier)
                   (identifier)
-                  (call_arguments
-                    (argument_list
+                  (call_argument_list
                       (positional_argument
-                        (literal_string)))))))
+                        (literal_string))))))
             (cleanup_clause
               (cleanup_block
                 (method_call
                   (identifier)
                   (identifier)
-                  (call_arguments
-                    (argument_list
+                  (call_argument_list
                       (positional_argument
-                        (literal_string)))))))))
+                        (literal_string))))))))
         (catch_clause
           (catch_exception_list
             (identifier))
@@ -254,7 +252,6 @@ ENDTRY.
             (method_call
               (identifier)
               (identifier)
-              (call_arguments
-                (argument_list
+              (call_argument_list
                   (positional_argument
-                    (literal_string)))))))))
+                    (literal_string))))))))

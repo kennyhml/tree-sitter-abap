@@ -23,18 +23,16 @@ int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
                 (type_identifier)
                 (builtin_function_call
                     (identifier)
-                    (call_arguments
-                        (argument_list
-                            (positional_argument
-                                (number))))))
+                    (call_argument_list
+                        (positional_argument
+                            (number)))))
             (conv_expression
                 (type_identifier)
                 (builtin_function_call
                     (identifier)
-                    (call_arguments
-                        (argument_list
-                            (positional_argument
-                                (number)))))))))
+                    (call_argument_list
+                        (positional_argument
+                            (number))))))))
 ======
 Simple exact conversion
 ======
