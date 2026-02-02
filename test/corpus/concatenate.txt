@@ -10,12 +10,10 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
             (literal_string)
             (struct_component_selector
                 (identifier)
-                (static_component
-                (identifier)))
+                (identifier))
             (object_component_selector
                 (identifier)
-                (static_component
-                    (identifier))))
+                (identifier)))
         (into_clause
             (result_spec
                 (declaration_expression

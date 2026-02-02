@@ -1787,11 +1787,12 @@ module.exports = grammar({
     function_call: $ => seq(
       ...kws("call", "function"),
       field("name", $.character_like_expression),
-
-      optional(
+      repeat(
         choice(
+          $._rfc_task_spec,
           $._rfc_destination_spec,
-          $._rfc_session_spec
+          $._rfc_session_spec,
+          $._rfc_callback_spec
         )
       ),
       optional($.call_argument_list),
@@ -1800,12 +1801,44 @@ module.exports = grammar({
 
     _rfc_destination_spec: $ => seq(
       kw("destination"),
-      field("destination", $.character_like_expression)
+      choice(
+        field("destination", $.data_object),
+        seq(
+          ...kws("in", "group"),
+          field("group", choice(
+            $.named_data_object,
+            kw("default")
+          ))
+        )
+      )
     ),
 
     _rfc_session_spec: $ => seq(
       ...kws("in", "remote", "session"),
       field("session", $.named_data_object)
+    ),
+
+    _rfc_task_spec: $ => seq(
+      ...kws("starting", "new", "task"),
+      field("task_id", $.data_object)
+    ),
+
+    _rfc_callback_spec: $ => seq(
+      choice(
+        seq(
+          kw("calling"),
+          field("callback_method", choice(
+            $.identifier,
+            $.object_component_selector,
+            $.class_component_selector
+          ))
+        ),
+        seq(
+          kw("performing"),
+          field("callback_routine", $.identifier)
+        )
+      ),
+      ...kws("on", "end", "of", "task")
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
@@ -1886,12 +1919,9 @@ module.exports = grammar({
     _changing_args: $ => args("changing", $._named_argument_list),
     _receiving_args: $ => args("receiving", $._named_argument_list),
     _tables_args: $ => args("tables", $._named_argument_list),
+    _exceptions_args: $ => args("exceptions", $._exception_mapping_list),
     _parameter_table_args: $ => args("parameter-table", $.named_data_object),
     _exception_table_args: $ => args("exception-table", $.named_data_object),
-
-    // TODO: Need a special exception argument list here to handle
-    // message assignment, e.g not_found = 4 message lv_msg
-    _exceptions_args: $ => args("exceptions", $._named_argument_list),
 
     /**
      * An argument list where only named arguments can occur. This is needed
@@ -2281,6 +2311,18 @@ module.exports = grammar({
 
     raising_list: $ => repeat1($.exception),
     exception_list: $ => repeat1($.identifier),
+
+    _exception_mapping_list: $ => alias(repeat1($.exception_mapping), $.argument_list),
+
+    exception_mapping: $ => seq(
+      field("name", $.identifier),
+      "=",
+      field("value", $.number),
+      optional(seq(
+        kw("message"),
+        field("message", $.named_data_object)
+      ))
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS.html
     amdp_options: $ => seq(
@@ -2682,10 +2724,6 @@ module.exports = grammar({
       // A dereference cant result in a type, so no need to copy that.
     ),
 
-    static_component: $ => choice(
-      field("name", $._immediate_identifier)
-    ),
-
     dynamic_component: $ => seq(
       "(",
       field("name", choice(
@@ -2718,7 +2756,7 @@ module.exports = grammar({
       field("comp",
         choice(
           $.dynamic_component,
-          $.static_component
+          $._immediate_identifier
         )
       )
     ),
@@ -2761,7 +2799,7 @@ module.exports = grammar({
       field("comp",
         choice(
           $.dynamic_component,
-          $.static_component
+          $._immediate_identifier
         )
       )
     ),
@@ -2774,9 +2812,15 @@ module.exports = grammar({
      * `class=>comp` or `intf=>type` or `intf=>const`
      */
     class_component_selector: $ => seq(
+      // TODO: Looks like dynamic specification is possible?
       field("class", $.identifier),
       token.immediate("=>"),
-      field("comp", $._immediate_identifier)
+      field("comp",
+        choice(
+          $.dynamic_component,
+          $._immediate_identifier
+        )
+      )
     ),
 
     _class_component_type_selector: $ => seq(

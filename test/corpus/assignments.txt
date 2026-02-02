@@ -20,8 +20,7 @@ itab[ field = 'AAA'  ]-value = 10.
                         (itab_comp_spec
                             (identifier)
                             (literal_string)))))
-                (static_component
-                    (identifier)))
+                (identifier))
         (number)))
 ==================
 Assign to new expression
@@ -36,6 +35,5 @@ new #( field = 10 )->attr = 'AAA'.
                     (named_argument
                         (identifier)
                         (number))))
-            (static_component
-                (identifier)))
+            (identifier))
         (literal_string)))

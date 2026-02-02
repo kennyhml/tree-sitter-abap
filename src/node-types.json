@@ -643,6 +643,10 @@
       "required": true,
       "types": [
         {
+          "type": "exception_mapping",
+          "named": true
+        },
+        {
           "type": "let_expression",
           "named": true
         },
@@ -1431,6 +1435,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "dynamic_component",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -2930,6 +2938,42 @@
     }
   },
   {
+    "type": "exception_mapping",
+    "named": true,
+    "fields": {
+      "message": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "exit_statement",
     "named": true,
     "fields": {}
@@ -3193,12 +3237,54 @@
     "type": "function_call",
     "named": true,
     "fields": {
-      "destination": {
-        "multiple": false,
+      "callback_method": {
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "character_like_expression",
+            "type": "class_component_selector",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "object_component_selector",
+            "named": true
+          }
+        ]
+      },
+      "callback_routine": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "destination": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "group": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "named_data_object",
             "named": true
           }
         ]
@@ -3214,11 +3300,21 @@
         ]
       },
       "session": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
             "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "task_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
             "named": true
           }
         ]
@@ -4521,7 +4617,7 @@
             "named": true
           },
           {
-            "type": "static_component",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -6023,22 +6119,6 @@
     }
   },
   {
-    "type": "static_component",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "string_operator",
     "named": true,
     "fields": {
@@ -6122,7 +6202,7 @@
             "named": true
           },
           {
-            "type": "static_component",
+            "type": "identifier",
             "named": true
           },
           {
@@ -7224,6 +7304,10 @@
     "named": false
   },
   {
+    "type": "calling",
+    "named": false
+  },
+  {
     "type": "case",
     "named": false
   },
@@ -7906,6 +7990,10 @@
     "named": false
   },
   {
+    "type": "on",
+    "named": false
+  },
+  {
     "type": "optional",
     "named": false
   },
@@ -7935,6 +8023,10 @@
   },
   {
     "type": "pcre",
+    "named": false
+  },
+  {
+    "type": "performing",
     "named": false
   },
   {
@@ -8114,6 +8206,10 @@
     "named": false
   },
   {
+    "type": "starting",
+    "named": false
+  },
+  {
     "type": "step",
     "named": false
   },
@@ -8152,6 +8248,10 @@
   {
     "type": "tag",
     "named": true
+  },
+  {
+    "type": "task",
+    "named": false
   },
   {
     "type": "testing",

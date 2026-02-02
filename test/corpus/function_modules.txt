@@ -30,7 +30,7 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
               name: (identifier)
               value: (identifier)))
           exceptions: (argument_list
-            (named_argument
+            (exception_mapping
               name: (identifier)
               value: (number))))))
 ======
@@ -96,3 +96,43 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
             (named_argument
               name: (identifier)
               value: (identifier))))))
+======
+Function module call with remote message capture
+======
+CALL FUNCTION 'DEMO_RFM_PARAMETERS' 
+    destination lv_destination
+    exceptions
+        not_found = 1 message lv_message.
+---
+    (source
+      (function_call
+        name: (literal_string)
+        destination: (identifier)
+        (call_argument_list
+          exceptions: (argument_list
+            (exception_mapping
+              name: (identifier)
+              value: (number)
+              message: (identifier))))))
+======
+Asynchronous function module call
+======
+CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
+    starting new task lv_task_id.
+---
+    (source
+      (function_call
+        name: (literal_string)
+        task_id: (identifier)))
+======
+Asynchronous function module call in group
+======
+CALL FUNCTION co_fb_name
+    STARTING NEW TASK lv_number
+    DESTINATION IN GROUP lv_group.
+---
+    (source
+      (function_call
+        name: (identifier)
+        task_id: (identifier)
+        group: (identifier)))

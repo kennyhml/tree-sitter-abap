@@ -59,28 +59,24 @@ VALUE itab2(
             (identifier)
             (struct_component_selector
               (identifier)
-              (static_component
-                (identifier))))
+              (identifier)))
           (line_spec
             (argument_list
               (named_argument
                 (identifier)
                 (struct_component_selector
                   (identifier)
-                  (static_component
-                    (identifier))))
+                  (identifier)))
               (named_argument
                 (identifier)
                 (struct_component_selector
                   (identifier)
-                  (static_component
-                    (identifier))))
+                  (identifier)))
               (named_argument
                 (identifier)
                 (struct_component_selector
                   (identifier)
-                  (static_component
-                    (identifier)))))))))
+                  (identifier))))))))
 ==================
 Table comprehension with where clause
 ==================

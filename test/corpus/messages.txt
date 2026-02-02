@@ -156,32 +156,25 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
         (message_spec
           (struct_component_selector
             (identifier)
-            (static_component
-              (identifier)))
+            (identifier))
           (struct_component_selector
             (identifier)
-            (static_component
-              (identifier)))
+            (identifier))
           (struct_component_selector
             (identifier)
-            (static_component
-              (identifier)))
+            (identifier))
           (declaration_expression
             (identifier))
           (message_arguments
             (struct_component_selector
               (identifier)
-              (static_component
-                (identifier)))
+              (identifier))
             (struct_component_selector
               (identifier)
-              (static_component
-                (identifier)))
+              (identifier))
             (struct_component_selector
               (identifier)
-              (static_component
-                (identifier)))
+              (identifier))
             (struct_component_selector
               (identifier)
-              (static_component
-                (identifier)))))))
+              (identifier))))))
