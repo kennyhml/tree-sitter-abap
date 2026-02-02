@@ -89,8 +89,7 @@ itab[ foo-bar = obj->meth( ) ].
                 (itab_comp_spec
                     (struct_component_selector
                         (identifier)
-                        (static_component
-                        (identifier)))
+                        (identifier))
                     (method_call
                         (identifier)
                         (identifier)))))))
@@ -107,8 +106,7 @@ itab[ foo->attr = 'A' ].
                 (itab_comp_spec
                     (object_component_selector
                         (identifier)
-                        (static_component
-                        (identifier)))
+                        (identifier))
                     (literal_string))))))
 ==================
 Search key dynamic comp read

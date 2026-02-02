@@ -80,12 +80,10 @@ NEW t_struct( col2-col1 = 2 col2-col2 = itab ).
             (named_argument
                 (struct_component_selector
                     (identifier)
-                    (static_component
-                    (identifier)))
+                    (identifier))
                 (number))
             (named_argument
                 (struct_component_selector
                     (identifier)
-                    (static_component
-                    (identifier)))
+                    (identifier))
                 (identifier)))))

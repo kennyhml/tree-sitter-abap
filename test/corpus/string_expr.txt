@@ -83,13 +83,11 @@ CONDENSE obj->attr.
     (condense
         (struct_component_selector
             (identifier)
-            (static_component
-            (identifier))))
+            (identifier)))
     (condense
         (object_component_selector
             (identifier)
-            (static_component
-                (identifier)))))
+            (identifier))))
 ======
 Condense without gaps
 ======
@@ -170,6 +168,5 @@ test-var1(10)
     (substring_access
         target: (struct_component_selector
             struct: (identifier)
-            comp: (static_component
-                name: (identifier)))
+            comp: (identifier))
         length: (number)))

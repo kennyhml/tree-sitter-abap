@@ -48,12 +48,43 @@
  )
  
 ; ------------------------------------------
+; Method identifiers, ambiguity exists.
+; ------------------------------------------
+(builtin_function_call (identifier) @function.builtin )
+(method_spec name: (identifier) @function.method ) 
+(method_call name: (identifier) @function.method )
+(method_implementation name: (identifier) @function.method )
+
+; Could also be a data object but who on earth would do that..
+(alias_spec alias: (identifier) @function.method )
+
+(function_call 
+  callback_method: [
+    (object_component_selector comp: (identifier) @function.method)
+    (class_component_selector  comp: (identifier) @function.method)
+    (identifier) @function.method
+  ]
+  callback_routine: (identifier) @function.subroutine
+)
+
+(constructor_spec
+  [
+    "constructor"
+    "class_constructor"
+  ] @function.constructor
+)
+
+; ------------------------------------------
 ; Variable identifiers
 ; ------------------------------------------
-(static_component (identifier) @variable.property )
-(itab_comp_spec (identifier) @variable.property )
-(key_components (identifier) @variable.property )
+[ 
+  (struct_component_selector)
+  (object_component_selector)
+  (class_component_selector)
+  (itab_comp_spec)
+] comp: (identifier) @variable.property 
 
+(key_components (identifier) @variable.property )
 (parameter name: (identifier) @variable.parameter )
 (preferred_parameter name: (identifier) @variable.parameter )
 
@@ -65,23 +96,6 @@
 
 (message_spec type: (message_type) @variable.messagetype )
 
-; ------------------------------------------
-; Method identifiers, ambiguity exists.
-; ------------------------------------------
-(builtin_function_call (identifier) @function.builtin )
-(method_spec name: (identifier) @function.method ) 
-(method_call name: (identifier) @function.method )
-(method_implementation name: (identifier) @function.method )
-
-; Could also be a data object but who on earth would do that..
-(alias_spec alias: (identifier) @function.method )
-
-(constructor_spec
-  [
-    "constructor"
-    "class_constructor"
-  ] @function.constructor
-)
 
 ; ------------------------------------------
 ; General type identifiers (if not specified elsewhere)
@@ -457,8 +471,15 @@
     "remote"
     "session"
     "destination"
+    "starting"
+    "new"
+    "task"
+    "group"
     "parameter-table"
     "exception-table"
+    "performing"
+    "calling"
+    "on"
     
     ; predicates
     "not"

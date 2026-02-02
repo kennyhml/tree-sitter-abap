@@ -29,14 +29,12 @@ struc-col1 = CAST t_struc( dref )->col1.
       (assignment
         (struct_component_selector
           (identifier)
-          (static_component
-            (identifier)))
+          (identifier))
         (object_component_selector
           (cast_expression
             (type_identifier)
             (identifier))
-          (static_component
-            (identifier)))))
+            (identifier))))
 ======
 Dynamic component selector of cast expression
 ======
@@ -72,5 +70,4 @@ FINAL(attributes) =
               (call_argument_list
                   (positional_argument
                     (literal_string)))))
-          (static_component
-            (identifier)))))
+          (identifier))))
