@@ -480,6 +480,12 @@
     "performing"
     "calling"
     "on"
+    "background"
+    "update"
+    "task"
+    "as"
+    "separate"
+    "unit"
     
     ; predicates
     "not"
@@ -514,9 +520,6 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
-
-
-
 
 ; Other identifiers not yet specified
 (identifier) @variable

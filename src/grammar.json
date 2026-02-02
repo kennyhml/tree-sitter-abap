@@ -10354,19 +10354,31 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_rfc_task_spec"
+                "name": "_sync_rfc_destination_spec"
               },
               {
                 "type": "SYMBOL",
-                "name": "_rfc_destination_spec"
+                "name": "_sync_rfc_session_spec"
               },
               {
                 "type": "SYMBOL",
-                "name": "_rfc_session_spec"
+                "name": "_async_rfc_task_spec"
               },
               {
                 "type": "SYMBOL",
-                "name": "_rfc_callback_spec"
+                "name": "_async_rfc_callback_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_bg_rfc_unit_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_update_task_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_transactional_rfc_spec"
               }
             ]
           }
@@ -10389,7 +10401,7 @@
         }
       ]
     },
-    "_rfc_destination_spec": {
+    "_sync_rfc_destination_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -10461,7 +10473,7 @@
         }
       ]
     },
-    "_rfc_session_spec": {
+    "_sync_rfc_session_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -10501,7 +10513,7 @@
         }
       ]
     },
-    "_rfc_task_spec": {
+    "_async_rfc_task_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -10541,7 +10553,7 @@
         }
       ]
     },
-    "_rfc_callback_spec": {
+    "_async_rfc_callback_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -10632,6 +10644,184 @@
           },
           "named": false,
           "value": "of"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][aA][sS][kK]"
+          },
+          "named": false,
+          "value": "task"
+        }
+      ]
+    },
+    "_bg_rfc_unit_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN]"
+          },
+          "named": false,
+          "value": "in"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[bB][aA][cC][kK][gG][rR][oO][uU][nN][dD]"
+          },
+          "named": false,
+          "value": "background"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[uU][nN][iI][tT]"
+          },
+          "named": false,
+          "value": "unit"
+        },
+        {
+          "type": "FIELD",
+          "name": "background_unit",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        }
+      ]
+    },
+    "_transactional_rfc_spec": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[iI][nN]"
+            },
+            "named": false,
+            "value": "in"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[bB][aA][cC][kK][gG][rR][oO][uU][nN][dD]"
+            },
+            "named": false,
+            "value": "background"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[tT][aA][sS][kK]"
+            },
+            "named": false,
+            "value": "task"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[aA][sS]"
+                    },
+                    "named": false,
+                    "value": "as"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[sS][eE][pP][aA][rR][aA][tT][eE]"
+                    },
+                    "named": false,
+                    "value": "separate"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[uU][nN][iI][tT]"
+                    },
+                    "named": false,
+                    "value": "unit"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[dD][eE][sS][tT][iI][nN][aA][tT][iI][oO][nN]"
+                    },
+                    "named": false,
+                    "value": "destination"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "destination",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "data_object"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_update_task_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN]"
+          },
+          "named": false,
+          "value": "in"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[uU][pP][dD][aA][tT][eE]"
+          },
+          "named": false,
+          "value": "update"
         },
         {
           "type": "ALIAS",
