@@ -1789,17 +1789,20 @@ module.exports = grammar({
       field("name", $.character_like_expression),
       repeat(
         choice(
-          $._rfc_task_spec,
-          $._rfc_destination_spec,
-          $._rfc_session_spec,
-          $._rfc_callback_spec
+          $._sync_rfc_destination_spec,
+          $._sync_rfc_session_spec,
+          $._async_rfc_task_spec,
+          $._async_rfc_callback_spec,
+          $._bg_rfc_unit_spec,
+          $._update_task_spec,
+          $._transactional_rfc_spec
         )
       ),
       optional($.call_argument_list),
       "."
     ),
 
-    _rfc_destination_spec: $ => seq(
+    _sync_rfc_destination_spec: $ => seq(
       kw("destination"),
       choice(
         field("destination", $.data_object),
@@ -1813,17 +1816,17 @@ module.exports = grammar({
       )
     ),
 
-    _rfc_session_spec: $ => seq(
+    _sync_rfc_session_spec: $ => seq(
       ...kws("in", "remote", "session"),
       field("session", $.named_data_object)
     ),
 
-    _rfc_task_spec: $ => seq(
+    _async_rfc_task_spec: $ => seq(
       ...kws("starting", "new", "task"),
       field("task_id", $.data_object)
     ),
 
-    _rfc_callback_spec: $ => seq(
+    _async_rfc_callback_spec: $ => seq(
       choice(
         seq(
           kw("calling"),
@@ -1839,6 +1842,29 @@ module.exports = grammar({
         )
       ),
       ...kws("on", "end", "of", "task")
+    ),
+
+    _bg_rfc_unit_spec: $ => seq(
+      ...kws("in", "background", "unit"),
+      field("background_unit", $.named_data_object)
+    ),
+
+    /**
+     * Despite being an obsolete language element, this is still used quite often.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION_BACKGROUND_TASK.html
+     */
+    _transactional_rfc_spec: $ => prec.right(seq(
+      ...kws("in", "background", "task"),
+      optional(seq(...kws("as", "separate", "unit"))),
+      optional(seq(
+        kw("destination"),
+        field("destination", $.data_object)
+      ))
+    )),
+
+    _update_task_spec: _ => seq(
+      ...kws("in", "update", "task"),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html

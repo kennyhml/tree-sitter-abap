@@ -3237,6 +3237,16 @@
     "type": "function_call",
     "named": true,
     "fields": {
+      "background_unit": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
       "callback_method": {
         "multiple": true,
         "required": false,
@@ -7236,6 +7246,10 @@
     "named": false
   },
   {
+    "type": "background",
+    "named": false
+  },
+  {
     "type": "base",
     "named": false
   },
@@ -8166,6 +8180,10 @@
     "named": false
   },
   {
+    "type": "separate",
+    "named": false
+  },
+  {
     "type": "separated",
     "named": false
   },
@@ -8298,6 +8316,10 @@
     "named": false
   },
   {
+    "type": "unit",
+    "named": false
+  },
+  {
     "type": "until",
     "named": false
   },
@@ -8307,6 +8329,10 @@
   },
   {
     "type": "up",
+    "named": false
+  },
+  {
+    "type": "update",
     "named": false
   },
   {

@@ -136,3 +136,47 @@ CALL FUNCTION co_fb_name
         name: (identifier)
         task_id: (identifier)
         group: (identifier)))
+======
+Simple Background Remote Function Call
+======
+CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
+    in background unit l_unit.
+---
+    (source
+      (function_call
+        name: (literal_string)
+        background_unit: (identifier)))
+======
+Update Function Call
+======
+CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK 
+  EXPORTING 
+    values = values.
+---
+    (source
+      (function_call
+        name: (literal_string)
+        (call_argument_list
+          exporting: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (identifier))))))
+======
+Transactional Remote Function Call
+======
+CALL FUNCTION 'DEMO_UPDATE_INSERT' 
+  IN BACKGROUND TASK 
+  AS SEPARATE unit
+  DESTINATION 'A4H'
+  EXPORTING 
+    values = values.
+---
+    (source
+      (function_call
+        name: (literal_string)
+        destination: (literal_string)
+        (call_argument_list
+          exporting: (argument_list
+            (named_argument
+              name: (identifier)
+              value: (identifier))))))
