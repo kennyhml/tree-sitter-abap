@@ -67,6 +67,16 @@
   callback_routine: (identifier) @function.subroutine
 )
 
+; For all other variants, there is no method to be highlighted since
+; it is specified via a literal string or a data object
+(dynamic_method_spec
+  [
+    (class_component_selector comp: (identifier) @function.method )
+    (object_component_selector comp: (identifier) @function.method )
+    (identifier) @function.method
+  ]
+)
+
 (constructor_spec
   [
     "constructor"

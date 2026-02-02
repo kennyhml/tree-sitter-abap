@@ -8,3 +8,14 @@ obj->('foobarbaz').
         (identifier)
         (dynamic_component
         (literal_string))))
+==================
+Fully dynamic class component selector
+==================
+(cls_name)=>(meth_name)
+---
+(source
+    (class_component_selector
+        (dyn_spec
+            (identifier))
+        (dyn_spec
+            (identifier))))

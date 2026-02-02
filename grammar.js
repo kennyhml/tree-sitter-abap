@@ -147,6 +147,7 @@ module.exports = grammar({
       $.class_data_declaration,
 
       $.function_call,
+      $.dynamic_method_call,
 
       $.concatenate,
       $.find,
@@ -1767,6 +1768,25 @@ module.exports = grammar({
     )),
 
     /**
+     * Dynamic variant of a {@link method_call}
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_METH_IDENT_DYNA.html
+     */
+    dynamic_method_call: $ => seq(
+      ...kws("call", "method"),
+      field("method", $.dynamic_method_spec),
+      optional($.call_argument_list),
+      "."
+    ),
+
+    dynamic_method_spec: $ => choice(
+      $.identifier,
+      $.dyn_spec,
+      $.object_component_selector,
+      $.class_component_selector,
+    ),
+
+    /**
      * Call of a builtin function. Technically it would be possible to make all
      * of the functions known statically since they cannot be dynamically declared,
      * but its easier to just do it dynamically.
@@ -2752,6 +2772,18 @@ module.exports = grammar({
 
     dynamic_component: $ => seq(
       "(",
+      choice(
+        field("name", choice(
+          $._immediate_identifier,
+          $._immediate_literal_string,
+        )),
+        field("offset", $._immediate_number),
+      ),
+      token.immediate(")")
+    ),
+
+    dyn_spec: $ => seq(
+      "(",
       field("name", choice(
         $._immediate_identifier,
         $._immediate_literal_string
@@ -2838,12 +2870,14 @@ module.exports = grammar({
      * `class=>comp` or `intf=>type` or `intf=>const`
      */
     class_component_selector: $ => seq(
-      // TODO: Looks like dynamic specification is possible?
-      field("class", $.identifier),
+      field("class", choice(
+        $.identifier,
+        $.dyn_spec
+      )),
       token.immediate("=>"),
       field("comp",
         choice(
-          $.dynamic_component,
+          $.dyn_spec,
           $._immediate_identifier
         )
       )
