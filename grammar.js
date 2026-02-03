@@ -148,6 +148,8 @@ module.exports = grammar({
 
       $.function_call,
       $.dynamic_method_call,
+      $.subroutine_call,
+      $.subroutine_registration,
 
       $.concatenate,
       $.find,
@@ -1787,6 +1789,64 @@ module.exports = grammar({
       $.class_component_selector,
     ),
 
+    subroutine_call: $ => seq(
+      kw("perform"),
+      field("routine", $.subroutine_spec),
+      repeat(
+        choice(
+          args("tables", $._positional_argument_list),
+          args("using", $._positional_argument_list),
+          args("changing", $._positional_argument_list)
+        )
+      ),
+      "."
+    ),
+
+    subroutine_registration: $ => seq(
+      kw("perform"),
+      field("name", $.identifier),
+      choice(
+        seq(...kws("on", "rollback")),
+        seq(
+          ...kws("on", "commit"),
+          optional(seq(
+            kw("level"),
+            field("level", $.data_object)
+          ))
+        )
+      ),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_FORM.html
+    subroutine_spec: $ => choice(
+      field("name", $.identifier),
+      seq(
+        field("name", $.identifier),
+        field("program", alias($._immediate_dyn_spec, $.dyn_spec)),
+        optional(seq(...kws("if", "found")))
+      ),
+      seq(
+        field("name", choice(
+          $.identifier,
+          $.dyn_spec
+        )),
+        ...kws("in", "program"),
+        field("program", choice(
+          $.identifier,
+          $.dyn_spec
+        )),
+        optional(seq(...kws("if", "found")))
+      ),
+      seq(
+        field("index", $.data_object),
+        kw("of"),
+        $.subroutine_list
+      )
+    ),
+
+    subroutine_list: $ => repeat1($.identifier),
+
     /**
      * Call of a builtin function. Technically it would be possible to make all
      * of the functions known statically since they cannot be dynamically declared,
@@ -1993,6 +2053,14 @@ module.exports = grammar({
           $.declaration_expression
         )
       )
+    ),
+
+    /**
+     * An argument list where only positional arguments can occur.
+     * Required for calls to a form using {@link subroutine_call}.
+     */
+    _positional_argument_list: $ => prec.right(
+      alias(repeat1($.positional_argument), $.argument_list)
     ),
 
     positional_argument: $ => field("value", $.general_expression),
@@ -2806,6 +2874,7 @@ module.exports = grammar({
     ),
 
     // A component selector superclass that can return a data type
+    // TODO: Do we need an immediate variant of this for dyn specs?
     data_component_selector: $ => choice(
       $.struct_component_selector,
       $.object_component_selector,
@@ -2832,6 +2901,15 @@ module.exports = grammar({
         )),
         field("offset", $._immediate_number),
       ),
+      token.immediate(")")
+    ),
+
+    _immediate_dyn_spec: $ => seq(
+      token.immediate("("),
+      field("name", choice(
+        $._immediate_identifier,
+        $._immediate_literal_string
+      )),
       token.immediate(")")
     ),
 
