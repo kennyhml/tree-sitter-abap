@@ -497,6 +497,10 @@
     "separate"
     "unit"
     
+    "form"
+    "endform"
+    "structure"
+    
     ; predicates
     "not"
     "bound"

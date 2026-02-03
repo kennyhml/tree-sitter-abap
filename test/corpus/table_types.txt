@@ -108,3 +108,14 @@ types gtyt_sec_tab1 type table of gtys_mystruct
                         (key_components
                             (identifier)
                             (identifier))))))))
+
+======
+Index table type
+======
+types: gtyt_tab type index table.
+---
+(source
+    (types_declaration
+        (types_spec
+            (type_identifier)
+            (table_type_spec))))
