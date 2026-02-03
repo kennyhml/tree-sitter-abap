@@ -1,0 +1,63 @@
+======
+Simple form definition
+======
+FORM foo.
+ENDFORM.
+---
+(source
+    (form_definition
+        name: (identifier)))
+======
+Form with using/changing parameters
+======
+FORM fill_table USING    wa   TYPE any
+                CHANGING ptab TYPE INDEX TABLE. 
+ENDFORM.
+---
+(source
+    (form_definition
+        name: (identifier)
+        using: (parameter_list
+            (parameter
+                name: (identifier)
+                typing: (referred_type_spec
+                    name: (type_identifier))))
+        changing: (parameter_list
+            (parameter
+                name: (identifier)
+                typing: (table_type_spec)))))
+======
+Form with structure parameter
+======
+FORM legacy_subroutine 
+  TABLES   t_data STRUCTURE kna1.
+ENDFORM.
+---
+(source
+    (form_definition
+        name: (identifier)
+        tables: (parameter_list
+            (parameter
+                name: (identifier)
+                structure: (identifier)))))
+======
+Form with class-based exceptions
+======
+FORM process_data
+  USING    value(it_list) TYPE standard table
+  RAISING  cx_abap_invalid_value
+           RESUMABLE(cx_demo_exception).
+ENDFORM.
+---
+(source
+    (form_definition
+        name: (identifier)
+        using: (parameter_list
+            (parameter
+                name: (identifier)
+                typing: (table_type_spec)))
+        raising: (raising_list
+            (exception
+                name: (identifier))
+            (exception
+                name: (identifier)))))

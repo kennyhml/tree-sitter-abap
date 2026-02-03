@@ -175,6 +175,7 @@ module.exports = grammar({
     // statement that needs to be terminated with `END[...]` such as `ENDWHILE`, `ENDMETHOD`..
     _compound_statement: $ => choice(
       $.class_definition,
+      $.form_definition,
       $.class_implementation,
       $.interface_definition,
       $.interface_implementation,
@@ -2046,6 +2047,11 @@ module.exports = grammar({
      */
     table_type_spec: $ => prec.right(seq(
       choice(
+        seq(
+          kw("type"),
+          field("kind", $._table_category),
+          kw("table")
+        ),
         // the 'modern' way
         seq(
           typeOrLikeExpr($,
@@ -2350,6 +2356,10 @@ module.exports = grammar({
       optional($.preferred_parameter)
     ),
 
+    _form_parameter_list: $ => alias(seq(
+      repeat1(alias($._form_parameter, $.parameter)),
+    ), $.parameter_list),
+
     preferred_parameter: $ => seq(
       ...kws("preferred", "parameter"),
       field("name", $.identifier)
@@ -2432,6 +2442,27 @@ module.exports = grammar({
             ))
           )
         ))
+    )),
+
+    _form_parameter: $ => prec.right(seq(
+      choice(
+        seq(
+          optional("!"),
+          field("name", $.identifier),
+        ),
+        seq(
+          kw("value"),
+          token.immediate("("),
+          field("name", $._immediate_identifier),
+          token.immediate(")")
+        ),
+      ),
+      optional(
+        choice(
+          field("typing", $._typing),
+          seq(kw("structure"), field("structure", $.identifier))
+        )
+      )
     )),
 
     exception: $ => choice(
@@ -2651,6 +2682,28 @@ module.exports = grammar({
       ),
       ".",
       optional(field("body", alias($.statement_block, $.cleanup_block))),
+    ),
+
+    /**
+     * Technically obsolete but still used excessively.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFORM.html 
+     */
+    form_definition: $ => seq(
+      kw("form"),
+      field("name", $.identifier),
+      repeat(
+        choice(
+          params("tables", $._form_parameter_list),
+          params("using", $._form_parameter_list),
+          params("changing", $._form_parameter_list),
+          params("raising", $.raising_list),
+        )
+      ),
+      ".",
+      optional(field("body", alias($.statement_block, $.form_body))),
+      kw("endform"),
+      "."
     ),
 
     statement_block: $ => repeat1($._statement),

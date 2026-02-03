@@ -157,6 +157,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "form_definition"
+        },
+        {
+          "type": "SYMBOL",
           "name": "class_implementation"
         },
         {
@@ -11862,6 +11866,37 @@
                 "type": "SEQ",
                 "members": [
                   {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[tT][yY][pP][eE]"
+                    },
+                    "named": false,
+                    "value": "type"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "kind",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_table_category"
+                    }
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[tT][aA][bB][lL][eE]"
+                    },
+                    "named": false,
+                    "value": "table"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
                     "type": "CHOICE",
                     "members": [
                       {
@@ -14350,6 +14385,28 @@
         }
       ]
     },
+    "_form_parameter_list": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_form_parameter"
+              },
+              "named": true,
+              "value": "parameter"
+            }
+          }
+        ]
+      },
+      "named": true,
+      "value": "parameter_list"
+    },
     "preferred_parameter": {
       "type": "SEQ",
       "members": [
@@ -14866,6 +14923,124 @@
                               "name": "literal_string"
                             }
                           ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_form_parameter": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "!"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "name",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[vV][aA][lL][uU][eE]"
+                    },
+                    "named": false,
+                    "value": "value"
+                  },
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "("
+                    }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "name",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_immediate_identifier"
+                    }
+                  },
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": ")"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "typing",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_typing"
+                    }
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "[sS][tT][rR][uU][cC][tT][uU][rR][eE]"
+                        },
+                        "named": false,
+                        "value": "structure"
+                      },
+                      {
+                        "type": "FIELD",
+                        "name": "structure",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "identifier"
                         }
                       }
                     ]
@@ -15984,6 +16159,162 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "form_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][oO][rR][mM]"
+          },
+          "named": false,
+          "value": "form"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "tables",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[tT][aA][bB][lL][eE][sS]"
+                      },
+                      "named": false,
+                      "value": "tables"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_form_parameter_list"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "using",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[uU][sS][iI][nN][gG]"
+                      },
+                      "named": false,
+                      "value": "using"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_form_parameter_list"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "changing",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[cC][hH][aA][nN][gG][iI][nN][gG]"
+                      },
+                      "named": false,
+                      "value": "changing"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_form_parameter_list"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "raising",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[rR][aA][iI][sS][iI][nN][gG]"
+                      },
+                      "named": false,
+                      "value": "raising"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "raising_list"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "statement_block"
+                },
+                "named": true,
+                "value": "cleanup_block"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][fF][oO][rR][mM]"
+          },
+          "named": false,
+          "value": "endform"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },

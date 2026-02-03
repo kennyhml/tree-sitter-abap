@@ -20,6 +20,10 @@
         "named": true
       },
       {
+        "type": "form_definition",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -3289,6 +3293,88 @@
     }
   },
   {
+    "type": "form_definition",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cleanup_block",
+            "named": true
+          }
+        ]
+      },
+      "changing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "changing",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "raising": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "raising",
+            "named": false
+          },
+          {
+            "type": "raising_list",
+            "named": true
+          }
+        ]
+      },
+      "tables": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "parameter_list",
+            "named": true
+          },
+          {
+            "type": "tables",
+            "named": false
+          }
+        ]
+      },
+      "using": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "parameter_list",
+            "named": true
+          },
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "format_option",
     "named": true,
     "fields": {
@@ -4890,6 +4976,16 @@
       "name": {
         "multiple": false,
         "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "structure": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -7660,6 +7756,10 @@
   },
   {
     "type": "enddo",
+    "named": false
+  },
+  {
+    "type": "endform",
     "named": false
   },
   {
