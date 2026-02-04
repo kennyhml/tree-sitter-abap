@@ -1,0 +1,97 @@
+======
+Simple dynpro parameter
+======
+PARAMETERS p_carrid TYPE carrid.
+---
+
+(source
+  (dynpro_parameters_declaration
+    (dynpro_parameter_spec
+      name: (identifier)
+      typing: (referred_type_spec
+        name: (type_identifier)))))
+
+======
+Checkbox dynpro parameter
+======
+parameters p_impsip as checkbox default abap_true modif id imp.
+---
+
+(source
+  (dynpro_parameters_declaration
+    (dynpro_parameter_spec
+      name: (identifier)
+      default: (identifier)
+      modif_id: (identifier))))
+
+======
+Listbox dynpro parameter
+======
+PARAMETERS p_carrid TYPE carrid
+                    AS LISTBOX VISIBLE LENGTH 20 
+                    USER-COMMAND onli 
+                    DEFAULT 'LH'. 
+---
+
+(source
+  (dynpro_parameters_declaration
+    (dynpro_parameter_spec
+      name: (identifier)
+      typing: (referred_type_spec
+        name: (type_identifier))
+      visible_length: (number)
+      command: (identifier)
+      default: (literal_string))))
+
+======
+Radiobutton dynpro chained parameters
+======
+parameters:
+	p_queue radiobutton group r1 default 'X',
+	p_seq   radiobutton group r1 modif id exp.
+---
+
+(source
+  (dynpro_parameters_declaration
+    (dynpro_parameter_spec
+      name: (identifier)
+      group: (identifier)
+      default: (literal_string))
+    (dynpro_parameter_spec
+      name: (identifier)
+      group: (identifier)
+      modif_id: (identifier))))
+
+======
+Technical dynpro parmeter formatting
+======
+PARAMETERS p_file  TYPE string LOWER CASE VISIBLE LENGTH 30.
+PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
+---
+
+(source
+  (dynpro_parameters_declaration
+    (dynpro_parameter_spec
+      name: (identifier)
+      typing: (builtin_type_spec
+        name: (type_identifier))
+      visible_length: (number)))
+  (dynpro_parameters_declaration
+    (dynpro_parameter_spec
+      name: (identifier)
+      typing: (referred_type_spec
+        name: (type_identifier)))))
+
+======
+Dynpro parameters with search help
+======
+PARAMETERS p_cust  TYPE kunnr MATCHCODE OBJECT debi.
+---
+
+(source
+  (dynpro_parameters_declaration
+    (dynpro_parameter_spec
+      name: (identifier)
+      typing: (referred_type_spec
+        name: (type_identifier))
+      search_help: (identifier))))

@@ -64,6 +64,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "dynpro_parameters_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "message"
         },
         {
@@ -670,7 +674,7 @@
               "members": [
                 {
                   "type": "FIELD",
-                  "name": "type",
+                  "name": "typing",
                   "content": {
                     "type": "SYMBOL",
                     "name": "_typing"
@@ -1371,7 +1375,7 @@
               "members": [
                 {
                   "type": "FIELD",
-                  "name": "type",
+                  "name": "typing",
                   "content": {
                     "type": "SYMBOL",
                     "name": "_typing"
@@ -2072,7 +2076,7 @@
               "members": [
                 {
                   "type": "FIELD",
-                  "name": "type",
+                  "name": "typing",
                   "content": {
                     "type": "SYMBOL",
                     "name": "_typing"
@@ -2773,7 +2777,7 @@
               "members": [
                 {
                   "type": "FIELD",
-                  "name": "type",
+                  "name": "typing",
                   "content": {
                     "type": "SYMBOL",
                     "name": "_typing"
@@ -3424,6 +3428,67 @@
             {
               "type": "SYMBOL",
               "name": "identifier"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "dynpro_parameters_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][aA][rR][aA][mM][eE][tT][eE][rR][sS]"
+          },
+          "named": false,
+          "value": "parameters"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "dynpro_parameter_spec"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "dynpro_parameter_spec"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "dynpro_parameter_spec"
             }
           ]
         },
@@ -14902,6 +14967,387 @@
         {
           "type": "SYMBOL",
           "name": "interface_component_selector"
+        }
+      ]
+    },
+    "dynpro_parameter_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "typing",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_typing"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_dynpro_screen_option"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_dynpro_value_option"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_dynpro_screen_option": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[oO][bB][lL][iI][gG][aA][tT][oO][rR][yY]"
+              },
+              "named": false,
+              "value": "obligatory"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[nN][oO]-[dD][iI][sS][pP][lL][aA][yY]"
+              },
+              "named": false,
+              "value": "no-display"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dynpro_visible_length"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dynpro_checkbox_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dynpro_radiobutton_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dynpro_listbox_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dynpro_user_command"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[mM][oO][dD][iI][fF]"
+              },
+              "named": false,
+              "value": "modif"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[iI][dD]"
+              },
+              "named": false,
+              "value": "id"
+            },
+            {
+              "type": "FIELD",
+              "name": "modif_id",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "_dynpro_value_option": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[dD][eE][fF][aA][uU][lL][tT]"
+              },
+              "named": false,
+              "value": "default"
+            },
+            {
+              "type": "FIELD",
+              "name": "default",
+              "content": {
+                "type": "SYMBOL",
+                "name": "data_object"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[lL][oO][wW][eE][rR]"
+              },
+              "named": false,
+              "value": "lower"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[cC][aA][sS][eE]"
+              },
+              "named": false,
+              "value": "case"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[mM][aA][tT][cC][hH][cC][oO][dD][eE]"
+              },
+              "named": false,
+              "value": "matchcode"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[oO][bB][jJ][eE][cC][tT]"
+              },
+              "named": false,
+              "value": "object"
+            },
+            {
+              "type": "FIELD",
+              "name": "search_help",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[mM][eE][mM][oO][rR][yY]"
+              },
+              "named": false,
+              "value": "memory"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[iI][dD]"
+              },
+              "named": false,
+              "value": "id"
+            },
+            {
+              "type": "FIELD",
+              "name": "pid",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[vV][aA][lL][uU][eE]"
+              },
+              "named": false,
+              "value": "value"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[cC][hH][eE][cC][kK]"
+              },
+              "named": false,
+              "value": "check"
+            }
+          ]
+        }
+      ]
+    },
+    "_dynpro_checkbox_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[aA][sS]"
+          },
+          "named": false,
+          "value": "as"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][hH][eE][cC][kK][bB][oO][xX]"
+          },
+          "named": false,
+          "value": "checkbox"
+        }
+      ]
+    },
+    "_dynpro_radiobutton_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][aA][dD][iI][oO][bB][uU][tT][tT][oO][nN]"
+          },
+          "named": false,
+          "value": "radiobutton"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[gG][rR][oO][uU][pP]"
+          },
+          "named": false,
+          "value": "group"
+        },
+        {
+          "type": "FIELD",
+          "name": "group",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "_dynpro_listbox_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[aA][sS]"
+          },
+          "named": false,
+          "value": "as"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][iI][sS][tT][bB][oO][xX]"
+          },
+          "named": false,
+          "value": "listbox"
+        }
+      ]
+    },
+    "_dynpro_user_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[uU][sS][eE][rR]-[cC][oO][mM][mM][aA][nN][dD]"
+          },
+          "named": false,
+          "value": "user-command"
+        },
+        {
+          "type": "FIELD",
+          "name": "command",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "_dynpro_visible_length": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[vV][iI][sS][iI][bB][lL][eE]"
+          },
+          "named": false,
+          "value": "visible"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][eE][nN][gG][tT][hH]"
+          },
+          "named": false,
+          "value": "length"
+        },
+        {
+          "type": "FIELD",
+          "name": "visible_length",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
         }
       ]
     },
