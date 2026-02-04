@@ -166,7 +166,10 @@ module.exports = grammar({
       $.check_statement,
       $.continue_statement,
       $.resume_statement,
+
       $.local_updates_statement,
+      $.commit_work_statement,
+      $.rollback_work_statement,
 
       $.methods_declaration,
       $.cls_methods_declaration,
@@ -1191,6 +1194,18 @@ module.exports = grammar({
     local_updates_statement: _ => seq(
       ...kws("set", "update", "task", "local"),
       "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMMIT.html
+    commit_work_statement: _ => seq(
+      ...kws("commit", "work"),
+      optional(seq(...kws("and", "wait"))),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPROLLBACK.html
+    rollback_work_statement: _ => seq(
+      ...kws("rollback", "work"), "."
     ),
 
     /**
