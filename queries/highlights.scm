@@ -517,6 +517,21 @@
     "wait"
     "include"
     
+    ; Dynpro
+    "parameters"
+    "modif"
+    "obligatory"
+    "as"
+    "checkbox"
+    "radiobutton"
+    "listbox"
+    "visible"
+    "user-command"
+    "matchcode" 
+    "object"
+    "no-display"
+    "lower"
+    
 
     ; predicates
     "not"

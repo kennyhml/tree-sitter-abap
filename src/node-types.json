@@ -114,6 +114,10 @@
         "named": true
       },
       {
+        "type": "dynpro_parameters_declaration",
+        "named": true
+      },
+      {
         "type": "exit_statement",
         "named": true
       },
@@ -1540,7 +1544,7 @@
           }
         ]
       },
-      "type": {
+      "typing": {
         "multiple": false,
         "required": false,
         "types": [
@@ -2079,7 +2083,7 @@
           }
         ]
       },
-      "type": {
+      "typing": {
         "multiple": false,
         "required": false,
         "types": [
@@ -2530,7 +2534,7 @@
           }
         ]
       },
-      "type": {
+      "typing": {
         "multiple": false,
         "required": false,
         "types": [
@@ -2912,6 +2916,133 @@
         },
         {
           "type": "object_component_selector",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dynpro_parameter_spec",
+    "named": true,
+    "fields": {
+      "command": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "default": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "group": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "pid": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "search_help": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "typing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "builtin_type_spec",
+            "named": true
+          },
+          {
+            "type": "range_type_spec",
+            "named": true
+          },
+          {
+            "type": "ref_type_spec",
+            "named": true
+          },
+          {
+            "type": "referred_type_spec",
+            "named": true
+          },
+          {
+            "type": "table_type_spec",
+            "named": true
+          }
+        ]
+      },
+      "visible_length": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dynpro_parameters_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dynpro_parameter_spec",
           "named": true
         }
       ]
@@ -7345,7 +7476,7 @@
           }
         ]
       },
-      "type": {
+      "typing": {
         "multiple": false,
         "required": false,
         "types": [
@@ -7798,6 +7929,10 @@
   },
   {
     "type": "check",
+    "named": false
+  },
+  {
+    "type": "checkbox",
     "named": false
   },
   {
@@ -8322,11 +8457,19 @@
     "named": false
   },
   {
+    "type": "listbox",
+    "named": false
+  },
+  {
     "type": "local",
     "named": false
   },
   {
     "type": "long",
+    "named": false
+  },
+  {
+    "type": "lower",
     "named": false
   },
   {
@@ -8343,6 +8486,10 @@
   },
   {
     "type": "match",
+    "named": false
+  },
+  {
+    "type": "matchcode",
     "named": false
   },
   {
@@ -8390,6 +8537,10 @@
     "named": false
   },
   {
+    "type": "modif",
+    "named": false
+  },
+  {
     "type": "multi_line_comment",
     "named": true,
     "extra": true
@@ -8412,6 +8563,10 @@
   },
   {
     "type": "no",
+    "named": false
+  },
+  {
+    "type": "no-display",
     "named": false
   },
   {
@@ -8444,6 +8599,14 @@
   },
   {
     "type": "o",
+    "named": false
+  },
+  {
+    "type": "object",
+    "named": false
+  },
+  {
+    "type": "obligatory",
     "named": false
   },
   {
@@ -8499,6 +8662,10 @@
     "named": false
   },
   {
+    "type": "parameters",
+    "named": false
+  },
+  {
     "type": "pcre",
     "named": false
   },
@@ -8536,6 +8703,10 @@
   },
   {
     "type": "public",
+    "named": false
+  },
+  {
+    "type": "radiobutton",
     "named": false
   },
   {
@@ -8815,6 +8986,10 @@
     "named": false
   },
   {
+    "type": "user-command",
+    "named": false
+  },
+  {
     "type": "using",
     "named": false
   },
@@ -8824,6 +8999,10 @@
   },
   {
     "type": "verbatim",
+    "named": false
+  },
+  {
+    "type": "visible",
     "named": false
   },
   {

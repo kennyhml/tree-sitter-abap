@@ -140,6 +140,7 @@ module.exports = grammar({
       $.class_data_declaration,
       $.methods_declaration,
       $.class_methods_declaration,
+      $.dynpro_parameters_declaration,
 
       $.message,
       $.assignment,
@@ -225,6 +226,9 @@ module.exports = grammar({
 
       // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTABLES.html
       { keyword: "tables", node: $ => $.identifier },
+
+      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html
+      { keyword: "parameters", node: $ => $.dynpro_parameter_spec, prefix: "dynpro_" },
     ]),
 
     _typing: $ => choice(
@@ -2405,6 +2409,67 @@ module.exports = grammar({
       $.interface_component_selector
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html
+    dynpro_parameter_spec: $ => seq(
+      field("name", $.identifier),
+      repeat(
+        choice(
+          field("typing", $._typing),
+          $._dynpro_screen_option,
+          $._dynpro_value_option,
+        )
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_SCREEN.html
+    _dynpro_screen_option: $ => choice(
+      choice(...kws("obligatory", "no-display")),
+      $._dynpro_visible_length,
+      $._dynpro_checkbox_spec,
+      $._dynpro_radiobutton_spec,
+      $._dynpro_listbox_spec,
+      $._dynpro_user_command,
+      seq(
+        ...kws("modif", "id"),
+        field("modif_id", $.identifier)
+      )
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_VALUE.html
+    _dynpro_value_option: $ => choice(
+      seq(kw("default"), field("default", $.data_object)),
+      seq(...kws("lower", "case")),
+      seq(
+        ...kws("matchcode", "object"),
+        field("search_help", $.identifier)
+      ),
+      seq(...kws("memory", "id"), field("pid", $.identifier)),
+      seq(...kws("value", "check")),
+    ),
+
+    _dynpro_checkbox_spec: $ => seq(
+      ...kws("as", "checkbox"),
+    ),
+
+    _dynpro_radiobutton_spec: $ => seq(
+      ...kws("radiobutton", "group"),
+      field("group", $.identifier),
+    ),
+
+    _dynpro_listbox_spec: $ => seq(
+      ...kws("as", "listbox"),
+    ),
+
+    _dynpro_user_command: $ => seq(
+      kw("user-command"),
+      field("command", $.identifier)
+    ),
+
+    _dynpro_visible_length: $ => seq(
+      ...kws("visible", "length"),
+      field("visible_length", $.number)
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
     event_handling: $ => seq(
       ...kws("for", "event"),
@@ -3526,10 +3591,11 @@ function structureSpec($, keyword, identifierNode, componentRule) {
 function generate_decl_specs(decl_map) {
   rules = {}
 
-  function decl(keyword, node) {
-    const spec = `${keyword.replace("-", "_")}_spec`;
+  function decl(keyword, node, prefix) {
+    const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
+    const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
 
-    rules[`${keyword.replace("-", "_")}_declaration`] = $ => seq(
+    rules[decl] = $ => seq(
       kw(keyword),
       choice(
         seq(":", commaSep1(node ? node($) : $[spec])),
@@ -3538,9 +3604,9 @@ function generate_decl_specs(decl_map) {
       ".");
   }
 
-  function spec(keyword, identifierNode) {
-    const name = `${keyword.replace("-", "_")}_spec`;
-    const comp = `_${keyword.replace("-", "_")}_comp_spec`;
+  function spec(keyword, identifierNode, prefix) {
+    const name = `${prefix}${keyword.replace("-", "_")}_spec`;
+    const comp = `${prefix}_${keyword.replace("-", "_")}_comp_spec`;
 
     /**
      * Regardless of whether a struct is declared using CONSTANTS, TYPES, etc.
@@ -3563,7 +3629,7 @@ function generate_decl_specs(decl_map) {
     rules[name] = $ => choice(
       seq(
         field("name", identifierNode($)),
-        optional(field("type", $._typing))
+        optional(field("typing", $._typing)),
       ),
 
       /**
@@ -3582,10 +3648,10 @@ function generate_decl_specs(decl_map) {
 
   for (const entry of decl_map) {
     if (entry.identifierNode) {
-      decl(entry.keyword);
-      spec(entry.keyword, entry.identifierNode);
+      decl(entry.keyword, undefined, entry.prefix ?? "");
+      spec(entry.keyword, entry.identifierNode, entry.prefix ?? "");
     } else {
-      decl(entry.keyword, entry.node);
+      decl(entry.keyword, entry.node, entry.prefix ?? "");
     }
   }
   return rules;
@@ -3627,4 +3693,8 @@ function params(keyword, rule) {
 
 function args(keyword, rule) {
   return field(keyword.replace("-", "_"), seq(kw(keyword), rule));
+}
+
+function tightParens(rule) {
+  return seq(token.immediate("("), rule, token.immediate(")"))
 }
