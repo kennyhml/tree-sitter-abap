@@ -511,6 +511,8 @@
     "rollback"
     "commit"
     
+    "set"
+
     ; predicates
     "not"
     "bound"

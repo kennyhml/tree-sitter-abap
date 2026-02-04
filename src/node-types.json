@@ -126,6 +126,10 @@
         "named": true
       },
       {
+        "type": "local_updates_statement",
+        "named": true
+      },
+      {
         "type": "message",
         "named": true
       },
@@ -4277,6 +4281,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "local_updates_statement",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "logical_expression",
@@ -8598,6 +8607,10 @@
   },
   {
     "type": "session",
+    "named": false
+  },
+  {
+    "type": "set",
     "named": false
   },
   {

@@ -3,9 +3,11 @@ Function Module Call without parameters
 ======
 CALL FUNCTION 'Z_MY_FUNCTION'.
 ---
+
 (source
-    (function_call
-        name: (literal_string)))
+  (function_call
+    name: (literal_string)))
+
 ======
 Function module call with parameters
 ======
@@ -17,22 +19,24 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
   EXCEPTIONS 
     not_found = 4. 
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        (call_argument_list
-          exporting: (argument_list
-            (named_argument
-              name: (identifier)
-              value: (literal_string)))
-          importing: (argument_list
-            (named_argument
-              name: (identifier)
-              value: (identifier)))
-          exceptions: (argument_list
-            (exception_mapping
-              name: (identifier)
-              value: (number))))))
+
+(source
+  (function_call
+    name: (literal_string)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (literal_string)))
+      importing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      exceptions: (argument_list
+        (exception_mapping
+          name: (identifier)
+          value: (number))))))
+
 ======
 Function module call with table parameters
 ======
@@ -40,12 +44,14 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
   parameter-table tab2
   exception-table tab2.
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        (call_argument_list
-          parameter_table: (identifier)
-          exception_table: (identifier))))
+
+(source
+  (function_call
+    name: (literal_string)
+    (call_argument_list
+      parameter_table: (identifier)
+      exception_table: (identifier))))
+
 ======
 Remote function module call
 ======
@@ -54,6 +60,7 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
     EXPORTING 
       count        = lines( itab ).
 ---
+
 (source
   (function_call
     name: (literal_string)
@@ -67,6 +74,7 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
             (call_argument_list
               exporting: (positional_argument
                 value: (identifier)))))))))
+
 ======
 Function module call in remote session
 ======
@@ -79,23 +87,25 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
     CHANGING 
         p_in_out = val_in_out.
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        session: (identifier)
-        (call_argument_list
-          exporting: (argument_list
-            (named_argument
-              name: (identifier)
-              value: (identifier)))
-          importing: (argument_list
-            (named_argument
-              name: (identifier)
-              value: (identifier)))
-          changing: (argument_list
-            (named_argument
-              name: (identifier)
-              value: (identifier))))))
+
+(source
+  (function_call
+    name: (literal_string)
+    session: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      importing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      changing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
 ======
 Function module call with remote message capture
 ======
@@ -104,26 +114,30 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
     exceptions
         not_found = 1 message lv_message.
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        destination: (identifier)
-        (call_argument_list
-          exceptions: (argument_list
-            (exception_mapping
-              name: (identifier)
-              value: (number)
-              message: (identifier))))))
+
+(source
+  (function_call
+    name: (literal_string)
+    destination: (identifier)
+    (call_argument_list
+      exceptions: (argument_list
+        (exception_mapping
+          name: (identifier)
+          value: (number)
+          message: (identifier))))))
+
 ======
 Asynchronous function module call
 ======
 CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
     starting new task lv_task_id.
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        task_id: (identifier)))
+
+(source
+  (function_call
+    name: (literal_string)
+    task_id: (identifier)))
+
 ======
 Asynchronous function module call in group
 ======
@@ -131,21 +145,25 @@ CALL FUNCTION co_fb_name
     STARTING NEW TASK lv_number
     DESTINATION IN GROUP lv_group.
 ---
-    (source
-      (function_call
-        name: (identifier)
-        task_id: (identifier)
-        group: (identifier)))
+
+(source
+  (function_call
+    name: (identifier)
+    task_id: (identifier)
+    group: (identifier)))
+
 ======
 Simple Background Remote Function Call
 ======
 CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
     in background unit l_unit.
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        background_unit: (identifier)))
+
+(source
+  (function_call
+    name: (literal_string)
+    background_unit: (identifier)))
+
 ======
 Update Function Call
 ======
@@ -153,14 +171,16 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK
   EXPORTING 
     values = values.
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        (call_argument_list
-          exporting: (argument_list
-            (named_argument
-              name: (identifier)
-              value: (identifier))))))
+
+(source
+  (function_call
+    name: (literal_string)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
 ======
 Transactional Remote Function Call
 ======
@@ -171,12 +191,22 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT'
   EXPORTING 
     values = values.
 ---
-    (source
-      (function_call
-        name: (literal_string)
-        destination: (literal_string)
-        (call_argument_list
-          exporting: (argument_list
-            (named_argument
-              name: (identifier)
-              value: (identifier))))))
+
+(source
+  (function_call
+    name: (literal_string)
+    destination: (literal_string)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+======
+Updates set update task local
+======
+SET UPDATE TASK LOCAL.
+---
+
+(source
+  (local_updates_statement))

@@ -166,6 +166,7 @@ module.exports = grammar({
       $.check_statement,
       $.continue_statement,
       $.resume_statement,
+      $.local_updates_statement,
 
       $.methods_declaration,
       $.cls_methods_declaration,
@@ -1186,6 +1187,12 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRESUME.html
     resume_statement: _ => seq(kw("resume"), "."),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
+    local_updates_statement: _ => seq(
+      ...kws("set", "update", "task", "local"),
+      "."
+    ),
+
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
      */
@@ -1789,6 +1796,7 @@ module.exports = grammar({
       $.class_component_selector,
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_OBSOLETE.html
     subroutine_call: $ => seq(
       kw("perform"),
       field("routine", $.subroutine_spec),
@@ -1802,6 +1810,7 @@ module.exports = grammar({
       "."
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_ON_COMMIT.html
     subroutine_registration: $ => seq(
       kw("perform"),
       field("name", $.identifier),
