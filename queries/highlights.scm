@@ -515,6 +515,8 @@
     "commit"
     "work"
     "wait"
+    "include"
+    
 
     ; predicates
     "not"
