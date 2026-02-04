@@ -78,6 +78,10 @@
         "named": true
       },
       {
+        "type": "commit_work_statement",
+        "named": true
+      },
+      {
         "type": "concatenate",
         "named": true
       },
@@ -159,6 +163,10 @@
       },
       {
         "type": "return_statement",
+        "named": true
+      },
+      {
+        "type": "rollback_work_statement",
         "named": true
       },
       {
@@ -1761,6 +1769,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "commit_work_statement",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "comparison_expression",
@@ -6053,6 +6066,11 @@
     }
   },
   {
+    "type": "rollback_work_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "scope_directive",
     "named": true,
     "fields": {}
@@ -8770,6 +8788,10 @@
     "named": false
   },
   {
+    "type": "wait",
+    "named": false
+  },
+  {
     "type": "when",
     "named": false
   },
@@ -8787,6 +8809,10 @@
   },
   {
     "type": "without",
+    "named": false
+  },
+  {
+    "type": "work",
     "named": false
   },
   {

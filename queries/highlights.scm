@@ -512,6 +512,9 @@
     "commit"
     
     "set"
+    "commit"
+    "work"
+    "wait"
 
     ; predicates
     "not"

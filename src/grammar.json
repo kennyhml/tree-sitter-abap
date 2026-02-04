@@ -148,6 +148,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "commit_work_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rollback_work_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "methods_declaration"
         },
         {
@@ -8124,6 +8132,91 @@
           },
           "named": false,
           "value": "local"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "commit_work_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][oO][mM][mM][iI][tT]"
+          },
+          "named": false,
+          "value": "commit"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[wW][oO][rR][kK]"
+          },
+          "named": false,
+          "value": "work"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[aA][nN][dD]"
+                  },
+                  "named": false,
+                  "value": "and"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[wW][aA][iI][tT]"
+                  },
+                  "named": false,
+                  "value": "wait"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "rollback_work_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][oO][lL][lL][bB][aA][cC][kK]"
+          },
+          "named": false,
+          "value": "rollback"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[wW][oO][rR][kK]"
+          },
+          "named": false,
+          "value": "work"
         },
         {
           "type": "STRING",
