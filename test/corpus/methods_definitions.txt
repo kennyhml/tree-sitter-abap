@@ -13,7 +13,7 @@ Static declaration
 CLASS-METHODS meth .
 ---
 (source
-    (cls_methods_declaration
+    (class_methods_declaration
         (method_spec
             name: (identifier))))
 ==================
@@ -30,7 +30,7 @@ CLASS-METHODS: meth1, meth2, meth3.
             name: (identifier))
         (method_spec
             name: (identifier)))
-    (cls_methods_declaration
+    (class_methods_declaration
         (method_spec
             name: (identifier))
         (method_spec
@@ -72,7 +72,7 @@ METHODS       m2 DEFAULT IGNORE
     RETURNING VALUE(r) TYPE i. 
 ---
 (source
-    (cls_methods_declaration
+    (class_methods_declaration
         (method_spec
             (identifier)
                 (interface_default)))
@@ -179,7 +179,7 @@ CLASS-METHODS class_constructor.
                     (identifier)
                     (builtin_type_spec
                         (type_identifier))))))
-    (cls_methods_declaration
+    (class_methods_declaration
         (constructor_spec)))
 ==================
 Simple event handler

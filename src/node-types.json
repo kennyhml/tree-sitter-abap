@@ -74,7 +74,7 @@
         "named": true
       },
       {
-        "type": "cls_methods_declaration",
+        "type": "class_methods_declaration",
         "named": true
       },
       {
@@ -123,6 +123,10 @@
       },
       {
         "type": "function_call",
+        "named": true
+      },
+      {
+        "type": "include_statement",
         "named": true
       },
       {
@@ -183,6 +187,10 @@
       },
       {
         "type": "subroutine_registration",
+        "named": true
+      },
+      {
+        "type": "tables_declaration",
         "named": true
       },
       {
@@ -586,21 +594,6 @@
     ]
   },
   {
-    "type": "alias_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "alias_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "alias_spec",
     "named": true,
     "fields": {
@@ -621,6 +614,21 @@
       "types": [
         {
           "type": "interface_component_selector",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "aliases_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alias_spec",
           "named": true
         }
       ]
@@ -856,7 +864,7 @@
       "required": false,
       "types": [
         {
-          "type": "alias_declaration",
+          "type": "aliases_declaration",
           "named": true
         },
         {
@@ -864,7 +872,7 @@
           "named": true
         },
         {
-          "type": "cls_methods_declaration",
+          "type": "class_methods_declaration",
           "named": true
         },
         {
@@ -1631,6 +1639,25 @@
     }
   },
   {
+    "type": "class_methods_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constructor_spec",
+          "named": true
+        },
+        {
+          "type": "method_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "class_options",
     "named": true,
     "fields": {
@@ -1749,25 +1776,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "cls_methods_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "constructor_spec",
-          "named": true
-        },
-        {
-          "type": "method_spec",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3705,6 +3713,22 @@
     }
   },
   {
+    "type": "include_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "index_read",
     "named": true,
     "fields": {
@@ -5292,7 +5316,7 @@
       "required": false,
       "types": [
         {
-          "type": "alias_declaration",
+          "type": "aliases_declaration",
           "named": true
         },
         {
@@ -5300,7 +5324,7 @@
           "named": true
         },
         {
-          "type": "cls_methods_declaration",
+          "type": "class_methods_declaration",
           "named": true
         },
         {
@@ -5335,7 +5359,7 @@
       "required": false,
       "types": [
         {
-          "type": "alias_declaration",
+          "type": "aliases_declaration",
           "named": true
         },
         {
@@ -5343,7 +5367,7 @@
           "named": true
         },
         {
-          "type": "cls_methods_declaration",
+          "type": "class_methods_declaration",
           "named": true
         },
         {
@@ -5398,7 +5422,7 @@
       "required": false,
       "types": [
         {
-          "type": "alias_declaration",
+          "type": "aliases_declaration",
           "named": true
         },
         {
@@ -5406,7 +5430,7 @@
           "named": true
         },
         {
-          "type": "cls_methods_declaration",
+          "type": "class_methods_declaration",
           "named": true
         },
         {
@@ -7098,6 +7122,21 @@
       "types": [
         {
           "type": "keys",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tables_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]

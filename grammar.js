@@ -132,19 +132,22 @@ module.exports = grammar({
 
     // Statements that dont have a body.
     _simple_statement: $ => choice(
+      // Declarations
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
-      $.message,
+      $.tables_declaration,
+      $.class_data_declaration,
+      $.methods_declaration,
+      $.class_methods_declaration,
 
+      $.message,
       $.assignment,
 
       $.report_initiator,
       $.deferred_class_definition,
       $.deferred_interface_definition,
       $.local_friends_spec,
-
-      $.class_data_declaration,
 
       $.function_call,
       $.dynamic_method_call,
@@ -157,6 +160,8 @@ module.exports = grammar({
       $.shift,
       $.split,
       $.condense,
+
+      $.include_statement,
 
       // Control flow
       $.raise_statement,
@@ -171,8 +176,6 @@ module.exports = grammar({
       $.commit_work_statement,
       $.rollback_work_statement,
 
-      $.methods_declaration,
-      $.cls_methods_declaration,
 
       $._empty_statement,
     ),
@@ -199,19 +202,30 @@ module.exports = grammar({
       $.class_data_declaration,
       $.constants_declaration,
       $.types_declaration,
-      $.alias_declaration,
+      $.aliases_declaration,
       $.interfaces_declaration,
       $.methods_declaration,
-      $.cls_methods_declaration,
+      $.class_methods_declaration,
       $._empty_statement,
     ),
 
-    ...generate_decl_specs({
-      data: $ => $.identifier,
-      class_data: $ => $.identifier,
-      types: $ => $._type_identifier,
-      constants: $ => $.identifier
-    }),
+    ...generate_decl_specs([
+      { keyword: "data", identifierNode: $ => $.identifier },
+      { keyword: "class-data", identifierNode: $ => $.identifier },
+      { keyword: "constants", identifierNode: $ => $.identifier },
+      { keyword: "types", identifierNode: $ => $._type_identifier },
+      { keyword: "methods", node: $ => choice($.method_spec, $.constructor_spec) },
+      { keyword: "interfaces", node: $ => $.identifier },
+
+      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS.html
+      { keyword: "class-methods", node: $ => choice($.method_spec, $.constructor_spec) },
+
+      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPALIASES.html
+      { keyword: "aliases", node: $ => $.alias_spec },
+
+      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTABLES.html
+      { keyword: "tables", node: $ => $.identifier },
+    ]),
 
     _typing: $ => choice(
       $.builtin_type_spec,
@@ -2339,44 +2353,6 @@ module.exports = grammar({
       repeat($._class_component)
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS.html
-    methods_declaration: $ => seq(
-      kw("methods"),
-      choice(
-        seq(":", commaSep1(choice($.method_spec, $.constructor_spec))),
-        choice($.method_spec, $.constructor_spec)
-      ),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS.html
-    cls_methods_declaration: $ => seq(
-      kw("class-methods"),
-      choice(
-        seq(":", commaSep1(choice($.method_spec, $.constructor_spec))),
-        choice($.method_spec, $.constructor_spec)
-      ),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPALIASES.html
-    alias_declaration: $ => seq(
-      kw("aliases"),
-      choice(
-        seq(":", commaSep1($.alias_spec)),
-        $.alias_spec
-      ),
-      "."
-    ),
-
-    interfaces_declaration: $ => seq(
-      kw("interfaces"),
-      choice(
-        seq(":", commaSep1($.identifier)),
-        $.identifier
-      ),
-      "."
-    ),
 
     /**
      * Technically methods split into general and functional methods.
@@ -2820,7 +2796,16 @@ module.exports = grammar({
           seq(kw("message-id"), field("message_class", $.identifier)),
         )
       ),
-      "."),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINCLUDE_PROG.html
+    include_statement: $ => seq(
+      kw("include"),
+      field("name", $.identifier),
+      optional(seq(...kws("if", "found"))),
+      "."
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
     table_key_spec: $ => prec.right(
@@ -3536,30 +3521,26 @@ function structureSpec($, keyword, identifierNode, componentRule) {
  * This generates the declaration and specification trees for each of the given
  * declaration options to be unpacked into the grammar rules.
  * 
- * @param {Record<string, ($) => Rule>} decl_map A map of declaration keywords to their node type.
- * 
  * @returns A set of rules to be unpacked into the grammar.
  */
 function generate_decl_specs(decl_map) {
   rules = {}
 
-  function decl(keyword) {
-    const spec = `${keyword}_spec`;
+  function decl(keyword, node) {
+    const spec = `${keyword.replace("-", "_")}_spec`;
 
-    rules[`${keyword}_declaration`] = $ => seq(
-      kw(keyword.replace("_", "-")),
+    rules[`${keyword.replace("-", "_")}_declaration`] = $ => seq(
+      kw(keyword),
       choice(
-        seq(":", commaSep1($[spec])),
-        $[spec]
+        seq(":", commaSep1(node ? node($) : $[spec])),
+        node ? node($) : $[spec]
       ),
       ".");
   }
 
   function spec(keyword, identifierNode) {
-    const name = `${keyword}_spec`;
-    const comp = `_${keyword}_comp_spec`;
-
-    keyword = keyword.replace("_", "-")
+    const name = `${keyword.replace("-", "_")}_spec`;
+    const comp = `_${keyword.replace("-", "_")}_comp_spec`;
 
     /**
      * Regardless of whether a struct is declared using CONSTANTS, TYPES, etc.
@@ -3599,9 +3580,13 @@ function generate_decl_specs(decl_map) {
     );
   }
 
-  for (const [keyword, node] of Object.entries(decl_map)) {
-    decl(keyword);
-    spec(keyword, node);
+  for (const entry of decl_map) {
+    if (entry.identifierNode) {
+      decl(entry.keyword);
+      spec(entry.keyword, entry.identifierNode);
+    } else {
+      decl(entry.keyword, entry.node);
+    }
   }
   return rules;
 }

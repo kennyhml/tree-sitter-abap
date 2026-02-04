@@ -1,0 +1,89 @@
+==================
+Simple Report Name
+==================
+report ZMYTESTREPORT.
+---
+
+(source
+  (report_initiator
+    (identifier)))
+
+==================
+Report Initiator with Message Class
+==================
+report ZMYTESTREPORT message-id ZMESSAGE_CLASS.
+---
+
+(source
+  (report_initiator
+    (identifier)
+    (identifier)))
+
+==================
+Report Initiator with reduced functionality.
+==================
+report ZMYTESTREPORT reduced functionality.
+---
+
+(source
+  (report_initiator
+    (identifier)))
+
+==================
+Complex Report Initiator
+==================
+report ZMYTESTREPORT 
+    reduced functionality
+    message-id /WWE/MSGCLASS
+    defining database mydb
+    no standard page heading
+    line-size 200
+    line-count 100(500).
+---
+
+(source
+  (report_initiator
+    (identifier)
+    (identifier)
+    (identifier)
+    (number)
+    (number)
+    (number)))
+
+======
+Include statements
+======
+INCLUDE labap_docutop.
+INCLUDE labap_docue00.
+INCLUDE labap_docuuxx.
+---
+
+(source
+  (include_statement
+    name: (identifier))
+  (include_statement
+    name: (identifier))
+  (include_statement
+    name: (identifier)))
+
+======
+Include statement if include exists
+======
+INCLUDE labap_docuuxx if found.
+---
+
+(source
+  (include_statement
+    name: (identifier)))
+
+======
+Program tables declaration
+======
+TABLES: vbak, vbap, kna1.
+---
+
+(source
+  (tables_declaration
+    (identifier)
+    (identifier)
+    (identifier)))
