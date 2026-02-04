@@ -144,6 +144,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "local_updates_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "methods_declaration"
         },
         {
@@ -8075,6 +8079,51 @@
           },
           "named": false,
           "value": "resume"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "local_updates_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][eE][tT]"
+          },
+          "named": false,
+          "value": "set"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[uU][pP][dD][aA][tT][eE]"
+          },
+          "named": false,
+          "value": "update"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][aA][sS][kK]"
+          },
+          "named": false,
+          "value": "task"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][oO][cC][aA][lL]"
+          },
+          "named": false,
+          "value": "local"
         },
         {
           "type": "STRING",
