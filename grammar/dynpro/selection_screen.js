@@ -1,36 +1,37 @@
 /// <reference types="tree-sitter-cli/dsl" />
 import { kw, kws } from '../helpers/keywords.js'
-import { declaration } from '../helpers/decl_gen.js'
+import { chainable } from '../helpers/decl_gen.js'
 
 // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselection-screen.html
 export default {
 
-    selection_screen_statement: $ => declaration(
-        "selection-screen", repeat1($.__selection_screen_statement)
+    selection_screen_statement: $ => chainable(
+        "selection-screen", $.__selection_screen_element
     ),
 
     /**
-     * Any statement that is preceded by a `SELECTION_SCREEN` or `SELECTION_SCREEN:`.
+     * Any element that is preceded by a `SELECTION_SCREEN` or `SELECTION_SCREEN:`.
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN.html
      */
-    __selection_screen_statement: $ => choice(
-        $.begin_of_screen_statement,
-        $.begin_of_subscreen_statement,
-        $.end_of_screen_statement,
-        $.begin_of_block_statement,
-        $.end_of_block_statement,
-        $.blank_line_statement,
-        $.horizontal_line_statement,
-        $.comment_statement,
-        $.pushbutton_statement,
-        $.begin_of_line_statement,
-        $.screen_position_statement,
-        $.end_of_line_statement
+    __selection_screen_element: $ => choice(
+        $.begin_of_screen_element,
+        $.begin_of_subscreen_element,
+        $.end_of_screen_element,
+        $.begin_of_block_element,
+        $.end_of_block_element,
+        $.horizontal_line_element,
+        $.comment_element,
+        $.pushbutton_element,
+        $.begin_of_line_element,
+        $.end_of_line_element,
+
+        $.blank_line_directive,
+        $.screen_position_directive,
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
-    begin_of_screen_statement: $ => seq(
+    begin_of_screen_element: $ => seq(
         ...kws("begin", "of", "screen"),
         field("dynnr", $.number),
         repeat(choice(
@@ -40,7 +41,7 @@ export default {
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_SUBSCREEN.html
-    begin_of_subscreen_statement: $ => seq(
+    begin_of_subscreen_element: $ => seq(
         ...kws("begin", "of", "screen"),
         field("dynnr", $.number),
         ...kws("as", "subscreen"),
@@ -51,15 +52,15 @@ export default {
     ),
 
     /**
-     * Closes a {@link begin_of_screen_statement} or {@link begin_of_subscreen_statement}
+     * Closes a {@link begin_of_screen_element} or {@link begin_of_subscreen_statement}
      */
-    end_of_screen_statement: $ => seq(
+    end_of_screen_element: $ => seq(
         ...kws("end", "of", "screen"),
         field("dynnr", $.number),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_BLOCK.html
-    begin_of_block_statement: $ => seq(
+    begin_of_block_element: $ => seq(
         ...kws("begin", "of", "block"),
         field("block", $.identifier),
         repeat(choice(
@@ -68,26 +69,26 @@ export default {
         ))
     ),
 
-    end_of_block_statement: $ => seq(
+    end_of_block_element: $ => seq(
         ...kws("end", "of", "block"),
         field("block", $.identifier),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_SKIP.html
-    blank_line_statement: $ => seq(
+    blank_line_directive: $ => seq(
         kw("skip"),
         optional(field("times", $.number))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_ULINE.html
-    horizontal_line_statement: $ => seq(
+    horizontal_line_element: $ => seq(
         kw("uline"),
         optional($.output_position_spec),
         optional(field("modif_id", $.modif_id_spec))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_COMMENT.html
-    comment_statement: $ => seq(
+    comment_element: $ => seq(
         kw("comment"),
         field("position", $.output_position_spec),
         choice(
@@ -101,7 +102,7 @@ export default {
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_COMMENT.html
-    pushbutton_statement: $ => seq(
+    pushbutton_element: $ => seq(
         kw("pushbutton"),
         field("position", $.output_position_spec),
         field("text", $.__element_text),
@@ -113,14 +114,14 @@ export default {
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_LINE.html
-    begin_of_line_statement: _ => seq(...kws("begin", "of", "line")),
+    begin_of_line_element: _ => seq(...kws("begin", "of", "line")),
 
-    screen_position_statement: $ => seq(
+    screen_position_directive: $ => seq(
         kw("position"),
         field("position", $.output_position_spec),
     ),
 
-    end_of_line_statement: _ => seq(...kws("end", "of", "line")),
+    end_of_line_element: _ => seq(...kws("end", "of", "line")),
 
     for_select_option_spec: $ => seq(
         optional(field("text", $.__element_text)),

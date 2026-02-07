@@ -1177,11 +1177,8 @@
                   "value": ":"
                 },
                 {
-                  "type": "REPEAT1",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "__selection_screen_statement"
-                  }
+                  "type": "SYMBOL",
+                  "name": "__selection_screen_element"
                 },
                 {
                   "type": "REPEAT",
@@ -1193,11 +1190,8 @@
                         "value": ","
                       },
                       {
-                        "type": "REPEAT1",
-                        "content": {
-                          "type": "SYMBOL",
-                          "name": "__selection_screen_statement"
-                        }
+                        "type": "SYMBOL",
+                        "name": "__selection_screen_element"
                       }
                     ]
                   }
@@ -1205,11 +1199,8 @@
               ]
             },
             {
-              "type": "REPEAT1",
-              "content": {
-                "type": "SYMBOL",
-                "name": "__selection_screen_statement"
-              }
+              "type": "SYMBOL",
+              "name": "__selection_screen_element"
             }
           ]
         },
@@ -1219,60 +1210,60 @@
         }
       ]
     },
-    "__selection_screen_statement": {
+    "__selection_screen_element": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "begin_of_screen_statement"
+          "name": "begin_of_screen_element"
         },
         {
           "type": "SYMBOL",
-          "name": "begin_of_subscreen_statement"
+          "name": "begin_of_subscreen_element"
         },
         {
           "type": "SYMBOL",
-          "name": "end_of_screen_statement"
+          "name": "end_of_screen_element"
         },
         {
           "type": "SYMBOL",
-          "name": "begin_of_block_statement"
+          "name": "begin_of_block_element"
         },
         {
           "type": "SYMBOL",
-          "name": "end_of_block_statement"
+          "name": "end_of_block_element"
         },
         {
           "type": "SYMBOL",
-          "name": "blank_line_statement"
+          "name": "horizontal_line_element"
         },
         {
           "type": "SYMBOL",
-          "name": "horizontal_line_statement"
+          "name": "comment_element"
         },
         {
           "type": "SYMBOL",
-          "name": "comment_statement"
+          "name": "pushbutton_element"
         },
         {
           "type": "SYMBOL",
-          "name": "pushbutton_statement"
+          "name": "begin_of_line_element"
         },
         {
           "type": "SYMBOL",
-          "name": "begin_of_line_statement"
+          "name": "end_of_line_element"
         },
         {
           "type": "SYMBOL",
-          "name": "screen_position_statement"
+          "name": "blank_line_directive"
         },
         {
           "type": "SYMBOL",
-          "name": "end_of_line_statement"
+          "name": "screen_position_directive"
         }
       ]
     },
-    "begin_of_screen_statement": {
+    "begin_of_screen_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1336,7 +1327,7 @@
         }
       ]
     },
-    "begin_of_subscreen_statement": {
+    "begin_of_subscreen_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1418,7 +1409,7 @@
         }
       ]
     },
-    "end_of_screen_statement": {
+    "end_of_screen_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1458,7 +1449,7 @@
         }
       ]
     },
-    "begin_of_block_statement": {
+    "begin_of_block_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1522,7 +1513,7 @@
         }
       ]
     },
-    "end_of_block_statement": {
+    "end_of_block_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1562,7 +1553,7 @@
         }
       ]
     },
-    "blank_line_statement": {
+    "blank_line_directive": {
       "type": "SEQ",
       "members": [
         {
@@ -1592,7 +1583,7 @@
         }
       ]
     },
-    "horizontal_line_statement": {
+    "horizontal_line_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1634,7 +1625,7 @@
         }
       ]
     },
-    "comment_statement": {
+    "comment_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1697,7 +1688,7 @@
         }
       ]
     },
-    "pushbutton_statement": {
+    "pushbutton_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1759,7 +1750,7 @@
         }
       ]
     },
-    "begin_of_line_statement": {
+    "begin_of_line_element": {
       "type": "SEQ",
       "members": [
         {
@@ -1791,7 +1782,7 @@
         }
       ]
     },
-    "screen_position_statement": {
+    "screen_position_directive": {
       "type": "SEQ",
       "members": [
         {
@@ -1813,7 +1804,7 @@
         }
       ]
     },
-    "end_of_line_statement": {
+    "end_of_line_element": {
       "type": "SEQ",
       "members": [
         {

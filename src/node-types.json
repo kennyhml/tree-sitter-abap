@@ -808,7 +808,7 @@
     }
   },
   {
-    "type": "begin_of_block_statement",
+    "type": "begin_of_block_element",
     "named": true,
     "fields": {
       "block": {
@@ -844,12 +844,12 @@
     }
   },
   {
-    "type": "begin_of_line_statement",
+    "type": "begin_of_line_element",
     "named": true,
     "fields": {}
   },
   {
-    "type": "begin_of_screen_statement",
+    "type": "begin_of_screen_element",
     "named": true,
     "fields": {
       "dynnr": {
@@ -885,7 +885,7 @@
     }
   },
   {
-    "type": "begin_of_subscreen_statement",
+    "type": "begin_of_subscreen_element",
     "named": true,
     "fields": {
       "dynnr": {
@@ -981,7 +981,7 @@
     }
   },
   {
-    "type": "blank_line_statement",
+    "type": "blank_line_directive",
     "named": true,
     "fields": {
       "times": {
@@ -1925,7 +1925,7 @@
     }
   },
   {
-    "type": "comment_statement",
+    "type": "comment_element",
     "named": true,
     "fields": {
       "modif_id": {
@@ -3371,7 +3371,7 @@
     }
   },
   {
-    "type": "end_of_block_statement",
+    "type": "end_of_block_element",
     "named": true,
     "fields": {
       "block": {
@@ -3387,12 +3387,12 @@
     }
   },
   {
-    "type": "end_of_line_statement",
+    "type": "end_of_line_element",
     "named": true,
     "fields": {}
   },
   {
-    "type": "end_of_screen_statement",
+    "type": "end_of_screen_element",
     "named": true,
     "fields": {
       "dynnr": {
@@ -4142,7 +4142,7 @@
     }
   },
   {
-    "type": "horizontal_line_statement",
+    "type": "horizontal_line_element",
     "named": true,
     "fields": {
       "modif_id": {
@@ -6252,7 +6252,7 @@
     }
   },
   {
-    "type": "pushbutton_statement",
+    "type": "pushbutton_element",
     "named": true,
     "fields": {
       "modif_id": {
@@ -6971,7 +6971,7 @@
     "fields": {}
   },
   {
-    "type": "screen_position_statement",
+    "type": "screen_position_directive",
     "named": true,
     "fields": {
       "position": {
@@ -7227,51 +7227,51 @@
       "required": true,
       "types": [
         {
-          "type": "begin_of_block_statement",
+          "type": "begin_of_block_element",
           "named": true
         },
         {
-          "type": "begin_of_line_statement",
+          "type": "begin_of_line_element",
           "named": true
         },
         {
-          "type": "begin_of_screen_statement",
+          "type": "begin_of_screen_element",
           "named": true
         },
         {
-          "type": "begin_of_subscreen_statement",
+          "type": "begin_of_subscreen_element",
           "named": true
         },
         {
-          "type": "blank_line_statement",
+          "type": "blank_line_directive",
           "named": true
         },
         {
-          "type": "comment_statement",
+          "type": "comment_element",
           "named": true
         },
         {
-          "type": "end_of_block_statement",
+          "type": "end_of_block_element",
           "named": true
         },
         {
-          "type": "end_of_line_statement",
+          "type": "end_of_line_element",
           "named": true
         },
         {
-          "type": "end_of_screen_statement",
+          "type": "end_of_screen_element",
           "named": true
         },
         {
-          "type": "horizontal_line_statement",
+          "type": "horizontal_line_element",
           "named": true
         },
         {
-          "type": "pushbutton_statement",
+          "type": "pushbutton_element",
           "named": true
         },
         {
-          "type": "screen_position_statement",
+          "type": "screen_position_directive",
           "named": true
         }
       ]
