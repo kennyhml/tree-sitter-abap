@@ -21,7 +21,8 @@ export default {
         $.begin_of_block_statement,
         $.end_of_block_statement,
         $.blank_line_statement,
-        $.horizontal_line_statement
+        $.horizontal_line_statement,
+        $.comment_statement
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
@@ -73,6 +74,29 @@ export default {
         kw("uline"),
         optional($.output_position_spec),
         optional(field("modif_id", $.modif_id_spec))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_ULINE.html
+    comment_statement: $ => seq(
+        kw("comment"),
+        $.output_position_spec,
+        choice(
+            field("text", $.__comment_text),
+            $.for_select_option_spec
+        ),
+        optional($.visible_length_spec),
+        optional(field("modif_id", $.modif_id_spec))
+    ),
+
+    for_select_option_spec: $ => seq(
+        optional(field("text", $.__comment_text)),
+        ...kws("for", "field"),
+        field("target", $.identifier),
+    ),
+
+    __comment_text: $ => choice(
+        $.identifier,
+        $.struct_component_selector
     ),
 
     title_spec: $ => seq(

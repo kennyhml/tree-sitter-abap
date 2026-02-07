@@ -550,9 +550,8 @@
     "title"
     "window"
     "frame"
-    
-    
-    
+    "comment"
+    "field"
 
     ; predicates
     "not"
