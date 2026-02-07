@@ -55,5 +55,4 @@ export default {
         )
     ),
 
-    no_extension_spec: _ => kw("no-extension"),
 }

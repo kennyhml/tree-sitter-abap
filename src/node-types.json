@@ -1984,6 +1984,16 @@
           }
         ]
       },
+      "target": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "for_screen_field_spec",
+            "named": true
+          }
+        ]
+      },
       "text": {
         "multiple": false,
         "required": false,
@@ -2008,16 +2018,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "for_select_option_spec",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3775,10 +3775,10 @@
     }
   },
   {
-    "type": "for_select_option_spec",
+    "type": "for_screen_field_spec",
     "named": true,
     "fields": {
-      "target": {
+      "field": {
         "multiple": false,
         "required": true,
         "types": [
@@ -4284,6 +4284,200 @@
         "types": [
           {
             "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_block_directive",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_comment_directive",
+    "named": true,
+    "fields": {
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "output_position_spec",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "for_screen_field_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_parameter_directive",
+    "named": true,
+    "fields": {
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "obligatory": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "obligatory_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_pushbutton_directive",
+    "named": true,
+    "fields": {
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "output_position_spec",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      },
+      "user_command": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "user_command_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_select_option_directive",
+    "named": true,
+    "fields": {
+      "extensions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "no_extension_spec",
+            "named": true
+          }
+        ]
+      },
+      "intervals": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
+      },
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "obligatory": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "obligatory_spec",
             "named": true
           }
         ]
@@ -7353,6 +7547,26 @@
           "named": true
         },
         {
+          "type": "include_block_directive",
+          "named": true
+        },
+        {
+          "type": "include_comment_directive",
+          "named": true
+        },
+        {
+          "type": "include_parameter_directive",
+          "named": true
+        },
+        {
+          "type": "include_pushbutton_directive",
+          "named": true
+        },
+        {
+          "type": "include_select_option_directive",
+          "named": true
+        },
+        {
           "type": "pushbutton_element",
           "named": true
         },
@@ -9068,6 +9282,10 @@
     "named": false
   },
   {
+    "type": "blocks",
+    "named": false
+  },
+  {
     "type": "bound",
     "named": false
   },
@@ -9875,6 +10093,10 @@
   },
   {
     "type": "of",
+    "named": false
+  },
+  {
+    "type": "off",
     "named": false
   },
   {

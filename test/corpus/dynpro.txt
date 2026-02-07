@@ -368,8 +368,8 @@ SELECTION-SCREEN COMMENT /1(50) for field foo.
       position: (output_position_spec
         position: (number)
         length: (number))
-      (for_select_option_spec
-        target: (identifier)))))
+      target: (for_screen_field_spec
+        field: (identifier)))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Comment as label with text
@@ -383,9 +383,9 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
       position: (output_position_spec
         position: (number)
         length: (number))
-      (for_select_option_spec
+      target: (for_screen_field_spec
         text: (identifier)
-        target: (identifier)))))
+        field: (identifier)))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Subscreen definition
@@ -519,3 +519,33 @@ SELECTION-SCREEN: FUNCTION KEY 1,
       number: (number))
     (function_key_directive
       number: (number))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Include directives
+======
+SELECTION-SCREEN INCLUDE PUSHBUTTON /5(25) btn_text USER-COMMAND click.
+SELECTION-SCREEN INCLUDE SELECT-OPTIONS s_date NO INTERVALS.
+SELECTION-SCREEN INCLUDE PARAMETERS p_user OBLIGATORY OFF.
+SELECTION-SCREEN INCLUDE BLOCKS part1.
+---
+
+(source
+  (selection_screen_statement
+    (include_pushbutton_directive
+      (output_position_spec
+        (number)
+        (number))
+      (identifier)
+      (user_command_spec
+        (identifier))))
+  (selection_screen_statement
+    (include_select_option_directive
+      (identifier)
+      (no_intervals_spec)))
+  (selection_screen_statement
+    (include_parameter_directive
+      (identifier)
+      (obligatory_spec)))
+  (selection_screen_statement
+    (include_block_directive
+      (identifier))))

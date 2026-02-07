@@ -534,6 +534,7 @@
     "lower"
     "intervals"
     "no-extension"
+    "off"
     "option"
     "sign"
     "i"
@@ -554,6 +555,11 @@
     "field"
     "pushbutton"
     "position"
+    "tabbed"
+    "tab"
+    "blocks"
+
+    
 
     ; predicates
     "not"
