@@ -24,6 +24,9 @@ export default {
         $.horizontal_line_statement,
         $.comment_statement,
         $.pushbutton_statement,
+        $.begin_of_line_statement,
+        $.screen_position_statement,
+        $.end_of_line_statement
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
@@ -108,6 +111,16 @@ export default {
             field("modif_id", $.modif_id_spec)
         ))
     ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_LINE.html
+    begin_of_line_statement: _ => seq(...kws("begin", "of", "line")),
+
+    screen_position_statement: $ => seq(
+        kw("position"),
+        field("position", $.output_position_spec),
+    ),
+
+    end_of_line_statement: _ => seq(...kws("end", "of", "line")),
 
     for_select_option_spec: $ => seq(
         optional(field("text", $.__element_text)),

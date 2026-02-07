@@ -844,6 +844,11 @@
     }
   },
   {
+    "type": "begin_of_line_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "begin_of_screen_statement",
     "named": true,
     "fields": {
@@ -3380,6 +3385,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "end_of_line_statement",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "end_of_screen_statement",
@@ -6961,6 +6971,22 @@
     "fields": {}
   },
   {
+    "type": "screen_position_statement",
+    "named": true,
+    "fields": {
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "output_position_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "search_help_spec",
     "named": true,
     "fields": {
@@ -7205,6 +7231,10 @@
           "named": true
         },
         {
+          "type": "begin_of_line_statement",
+          "named": true
+        },
+        {
           "type": "begin_of_screen_statement",
           "named": true
         },
@@ -7225,6 +7255,10 @@
           "named": true
         },
         {
+          "type": "end_of_line_statement",
+          "named": true
+        },
+        {
           "type": "end_of_screen_statement",
           "named": true
         },
@@ -7234,6 +7268,10 @@
         },
         {
           "type": "pushbutton_statement",
+          "named": true
+        },
+        {
+          "type": "screen_position_statement",
           "named": true
         }
       ]
@@ -9735,6 +9773,10 @@
   },
   {
     "type": "places",
+    "named": false
+  },
+  {
+    "type": "position",
     "named": false
   },
   {
