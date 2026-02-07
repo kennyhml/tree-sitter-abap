@@ -820,21 +820,27 @@
             "named": true
           }
         ]
+      },
+      "frame": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "frame_spec",
+            "named": true
+          }
+        ]
+      },
+      "intervals": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "frame_spec",
-          "named": true
-        },
-        {
-          "type": "no_intervals_spec",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -850,21 +856,27 @@
             "named": true
           }
         ]
+      },
+      "title": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "title_spec",
+            "named": true
+          }
+        ]
+      },
+      "window": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "window_spec",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "title_spec",
-          "named": true
-        },
-        {
-          "type": "window_spec",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -880,21 +892,27 @@
             "named": true
           }
         ]
+      },
+      "intervals": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
+      },
+      "nesting": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "nesting_level_spec",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "nesting_level_spec",
-          "named": true
-        },
-        {
-          "type": "no_intervals_spec",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1906,11 +1924,21 @@
     "named": true,
     "fields": {
       "modif_id": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
             "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "output_position_spec",
             "named": true
           }
         ]
@@ -1928,22 +1956,24 @@
             "named": true
           }
         ]
+      },
+      "visible_length": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "visible_length_spec",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "for_select_option_spec",
-          "named": true
-        },
-        {
-          "type": "output_position_spec",
-          "named": true
-        },
-        {
-          "type": "visible_length_spec",
           "named": true
         }
       ]
@@ -6212,6 +6242,66 @@
     }
   },
   {
+    "type": "pushbutton_statement",
+    "named": true,
+    "fields": {
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "output_position_spec",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      },
+      "user_command": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "user_command_spec",
+            "named": true
+          }
+        ]
+      },
+      "visible_length": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "visible_length_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "radiobutton_spec",
     "named": true,
     "fields": {
@@ -7140,6 +7230,10 @@
         },
         {
           "type": "horizontal_line_statement",
+          "named": true
+        },
+        {
+          "type": "pushbutton_statement",
           "named": true
         }
       ]
@@ -9665,6 +9759,10 @@
   },
   {
     "type": "public",
+    "named": false
+  },
+  {
+    "type": "pushbutton",
     "named": false
   },
   {
