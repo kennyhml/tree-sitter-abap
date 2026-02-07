@@ -439,3 +439,41 @@ SELECTION-SCREEN:
         length: (number)))
     (end_of_screen_statement
       dynnr: (number))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Line / position directives
+======
+SELECTION-SCREEN: BEGIN OF LINE, 
+                  PUSHBUTTON 2(10) push USER-COMMAND fcode, 
+                  POSITION 16. 
+PARAMETERS para TYPE c LENGTH 20. 
+SELECTION-SCREEN: COMMENT 40(40) text, 
+                  END OF LINE. 
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_line_statement)
+    (pushbutton_statement
+      position: (output_position_spec
+        position: (number)
+        length: (number))
+      text: (identifier)
+      user_command: (user_command_spec
+        command: (identifier)))
+    (screen_position_statement
+      position: (output_position_spec
+        position: (number))))
+  (parameters_declaration
+    (parameters_spec
+      name: (identifier)
+      typing: (builtin_type_spec
+        name: (type_identifier)
+        length: (number))))
+  (selection_screen_statement
+    (comment_statement
+      position: (output_position_spec
+        position: (number)
+        length: (number))
+      text: (identifier))
+    (end_of_line_statement)))

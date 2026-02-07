@@ -1257,6 +1257,18 @@
         {
           "type": "SYMBOL",
           "name": "pushbutton_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "begin_of_line_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "screen_position_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "end_of_line_statement"
         }
       ]
     },
@@ -1744,6 +1756,92 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "begin_of_line_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[bB][eE][gG][iI][nN]"
+          },
+          "named": false,
+          "value": "begin"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][fF]"
+          },
+          "named": false,
+          "value": "of"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][iI][nN][eE]"
+          },
+          "named": false,
+          "value": "line"
+        }
+      ]
+    },
+    "screen_position_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][oO][sS][iI][tT][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "position"
+        },
+        {
+          "type": "FIELD",
+          "name": "position",
+          "content": {
+            "type": "SYMBOL",
+            "name": "output_position_spec"
+          }
+        }
+      ]
+    },
+    "end_of_line_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD]"
+          },
+          "named": false,
+          "value": "end"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][fF]"
+          },
+          "named": false,
+          "value": "of"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][iI][nN][eE]"
+          },
+          "named": false,
+          "value": "line"
         }
       ]
     },

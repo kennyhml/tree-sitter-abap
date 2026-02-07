@@ -553,6 +553,7 @@
     "comment"
     "field"
     "pushbutton"
+    "position"
 
     ; predicates
     "not"
@@ -560,6 +561,7 @@
     "instance"
     "assigned"
     "supplied"
+
 
     
     ; comparison operators
