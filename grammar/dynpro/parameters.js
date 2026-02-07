@@ -1,9 +1,9 @@
-import { declaration } from '../helpers/decl_gen.js'
+import { chainable } from '../helpers/decl_gen.js'
 import { kw, kws } from '../helpers/keywords.js'
 
 export default {
 
-    parameters_declaration: $ => declaration(
+    parameters_declaration: $ => chainable(
         "parameters", $.parameters_spec
     ),
 

@@ -1,4 +1,4 @@
-import { declaration, declaration_and_spec } from "./grammar/helpers/decl_gen.js";
+import { chainable, declaration_and_spec } from "./grammar/helpers/decl_gen.js";
 import { dynpro_rules } from '#dynpro';
 
 /**
@@ -224,11 +224,11 @@ export default grammar({
     ...declaration_and_spec("constants", $ => $.identifier),
     ...declaration_and_spec("types", $ => $._type_identifier),
 
-    methods_declaration: $ => declaration("methods", choice($.method_spec, $.constructor_spec)),
-    class_methods_declaration: $ => declaration("class-methods", choice($.method_spec, $.constructor_spec)),
-    interfaces_declaration: $ => declaration("interfaces", $.identifier),
-    aliases_declaration: $ => declaration("aliases", $.alias_spec),
-    tables_declaration: $ => declaration("tables", $.identifier),
+    methods_declaration: $ => chainable("methods", choice($.method_spec, $.constructor_spec)),
+    class_methods_declaration: $ => chainable("class-methods", choice($.method_spec, $.constructor_spec)),
+    interfaces_declaration: $ => chainable("interfaces", $.identifier),
+    aliases_declaration: $ => chainable("aliases", $.alias_spec),
+    tables_declaration: $ => chainable("tables", $.identifier),
 
     _typing: $ => choice(
       $.builtin_type_spec,

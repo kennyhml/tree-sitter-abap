@@ -25,7 +25,7 @@ import { kw, kws } from '../helpers/keywords.js'
  * 
  * @returns {Rule} A rule to handle the declarations.
 */
-export function declaration(keyword, spec) {
+export function chainable(keyword, spec) {
     return seq(
         kw(keyword),
         // If the declaration is followed by a `:` it means multiple
@@ -93,7 +93,7 @@ export function declaration_and_spec(keyword, identifier, prefix) {
         structureSpec($, keyword, identifier($), $[comp]),
     );
 
-    rules[decl] = $ => declaration(keyword, $[spec]);
+    rules[decl] = $ => chainable(keyword, $[spec]);
     return rules;
 }
 

@@ -1,9 +1,9 @@
-import { declaration } from "../helpers/decl_gen.js";
+import { chainable } from "../helpers/decl_gen.js";
 import { kw, kws } from '../helpers/keywords.js'
 
 export default {
 
-    select_options_declaration: $ => declaration(
+    select_options_declaration: $ => chainable(
         "select-options", $.select_options_spec
     ),
 

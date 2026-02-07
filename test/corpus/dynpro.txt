@@ -257,7 +257,7 @@ SELECTION-SCREEN ULINE /10(20).
 
 (source
   (selection_screen_statement
-    (horizontal_line_statement
+    (horizontal_line_element
       (output_position_spec
         position: (number)
         length: (number)))))
@@ -271,12 +271,12 @@ SELECTION-SCREEN ULINE POS_LOW(10).
 
 (source
   (selection_screen_statement
-    (horizontal_line_statement
+    (horizontal_line_element
       (output_position_spec
         position: (identifier)
         length: (number))))
   (selection_screen_statement
-    (horizontal_line_statement
+    (horizontal_line_element
       (output_position_spec
         position: (identifier)
         length: (number)))))
@@ -289,7 +289,7 @@ SELECTION-SCREEN ULINE MODIF ID lin.
 
 (source
   (selection_screen_statement
-    (horizontal_line_statement
+    (horizontal_line_element
       modif_id: (modif_id_spec
         id: (identifier)))))
 
@@ -302,9 +302,9 @@ SELECTION-SCREEN SKIP 10.
 
 (source
   (selection_screen_statement
-    (blank_line_statement))
+    (blank_line_directive))
   (selection_screen_statement
-    (blank_line_statement
+    (blank_line_directive
       times: (number))))
 
 ======
@@ -319,25 +319,25 @@ selection-screen: begin of screen 100 title text-tt1 as window,
 
 (source
   (selection_screen_statement
-    (begin_of_screen_statement
+    (begin_of_screen_element
       dynnr: (number)
       title: (title_spec
         title: (struct_component_selector
           struct: (identifier)
           comp: (identifier)))
       window: (window_spec))
-    (blank_line_statement
+    (blank_line_directive
       times: (number))
-    (begin_of_block_statement
+    (begin_of_block_element
       block: (identifier)
       frame: (frame_spec
         (title_spec
           title: (struct_component_selector
             struct: (identifier)
             comp: (identifier)))))
-    (end_of_screen_statement
+    (end_of_screen_element
       dynnr: (number))
-    (end_of_block_statement
+    (end_of_block_element
       block: (identifier))))
 
 ======
@@ -348,7 +348,7 @@ SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1.
 
 (source
   (selection_screen_statement
-    (comment_statement
+    (comment_element
       position: (output_position_spec
         position: (number)
         length: (number))
@@ -364,7 +364,7 @@ SELECTION-SCREEN COMMENT /1(50) for field foo.
 
 (source
   (selection_screen_statement
-    (comment_statement
+    (comment_element
       position: (output_position_spec
         position: (number)
         length: (number))
@@ -379,7 +379,7 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
 
 (source
   (selection_screen_statement
-    (comment_statement
+    (comment_element
       position: (output_position_spec
         position: (number)
         length: (number))
@@ -396,11 +396,11 @@ selection-screen: begin of screen 100 as subscreen nesting level 5,
 
 (source
   (selection_screen_statement
-    (begin_of_subscreen_statement
+    (begin_of_subscreen_element
       dynnr: (number)
       nesting: (nesting_level_spec
         level: (number)))
-    (end_of_screen_statement
+    (end_of_screen_element
       dynnr: (number))))
 
 ======
@@ -416,19 +416,19 @@ SELECTION-SCREEN:
 
 (source
   (selection_screen_statement
-    (begin_of_screen_statement
+    (begin_of_screen_element
       dynnr: (number)
       window: (window_spec)
       title: (title_spec
         title: (identifier)))
-    (pushbutton_statement
+    (pushbutton_element
       position: (output_position_spec
         position: (number)
         length: (number))
       text: (identifier)
       user_command: (user_command_spec
         command: (identifier)))
-    (pushbutton_statement
+    (pushbutton_element
       position: (output_position_spec
         position: (number)
         length: (number))
@@ -437,7 +437,7 @@ SELECTION-SCREEN:
         command: (identifier))
       visible_length: (visible_length_spec
         length: (number)))
-    (end_of_screen_statement
+    (end_of_screen_element
       dynnr: (number))))
 
 ======
@@ -453,15 +453,15 @@ SELECTION-SCREEN: COMMENT 40(40) text,
 
 (source
   (selection_screen_statement
-    (begin_of_line_statement)
-    (pushbutton_statement
+    (begin_of_line_element)
+    (pushbutton_element
       position: (output_position_spec
         position: (number)
         length: (number))
       text: (identifier)
       user_command: (user_command_spec
         command: (identifier)))
-    (screen_position_statement
+    (screen_position_directive
       position: (output_position_spec
         position: (number))))
   (parameters_declaration
@@ -471,9 +471,9 @@ SELECTION-SCREEN: COMMENT 40(40) text,
         name: (type_identifier)
         length: (number))))
   (selection_screen_statement
-    (comment_statement
+    (comment_element
       position: (output_position_spec
         position: (number)
         length: (number))
       text: (identifier))
-    (end_of_line_statement)))
+    (end_of_line_element)))
