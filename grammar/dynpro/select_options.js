@@ -56,5 +56,4 @@ export default {
     ),
 
     no_extension_spec: _ => kw("no-extension"),
-    no_intervals_spec: _ => seq(...kws("no", "intervals")),
 }

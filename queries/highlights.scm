@@ -519,6 +519,7 @@
     
     ; Dynpro
     "parameters"
+    "select-options"
     "modif"
     "obligatory"
     "as"
@@ -531,6 +532,26 @@
     "object"
     "no-display"
     "lower"
+    "intervals"
+    "no-extension"
+    "option"
+    "sign"
+    "i"
+    "e"
+    
+    "selection-screen"
+    "skip"
+    "block"
+    "uline"
+    "screen"
+    "subscreen"
+    "nesting" 
+    "level"
+    "title"
+    "window"
+    "frame"
+    
+    
     
 
     ; predicates
@@ -539,6 +560,7 @@
     "instance"
     "assigned"
     "supplied"
+
     
     ; comparison operators
     "eq"
@@ -555,6 +577,8 @@
     "ns"
     "cp"
     "np"
+    "bt"
+    "nb"
     "byte-co"
     "byte-cn"
     "byte-ca"
