@@ -182,6 +182,10 @@
         "named": true
       },
       {
+        "type": "selection_screen_statement",
+        "named": true
+      },
+      {
         "type": "shift",
         "named": true
       },
@@ -804,6 +808,96 @@
     }
   },
   {
+    "type": "begin_of_block_statement",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "frame_spec",
+          "named": true
+        },
+        {
+          "type": "no_intervals_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "begin_of_screen_statement",
+    "named": true,
+    "fields": {
+      "dynnr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "title_spec",
+          "named": true
+        },
+        {
+          "type": "window_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "begin_of_subscreen_statement",
+    "named": true,
+    "fields": {
+      "dynnr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "nesting_level_spec",
+          "named": true
+        },
+        {
+          "type": "no_intervals_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binary_operator",
     "named": true,
     "fields": {
@@ -857,6 +951,22 @@
         "types": [
           {
             "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "blank_line_statement",
+    "named": true,
+    "fields": {
+      "times": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
             "named": true
           }
         ]
@@ -3178,6 +3288,38 @@
     }
   },
   {
+    "type": "end_of_block_statement",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "end_of_screen_statement",
+    "named": true,
+    "fields": {
+      "dynnr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "event_handling",
     "named": true,
     "fields": {
@@ -3680,6 +3822,21 @@
     }
   },
   {
+    "type": "frame_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "title_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "function_call",
     "named": true,
     "fields": {
@@ -3864,6 +4021,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "horizontal_line_statement",
+    "named": true,
+    "fields": {
+      "modif_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "output_position_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -5086,6 +5269,22 @@
     }
   },
   {
+    "type": "nesting_level_spec",
+    "named": true,
+    "fields": {
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "new_expression",
     "named": true,
     "fields": {
@@ -5272,6 +5471,36 @@
           },
           {
             "type": "declaration_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "output_position_spec",
+    "named": true,
+    "fields": {
+      "length": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "position": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
             "named": true
           }
         ]
@@ -6796,6 +7025,45 @@
     }
   },
   {
+    "type": "selection_screen_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "begin_of_block_statement",
+          "named": true
+        },
+        {
+          "type": "begin_of_screen_statement",
+          "named": true
+        },
+        {
+          "type": "begin_of_subscreen_statement",
+          "named": true
+        },
+        {
+          "type": "blank_line_statement",
+          "named": true
+        },
+        {
+          "type": "end_of_block_statement",
+          "named": true
+        },
+        {
+          "type": "end_of_screen_statement",
+          "named": true
+        },
+        {
+          "type": "horizontal_line_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "separator_spec",
     "named": true,
     "fields": {
@@ -7798,6 +8066,30 @@
     }
   },
   {
+    "type": "title_spec",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "try_block",
     "named": true,
     "fields": {},
@@ -8179,6 +8471,11 @@
     }
   },
   {
+    "type": "window_spec",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -8388,6 +8685,10 @@
   },
   {
     "type": "blanks",
+    "named": false
+  },
+  {
+    "type": "block",
     "named": false
   },
   {
@@ -8799,6 +9100,10 @@
     "named": false
   },
   {
+    "type": "frame",
+    "named": false
+  },
+  {
     "type": "friends",
     "named": false
   },
@@ -9109,6 +9414,10 @@
     "named": false
   },
   {
+    "type": "nesting",
+    "named": false
+  },
+  {
     "type": "new",
     "named": false
   },
@@ -9377,6 +9686,10 @@
     "named": false
   },
   {
+    "type": "screen",
+    "named": false
+  },
+  {
     "type": "seam",
     "named": false
   },
@@ -9390,6 +9703,10 @@
   },
   {
     "type": "select-options",
+    "named": false
+  },
+  {
+    "type": "selection-screen",
     "named": false
   },
   {
@@ -9433,6 +9750,10 @@
     "named": false
   },
   {
+    "type": "skip",
+    "named": false
+  },
+  {
     "type": "sorted",
     "named": false
   },
@@ -9458,6 +9779,10 @@
   },
   {
     "type": "submatches",
+    "named": false
+  },
+  {
+    "type": "subscreen",
     "named": false
   },
   {
@@ -9513,6 +9838,10 @@
     "named": false
   },
   {
+    "type": "title",
+    "named": false
+  },
+  {
     "type": "to",
     "named": false
   },
@@ -9530,6 +9859,10 @@
   },
   {
     "type": "types",
+    "named": false
+  },
+  {
+    "type": "uline",
     "named": false
   },
   {
@@ -9590,6 +9923,10 @@
   },
   {
     "type": "while",
+    "named": false
+  },
+  {
+    "type": "window",
     "named": false
   },
   {

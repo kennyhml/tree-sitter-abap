@@ -32,4 +32,6 @@ export default {
     obligatory_spec: _ => kw("obligatory"),
 
     no_display_spec: _ => kw("no-display"),
+
+    no_intervals_spec: _ => seq(...kws("no", "intervals")),
 }

@@ -1,5 +1,5 @@
-/// <reference types="tree-sitter-cli/dsl" />
 import { kw, kws } from '../helpers/keywords.js'
+/// <reference types="tree-sitter-cli/dsl" />
 
 /**
  * Generates a declaration node for the given keyword and specification.

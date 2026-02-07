@@ -144,8 +144,10 @@ export default grammar({
       $.methods_declaration,
       $.class_methods_declaration,
 
+      // Dynpro
       $.parameters_declaration,
       $.select_options_declaration,
+      $.selection_screen_statement,
 
       $.message,
       $.assignment,
@@ -3156,6 +3158,20 @@ export default grammar({
     _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
+    // [[/][pos|POS_LOW|POS_HIGH](len)
+    output_position_spec: $ => repeat1(
+      choice(
+        "/",
+        field("position", choice(
+          $.number,
+          alias(
+            choice("POS_LOW", "POS_HIGH"),
+            $.identifier
+          )
+        )),
+        tightParens(field("length", $.number))
+      )
+    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES_EXPRESSIONS.html
     string_template: $ => seq(
