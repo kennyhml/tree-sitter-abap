@@ -20,7 +20,12 @@
 >
 > **Obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.**
 
-### Why tree-sitter?
+## Design
+As ABAP contains an excessively large number of syntax variants to cover, parts of the grammar are split apart into their own sub-directories
+within the `grammar/` folder and later consolidated into the main `grammar.js`. This allows for cohesive grouping of language features, such
+as Dynpro-, ABAP OO-, and ABAP SQL Elements. Supposedly, it also leads to better context for AI tools (unconfirmed).
+
+## Why tree-sitter?
 Tree-sitter performs **incremental parsing**, making it ideal for working with large or legacy ABAP codebases that often span thousands of lines in a single report. The resulting 
 parser is compiled to **native C**, enabling significantly better performance than typical regex-based parsers (such as TextMate).
 
