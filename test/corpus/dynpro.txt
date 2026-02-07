@@ -5,8 +5,8 @@ PARAMETERS p_carrid TYPE carrid.
 ---
 
 (source
-  (dynpro_parameters_declaration
-    (dynpro_parameter_spec
+  (parameters_declaration
+    (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
         name: (type_identifier)))))
@@ -18,11 +18,14 @@ parameters p_impsip as checkbox default abap_true modif id imp.
 ---
 
 (source
-  (dynpro_parameters_declaration
-    (dynpro_parameter_spec
+  (parameters_declaration
+    (parameters_spec
       name: (identifier)
-      default: (identifier)
-      modif_id: (identifier))))
+      checkbox: (checkbox_spec)
+      default: (default_value_spec
+        value: (identifier))
+      modif_id: (modif_id_spec
+        id: (identifier)))))
 
 ======
 Listbox dynpro parameter
@@ -34,14 +37,18 @@ PARAMETERS p_carrid TYPE carrid
 ---
 
 (source
-  (dynpro_parameters_declaration
-    (dynpro_parameter_spec
+  (parameters_declaration
+    (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
         name: (type_identifier))
-      visible_length: (number)
-      command: (identifier)
-      default: (literal_string))))
+      listbox: (listbox_spec)
+      visible_length: (visible_length_spec
+        length: (number))
+      user_command: (user_command_spec
+        command: (identifier))
+      default: (default_value_spec
+        value: (literal_string)))))
 
 ======
 Radiobutton dynpro chained parameters
@@ -52,15 +59,19 @@ parameters:
 ---
 
 (source
-  (dynpro_parameters_declaration
-    (dynpro_parameter_spec
+  (parameters_declaration
+    (parameters_spec
       name: (identifier)
-      group: (identifier)
-      default: (literal_string))
-    (dynpro_parameter_spec
+      radiobutton: (radiobutton_spec
+        group: (identifier))
+      default: (default_value_spec
+        value: (literal_string)))
+    (parameters_spec
       name: (identifier)
-      group: (identifier)
-      modif_id: (identifier))))
+      radiobutton: (radiobutton_spec
+        group: (identifier))
+      modif_id: (modif_id_spec
+        id: (identifier)))))
 
 ======
 Technical dynpro parmeter formatting
@@ -70,17 +81,20 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
 ---
 
 (source
-  (dynpro_parameters_declaration
-    (dynpro_parameter_spec
+  (parameters_declaration
+    (parameters_spec
       name: (identifier)
       typing: (builtin_type_spec
         name: (type_identifier))
-      visible_length: (number)))
-  (dynpro_parameters_declaration
-    (dynpro_parameter_spec
+      case: (lower_case_spec)
+      visible_length: (visible_length_spec
+        length: (number))))
+  (parameters_declaration
+    (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
-        name: (type_identifier)))))
+        name: (type_identifier))
+      display: (no_display_spec))))
 
 ======
 Dynpro parameters with search help
@@ -89,9 +103,148 @@ PARAMETERS p_cust  TYPE kunnr MATCHCODE OBJECT debi.
 ---
 
 (source
-  (dynpro_parameters_declaration
-    (dynpro_parameter_spec
+  (parameters_declaration
+    (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
         name: (type_identifier))
-      search_help: (identifier))))
+      search_help: (search_help_spec
+        name: (identifier)))))
+
+======
+Simple select-option
+======
+SELECT-OPTIONS s_carrid FOR gv_carrid.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier))))
+
+======
+Select-option with obligatory and default
+======
+SELECT-OPTIONS s_date FOR gv_date OBLIGATORY DEFAULT sy-datum.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (obligatory_spec)
+      (default_value_spec
+        (struct_component_selector
+          (identifier)
+          (identifier))))))
+
+======
+Select-option with complex range default
+======
+SELECT-OPTIONS s_vbeln FOR gv_vbeln DEFAULT '1000' TO '2000' OPTION BT SIGN I.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (default_range_spec
+        (literal_string)
+        (literal_string)))))
+
+======
+Select-option restricted (No intervals)
+======
+SELECT-OPTIONS s_bukrs FOR gv_bukrs NO INTERVALS.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (no_intervals_spec))))
+
+======
+Select-option restricted (No extension)
+======
+SELECT-OPTIONS s_kunnr FOR gv_kunnr NO-EXTENSION NO INTERVALS.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (no_extension_spec)
+      (no_intervals_spec))))
+
+======
+Select-option with search help and memory
+======
+SELECT-OPTIONS s_matnr FOR gv_matnr MEMORY ID mat MATCHCODE OBJECT mat1.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (memory_id_spec
+        (identifier))
+      (search_help_spec
+        (identifier)))))
+
+======
+Select-option with technical formatting
+======
+SELECT-OPTIONS s_id FOR gv_id VISIBLE LENGTH 10 NO-DISPLAY MODIF ID gr1.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (visible_length_spec
+        (number))
+      (no_display_spec)
+      (modif_id_spec
+        (identifier)))))
+
+======
+Select-options chained declaration
+======
+SELECT-OPTIONS: 
+  s_land FOR gv_land OBLIGATORY,
+  s_city FOR gv_city NO-EXTENSION.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (obligatory_spec))
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (no_extension_spec))))
+
+======
+Select-option with lowercase and search help
+======
+SELECT-OPTIONS s_path FOR gv_path LOWER CASE MATCHCODE OBJECT zfile.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      (identifier)
+      (identifier)
+      (lower_case_spec)
+      (search_help_spec
+        (identifier)))))

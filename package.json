@@ -10,6 +10,10 @@
   },
   "main": "bindings/node",
   "types": "bindings/node",
+  "type": "module",
+  "imports": {
+    "#dynpro": "./grammar/dynpro/index.js"
+  },
   "keywords": [
     "incremental",
     "parsing",

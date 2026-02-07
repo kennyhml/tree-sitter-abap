@@ -1,3 +1,6 @@
+import { declaration, declaration_and_spec } from "./grammar/helpers/decl_gen.js";
+import { dynpro_rules } from '#dynpro';
+
 /**
  * @file Abap grammar for tree-sitter
  * @author Kendrick Hommel <kendrick.hommel@gmail.com>
@@ -5,7 +8,7 @@
  */
 
 // Cant be a rule due to priority, need to figure how to handle this better..
-BUFF_SIZE = $ => seq(
+const BUFF_SIZE = $ => seq(
   token.immediate("("),
   field("length", alias(token.immediate(NUMBER_REGEX), $.number)),
   token.immediate(")")
@@ -37,7 +40,7 @@ const PREC = {
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
-module.exports = grammar({
+export default grammar({
   name: "abap",
 
   externals: $ => [
@@ -140,7 +143,9 @@ module.exports = grammar({
       $.class_data_declaration,
       $.methods_declaration,
       $.class_methods_declaration,
-      $.dynpro_parameters_declaration,
+
+      $.parameters_declaration,
+      $.select_options_declaration,
 
       $.message,
       $.assignment,
@@ -195,7 +200,7 @@ module.exports = grammar({
       $.type_case_statement,
       $.do_statement,
       $.while_statement,
-      $.try_statement
+      $.try_statement,
     ),
 
     _class_component: $ => choice(
@@ -210,26 +215,18 @@ module.exports = grammar({
       $._empty_statement,
     ),
 
-    ...generate_decl_specs([
-      { keyword: "data", identifierNode: $ => $.identifier },
-      { keyword: "class-data", identifierNode: $ => $.identifier },
-      { keyword: "constants", identifierNode: $ => $.identifier },
-      { keyword: "types", identifierNode: $ => $._type_identifier },
-      { keyword: "methods", node: $ => choice($.method_spec, $.constructor_spec) },
-      { keyword: "interfaces", node: $ => $.identifier },
+    ...dynpro_rules,
 
-      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS.html
-      { keyword: "class-methods", node: $ => choice($.method_spec, $.constructor_spec) },
+    ...declaration_and_spec("data", $ => $.identifier),
+    ...declaration_and_spec("class-data", $ => $.identifier),
+    ...declaration_and_spec("constants", $ => $.identifier),
+    ...declaration_and_spec("types", $ => $._type_identifier),
 
-      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPALIASES.html
-      { keyword: "aliases", node: $ => $.alias_spec },
-
-      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTABLES.html
-      { keyword: "tables", node: $ => $.identifier },
-
-      // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html
-      { keyword: "parameters", node: $ => $.dynpro_parameter_spec, prefix: "dynpro_" },
-    ]),
+    methods_declaration: $ => declaration("methods", choice($.method_spec, $.constructor_spec)),
+    class_methods_declaration: $ => declaration("class-methods", choice($.method_spec, $.constructor_spec)),
+    interfaces_declaration: $ => declaration("interfaces", $.identifier),
+    aliases_declaration: $ => declaration("aliases", $.alias_spec),
+    tables_declaration: $ => declaration("tables", $.identifier),
 
     _typing: $ => choice(
       $.builtin_type_spec,
@@ -682,7 +679,7 @@ module.exports = grammar({
 
     _comparison_operator: _ => choice(...kws(
       "=", "eq", "<>", "ne", ">", "gt", "<", "lt", ">=", "ge", "<=", "le",
-      "co", "cn", "ca", "na", "cs", "ns", "cp", "np",
+      "co", "cn", "ca", "na", "cs", "ns", "cp", "np", "bt", "nb",
       "byte-co", "byte-cn", "byte-ca", "byte-na", "byte-cs", "byte-ns",
       "o", "z", "m"
     )),
@@ -2409,67 +2406,6 @@ module.exports = grammar({
       $.interface_component_selector
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html
-    dynpro_parameter_spec: $ => seq(
-      field("name", $.identifier),
-      repeat(
-        choice(
-          field("typing", $._typing),
-          $._dynpro_screen_option,
-          $._dynpro_value_option,
-        )
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_SCREEN.html
-    _dynpro_screen_option: $ => choice(
-      choice(...kws("obligatory", "no-display")),
-      $._dynpro_visible_length,
-      $._dynpro_checkbox_spec,
-      $._dynpro_radiobutton_spec,
-      $._dynpro_listbox_spec,
-      $._dynpro_user_command,
-      seq(
-        ...kws("modif", "id"),
-        field("modif_id", $.identifier)
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_VALUE.html
-    _dynpro_value_option: $ => choice(
-      seq(kw("default"), field("default", $.data_object)),
-      seq(...kws("lower", "case")),
-      seq(
-        ...kws("matchcode", "object"),
-        field("search_help", $.identifier)
-      ),
-      seq(...kws("memory", "id"), field("pid", $.identifier)),
-      seq(...kws("value", "check")),
-    ),
-
-    _dynpro_checkbox_spec: $ => seq(
-      ...kws("as", "checkbox"),
-    ),
-
-    _dynpro_radiobutton_spec: $ => seq(
-      ...kws("radiobutton", "group"),
-      field("group", $.identifier),
-    ),
-
-    _dynpro_listbox_spec: $ => seq(
-      ...kws("as", "listbox"),
-    ),
-
-    _dynpro_user_command: $ => seq(
-      kw("user-command"),
-      field("command", $.identifier)
-    ),
-
-    _dynpro_visible_length: $ => seq(
-      ...kws("visible", "length"),
-      field("visible_length", $.number)
-    ),
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
     event_handling: $ => seq(
       ...kws("for", "event"),
@@ -3532,129 +3468,6 @@ function kws(...keywords) { return caseInsensitiveAliased(...keywords) }
 
 function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))
-}
-
-/**
- * Generates a structure specification rule.
- * 
- * This is neat because there are essentially 4 ways to define structures:
- * 
- * 1. TYPES: BEGIN OF foo, [...]
- * 2. DATA BEGIN OF foo. [...]
- * 3. DATA: BEGIN OF foo, [...]
- * 4. TYPES BEGIN OF foo. [...]
- * 
- * @param {string | undefined} keyword The keyword of the struct, either DATA, TYPES or undefined.
- * @param {Rule} identifierNode The identifier type for the structure
- * @param {Rule} componentRule The identifier type for components of the structure
- */
-function structureSpec($, keyword, identifierNode, componentRule) {
-  // If a keyword is present, the separator MUST be a `.`
-  let separator = keyword ? '.' : ',';
-
-  let compRule = seq(alias(componentRule, $.component_spec), separator);
-  let endRule = seq(...kws("end", "of"));
-  if (separator == '.') {
-    compRule.members.unshift(kw(keyword), optional(":"))
-    endRule.members.unshift(kw(keyword), optional(":"));
-  }
-
-  return seq(
-    ...kws("begin", "of"), field("nameOpen", identifierNode),
-    optional(kw("read-only")),
-    separator,
-    // Technically at least one field is required, but this is another one
-    // of those situations where it makes more sense to just let it parse
-    // and pre process the problem.
-    repeat(
-      choice(
-        compRule,
-        seq($.struct_include, separator)
-      )
-    ),
-    endRule, field("nameClose", identifierNode)
-  );
-}
-
-/**
- * Generates declarations and data specs for the given declaration kinds.
- * 
- * There are many different ways to declare, e.g `data`, `types`, `constants`,
- * `class-data`, `statics`.. which are all fundamentally the same and only differ
- * in the preceding keyword and the type of nodes they eventually yield.
- * 
- * This generates the declaration and specification trees for each of the given
- * declaration options to be unpacked into the grammar rules.
- * 
- * @returns A set of rules to be unpacked into the grammar.
- */
-function generate_decl_specs(decl_map) {
-  rules = {}
-
-  function decl(keyword, node, prefix) {
-    const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
-    const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
-
-    rules[decl] = $ => seq(
-      kw(keyword),
-      choice(
-        seq(":", commaSep1(node ? node($) : $[spec])),
-        node ? node($) : $[spec]
-      ),
-      ".");
-  }
-
-  function spec(keyword, identifierNode, prefix) {
-    const name = `${prefix}${keyword.replace("-", "_")}_spec`;
-    const comp = `${prefix}_${keyword.replace("-", "_")}_comp_spec`;
-
-    /**
-     * Regardless of whether a struct is declared using CONSTANTS, TYPES, etc.
-     * the components (fields) that make up the structure should always be
-     * identifier nodes, not const and much less type nodes.
-     * 
-     * Because the keyword at the start of each line still needs to be taken into
-     * consideration, such a helper rule is necessary.
-     */
-    rules[comp] = $ => choice(
-      seq(
-        field("name", $.identifier),
-        optional(field("type", $._typing))
-      ),
-
-      structureSpec($, undefined, $.identifier, $[comp]),
-      structureSpec($, keyword, $.identifier, $[comp]),
-    );
-
-    rules[name] = $ => choice(
-      seq(
-        field("name", identifierNode($)),
-        optional(field("typing", $._typing)),
-      ),
-
-      /**
-       * This technically isnt completely legal since it allows sub structure specs preceded by a DATA
-       * keyword inside a `data:` block, but it is such a niche scenario worth keeping the grammar simpler over.
-       * 
-       * It is however quite important to generate two absolute paths here, because we at least dont want to allow
-       * the old-style struct declaration to be completed mixed into new-style declarations, i.e when the
-       * declaration block starts with DATA [...]., it shouldnt be allowed to have a component inside the
-       * block that does NOT start with DATA.
-       * */
-      structureSpec($, undefined, identifierNode($), $[comp]),
-      structureSpec($, keyword, identifierNode($), $[comp]),
-    );
-  }
-
-  for (const entry of decl_map) {
-    if (entry.identifierNode) {
-      decl(entry.keyword, undefined, entry.prefix ?? "");
-      spec(entry.keyword, entry.identifierNode, entry.prefix ?? "");
-    } else {
-      decl(entry.keyword, entry.node, entry.prefix ?? "");
-    }
-  }
-  return rules;
 }
 
 /**
