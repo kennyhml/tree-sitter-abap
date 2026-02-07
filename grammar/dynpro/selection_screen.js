@@ -15,6 +15,7 @@ export default {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN.html
      */
     __selection_screen_element: $ => choice(
+        // (Visual) screen elements
         $.begin_of_screen_element,
         $.begin_of_subscreen_element,
         $.end_of_screen_element,
@@ -26,11 +27,19 @@ export default {
         $.pushbutton_element,
         $.tab_element,
 
+        // Directives
         $.blank_line_directive,
         $.begin_of_line_directive,
         $.end_of_line_directive,
         $.screen_position_directive,
-        $.function_key_directive
+        $.function_key_directive,
+
+        // Include elements
+        $.include_parameter_directive,
+        $.include_select_option_directive,
+        $.include_comment_directive,
+        $.include_pushbutton_directive,
+        $.include_block_directive
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
@@ -122,8 +131,8 @@ export default {
         kw("comment"),
         field("position", $.output_position_spec),
         choice(
-            field("text", $.__element_text),
-            $.for_select_option_spec
+            field("text", $.__element_text_variable),
+            field("target", $.for_screen_field_spec)
         ),
         repeat(choice(
             field("visible_length", $.visible_length_spec),
@@ -135,7 +144,7 @@ export default {
     pushbutton_element: $ => seq(
         kw("pushbutton"),
         field("position", $.output_position_spec),
-        field("text", $.__element_text),
+        field("text", $.__element_text_variable),
         field("user_command", $.user_command_spec),
         repeat(choice(
             field("visible_length", $.visible_length_spec),
@@ -162,12 +171,61 @@ export default {
         field("number", $.number)
     ),
 
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_PARAM.html
+    include_parameter_directive: $ => seq(
+        ...kws("include", "parameters"),
+        field("name", $.identifier),
+        repeat(choice(
+            field("obligatory", $.obligatory_spec),
+            field("modif_id", $.modif_id_spec),
+        ))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_SELOP.html
+    include_select_option_directive: $ => seq(
+        ...kws("include", "select-options"),
+        field("name", $.identifier),
+        repeat(choice(
+            field("obligatory", $.obligatory_spec),
+            field("intervals", $.no_intervals_spec),
+            field("extensions", $.no_extension_spec),
+            field("modif_id", $.modif_id_spec),
+        ))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_COMNT.html
+    include_comment_directive: $ => seq(
+        ...kws("include", "comment"),
+        field("position", $.output_position_spec),
+        repeat(choice(
+            field("target", $.for_screen_field_spec),
+            field("modif_id", $.modif_id_spec),
+        ))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_PUSHB.html
+    include_pushbutton_directive: $ => seq(
+        ...kws("include", "pushbutton"),
+        field("position", $.output_position_spec),
+        field("text", $.__element_text_variable),
+        repeat(choice(
+            field("user_command", $.user_command_spec),
+            field("modif_id", $.modif_id_spec),
+        ))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_BLOCK.html
+    include_block_directive: $ => seq(
+        ...kws("include", "blocks"),
+        field("block", $.identifier),
+    ),
+
     end_of_line_directive: _ => seq(...kws("end", "of", "line")),
 
-    for_select_option_spec: $ => seq(
-        optional(field("text", $.__element_text)),
+    for_screen_field_spec: $ => seq(
+        optional(field("text", $.__element_text_variable)),
         ...kws("for", "field"),
-        field("target", $.identifier),
+        field("field", $.identifier),
     ),
 
     title_spec: $ => seq(
@@ -207,7 +265,7 @@ export default {
 
     window_spec: _ => seq(...kws("as", "window")),
 
-    __element_text: $ => choice(
+    __element_text_variable: $ => choice(
         $.identifier,
         $.struct_component_selector
     ),

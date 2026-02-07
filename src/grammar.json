@@ -474,22 +474,35 @@
       ]
     },
     "obligatory_spec": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[oO][bB][lL][iI][gG][aA][tT][oO][rR][yY]"
-      },
-      "named": false,
-      "value": "obligatory"
-    },
-    "no_display_spec": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[nN][oO]-[dD][iI][sS][pP][lL][aA][yY]"
-      },
-      "named": false,
-      "value": "no-display"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][bB][lL][iI][gG][aA][tT][oO][rR][yY]"
+          },
+          "named": false,
+          "value": "obligatory"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[oO][fF][fF]"
+              },
+              "named": false,
+              "value": "off"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "no_intervals_spec": {
       "type": "SEQ",
@@ -511,8 +524,43 @@
           },
           "named": false,
           "value": "intervals"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[oO][fF][fF]"
+              },
+              "named": false,
+              "value": "off"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
+    },
+    "no_extension_spec": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[nN][oO]-[eE][xX][tT][eE][nN][sS][iI][oO][nN]"
+      },
+      "named": false,
+      "value": "no-extension"
+    },
+    "no_display_spec": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[nN][oO]-[dD][iI][sS][pP][lL][aA][yY]"
+      },
+      "named": false,
+      "value": "no-display"
     },
     "parameters_declaration": {
       "type": "SEQ",
@@ -1145,15 +1193,6 @@
         }
       ]
     },
-    "no_extension_spec": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[nN][oO]-[eE][xX][tT][eE][nN][sS][iI][oO][nN]"
-      },
-      "named": false,
-      "value": "no-extension"
-    },
     "selection_screen_statement": {
       "type": "SEQ",
       "members": [
@@ -1272,6 +1311,26 @@
         {
           "type": "SYMBOL",
           "name": "function_key_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_parameter_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_select_option_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_comment_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_pushbutton_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_block_directive"
         }
       ]
     },
@@ -1811,12 +1870,16 @@
               "name": "text",
               "content": {
                 "type": "SYMBOL",
-                "name": "__element_text"
+                "name": "__element_text_variable"
               }
             },
             {
-              "type": "SYMBOL",
-              "name": "for_select_option_spec"
+              "type": "FIELD",
+              "name": "target",
+              "content": {
+                "type": "SYMBOL",
+                "name": "for_screen_field_spec"
+              }
             }
           ]
         },
@@ -1871,7 +1934,7 @@
           "name": "text",
           "content": {
             "type": "SYMBOL",
-            "name": "__element_text"
+            "name": "__element_text_variable"
           }
         },
         {
@@ -1993,6 +2056,281 @@
         }
       ]
     },
+    "include_parameter_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][cC][lL][uU][dD][eE]"
+          },
+          "named": false,
+          "value": "include"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][aA][rR][aA][mM][eE][tT][eE][rR][sS]"
+          },
+          "named": false,
+          "value": "parameters"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "obligatory",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "obligatory_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "modif_id",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "modif_id_spec"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "include_select_option_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][cC][lL][uU][dD][eE]"
+          },
+          "named": false,
+          "value": "include"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][eE][lL][eE][cC][tT]-[oO][pP][tT][iI][oO][nN][sS]"
+          },
+          "named": false,
+          "value": "select-options"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "obligatory",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "obligatory_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "intervals",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "no_intervals_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "extensions",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "no_extension_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "modif_id",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "modif_id_spec"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "include_comment_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][cC][lL][uU][dD][eE]"
+          },
+          "named": false,
+          "value": "include"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][oO][mM][mM][eE][nN][tT]"
+          },
+          "named": false,
+          "value": "comment"
+        },
+        {
+          "type": "FIELD",
+          "name": "position",
+          "content": {
+            "type": "SYMBOL",
+            "name": "output_position_spec"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "target",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "for_screen_field_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "modif_id",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "modif_id_spec"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "include_pushbutton_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][cC][lL][uU][dD][eE]"
+          },
+          "named": false,
+          "value": "include"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][uU][sS][hH][bB][uU][tT][tT][oO][nN]"
+          },
+          "named": false,
+          "value": "pushbutton"
+        },
+        {
+          "type": "FIELD",
+          "name": "position",
+          "content": {
+            "type": "SYMBOL",
+            "name": "output_position_spec"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__element_text_variable"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "user_command",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "user_command_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "modif_id",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "modif_id_spec"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "include_block_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[iI][nN][cC][lL][uU][dD][eE]"
+          },
+          "named": false,
+          "value": "include"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[bB][lL][oO][cC][kK][sS]"
+          },
+          "named": false,
+          "value": "blocks"
+        },
+        {
+          "type": "FIELD",
+          "name": "block",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "end_of_line_directive": {
       "type": "SEQ",
       "members": [
@@ -2025,7 +2363,7 @@
         }
       ]
     },
-    "for_select_option_spec": {
+    "for_screen_field_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -2036,7 +2374,7 @@
               "name": "text",
               "content": {
                 "type": "SYMBOL",
-                "name": "__element_text"
+                "name": "__element_text_variable"
               }
             },
             {
@@ -2064,7 +2402,7 @@
         },
         {
           "type": "FIELD",
-          "name": "target",
+          "name": "field",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -2288,7 +2626,7 @@
         }
       ]
     },
-    "__element_text": {
+    "__element_text_variable": {
       "type": "CHOICE",
       "members": [
         {

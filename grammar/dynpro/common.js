@@ -34,9 +34,19 @@ export default {
 
     lower_case_spec: _ => seq(...kws("lower", "case")),
 
-    obligatory_spec: _ => kw("obligatory"),
+    obligatory_spec: _ => seq(
+        kw("obligatory"), optional(kw("off"))
+    ),
+
+    no_intervals_spec: _ => seq(
+        ...kws("no", "intervals"),
+        optional(kw("off"))
+    ),
+
+    no_extension_spec: _ => seq(
+        kw("no-extension"),
+        optional(kw("off"))
+    ),
 
     no_display_spec: _ => kw("no-display"),
-
-    no_intervals_spec: _ => seq(...kws("no", "intervals")),
 }
