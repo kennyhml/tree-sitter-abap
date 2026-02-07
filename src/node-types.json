@@ -1902,6 +1902,54 @@
     }
   },
   {
+    "type": "comment_statement",
+    "named": true,
+    "fields": {
+      "modif_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_select_option_spec",
+          "named": true
+        },
+        {
+          "type": "output_position_spec",
+          "named": true
+        },
+        {
+          "type": "visible_length_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "commit_work_statement",
     "named": true,
     "fields": {}
@@ -3622,6 +3670,36 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "for_select_option_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -7049,6 +7127,10 @@
           "named": true
         },
         {
+          "type": "comment_statement",
+          "named": true
+        },
+        {
           "type": "end_of_block_statement",
           "named": true
         },
@@ -8816,6 +8898,10 @@
     "named": true
   },
   {
+    "type": "comment",
+    "named": false
+  },
+  {
     "type": "commit",
     "named": false
   },
@@ -9065,6 +9151,10 @@
   },
   {
     "type": "fail",
+    "named": false
+  },
+  {
+    "type": "field",
     "named": false
   },
   {

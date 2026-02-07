@@ -339,3 +339,50 @@ selection-screen: begin of screen 100 title text-tt1 as window,
       dynnr: (number))
     (end_of_block_statement
       block: (identifier))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Basic comment
+======
+SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1. 
+---
+
+(source
+  (selection_screen_statement
+    (comment_statement
+      (output_position_spec
+        position: (number)
+        length: (number))
+      text: (identifier)
+      modif_id: (modif_id_spec
+        id: (identifier)))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Comment as label
+======
+SELECTION-SCREEN COMMENT /1(50) for field foo. 
+---
+
+(source
+  (selection_screen_statement
+    (comment_statement
+      (output_position_spec
+        position: (number)
+        length: (number))
+      (for_select_option_spec
+        target: (identifier)))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Comment as label with text
+======
+SELECTION-SCREEN COMMENT /1(50) bar for field foo. 
+---
+
+(source
+  (selection_screen_statement
+    (comment_statement
+      (output_position_spec
+        position: (number)
+        length: (number))
+      (for_select_option_spec
+        text: (identifier)
+        target: (identifier)))))

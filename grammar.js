@@ -3159,7 +3159,7 @@ export default grammar({
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
     // [[/][pos|POS_LOW|POS_HIGH](len)
-    output_position_spec: $ => repeat1(
+    output_position_spec: $ => prec.right(repeat1(
       choice(
         "/",
         field("position", choice(
@@ -3171,7 +3171,7 @@ export default grammar({
         )),
         tightParens(field("length", $.number))
       )
-    ),
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES_EXPRESSIONS.html
     string_template: $ => seq(
