@@ -552,6 +552,7 @@
     "frame"
     "comment"
     "field"
+    "pushbutton"
 
     ; predicates
     "not"

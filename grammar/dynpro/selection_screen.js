@@ -22,15 +22,18 @@ export default {
         $.end_of_block_statement,
         $.blank_line_statement,
         $.horizontal_line_statement,
-        $.comment_statement
+        $.comment_statement,
+        $.pushbutton_statement,
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
     begin_of_screen_statement: $ => seq(
         ...kws("begin", "of", "screen"),
         field("dynnr", $.number),
-        optional($.title_spec),
-        optional($.window_spec)
+        repeat(choice(
+            field("title", $.title_spec),
+            field("window", $.window_spec)
+        ))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_SUBSCREEN.html
@@ -38,8 +41,10 @@ export default {
         ...kws("begin", "of", "screen"),
         field("dynnr", $.number),
         ...kws("as", "subscreen"),
-        optional($.no_intervals_spec),
-        optional($.nesting_level_spec)
+        repeat(choice(
+            field("nesting", $.nesting_level_spec),
+            field("intervals", $.no_intervals_spec),
+        ))
     ),
 
     /**
@@ -54,8 +59,10 @@ export default {
     begin_of_block_statement: $ => seq(
         ...kws("begin", "of", "block"),
         field("block", $.identifier),
-        optional($.frame_spec),
-        optional($.no_intervals_spec),
+        repeat(choice(
+            field("frame", $.frame_spec),
+            field("intervals", $.no_intervals_spec),
+        ))
     ),
 
     end_of_block_statement: $ => seq(
@@ -76,27 +83,36 @@ export default {
         optional(field("modif_id", $.modif_id_spec))
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_ULINE.html
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_COMMENT.html
     comment_statement: $ => seq(
         kw("comment"),
-        $.output_position_spec,
+        field("position", $.output_position_spec),
         choice(
-            field("text", $.__comment_text),
+            field("text", $.__element_text),
             $.for_select_option_spec
         ),
-        optional($.visible_length_spec),
-        optional(field("modif_id", $.modif_id_spec))
+        repeat(choice(
+            field("visible_length", $.visible_length_spec),
+            field("modif_id", $.modif_id_spec)
+        ))
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_COMMENT.html
+    pushbutton_statement: $ => seq(
+        kw("pushbutton"),
+        field("position", $.output_position_spec),
+        field("text", $.__element_text),
+        field("user_command", $.user_command_spec),
+        repeat(choice(
+            field("visible_length", $.visible_length_spec),
+            field("modif_id", $.modif_id_spec)
+        ))
     ),
 
     for_select_option_spec: $ => seq(
-        optional(field("text", $.__comment_text)),
+        optional(field("text", $.__element_text)),
         ...kws("for", "field"),
         field("target", $.identifier),
-    ),
-
-    __comment_text: $ => choice(
-        $.identifier,
-        $.struct_component_selector
     ),
 
     title_spec: $ => seq(
@@ -120,4 +136,8 @@ export default {
 
     window_spec: _ => seq(...kws("as", "window")),
 
+    __element_text: $ => choice(
+        $.identifier,
+        $.struct_component_selector
+    ),
 }

@@ -321,16 +321,16 @@ selection-screen: begin of screen 100 title text-tt1 as window,
   (selection_screen_statement
     (begin_of_screen_statement
       dynnr: (number)
-      (title_spec
+      title: (title_spec
         title: (struct_component_selector
           struct: (identifier)
           comp: (identifier)))
-      (window_spec))
+      window: (window_spec))
     (blank_line_statement
       times: (number))
     (begin_of_block_statement
       block: (identifier)
-      (frame_spec
+      frame: (frame_spec
         (title_spec
           title: (struct_component_selector
             struct: (identifier)
@@ -349,7 +349,7 @@ SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1.
 (source
   (selection_screen_statement
     (comment_statement
-      (output_position_spec
+      position: (output_position_spec
         position: (number)
         length: (number))
       text: (identifier)
@@ -365,7 +365,7 @@ SELECTION-SCREEN COMMENT /1(50) for field foo.
 (source
   (selection_screen_statement
     (comment_statement
-      (output_position_spec
+      position: (output_position_spec
         position: (number)
         length: (number))
       (for_select_option_spec
@@ -380,9 +380,62 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
 (source
   (selection_screen_statement
     (comment_statement
-      (output_position_spec
+      position: (output_position_spec
         position: (number)
         length: (number))
       (for_select_option_spec
         text: (identifier)
         target: (identifier)))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Subscreen definition
+======
+selection-screen: begin of screen 100 as subscreen nesting level 5,
+                end of screen 100.
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_subscreen_statement
+      dynnr: (number)
+      nesting: (nesting_level_spec
+        level: (number)))
+    (end_of_screen_statement
+      dynnr: (number))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Pushbuttons
+======
+SELECTION-SCREEN: 
+  BEGIN OF SCREEN 500 AS WINDOW TITLE title, 
+    PUSHBUTTON 2(10)  but1 USER-COMMAND cli1, 
+    PUSHBUTTON 12(30) but2 USER-COMMAND cli2 
+                           VISIBLE LENGTH 10, 
+  END OF SCREEN 500. 
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_screen_statement
+      dynnr: (number)
+      window: (window_spec)
+      title: (title_spec
+        title: (identifier)))
+    (pushbutton_statement
+      position: (output_position_spec
+        position: (number)
+        length: (number))
+      text: (identifier)
+      user_command: (user_command_spec
+        command: (identifier)))
+    (pushbutton_statement
+      position: (output_position_spec
+        position: (number)
+        length: (number))
+      text: (identifier)
+      user_command: (user_command_spec
+        command: (identifier))
+      visible_length: (visible_length_spec
+        length: (number)))
+    (end_of_screen_statement
+      dynnr: (number))))

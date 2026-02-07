@@ -27,6 +27,11 @@ export default {
         field("name", $.identifier)
     ),
 
+    user_command_spec: $ => seq(
+        kw("user-command"),
+        field("command", $.identifier)
+    ),
+
     lower_case_spec: _ => seq(...kws("lower", "case")),
 
     obligatory_spec: _ => kw("obligatory"),

@@ -42,11 +42,6 @@ export default {
         field("value_check", $.value_check_spec),
     ),
 
-    user_command_spec: $ => seq(
-        kw("user-command"),
-        field("command", $.identifier)
-    ),
-
     radiobutton_spec: $ => seq(
         ...kws("radiobutton", "group"),
         field("group", $.identifier),
