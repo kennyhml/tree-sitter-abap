@@ -453,7 +453,7 @@ SELECTION-SCREEN: COMMENT 40(40) text,
 
 (source
   (selection_screen_statement
-    (begin_of_line_element)
+    (begin_of_line_directive)
     (pushbutton_element
       position: (output_position_spec
         position: (number)
@@ -476,4 +476,46 @@ SELECTION-SCREEN: COMMENT 40(40) text,
         position: (number)
         length: (number))
       text: (identifier))
-    (end_of_line_element)))
+    (end_of_line_directive)))
+
+======
+[DYNPRO // SELECTION-SCREEN] Tabbed block
+======
+SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES, 
+                  TAB (20) button1 USER-COMMAND push1, 
+                  TAB (20) button2 USER-COMMAND push2, 
+                  END OF BLOCK mytab. 
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_tabbed_block_element
+      block: (identifier)
+      lines: (tab_lines_spec
+        number: (number)))
+    (tab_element
+      length: (number)
+      name: (identifier)
+      user_command: (user_command_spec
+        command: (identifier)))
+    (tab_element
+      length: (number)
+      name: (identifier)
+      user_command: (user_command_spec
+        command: (identifier)))
+    (end_of_block_element
+      block: (identifier))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Function keys
+======
+SELECTION-SCREEN: FUNCTION KEY 1,
+                  FUNCTION KEY 2.
+---
+
+(source
+  (selection_screen_statement
+    (function_key_directive
+      number: (number))
+    (function_key_directive
+      number: (number))))

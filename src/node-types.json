@@ -844,7 +844,7 @@
     }
   },
   {
-    "type": "begin_of_line_element",
+    "type": "begin_of_line_directive",
     "named": true,
     "fields": {}
   },
@@ -914,6 +914,42 @@
         "types": [
           {
             "type": "nesting_level_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "begin_of_tabbed_block_element",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "intervals": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
+      },
+      "lines": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tab_lines_spec",
             "named": true
           }
         ]
@@ -2965,6 +3001,32 @@
     }
   },
   {
+    "type": "default_tab_screen_spec",
+    "named": true,
+    "fields": {
+      "dynnr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "default_value_spec",
     "named": true,
     "fields": {
@@ -3387,7 +3449,7 @@
     }
   },
   {
-    "type": "end_of_line_element",
+    "type": "end_of_line_directive",
     "named": true,
     "fields": {}
   },
@@ -4060,6 +4122,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "function_key_directive",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -7231,7 +7309,7 @@
           "named": true
         },
         {
-          "type": "begin_of_line_element",
+          "type": "begin_of_line_directive",
           "named": true
         },
         {
@@ -7240,6 +7318,10 @@
         },
         {
           "type": "begin_of_subscreen_element",
+          "named": true
+        },
+        {
+          "type": "begin_of_tabbed_block_element",
           "named": true
         },
         {
@@ -7255,11 +7337,15 @@
           "named": true
         },
         {
-          "type": "end_of_line_element",
+          "type": "end_of_line_directive",
           "named": true
         },
         {
           "type": "end_of_screen_element",
+          "named": true
+        },
+        {
+          "type": "function_key_directive",
           "named": true
         },
         {
@@ -7272,6 +7358,10 @@
         },
         {
           "type": "screen_position_directive",
+          "named": true
+        },
+        {
+          "type": "tab_element",
           "named": true
         }
       ]
@@ -7973,6 +8063,78 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "tab_element",
+    "named": true,
+    "fields": {
+      "default": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "default_tab_screen_spec",
+            "named": true
+          }
+        ]
+      },
+      "length": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "user_command": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "user_command_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "tab_lines_spec",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -10029,6 +10191,14 @@
   },
   {
     "type": "switch",
+    "named": false
+  },
+  {
+    "type": "tab",
+    "named": false
+  },
+  {
+    "type": "tabbed",
     "named": false
   },
   {
