@@ -4204,8 +4204,8 @@
     "type": "function_key_directive",
     "named": true,
     "fields": {
-      "number": {
-        "multiple": false,
+      "key": {
+        "multiple": true,
         "required": true,
         "types": [
           {
