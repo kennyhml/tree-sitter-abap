@@ -558,8 +558,8 @@
     "tabbed"
     "tab"
     "blocks"
-
-    
+    "ending"
+    "selection-set"
 
     ; predicates
     "not"
@@ -568,8 +568,6 @@
     "assigned"
     "supplied"
 
-
-    
     ; comparison operators
     "eq"
     "ne"

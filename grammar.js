@@ -144,10 +144,7 @@ export default grammar({
       $.methods_declaration,
       $.class_methods_declaration,
 
-      // Dynpro
-      $.parameters_declaration,
-      $.select_options_declaration,
-      $.selection_screen_statement,
+      $._dynpro_statement,
 
       $.message,
       $.assignment,

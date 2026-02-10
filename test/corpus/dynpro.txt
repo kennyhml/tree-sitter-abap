@@ -549,3 +549,23 @@ SELECTION-SCREEN INCLUDE BLOCKS part1.
   (selection_screen_statement
     (include_block_directive
       (identifier))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Call screen statement
+======
+CALL SELECTION-SCREEN '0500' STARTING AT 10 10 
+                             ending at 20 10 
+                             USING SELECTION-SET variant.
+---
+
+(source
+  (call_sel_screen_statement
+    dynnr: (literal_string)
+    starting_at: (starting_at_spec
+      column: (number)
+      line: (number))
+    ending_at: (ending_at_spec
+      column: (number)
+      line: (number))
+    selection_set: (using_selection_set_spec
+      variant: (identifier))))

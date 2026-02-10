@@ -64,15 +64,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "parameters_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "select_options_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "selection_screen_statement"
+          "name": "_dynpro_statement"
         },
         {
           "type": "SYMBOL",
@@ -279,6 +271,27 @@
         {
           "type": "SYMBOL",
           "name": "_empty_statement"
+        }
+      ]
+    },
+    "_dynpro_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "selection_screen_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parameters_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "select_options_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "call_sel_screen_statement"
         }
       ]
     },
@@ -545,13 +558,35 @@
       ]
     },
     "no_extension_spec": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[nN][oO]-[eE][xX][tT][eE][nN][sS][iI][oO][nN]"
-      },
-      "named": false,
-      "value": "no-extension"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[nN][oO]-[eE][xX][tT][eE][nN][sS][iI][oO][nN]"
+          },
+          "named": false,
+          "value": "no-extension"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[oO][fF][fF]"
+              },
+              "named": false,
+              "value": "off"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "no_display_spec": {
       "type": "ALIAS",
@@ -2623,6 +2658,178 @@
           },
           "named": false,
           "value": "window"
+        }
+      ]
+    },
+    "call_sel_screen_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][aA][lL][lL]"
+          },
+          "named": false,
+          "value": "call"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][eE][lL][eE][cC][tT][iI][oO][nN]-[sS][cC][rR][eE][eE][nN]"
+          },
+          "named": false,
+          "value": "selection-screen"
+        },
+        {
+          "type": "FIELD",
+          "name": "dynnr",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "starting_at",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "starting_at_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "ending_at",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "ending_at_spec"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "selection_set",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "using_selection_set_spec"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "starting_at_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][tT][aA][rR][tT][iI][nN][gG]"
+          },
+          "named": false,
+          "value": "starting"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[aA][tT]"
+          },
+          "named": false,
+          "value": "at"
+        },
+        {
+          "type": "FIELD",
+          "name": "column",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "line",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "ending_at_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][iI][nN][gG]"
+          },
+          "named": false,
+          "value": "ending"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[aA][tT]"
+          },
+          "named": false,
+          "value": "at"
+        },
+        {
+          "type": "FIELD",
+          "name": "column",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "line",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "using_selection_set_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[uU][sS][iI][nN][gG]"
+          },
+          "named": false,
+          "value": "using"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][eE][lL][eE][cC][tT][iI][oO][nN]-[sS][eE][tT]"
+          },
+          "named": false,
+          "value": "selection-set"
+        },
+        {
+          "type": "FIELD",
+          "name": "variant",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
         }
       ]
     },

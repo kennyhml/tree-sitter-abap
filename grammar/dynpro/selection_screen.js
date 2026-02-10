@@ -265,6 +265,49 @@ export default {
 
     window_spec: _ => seq(...kws("as", "window")),
 
+    /**
+     * CALL SELECTION-SCREEN dynnr 
+     *      [STARTING AT col1 lin1 
+     *      [ENDING   AT col2 lin2]] 
+     *      [USING SELECTION-SET variant].
+     */
+    call_sel_screen_statement: $ => seq(
+        ...kws("call", "selection-screen"),
+        field("dynnr", $.data_object),
+        repeat(choice(
+            field("starting_at", $.starting_at_spec),
+            field("ending_at", $.ending_at_spec),
+            field("selection_set", $.using_selection_set_spec)
+        ))
+
+    ),
+
+    /**
+     * Addition ...[STARTING AT col2 lin2] {@link call_sel_screen_statement}
+     */
+    starting_at_spec: $ => seq(
+        ...kws("starting", "at"),
+        field("column", $.data_object),
+        field("line", $.data_object),
+    ),
+
+    /**
+     * Addition ...[ENDING AT col2 lin2] {@link call_sel_screen_statement}
+     */
+    ending_at_spec: $ => seq(
+        ...kws("ending", "at"),
+        field("column", $.data_object),
+        field("line", $.data_object),
+    ),
+
+    /**
+     * Addition ... USING SELECTION-SET variant of {@link call_sel_screen_statement}
+     */
+    using_selection_set_spec: $ => seq(
+        ...kws("using", "selection-set"),
+        field("variant", $.data_object),
+    ),
+
     __element_text_variable: $ => choice(
         $.identifier,
         $.struct_component_selector
