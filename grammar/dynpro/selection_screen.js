@@ -1,6 +1,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
 import { kw, kws } from '../helpers/keywords.js'
-import { chainable, chained } from '../helpers/decl_gen.js'
+import { chainable, chainable_immediate } from '../helpers/decl_gen.js'
 
 // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselection-screen.html
 export default {
@@ -44,7 +44,7 @@ export default {
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
     begin_of_screen_element: $ => prec.right(seq(
         ...kws("begin", "of", "screen"),
-        chained(choice($.screen_spec, $.subscreen_spec))
+        chainable_immediate(choice($.screen_spec, $.subscreen_spec))
     )),
 
     // Inner spec of a screen element to support chaining.
@@ -67,8 +67,13 @@ export default {
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_TABBED.html
-    begin_of_tabbed_block_element: $ => seq(
+    begin_of_tabbed_block_element: $ => prec.right(seq(
         ...kws("begin", "of", "tabbed", "block"),
+        chainable_immediate($.tabbed_block_spec)
+    )),
+
+    // Inner spec of a tabbed block element to support chaining.
+    tabbed_block_spec: $ => seq(
         field("block", $.identifier),
         field("lines", $.tab_lines_spec),
         optional(field("intervals", $.no_intervals_spec)),
