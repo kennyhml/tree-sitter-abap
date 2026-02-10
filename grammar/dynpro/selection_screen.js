@@ -108,18 +108,22 @@ export default {
         ))
     ),
 
-
     /**
      * Closes a {@link begin_of_screen_element} or {@link begin_of_subscreen_statement}
      */
-    end_of_screen_element: $ => seq(
+    end_of_screen_element: $ => prec.right(seq(
         ...kws("end", "of", "screen"),
-        field("dynnr", $.number),
-    ),
+        chainable_immediate(field("dynnr", $.number))
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_BLOCK.html
-    begin_of_block_element: $ => seq(
+    begin_of_block_element: $ => prec.right(seq(
         ...kws("begin", "of", "block"),
+        chainable_immediate($.block_spec)
+    )),
+
+    // Inner spec of a block element to support chaining.
+    block_spec: $ => seq(
         field("block", $.identifier),
         repeat(choice(
             field("frame", $.frame_spec),
@@ -130,27 +134,39 @@ export default {
     /**
      * Closes a {@link begin_of_block_element} or {@link begin_of_tabbed_block_element}.
      */
-    end_of_block_element: $ => seq(
+    end_of_block_element: $ => prec.right(seq(
         ...kws("end", "of", "block"),
-        field("block", $.identifier),
-    ),
+        chainable_immediate(field("block", $.identifier)),
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_SKIP.html
-    blank_line_directive: $ => seq(
+    blank_line_directive: $ => prec.right(seq(
         kw("skip"),
-        optional(field("times", $.number))
-    ),
+        optional(chainable_immediate(field("times", $.number)))
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_ULINE.html
-    horizontal_line_element: $ => seq(
+    horizontal_line_element: $ => prec.right(seq(
         kw("uline"),
-        optional($.output_position_spec),
-        optional(field("modif_id", $.modif_id_spec))
+        optional(chainable_immediate($.uline_spec))
+    )),
+
+    // Inner spec of a uline element to support chaining.
+    uline_spec: $ => repeat1(
+        choice(
+            $.output_position_spec,
+            field("modif_id", $.modif_id_spec)
+        )
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_COMMENT.html
-    comment_element: $ => seq(
+    comment_element: $ => prec.right(seq(
         kw("comment"),
+        chainable_immediate($.comment_spec)
+    )),
+
+    // Inner spec of a block element to support chaining.
+    comment_spec: $ => seq(
         field("position", $.output_position_spec),
         choice(
             field("text", $.__element_text_variable),
