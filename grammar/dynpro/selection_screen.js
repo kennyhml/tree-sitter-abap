@@ -82,11 +82,24 @@ export default {
     /**
      * Tab element (button) of a tabbed block.
      * 
+     * [SELECTION-SCREEN TAB (len) tab USER-COMMAND fcode 
+     *      [DEFAULT [PROGRAM prog] SCREEN dynnr] 
+     *      [MODIF ID modid] 
+     *      [ldb_additions].] 
+     * 
      * Refer to {@link begin_of_tabbed_block_element}
      */
-    tab_element: $ => seq(
+    tab_element: $ => prec.right(seq(
         kw("tab"),
-        "(", field("length", $._immediate_number), token.immediate(")"),
+        chainable_immediate($.tab_spec)
+    )),
+
+    // Inner spec of a tab element to support chaining.
+    tab_spec: $ => seq(
+        "(",
+        field("length", $._immediate_number),
+        token.immediate(")"),
+
         field("name", $.identifier),
         field("user_command", $.user_command_spec),
         repeat(choice(
@@ -94,6 +107,7 @@ export default {
             field("modif_id", $.modif_id_spec),
         ))
     ),
+
 
     /**
      * Closes a {@link begin_of_screen_element} or {@link begin_of_subscreen_statement}
