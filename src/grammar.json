@@ -1559,44 +1559,91 @@
       ]
     },
     "begin_of_tabbed_block_element": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[bB][eE][gG][iI][nN]"
+            },
+            "named": false,
+            "value": "begin"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[oO][fF]"
+            },
+            "named": false,
+            "value": "of"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[tT][aA][bB][bB][eE][dD]"
+            },
+            "named": false,
+            "value": "tabbed"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[bB][lL][oO][cC][kK]"
+            },
+            "named": false,
+            "value": "block"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ":"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "tabbed_block_spec"
+                  },
+                  {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": ","
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "tabbed_block_spec"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "tabbed_block_spec"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "tabbed_block_spec": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[bB][eE][gG][iI][nN]"
-          },
-          "named": false,
-          "value": "begin"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[oO][fF]"
-          },
-          "named": false,
-          "value": "of"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[tT][aA][bB][bB][eE][dD]"
-          },
-          "named": false,
-          "value": "tabbed"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[bB][lL][oO][cC][kK]"
-          },
-          "named": false,
-          "value": "block"
-        },
         {
           "type": "FIELD",
           "name": "block",

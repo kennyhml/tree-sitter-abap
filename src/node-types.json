@@ -874,37 +874,16 @@
   {
     "type": "begin_of_tabbed_block_element",
     "named": true,
-    "fields": {
-      "block": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "intervals": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
-            "named": true
-          }
-        ]
-      },
-      "lines": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "tab_lines_spec",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tabbed_block_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8462,6 +8441,42 @@
         "types": [
           {
             "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "tabbed_block_spec",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "intervals": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
+      },
+      "lines": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tab_lines_spec",
             "named": true
           }
         ]

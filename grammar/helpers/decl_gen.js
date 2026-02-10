@@ -43,7 +43,7 @@ export function chainable(keyword, spec) {
  * a declaration initiated by a single keyword or no statement terminator is
  * strictly required.
  */
-export function chained(spec) {
+export function chainable_immediate(spec) {
     return choice(
         seq(":", spec, repeat(seq(",", spec))),
         spec
