@@ -258,9 +258,10 @@ SELECTION-SCREEN ULINE /10(20).
 (source
   (selection_screen_statement
     (horizontal_line_element
-      (output_position_spec
-        position: (number)
-        length: (number)))))
+      (uline_spec
+        (output_position_spec
+          position: (number)
+          length: (number))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] POS_HIGH/LOW horzizonal line
@@ -272,14 +273,16 @@ SELECTION-SCREEN ULINE POS_LOW(10).
 (source
   (selection_screen_statement
     (horizontal_line_element
-      (output_position_spec
-        position: (identifier)
-        length: (number))))
+      (uline_spec
+        (output_position_spec
+          position: (identifier)
+          length: (number)))))
   (selection_screen_statement
     (horizontal_line_element
-      (output_position_spec
-        position: (identifier)
-        length: (number)))))
+      (uline_spec
+        (output_position_spec
+          position: (identifier)
+          length: (number))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Empty horzizonal line
@@ -290,14 +293,16 @@ SELECTION-SCREEN ULINE MODIF ID lin.
 (source
   (selection_screen_statement
     (horizontal_line_element
-      modif_id: (modif_id_spec
-        id: (identifier)))))
+      (uline_spec
+        modif_id: (modif_id_spec
+          id: (identifier))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Blank lines
 ======
 SELECTION-SCREEN SKIP.
 SELECTION-SCREEN SKIP 10.
+selection-screen skip: 5, 3, 1.
 ---
 
 (source
@@ -305,6 +310,11 @@ SELECTION-SCREEN SKIP 10.
     (blank_line_directive))
   (selection_screen_statement
     (blank_line_directive
+      times: (number)))
+  (selection_screen_statement
+    (blank_line_directive
+      times: (number)
+      times: (number)
       times: (number))))
 
 ======
@@ -330,12 +340,13 @@ selection-screen: begin of screen 100 title text-tt1 as window,
     (blank_line_directive
       times: (number))
     (begin_of_block_element
-      block: (identifier)
-      frame: (frame_spec
-        (title_spec
-          title: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))))
+      (block_spec
+        block: (identifier)
+        frame: (frame_spec
+          (title_spec
+            title: (struct_component_selector
+              struct: (identifier)
+              comp: (identifier))))))
     (end_of_screen_element
       dynnr: (number))
     (end_of_block_element
@@ -368,12 +379,13 @@ SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1.
 (source
   (selection_screen_statement
     (comment_element
-      position: (output_position_spec
-        position: (number)
-        length: (number))
-      text: (identifier)
-      modif_id: (modif_id_spec
-        id: (identifier)))))
+      (comment_spec
+        position: (output_position_spec
+          position: (number)
+          length: (number))
+        text: (identifier)
+        modif_id: (modif_id_spec
+          id: (identifier))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Comment as label
@@ -384,11 +396,12 @@ SELECTION-SCREEN COMMENT /1(50) for field foo.
 (source
   (selection_screen_statement
     (comment_element
-      position: (output_position_spec
-        position: (number)
-        length: (number))
-      target: (for_screen_field_spec
-        field: (identifier)))))
+      (comment_spec
+        position: (output_position_spec
+          position: (number)
+          length: (number))
+        target: (for_screen_field_spec
+          field: (identifier))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Comment as label with text
@@ -399,12 +412,13 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
 (source
   (selection_screen_statement
     (comment_element
-      position: (output_position_spec
-        position: (number)
-        length: (number))
-      target: (for_screen_field_spec
-        text: (identifier)
-        field: (identifier)))))
+      (comment_spec
+        position: (output_position_spec
+          position: (number)
+          length: (number))
+        target: (for_screen_field_spec
+          text: (identifier)
+          field: (identifier))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Subscreen definition
@@ -493,10 +507,11 @@ SELECTION-SCREEN: COMMENT 40(40) text,
         length: (number))))
   (selection_screen_statement
     (comment_element
-      position: (output_position_spec
-        position: (number)
-        length: (number))
-      text: (identifier))
+      (comment_spec
+        position: (output_position_spec
+          position: (number)
+          length: (number))
+        text: (identifier)))
     (end_of_line_directive)))
 
 ======
