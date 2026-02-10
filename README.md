@@ -5,20 +5,52 @@
 > This grammar is designed to parse a **superset** of valid ABAP syntax. Its goal is to produce a concrete syntax tree (CST) suitable 
 > for code analysis and syntax highlighting, without over-restricting the grammar to perfectly valid ABAP forms.  
 >
-> In other words, it is intentionally **permissive**. For example, the following is invalid ABAP but will still be parsed:
->
-> ```abap
-> types foo type i value 10.
-> ```
-> Additionally, purely in terms of syntax analysis, problems with ambiguity can exist. Consider the following expression:
-> ```abap
-> new bar( 'Hello World' )
-> ```
-> It's impossible to know whether the constructor of the class `bar` is being invoked or if a char-like anonymous data object is being created on the heap.
-> This could only be determined by having context of the codebase and knowing the concrete type of `bar`. For this reason, the parser outputs a fairly
-> generic `argument_list`. If further detail is required, a semantic analysis is needed (with access to things such as the DDIC).
->
-> **Obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.**
+> In other words, it is intentionally **permissive**.
+
+## Limitations
+ABAP is a very unique language in many ways and, likely due to its long history, is often very difficult to parse.
+### Ambiguity
+Consider the following expression:
+```abap
+new bar( 'Hello World' )
+```
+It's impossible to know whether the constructor of the class `bar` is being invoked or if a char-like anonymous data object is being created.
+This could only be determined by having context of the codebase and knowing the concrete type of `bar`. For this reason, the parser outputs a fairly
+generic `argument_list`. If further detail is required, a semantic analysis is needed (with access to things such as the DDIC).
+
+### Keyword chaining
+You're likely aware that you can chain e.g data object declarations:
+```abap
+data: foo type i, bar type string, baz type zmytab.
+```
+This is easily supported. However, chaining is far more dynamic than many are aware of.
+The following statement:
+```abap
+replace all occurrences of foo in bar with ''.
+replace all occurrences of foo in baz with ''.
+```
+Can also be expressed, without changing the effects, as **any** of these variation:
+```abap
+replace all occurrences of foo in: bar with '', baz with ''.
+replace all occurrences of foo: in bar with '', in baz with ''.
+replace all occurrences: of foo in bar with '', of foo in baz with ''.
+replace all: occurrences of foo in bar with '', occurrences of foo in baz with ''.
+replace: all occurrences of foo in bar with '', all occurrences of foo in baz with ''.
+```
+You get the gist, ABAP effectively yanks everything before the `:` and inserts it before each comma seperated section after it.
+Needless to say, this isnt only annoying to parse but practically impossible, as
+- All the possible variations, even if the permutations are generated, would massively blow up the parsers internal state count
+- You can no longer assign nodes in the resulting CST a meaningful grouping, as context may be split.
+- Due to the unclear grouping of tokens, its not feasible to preprocess the code to make parsing easier.
+
+As a result, the grammar makes an effort to support chained statements where they often times used. For example, when declaring
+a structure type or defining dynpro parameters. Excessively using this "quirk" has been discouraged for a long time and tools 
+such as the official ABAP Formatter provide the ability to transform such statements into their longform (and proper) variant.
+
+## Obsolete Language Elements
+Many obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.
+Some language elements that are still commonly found in On Premise / Private Cloud Systems may be supported despite officially marked as obsolete - 
+for example the addition `IN BACKGROUND TASK` of a function call.
 
 ## Design
 As ABAP contains an excessively large number of syntax variants to cover, parts of the grammar are split apart into their own sub-directories
