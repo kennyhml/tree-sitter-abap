@@ -166,10 +166,17 @@ export default {
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_FUNCTIONKEY.html
      */
-    function_key_directive: $ => seq(
+    function_key_directive: $ => prec.left(seq(
         ...kws("function", "key"),
-        field("number", $.number)
-    ),
+        choice(
+            // function key: 1, 2...
+            seq(
+                ":",
+                commaSep1(field("key", $.number)),
+            ),
+            field("key", $.number)
+        ),
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_PARAM.html
     include_parameter_directive: $ => seq(
@@ -312,4 +319,8 @@ export default {
         $.identifier,
         $.struct_component_selector
     ),
+}
+
+function commaSep1(rule) {
+    return seq(rule, repeat(seq(',', rule)))
 }

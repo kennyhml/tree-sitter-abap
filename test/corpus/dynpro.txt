@@ -516,9 +516,21 @@ SELECTION-SCREEN: FUNCTION KEY 1,
 (source
   (selection_screen_statement
     (function_key_directive
-      number: (number))
+      key: (number))
     (function_key_directive
-      number: (number))))
+      key: (number))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Multiple function keys
+======
+selection-screen function key: 1, 2.
+---
+
+(source
+  (selection_screen_statement
+    (function_key_directive
+      key: (number)
+      key: (number))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Include directives
