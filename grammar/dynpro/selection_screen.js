@@ -17,7 +17,6 @@ export default {
     __selection_screen_element: $ => choice(
         // (Visual) screen elements
         $.begin_of_screen_element,
-        $.begin_of_subscreen_element,
         $.end_of_screen_element,
         $.begin_of_block_element,
         $.end_of_block_element,
@@ -45,7 +44,7 @@ export default {
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
     begin_of_screen_element: $ => prec.right(seq(
         ...kws("begin", "of", "screen"),
-        chained($.screen_spec)
+        chained(choice($.screen_spec, $.subscreen_spec))
     )),
 
     // Inner spec of a screen element to support chaining.
@@ -57,9 +56,8 @@ export default {
         ))
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_SUBSCREEN.html
-    begin_of_subscreen_element: $ => seq(
-        ...kws("begin", "of", "screen"),
+    // Inner spec of a subscreen element to support chaining.
+    subscreen_spec: $ => seq(
         field("dynnr", $.number),
         ...kws("as", "subscreen"),
         repeat(choice(

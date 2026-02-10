@@ -415,10 +415,11 @@ selection-screen: begin of screen 100 as subscreen nesting level 5,
 
 (source
   (selection_screen_statement
-    (begin_of_subscreen_element
-      dynnr: (number)
-      nesting: (nesting_level_spec
-        level: (number)))
+    (begin_of_screen_element
+      (subscreen_spec
+        dynnr: (number)
+        nesting: (nesting_level_spec
+          level: (number))))
     (end_of_screen_element
       dynnr: (number))))
 

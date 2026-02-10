@@ -863,44 +863,12 @@
         {
           "type": "screen_spec",
           "named": true
+        },
+        {
+          "type": "subscreen_spec",
+          "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "begin_of_subscreen_element",
-    "named": true,
-    "fields": {
-      "dynnr": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "intervals": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
-            "named": true
-          }
-        ]
-      },
-      "nesting": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "nesting_level_spec",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -7602,10 +7570,6 @@
           "named": true
         },
         {
-          "type": "begin_of_subscreen_element",
-          "named": true
-        },
-        {
           "type": "begin_of_tabbed_block_element",
           "named": true
         },
@@ -8282,6 +8246,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "subscreen_spec",
+    "named": true,
+    "fields": {
+      "dynnr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "intervals": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
+      },
+      "nesting": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "nesting_level_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
