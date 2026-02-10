@@ -8378,6 +8378,37 @@
   {
     "type": "tab_element",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tab_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tab_lines_spec",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "tab_spec",
+    "named": true,
     "fields": {
       "default": {
         "multiple": true,
@@ -8425,22 +8456,6 @@
         "types": [
           {
             "type": "user_command_spec",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "tab_lines_spec",
-    "named": true,
-    "fields": {
-      "number": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
             "named": true
           }
         ]

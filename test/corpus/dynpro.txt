@@ -516,17 +516,40 @@ SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES,
         lines: (tab_lines_spec
           number: (number))))
     (tab_element
-      length: (number)
-      name: (identifier)
-      user_command: (user_command_spec
-        command: (identifier)))
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        user_command: (user_command_spec
+          command: (identifier))))
     (tab_element
-      length: (number)
-      name: (identifier)
-      user_command: (user_command_spec
-        command: (identifier)))
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        user_command: (user_command_spec
+          command: (identifier))))
     (end_of_block_element
       block: (identifier))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Chained tab block elements.
+======
+selection-screen TAB: (20) button1 USER-COMMAND push1,
+                      (20) button2 USER-COMMAND push2.
+---
+
+(source
+  (selection_screen_statement
+    (tab_element
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        user_command: (user_command_spec
+          command: (identifier)))
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        user_command: (user_command_spec
+          command: (identifier))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Function keys
