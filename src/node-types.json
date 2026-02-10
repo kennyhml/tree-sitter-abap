@@ -855,37 +855,16 @@
   {
     "type": "begin_of_screen_element",
     "named": true,
-    "fields": {
-      "dynnr": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "title": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "title_spec",
-            "named": true
-          }
-        ]
-      },
-      "window": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "window_spec",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "screen_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7328,6 +7307,42 @@
         "types": [
           {
             "type": "output_position_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "screen_spec",
+    "named": true,
+    "fields": {
+      "dynnr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "title_spec",
+            "named": true
+          }
+        ]
+      },
+      "window": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "window_spec",
             "named": true
           }
         ]
