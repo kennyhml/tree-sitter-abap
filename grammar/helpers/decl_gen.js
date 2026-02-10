@@ -39,6 +39,18 @@ export function chainable(keyword, spec) {
 }
 
 /**
+ * Lightweight variant of {@link chainable} useful when the statement is not
+ * a declaration initiated by a single keyword or no statement terminator is
+ * strictly required.
+ */
+export function chained(spec) {
+    return choice(
+        seq(":", spec, repeat(seq(",", spec))),
+        spec
+    )
+}
+
+/**
  * Serves the same purpose as {@link generate_decl}, except that in this case
  * the specification itself is generated and handles the different ways to
  * declare data/type object and structures.

@@ -308,10 +308,10 @@ SELECTION-SCREEN SKIP 10.
       times: (number))))
 
 ======
-[DYNPRO // SELECTION-SCREEN] Chained begin/end of screen/block
+[DYNPRO // SELECTION-SCREEN] Begin/end of screen/block
 ======
 selection-screen: begin of screen 100 title text-tt1 as window,
-				  skip 10,
+				          skip 10,
                   begin of block block with frame title text-tt2,
                   end of screen 100,
                   end of block block.
@@ -320,12 +320,13 @@ selection-screen: begin of screen 100 title text-tt1 as window,
 (source
   (selection_screen_statement
     (begin_of_screen_element
-      dynnr: (number)
-      title: (title_spec
-        title: (struct_component_selector
-          struct: (identifier)
-          comp: (identifier)))
-      window: (window_spec))
+      (screen_spec
+        dynnr: (number)
+        title: (title_spec
+          title: (struct_component_selector
+            struct: (identifier)
+            comp: (identifier)))
+        window: (window_spec)))
     (blank_line_directive
       times: (number))
     (begin_of_block_element
@@ -339,6 +340,24 @@ selection-screen: begin of screen 100 title text-tt1 as window,
       dynnr: (number))
     (end_of_block_element
       block: (identifier))))
+
+======
+[DYNPRO // SELECTION-SCREEN] Chained screen specifications
+======
+SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_screen_element
+      (screen_spec
+        dynnr: (number)
+        window: (window_spec)
+        title: (title_spec
+          title: (identifier)))
+      (screen_spec
+        dynnr: (number)
+        window: (window_spec)))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Basic comment
@@ -417,10 +436,11 @@ SELECTION-SCREEN:
 (source
   (selection_screen_statement
     (begin_of_screen_element
-      dynnr: (number)
-      window: (window_spec)
-      title: (title_spec
-        title: (identifier)))
+      (screen_spec
+        dynnr: (number)
+        window: (window_spec)
+        title: (title_spec
+          title: (identifier))))
     (pushbutton_element
       position: (output_position_spec
         position: (number)

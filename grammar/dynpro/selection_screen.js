@@ -1,6 +1,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
 import { kw, kws } from '../helpers/keywords.js'
-import { chainable } from '../helpers/decl_gen.js'
+import { chainable, chained } from '../helpers/decl_gen.js'
 
 // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselection-screen.html
 export default {
@@ -43,8 +43,13 @@ export default {
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
-    begin_of_screen_element: $ => seq(
+    begin_of_screen_element: $ => prec.right(seq(
         ...kws("begin", "of", "screen"),
+        chained($.screen_spec)
+    )),
+
+    // Inner spec of a screen element to support chaining.
+    screen_spec: $ => seq(
         field("dynnr", $.number),
         repeat(choice(
             field("title", $.title_spec),
