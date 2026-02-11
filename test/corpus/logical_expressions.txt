@@ -9,3 +9,19 @@ check gt_queue_requests[] is initial.
     condition: (predicate_expression
       (table_body_access
         table: (identifier)))))
+
+======
+[LOGICAL-EXPRESSIONS]: Initial check on method
+======
+check is_transport_in_queue( <lv_transport_2_import> ) is initial.
+---
+
+(source
+  (check_statement
+    condition: (predicate_expression
+      (builtin_function_call
+        name: (identifier)
+        (call_argument_list
+          exporting: (positional_argument
+            value: (field_symbol
+              name: (identifier))))))))

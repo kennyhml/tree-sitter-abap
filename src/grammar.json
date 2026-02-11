@@ -8583,7 +8583,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "named_data_object"
+              "name": "general_expression"
             },
             {
               "type": "ALIAS",
@@ -8627,7 +8627,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "named_data_object"
+              "name": "general_expression"
             },
             {
               "type": "ALIAS",
@@ -8671,7 +8671,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "named_data_object"
+              "name": "general_expression"
             },
             {
               "type": "ALIAS",
@@ -8724,7 +8724,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "named_data_object"
+              "name": "general_expression"
             },
             {
               "type": "ALIAS",
@@ -8768,7 +8768,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "named_data_object"
+              "name": "general_expression"
             },
             {
               "type": "ALIAS",
