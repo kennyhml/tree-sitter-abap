@@ -67,13 +67,12 @@ export default {
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_TABBED.html
-    begin_of_tabbed_block_element: $ => prec.right(seq(
+    begin_of_tabbed_block_element: $ => seq(
         ...kws("begin", "of", "tabbed", "block"),
-        chainable_immediate($.tabbed_block_spec)
-    )),
+        $.__tabbed_block_spec
+    ),
 
-    // Inner spec of a tabbed block element to support chaining.
-    tabbed_block_spec: $ => seq(
+    __tabbed_block_spec: $ => seq(
         field("block", $.identifier),
         field("lines", $.tab_lines_spec),
         optional(field("intervals", $.no_intervals_spec)),
@@ -119,11 +118,10 @@ export default {
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_BLOCK.html
     begin_of_block_element: $ => prec.right(seq(
         ...kws("begin", "of", "block"),
-        chainable_immediate($.block_spec)
+        $.__block_spec
     )),
 
-    // Inner spec of a block element to support chaining.
-    block_spec: $ => seq(
+    __block_spec: $ => seq(
         field("block", $.identifier),
         repeat(choice(
             field("frame", $.frame_spec),
@@ -146,13 +144,12 @@ export default {
     )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_ULINE.html
-    horizontal_line_element: $ => prec.right(seq(
+    horizontal_line_element: $ => seq(
         kw("uline"),
-        optional(chainable_immediate($.uline_spec))
-    )),
+        $.__uline_spec
+    ),
 
-    // Inner spec of a uline element to support chaining.
-    uline_spec: $ => repeat1(
+    __uline_spec: $ => repeat1(
         choice(
             $.output_position_spec,
             field("modif_id", $.modif_id_spec)

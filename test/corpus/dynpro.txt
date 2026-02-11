@@ -258,10 +258,9 @@ SELECTION-SCREEN ULINE /10(20).
 (source
   (selection_screen_statement
     (horizontal_line_element
-      (uline_spec
-        (output_position_spec
-          position: (number)
-          length: (number))))))
+      (output_position_spec
+        position: (number)
+        length: (number)))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] POS_HIGH/LOW horzizonal line
@@ -273,16 +272,14 @@ SELECTION-SCREEN ULINE POS_LOW(10).
 (source
   (selection_screen_statement
     (horizontal_line_element
-      (uline_spec
-        (output_position_spec
-          position: (identifier)
-          length: (number)))))
+      (output_position_spec
+        position: (identifier)
+        length: (number))))
   (selection_screen_statement
     (horizontal_line_element
-      (uline_spec
-        (output_position_spec
-          position: (identifier)
-          length: (number))))))
+      (output_position_spec
+        position: (identifier)
+        length: (number)))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Empty horzizonal line
@@ -293,9 +290,8 @@ SELECTION-SCREEN ULINE MODIF ID lin.
 (source
   (selection_screen_statement
     (horizontal_line_element
-      (uline_spec
-        modif_id: (modif_id_spec
-          id: (identifier))))))
+      modif_id: (modif_id_spec
+        id: (identifier)))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Blank lines
@@ -340,13 +336,12 @@ selection-screen: begin of screen 100 title text-tt1 as window,
     (blank_line_directive
       times: (number))
     (begin_of_block_element
-      (block_spec
-        block: (identifier)
-        frame: (frame_spec
-          (title_spec
-            title: (struct_component_selector
-              struct: (identifier)
-              comp: (identifier))))))
+      block: (identifier)
+      frame: (frame_spec
+        (title_spec
+          title: (struct_component_selector
+            struct: (identifier)
+            comp: (identifier)))))
     (end_of_screen_element
       dynnr: (number))
     (end_of_block_element
@@ -526,10 +521,9 @@ SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES,
 (source
   (selection_screen_statement
     (begin_of_tabbed_block_element
-      (tabbed_block_spec
-        block: (identifier)
-        lines: (tab_lines_spec
-          number: (number))))
+      block: (identifier)
+      lines: (tab_lines_spec
+        number: (number)))
     (tab_element
       (tab_spec
         length: (number)
