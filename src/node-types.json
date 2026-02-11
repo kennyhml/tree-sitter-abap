@@ -6470,7 +6470,7 @@
       "required": true,
       "types": [
         {
-          "type": "named_data_object",
+          "type": "general_expression",
           "named": true
         }
       ]

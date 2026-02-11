@@ -677,15 +677,15 @@ export default grammar({
     // NOTE: Not all general expressions apparently? The docs are kind of vague here..
     predicate_expression: $ => choice(
       // operand
-      seq($.named_data_object, kw("is"), optional(kw("not")), kw("initial")),
+      seq($.general_expression, kw("is"), optional(kw("not")), kw("initial")),
       // ref
-      seq($.named_data_object, kw("is"), optional(kw("not")), kw("bound")),
+      seq($.general_expression, kw("is"), optional(kw("not")), kw("bound")),
       // oref
-      seq($.named_data_object, kw("is"), optional(kw("not")), kw("instance"), kw("of")),
+      seq($.general_expression, kw("is"), optional(kw("not")), kw("instance"), kw("of")),
       // <fs>
-      seq($.named_data_object, kw("is"), optional(kw("not")), kw("assigned")),
+      seq($.general_expression, kw("is"), optional(kw("not")), kw("assigned")),
       // parameter
-      seq($.named_data_object, kw("is"), optional(kw("not")), kw("supplied")),
+      seq($.general_expression, kw("is"), optional(kw("not")), kw("supplied")),
     ),
 
     _comparison_operator: _ => choice(...kws(
