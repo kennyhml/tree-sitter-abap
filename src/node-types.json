@@ -814,16 +814,37 @@
   {
     "type": "begin_of_block_element",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "block_spec",
-          "named": true
-        }
-      ]
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "frame": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "frame_spec",
+            "named": true
+          }
+        ]
+      },
+      "intervals": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -853,16 +874,37 @@
   {
     "type": "begin_of_tabbed_block_element",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "tabbed_block_spec",
-          "named": true
-        }
-      ]
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "intervals": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "no_intervals_spec",
+            "named": true
+          }
+        ]
+      },
+      "lines": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tab_lines_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -935,42 +977,6 @@
         "types": [
           {
             "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "block_spec",
-    "named": true,
-    "fields": {
-      "block": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "frame": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "frame_spec",
-            "named": true
-          }
-        ]
-      },
-      "intervals": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
             "named": true
           }
         ]
@@ -4254,13 +4260,24 @@
   {
     "type": "horizontal_line_element",
     "named": true,
-    "fields": {},
+    "fields": {
+      "modif_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "modif_id_spec",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "uline_spec",
+          "type": "output_position_spec",
           "named": true
         }
       ]
@@ -8482,42 +8499,6 @@
     }
   },
   {
-    "type": "tabbed_block_spec",
-    "named": true,
-    "fields": {
-      "block": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "intervals": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
-            "named": true
-          }
-        ]
-      },
-      "lines": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "tab_lines_spec",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "table_expression",
     "named": true,
     "fields": {
@@ -9059,32 +9040,6 @@
         },
         {
           "type": "struct_include",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "uline_spec",
-    "named": true,
-    "fields": {
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "output_position_spec",
           "named": true
         }
       ]
