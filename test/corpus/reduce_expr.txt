@@ -5,25 +5,26 @@ REDUCE string( INIT s = 0
                  FOR i = 1 UNTIL i > 10 
                  NEXT s = i )
 ---
-    (source
-      (reduce_expression
-        (type_identifier)
-        (reduce_init
-          (init_spec
-            (identifier)
-            (number)))
-        (conditional_iteration
-          (assignment
-            (identifier)
-            (number))
-          (logical_expression
-            (comparison_expression
-              (identifier)
-              (number))))
-        (reduce_next
-          (assignment
-            (identifier)
-            (identifier)))))
+
+(source
+  (reduce_expression
+    (type_identifier)
+    (reduce_init
+      (init_spec
+        (identifier)
+        (number)))
+    (conditional_iteration
+      (assignment
+        (identifier)
+        (number))
+      (comparison_expression
+        (identifier)
+        (number)))
+    (reduce_next
+      (assignment
+        (identifier)
+        (identifier)))))
+
 ======
 Reduce with initial init var
 ======
@@ -31,31 +32,32 @@ REDUCE string( INIT text type string
                 FOR n = 10 THEN n - 1 WHILE n > 0 
                 NEXT text &&= | { n }| )
 ---
-    (source
-      (reduce_expression
-        (type_identifier)
-        (reduce_init
-          (init_spec
-            (identifier)
-            (builtin_type_spec
-              (type_identifier))))
-        (conditional_iteration
-          (assignment
-            (identifier)
-            (number))
-          (binary_operator
-            (identifier)
-            (number))
-          (logical_expression
-            (comparison_expression
-              (identifier)
-              (number))))
-        (reduce_next
-          (assignment
-            (identifier)
-            (string_template
-              (embedded_expression
-                (identifier)))))))
+
+(source
+  (reduce_expression
+    (type_identifier)
+    (reduce_init
+      (init_spec
+        (identifier)
+        (builtin_type_spec
+          (type_identifier))))
+    (conditional_iteration
+      (assignment
+        (identifier)
+        (number))
+      (binary_operator
+        (identifier)
+        (number))
+      (comparison_expression
+        (identifier)
+        (number)))
+    (reduce_next
+      (assignment
+        (identifier)
+        (string_template
+          (embedded_expression
+            (identifier)))))))
+
 ======
 Reduce with multiple init / next steps
 ======
@@ -68,69 +70,71 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
                                             val2 = <wa>-num ) 
                             sep     = `-` ).
 ---
-    (source
-      (reduce_expression
-        (type_identifier)
-        (reduce_init
-          (init_spec
+
+(source
+  (reduce_expression
+    (type_identifier)
+    (reduce_init
+      (init_spec
+        (identifier)
+        (value_expression
+          (type_identifier)
+          (argument_list
+            (named_argument
+              (identifier)
+              (number))
+            (named_argument
+              (identifier)
+              (literal_string)))))
+      (init_spec
+        (identifier)
+        (literal_string)))
+    (table_iteration
+      (field_symbol
+        (identifier))
+      (identifier))
+    (reduce_next
+      (assignment
+        (struct_component_selector
+          (identifier)
+          (identifier))
+        (binary_operator
+          (string_operator
             (identifier)
-            (value_expression
-              (type_identifier)
-              (argument_list
-                (named_argument
-                  (identifier)
-                  (number))
-                (named_argument
-                  (identifier)
-                  (literal_string)))))
-          (init_spec
-            (identifier)
-            (literal_string)))
-        (table_iteration
+            (field_symbol
+              (identifier)))
+          (identifier)))
+      (assignment
+        (struct_component_selector
+          (identifier)
+          (identifier))
+        (binary_operator
           (field_symbol
             (identifier))
+          (identifier)))
+      (assignment
+        (struct_component_selector
+          (identifier)
           (identifier))
-        (reduce_next
-          (assignment
-            (struct_component_selector
-              (identifier)
-              (identifier))
-            (binary_operator
-              (string_operator
+        (builtin_function_call
+          (identifier)
+          (call_argument_list
+            (argument_list
+              (named_argument
                 (identifier)
-                (field_symbol
+                (struct_component_selector
+                  (identifier)
                   (identifier)))
-              (identifier)))
-          (assignment
-            (struct_component_selector
-              (identifier)
-              (identifier))
-            (binary_operator
-              (field_symbol
-                (identifier))
-              (identifier)))
-          (assignment
-            (struct_component_selector
-              (identifier)
-              (identifier))
-            (builtin_function_call
-              (identifier)
-              (call_argument_list
-                (argument_list
-                  (named_argument
-                    (identifier)
-                    (struct_component_selector
-                      (identifier)
-                      (identifier)))
-                  (named_argument
-                    (identifier)
-                    (binary_operator
-                      (field_symbol
-                        (identifier))
-                      (identifier)))))))
-          (assignment
-            (identifier)
-            (literal_string)))))
+              (named_argument
+                (identifier)
+                (binary_operator
+                  (field_symbol
+                    (identifier))
+                  (identifier)))))))
+      (assignment
+        (identifier)
+        (literal_string)))))
+
 ======
 Reduce with nested constructor expressions
 ======
@@ -144,49 +148,50 @@ REDUCE string( INIT text = `` sep = ``
                             ELSE word ) ) ) 
         NEXT text = |{ text }{ sep }{ word }| sep = ` ` )
 ---
-    (source
-      (reduce_expression
+
+(source
+  (reduce_expression
+    (type_identifier)
+    (reduce_init
+      (init_spec
+        (identifier)
+        (literal_string))
+      (init_spec
+        (identifier)
+        (literal_string)))
+    (inline_comment)
+    (table_iteration
+      (identifier)
+      (value_expression
         (type_identifier)
-        (reduce_init
-          (init_spec
-            (identifier)
-            (literal_string))
-          (init_spec
-            (identifier)
-            (literal_string)))
         (inline_comment)
-        (table_iteration
-          (identifier)
-          (value_expression
-            (type_identifier)
-            (inline_comment)
-            (itab_expression
-              (table_iteration
-                (identifier)
-                (identifier))
-              (line_spec
-                (argument_list
-                  (positional_argument
-                    (switch_expression
-                      (identifier)
-                      (case
-                        (literal_string)
-                        (literal_string))
-                      (case
-                        (literal_string)
-                        (literal_string))
-                      (case
-                        (identifier)))))))))
-        (reduce_next
-          (assignment
+        (itab_expression
+          (table_iteration
             (identifier)
-            (string_template
-              (embedded_expression
-                (identifier))
-              (embedded_expression
-                (identifier))
-              (embedded_expression
-                (identifier))))
-          (assignment
-            (identifier)
-            (literal_string)))))
+            (identifier))
+          (line_spec
+            (argument_list
+              (positional_argument
+                (switch_expression
+                  (identifier)
+                  (case
+                    (literal_string)
+                    (literal_string))
+                  (case
+                    (literal_string)
+                    (literal_string))
+                  (case
+                    (identifier)))))))))
+    (reduce_next
+      (assignment
+        (identifier)
+        (string_template
+          (embedded_expression
+            (identifier))
+          (embedded_expression
+            (identifier))
+          (embedded_expression
+            (identifier))))
+      (assignment
+        (identifier)
+        (literal_string)))))

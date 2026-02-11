@@ -3,41 +3,44 @@ Table comprehension with counter
 ==================
 VALUE #( FOR j = 1 UNTIL j > 5 ( rnd1->get_next( ) ) )
 ---
-    (source
-      (value_expression
-        (itab_expression
-          (conditional_iteration
-            (assignment
+
+(source
+  (value_expression
+    (itab_expression
+      (conditional_iteration
+        (assignment
+          (identifier)
+          (number))
+        (comparison_expression
+          (identifier)
+          (number)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            (method_call
               (identifier)
-              (number))
-            (logical_expression
-              (comparison_expression
-                (identifier)
-                (number))))
-          (line_spec
-            (argument_list
-              (positional_argument
-                (method_call
-                  (identifier)
-                  (identifier))))))))
+              (identifier))))))))
+
 ==================
 Table comprehension with index
 ==================
 VALUE carriers( FOR wa IN scarr_tab INDEX INTO i ( no = i  ) ). 
 ---
-    (source
-      (value_expression
-        (type_identifier)
-        (itab_expression
-          (table_iteration
+
+(source
+  (value_expression
+    (type_identifier)
+    (itab_expression
+      (table_iteration
+        (identifier)
+        (identifier)
+        (identifier))
+      (line_spec
+        (argument_list
+          (named_argument
             (identifier)
-            (identifier)
-            (identifier))
-          (line_spec
-            (argument_list
-              (named_argument
-                (identifier)
-                (identifier)))))))
+            (identifier)))))))
+
 ==================
 Nested table comprehension
 ==================
@@ -48,124 +51,136 @@ VALUE itab2(
             col2 = wa2-col1 
             col3 = wa2-col2 ) )
 ---
-    (source
-      (value_expression
-        (type_identifier)
-        (itab_expression
-          (table_iteration
-            (identifier)
-            (identifier))
-          (table_iteration
+
+(source
+  (value_expression
+    (type_identifier)
+    (itab_expression
+      (table_iteration
+        (identifier)
+        (identifier))
+      (table_iteration
+        (identifier)
+        (struct_component_selector
+          (identifier)
+          (identifier)))
+      (line_spec
+        (argument_list
+          (named_argument
             (identifier)
             (struct_component_selector
               (identifier)
               (identifier)))
-          (line_spec
-            (argument_list
-              (named_argument
-                (identifier)
-                (struct_component_selector
-                  (identifier)
-                  (identifier)))
-              (named_argument
-                (identifier)
-                (struct_component_selector
-                  (identifier)
-                  (identifier)))
-              (named_argument
-                (identifier)
-                (struct_component_selector
-                  (identifier)
-                  (identifier))))))))
+          (named_argument
+            (identifier)
+            (struct_component_selector
+              (identifier)
+              (identifier)))
+          (named_argument
+            (identifier)
+            (struct_component_selector
+              (identifier)
+              (identifier))))))))
+
 ==================
 Table comprehension with where clause
 ==================
 value_tab = VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ). 
 ---
+
 (source
-    (assignment
-        (identifier)
-        (value_expression
-            (itab_expression
-                (table_iteration
-                    (identifier)
-                    (identifier)
-                    (iteration_cond
-                        (logical_expression
-                            (comparison_expression
-                                (identifier)
-                                (literal_string)))))
-            (line_spec
-                (argument_list
-                    (positional_argument
-                        (identifier))))))))
+  (assignment
+    (identifier)
+    (value_expression
+      (itab_expression
+        (table_iteration
+          (identifier)
+          (identifier)
+          (iteration_cond
+            (parenthesized_expression)
+            (parenthesized_expression
+              (comparison_expression
+                (identifier)
+                (literal_string)))
+            (parenthesized_expression)))
+        (line_spec
+          (argument_list
+            (positional_argument
+              (identifier))))))))
+
 ==================
 Table comprehension with dynamic where clause
 ==================
 value_tab = VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ). 
 ---
+
 (source
-    (assignment
-        (identifier)
-        (value_expression
-            (itab_expression
-                (table_iteration
-                    (identifier)
-                    (identifier)
-                    (iteration_cond
-                        (dynamic_cond
-                            (identifier))))
-            (line_spec
-                (argument_list
-                    (positional_argument
-                        (identifier))))))))
+  (assignment
+    (identifier)
+    (value_expression
+      (itab_expression
+        (table_iteration
+          (identifier)
+          (identifier)
+          (iteration_cond
+            (dynamic_cond
+              (identifier))))
+        (line_spec
+          (argument_list
+            (positional_argument
+              (identifier))))))))
+
 ==================
 Table comprehension with dynamic where clause table
 ==================
 value_tab = VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ). 
 ---
+
 (source
-    (assignment
-        (identifier)
-        (value_expression
-            (itab_expression
-                (table_iteration
-                    (identifier)
-                    (identifier)
-                    (iteration_cond
-                        (dynamic_cond_tab
-                            (identifier))))
-            (line_spec
-                (argument_list
-                    (positional_argument
-                        (identifier))))))))
+  (assignment
+    (identifier)
+    (value_expression
+      (itab_expression
+        (table_iteration
+          (identifier)
+          (identifier)
+          (iteration_cond
+            (dynamic_cond_tab
+              (identifier))))
+        (line_spec
+          (argument_list
+            (positional_argument
+              (identifier))))))))
+
 ==================
 Table comprehension with slice and step size
 ==================
 VALUE #( FOR <fs> IN itab INDEX INTO tabix FROM 4 TO 16 
       	 STEP 2 ( tabix = tabix value = <fs> ) ). 
 ---
-    (source
-      (value_expression
-        (itab_expression
-          (table_iteration
+
+(source
+  (value_expression
+    (itab_expression
+      (table_iteration
+        (field_symbol
+          (identifier))
+        (identifier)
+        (identifier)
+        (iteration_cond
+          (number)
+          (number)
+          (number)))
+      (line_spec
+        (argument_list
+          (named_argument
+            (identifier)
+            (identifier))
+          (named_argument
+            (identifier)
             (field_symbol
-              (identifier))
-            (identifier)
-            (identifier)
-            (iteration_cond
-              (number)
-              (number)
-              (number)))
-          (line_spec
-            (argument_list
-              (named_argument
-                (identifier)
-                (identifier))
-              (named_argument
-                (identifier)
-                (field_symbol
-                  (identifier))))))))
+              (identifier))))))))
+
 ==================
 Table comprehension with slice and step size and key
 ==================
@@ -173,50 +188,53 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix
       USING KEY sortkey FROM 16 TO 4 STEP -2 
             ( tabix = tabix value = <fs> ) )
 ---
-    (source
-      (value_expression
-        (itab_expression
-          (table_iteration
+
+(source
+  (value_expression
+    (itab_expression
+      (table_iteration
+        (field_symbol
+          (identifier))
+        (identifier)
+        (identifier)
+        (iteration_cond
+          (using_key_spec
+            (identifier))
+          (number)
+          (number)
+          (number)))
+      (line_spec
+        (argument_list
+          (named_argument
+            (identifier)
+            (identifier))
+          (named_argument
+            (identifier)
             (field_symbol
-              (identifier))
-            (identifier)
-            (identifier)
-            (iteration_cond
-              (using_key_spec
-                (identifier))
-              (number)
-              (number)
-              (number)))
-          (line_spec
-            (argument_list
-              (named_argument
-                (identifier)
-                (identifier))
-              (named_argument
-                (identifier)
-                (field_symbol
-                  (identifier))))))))
+              (identifier))))))))
+
 ==================
 Table comprehension with then expression
 ==================
 VALUE itab1( FOR j = 41 THEN j - 10 UNTIL j < 10 ( ) )
 ---
-    (source
-      (value_expression
-        (type_identifier)
-        (itab_expression
-          (conditional_iteration
-            (assignment
-              (identifier)
-              (number))
-            (binary_operator
-              (identifier)
-              (number))
-            (logical_expression
-              (comparison_expression
-                (identifier)
-                (number))))
-          (line_spec))))
+
+(source
+  (value_expression
+    (type_identifier)
+    (itab_expression
+      (conditional_iteration
+        (assignment
+          (identifier)
+          (number))
+        (binary_operator
+          (identifier)
+          (number))
+        (comparison_expression
+          (identifier)
+          (number)))
+      (line_spec))))
+
 ==================
 Table comprehension with lines from index
 ==================
@@ -224,23 +242,27 @@ VALUE itab3(
       FOR wa IN itab1 INDEX INTO idx WHERE ( col1 = 21 )
         ( LINES OF itab1 FROM idx ) )
 ---
-    (source
-      (value_expression
-        (type_identifier)
-        (itab_expression
-          (table_iteration
-            (identifier)
-            (identifier)
-            (identifier)
-            (iteration_cond
-              (logical_expression
-                (comparison_expression
-                  (identifier)
-                  (number)))))
-          (line_spec
-            (lines_of
+
+(source
+  (value_expression
+    (type_identifier)
+    (itab_expression
+      (table_iteration
+        (identifier)
+        (identifier)
+        (identifier)
+        (iteration_cond
+          (parenthesized_expression)
+          (parenthesized_expression
+            (comparison_expression
               (identifier)
-              (identifier))))))
+              (number)))
+          (parenthesized_expression)))
+      (line_spec
+        (lines_of
+          (identifier)
+          (identifier))))))
+
 ==================
 Table comprehension with let expressions
 ==================
@@ -253,51 +275,51 @@ VALUE itab(
           ( col1 = bias + x + z 
             col2 = bias + y + z ) ).
 ---
-    (source
-      (value_expression
-        (type_identifier)
-        (itab_expression
-          (let_expression
-            (assignment
+
+(source
+  (value_expression
+    (type_identifier)
+    (itab_expression
+      (let_expression
+        (assignment
+          (identifier)
+          (number)))
+      (conditional_iteration
+        (assignment
+          (identifier)
+          (number))
+        (comparison_expression
+          (identifier)
+          (number))
+        (let_expression
+          (assignment
+            (identifier)
+            (method_call
               (identifier)
-              (number)))
-          (conditional_iteration
-            (assignment
+              (identifier)))
+          (assignment
+            (identifier)
+            (binary_operator
               (identifier)
-              (number))
-            (logical_expression
-              (comparison_expression
+              (identifier)))
+          (assignment
+            (identifier)
+            (binary_operator
+              (identifier)
+              (number)))))
+      (line_spec
+        (argument_list
+          (named_argument
+            (identifier)
+            (binary_operator
+              (binary_operator
                 (identifier)
-                (number)))
-            (let_expression
-              (assignment
+                (identifier))
+              (identifier)))
+          (named_argument
+            (identifier)
+            (binary_operator
+              (binary_operator
                 (identifier)
-                (method_call
-                  (identifier)
-                  (identifier)))
-              (assignment
-                (identifier)
-                (binary_operator
-                  (identifier)
-                  (identifier)))
-              (assignment
-                (identifier)
-                (binary_operator
-                  (identifier)
-                  (number)))))
-          (line_spec
-            (argument_list
-              (named_argument
-                (identifier)
-                (binary_operator
-                  (binary_operator
-                    (identifier)
-                    (identifier))
-                  (identifier)))
-              (named_argument
-                (identifier)
-                (binary_operator
-                  (binary_operator
-                    (identifier)
-                    (identifier))
-                  (identifier))))))))
+                (identifier))
+              (identifier))))))))

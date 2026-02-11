@@ -3,15 +3,16 @@ Basic cond expression
 ======
 COND #( WHEN var IS INITIAL THEN `INITIAL` ELSE `NOT INITIAL` )
 ---
+
 (source
-    (cond_expression
-        (case
-            predicate: (logical_expression
-                (predicate_expression
-                    (identifier)))
-                result: (literal_string))
-        (case
-            result: (literal_string))))
+  (cond_expression
+    (case
+      predicate: (predicate_expression
+        (identifier))
+      result: (literal_string))
+    (case
+      result: (literal_string))))
+
 ======
 Cond expression with throw clause
 ======
@@ -21,31 +22,29 @@ COND i( WHEN cflag = abap_true  THEN 1
                 MESSAGE e888(sabapdemos) 
                 WITH 'Illegal value!' '' '' '' ) )
 ---
-    (source
-      (cond_expression
+
+(source
+  (cond_expression
+    (type_identifier)
+    (case
+      (comparison_expression
+        (identifier)
+        (identifier))
+      (number))
+    (case
+      (comparison_expression
+        (identifier)
+        (identifier))
+      (number))
+    (case
+      (throw_exception
         (type_identifier)
-        (case
-          (logical_expression
-            (comparison_expression
-              (identifier)
-              (identifier)))
-          (number))
-        (case
-          (logical_expression
-            (comparison_expression
-              (identifier)
-              (identifier)))
-          (number))
-        (case
-          (throw_exception
-            (type_identifier)
-            (message_spec
-              (message_type)
-              (number)
-              (identifier)
-              (message_arguments
-                (literal_string)
-                (literal_string)
-                (literal_string)
-                (literal_string)))))))
-    
+        (message_spec
+          (message_type)
+          (number)
+          (identifier)
+          (message_arguments
+            (literal_string)
+            (literal_string)
+            (literal_string)
+            (literal_string)))))))

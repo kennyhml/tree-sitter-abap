@@ -5,16 +5,17 @@ IF time < '120000'.
     result = abap_true.
 ENDIF. 
 ---
-    (source
-      (if_statement
-        (logical_expression
-          (comparison_expression
-            (identifier)
-            (literal_string)))
-        (statement_block
-          (assignment
-            (identifier)
-            (identifier)))))
+
+(source
+  (if_statement
+    (comparison_expression
+      (identifier)
+      (literal_string))
+    (statement_block
+      (assignment
+        (identifier)
+        (identifier)))))
+
 ======
 If statement with else clause
 ======
@@ -24,21 +25,22 @@ else.
     result = abap_false.
 ENDIF. 
 ---
-    (source
-      (if_statement
-        (logical_expression
-          (comparison_expression
-            (identifier)
-            (literal_string)))
-        (statement_block
-          (assignment
-            (identifier)
-            (identifier)))
-        (else_clause
-          (statement_block
-            (assignment
-              (identifier)
-              (identifier))))))
+
+(source
+  (if_statement
+    (comparison_expression
+      (identifier)
+      (literal_string))
+    (statement_block
+      (assignment
+        (identifier)
+        (identifier)))
+    (else_clause
+      (statement_block
+        (assignment
+          (identifier)
+          (identifier))))))
+
 ======
 If statement with elseif clauses
 ======
@@ -52,39 +54,38 @@ else.
     result = abap_false.
 ENDIF. 
 ---
-    (source
-      (if_statement
-        (logical_expression
-          (comparison_expression
-            (identifier)
-            (literal_string)))
-        (statement_block
-          (assignment
-            (identifier)
-            (identifier)))
-        (elseif_clause
-          (logical_expression
-            (comparison_expression
-              (identifier)
-              (literal_string)))
-          (statement_block
-            (assignment
-              (identifier)
-              (identifier))))
-        (elseif_clause
-          (logical_expression
-            (comparison_expression
-              (identifier)
-              (literal_string)))
-          (statement_block
-            (assignment
-              (identifier)
-              (literal_string))))
-        (else_clause
-          (statement_block
-            (assignment
-              (identifier)
-              (identifier))))))
+
+(source
+  (if_statement
+    (comparison_expression
+      (identifier)
+      (literal_string))
+    (statement_block
+      (assignment
+        (identifier)
+        (identifier)))
+    (elseif_clause
+      (comparison_expression
+        (identifier)
+        (literal_string))
+      (statement_block
+        (assignment
+          (identifier)
+          (identifier))))
+    (elseif_clause
+      (comparison_expression
+        (identifier)
+        (literal_string))
+      (statement_block
+        (assignment
+          (identifier)
+          (literal_string))))
+    (else_clause
+      (statement_block
+        (assignment
+          (identifier)
+          (identifier))))))
+
 ======
 Nested if statement
 ======
@@ -95,22 +96,21 @@ IF time < '120000'.
     endif.
 ENDIF. 
 ---
-    (source
+
+(source
+  (if_statement
+    (comparison_expression
+      (identifier)
+      (literal_string))
+    (statement_block
+      (assignment
+        (identifier)
+        (identifier))
       (if_statement
-        (logical_expression
-          (comparison_expression
-            (identifier)
-            (literal_string)))
+        (comparison_expression
+          (identifier)
+          (identifier))
         (statement_block
           (assignment
             (identifier)
-            (identifier))
-          (if_statement
-            (logical_expression
-              (comparison_expression
-                (identifier)
-                (identifier)))
-            (statement_block
-              (assignment
-                (identifier)
-                (identifier)))))))
+            (identifier)))))))
