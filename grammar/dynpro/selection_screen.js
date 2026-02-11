@@ -312,6 +312,8 @@ export default {
      *      [STARTING AT col1 lin1 
      *      [ENDING   AT col2 lin2]] 
      *      [USING SELECTION-SET variant].
+     * 
+     * https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPCALL_SELECTION_SCREEN.html
      */
     call_sel_screen_statement: $ => seq(
         ...kws("call", "selection-screen"),

@@ -270,6 +270,7 @@ export default grammar({
       $.identifier,
       $.field_symbol,
       $.data_component_selector,
+      $.table_body_access
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
@@ -327,26 +328,29 @@ export default grammar({
     /**
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP.html
      */
-    logical_expression: $ => choice(
+    _logical_expression: $ => choice(
+      $.logical_expression,
       $.relational_expression,
-      seq('(', $.logical_expression, ')'),
+      $._parenthesized_logical_expression,
+    ),
 
-      prec.right(4, seq(kw('not'), $.logical_expression)),
+    logical_expression: $ => choice(
+      prec.right(4, seq(kw('not'), $._logical_expression)),
 
       prec.left(3, seq(
-        $.logical_expression,
+        $._logical_expression,
         kw('and'),
-        $.logical_expression
+        $._logical_expression
       )),
       prec.left(2, seq(
-        $.logical_expression,
+        $._logical_expression,
         kw('or'),
-        $.logical_expression
+        $._logical_expression
       )),
       prec.left(1, seq(
-        $.logical_expression,
+        $._logical_expression,
         kw('equiv'),
-        $.logical_expression
+        $._logical_expression
       ))
     ),
 
@@ -403,9 +407,17 @@ export default grammar({
      */
     parenthesized_expression: $ => prec(PREC.parenthesized_expression, seq(
       '(',
-      choice($.arithmetic_expression),
+      $.arithmetic_expression,
       ')',
     )),
+
+    _parenthesized_logical_expression: $ => alias(
+      prec(PREC.parenthesized_expression, seq(
+        '(',
+        $._logical_expression,
+        ')',
+      )
+      ), $.parenthesized_expression),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_OPERATORS.html
     string_operator: $ => prec.left(seq(
@@ -528,11 +540,11 @@ export default grammar({
       choice(
         seq(
           kw("until"),
-          field("until", $.logical_expression)
+          field("until", $._logical_expression)
         ),
         seq(
           kw("while"),
-          field("while", $.logical_expression)
+          field("while", $._logical_expression)
         ),
       ),
       optional(seq($.let_expression, kw("in")))
@@ -611,11 +623,11 @@ export default grammar({
           optional(seq(kw("step"), field("step", $.number))),
           kw("where"),
           choice(
-            $.logical_expression,
+            $._logical_expression,
 
             // statically specified logical expression log_exp must be placed in parenthese (table iterations)
             // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
-            prec(2, seq("(", $.logical_expression, ")")),
+            prec(2, seq("(", $._logical_expression, ")")),
 
             // dynamic where clause
             $.dynamic_cond,
@@ -665,15 +677,15 @@ export default grammar({
     // NOTE: Not all general expressions apparently? The docs are kind of vague here..
     predicate_expression: $ => choice(
       // operand
-      seq($.identifier, kw("is"), optional(kw("not")), kw("initial")),
+      seq($.named_data_object, kw("is"), optional(kw("not")), kw("initial")),
       // ref
-      seq($.identifier, kw("is"), optional(kw("not")), kw("bound")),
+      seq($.named_data_object, kw("is"), optional(kw("not")), kw("bound")),
       // oref
-      seq($.identifier, kw("is"), optional(kw("not")), kw("instance"), kw("of")),
+      seq($.named_data_object, kw("is"), optional(kw("not")), kw("instance"), kw("of")),
       // <fs>
-      seq($.identifier, kw("is"), optional(kw("not")), kw("assigned")),
+      seq($.named_data_object, kw("is"), optional(kw("not")), kw("assigned")),
       // parameter
-      seq($.identifier, kw("is"), optional(kw("not")), kw("supplied")),
+      seq($.named_data_object, kw("is"), optional(kw("not")), kw("supplied")),
     ),
 
     _comparison_operator: _ => choice(...kws(
@@ -822,7 +834,7 @@ export default grammar({
 
     _cond_case: $ => seq(
       kw("when"),
-      field("predicate", $.logical_expression),
+      field("predicate", $._logical_expression),
       kw("then"),
       optional(seq($.let_expression, kw("in"))),
       field("result", $._conditional_result)
@@ -1039,7 +1051,7 @@ export default grammar({
       optional($.filter_tab_spec),
 
       kw("where"),
-      $.logical_expression,
+      $._logical_expression,
       ")"
     ),
 
@@ -1194,7 +1206,7 @@ export default grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_LOOP.html
     check_statement: $ => seq(
       kw("check"),
-      field("condition", $.logical_expression),
+      field("condition", $._logical_expression),
       "."
     ),
 
@@ -2567,7 +2579,7 @@ export default grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
     if_statement: $ => seq(
       kw("if"),
-      field("condition", $.logical_expression), ".",
+      field("condition", $._logical_expression), ".",
       field("consequence", optional($.statement_block)),
 
       repeat(field("alternative", $.elseif_clause)),
@@ -2578,7 +2590,7 @@ export default grammar({
 
     elseif_clause: $ => seq(
       kw("elseif"),
-      field("condition", $.logical_expression),
+      field("condition", $._logical_expression),
       ".",
       field("consequence", optional($.statement_block)),
     ),
@@ -2696,7 +2708,7 @@ export default grammar({
      */
     while_statement: $ => seq(
       kw("while"),
-      field("condition", $.logical_expression),
+      field("condition", $._logical_expression),
       ".",
       optional(field("body", $.statement_block)),
       kw("endwhile"),
@@ -3076,6 +3088,11 @@ export default grammar({
         )
       ),
       token.immediate("->*"),
+    ),
+
+    table_body_access: $ => seq(
+      field("table", $.identifier),
+      token.immediate("[]")
     ),
 
     /**

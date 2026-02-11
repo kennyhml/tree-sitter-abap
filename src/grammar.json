@@ -6417,6 +6417,10 @@
         {
           "type": "SYMBOL",
           "name": "data_component_selector"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_body_access"
         }
       ]
     },
@@ -6553,30 +6557,26 @@
         }
       ]
     },
-    "logical_expression": {
+    "_logical_expression": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "logical_expression"
+        },
         {
           "type": "SYMBOL",
           "name": "relational_expression"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "SYMBOL",
-              "name": "logical_expression"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
+          "type": "SYMBOL",
+          "name": "_parenthesized_logical_expression"
+        }
+      ]
+    },
+    "logical_expression": {
+      "type": "CHOICE",
+      "members": [
         {
           "type": "PREC_RIGHT",
           "value": 4,
@@ -6594,7 +6594,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "logical_expression"
+                "name": "_logical_expression"
               }
             ]
           }
@@ -6607,7 +6607,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "logical_expression"
+                "name": "_logical_expression"
               },
               {
                 "type": "ALIAS",
@@ -6620,7 +6620,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "logical_expression"
+                "name": "_logical_expression"
               }
             ]
           }
@@ -6633,7 +6633,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "logical_expression"
+                "name": "_logical_expression"
               },
               {
                 "type": "ALIAS",
@@ -6646,7 +6646,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "logical_expression"
+                "name": "_logical_expression"
               }
             ]
           }
@@ -6659,7 +6659,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "logical_expression"
+                "name": "_logical_expression"
               },
               {
                 "type": "ALIAS",
@@ -6672,7 +6672,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "logical_expression"
+                "name": "_logical_expression"
               }
             ]
           }
@@ -7021,13 +7021,8 @@
             "value": "("
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "arithmetic_expression"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "arithmetic_expression"
           },
           {
             "type": "STRING",
@@ -7035,6 +7030,32 @@
           }
         ]
       }
+    },
+    "_parenthesized_logical_expression": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PREC",
+        "value": 5,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_logical_expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      },
+      "named": true,
+      "value": "parenthesized_expression"
     },
     "string_operator": {
       "type": "PREC_LEFT",
@@ -7592,7 +7613,7 @@
                   "name": "until",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "logical_expression"
+                    "name": "_logical_expression"
                   }
                 }
               ]
@@ -7614,7 +7635,7 @@
                   "name": "while",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "logical_expression"
+                    "name": "_logical_expression"
                   }
                 }
               ]
@@ -8350,7 +8371,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "logical_expression"
+                      "name": "_logical_expression"
                     },
                     {
                       "type": "PREC",
@@ -8364,7 +8385,7 @@
                           },
                           {
                             "type": "SYMBOL",
-                            "name": "logical_expression"
+                            "name": "_logical_expression"
                           },
                           {
                             "type": "STRING",
@@ -8562,7 +8583,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "named_data_object"
             },
             {
               "type": "ALIAS",
@@ -8606,7 +8627,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "named_data_object"
             },
             {
               "type": "ALIAS",
@@ -8650,7 +8671,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "named_data_object"
             },
             {
               "type": "ALIAS",
@@ -8703,7 +8724,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "named_data_object"
             },
             {
               "type": "ALIAS",
@@ -8747,7 +8768,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "named_data_object"
             },
             {
               "type": "ALIAS",
@@ -9623,7 +9644,7 @@
           "name": "predicate",
           "content": {
             "type": "SYMBOL",
-            "name": "logical_expression"
+            "name": "_logical_expression"
           }
         },
         {
@@ -10716,7 +10737,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "logical_expression"
+          "name": "_logical_expression"
         },
         {
           "type": "STRING",
@@ -11309,7 +11330,7 @@
           "name": "condition",
           "content": {
             "type": "SYMBOL",
-            "name": "logical_expression"
+            "name": "_logical_expression"
           }
         },
         {
@@ -18810,7 +18831,7 @@
           "name": "condition",
           "content": {
             "type": "SYMBOL",
-            "name": "logical_expression"
+            "name": "_logical_expression"
           }
         },
         {
@@ -18892,7 +18913,7 @@
           "name": "condition",
           "content": {
             "type": "SYMBOL",
-            "name": "logical_expression"
+            "name": "_logical_expression"
           }
         },
         {
@@ -19379,7 +19400,7 @@
           "name": "condition",
           "content": {
             "type": "SYMBOL",
-            "name": "logical_expression"
+            "name": "_logical_expression"
           }
         },
         {
@@ -21097,6 +21118,26 @@
           "content": {
             "type": "STRING",
             "value": "->*"
+          }
+        }
+      ]
+    },
+    "table_body_access": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "table",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "[]"
           }
         }
       ]

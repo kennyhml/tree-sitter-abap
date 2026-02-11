@@ -1,0 +1,11 @@
+======
+[LOGICAL-EXPRESSIONS]: Initial check on table body
+======
+check gt_queue_requests[] is initial.
+---
+
+(source
+  (check_statement
+    condition: (predicate_expression
+      (table_body_access
+        table: (identifier)))))
