@@ -4,10 +4,6 @@
     "named": true,
     "subtypes": [
       {
-        "type": "case_statement",
-        "named": true
-      },
-      {
         "type": "class_definition",
         "named": true
       },
@@ -17,10 +13,6 @@
       },
       {
         "type": "control_statement",
-        "named": true
-      },
-      {
-        "type": "do_statement",
         "named": true
       },
       {
@@ -37,18 +29,6 @@
       },
       {
         "type": "method_implementation",
-        "named": true
-      },
-      {
-        "type": "try_statement",
-        "named": true
-      },
-      {
-        "type": "type_case_statement",
-        "named": true
-      },
-      {
-        "type": "while_statement",
         "named": true
       }
     ]
@@ -318,11 +298,31 @@
     "named": true,
     "subtypes": [
       {
+        "type": "case_statement",
+        "named": true
+      },
+      {
+        "type": "do_statement",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
       {
         "type": "loop_at_statement",
+        "named": true
+      },
+      {
+        "type": "try_statement",
+        "named": true
+      },
+      {
+        "type": "type_case_statement",
+        "named": true
+      },
+      {
+        "type": "while_statement",
         "named": true
       }
     ]
@@ -958,6 +958,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "before_unwind_spec",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "begin_of_block_element",
@@ -1701,21 +1706,21 @@
             "named": true
           }
         ]
-      },
-      "into": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "before_unwind_spec",
+          "named": true
+        },
+        {
+          "type": "catch_into_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1731,6 +1736,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "catch_into_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2096,21 +2121,17 @@
             "named": true
           }
         ]
-      },
-      "into": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "catch_into_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9481,6 +9502,16 @@
             "named": true
           }
         ]
+      },
+      "cleanup": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cleanup_clause",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -9489,10 +9520,6 @@
       "types": [
         {
           "type": "catch_clause",
-          "named": true
-        },
-        {
-          "type": "cleanup_clause",
           "named": true
         }
       ]
