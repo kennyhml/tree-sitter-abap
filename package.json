@@ -13,7 +13,8 @@
   "type": "module",
   "imports": {
     "#dynpro": "./grammar/dynpro/index.js",
-    "#core": "./grammar/core/index.js"
+    "#core": "./grammar/core/index.js",
+    "#oo": "./grammar/oo/index.js"
   },
   "keywords": [
     "incremental",

@@ -3,67 +3,82 @@ Instance declaration
 ==================
 METHODS meth .
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier))))
+  (methods_declaration
+    (method_spec
+      name: (identifier))))
+
 ==================
 Static declaration
 ==================
 CLASS-METHODS meth .
 ---
+
 (source
-    (class_methods_declaration
-        (method_spec
-            name: (identifier))))
+  (class_methods_declaration
+    (method_spec
+      name: (identifier))))
+
 ==================
 Multiple specifications per declaration
 ==================
 METHODS: meth1, meth2, meth3.
 CLASS-METHODS: meth1, meth2, meth3.
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier))
-        (method_spec
-            name: (identifier))
-        (method_spec
-            name: (identifier)))
-    (class_methods_declaration
-        (method_spec
-            name: (identifier))
-        (method_spec
-            name: (identifier))
-        (method_spec
-            name: (identifier))))
+  (methods_declaration
+    (method_spec
+      name: (identifier))
+    (method_spec
+      name: (identifier))
+    (method_spec
+      name: (identifier)))
+  (class_methods_declaration
+    (method_spec
+      name: (identifier))
+    (method_spec
+      name: (identifier))
+    (method_spec
+      name: (identifier))))
+
 ==================
 Redefinition from superclass
 ==================
 METHODS my_method redefinition.
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (redefinition_spec))))
+
 ==================
 Final definition
 ==================
 METHODS my_method final.
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final_spec))))
+
 ==================
 Abstract method
 ==================
 METHODS my_method abstract.
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (abstract_spec))))
+
 ==================
 Interface method defaults
 ==================
@@ -71,19 +86,22 @@ CLASS-METHODS m1 DEFAULT FAIL.
 METHODS       m2 DEFAULT IGNORE 
     RETURNING VALUE(r) TYPE i. 
 ---
+
 (source
-    (class_methods_declaration
-        (method_spec
-            (identifier)
-                (interface_default)))
-    (methods_declaration
-        (method_spec
-            (identifier)
-            (interface_default)
-            (return_value
-                (identifier)
-                (builtin_type_spec
-                    (type_identifier))))))
+  (class_methods_declaration
+    (method_spec
+      (identifier)
+      (interface_default_spec)))
+  (methods_declaration
+    (method_spec
+      (identifier)
+      (interface_default_spec)
+      (return_value
+        (value_param_spec
+          (identifier))
+        (builtin_type_spec
+          (type_identifier))))))
+
 ==================
 Importing parameters
 ==================
@@ -94,26 +112,34 @@ METHODS meth
         p3 TYPE i OPTIONAL 
         PREFERRED PARAMETER p1. 
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier)
-            importing: (parameter_list
-                (parameter
-                    name: (identifier)
-                    typing: (builtin_type_spec
-                        name: (type_identifier))
-                    default: (number))
-                (parameter
-                    name: (identifier)
-                    typing: (builtin_type_spec
-                        name: (type_identifier)))
-                (parameter
-                    name: (identifier)
-                    typing: (builtin_type_spec
-                        name: (type_identifier)))
-                (preferred_parameter
-                    name: (identifier))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameter_list
+        (parameter
+          (simple_param_spec
+            name: (identifier))
+          typing: (builtin_type_spec
+            name: (type_identifier))
+          default: (param_default_value_spec
+            value: (number)))
+        (parameter
+          (simple_param_spec
+            name: (identifier))
+          typing: (builtin_type_spec
+            name: (type_identifier))
+          (optional_spec))
+        (parameter
+          (simple_param_spec
+            name: (identifier))
+          typing: (builtin_type_spec
+            name: (type_identifier))
+          (optional_spec))
+        (preferred_parameter_spec
+          name: (identifier))))))
+
 ==================
 Exporting parameters
 ==================
@@ -121,22 +147,26 @@ METHODS read_spfli_into_table
     IMPORTING VALUE(id)  TYPE spfli-carrid 
     EXPORTING flight_tab TYPE spfli_tab. 
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier)
-            importing: (parameter_list
-                (parameter
-                    name: (identifier)
-                    typing: (referred_type_spec
-                        name: (struct_component_selector
-                            struct: (type_identifier)
-                            comp: (type_identifier)))))
-            exporting: (parameter_list
-                (parameter
-                    name: (identifier)
-                    typing: (referred_type_spec
-                        name: (type_identifier)))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameter_list
+        (parameter
+          (value_param_spec
+            name: (identifier))
+          typing: (referred_type_spec
+            name: (struct_component_selector
+              struct: (type_identifier)
+              comp: (type_identifier)))))
+      exporting: (parameter_list
+        (parameter
+          (simple_param_spec
+            name: (identifier))
+          typing: (referred_type_spec
+            name: (type_identifier)))))))
+
 ==================
 Raising class based exceptions
 ==================
@@ -147,40 +177,47 @@ METHODS divide_1_by
         cx_sy_arithmetic_error
         resumable(cx_resumable_exception). 
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier)
-            importing: (parameter_list
-                (parameter
-                    name: (identifier)
-                    typing: (builtin_type_spec
-                        name: (type_identifier))))
-            returning: (return_value
-                name: (identifier)
-                typing: (builtin_type_spec
-                    name: (type_identifier)))
-            raising: (raising_list
-                (exception
-                    name: (identifier))
-                (exception
-                    name: (identifier))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameter_list
+        (parameter
+          (simple_param_spec
+            name: (identifier))
+          typing: (builtin_type_spec
+            name: (type_identifier))))
+      returning: (return_value
+        (value_param_spec
+          name: (identifier))
+        typing: (builtin_type_spec
+          name: (type_identifier)))
+      raising: (raising_list
+        (simple_exception_spec
+          name: (identifier))
+        (resumable_exception_spec
+          name: (identifier))))))
+
 ==================
 Constructors
 ==================
 METHODS constructor importing iv_param type string. 
 CLASS-METHODS class_constructor. 
 ---
+
 (source
-    (methods_declaration
-        (constructor_spec
-            (parameter_list
-                (parameter
-                    (identifier)
-                    (builtin_type_spec
-                        (type_identifier))))))
-    (class_methods_declaration
-        (constructor_spec)))
+  (methods_declaration
+    (constructor_spec
+      (parameter_list
+        (parameter
+          (simple_param_spec
+            (identifier))
+          (builtin_type_spec
+            (type_identifier))))))
+  (class_methods_declaration
+    (class_constructor_spec)))
+
 ==================
 Simple event handler
 ==================
@@ -188,26 +225,33 @@ METHODS handle_double_click
     FOR EVENT picture_dblclick OF cl_gui_picture 
     IMPORTING mouse_pos_x mouse_pos_y sender. 
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier)
-            event: (event_handling
-                name: (identifier)
-                source: (identifier))
-            importing: (parameter_list
-                (parameter
-                    name: (identifier))
-                (parameter
-                    name: (identifier))
-                (parameter
-                    name: (identifier))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      event: (for_event_spec
+        name: (identifier)
+        source: (identifier))
+      importing: (parameter_list
+        (parameter
+          (simple_param_spec
+            name: (identifier)))
+        (parameter
+          (simple_param_spec
+            name: (identifier)))
+        (parameter
+          (simple_param_spec
+            name: (identifier)))))))
+
 ==================
 Method of abap unit test class
 ==================
 METHODS mytest FOR TESTING. 
 ---
+
 (source
-    (methods_declaration
-        (method_spec
-            name: (identifier))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_testing_spec))))

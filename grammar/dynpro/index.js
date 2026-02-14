@@ -5,7 +5,7 @@ import selection_screen_rules from './selection_screen.js'
 
 export default {
 
-    _dynpro_statement: $ => choice(
+    dynpro_statement: $ => choice(
         $.selection_screen_statement,
         $.parameters_declaration,
         $.select_options_declaration,
