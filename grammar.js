@@ -2617,39 +2617,6 @@ export default grammar({
     /**
      * TODO: Add tests
      * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE.html
-     */
-    case_statement: $ => seq(
-      kw("case"),
-      field("subject", $.general_expression),
-      ".",
-      repeat(field("alternative", $.case_clause)),
-      kw("endcase"), "."
-    ),
-
-    case_clause: $ => seq(
-      kw("when"),
-      choice(
-        kw("others"),
-        field("condition", $.case_operand_list),
-      ),
-      ".",
-      field("consequence", optional($.statement_block)),
-    ),
-
-    case_operand_list: $ => seq(
-      $._case_operand,
-      repeat(
-        seq(
-          kw("or"),
-          $._case_operand,
-        )
-      )
-    ),
-
-    /**
-     * TODO: Add tests
-     * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE_TYPE.html
      */
     type_case_statement: $ => seq(
