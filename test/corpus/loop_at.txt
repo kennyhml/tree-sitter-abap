@@ -297,3 +297,40 @@ ENDLOOP.
       group_result: (assigning_spec
         work_area: (declaration_expression
           name: (identifier))))))
+
+======
+[LOOP-AT] Loop at group
+======
+LOOP AT spfli_tab INTO FINAL(wa) 
+                  GROUP BY wa-carrid 
+                  INTO FINAL(key). 
+  LOOP AT GROUP key ASSIGNING FIELD-SYMBOL(<members>) 
+                    WHERE cityfrom = 'NEW YORK'. 
+  ENDLOOP. 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    grouping: (group_by_spec
+      key: (group_key
+        expression: (struct_component_selector
+          struct: (identifier)
+          comp: (identifier)))
+      group_result: (into_spec
+        work_area: (declaration_expression
+          name: (identifier))))
+    body: (loop_at_body
+      (loop_at_group_statement
+        subject: (identifier)
+        result: (assigning_spec
+          work_area: (declaration_expression
+            name: (identifier)))
+        condition: (iteration_cond
+          (comparison_expression
+            left: (identifier)
+            right: (string_literal)))))))

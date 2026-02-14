@@ -27,8 +27,30 @@ export default {
         optional(field("grouping", $.group_by_spec)),
         ".",
         optional(field("body", $.loop_at_body)),
-        kw("endloop"),
+        kw("endloop"), ".",
+    ),
+
+    /**
+     *
+     * LOOP AT GROUP group result [WHERE log_exp] [GROUP BY ...]. 
+     *   ... 
+     * ENDLOOP.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_GROUP.html
+     */
+    loop_at_group_statement: $ => seq(
+        ...kws("loop", "at", "group"),
+        field("subject", $.named_data_object),
+        repeat(choice(
+            field("result", $.__loop_at_result),
+            field("condition", $.iteration_cond),
+            $._iteration_index_spec,
+        )),
+        optional(field("grouping", $.group_by_spec)),
         ".",
+        optional(field("body", alias($.statement_block, $.loop_at_body))),
+        kw("endloop"),
+        "."
     ),
 
     loop_at_body: $ => repeat1(
