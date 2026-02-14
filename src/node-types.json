@@ -28,10 +28,6 @@
         "named": true
       },
       {
-        "type": "if_statement",
-        "named": true
-      },
-      {
         "type": "interface_definition",
         "named": true
       },
@@ -321,6 +317,10 @@
     "type": "control_statement",
     "named": true,
     "subtypes": [
+      {
+        "type": "if_statement",
+        "named": true
+      },
       {
         "type": "loop_at_statement",
         "named": true
