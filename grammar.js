@@ -671,10 +671,15 @@ export default grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_KEY.html
     group_key: $ => choice(
-      field("name", $.identifier),
+      prec(1, field("key", $.identifier)),
+      field("expression", $.general_expression),
       seq(
         "(",
-        repeat1($.group_key_component_spec),
+        repeat1(choice(
+          $.group_key_component_spec,
+          $.group_index_assignment,
+          $.group_size_assignment
+        )),
         ")"
       )
     ),
@@ -683,13 +688,19 @@ export default grammar({
     group_key_component_spec: $ => seq(
       field("field", $.identifier),
       "=",
-      field("value",
-        choice(
-          seq(...kws("group", "index")),
-          seq(...kws("group", "size")),
-          $.general_expression
-        )
-      )
+      field("value", $.general_expression)
+    ),
+
+    group_index_assignment: $ => seq(
+      field("field", $.identifier),
+      "=",
+      ...kws("group", "index")
+    ),
+
+    group_size_assignment: $ => seq(
+      field("field", $.identifier),
+      "=",
+      ...kws("group", "size")
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
@@ -2764,8 +2775,9 @@ export default grammar({
       repeat(choice(
         field("result", $._loop_at_result),
         field("condition", $.iteration_cond),
-        $._iteration_index_spec
+        $._iteration_index_spec,
       )),
+      optional(field("grouping", $.group_by_spec)),
       ".",
       optional(field("body", $.loop_at_body)),
       kw("endloop"),
@@ -2844,12 +2856,52 @@ export default grammar({
       kw("endat"), "."
     ),
 
+    group_by_spec: $ => seq(
+      ...kws("group", "by"),
+      field("key", $.group_key),
+      repeat(
+        choice(
+          field("order", $.sort_order_spec),
+          field("members", $.without_members_spec),
+          field("group_result", $._group_by_result)
+        )
+      )
+    ),
+
+    /**
+     * ASCENDING|DESCENDING [AS TEXT]
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY.html
+     */
+    sort_order_spec: $ => seq(
+      choice(
+        kw("ascending"),
+        kw("descending"),
+      ),
+      optional($.sort_as_text_spec)
+    ),
+
+    sort_as_text_spec: $ => seq(
+      ...kws("as", "text")
+    ),
+
+    without_members_spec: $ => seq(
+      ...kws("without", "members")
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
     _loop_at_result: $ => choice(
       $.into_spec,
       $.assigning_spec,
       $.reference_into_spec,
       $.transporting_no_fields_spec
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
+    _group_by_result: $ => choice(
+      $.into_spec,
+      $.assigning_spec,
+      $.reference_into_spec,
     ),
 
     into_spec: $ => seq(
