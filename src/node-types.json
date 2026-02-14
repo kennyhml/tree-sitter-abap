@@ -16,6 +16,10 @@
         "named": true
       },
       {
+        "type": "control_statement",
+        "named": true
+      },
+      {
         "type": "do_statement",
         "named": true
       },
@@ -33,10 +37,6 @@
       },
       {
         "type": "interface_implementation",
-        "named": true
-      },
-      {
-        "type": "loop_at_statement",
         "named": true
       },
       {
@@ -313,6 +313,16 @@
       },
       {
         "type": "value_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "control_statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "loop_at_statement",
         "named": true
       }
     ]

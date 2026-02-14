@@ -3,7 +3,7 @@ import parameters_rules from './parameters.js'
 import select_options_rules from './select_options.js'
 import selection_screen_rules from './selection_screen.js'
 
-export const dynpro_rules = {
+export default {
 
     _dynpro_statement: $ => choice(
         $.selection_screen_statement,
