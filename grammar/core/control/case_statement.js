@@ -38,8 +38,20 @@ export default {
     ),
 
     case_operand_list: $ => seq(
-        $._case_operand,
-        repeat(seq(kw("or"), $._case_operand))
+        $.__case_operand,
+        repeat(seq(kw("or"), $.__case_operand))
+    ),
+
+    /**
+     * These are 'extended functional positions' and considered obsolete
+     * 
+     * See https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_FUNCTIONAL_POSITIONS.html
+     */
+    __case_operand: $ => choice(
+        $.data_object,
+        $.builtin_function_call,
+        $.constructor_expression,
+        $.method_call
     ),
 
 }

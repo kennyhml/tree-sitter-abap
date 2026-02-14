@@ -2617,55 +2617,6 @@ export default grammar({
     /**
      * TODO: Add tests
      * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE_TYPE.html
-     */
-    type_case_statement: $ => seq(
-      ...kws("case", "type", "of"),
-      field("subject", $.general_expression),
-      ".",
-      repeat(field("alternative", $.type_case_clause)),
-      kw("endcase"), "."
-    ),
-
-    type_case_clause: $ => seq(
-      kw("when"),
-      choice(
-        kw("others"),
-        seq(
-          kw("type"),
-          field("condition", $._type_identifier),
-          optional(
-            seq(
-              kw("into"),
-              field("target",
-                choice(
-                  $.named_data_object,
-                  $.declaration_expression
-                )
-              )
-            )
-          ),
-        ),
-      ),
-      ".",
-      field("consequence", optional($.statement_block)),
-    ),
-
-    /**
-     * These are 'extended functional positions' and considered obsolete
-     * 
-     * See https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_FUNCTIONAL_POSITIONS.html
-     */
-    _case_operand: $ => choice(
-      $.data_object,
-      $.builtin_function_call,
-      $.constructor_expression,
-      $.method_call
-    ),
-
-    /**
-     * TODO: Add tests
-     * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDO.html
      */
     do_statement: $ => seq(

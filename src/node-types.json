@@ -302,6 +302,10 @@
         "named": true
       },
       {
+        "type": "case_type_of_statement",
+        "named": true
+      },
+      {
         "type": "do_statement",
         "named": true
       },
@@ -315,10 +319,6 @@
       },
       {
         "type": "try_statement",
-        "named": true
-      },
-      {
-        "type": "type_case_statement",
         "named": true
       },
       {
@@ -1571,6 +1571,22 @@
     }
   },
   {
+    "type": "case_others_type_clause",
+    "named": true,
+    "fields": {
+      "consequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "case_sensitivity_spec",
     "named": true,
     "fields": {
@@ -1627,6 +1643,78 @@
     }
   },
   {
+    "type": "case_type_clause",
+    "named": true,
+    "fields": {
+      "consequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "cast_into_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_type_of_statement",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "case_type_clause",
+            "named": true
+          }
+        ]
+      },
+      "others": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "case_others_type_clause",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "cast_expression",
     "named": true,
     "fields": {
@@ -1664,6 +1752,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "cast_into_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -9549,72 +9657,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "type_case_clause",
-    "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      },
-      "consequence": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "statement_block",
-            "named": true
-          }
-        ]
-      },
-      "target": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "type_case_statement",
-    "named": true,
-    "fields": {
-      "alternative": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "type_case_clause",
-            "named": true
-          }
-        ]
-      },
-      "subject": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
