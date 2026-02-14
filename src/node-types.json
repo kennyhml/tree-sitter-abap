@@ -362,6 +362,10 @@
       {
         "type": "substring_access",
         "named": true
+      },
+      {
+        "type": "symbol_tagged_string_literal",
+        "named": true
       }
     ]
   },
@@ -4216,6 +4220,10 @@
           {
             "type": "string_literal",
             "named": true
+          },
+          {
+            "type": "symbol_tagged_string_literal",
+            "named": true
           }
         ]
       }
@@ -5823,6 +5831,10 @@
         "types": [
           {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol_tagged_string_literal",
             "named": true
           }
         ]
@@ -8929,6 +8941,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "symbol_tagged_string_literal",
+    "named": true,
+    "fields": {
+      "symbol": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
