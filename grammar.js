@@ -197,7 +197,6 @@ export default grammar({
       $.interface_definition,
       $.interface_implementation,
       $.method_implementation,
-      $.if_statement,
       $.case_statement,
       $.type_case_statement,
       $.do_statement,
@@ -2619,31 +2618,6 @@ export default grammar({
     _visibility: _ => choice(...kws("public", "protected", "private")),
     _test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
     _test_duration: _ => choice(...kws("short", "medium", "long")),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
-    if_statement: $ => seq(
-      kw("if"),
-      field("condition", $._logical_expression), ".",
-      field("consequence", optional($.statement_block)),
-
-      repeat(field("alternative", $.elseif_clause)),
-      optional(field("alternative", $.else_clause)),
-
-      kw("endif"), "."
-    ),
-
-    elseif_clause: $ => seq(
-      kw("elseif"),
-      field("condition", $._logical_expression),
-      ".",
-      field("consequence", optional($.statement_block)),
-    ),
-
-    else_clause: $ => seq(
-      kw("else"),
-      ".",
-      field("consequence", optional($.statement_block)),
-    ),
 
     /**
      * TODO: Add tests
