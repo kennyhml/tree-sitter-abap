@@ -11,6 +11,7 @@ export default {
     control_statement: $ => choice(
         $.try_statement,
         $.loop_at_statement,
+        $.loop_at_group_statement,
         $.if_statement,
         $.while_statement,
         $.case_statement,

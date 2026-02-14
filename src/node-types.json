@@ -314,6 +314,10 @@
         "named": true
       },
       {
+        "type": "loop_at_group_statement",
+        "named": true
+      },
+      {
         "type": "loop_at_statement",
         "named": true
       },
@@ -5723,6 +5727,104 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "loop_at_group_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "loop_at_body",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iteration_cond",
+            "named": true
+          }
+        ]
+      },
+      "from": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_from_index_spec",
+            "named": true
+          }
+        ]
+      },
+      "grouping": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "group_by_spec",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "assigning_spec",
+            "named": true
+          },
+          {
+            "type": "into_spec",
+            "named": true
+          },
+          {
+            "type": "reference_into_spec",
+            "named": true
+          },
+          {
+            "type": "transporting_no_fields_spec",
+            "named": true
+          }
+        ]
+      },
+      "step": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_step_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "to": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_to_index_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
