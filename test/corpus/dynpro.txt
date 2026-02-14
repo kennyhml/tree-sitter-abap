@@ -48,7 +48,7 @@ PARAMETERS p_carrid TYPE carrid
       user_command: (user_command_spec
         command: (identifier))
       default: (default_value_spec
-        value: (literal_string)))))
+        value: (string_literal)))))
 
 ======
 Radiobutton dynpro chained parameters
@@ -65,7 +65,7 @@ parameters:
       radiobutton: (radiobutton_spec
         group: (identifier))
       default: (default_value_spec
-        value: (literal_string)))
+        value: (string_literal)))
     (parameters_spec
       name: (identifier)
       radiobutton: (radiobutton_spec
@@ -152,8 +152,8 @@ SELECT-OPTIONS s_vbeln FOR gv_vbeln DEFAULT '1000' TO '2000' OPTION BT SIGN I.
       (identifier)
       (identifier)
       (default_range_spec
-        (literal_string)
-        (literal_string)))))
+        (string_literal)
+        (string_literal)))))
 
 ======
 Select-option restricted (No intervals)
@@ -626,7 +626,7 @@ CALL SELECTION-SCREEN '0500' STARTING AT 10 10
 
 (source
   (call_sel_screen_statement
-    dynnr: (literal_string)
+    dynnr: (string_literal)
     starting_at: (starting_at_spec
       column: (number)
       line: (number))

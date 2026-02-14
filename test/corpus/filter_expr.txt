@@ -9,7 +9,7 @@ FILTER #( messages WHERE sprsl = 'D' )
     (identifier)
     (comparison_expression
       (identifier)
-      (literal_string))))
+      (string_literal))))
 
 ======
 Simple single reverted value filter
@@ -22,7 +22,7 @@ FILTER #( messages except WHERE sprsl = 'D' )
     (identifier)
     (comparison_expression
       (identifier)
-      (literal_string))))
+      (string_literal))))
 
 ======
 Filter using specified key

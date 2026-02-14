@@ -264,7 +264,7 @@ export default grammar({
     data_object: $ => choice(
       $.substring_access,
       $.number,
-      $.literal_string,
+      $.string_literal,
       $.named_data_object
     ),
 
@@ -1307,7 +1307,7 @@ export default grammar({
           // message from an exception object or character-like data object
           seq(
             choice(
-              field("text", $.literal_string),
+              field("text", $.string_literal),
               field("source", $.character_like_expression)
             ),
             optional($._message_type_spec)
@@ -2189,7 +2189,7 @@ export default grammar({
         field("value", seq(
           kw("value"), choice(
             $.number,
-            $.literal_string,
+            $.string_literal,
             seq(...kws("is", "initial")),
             $.identifier,
           )
@@ -2558,7 +2558,7 @@ export default grammar({
             field("default", choice(
               $.identifier, // constant
               $.number,
-              $.literal_string
+              $.string_literal
             ))
           )
         ))
@@ -3137,7 +3137,7 @@ export default grammar({
       choice(
         field("name", choice(
           $._immediate_identifier,
-          $._immediate_literal_string,
+          $._immediate_string_literal,
         )),
         field("offset", $._immediate_number),
       ),
@@ -3148,7 +3148,7 @@ export default grammar({
       token.immediate("("),
       field("name", choice(
         $._immediate_identifier,
-        $._immediate_literal_string
+        $._immediate_string_literal
       )),
       token.immediate(")")
     ),
@@ -3157,7 +3157,7 @@ export default grammar({
       "(",
       field("name", choice(
         $._immediate_identifier,
-        $._immediate_literal_string
+        $._immediate_string_literal
       )),
       token.immediate(")")
     ),
@@ -3380,7 +3380,7 @@ export default grammar({
       field("value", seq(
         kw("value"), choice(
           $.number,
-          $.literal_string,
+          $.string_literal,
           seq(...kws("is", "initial")),
           $.identifier,
         )
@@ -3388,7 +3388,7 @@ export default grammar({
       field("readonly", kw("read-only"))
     ),
 
-    _data_length: $ => seq(kw("length"), choice($.number, $.literal_string)),
+    _data_length: $ => seq(kw("length"), choice($.number, $.string_literal)),
     _data_decimals: $ => seq(kw("decimals"), $.number),
 
     // [[/][pos|POS_LOW|POS_HIGH](len)
@@ -3443,7 +3443,7 @@ export default grammar({
       field("value", choice(
         // FIXME: Technically these are keywords
         $.identifier,
-        $.literal_string,
+        $.string_literal,
         $.number,
         // dynamic dobj specification, do we wrap this in something for querying?
         seq("(", $._immediate_identifier, token.immediate(")")),
@@ -3690,15 +3690,15 @@ export default grammar({
 
     number: _ => NUMBER_REGEX,
     _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
-    _immediate_literal_string: $ => alias(
+    _immediate_string_literal: $ => alias(
       choice(
         token.immediate(/'[^']*'/),
         token.immediate(/`[^`]*`/),
       ),
-      $.literal_string
+      $.string_literal
     ),
 
-    literal_string: $ => choice(
+    string_literal: $ => choice(
       /'[^']*'/,
       /`[^`]*`/
     ),

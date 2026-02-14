@@ -34,7 +34,7 @@ SHIFT text UP TO 'you'.
     (shift
         (identifier)
         (shift_to_substring_spec
-            (literal_string))))
+            (string_literal))))
 ======
 Shift directions
 ======
@@ -69,7 +69,7 @@ SHIFT txt LEFT DELETING LEADING ` `.
     (shift
         (identifier)
         (shift_left_deleting_spec
-            (literal_string))))
+            (string_literal))))
 ======
 Shift right deleting
 ======
@@ -79,4 +79,4 @@ SHIFT txt RIGHT DELETING TRAILING 'ab cd'.
     (shift
         (identifier)
         (shift_right_deleting_spec
-            (literal_string))))
+            (string_literal))))

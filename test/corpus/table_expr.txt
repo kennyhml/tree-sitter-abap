@@ -34,7 +34,7 @@ itab[ carrid = 'AAA' ]
             (search_key_components
                 (itab_comp_spec
                     (identifier)
-                    (literal_string))))))
+                    (string_literal))))))
 ==================
 Simple table key read
 ==================
@@ -107,7 +107,7 @@ itab[ foo->attr = 'A' ].
                     (object_component_selector
                         (identifier)
                         (identifier))
-                    (literal_string))))))
+                    (string_literal))))))
 ==================
 Search key dynamic comp read
 ==================
@@ -137,4 +137,4 @@ itab[ field1+off(5) = 'AABBC' ].
                         (identifier)
                         (identifier)
                         (number))
-                    (literal_string))))))
+                    (string_literal))))))

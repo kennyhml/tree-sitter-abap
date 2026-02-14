@@ -28,7 +28,7 @@ NEW string( let var = 'A String' in |Using let expression { var }| )
         (let_expression
             (assignment
                 (identifier)
-                (literal_string)))
+                (string_literal)))
         (positional_argument
             (string_template
                 (embedded_expression
@@ -48,7 +48,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
             (argument_list
                 (named_argument
                     (identifier)
-                    (literal_string)))))
+                    (string_literal)))))
     (new_expression
         (itab_spec
             (base_spec
@@ -57,7 +57,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
             (argument_list
                 (named_argument
                     (identifier)
-                    (literal_string)))))
+                    (string_literal)))))
     (new_expression
         (itab_spec
             (base_spec
@@ -67,7 +67,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
             (argument_list
                 (named_argument
                     (identifier)
-                    (literal_string))))))
+                    (string_literal))))))
 ==================
 itab sub-component assignment
 ==================

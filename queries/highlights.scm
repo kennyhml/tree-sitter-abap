@@ -1,4 +1,4 @@
-(literal_string) @string
+(string_literal) @string
 (string_template) @string
 (number) @number
 

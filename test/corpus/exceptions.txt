@@ -49,7 +49,7 @@ RAISE EXCEPTION TYPE cx_sy_dynamic_osql_semantics
               (identifier)))
           (named_argument
             (identifier)
-            (literal_string)))))
+            (string_literal)))))
 ======
 Raise exception from message
 ======
@@ -65,12 +65,12 @@ RAISE EXCEPTION TYPE /BOBF/CX_CONF
           (message_type)
           (number)
           (message_arguments
-            (literal_string)
-            (literal_string)))
+            (string_literal)
+            (string_literal)))
         (argument_list
           (named_argument
             (identifier)
-            (literal_string)))))
+            (string_literal)))))
 ======
 Raise exception from long form message
 ======
@@ -83,12 +83,12 @@ RAISE EXCEPTION TYPE cx_demo_exception
       (raise_exception_statement
         name: (identifier)
         (message_spec
-          id: (literal_string)
-          type: (literal_string)
-          number: (literal_string)
+          id: (string_literal)
+          type: (string_literal)
+          number: (string_literal)
           arguments: (message_arguments
-            (literal_string)
-            (literal_string)))))
+            (string_literal)
+            (string_literal)))))
 ======
 Raise exception from system message fields
 ======
@@ -236,7 +236,7 @@ ENDTRY.
                   (identifier)
                   (call_argument_list
                       (positional_argument
-                        (literal_string))))))
+                        (string_literal))))))
             (cleanup_clause
               (cleanup_block
                 (method_call
@@ -244,7 +244,7 @@ ENDTRY.
                   (identifier)
                   (call_argument_list
                       (positional_argument
-                        (literal_string))))))))
+                        (string_literal))))))))
         (catch_clause
           (catch_exception_list
             (identifier))
@@ -254,4 +254,4 @@ ENDTRY.
               (identifier)
               (call_argument_list
                   (positional_argument
-                    (literal_string))))))))
+                    (string_literal))))))))

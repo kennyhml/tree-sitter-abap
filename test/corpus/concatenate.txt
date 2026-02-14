@@ -7,7 +7,7 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
     (concatenate
         (data_object_list
             (identifier)
-            (literal_string)
+            (string_literal)
             (struct_component_selector
                 (identifier)
                 (identifier))

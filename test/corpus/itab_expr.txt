@@ -101,7 +101,7 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ).
             (parenthesized_expression
               (comparison_expression
                 (identifier)
-                (literal_string)))
+                (string_literal)))
             (parenthesized_expression)))
         (line_spec
           (argument_list

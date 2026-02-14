@@ -9,7 +9,7 @@ DATA(dcfl34) = CONV decfloat34( '-123.45600' ).
             (identifier))
         (conv_expression
             (type_identifier)
-            (literal_string))))
+            (string_literal))))
 ======
 Conversion in arithmetic expressions
 ======
@@ -44,7 +44,7 @@ FINAL(number) = EXACT numtext( '4 Apples + 2 Oranges' ).
             (identifier))
         (exact_expression
             (type_identifier)
-            (literal_string))))
+            (string_literal))))
 ======
 Conversion in arithmetic expressions
 ======

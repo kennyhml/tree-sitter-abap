@@ -9,9 +9,9 @@ COND #( WHEN var IS INITIAL THEN `INITIAL` ELSE `NOT INITIAL` )
     (case
       predicate: (predicate_expression
         (identifier))
-      result: (literal_string))
+      result: (string_literal))
     (case
-      result: (literal_string))))
+      result: (string_literal))))
 
 ======
 Cond expression with throw clause
@@ -44,7 +44,7 @@ COND i( WHEN cflag = abap_true  THEN 1
           (number)
           (identifier)
           (message_arguments
-            (literal_string)
-            (literal_string)
-            (literal_string)
-            (literal_string)))))))
+            (string_literal)
+            (string_literal)
+            (string_literal)
+            (string_literal)))))))

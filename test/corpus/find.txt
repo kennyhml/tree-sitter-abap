@@ -6,7 +6,7 @@ FIND 'a' in str.
 (source
     (find
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)))
 ========
 Find substring first explicit occurrence
@@ -17,7 +17,7 @@ FIND FIRST OCCURRENCE OF 'a' in str.
     (find
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)))
 ========
 Find substring all occurrences
@@ -28,7 +28,7 @@ FIND ALL OCCURRENCES OF 'a' in str.
     (find
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)))
 ========
 Find section 
@@ -78,7 +78,7 @@ FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str RESPECTING CASE.
     (find
         (occurrence_spec)
         (pcre_spec
-            (literal_string))
+            (string_literal))
         (identifier)
         (find_options
             (case_sensitivity_spec))))
@@ -91,7 +91,7 @@ FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str IGNORING CASE.
     (find
         (occurrence_spec)
         (pcre_spec
-            (literal_string))
+            (string_literal))
         (identifier)
         (find_options
             (case_sensitivity_spec))))
@@ -107,7 +107,7 @@ FIND ALL OCCURRENCES OF 'know' IN text1
     (find
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)
         (find_options
             (operation_count_spec
@@ -130,7 +130,7 @@ FIND ALL OCCURRENCES OF `d` IN str
     (find
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)
         (find_options
             (case_sensitivity_spec)
@@ -150,7 +150,7 @@ FIND PCRE `(\w+)\W+\1\W+(\w+)\W+\2`
 (source
     (find
         (pcre_spec
-            (literal_string))
+            (string_literal))
         (identifier)
         (find_options
             (case_sensitivity_spec)

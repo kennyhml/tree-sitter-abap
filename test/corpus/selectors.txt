@@ -7,7 +7,7 @@ obj->('foobarbaz').
     (object_component_selector
         (identifier)
         (dynamic_component
-        (literal_string))))
+        (string_literal))))
 ==================
 Fully dynamic class component selector
 ==================

@@ -8,11 +8,11 @@ Literal Strings
 `"foo`.
 ---
 (source
-    (literal_string)
-    (literal_string)
-    (literal_string)
-    (literal_string)
-    (literal_string))
+    (string_literal)
+    (string_literal)
+    (string_literal)
+    (string_literal)
+    (string_literal))
 =======
 Template Strings without embeds
 =======
@@ -39,9 +39,9 @@ String concatenation
         (string_operator
             (string_operator
                 (string_operator
-                    (literal_string)
-                    (literal_string))
-                (literal_string))
+                    (string_literal)
+                    (string_literal))
+                (string_literal))
             (identifier))
         (method_call
             (identifier)
@@ -79,7 +79,7 @@ CONDENSE obj->attr.
     (condense
         (identifier))
     (condense
-        (literal_string))
+        (string_literal))
     (condense
         (struct_component_selector
             (identifier)
