@@ -104,6 +104,7 @@
 (preferred_parameter name: (identifier) @variable.parameter )
 
 (table_key_spec name: (identifier) @variable.key )
+(using_key_spec name: (identifier) @variable.key )
 
 (exception_list (identifier) @variable.exception )
 (message_spec raising: (identifier) @variable.exception )
@@ -169,6 +170,7 @@
     "="
     "-"
     "=>"
+    ">="
     "->"
     "+"
     "="
@@ -231,6 +233,12 @@
 (catch_clause ["catch" "before" "unwind" ] @keyword.control )
 (cleanup_clause "cleanup" @keyword.control )
 
+(loop_at_statement ["loop" "at" "endloop" ] @keyword.control )
+(at_first_statement ["at" "first"] @keyword.control )
+(at_last_statement ["at" "last"] @keyword.control )
+(at_new_statement ["at" "new"] @keyword.control )
+(at_end_of_statement ["at" "end" "of"] @keyword.control )
+
 (raise_exception_statement ["raise" "exception" ] @keyword.control )
 
 ; Keywords that can be considered control flow without context check
@@ -242,6 +250,7 @@
     "check"
     "continue"
     "resume"
+    "endat"
 ] @keyword.control
 
 ; ------------------------------------------
@@ -511,6 +520,13 @@
     "found"
     "rollback"
     "commit"
+    
+    "loop"
+    "assigning"
+    "field-symbol"
+    "endloop"
+    "transporting"
+    "fields"
     
     "set"
     "commit"
