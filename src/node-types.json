@@ -36,6 +36,10 @@
         "named": true
       },
       {
+        "type": "loop_at_statement",
+        "named": true
+      },
+      {
         "type": "method_implementation",
         "named": true
       },
@@ -357,6 +361,28 @@
       },
       {
         "type": "substring_access",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "functional_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "constructor_expression",
+        "named": true
+      },
+      {
+        "type": "method_call",
+        "named": true
+      },
+      {
+        "type": "named_data_object",
+        "named": true
+      },
+      {
+        "type": "table_expression",
         "named": true
       }
     ]
@@ -715,6 +741,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "assigning_spec",
+    "named": true,
+    "fields": {
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "field_symbol",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2867,9 +2913,17 @@
     "named": true,
     "fields": {
       "name": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true
@@ -4825,6 +4879,26 @@
     }
   },
   {
+    "type": "into_spec",
+    "named": true,
+    "fields": {
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "itab_comp_spec",
     "named": true,
     "fields": {
@@ -4915,32 +4989,12 @@
     }
   },
   {
-    "type": "iteration_cond",
+    "type": "iterate_from_index_spec",
     "named": true,
     "fields": {
-      "from": {
+      "index": {
         "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "step": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "to": {
-        "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "number",
@@ -4948,10 +5002,47 @@
           }
         ]
       }
-    },
+    }
+  },
+  {
+    "type": "iterate_step_spec",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "iterate_to_index_spec",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "iteration_cond",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "dynamic_cond",
@@ -5266,6 +5357,69 @@
       "types": [
         {
           "type": "lookup_table_mapping",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "loop_at_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_compound_statement",
+          "named": true
+        },
+        {
+          "type": "_simple_statement",
+          "named": true
+        },
+        {
+          "type": "docstring",
+          "named": true
+        },
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "loop_at_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "loop_at_body",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "functional_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "test",
           "named": true
         }
       ]
@@ -7065,6 +7219,26 @@
     }
   },
   {
+    "type": "reference_into_spec",
+    "named": true,
+    "fields": {
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "field_symbol",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "referred_type_spec",
     "named": true,
     "fields": {
@@ -8624,6 +8798,16 @@
     "type": "table_iteration",
     "named": true,
     "fields": {
+      "from": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_from_index_spec",
+            "named": true
+          }
+        ]
+      },
       "group": {
         "multiple": false,
         "required": false,
@@ -8645,15 +8829,11 @@
         ]
       },
       "index": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "number",
             "named": true
           }
         ]
@@ -8678,6 +8858,26 @@
         "types": [
           {
             "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "step": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_step_spec",
+            "named": true
+          }
+        ]
+      },
+      "to": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_to_index_spec",
             "named": true
           }
         ]
@@ -8873,6 +9073,74 @@
     }
   },
   {
+    "type": "test",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iteration_cond",
+            "named": true
+          }
+        ]
+      },
+      "from": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_from_index_spec",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "assigning_spec",
+            "named": true
+          },
+          {
+            "type": "into_spec",
+            "named": true
+          },
+          {
+            "type": "reference_into_spec",
+            "named": true
+          },
+          {
+            "type": "transporting_no_fields_spec",
+            "named": true
+          }
+        ]
+      },
+      "step": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_step_spec",
+            "named": true
+          }
+        ]
+      },
+      "to": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_to_index_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "throw_exception",
     "named": true,
     "fields": {
@@ -8921,6 +9189,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "transporting_no_fields_spec",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "try_block",
@@ -9517,6 +9790,10 @@
     "named": false
   },
   {
+    "type": "assigning",
+    "named": false
+  },
+  {
     "type": "at",
     "named": false
   },
@@ -9614,6 +9891,10 @@
   },
   {
     "type": "cast",
+    "named": false
+  },
+  {
+    "type": "casting",
     "named": false
   },
   {
@@ -9881,6 +10162,10 @@
     "named": false
   },
   {
+    "type": "endloop",
+    "named": false
+  },
+  {
     "type": "endmethod",
     "named": false
   },
@@ -9946,6 +10231,10 @@
   },
   {
     "type": "field-symbol",
+    "named": false
+  },
+  {
+    "type": "fields",
     "named": false
   },
   {
@@ -10199,6 +10488,10 @@
   },
   {
     "type": "long",
+    "named": false
+  },
+  {
+    "type": "loop",
     "named": false
   },
   {
@@ -10751,6 +11044,10 @@
     "named": false
   },
   {
+    "type": "transporting",
+    "named": false
+  },
+  {
     "type": "try",
     "named": false
   },
@@ -10764,6 +11061,10 @@
   },
   {
     "type": "uline",
+    "named": false
+  },
+  {
+    "type": "unassign",
     "named": false
   },
   {

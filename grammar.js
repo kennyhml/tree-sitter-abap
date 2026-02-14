@@ -103,6 +103,7 @@ export default grammar({
     $.named_data_object,
 
     $.general_expression,
+    $.functional_expression,
     $.iteration_expression,
     $.writable_expression,
     $.arithmetic_expression,
@@ -199,6 +200,7 @@ export default grammar({
       $.type_case_statement,
       $.do_statement,
       $.while_statement,
+      $.loop_at_statement,
       $.try_statement,
     ),
 
@@ -282,6 +284,14 @@ export default grammar({
       $.table_expression,
       $.arithmetic_expression,
       $.string_expression
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
+    functional_expression: $ => choice(
+      $.named_data_object,
+      $.constructor_expression,
+      $.table_expression,
+      $.method_call,
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_EXPRESSION_GLOSRY.html
@@ -550,41 +560,43 @@ export default grammar({
       optional(seq($.let_expression, kw("in")))
     ),
 
+    _simple_itab_read: $ => seq(
+      field("iterator", $.named_data_object),
+      kw("in"),
+      field("itab", $.general_expression),
+      repeat(choice(
+        seq(...kws("index", "into"), field("index", $.identifier)),
+        $.iteration_cond,
+        $._iteration_index_spec
+      ))
+    ),
+
+    _grouped_itab_read: $ => seq(
+      kw("groups"), field("group", $.identifier),
+      kw("of"), field("iterator", $.identifier),
+      kw("in"), field("itab", $.identifier),
+      repeat(choice(
+        seq(...kws("index", "into"), field("index", $.identifier)),
+        $.iteration_cond,
+        $._iteration_index_spec
+      )),
+      ...kws("group", "by"), field("group_key", $.group_key),
+      optional(
+        seq(
+          choice(...kws("ascending", "descending")),
+          optional(seq(...kws("as", "text")))
+        )
+      ),
+      optional(seq(...kws("without", "members")))
+    ),
+
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_ITAB.html
     table_iteration: $ => seq(
       kw("for"),
-
       choice(
-        // simple internal table read
-        seq(
-          field("iterator", $.named_data_object),
-          kw("in"),
-          field("itab", $.general_expression),
-          optional(
-            seq(...kws("index", "into"), field("index", $.identifier))
-          ),
-          optional($.iteration_cond),
-        ),
-        seq(
-          kw("groups"), field("group", $.identifier),
-          kw("of"), field("iterator", $.identifier),
-          kw("in"), field("itab", $.identifier),
-          optional(
-            seq(...kws("index", "into"), field("index", $.number))
-          ),
-          optional($.iteration_cond),
-          ...kws("group", "by"), field("group_key", $.group_key),
-          optional(
-            seq(
-              choice(...kws("ascending", "descending")),
-              optional(seq(...kws("as", "text")))
-            )
-          ),
-          optional(seq(...kws("without", "members")))
-        ),
-
+        $._simple_itab_read,
+        $._grouped_itab_read,
       ),
-
       optional(seq($.let_expression, kw("in")))
     ),
 
@@ -598,29 +610,36 @@ export default grammar({
       field("name", $.identifier)
     ),
 
+    iterate_from_index_spec: $ => seq(
+      kw("from"),
+      field("index", $.number)
+    ),
+
+    iterate_to_index_spec: $ => seq(
+      kw("to"),
+      field("index", $.number),
+    ),
+
+    iterate_step_spec: $ => seq(
+      kw("step"),
+      field("size", $.number),
+    ),
+
+    _iteration_index_spec: $ => choice(
+      field("from", $.iterate_from_index_spec),
+      field("to", $.iterate_to_index_spec),
+      field("step", $.iterate_step_spec),
+    ),
+
     /**
      * Iteration condition for a table iteration {@link loop} or {@link table_iteration}
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_COND.html
      */
-    iteration_cond: $ => seq(
-      optional($.using_key_spec),
+    iteration_cond: $ => prec.right(repeat1(
       choice(
-        // kind of a mess, probably clean this up at some point if we can..
+        $.using_key_spec,
         seq(
-          seq(kw("from"), field("from", $.number)),
-          optional(seq(kw("to"), field("to", $.number))),
-          optional(seq(kw("step"), field("step", $.number))),
-        ),
-        seq(
-          seq(kw("to"), field("to", $.number)),
-          optional(seq(kw("step"), field("step", $.number))),
-        ),
-        seq(kw("step"), field("step", $.number)),
-        seq(
-          optional(seq(kw("from"), field("from", $.number))),
-          optional(seq(kw("to"), field("to", $.number))),
-          optional(seq(kw("step"), field("step", $.number))),
           kw("where"),
           choice(
             $._logical_expression,
@@ -635,7 +654,7 @@ export default grammar({
           )
         )
       )
-    ),
+    )),
 
     dynamic_cond: $ => seq(
       "(",
@@ -1735,11 +1754,21 @@ export default grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINLINE_DECLARATIONS.html
     declaration_expression: $ => seq(
-      choice(...kws("final", "data", "field-symbol")),
-      // Do we use immediate here? Does that fall under being permissive?..
-      token.immediate("("),
-      field("name", $._immediate_identifier),
-      token.immediate(")")
+      choice(
+        seq(
+          choice(...kws("final", "data")),
+          // Do we use immediate here? Does that fall under being permissive?..
+          token.immediate("("),
+          field("name", $._immediate_identifier),
+          token.immediate(")")
+        ),
+        seq(
+          kw("field-symbol"),
+          token.immediate("("),
+          field("name", $._immediate_field_symbol),
+          token.immediate(")")
+        )
+      )
     ),
 
     /**
@@ -2716,6 +2745,72 @@ export default grammar({
     ),
 
     /**
+     * 1. LOOP AT itab result [cond].
+     * ...
+     * ENDLOOP.
+     * 
+     * 2. LOOP AT itab result [cond] GROUP BY group_key
+     * [ASCENDING|DESCENDING [AS TEXT]]
+     * [WITHOUT MEMBERS]
+     * [group_result].
+     * ...
+     * ENDLOOP.
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_VARIANTS.html
+     */
+    loop_at_statement: $ => seq(
+      ...kws("loop", "at"),
+      field("subject", $.functional_expression),
+      repeat(choice(
+        field("result", $._loop_at_result),
+        field("condition", $.iteration_cond),
+        $._iteration_index_spec
+      )),
+      ".",
+      optional(field("body", alias($.statement_block, $.loop_at_body))),
+      kw("endloop"),
+      "."
+    ),
+
+    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
+    _loop_at_result: $ => choice(
+      $.into_spec,
+      $.assigning_spec,
+      $.reference_into_spec,
+      $.transporting_no_fields_spec
+    ),
+
+    into_spec: $ => seq(
+      kw("into"),
+      field("work_area", choice(
+        $.named_data_object,
+        $.declaration_expression
+      )),
+    ),
+
+    assigning_spec: $ => seq(
+      ...kws("assigning"),
+      field("work_area", choice(
+        $.field_symbol,
+        $.declaration_expression
+      )),
+      optional(kw("casting")),
+      optional(seq(...kws("else", "unassign"))),
+    ),
+
+    reference_into_spec: $ => seq(
+      ...kws("reference", "into"),
+      field("work_area", choice(
+        $.field_symbol,
+        $.declaration_expression
+      )),
+    ),
+
+    transporting_no_fields_spec: $ => seq(
+      ...kws("transporting", "no", "fields")
+    ),
+
+    /**
      * TODO: Add tests
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTRY.html
@@ -3453,6 +3548,12 @@ export default grammar({
 
     field_symbol: $ => seq(
       '<',
+      field("name", $._immediate_identifier),
+      token.immediate(">")
+    ),
+
+    _immediate_field_symbol: $ => seq(
+      token.immediate('<'),
       field("name", $._immediate_identifier),
       token.immediate(">")
     ),
