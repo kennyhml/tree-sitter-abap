@@ -48,8 +48,8 @@ message id 'ZMESSAGES' type 'A' number 999.
 (source
     (message
         (message_spec
-            id: (literal_string)
-            type: (literal_string)
+            id: (string_literal)
+            type: (string_literal)
             number: (number))))
 ======
 Message spec with argument list
@@ -63,9 +63,9 @@ message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
             number: (number)
             id: (identifier)
             arguments: (message_arguments
-                (literal_string)
-                (literal_string)
-                (literal_string)))))
+                (string_literal)
+                (string_literal)
+                (string_literal)))))
 ======
 Chained mixed message declarations
 ======
@@ -80,19 +80,19 @@ message: e888(msg_class) with 'Foo' 'Bar' 'Baz',
           number: (number)
           id: (identifier)
           arguments: (message_arguments
-            (literal_string)
-            (literal_string)
-            (literal_string)))
+            (string_literal)
+            (string_literal)
+            (string_literal)))
         (message_spec
           type: (message_type)
           number: (number)
           arguments: (message_arguments
-            (literal_string)
-            (literal_string)
-            (literal_string)))
+            (string_literal)
+            (string_literal)
+            (string_literal)))
         (message_spec
-          id: (literal_string)
-          type: (literal_string)
+          id: (string_literal)
+          type: (string_literal)
           number: (number))))
 ======
 Message display type override
@@ -104,7 +104,7 @@ MESSAGE i200 DISPLAY LIKE 'S'.
         (message_spec
             type: (message_type)
             number: (number)
-            display_type: (literal_string))))
+            display_type: (string_literal))))
 ======
 Message from expressions
 ======
@@ -120,7 +120,7 @@ message conv string( lines( itab ) ) type 'I'.
               (call_argument_list
                   (positional_argument
                     (identifier)))))
-          (literal_string))))
+          (string_literal))))
 ======
 Message from method call
 ======
@@ -132,7 +132,7 @@ MESSAGE oref->get_text( ) TYPE 'I'.
           (method_call
             (identifier)
             (identifier))
-          (literal_string))))
+          (string_literal))))
 ======
 Message raising an exception
 ======
@@ -141,8 +141,8 @@ MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1.
 (source
     (message
         (message_spec
-            text: (literal_string)
-            type: (literal_string)
+            text: (string_literal)
+            type: (string_literal)
             raising: (identifier))))
 ======
 Message into target variable / declaration

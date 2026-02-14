@@ -41,7 +41,7 @@ SPLIT text1 AT ':' INTO TABLE DATA(segments).
     (split
         (identifier)
         (separator_spec
-            (literal_string))
+            (string_literal))
         (into_clause
             (table_result_spec
                 (declaration_expression
@@ -55,7 +55,7 @@ SPLIT text1 AT ':' INTO: TABLE DATA(segments).
     (split
         (identifier)
         (separator_spec
-            (literal_string))
+            (string_literal))
         (into_clause
             (table_result_spec
                 (declaration_expression

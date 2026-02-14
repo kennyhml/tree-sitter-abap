@@ -2813,7 +2813,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "literal_string"
+                "name": "string_literal"
               },
               {
                 "type": "SYMBOL",
@@ -6399,7 +6399,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "literal_string"
+          "name": "string_literal"
         },
         {
           "type": "SYMBOL",
@@ -11514,7 +11514,7 @@
                         "name": "text",
                         "content": {
                           "type": "SYMBOL",
-                          "name": "literal_string"
+                          "name": "string_literal"
                         }
                       },
                       {
@@ -15588,7 +15588,7 @@
                           },
                           {
                             "type": "SYMBOL",
-                            "name": "literal_string"
+                            "name": "string_literal"
                           },
                           {
                             "type": "SEQ",
@@ -18406,7 +18406,7 @@
                             },
                             {
                               "type": "SYMBOL",
-                              "name": "literal_string"
+                              "name": "string_literal"
                             }
                           ]
                         }
@@ -21421,7 +21421,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_immediate_literal_string"
+                    "name": "_immediate_string_literal"
                   }
                 ]
               }
@@ -21467,7 +21467,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_immediate_literal_string"
+                "name": "_immediate_string_literal"
               }
             ]
           }
@@ -21500,7 +21500,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_immediate_literal_string"
+                "name": "_immediate_string_literal"
               }
             ]
           }
@@ -22077,7 +22077,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "literal_string"
+                    "name": "string_literal"
                   },
                   {
                     "type": "SEQ",
@@ -22147,7 +22147,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "literal_string"
+              "name": "string_literal"
             }
           ]
         }
@@ -22325,7 +22325,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "literal_string"
+                "name": "string_literal"
               },
               {
                 "type": "SYMBOL",
@@ -23051,7 +23051,7 @@
       "named": true,
       "value": "number"
     },
-    "_immediate_literal_string": {
+    "_immediate_string_literal": {
       "type": "ALIAS",
       "content": {
         "type": "CHOICE",
@@ -23073,9 +23073,9 @@
         ]
       },
       "named": true,
-      "value": "literal_string"
+      "value": "string_literal"
     },
-    "literal_string": {
+    "string_literal": {
       "type": "CHOICE",
       "members": [
         {

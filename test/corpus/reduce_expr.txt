@@ -85,10 +85,10 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
               (number))
             (named_argument
               (identifier)
-              (literal_string)))))
+              (string_literal)))))
       (init_spec
         (identifier)
-        (literal_string)))
+        (string_literal)))
     (table_iteration
       (field_symbol
         (identifier))
@@ -133,7 +133,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
                   (identifier)))))))
       (assignment
         (identifier)
-        (literal_string)))))
+        (string_literal)))))
 
 ======
 Reduce with nested constructor expressions
@@ -155,10 +155,10 @@ REDUCE string( INIT text = `` sep = ``
     (reduce_init
       (init_spec
         (identifier)
-        (literal_string))
+        (string_literal))
       (init_spec
         (identifier)
-        (literal_string)))
+        (string_literal)))
     (inline_comment)
     (table_iteration
       (identifier)
@@ -175,11 +175,11 @@ REDUCE string( INIT text = `` sep = ``
                 (switch_expression
                   (identifier)
                   (case
-                    (literal_string)
-                    (literal_string))
+                    (string_literal)
+                    (string_literal))
                   (case
-                    (literal_string)
-                    (literal_string))
+                    (string_literal)
+                    (string_literal))
                   (case
                     (identifier)))))))))
     (reduce_next
@@ -194,4 +194,4 @@ REDUCE string( INIT text = `` sep = ``
             (identifier))))
       (assignment
         (identifier)
-        (literal_string)))))
+        (string_literal)))))

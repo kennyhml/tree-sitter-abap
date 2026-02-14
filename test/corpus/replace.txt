@@ -6,9 +6,9 @@ REPLACE 'a' in str with 'b'.
 (source
     (pattern_based_replacement
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)))
+        (string_literal)))
 ========
 Replace substring first explicit occurrence
 ========
@@ -18,9 +18,9 @@ REPLACE FIRST OCCURRENCE OF 'a' in str with 'b'.
     (pattern_based_replacement
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)))
+        (string_literal)))
 ========
 Replace substring all occurrences
 ========
@@ -30,9 +30,9 @@ REPLACE ALL OCCURRENCES OF 'a' in str with 'b'.
     (pattern_based_replacement
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)))
+        (string_literal)))
 
 ========
 Replace PCRE implicit single occurrence
@@ -42,9 +42,9 @@ REPLACE PCRE 'u*' IN text WITH 'x'.
 (source
     (pattern_based_replacement
         (pcre_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)))
+        (string_literal)))
 ========
 Replace section 
 ========
@@ -100,7 +100,7 @@ REPLACE PCRE regex IN text2 WITH `$1___$3` VERBATIM.
         (pcre_spec
             (identifier))
         (identifier)
-        (literal_string)
+        (string_literal)
         (replace_options
             (verbatim))))
 ========
@@ -113,9 +113,9 @@ REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`'
     (pattern_based_replacement
         (occurrence_spec)
         (pcre_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)
+        (string_literal)
         (replace_options
             (case_sensitivity_spec))))
 ========
@@ -128,9 +128,9 @@ REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`'
     (pattern_based_replacement
         (occurrence_spec)
         (pcre_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)
+        (string_literal)
         (replace_options
             (case_sensitivity_spec))))
 ========
@@ -146,9 +146,9 @@ REPLACE ALL OCCURRENCES OF 'know' IN
     (pattern_based_replacement
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)
+        (string_literal)
         (replace_options
             (operation_count_spec
                 (declaration_expression
@@ -170,9 +170,9 @@ REPLACE ALL OCCURRENCES OF `d` IN str WITH 't'
     (pattern_based_replacement
         (occurrence_spec)
         (substring_spec
-            (literal_string))
+            (string_literal))
         (identifier)
-        (literal_string)
+        (string_literal)
         (replace_options
             (case_sensitivity_spec)
             (operation_results_spec

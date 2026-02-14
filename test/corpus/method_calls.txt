@@ -132,12 +132,12 @@ CALL METHOD o_ref->('SHOW')
           (object_component_selector
             (identifier)
             (dynamic_component
-              (literal_string))))
+              (string_literal))))
         (call_argument_list
           (argument_list
             (named_argument
               (identifier)
-              (literal_string)))
+              (string_literal)))
           (argument_list
             (named_argument
               (identifier)

@@ -6,7 +6,7 @@ CALL FUNCTION 'Z_MY_FUNCTION'.
 
 (source
   (function_call
-    name: (literal_string)))
+    name: (string_literal)))
 
 ======
 Function module call with parameters
@@ -22,12 +22,12 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
 
 (source
   (function_call
-    name: (literal_string)
+    name: (string_literal)
     (call_argument_list
       exporting: (argument_list
         (named_argument
           name: (identifier)
-          value: (literal_string)))
+          value: (string_literal)))
       importing: (argument_list
         (named_argument
           name: (identifier)
@@ -47,7 +47,7 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
 
 (source
   (function_call
-    name: (literal_string)
+    name: (string_literal)
     (call_argument_list
       parameter_table: (identifier)
       exception_table: (identifier))))
@@ -63,8 +63,8 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
 
 (source
   (function_call
-    name: (literal_string)
-    destination: (literal_string)
+    name: (string_literal)
+    destination: (string_literal)
     (call_argument_list
       exporting: (argument_list
         (named_argument
@@ -90,7 +90,7 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
 
 (source
   (function_call
-    name: (literal_string)
+    name: (string_literal)
     session: (identifier)
     (call_argument_list
       exporting: (argument_list
@@ -117,7 +117,7 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
 
 (source
   (function_call
-    name: (literal_string)
+    name: (string_literal)
     destination: (identifier)
     (call_argument_list
       exceptions: (argument_list
@@ -135,7 +135,7 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
 
 (source
   (function_call
-    name: (literal_string)
+    name: (string_literal)
     task_id: (identifier)))
 
 ======
@@ -161,7 +161,7 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
 
 (source
   (function_call
-    name: (literal_string)
+    name: (string_literal)
     background_unit: (identifier)))
 
 ======
@@ -174,7 +174,7 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK
 
 (source
   (function_call
-    name: (literal_string)
+    name: (string_literal)
     (call_argument_list
       exporting: (argument_list
         (named_argument
@@ -194,8 +194,8 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT'
 
 (source
   (function_call
-    name: (literal_string)
-    destination: (literal_string)
+    name: (string_literal)
+    destination: (string_literal)
     (call_argument_list
       exporting: (argument_list
         (named_argument

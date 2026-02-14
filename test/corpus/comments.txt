@@ -89,6 +89,6 @@ text  = 'Hello Pragmas' ##no_text.
             (code)))
     (assignment
         (identifier)
-        (literal_string)
+        (string_literal)
         (pragma
             (code))))

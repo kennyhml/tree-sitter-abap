@@ -10,7 +10,7 @@ ENDIF.
   (if_statement
     (comparison_expression
       (identifier)
-      (literal_string))
+      (string_literal))
     (statement_block
       (assignment
         (identifier)
@@ -30,7 +30,7 @@ ENDIF.
   (if_statement
     (comparison_expression
       (identifier)
-      (literal_string))
+      (string_literal))
     (statement_block
       (assignment
         (identifier)
@@ -59,7 +59,7 @@ ENDIF.
   (if_statement
     (comparison_expression
       (identifier)
-      (literal_string))
+      (string_literal))
     (statement_block
       (assignment
         (identifier)
@@ -67,7 +67,7 @@ ENDIF.
     (elseif_clause
       (comparison_expression
         (identifier)
-        (literal_string))
+        (string_literal))
       (statement_block
         (assignment
           (identifier)
@@ -75,11 +75,11 @@ ENDIF.
     (elseif_clause
       (comparison_expression
         (identifier)
-        (literal_string))
+        (string_literal))
       (statement_block
         (assignment
           (identifier)
-          (literal_string))))
+          (string_literal))))
     (else_clause
       (statement_block
         (assignment
@@ -101,7 +101,7 @@ ENDIF.
   (if_statement
     (comparison_expression
       (identifier)
-      (literal_string))
+      (string_literal))
     (statement_block
       (assignment
         (identifier)

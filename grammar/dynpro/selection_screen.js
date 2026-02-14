@@ -273,7 +273,7 @@ export default {
     title_spec: $ => seq(
         kw("title"),
         field("title", choice(
-            $.literal_string,
+            $.string_literal,
             $.struct_component_selector,
             $.identifier
         ))

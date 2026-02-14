@@ -10,7 +10,7 @@ itab[ field = 'AAA'  ]-value = 10.
             (identifier)
             (index_read
                 (number)))
-        (literal_string))
+        (string_literal))
     (assignment
         (struct_component_selector
             (table_expression
@@ -19,7 +19,7 @@ itab[ field = 'AAA'  ]-value = 10.
                     (search_key_components
                         (itab_comp_spec
                             (identifier)
-                            (literal_string)))))
+                            (string_literal)))))
                 (identifier))
         (number)))
 ==================
@@ -36,4 +36,4 @@ new #( field = 10 )->attr = 'AAA'.
                         (identifier)
                         (number))))
             (identifier))
-        (literal_string)))
+        (string_literal)))

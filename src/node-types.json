@@ -348,15 +348,15 @@
     "named": true,
     "subtypes": [
       {
-        "type": "literal_string",
-        "named": true
-      },
-      {
         "type": "named_data_object",
         "named": true
       },
       {
         "type": "number",
+        "named": true
+      },
+      {
+        "type": "string_literal",
         "named": true
       },
       {
@@ -1217,11 +1217,11 @@
             "named": false
           },
           {
-            "type": "literal_string",
+            "type": "number",
             "named": true
           },
           {
-            "type": "number",
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -1263,11 +1263,11 @@
             "named": false
           },
           {
-            "type": "literal_string",
+            "type": "number",
             "named": true
           },
           {
-            "type": "number",
+            "type": "string_literal",
             "named": true
           },
           {
@@ -3397,7 +3397,7 @@
             "named": true
           },
           {
-            "type": "literal_string",
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -3417,7 +3417,7 @@
             "named": true
           },
           {
-            "type": "literal_string",
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -3479,7 +3479,7 @@
             "named": true
           },
           {
-            "type": "literal_string",
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -4206,15 +4206,15 @@
             "named": true
           },
           {
-            "type": "literal_string",
-            "named": true
-          },
-          {
             "type": "method_call",
             "named": true
           },
           {
             "type": "number",
+            "named": true
+          },
+          {
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -5431,11 +5431,6 @@
     "fields": {}
   },
   {
-    "type": "literal_string",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "local_friends_spec",
     "named": true,
     "fields": {
@@ -5827,7 +5822,7 @@
         "required": false,
         "types": [
           {
-            "type": "literal_string",
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -6435,11 +6430,11 @@
             "named": true
           },
           {
-            "type": "literal_string",
+            "type": "number",
             "named": true
           },
           {
-            "type": "number",
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -7533,11 +7528,11 @@
             "named": false
           },
           {
-            "type": "literal_string",
+            "type": "number",
             "named": true
           },
           {
-            "type": "number",
+            "type": "string_literal",
             "named": true
           },
           {
@@ -7723,11 +7718,11 @@
             "named": true
           },
           {
-            "type": "literal_string",
+            "type": "number",
             "named": true
           },
           {
-            "type": "number",
+            "type": "string_literal",
             "named": true
           }
         ]
@@ -8441,6 +8436,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "string_literal",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "string_operator",
@@ -9377,7 +9377,7 @@
             "named": true
           },
           {
-            "type": "literal_string",
+            "type": "string_literal",
             "named": true
           },
           {

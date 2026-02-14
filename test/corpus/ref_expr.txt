@@ -38,8 +38,8 @@ FINAL(dref) = REF #( itab[ field = 'ABC' ] DEFAULT new #( 'ABC' ) ).
                     (search_key_components
                         (itab_comp_spec
                             (identifier)
-                            (literal_string)))))
+                            (string_literal)))))
             (new_expression
                 (argument_list
                     (positional_argument
-                        (literal_string)))))))
+                        (string_literal)))))))

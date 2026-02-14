@@ -48,7 +48,7 @@ num = CAST struc( dref )->('col').
             (type_identifier)
             (identifier))
           (dynamic_component
-            (literal_string)))))
+            (string_literal)))))
 ======
 RTTS downcast
 ======
@@ -69,5 +69,5 @@ FINAL(attributes) =
               (identifier)
               (call_argument_list
                   (positional_argument
-                    (literal_string)))))
+                    (string_literal)))))
           (identifier))))
