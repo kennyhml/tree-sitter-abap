@@ -222,10 +222,12 @@
 (else_clause "else" @keyword.control)
 
 (case_statement ["case" "endcase"] @keyword.control )
-(case_clause [ "when" "others" ] @keyword.control)
+(case_clause "when" @keyword.control)
+(others_case_clause [ "when" "others" ] @keyword.control)
 
-(type_case_statement ["case" "type" "of" "endcase" ] @keyword.control )
-(type_case_clause [ "when" "type" "others" ] @keyword.control)
+(case_type_of_statement ["case" "type" "of" "endcase" ] @keyword.control )
+(case_type_clause [ "when" "type" ] @keyword.control)
+(case_others_type_clause [ "when" "others" ] @keyword.control)
 
 (do_statement ["do" "times" "enddo"  ] @keyword.control )
 (while_statement ["while" "endwhile" ] @keyword.control )
