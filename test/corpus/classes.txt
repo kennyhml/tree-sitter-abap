@@ -11,14 +11,19 @@ CLASS cl_demo_spfli DEFINITION
   PRIVATE SECTION.
 ENDCLASS.
 ---
+
 (source
-    (class_definition
+  (class_definition
     name: (identifier)
-    (class_options)
-    (body
-        (public_section)
-        (protected_section)
-        (private_section))))
+    (class_options
+      (public_spec)
+      (final_spec)
+      accessibility: (create_visibility_spec))
+    (class_body
+      (public_section)
+      (protected_section)
+      (private_section))))
+
 ======
 Declaration with inheritance
 ======
@@ -26,21 +31,26 @@ CLASS cls2 DEFINITION
            INHERITING FROM cls1. 
 ENDCLASS.
 ---
+
 (source
-    (class_definition
-        name: (identifier)
-        (class_options
-            parent: (identifier))))
+  (class_definition
+    name: (identifier)
+    (class_options
+      superclass: (superclass_spec
+        name: (identifier)))))
+
 ======
 Abstract base class
 ======
 CLASS cls2 DEFINITION ABSTRACT.
 ENDCLASS.
 ---
+
 (source
-    (class_definition
-        name: (identifier)
-        (class_options)))
+  (class_definition
+    name: (identifier)
+    (class_options
+      (abstract_spec))))
 
 ======
 Declaration with friend classes
@@ -53,13 +63,19 @@ CLASS cl_demo_flights DEFINITION
   GLOBAL FRIENDS cl_shm_area.
 ENDCLASS.
 ---
+
 (source
-    (class_definition
-        name: (identifier)
-        (class_options
-            parent: (identifier)
-            (global_friends
-                (identifier)))))
+  (class_definition
+    name: (identifier)
+    (class_options
+      (public_spec)
+      superclass: (superclass_spec
+        name: (identifier))
+      (final_spec)
+      accessibility: (create_visibility_spec)
+      friends: (friends_spec
+        (identifier)))))
+
 ======
 Declaration for shared memory
 ======
@@ -70,10 +86,16 @@ CLASS cl_demo_flight_list DEFINITION
   SHARED MEMORY ENABLED.
 ENDCLASS.
 ---
+
 (source
-    (class_definition
-        (identifier)
-        (class_options)))
+  (class_definition
+    (identifier)
+    (class_options
+      (public_spec)
+      (final_spec)
+      (create_visibility_spec)
+      (shared_memory_enabled_spec))))
+
 ======
 Declaration for abap unit
 ======
@@ -82,11 +104,16 @@ CLASS class DEFINITION
     DURATION LONG.
 ENDCLASS.
 ---
+
 (source
-    (class_definition
-        (identifier)
-        (class_options
-            (for_testing_spec))))
+  (class_definition
+    (identifier)
+    (class_options
+      (for_testing_spec
+        (for_testing_spec)
+        (testing_risk_level_spec)
+        (testing_duration_spec)))))
+
 ======
 RAP Behavior declaration
 ======
@@ -94,34 +121,45 @@ CLASS bp_demo_managed_additional_sav DEFINITION PUBLIC
    ABSTRACT FINAL FOR BEHAVIOR OF demo_managed_additional_save. 
 ENDCLASS. 
 ---
+
 (source
-    (class_definition
-        name: (identifier)
-        (class_options
-            behavior_ref: (identifier))))
+  (class_definition
+    name: (identifier)
+    (class_options
+      (public_spec)
+      (abstract_spec)
+      (final_spec)
+      (for_rap_behavior_spec
+        bdef: (identifier)))))
+
 ======
 Class implementation part
 ======
 CLASS zzz_my_class IMPLEMENTATION.
 ENDCLASS.
 ---
+
 (source
-    (class_implementation
-        name: (identifier)))
+  (class_implementation
+    name: (identifier)))
+
 ======
 Deferred class declaration
 ======
 CLASS c1 DEFINITION DEFERRED. 
 ---
+
 (source
-    (deferred_class_definition
-        name: (identifier)))
+  (deferred_class_definition
+    name: (identifier)))
+
 ======
 Declaration with local friends
 ======
 CLASS cl_demo_amdp_mesh DEFINITION LOCAL FRIENDS cl_test_selects.
 ---
+
 (source
-    (local_friends_spec
-        name: (identifier)
-        friend: (identifier)))
+  (local_friends_spec
+    name: (identifier)
+    friend: (identifier)))

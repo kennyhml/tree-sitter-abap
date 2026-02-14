@@ -1,6 +1,7 @@
 import { chainable, declaration_and_spec } from "./grammar/helpers/decl_gen.js";
 import dynpro from '#dynpro';
 import core from '#core';
+import oo from '#oo';
 
 /**
  * @file Abap grammar for tree-sitter
@@ -102,7 +103,12 @@ export default grammar({
 
     $.data_object,
     $.named_data_object,
+
+    $.special_statement,
+    $.class_statement,
     $.control_statement,
+    $.dynpro_statement,
+    $.interface_statement,
 
     $.general_expression,
     $.functional_expression,
@@ -119,7 +125,6 @@ export default grammar({
     $.type_component_selector,
     $.relational_expression,
     $._simple_statement,
-    $._compound_statement,
     $.pattern,
     $.replace,
   ],
@@ -131,31 +136,22 @@ export default grammar({
 
     _statement: $ => choice(
       $._simple_statement,
-      $._compound_statement,
+      $.special_statement,
       $.general_expression,
       $.docstring
     ),
 
-    // Statements that dont have a body.
     _simple_statement: $ => choice(
       // Declarations
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
       $.tables_declaration,
-      $.class_data_declaration,
-      $.methods_declaration,
-      $.class_methods_declaration,
-
-      $._dynpro_statement,
 
       $.message,
       $.assignment,
 
       $.report_initiator,
-      $.deferred_class_definition,
-      $.deferred_interface_definition,
-      $.local_friends_spec,
 
       $.function_call,
       $.dynamic_method_call,
@@ -184,46 +180,30 @@ export default grammar({
       $.commit_work_statement,
       $.rollback_work_statement,
 
+      $.control_statement,
 
       $._empty_statement,
     ),
 
-    // Statements that have a body. As a rule of thumb, that at least encompasses any kind of
-    // statement that needs to be terminated with `END[...]` such as `ENDWHILE`, `ENDMETHOD`..
-    _compound_statement: $ => choice(
-      $.class_definition,
+    // Statements that can only occur in special places - usually
+    // the 'top level' of the current program.
+    special_statement: $ => choice(
       $.form_definition,
-      $.class_implementation,
-      $.interface_definition,
-      $.interface_implementation,
-      $.method_implementation,
-      $.control_statement,
-    ),
-
-    _class_component: $ => choice(
-      $.data_declaration,
-      $.class_data_declaration,
-      $.constants_declaration,
-      $.types_declaration,
-      $.aliases_declaration,
-      $.interfaces_declaration,
+      $.class_statement,
+      $.interface_statement,
+      $.dynpro_statement,
       $.methods_declaration,
       $.class_methods_declaration,
-      $._empty_statement,
     ),
 
     ...dynpro,
     ...core,
+    ...oo,
 
     ...declaration_and_spec("data", $ => $.identifier),
-    ...declaration_and_spec("class-data", $ => $.identifier),
     ...declaration_and_spec("constants", $ => $.identifier),
     ...declaration_and_spec("types", $ => $._type_identifier),
 
-    methods_declaration: $ => chainable("methods", choice($.method_spec, $.constructor_spec)),
-    class_methods_declaration: $ => chainable("class-methods", choice($.method_spec, $.constructor_spec)),
-    interfaces_declaration: $ => chainable("interfaces", $.identifier),
-    aliases_declaration: $ => chainable("aliases", $.alias_spec),
     tables_declaration: $ => chainable("tables", $.identifier),
 
     _typing: $ => choice(
@@ -2291,200 +2271,11 @@ export default grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
     keys: $ => prec.right(repeat1($.table_key_spec)),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
-    class_definition: $ => seq(
-      kw("class"), field("name", $.identifier), kw("definition"),
-      optional($.class_options), ".",
-      alias(optional($._class_sections), $.body),
-      kw("endclass"), "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE.html
-    interface_definition: $ => seq(
-      kw("interface"), field("name", $.identifier), optional(kw("public")), ".",
-      // no public / protected / private sections in interfaces, all public.
-      alias(repeat($._class_component), $.body),
-      kw("endinterface"), "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
-    class_implementation: $ => seq(
-      kw("class"), field("name", $.identifier), kw("implementation"), ".",
-      repeat($.method_implementation),
-      kw("endclass"), "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
-    interface_implementation: $ => seq(
-      kw("interface"), field("name", $.identifier), kw("implementation"), ".",
-      kw("endinterface"), "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
-    deferred_class_definition: $ => seq(
-      kw("class"), field("name", $.identifier), ...kws("definition", "deferred"),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
-    deferred_interface_definition: $ => seq(
-      kw("interface"), field("name", $.identifier), ...kws("deferred"), optional(kw("public")),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_LOCAL_FRIENDS.html
-    local_friends_spec: $ => seq(
-      kw("class"),
-      field("name", $.identifier),
-      ...kws("definition", "local", "friends"),
-      field("friend", repeat1($.identifier)),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_OPTIONS.html
-    class_options: $ => seq(
-      // can appear in any order
-      repeat1(
-        choice(
-          kw("public"),
-          // classes can only inherit from 0 to 1 superclasses.
-          seq(...kws("inheriting", "from"), field("parent", $.identifier)),
-          kw("abstract"),
-          kw("final"),
-          seq(kw("create"), field("create_visibility", $._visibility)),
-          field("testing", $.for_testing_spec),
-          seq(...kws("shared", "memory", "enabled")),
-          seq(...kws("for", "behavior", "of"), field("behavior_ref", $.identifier)),
-        )
-      ),
-      // friends must be specified at the end of the statement.
-      optional($.global_friends),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_TESTING.html
-    for_testing_spec: $ => seq(
-      ...kws("for", "testing"),
-      repeat(
-        choice(
-          seq(...kws("risk", "level"), field("risk_level", $._test_risk_level)),
-          seq(kw("duration"), field("duration", $._test_duration)),
-        )
-      )
-    ),
-
-    global_friends: $ => seq(
-      optional(kw("global")),
-      kw("friends"),
-      repeat1($.identifier)
-    ),
-
-    // Components of a class
-    _class_sections: $ => repeat1(
-      // Technically they have to be in order. But lets be permissive here..
-      choice(
-        $.public_section,
-        $.protected_section,
-        $.private_section,
-      )
-    ),
-
-    public_section: $ => seq(
-      ...kws("public", "section"), ".",
-      repeat($._class_component)
-    ),
-
-    protected_section: $ => seq(
-      ...kws("protected", "section"), ".",
-      repeat($._class_component)
-    ),
-
-    private_section: $ => seq(
-      ...kws("private", "section"), ".",
-      repeat($._class_component)
-    ),
-
-
-    /**
-     * Technically methods split into general and functional methods.
-     * 
-     * The distinction is that general methods cannot have a `returning` addition and retain
-     * their sy-subrc from their `exceptions`.
-     * 
-     * However, its simpler to just parse them as one.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_GENERAL.html
-     */
-    method_spec: $ => seq(
-      field("name", $.identifier),
-      optional($._method_signature)
-    ),
-
-    constructor_spec: $ => seq(
-      choice(...kws("constructor", "class_constructor")),
-      optional($._method_signature)
-    ),
-
-    _method_signature: $ => repeat1(
-      choice(
-        kw("abstract"),
-        kw("final"),
-        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
-        kw("redefinition"),
-        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_TESTING.html
-        seq(...kws("for", "testing")),
-        $.interface_default,
-        $.cds_function_impl,
-        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
-        field("event", $.event_handling),
-        // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_METHODS.html
-        field("amdp", $.amdp_options),
-        // Parameter lists
-        params("importing", $.parameter_list),
-        params("exporting", $.parameter_list),
-        params("changing", $.parameter_list),
-        params("raising", $.raising_list),
-        params("exceptions", $.exception_list),
-        params("returning", alias($.parameter, $.return_value)),
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPALIASES.html
-    alias_spec: $ => seq(
-      field("alias", $.identifier),
-      kw("for"),
-      $.interface_component_selector
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
-    event_handling: $ => seq(
-      ...kws("for", "event"),
-      field("name", $.identifier),
-      kw("of"),
-      field("source", $.identifier),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
-    interface_default: _ => seq(
-      kw("default"),
-      field("default", choice(...kws("ignore", "fail")))
-    ),
-
-    parameter_list: $ => seq(
-      repeat1($.parameter),
-      optional($.preferred_parameter)
-    ),
-
     _form_parameter_list: $ => alias(seq(
       repeat1(alias($._form_parameter, $.parameter)),
     ), $.parameter_list),
 
-    preferred_parameter: $ => seq(
-      ...kws("preferred", "parameter"),
-      field("name", $.identifier)
-    ),
 
-    raising_list: $ => repeat1($.exception),
-    exception_list: $ => repeat1($.identifier),
 
     _exception_mapping_list: $ => alias(repeat1($.exception_mapping), $.argument_list),
 
@@ -2497,70 +2288,6 @@ export default grammar({
         field("message", $.named_data_object)
       ))
     ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS.html
-    amdp_options: $ => seq(
-      ...kws("amdp", "options"),
-      repeat1(
-        choice(
-          kw("read-only"),
-          field("client_handling", $.amdp_client_handling)
-        )
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS_CLIENT.html
-    amdp_client_handling: $ => choice(
-      seq(...kws("cds", "session", "client", "dependent")),
-      seq(...kws("client", "independent")),
-      seq(
-        ...kws("cds", "session", "client"),
-        field("client", choice(
-          $.identifier,
-          kw("current")
-        )
-        )
-      ),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_TABFUNC.html
-    cds_function_impl: $ => choice(
-      seq(...kws("for", "table", "function"), field("view", $.identifier)),
-      seq(...kws("for", "scalar", "function"), field("function", $.identifier)),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html
-    parameter: $ => prec.right(seq(
-      // The addition `value` and `reference` is optional (reference is default)
-      choice(
-        seq(
-          // Old way to make sure the compiler would not mistake identifiers for keywords,
-          // not needed anymore but still seen alot.
-          optional("!"),
-          field("name", $.identifier),
-        ),
-        seq(
-          choice(...kws("value", "reference")),
-          token.immediate("("),
-          field("name", $._immediate_identifier),
-          token.immediate(")")
-        ),
-      ),
-      field("typing", optional($._typing)),
-      // Technically only allowed for importing parameters
-      optional(
-        choice(
-          kw("optional"),
-          seq(
-            kw("default"),
-            field("default", choice(
-              $.identifier, // constant
-              $.number,
-              $.string_literal
-            ))
-          )
-        ))
-    )),
 
     _form_parameter: $ => prec.right(seq(
       choice(
@@ -2582,37 +2309,6 @@ export default grammar({
         )
       )
     )),
-
-    exception: $ => choice(
-      field("name", $.identifier),
-      seq(
-        kw("resumable"),
-        token.immediate("("),
-        field("name", $.identifier),
-        token.immediate(")"),
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHOD.html
-    method_implementation: $ => seq(
-      kw("method"),
-      field("name",
-        choice(
-          $.identifier,
-          $.interface_component_selector
-        )
-      ),
-      ".",
-      optional($.method_body),
-      kw("endmethod"),
-      "."
-    ),
-
-    method_body: $ => repeat1($._statement),
-
-    _visibility: _ => choice(...kws("public", "protected", "private")),
-    _test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
-    _test_duration: _ => choice(...kws("short", "medium", "long")),
 
 
     group_by_spec: $ => seq(
@@ -3463,9 +3159,6 @@ function typeOrLikeExpr($, addition, ...extraChoices) {
   );
 }
 
-function params(keyword, rule) {
-  return field(keyword, seq(kw(keyword), rule));
-}
 
 function args(keyword, rule) {
   return field(keyword.replace("-", "_"), seq(kw(keyword), rule));
@@ -3473,4 +3166,8 @@ function args(keyword, rule) {
 
 function tightParens(rule) {
   return seq(token.immediate("("), rule, token.immediate(")"))
+}
+
+function params(keyword, rule) {
+  return field(keyword, seq(kw(keyword), rule));
 }

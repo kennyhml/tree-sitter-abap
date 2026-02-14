@@ -21,12 +21,17 @@
 (class_definition name: (identifier) @class )
 (class_implementation name: (identifier) @class )
 
-(exception name: (identifier) @class )
+(simple_exception_spec name: (identifier) @class )
+(resumable_exception_spec name: (identifier) @class )
 (raise_exception_statement name: (identifier) @class )
 (catch_exception_list (identifier) @class )
 
-(class_options
-	parent: (identifier) @class
+(superclass_spec name: (identifier) @class)
+(for_event_spec 
+  [
+	source: (identifier) @class
+    name: (identifier) @variable.event
+  ]
 )
 
 ; Ambiguous case, its also possible to have a ref to a datatype
@@ -101,7 +106,7 @@
 
 (key_components (identifier) @variable.property )
 (parameter name: (identifier) @variable.parameter )
-(preferred_parameter name: (identifier) @variable.parameter )
+(preferred_parameter_spec name: (identifier) @variable.parameter )
 
 (table_key_spec name: (identifier) @variable.key )
 (using_key_spec name: (identifier) @variable.key )
