@@ -265,6 +265,7 @@ export default grammar({
       $.substring_access,
       $.number,
       $.string_literal,
+      $.symbol_tagged_string_literal,
       $.named_data_object
     ),
 
@@ -1307,7 +1308,7 @@ export default grammar({
           // message from an exception object or character-like data object
           seq(
             choice(
-              field("text", $.string_literal),
+              field("text", choice($.string_literal, $.symbol_tagged_string_literal)),
               field("source", $.character_like_expression)
             ),
             optional($._message_type_spec)
@@ -1348,7 +1349,7 @@ export default grammar({
       optional(
         seq(
           token.immediate("("),
-          field("id", $._immediate_identifier),
+          field("id", choice($._immediate_identifier, $._immediate_number)),
           token.immediate(")"),
         )
       )
@@ -3444,6 +3445,7 @@ export default grammar({
         // FIXME: Technically these are keywords
         $.identifier,
         $.string_literal,
+        $.symbol_tagged_string_literal,
         $.number,
         // dynamic dobj specification, do we wrap this in something for querying?
         seq("(", $._immediate_identifier, token.immediate(")")),
@@ -3703,6 +3705,10 @@ export default grammar({
       /`[^`]*`/
     ),
 
+    symbol_tagged_string_literal: $ => prec(1, seq(
+      field("text", $.string_literal),
+      tightParens(field("symbol", $.number))
+    )),
   }
 });
 
