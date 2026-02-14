@@ -12,7 +12,8 @@
   "types": "bindings/node",
   "type": "module",
   "imports": {
-    "#dynpro": "./grammar/dynpro/index.js"
+    "#dynpro": "./grammar/dynpro/index.js",
+    "#core": "./grammar/core/index.js"
   },
   "keywords": [
     "incremental",
