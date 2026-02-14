@@ -527,6 +527,11 @@
     "endloop"
     "transporting"
     "fields"
+    "without"
+    "members"
+    "ascending"
+    "descending"
+    "text"
     
     "set"
     "commit"

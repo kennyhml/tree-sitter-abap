@@ -231,3 +231,69 @@ ENDLOOP.
       (at_end_of_statement
         component: (identifier))
       (at_last_statement))))
+
+======
+[LOOP-AT] Group by using group index / size
+======
+LOOP AT spfli_tab INTO FINAL(wa) 
+                  GROUP BY ( key1 = wa-carrid key2 = wa-airpfrom 
+                             indx = GROUP INDEX 
+                             size = GROUP SIZE ) 
+                  INTO data(key). 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    grouping: (group_by_spec
+      key: (group_key
+        (group_key_component_spec
+          field: (identifier)
+          value: (struct_component_selector
+            struct: (identifier)
+            comp: (identifier)))
+        (group_key_component_spec
+          field: (identifier)
+          value: (struct_component_selector
+            struct: (identifier)
+            comp: (identifier)))
+        (group_index_assignment
+          field: (identifier))
+        (group_size_assignment
+          field: (identifier)))
+      group_result: (into_spec
+        work_area: (declaration_expression
+          name: (identifier))))))
+
+======
+[LOOP-AT] Group by using expression key
+======
+LOOP AT itab ASSIGNING FIELD-SYMBOL(<line>) 
+              GROUP BY to_upper( <line> ) ASCENDING 
+              ASSIGNING FIELD-SYMBOL(<grp1>). 
+
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (assigning_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    grouping: (group_by_spec
+      key: (group_key
+        expression: (builtin_function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (field_symbol
+                name: (identifier))))))
+      order: (sort_order_spec)
+      group_result: (assigning_spec
+        work_area: (declaration_expression
+          name: (identifier))))))
