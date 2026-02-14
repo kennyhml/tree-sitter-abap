@@ -167,9 +167,11 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix FROM 4 TO 16
           (identifier))
         (identifier)
         (identifier)
-        (iteration_cond
-          (number)
-          (number)
+        (iterate_from_index_spec
+          (number))
+        (iterate_to_index_spec
+          (number))
+        (iterate_step_spec
           (number)))
       (line_spec
         (argument_list
@@ -199,9 +201,12 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix
         (identifier)
         (iteration_cond
           (using_key_spec
-            (identifier))
-          (number)
-          (number)
+            (identifier)))
+        (iterate_from_index_spec
+          (number))
+        (iterate_to_index_spec
+          (number))
+        (iterate_step_spec
           (number)))
       (line_spec
         (argument_list

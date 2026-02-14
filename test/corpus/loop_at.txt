@@ -1,0 +1,76 @@
+======
+[LOOP-AT] Simple loop
+======
+loop at requests into request.
+
+endloop.
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))))
+
+======
+[LOOP-AT] Loop at with inline declarations
+======
+LOOP AT VALUE t_itab( ( 1 ) ( 2 ) ( 3 ) ) ASSIGNING FIELD-SYMBOL(<fs>). 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (value_expression
+      type: (type_identifier)
+      (itab_expression
+        (line_spec
+          value: (argument_list
+            (positional_argument
+              value: (number))))
+        (line_spec
+          value: (argument_list
+            (positional_argument
+              value: (number))))
+        (line_spec
+          value: (argument_list
+            (positional_argument
+              value: (number))))))
+    result: (assigning_spec
+      work_area: (declaration_expression
+        name: (identifier)))))
+
+======
+[LOOP-AT] Nested loop at
+======
+LOOP AT scarr_tab ASSIGNING FIELD-SYMBOL(<scarr_line>) 
+                  WHERE carrname CP name. 
+  LOOP AT spfli_tab INTO FINAL(spfli_line) 
+                    WHERE carrid = <scarr_line>-carrid. 
+  ENDLOOP. 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (assigning_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    condition: (iteration_cond
+      (comparison_expression
+        left: (identifier)
+        right: (identifier)))
+    body: (loop_at_body
+      (loop_at_statement
+        subject: (identifier)
+        result: (into_spec
+          work_area: (declaration_expression
+            name: (identifier)))
+        condition: (iteration_cond
+          (comparison_expression
+            left: (identifier)
+            right: (binary_operator
+              left: (field_symbol
+                name: (identifier))
+              right: (identifier))))))))
