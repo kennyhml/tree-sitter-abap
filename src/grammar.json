@@ -4523,6 +4523,91 @@
         }
       ]
     },
+    "do_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][oO]"
+          },
+          "named": false,
+          "value": "do"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "times",
+              "content": {
+                "type": "SYMBOL",
+                "name": "times_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "statement_block"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[eE][nN][dD][dD][oO]"
+          },
+          "named": false,
+          "value": "enddo"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "times_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "repetitions",
+          "content": {
+            "type": "SYMBOL",
+            "name": "numeric_expression"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][iI][mM][eE][sS]"
+          },
+          "named": false,
+          "value": "times"
+        }
+      ]
+    },
     "_data_comp_spec": {
       "type": "CHOICE",
       "members": [
@@ -20101,83 +20186,6 @@
           },
           "named": false,
           "value": "long"
-        }
-      ]
-    },
-    "do_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[dD][oO]"
-          },
-          "named": false,
-          "value": "do"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "repetitions",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "numeric_expression"
-                  }
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[tT][iI][mM][eE][sS]"
-                  },
-                  "named": false,
-                  "value": "times"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "SYMBOL",
-                "name": "statement_block"
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[eE][nN][dD][dD][oO]"
-          },
-          "named": false,
-          "value": "enddo"
-        },
-        {
-          "type": "STRING",
-          "value": "."
         }
       ]
     },

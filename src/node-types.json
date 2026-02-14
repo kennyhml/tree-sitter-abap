@@ -3455,12 +3455,12 @@
           }
         ]
       },
-      "repetitions": {
+      "times": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "numeric_expression",
+            "type": "times_spec",
             "named": true
           }
         ]
@@ -9565,6 +9565,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "times_spec",
+    "named": true,
+    "fields": {
+      "repetitions": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
