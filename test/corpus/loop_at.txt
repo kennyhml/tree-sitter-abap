@@ -2,7 +2,6 @@
 [LOOP-AT] Simple loop
 ======
 loop at requests into request.
-
 endloop.
 ---
 
@@ -11,6 +10,20 @@ endloop.
     subject: (identifier)
     result: (into_spec
       work_area: (identifier))))
+
+======
+[LOOP-AT] Loop into reference
+======
+loop at requests reference into data(request).
+endloop.
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (reference_into_spec
+      work_area: (declaration_expression
+        name: (identifier)))))
 
 ======
 [LOOP-AT] Loop at with inline declarations
@@ -74,3 +87,147 @@ ENDLOOP.
               left: (field_symbol
                 name: (identifier))
               right: (identifier))))))))
+
+======
+[LOOP-AT] Specifying an explicit key
+======
+LOOP AT itab INTO FINAL(number2) USING KEY key. 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    condition: (iteration_cond
+      (using_key_spec
+        name: (identifier)))))
+
+======
+[LOOP-AT] Loop from index
+======
+LOOP AT itab FROM lines( itab ) ASSIGNING FIELD-SYMBOL(<fs>). 
+ENDLOOP.
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    from: (iterate_from_index_spec
+      index: (builtin_function_call
+        name: (identifier)
+        (call_argument_list
+          exporting: (positional_argument
+            value: (identifier)))))
+    result: (assigning_spec
+      work_area: (declaration_expression
+        name: (identifier)))))
+
+======
+[LOOP-AT] Sliced loop with step
+======
+LOOP AT itab FROM 3 STEP -1 ASSIGNING FIELD-SYMBOL(<fs>) TO 1. 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    from: (iterate_from_index_spec
+      index: (number))
+    step: (iterate_step_spec
+      size: (number))
+    result: (assigning_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    to: (iterate_to_index_spec
+      index: (number))))
+
+======
+[LOOP-AT] Where condition with dereference
+======
+LOOP AT itab INTO line FROM 10 TO 25 WHERE col2 > dref->*. 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    from: (iterate_from_index_spec
+      index: (number))
+    to: (iterate_to_index_spec
+      index: (number))
+    condition: (iteration_cond
+      (comparison_expression
+        left: (identifier)
+        right: (dereference
+          dref: (identifier))))))
+
+======
+[LOOP-AT] Dynamic where condition
+======
+LOOP AT itab INTO line FROM 10 TO 25 WHERE (cond). 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    from: (iterate_from_index_spec
+      index: (number))
+    to: (iterate_to_index_spec
+      index: (number))
+    condition: (iteration_cond
+      (dynamic_cond
+        name: (identifier)))))
+
+======
+[LOOP-AT] Loop without transporting fields
+======
+LOOP AT itab TRANSPORTING NO FIELDS WHERE table_line >= 40.  
+ENDLOOP.
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (transporting_no_fields_spec)
+    condition: (iteration_cond
+      (comparison_expression
+        left: (identifier)
+        right: (number)))))
+
+======
+[LOOP-AT] Group level processing in simple loop
+======
+LOOP AT itab ASSIGNING FIELD-SYMBOL(<fs>). 
+  AT FIRST.
+  ENDAT.
+  AT NEW comp1.
+  ENDAT.
+  AT END OF comp1.
+  ENDAT.
+  AT LAST. 
+  ENDAT. 
+ENDLOOP. 
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (assigning_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    body: (loop_at_body
+      (at_first_statement)
+      (at_new_statement
+        component: (identifier))
+      (at_end_of_statement
+        component: (identifier))
+      (at_last_statement))))

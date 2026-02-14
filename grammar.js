@@ -612,17 +612,17 @@ export default grammar({
 
     iterate_from_index_spec: $ => seq(
       kw("from"),
-      field("index", $.number)
+      field("index", $.numeric_expression)
     ),
 
     iterate_to_index_spec: $ => seq(
       kw("to"),
-      field("index", $.number),
+      field("index", $.numeric_expression),
     ),
 
     iterate_step_spec: $ => seq(
       kw("step"),
-      field("size", $.number),
+      field("size", $.numeric_expression),
     ),
 
     _iteration_index_spec: $ => choice(
@@ -2767,9 +2767,81 @@ export default grammar({
         $._iteration_index_spec
       )),
       ".",
-      optional(field("body", alias($.statement_block, $.loop_at_body))),
+      optional(field("body", $.loop_at_body)),
       kw("endloop"),
       "."
+    ),
+
+    loop_at_body: $ => repeat1(
+      choice(
+        $._statement,
+        $.at_first_statement,
+        $.at_new_statement,
+        $.at_end_of_statement,
+        $.at_last_statement
+      )
+    ),
+
+    /**
+     * Group processing statement block in a {@link loop_at_statement}.
+     * 
+     * [AT FIRST. 
+     * ... 
+     * ENDAT.] 
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
+     */
+    at_first_statement: $ => seq(
+      ...kws("at", "first"), ".",
+      optional(field("body", alias($.statement_block, $.body))),
+      kw("endat"), "."
+    ),
+
+    /**
+     * Group processing statement block in a {@link loop_at_statement}.
+     * 
+     * [AT NEW comp1. 
+     * ... 
+     * ENDAT.] 
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
+     */
+    at_new_statement: $ => seq(
+      ...kws("at", "new"),
+      field("component", $.itab_comp), ".",
+      optional(field("body", alias($.statement_block, $.body))),
+      kw("endat"), "."
+    ),
+
+    /**
+     * Group processing statement block in a {@link loop_at_statement}.
+     * 
+     * [AT END OF comp1. 
+     * ... 
+     * ENDAT.] 
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
+     */
+    at_end_of_statement: $ => seq(
+      ...kws("at", "end", "of"),
+      field("component", $.itab_comp), ".",
+      optional(field("body", alias($.statement_block, $.body))),
+      kw("endat"), "."
+    ),
+
+    /**
+     * Group processing statement block in a {@link loop_at_statement}.
+     * 
+     * [AT LAST. 
+     * ... 
+     * ENDAT.] 
+     * 
+     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
+     */
+    at_last_statement: $ => seq(
+      ...kws("at", "last"), ".",
+      optional(field("body", alias($.statement_block, $.body))),
+      kw("endat"), "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
