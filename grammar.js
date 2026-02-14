@@ -2614,24 +2614,6 @@ export default grammar({
     _test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
     _test_duration: _ => choice(...kws("short", "medium", "long")),
 
-    /**
-     * TODO: Add tests
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDO.html
-     */
-    do_statement: $ => seq(
-      kw("do"),
-      optional(
-        seq(
-          field("repetitions", $.numeric_expression),
-          kw("times")
-        )
-      ),
-      ".",
-      optional(field("body", $.statement_block)),
-      kw("enddo"), "."
-    ),
-
 
     group_by_spec: $ => seq(
       ...kws("group", "by"),

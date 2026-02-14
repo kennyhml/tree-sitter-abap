@@ -4,6 +4,7 @@ import while_statement_rules from './while_statement.js'
 import try_statement_rules from './try_statement.js'
 import case_statement_rules from './case_statement.js'
 import case_type_statement_rules from './case_type_statement.js'
+import do_statement_rules from './do_statement.js'
 
 export default {
 
@@ -12,7 +13,6 @@ export default {
         $.loop_at_statement,
         $.if_statement,
         $.while_statement,
-
         $.case_statement,
         $.case_type_of_statement,
         $.do_statement,
@@ -23,5 +23,6 @@ export default {
     ...while_statement_rules,
     ...try_statement_rules,
     ...case_statement_rules,
-    ...case_type_statement_rules
+    ...case_type_statement_rules,
+    ...do_statement_rules
 }
