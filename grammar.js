@@ -110,6 +110,7 @@ module.exports = grammar({
     $.control_statement,
     $.program_statement,
     $.dynpro_statement,
+    $.processing_statement,
     $.interface_statement,
 
     $.general_expression,
@@ -118,6 +119,7 @@ module.exports = grammar({
     $.writable_expression,
     $.arithmetic_expression,
     $.calculation_expression,
+    $.receiving_expression,
     $.string_expression,
     $.itab_line,
     $.itab_comp,
@@ -127,8 +129,6 @@ module.exports = grammar({
     $.type_component_selector,
     $.relational_expression,
     $._simple_statement,
-    $.pattern,
-    $.replace,
   ],
 
   word: $ => $._name,
@@ -155,19 +155,13 @@ module.exports = grammar({
       $.function_call,
       $.dynamic_method_call,
 
-      $.concatenate,
-      $.find,
-      $.replace,
-      $.shift,
-      $.split,
-      $.condense,
-
       $.local_updates_statement,
       $.commit_work_statement,
       $.rollback_work_statement,
 
       $.control_statement,
       $.program_statement,
+      $.processing_statement,
 
       $._empty_statement,
     ),
@@ -277,6 +271,14 @@ module.exports = grammar({
       $.method_call,
       $.table_expression,
       $.arithmetic_expression
+    ),
+
+    // This is made up and not from the keyword documentation. It should be used
+    // for positions in which a suitable named data object can be used to receive
+    // the result of an operation, but also a declaration expression.
+    receiving_expression: $ => choice(
+      $.named_data_object,
+      $.declaration_expression
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_EXPRESSION_POSITIONS.html
@@ -1284,375 +1286,6 @@ module.exports = grammar({
         field("display_type", $.data_object)
       )
     ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html
-    concatenate: $ => seq(
-      kw("concatenate"),
-      choice(
-        $.data_object_list,
-        $.lines_of,
-      ),
-      $.into_clause,
-      optional($.string_processing_spec),
-      optional($.separator_spec),
-      optional($.respecting_blanks),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONDENSE.html
-    condense: $ => seq(
-      kw("condense"),
-      field("text", $.data_object),
-      optional(kw("no-gaps")),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSPLIT.html
-    split: $ => seq(
-      kw("split"),
-      field("dobj", $.character_like_expression),
-      $.separator_spec,
-      $.into_clause,
-      optional($.string_processing_spec),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT.html
-    shift: $ => seq(
-      kw("shift"),
-      field("dobj", $.data_object),
-      optional(
-
-        choice(
-          // ... {[places][direction]} ...
-          seq(
-            choice(
-              $.shift_by_places_spec,
-              $.shift_to_substring_spec,
-              $.shift_direction_spec
-            ),
-            optional($.shift_direction_spec)
-          ),
-          // ... / deleting ...
-          choice(
-            $.shift_left_deleting_spec,
-            $.shift_right_deleting_spec
-          )
-        ),
-      ),
-      optional($.string_processing_spec),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
-    shift_by_places_spec: $ => seq(
-      kw("by"),
-      field("num", $.numeric_expression),
-      kw("places"),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
-    shift_to_substring_spec: $ => seq(
-      ...kws("up", "to"),
-      field("substring", $.character_like_expression),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DIRECTION.html
-    shift_direction_spec: _ => prec.right(
-      repeat1(
-        choice(
-          field("direction", choice(...kws("left", "right"))),
-          field("circular", kw("circular"))
-        )
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DELETING.html
-    shift_left_deleting_spec: $ => seq(
-      ...kws("left", "deleting", "leading"),
-      field("mask", $.character_like_expression)
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DELETING.html
-    shift_right_deleting_spec: $ => seq(
-      ...kws("right", "deleting", "trailing"),
-      field("mask", $.character_like_expression)
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html
-    find: $ => seq(
-      kw("find"),
-      optional($.occurrence_spec),
-      $.pattern,
-      kw("in"),
-      optional($.section),
-      field("dobj", $.character_like_expression),
-      optional($.string_processing_spec),
-      optional($.find_options),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE.html
-    replace: $ => choice(
-      $.pattern_based_replacement,
-      $.position_based_replacement
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_IN_PATTERN.html
-    pattern_based_replacement: $ => seq(
-      kw("replace"),
-      optional($.occurrence_spec),
-      $.pattern,
-      kw("in"),
-      optional($.section),
-      field("dobj", $.data_object),
-      kw("with"),
-      field("new", $.data_object),
-      optional($.string_processing_spec),
-      optional($.replace_options),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_IN_POSITION.html
-    position_based_replacement: $ => seq(
-      kw("replace"),
-      optional($.section),
-      field("dobj", $.data_object),
-      kw("with"),
-      field("new", $.data_object),
-      optional($.string_processing_spec),
-      "."
-    ),
-
-    /**
-     * Into clause of various expressions. The concrete form depends on the context.
-     * 
-     * `INTO { {result1 result2 [...]} | {TABLE result_tab} }`
-     * 
-     * For certain variants, like a {@link split} statement, scalar and tabular result variables
-     * can be defined within one statement: 
-     * 
-     * `... INTO: FINAL(str1) FINAL(str2) FINAL(str3), TABLE FINAL(itab).`
-     */
-    into_clause: $ => prec.right(
-      seq(
-        kw("into"),
-        choice(
-          // A single table result spec is allowed without colons..
-          $.table_result_spec,
-          // ... or multiple regular result specs without colon..
-          repeat1($.result_spec),
-          // ... or, with a colon, first 0 to n regular and 0 to k table results
-          seq(
-            ":",
-            choice(
-              repeat1($.table_result_spec),
-              repeat1($.result_spec),
-              seq(
-                repeat1($.result_spec),
-                ",",
-                repeat1($.table_result_spec)
-              ),
-            ),
-          ),
-        )
-      )
-    ),
-
-    result_spec: $ => choice(
-      $.data_object,
-      $.declaration_expression
-    ),
-
-    table_result_spec: $ => seq(
-      kw("table"),
-      choice(
-        $.data_object,
-        $.declaration_expression
-      )
-    ),
-
-    /**
-     * Specification of the processing mode (byte | character) for various statements.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_STATEMENTS.html
-     */
-    string_processing_spec: _ => seq(
-      kw("in"),
-      field("mode", choice(...kws("character", "byte"))),
-      kw("mode")
-    ),
-
-    // Specification of a separator character in various statements.
-    separator_spec: $ => seq(
-      choice(
-        seq(...kws("separated", "by")),
-        kw("at")
-      ),
-      field("sep", $.character_like_expression)
-    ),
-
-    /**
-     * Specifies occurrences in a {@link replace} statement.
-     */
-    occurrence_spec: _ => seq(
-      choice(
-        seq(...kws("first", "occurrence")),
-        seq(...kws("all", "occurrences")),
-      ),
-      kw("of")
-    ),
-
-    /**
-     * Specifies a pattern to replace for a {@link replace} statement.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_PATTERN.html
-     */
-    pattern: $ => choice(
-      $.substring_spec,
-      $.pcre_spec,
-      $.regex_spec
-    ),
-
-    substring_spec: $ => seq(optional(kw("substring")), field("value", $.data_object)),
-    pcre_spec: $ => seq(kw("pcre"), field("value", $.data_object)),
-    regex_spec: $ => seq(kw("regex"), field("value", $.data_object)),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_OPTIONS.html
-    replace_options: $ => repeat1(
-      choice(
-        $.verbatim,
-        $.case_sensitivity_spec,
-        $.operation_count_spec,
-        $.operation_offset_spec,
-        $.operation_length_spec,
-        $.operation_results_spec
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND_OPTIONS.html
-    find_options: $ => repeat1(
-      choice(
-        $.case_sensitivity_spec,
-        $.operation_count_spec,
-        $.operation_offset_spec,
-        $.operation_length_spec,
-        $.operation_results_spec,
-        $.submatches_spec
-      )
-    ),
-
-    /**
-     * Specification of a case sensitivity in various string operations.
-     * 
-     * `RESPECTING/IGNORING CASE`
-     */
-    case_sensitivity_spec: _ => seq(
-      field("case", choice(...kws("respecting", "ignoring"))),
-      kw("case")
-    ),
-
-    /**
-     * Specification of an operation count result variable in various string operations.
-     * 
-     * `REPLACEMENT/MATCH COUNT cnt`
-     */
-    operation_count_spec: $ => seq(
-      choice(...kws("replacement", "match")),
-      kw("count"),
-      field("cnt", choice(
-        $.data_object,
-        $.declaration_expression
-      ))
-    ),
-
-    /**
-     * Specification of an operation offset result variable in various string operations.
-     * 
-     * `REPLACEMENT/MATCH OFFSET off`
-     */
-    operation_offset_spec: $ => seq(
-      choice(...kws("replacement", "match")),
-      kw("offset"),
-      field("off", choice(
-        $.data_object,
-        $.declaration_expression
-      ))
-    ),
-
-    /**
-     * Specification of an operation length result variable in various string operations.
-     * 
-     * `REPLACEMENT/MATCH LENGTH len`
-     */
-    operation_length_spec: $ => seq(
-      choice(...kws("replacement", "match")),
-      kw("length"),
-      field("len", choice(
-        $.data_object,
-        $.declaration_expression
-      ))
-    ),
-
-    /**
-     * Specifies a target variable to safe the individual operations to.
-     * 
-     * RESULTS result_tab|result_wa
-     */
-    operation_results_spec: $ => seq(
-      kw("results"),
-      field("result", choice(
-        $.data_object,
-        $.declaration_expression
-      ))
-    ),
-
-    /**
-     * Specifies subgroup registers in a {@link find} statement.
-     * 
-     * `SUBMATCHES s1 s2 ...`
-     */
-    submatches_spec: $ => prec.right(
-      seq(
-        kw("submatches"),
-        repeat1(
-          choice(
-            $.data_object,
-            $.declaration_expression
-          )
-        )
-      )
-    ),
-
-    /**
-     * Section specification used in various string processing statements.
-     *
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND_SECTION_OF.html
-     */
-    section: $ => seq(
-      kw("section"),
-      repeat(
-        choice(
-          seq(kw("offset"), field("off", $.numeric_expression)),
-          seq(kw("length"), field("len", $.numeric_expression)),
-        )
-      ),
-      kw("of")
-    ),
-
-    verbatim: _ => kw("verbatim"),
-
-    /**
-     * Specifies that a {@link concatenate} statement should respect blanks.
-     */
-    respecting_blanks: $ => seq(
-      ...kws("respecting", "blanks")
-    ),
-
-    /**
-     * A list of {@link data_object} for various expressions.
-     */
-    data_object_list: $ => repeat1($.data_object),
 
     _constructor_result: $ => choice(
       "#", // inferred

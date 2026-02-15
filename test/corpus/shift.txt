@@ -3,38 +3,46 @@ Simple implicit shift
 ======
 SHIFT str.
 ---
+
 (source
-    (shift
-        (identifier)))
+  (shift_statement
+    (identifier)))
+
 ======
 Simple Byte mode shift
 ======
 SHIFT xstr IN BYTE MODE.
 ---
+
 (source
-    (shift
-        (identifier)
-        (string_processing_spec)))
+  (shift_statement
+    (identifier)
+    (string_processing_spec)))
+
 ======
 Shift by places
 ======
 SHIFT text BY off PLACES.
 ---
+
 (source
-    (shift
-        (identifier)
-        (shift_by_places_spec
-            (identifier))))
+  (shift_statement
+    (identifier)
+    (shift_by_spec
+      (identifier))))
+
 ======
 Shift to substring
 ======
 SHIFT text UP TO 'you'.
 ---
+
 (source
-    (shift
-        (identifier)
-        (shift_to_substring_spec
-            (string_literal))))
+  (shift_statement
+    (identifier)
+    (shift_up_to_spec
+      (string_literal))))
+
 ======
 Shift directions
 ======
@@ -44,39 +52,44 @@ SHIFT text LEFT CIRCULAR.
 SHIFT text RIGHT CIRCULAR. 
 SHIFT text CIRCULAR. 
 ---
+
 (source
-    (shift
-        (identifier)
-        (shift_direction_spec))
-    (shift
-        (identifier)
-        (shift_direction_spec))
-    (shift
-        (identifier)
-        (shift_direction_spec))
-    (shift
-        (identifier)
-        (shift_direction_spec))
-    (shift
-        (identifier)
-        (shift_direction_spec)))
+  (shift_statement
+    (identifier)
+    (shift_direction_spec))
+  (shift_statement
+    (identifier)
+    (shift_direction_spec))
+  (shift_statement
+    (identifier)
+    (shift_direction_spec))
+  (shift_statement
+    (identifier)
+    (shift_direction_spec))
+  (shift_statement
+    (identifier)
+    (shift_direction_spec)))
+
 ======
 Shift left deleting
 ======
 SHIFT txt LEFT DELETING LEADING ` `.
 ---
+
 (source
-    (shift
-        (identifier)
-        (shift_left_deleting_spec
-            (string_literal))))
+  (shift_statement
+    (identifier)
+    (shift_left_deleting_spec
+      (string_literal))))
+
 ======
 Shift right deleting
 ======
 SHIFT txt RIGHT DELETING TRAILING 'ab cd'.
 ---
+
 (source
-    (shift
-        (identifier)
-        (shift_right_deleting_spec
-            (string_literal))))
+  (shift_statement
+    (identifier)
+    (shift_right_deleting_spec
+      (string_literal))))

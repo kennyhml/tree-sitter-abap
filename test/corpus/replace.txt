@@ -3,136 +3,174 @@ Replace substring first implicit occurrence
 ========
 REPLACE 'a' in str with 'b'.
 ---
+
 (source
-    (pattern_based_replacement
-        (substring_spec
-            (string_literal))
-        (identifier)
-        (string_literal)))
+  (replace_statement
+    (substring_spec
+      (string_literal))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))))
+
 ========
 Replace substring first explicit occurrence
 ========
 REPLACE FIRST OCCURRENCE OF 'a' in str with 'b'.
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)
+  (replace_statement
+    (first_occurrence_of_pattern_spec
+      (substring_spec
         (string_literal)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))))
+
 ========
 Replace substring all occurrences
 ========
 REPLACE ALL OCCURRENCES OF 'a' in str with 'b'.
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
         (string_literal)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))))
 
 ========
 Replace PCRE implicit single occurrence
 ========
 REPLACE PCRE 'u*' IN text WITH 'x'.
 ---
+
 (source
-    (pattern_based_replacement
-        (pcre_spec
-            (string_literal))
-        (identifier)
-        (string_literal)))
+  (replace_statement
+    (pcre_spec
+      (string_literal))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))))
+
 ========
-Replace section 
+Replace section
 ========
 REPLACE ALL OCCURRENCES OF foo 
     IN SECTION OFFSET 12 LENGTH 5 OF str 
     WITH bar. 
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (substring_spec
-            value: (identifier))
-        (section
-            off: (number)
-            len: (number))
-        dobj: (identifier)
-        new: (identifier)))
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
+        value: (identifier)))
+    subject: (subject_spec
+      (section_spec
+        offset: (section_offset_spec
+          amount: (number))
+        length: (section_length_spec
+          amount: (number)))
+      data_object: (identifier))
+    substitute: (subject_spec
+      value: (identifier))))
+
 ========
 Replace in byte mode
 ========
 REPLACE ALL OCCURRENCES OF lv_xvar IN xstr 
                       WITH lv_xvar2 IN BYTE MODE. 
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (substring_spec
-            (identifier))
-        (identifier)
-        (identifier)
-        (string_processing_spec)))
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (identifier)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (identifier))
+    (string_processing_spec)))
+
 ========
 Replace in character mode
 ========
 REPLACE ALL OCCURRENCES OF lv_xvar IN xstr 
                       WITH lv_xvar2 IN CHARACTER MODE. 
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (substring_spec
-            (identifier))
-        (identifier)
-        (identifier)
-        (string_processing_spec)))
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (identifier)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (identifier))
+    (string_processing_spec)))
+
 ========
 Replace with verbatim PCRE
 ========
 REPLACE PCRE regex IN text2 WITH `$1___$3` VERBATIM. 
 ---
+
 (source
-    (pattern_based_replacement
-        (pcre_spec
-            (identifier))
-        (identifier)
-        (string_literal)
-        (replace_options
-            (verbatim))))
+  (replace_statement
+    (pcre_spec
+      (identifier))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))
+    (verbatim_spec)))
+
 ========
 Replace respecting case
 ========
 REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`' 
         RESPECTING CASE. 
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (pcre_spec
-            (string_literal))
-        (identifier)
-        (string_literal)
-        (replace_options
-            (case_sensitivity_spec))))
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (pcre_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))
+    (case_sensitivity_spec)))
+
 ========
 Replace ignoring case
 ========
 REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`' 
         IGNORING CASE. 
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (pcre_spec
-            (string_literal))
-        (identifier)
-        (string_literal)
-        (replace_options
-            (case_sensitivity_spec))))
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (pcre_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))
+    (case_sensitivity_spec)))
+
 ========
 Replace options meta information
 ========
@@ -142,23 +180,26 @@ REPLACE ALL OCCURRENCES OF 'know' IN
               REPLACEMENT OFFSET DATA(off) 
               REPLACEMENT LENGTH DATA(len). 
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)
-        (string_literal)
-        (replace_options
-            (operation_count_spec
-                (declaration_expression
-                    (identifier)))
-            (operation_offset_spec
-                (declaration_expression
-                    (identifier)))
-            (operation_length_spec
-                (declaration_expression
-                    (identifier))))))
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))
+    (replacement_count_spec
+      (declaration_expression
+        (identifier)))
+    (replacement_offset_spec
+      (declaration_expression
+        (identifier)))
+    (replacement_length_spec
+      (declaration_expression
+        (identifier)))))
+
 ========
 Replace options results variable
 ========
@@ -166,15 +207,17 @@ REPLACE ALL OCCURRENCES OF `d` IN str WITH 't'
         IGNORING CASE 
         RESULTS FINAL(results). 
 ---
+
 (source
-    (pattern_based_replacement
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)
-        (string_literal)
-        (replace_options
-            (case_sensitivity_spec)
-            (operation_results_spec
-                (declaration_expression
-                    (identifier))))))
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (subject_spec
+      (string_literal))
+    (case_sensitivity_spec)
+    (statement_results_spec
+      (declaration_expression
+        (identifier)))))

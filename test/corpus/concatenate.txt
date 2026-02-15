@@ -3,60 +3,63 @@ Simple concatenate statement
 ======
 CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str). 
 ---
+
 (source
-    (concatenate
-        (data_object_list
-            (identifier)
-            (string_literal)
-            (struct_component_selector
-                (identifier)
-                (identifier))
-            (object_component_selector
-                (identifier)
-                (identifier)))
-        (into_clause
-            (result_spec
-                (declaration_expression
-                    (identifier))))))
+  (concatenate_statement
+    (data_object_list
+      (identifier)
+      (string_literal)
+      (struct_component_selector
+        (identifier)
+        (identifier))
+      (object_component_selector
+        (identifier)
+        (identifier)))
+    (result_spec
+      (declaration_expression
+        (identifier)))))
+
 ======
 Concatenate table lines
 ======
 CONCATENATE LINES OF itab INTO FINAL(xstr).
 ---
+
 (source
-    (concatenate
-        (lines_of
-            (identifier))
-        (into_clause
-            (result_spec
-                (declaration_expression
-                    (identifier))))))
+  (concatenate_statement
+    (lines_of
+      (identifier))
+    (result_spec
+      (declaration_expression
+        (identifier)))))
+
 ======
 Concatenate with separator
 ======
 CONCATENATE t1 t2 t3 INTO result SEPARATED BY space.
 ---
+
 (source
-    (concatenate
-        (data_object_list
-            (identifier)
-            (identifier)
-            (identifier))
-        (into_clause
-            (result_spec
-                (identifier)))
-        (separator_spec
-            (identifier))))
+  (concatenate_statement
+    (data_object_list
+      (identifier)
+      (identifier)
+      (identifier))
+    (result_spec
+      (identifier))
+    (separated_by_spec
+      (identifier))))
+
 ======
 Concatenate with blanks
 ======
 CONCATENATE LINES OF itab INTO result RESPECTING BLANKS.
 ---
+
 (source
-    (concatenate
-        (lines_of
-            (identifier))
-        (into_clause
-            (result_spec
-                (identifier)))
-        (respecting_blanks)))
+  (concatenate_statement
+    (lines_of
+      (identifier))
+    (result_spec
+      (identifier))
+    (respecting_blanks_spec)))

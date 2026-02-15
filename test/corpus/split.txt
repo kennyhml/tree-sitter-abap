@@ -3,84 +3,32 @@ Split into substrings
 ======
 SPLIT text AT space INTO FINAL(str1) FINAL(str2) FINAL(str3).
 ---
+
 (source
-    (split
-        (identifier)
-        (separator_spec
-            (identifier))
-        (into_clause
-            (result_spec
-                (declaration_expression
-                    (identifier)))
-            (result_spec
-                (declaration_expression
-                    (identifier)))
-            (result_spec
-                (declaration_expression
-                    (identifier))))))
-======
-Split into substring with colon
-======
-SPLIT text AT space INTO: FINAL(str1).
----
-(source
-    (split
-        (identifier)
-        (separator_spec
-            (identifier))
-        (into_clause
-            (result_spec
-                (declaration_expression
-                    (identifier))))))
+  (split_statement
+    (identifier)
+    (split_at_spec
+      (identifier))
+    (split_result_spec
+      (declaration_expression
+        (identifier))
+      (declaration_expression
+        (identifier))
+      (declaration_expression
+        (identifier)))))
+
 ======
 Split into table
 ======
 SPLIT text1 AT ':' INTO TABLE DATA(segments). 
 ---
+
 (source
-    (split
-        (identifier)
-        (separator_spec
-            (string_literal))
-        (into_clause
-            (table_result_spec
-                (declaration_expression
-                    (identifier))))))
-======
-Split into table with colon
-======
-SPLIT text1 AT ':' INTO: TABLE DATA(segments). 
----
-(source
-    (split
-        (identifier)
-        (separator_spec
-            (string_literal))
-        (into_clause
-            (table_result_spec
-                (declaration_expression
-                    (identifier))))))
-======
-Split into substrings and table
-======
-SPLIT text AT space INTO: FINAL(str1) FINAL(str2) FINAL(str3), 
-                          TABLE FINAL(itab).
----
-(source
-    (split
-        (identifier)
-        (separator_spec
-            (identifier))
-        (into_clause
-            (result_spec
-                (declaration_expression
-                    (identifier)))
-            (result_spec
-                (declaration_expression
-                    (identifier)))
-            (result_spec
-                (declaration_expression
-                    (identifier)))
-            (table_result_spec
-                (declaration_expression
-                    (identifier))))))
+  (split_statement
+    (identifier)
+    (split_at_spec
+      (string_literal))
+    (split_result_spec
+      (split_table_result_spec
+        (declaration_expression
+          (identifier))))))

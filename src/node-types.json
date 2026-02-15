@@ -16,14 +16,6 @@
         "named": true
       },
       {
-        "type": "concatenate",
-        "named": true
-      },
-      {
-        "type": "condense",
-        "named": true
-      },
-      {
         "type": "constants_declaration",
         "named": true
       },
@@ -40,10 +32,6 @@
         "named": true
       },
       {
-        "type": "find",
-        "named": true
-      },
-      {
         "type": "function_call",
         "named": true
       },
@@ -56,23 +44,15 @@
         "named": true
       },
       {
+        "type": "processing_statement",
+        "named": true
+      },
+      {
         "type": "program_statement",
         "named": true
       },
       {
-        "type": "replace",
-        "named": true
-      },
-      {
         "type": "rollback_work_statement",
-        "named": true
-      },
-      {
-        "type": "shift",
-        "named": true
-      },
-      {
-        "type": "split",
         "named": true
       },
       {
@@ -538,19 +518,31 @@
     ]
   },
   {
-    "type": "pattern",
+    "type": "processing_statement",
     "named": true,
     "subtypes": [
       {
-        "type": "pcre_spec",
+        "type": "concatenate_statement",
         "named": true
       },
       {
-        "type": "regex_spec",
+        "type": "condense_statement",
         "named": true
       },
       {
-        "type": "substring_spec",
+        "type": "find_statement",
+        "named": true
+      },
+      {
+        "type": "replace_statement",
+        "named": true
+      },
+      {
+        "type": "shift_statement",
+        "named": true
+      },
+      {
+        "type": "split_statement",
         "named": true
       }
     ]
@@ -582,6 +574,20 @@
     ]
   },
   {
+    "type": "receiving_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "declaration_expression",
+        "named": true
+      },
+      {
+        "type": "named_data_object",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "relational_expression",
     "named": true,
     "subtypes": [
@@ -599,20 +605,6 @@
       },
       {
         "type": "predicate_expression",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "replace",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "pattern_based_replacement",
-        "named": true
-      },
-      {
-        "type": "position_based_replacement",
         "named": true
       }
     ]
@@ -733,6 +725,30 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "all_occurrences_of_pattern_spec",
+    "named": true,
+    "fields": {
+      "pattern": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pcre_spec",
+            "named": true
+          },
+          {
+            "type": "regex_spec",
+            "named": true
+          },
+          {
+            "type": "substring_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2653,31 +2669,58 @@
     }
   },
   {
-    "type": "concatenate",
+    "type": "concatenate_statement",
     "named": true,
-    "fields": {},
+    "fields": {
+      "result": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "result_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object_list",
+            "named": true
+          },
+          {
+            "type": "lines_of",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "result_spec",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "data_object_list",
+          "type": "respecting_blanks_spec",
           "named": true
         },
         {
-          "type": "into_clause",
-          "named": true
-        },
-        {
-          "type": "lines_of",
-          "named": true
-        },
-        {
-          "type": "respecting_blanks",
-          "named": true
-        },
-        {
-          "type": "separator_spec",
+          "type": "separated_by_spec",
           "named": true
         },
         {
@@ -2722,7 +2765,7 @@
     }
   },
   {
-    "type": "condense",
+    "type": "condense_statement",
     "named": true,
     "fields": {
       "text": {
@@ -2735,6 +2778,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "no_gaps_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4339,15 +4392,33 @@
     "fields": {}
   },
   {
-    "type": "find",
+    "type": "find_statement",
     "named": true,
     "fields": {
-      "dobj": {
+      "pattern": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "pcre_spec",
+            "named": true
+          },
+          {
+            "type": "regex_spec",
+            "named": true
+          },
+          {
+            "type": "substring_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "character_like_expression",
+            "type": "subject_spec",
             "named": true
           }
         ]
@@ -4355,57 +4426,38 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "find_options",
+          "type": "all_occurrences_of_pattern_spec",
           "named": true
         },
-        {
-          "type": "occurrence_spec",
-          "named": true
-        },
-        {
-          "type": "pattern",
-          "named": true
-        },
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "string_processing_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "find_options",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
         {
           "type": "case_sensitivity_spec",
           "named": true
         },
         {
-          "type": "operation_count_spec",
+          "type": "first_occurrence_of_pattern_spec",
           "named": true
         },
         {
-          "type": "operation_length_spec",
+          "type": "match_count_spec",
           "named": true
         },
         {
-          "type": "operation_offset_spec",
+          "type": "match_length_spec",
           "named": true
         },
         {
-          "type": "operation_results_spec",
+          "type": "match_offset_spec",
+          "named": true
+        },
+        {
+          "type": "statement_results_spec",
+          "named": true
+        },
+        {
+          "type": "string_processing_spec",
           "named": true
         },
         {
@@ -4413,6 +4465,30 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "first_occurrence_of_pattern_spec",
+    "named": true,
+    "fields": {
+      "pattern": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pcre_spec",
+            "named": true
+          },
+          {
+            "type": "regex_spec",
+            "named": true
+          },
+          {
+            "type": "substring_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -5590,25 +5666,6 @@
     }
   },
   {
-    "type": "into_clause",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "result_spec",
-          "named": true
-        },
-        {
-          "type": "table_result_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "into_spec",
     "named": true,
     "fields": {
@@ -6374,6 +6431,54 @@
     "fields": {}
   },
   {
+    "type": "match_count_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "match_length_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "match_offset_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "memory_id_spec",
     "named": true,
     "fields": {
@@ -6994,6 +7099,11 @@
     "fields": {}
   },
   {
+    "type": "no_gaps_spec",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "no_intervals_spec",
     "named": true,
     "fields": {}
@@ -7057,91 +7167,6 @@
     "type": "obligatory_spec",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "occurrence_spec",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "operation_count_spec",
-    "named": true,
-    "fields": {
-      "cnt": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "operation_length_spec",
-    "named": true,
-    "fields": {
-      "len": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "operation_offset_spec",
-    "named": true,
-    "fields": {
-      "off": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "operation_results_spec",
-    "named": true,
-    "fields": {
-      "result": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          }
-        ]
-      }
-    }
   },
   {
     "type": "optional_spec",
@@ -7531,58 +7556,6 @@
     }
   },
   {
-    "type": "pattern_based_replacement",
-    "named": true,
-    "fields": {
-      "dobj": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      },
-      "new": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "occurrence_spec",
-          "named": true
-        },
-        {
-          "type": "pattern",
-          "named": true
-        },
-        {
-          "type": "replace_options",
-          "named": true
-        },
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "string_processing_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "pcre_spec",
     "named": true,
     "fields": {
@@ -7686,46 +7659,6 @@
         },
         {
           "type": "perform_on_rollback_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "position_based_replacement",
-    "named": true,
-    "fields": {
-      "dobj": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      },
-      "new": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "section",
-          "named": true
-        },
-        {
-          "type": "string_processing_spec",
           "named": true
         }
       ]
@@ -8487,38 +8420,137 @@
     }
   },
   {
-    "type": "replace_options",
+    "type": "replace_statement",
     "named": true,
-    "fields": {},
+    "fields": {
+      "pattern": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "pcre_spec",
+            "named": true
+          },
+          {
+            "type": "regex_spec",
+            "named": true
+          },
+          {
+            "type": "substring_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "subject_spec",
+            "named": true
+          }
+        ]
+      },
+      "substitute": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "subject_spec",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
+        {
+          "type": "all_occurrences_of_pattern_spec",
+          "named": true
+        },
         {
           "type": "case_sensitivity_spec",
           "named": true
         },
         {
-          "type": "operation_count_spec",
+          "type": "first_occurrence_of_pattern_spec",
           "named": true
         },
         {
-          "type": "operation_length_spec",
+          "type": "replacement_count_spec",
           "named": true
         },
         {
-          "type": "operation_offset_spec",
+          "type": "replacement_length_spec",
           "named": true
         },
         {
-          "type": "operation_results_spec",
+          "type": "replacement_offset_spec",
           "named": true
         },
         {
-          "type": "verbatim",
+          "type": "statement_results_spec",
+          "named": true
+        },
+        {
+          "type": "string_processing_spec",
+          "named": true
+        },
+        {
+          "type": "verbatim_spec",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "replacement_count_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "replacement_length_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "replacement_offset_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -8568,28 +8600,9 @@
     }
   },
   {
-    "type": "respecting_blanks",
+    "type": "respecting_blanks_spec",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "result_spec",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "data_object",
-          "named": true
-        },
-        {
-          "type": "declaration_expression",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "resumable_exception_spec",
@@ -8817,25 +8830,57 @@
     }
   },
   {
-    "type": "section",
+    "type": "section_length_spec",
     "named": true,
     "fields": {
-      "len": {
-        "multiple": true,
-        "required": false,
+      "amount": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "numeric_expression",
             "named": true
           }
         ]
-      },
-      "off": {
+      }
+    }
+  },
+  {
+    "type": "section_offset_spec",
+    "named": true,
+    "fields": {
+      "amount": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "section_spec",
+    "named": true,
+    "fields": {
+      "length": {
         "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "numeric_expression",
+            "type": "section_length_spec",
+            "named": true
+          }
+        ]
+      },
+      "offset": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "section_offset_spec",
             "named": true
           }
         ]
@@ -9079,10 +9124,10 @@
     }
   },
   {
-    "type": "separator_spec",
+    "type": "separated_by_spec",
     "named": true,
     "fields": {
-      "sep": {
+      "separator": {
         "multiple": false,
         "required": true,
         "types": [
@@ -9100,56 +9145,10 @@
     "fields": {}
   },
   {
-    "type": "shift",
+    "type": "shift_by_spec",
     "named": true,
     "fields": {
-      "dobj": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "shift_by_places_spec",
-          "named": true
-        },
-        {
-          "type": "shift_direction_spec",
-          "named": true
-        },
-        {
-          "type": "shift_left_deleting_spec",
-          "named": true
-        },
-        {
-          "type": "shift_right_deleting_spec",
-          "named": true
-        },
-        {
-          "type": "shift_to_substring_spec",
-          "named": true
-        },
-        {
-          "type": "string_processing_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "shift_by_places_spec",
-    "named": true,
-    "fields": {
-      "num": {
+      "amount": {
         "multiple": false,
         "required": true,
         "types": [
@@ -9165,16 +9164,6 @@
     "type": "shift_direction_spec",
     "named": true,
     "fields": {
-      "circular": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "circular",
-            "named": false
-          }
-        ]
-      },
       "direction": {
         "multiple": true,
         "required": false,
@@ -9224,7 +9213,53 @@
     }
   },
   {
-    "type": "shift_to_substring_spec",
+    "type": "shift_statement",
+    "named": true,
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "shift_by_spec",
+          "named": true
+        },
+        {
+          "type": "shift_direction_spec",
+          "named": true
+        },
+        {
+          "type": "shift_left_deleting_spec",
+          "named": true
+        },
+        {
+          "type": "shift_right_deleting_spec",
+          "named": true
+        },
+        {
+          "type": "shift_up_to_spec",
+          "named": true
+        },
+        {
+          "type": "string_processing_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shift_up_to_spec",
     "named": true,
     "fields": {
       "substring": {
@@ -9320,10 +9355,65 @@
     }
   },
   {
-    "type": "split",
+    "type": "split_at_spec",
     "named": true,
     "fields": {
-      "dobj": {
+      "separator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "split_result_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "receiving_expression",
+          "named": true
+        },
+        {
+          "type": "split_table_result_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "split_statement",
+    "named": true,
+    "fields": {
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "split_result_spec",
+            "named": true
+          }
+        ]
+      },
+      "split_at": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "split_at_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -9335,22 +9425,30 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
-        {
-          "type": "into_clause",
-          "named": true
-        },
-        {
-          "type": "separator_spec",
-          "named": true
-        },
         {
           "type": "string_processing_spec",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "split_table_result_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -9404,6 +9502,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "statement_results_spec",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -9597,6 +9711,42 @@
     }
   },
   {
+    "type": "subject_spec",
+    "named": true,
+    "fields": {
+      "data_object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "section_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "submatches_spec",
     "named": true,
     "fields": {},
@@ -9605,11 +9755,7 @@
       "required": true,
       "types": [
         {
-          "type": "data_object",
-          "named": true
-        },
-        {
-          "type": "declaration_expression",
+          "type": "receiving_expression",
           "named": true
         }
       ]
@@ -10151,25 +10297,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "table_result_spec",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "data_object",
-          "named": true
-        },
-        {
-          "type": "declaration_expression",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -10722,7 +10849,7 @@
     }
   },
   {
-    "type": "verbatim",
+    "type": "verbatim_spec",
     "named": true,
     "fields": {}
   },
