@@ -1,12 +1,12 @@
-import loop_at_statement_rules from './loop_at_statement.js'
-import if_statement_rules from './if_statement.js'
-import while_statement_rules from './while_statement.js'
-import try_statement_rules from './try_statement.js'
-import case_statement_rules from './case_statement.js'
-import case_type_statement_rules from './case_type_statement.js'
-import do_statement_rules from './do_statement.js'
+const loop_at_statement_rules = require("./loop_at_statement.js");
+const if_statement_rules = require("./if_statement.js");
+const while_statement_rules = require("./while_statement.js");
+const try_statement_rules = require("./try_statement.js");
+const case_statement_rules = require("./case_statement.js");
+const case_type_statement_rules = require("./case_type_statement.js");
+const do_statement_rules = require("./do_statement.js");
 
-export default {
+module.exports = {
 
     control_statement: $ => choice(
         $.try_statement,

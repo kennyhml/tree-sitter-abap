@@ -1,7 +1,7 @@
-import { kw, kws } from '../helpers/keywords.js'
-import { chainable } from '../helpers/decl_gen.js'
+const { kw, kws } = require('../helpers/keywords.js')
+const { chainable } = require('../helpers/decl_gen.js')
 
-export default {
+module.exports = {
 
     methods_declaration: $ => chainable(
         "methods", choice($.method_spec, $.constructor_spec)

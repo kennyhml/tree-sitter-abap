@@ -5,12 +5,5 @@
         "*.def": "c",
         "xmemory": "c"
     },
-    "files.watcherExclude": {
-        "**/.git/objects/**": true,
-        "**/node_modules/**": true,
-        "**/src/**": true
-    },
-    "search.exclude": {
-        "**/src/**": true
-    }
+    "typescript.tsserver.log": "verbose",
 }

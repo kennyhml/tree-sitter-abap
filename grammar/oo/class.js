@@ -1,7 +1,7 @@
-import { kw, kws } from '../helpers/keywords.js'
-import { declaration_and_spec } from '../helpers/decl_gen.js'
+const { kw, kws } = require('../helpers/keywords.js')
+const { declaration_and_spec } = require('../helpers/decl_gen.js')
 
-export default {
+module.exports = {
 
     class_statement: $ => choice(
         $.class_definition,

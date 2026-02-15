@@ -1,6 +1,6 @@
-import { kw, kws } from '../helpers/keywords.js'
+const { kw, kws } = require('../helpers/keywords.js')
 
-export default {
+module.exports = {
 
     /**
      * INCLUDE incl [IF FOUND].
@@ -14,5 +14,4 @@ export default {
         "."
     ),
 
-    if_found_spec: _ => seq(...kws("if", "found"))
 }

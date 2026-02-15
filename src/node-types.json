@@ -104,10 +104,6 @@
         "named": true
       },
       {
-        "type": "subroutine_call",
-        "named": true
-      },
-      {
         "type": "subroutine_registration",
         "named": true
       },
@@ -573,6 +569,10 @@
       },
       {
         "type": "include_statement",
+        "named": true
+      },
+      {
+        "type": "perform_statement",
         "named": true
       },
       {
@@ -5084,6 +5084,26 @@
     }
   },
   {
+    "type": "in_program_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dyn_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "include_block_directive",
     "named": true,
     "fields": {
@@ -7511,6 +7531,64 @@
     }
   },
   {
+    "type": "perform_statement",
+    "named": true,
+    "fields": {
+      "changing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "changing",
+            "named": false
+          }
+        ]
+      },
+      "routine": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "subroutine_spec",
+            "named": true
+          }
+        ]
+      },
+      "tables": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "tables",
+            "named": false
+          }
+        ]
+      },
+      "using": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          },
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "position_based_replacement",
     "named": true,
     "fields": {
@@ -9450,64 +9528,6 @@
     }
   },
   {
-    "type": "subroutine_call",
-    "named": true,
-    "fields": {
-      "changing": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          },
-          {
-            "type": "changing",
-            "named": false
-          }
-        ]
-      },
-      "routine": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "subroutine_spec",
-            "named": true
-          }
-        ]
-      },
-      "tables": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          },
-          {
-            "type": "tables",
-            "named": false
-          }
-        ]
-      },
-      "using": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          },
-          {
-            "type": "using",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "subroutine_list",
     "named": true,
     "fields": {},
@@ -9583,20 +9603,30 @@
           {
             "type": "dyn_spec",
             "named": true
-          },
+          }
+        ]
+      },
+      "subroutines": {
+        "multiple": false,
+        "required": false,
+        "types": [
           {
-            "type": "identifier",
+            "type": "subroutine_list",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "subroutine_list",
+          "type": "if_found_spec",
+          "named": true
+        },
+        {
+          "type": "in_program_spec",
           "named": true
         }
       ]

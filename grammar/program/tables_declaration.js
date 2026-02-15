@@ -1,6 +1,6 @@
-import { chainable } from '../helpers/decl_gen.js'
+const { chainable } = require('../helpers/decl_gen.js')
 
-export default {
+module.exports = {
 
     /**
      * TABLES: table_wa, table_wa1.

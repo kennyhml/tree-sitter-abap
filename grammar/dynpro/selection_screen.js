@@ -1,9 +1,9 @@
 /// <reference types="tree-sitter-cli/dsl" />
-import { kw, kws } from '../helpers/keywords.js'
-import { chainable, chainable_immediate } from '../helpers/decl_gen.js'
+const { kw, kws } = require('../helpers/keywords.js')
+const { chainable, chainable_immediate } = require('../helpers/decl_gen.js')
 
 // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselection-screen.html
-export default {
+module.exports = {
 
     selection_screen_statement: $ => chainable(
         "selection-screen", $.__selection_screen_element

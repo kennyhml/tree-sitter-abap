@@ -82,7 +82,7 @@ PERFORM select_sflight TABLES sflight_tab
 ---
 
 (source
-  (subroutine_call
+  (perform_statement
     (subroutine_spec
       (identifier))
     (argument_list
@@ -101,12 +101,14 @@ PERFORM (subr) IN PROGRAM (prog) IF FOUND.
 ---
 
 (source
-  (subroutine_call
+  (perform_statement
     routine: (subroutine_spec
       name: (dyn_spec
         name: (identifier))
-      program: (dyn_spec
-        name: (identifier)))))
+      (in_program_spec
+        name: (dyn_spec
+          name: (identifier)))
+      (if_found_spec))))
 
 ======
 Perform subroutine from index
@@ -115,12 +117,12 @@ PERFORM sy-index OF subr_1 subr_2.
 ---
 
 (source
-  (subroutine_call
+  (perform_statement
     routine: (subroutine_spec
       index: (struct_component_selector
         struct: (identifier)
         comp: (identifier))
-      (subroutine_list
+      subroutines: (subroutine_list
         (identifier)
         (identifier)))))
 
@@ -131,11 +133,12 @@ PERFORM foo(bar) IF FOUND.
 ---
 
 (source
-  (subroutine_call
+  (perform_statement
     routine: (subroutine_spec
       name: (identifier)
       program: (dyn_spec
-        name: (identifier)))))
+        name: (identifier))
+      (if_found_spec))))
 
 ======
 Register subroutines on luw actions

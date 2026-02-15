@@ -1,7 +1,7 @@
-import { chainable } from "../helpers/decl_gen.js";
-import { kw, kws } from '../helpers/keywords.js'
+const { chainable } = require("../helpers/decl_gen.js");
+const { kw, kws } = require("../helpers/keywords.js");
 
-export default {
+module.exports = {
 
     select_options_declaration: $ => chainable(
         "select-options", $.select_options_spec
