@@ -60,15 +60,15 @@
         "named": true
       },
       {
-        "type": "include_statement",
-        "named": true
-      },
-      {
         "type": "local_updates_statement",
         "named": true
       },
       {
         "type": "message",
+        "named": true
+      },
+      {
+        "type": "program_statement",
         "named": true
       },
       {
@@ -81,10 +81,6 @@
       },
       {
         "type": "replace",
-        "named": true
-      },
-      {
-        "type": "report_statement",
         "named": true
       },
       {
@@ -113,10 +109,6 @@
       },
       {
         "type": "subroutine_registration",
-        "named": true
-      },
-      {
-        "type": "tables_declaration",
         "named": true
       },
       {
@@ -567,6 +559,24 @@
       },
       {
         "type": "substring_spec",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "program_statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "include_statement",
+        "named": true
+      },
+      {
+        "type": "report_statement",
+        "named": true
+      },
+      {
+        "type": "tables_declaration",
         "named": true
       }
     ]
