@@ -1,7 +1,8 @@
 import { chainable, declaration_and_spec } from "./grammar/helpers/decl_gen.js";
-import dynpro from '#dynpro';
-import core from '#core';
-import oo from '#oo';
+import dynpro from './grammar/dynpro/index.js';
+import core from './grammar/core/index.js';
+import oo from './grammar/oo/index.js';
+import report from './grammar/report/index.js';
 
 /**
  * @file Abap grammar for tree-sitter
@@ -151,7 +152,7 @@ export default grammar({
       $.message,
       $.assignment,
 
-      $.report_initiator,
+      $.report_statement,
 
       $.function_call,
       $.dynamic_method_call,
@@ -199,6 +200,7 @@ export default grammar({
     ...dynpro,
     ...core,
     ...oo,
+    ...report,
 
     ...declaration_and_spec("data", $ => $.identifier),
     ...declaration_and_spec("constants", $ => $.identifier),
@@ -2406,28 +2408,6 @@ export default grammar({
 
     statement_block: $ => repeat1($._statement),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
-    report_initiator: $ => seq(
-      kw("report"),
-      $.identifier,
-      repeat(
-        choice(
-          ...kws("reduced", "functionality"),
-          ...kws("no", "standard", "page", "heading"),
-          seq(...kws("defining", "database"), field("logical_db", $.identifier)),
-          seq(kw("line-size"), field("line_size", $.number)),
-          seq(
-            kw("line-count"),
-            field("page_lines", $.number),
-            token.immediate("("),
-            field("footer_lines", $._immediate_number),
-            token.immediate(")")
-          ),
-          seq(kw("message-id"), field("message_class", $.identifier)),
-        )
-      ),
-      "."
-    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINCLUDE_PROG.html
     include_statement: $ => seq(

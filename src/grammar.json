@@ -60,7 +60,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "report_initiator"
+          "name": "report_statement"
         },
         {
           "type": "SYMBOL",
@@ -7707,6 +7707,251 @@
         {
           "type": "SYMBOL",
           "name": "interface_component_selector"
+        }
+      ]
+    },
+    "report_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][pP][oO][rR][tT]"
+          },
+          "named": false,
+          "value": "report"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__report_statement_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__report_statement_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "reduced_functionality_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "no_standard_page_heading_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "defining_database_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_size_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_count_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "default_message_class_spec"
+        }
+      ]
+    },
+    "reduced_functionality_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][dD][uU][cC][eE][dD]"
+          },
+          "named": false,
+          "value": "reduced"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][uU][nN][cC][tT][iI][oO][nN][aA][lL][iI][tT][yY]"
+          },
+          "named": false,
+          "value": "functionality"
+        }
+      ]
+    },
+    "no_standard_page_heading_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[nN][oO]"
+          },
+          "named": false,
+          "value": "no"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][tT][aA][nN][dD][aA][rR][dD]"
+          },
+          "named": false,
+          "value": "standard"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[pP][aA][gG][eE]"
+          },
+          "named": false,
+          "value": "page"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[hH][eE][aA][dD][iI][nN][gG]"
+          },
+          "named": false,
+          "value": "heading"
+        }
+      ]
+    },
+    "defining_database_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][eE][fF][iI][nN][iI][nN][gG]"
+          },
+          "named": false,
+          "value": "defining"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[dD][aA][tT][aA][bB][aA][sS][eE]"
+          },
+          "named": false,
+          "value": "database"
+        },
+        {
+          "type": "FIELD",
+          "name": "logical_database",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "line_size_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][iI][nN][eE]-[sS][iI][zZ][eE]"
+          },
+          "named": false,
+          "value": "line-size"
+        },
+        {
+          "type": "FIELD",
+          "name": "size",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "line_count_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][iI][nN][eE]-[cC][oO][uU][nN][tT]"
+          },
+          "named": false,
+          "value": "line-count"
+        },
+        {
+          "type": "FIELD",
+          "name": "page_lines",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "footer_lines",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_number"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          }
+        }
+      ]
+    },
+    "default_message_class_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[mM][eE][sS][sS][aA][gG][eE]-[iI][dD]"
+          },
+          "named": false,
+          "value": "message-id"
+        },
+        {
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         }
       ]
     },
@@ -20892,209 +21137,6 @@
         "type": "SYMBOL",
         "name": "_statement"
       }
-    },
-    "report_initiator": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[rR][eE][pP][oO][rR][tT]"
-          },
-          "named": false,
-          "value": "report"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[rR][eE][dD][uU][cC][eE][dD]"
-                },
-                "named": false,
-                "value": "reduced"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[fF][uU][nN][cC][tT][iI][oO][nN][aA][lL][iI][tT][yY]"
-                },
-                "named": false,
-                "value": "functionality"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[nN][oO]"
-                },
-                "named": false,
-                "value": "no"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[sS][tT][aA][nN][dD][aA][rR][dD]"
-                },
-                "named": false,
-                "value": "standard"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[pP][aA][gG][eE]"
-                },
-                "named": false,
-                "value": "page"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[hH][eE][aA][dD][iI][nN][gG]"
-                },
-                "named": false,
-                "value": "heading"
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[dD][eE][fF][iI][nN][iI][nN][gG]"
-                    },
-                    "named": false,
-                    "value": "defining"
-                  },
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[dD][aA][tT][aA][bB][aA][sS][eE]"
-                    },
-                    "named": false,
-                    "value": "database"
-                  },
-                  {
-                    "type": "FIELD",
-                    "name": "logical_db",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "identifier"
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[lL][iI][nN][eE]-[sS][iI][zZ][eE]"
-                    },
-                    "named": false,
-                    "value": "line-size"
-                  },
-                  {
-                    "type": "FIELD",
-                    "name": "line_size",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "number"
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[lL][iI][nN][eE]-[cC][oO][uU][nN][tT]"
-                    },
-                    "named": false,
-                    "value": "line-count"
-                  },
-                  {
-                    "type": "FIELD",
-                    "name": "page_lines",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "number"
-                    }
-                  },
-                  {
-                    "type": "IMMEDIATE_TOKEN",
-                    "content": {
-                      "type": "STRING",
-                      "value": "("
-                    }
-                  },
-                  {
-                    "type": "FIELD",
-                    "name": "footer_lines",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "_immediate_number"
-                    }
-                  },
-                  {
-                    "type": "IMMEDIATE_TOKEN",
-                    "content": {
-                      "type": "STRING",
-                      "value": ")"
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[mM][eE][sS][sS][aA][gG][eE]-[iI][dD]"
-                    },
-                    "named": false,
-                    "value": "message-id"
-                  },
-                  {
-                    "type": "FIELD",
-                    "name": "message_class",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "identifier"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
     },
     "include_statement": {
       "type": "SEQ",
