@@ -39,12 +39,13 @@ COND i( WHEN cflag = abap_true  THEN 1
     (case
       (throw_exception
         (type_identifier)
-        (message_spec
-          (message_type)
-          (number)
-          (identifier)
-          (message_arguments
-            (string_literal)
-            (string_literal)
-            (string_literal)
-            (string_literal)))))))
+        (inline_message_spec
+          (message_spec
+            (message_type)
+            (number)
+            (identifier)
+            (message_arguments
+              (string_literal)
+              (string_literal)
+              (string_literal)
+              (string_literal))))))))

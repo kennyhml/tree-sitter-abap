@@ -23,7 +23,7 @@
 
 (simple_exception_spec name: (identifier) @class )
 (resumable_exception_spec name: (identifier) @class )
-(raise_exception_statement name: (identifier) @class )
+(new_exception_spec class_name: (identifier) @class )
 (catch_exception_list (identifier) @class )
 
 (superclass_spec name: (identifier) @class)
@@ -251,6 +251,7 @@
 (at_end_of_statement ["at" "end" "of"] @keyword.control )
 
 (raise_exception_statement ["raise" "exception" ] @keyword.control )
+(resumable_spec "resumable" @keyword.control )
 
 ; Keywords that can be considered control flow without context check
 ; As of now, new keywords should be added to the uncontextualized

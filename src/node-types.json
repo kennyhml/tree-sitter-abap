@@ -12,10 +12,6 @@
         "named": true
       },
       {
-        "type": "check_statement",
-        "named": true
-      },
-      {
         "type": "commit_work_statement",
         "named": true
       },
@@ -32,10 +28,6 @@
         "named": true
       },
       {
-        "type": "continue_statement",
-        "named": true
-      },
-      {
         "type": "control_statement",
         "named": true
       },
@@ -45,10 +37,6 @@
       },
       {
         "type": "dynamic_method_call",
-        "named": true
-      },
-      {
-        "type": "exit_statement",
         "named": true
       },
       {
@@ -72,23 +60,7 @@
         "named": true
       },
       {
-        "type": "raise_exception_statement",
-        "named": true
-      },
-      {
-        "type": "raise_statement",
-        "named": true
-      },
-      {
         "type": "replace",
-        "named": true
-      },
-      {
-        "type": "resume_statement",
-        "named": true
-      },
-      {
-        "type": "return_statement",
         "named": true
       },
       {
@@ -246,7 +218,19 @@
         "named": true
       },
       {
+        "type": "check_statement",
+        "named": true
+      },
+      {
+        "type": "continue_statement",
+        "named": true
+      },
+      {
         "type": "do_statement",
+        "named": true
+      },
+      {
+        "type": "exit_statement",
         "named": true
       },
       {
@@ -259,6 +243,22 @@
       },
       {
         "type": "loop_at_statement",
+        "named": true
+      },
+      {
+        "type": "raise_exception_statement",
+        "named": true
+      },
+      {
+        "type": "raise_statement",
+        "named": true
+      },
+      {
+        "type": "resume_statement",
+        "named": true
+      },
+      {
+        "type": "return_statement",
         "named": true
       },
       {
@@ -5424,6 +5424,22 @@
     "fields": {}
   },
   {
+    "type": "inline_message_spec",
+    "named": true,
+    "fields": {
+      "message": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "message_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "interface_body",
     "named": true,
     "fields": {},
@@ -6890,6 +6906,46 @@
     }
   },
   {
+    "type": "new_exception_spec",
+    "named": true,
+    "fields": {
+      "class_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "exporting": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "inline_message_spec",
+          "named": true
+        },
+        {
+          "type": "using_message_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "new_expression",
     "named": true,
     "fields": {
@@ -7972,36 +8028,16 @@
     "type": "raise_exception_statement",
     "named": true,
     "fields": {
-      "exporting": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          },
-          {
-            "type": "exporting",
-            "named": false
-          }
-        ]
-      },
-      "name": {
+      "exception": {
         "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "oref": {
-        "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "new_exception_spec",
             "named": true
           }
         ]
@@ -8012,7 +8048,7 @@
       "required": false,
       "types": [
         {
-          "type": "message_spec",
+          "type": "resumable_spec",
           "named": true
         }
       ]
@@ -8570,6 +8606,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "resumable_spec",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "resume_statement",
@@ -10318,7 +10359,7 @@
       "required": false,
       "types": [
         {
-          "type": "message_spec",
+          "type": "inline_message_spec",
           "named": true
         }
       ]
@@ -10589,6 +10630,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "using_message_spec",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "using_selection_set_spec",
