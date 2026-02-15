@@ -82,7 +82,8 @@ INCLUDE labap_docuuxx if found.
 
 (source
   (include_statement
-    name: (identifier)))
+    name: (identifier)
+    (if_found_spec)))
 
 ======
 Program tables declaration

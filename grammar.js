@@ -153,6 +153,7 @@ export default grammar({
       $.assignment,
 
       $.report_statement,
+      $.include_statement,
 
       $.function_call,
       $.dynamic_method_call,
@@ -166,7 +167,6 @@ export default grammar({
       $.split,
       $.condense,
 
-      $.include_statement,
 
       // Control flow
       $.raise_statement,
@@ -2409,13 +2409,6 @@ export default grammar({
     statement_block: $ => repeat1($._statement),
 
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINCLUDE_PROG.html
-    include_statement: $ => seq(
-      kw("include"),
-      field("name", $.identifier),
-      optional(seq(...kws("if", "found"))),
-      "."
-    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
     table_key_spec: $ => prec.right(
