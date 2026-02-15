@@ -162,16 +162,6 @@ module.exports = grammar({
       $.split,
       $.condense,
 
-
-      // Control flow
-      $.raise_statement,
-      $.raise_exception_statement,
-      $.return_statement,
-      $.exit_statement,
-      $.check_statement,
-      $.continue_statement,
-      $.resume_statement,
-
       $.local_updates_statement,
       $.commit_work_statement,
       $.rollback_work_statement,
@@ -1156,70 +1146,10 @@ module.exports = grammar({
       optional(kw("shortdump")),
       field("name", $._type_identifier),
       "(",
-      optional($._inline_message_spec),
+      optional($.inline_message_spec),
       ")"
     ),
 
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_CLASS.html 
-     */
-    raise_exception_statement: $ => prec.right(seq(
-      kw("raise"),
-      optional(kw("resumable")),
-      kw("exception"),
-      choice(
-        field("oref", $.general_expression),
-        seq(
-          kw("type"),
-          field("name", $.identifier),
-          optional(
-            choice(
-              seq(...kws("using", "message")),
-              // For some reason 'using message' went missing from the docs, but it
-              // just uses the system message fields (sy-msgid, etc..)
-              // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_MESSAGE.html
-              $._inline_message_spec,
-            )
-          ),
-          optional(args("exporting", $._named_argument_list))
-        )
-      )
-    )),
-
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION.html
-     */
-    raise_statement: $ => seq(
-      kw("raise"),
-      field("name", $.identifier)
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRETURN.html
-    return_statement: $ => seq(
-      kw("return"),
-      optional(field("expr", $.general_expression)),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEXIT_PROCESSING_BLOCKS.html
-    exit_statement: _ => seq(
-      kw("exit"),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_PROCESSING_BLOCKS.html
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_LOOP.html
-    check_statement: $ => seq(
-      kw("check"),
-      field("condition", $._logical_expression),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONTINUE.html
-    continue_statement: _ => seq(kw("continue"), "."),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRESUME.html
-    resume_statement: _ => seq(kw("resume"), "."),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
     local_updates_statement: _ => seq(
@@ -1251,15 +1181,6 @@ module.exports = grammar({
       "."
     ),
 
-    /**
-     * A message specification that is inlined into another statement, e.g
-     * a {@link throw_exception} or {@link raise_exception} and preceded by
-     * a 'message' keyword that doesnt technically serve as a declaration.
-     */
-    _inline_message_spec: $ => seq(
-      kw("message"),
-      $.message_spec
-    ),
 
     /**
      * Inner specification of a {@link message}.

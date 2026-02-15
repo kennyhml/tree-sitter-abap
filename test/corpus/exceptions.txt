@@ -6,7 +6,8 @@ RAISE EXCEPTION TYPE cx_demo.
 
 (source
   (raise_exception_statement
-    name: (identifier)))
+    exception: (new_exception_spec
+      class_name: (identifier))))
 
 ======
 Raise old style exception
@@ -26,7 +27,7 @@ RAISE EXCEPTION oref.
 
 (source
   (raise_exception_statement
-    oref: (identifier)))
+    exception: (identifier)))
 
 ======
 Raise resumable exception
@@ -36,7 +37,9 @@ RAISE RESUMABLE EXCEPTION TYPE cx_demo.
 
 (source
   (raise_exception_statement
-    name: (identifier)))
+    (resumable_spec)
+    exception: (new_exception_spec
+      class_name: (identifier))))
 
 ======
 Raise exception with exporting parameters
@@ -49,16 +52,17 @@ RAISE EXCEPTION TYPE cx_sy_dynamic_osql_semantics
 
 (source
   (raise_exception_statement
-    (identifier)
-    (argument_list
-      (named_argument
-        (identifier)
-        (class_component_selector
+    (new_exception_spec
+      (identifier)
+      (argument_list
+        (named_argument
           (identifier)
-          (identifier)))
-      (named_argument
-        (identifier)
-        (string_literal)))))
+          (class_component_selector
+            (identifier)
+            (identifier)))
+        (named_argument
+          (identifier)
+          (string_literal))))))
 
 ======
 Raise exception from message
@@ -71,17 +75,19 @@ RAISE EXCEPTION TYPE /BOBF/CX_CONF
 
 (source
   (raise_exception_statement
-    (identifier)
-    (message_spec
-      (message_type)
-      (number)
-      (message_arguments
-        (string_literal)
-        (string_literal)))
-    (argument_list
-      (named_argument
-        (identifier)
-        (string_literal)))))
+    (new_exception_spec
+      (identifier)
+      (inline_message_spec
+        (message_spec
+          (message_type)
+          (number)
+          (message_arguments
+            (string_literal)
+            (string_literal))))
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal))))))
 
 ======
 Raise exception from long form message
@@ -94,14 +100,16 @@ RAISE EXCEPTION TYPE cx_demo_exception
 
 (source
   (raise_exception_statement
-    name: (identifier)
-    (message_spec
-      id: (string_literal)
-      type: (string_literal)
-      number: (string_literal)
-      arguments: (message_arguments
-        (string_literal)
-        (string_literal)))))
+    exception: (new_exception_spec
+      class_name: (identifier)
+      (inline_message_spec
+        message: (message_spec
+          id: (string_literal)
+          type: (string_literal)
+          number: (string_literal)
+          arguments: (message_arguments
+            (string_literal)
+            (string_literal)))))))
 
 ======
 Raise exception from system message fields
@@ -111,7 +119,9 @@ RAISE EXCEPTION TYPE /brx/cx_error USING MESSAGE.
 
 (source
   (raise_exception_statement
-    name: (identifier)))
+    exception: (new_exception_spec
+      class_name: (identifier)
+      (using_message_spec))))
 
 ======
 Simple try statement
