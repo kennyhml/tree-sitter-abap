@@ -4,6 +4,7 @@ const find_statement_rules = require("./find_statement.js")
 const replace_statement_rules = require("./replace_statement.js")
 const shift_statement_rules = require("./shift_statement.js")
 const split_statement_rules = require("./split_statement.js")
+const clear_statement_rules = require("./clear_statement.js")
 const common_rules = require("./common.js")
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
         $.replace_statement,
         $.shift_statement,
         $.split_statement,
+        $.clear_statement
     ),
 
     ...concatenate_statement_rules,
@@ -23,5 +25,6 @@ module.exports = {
     ...replace_statement_rules,
     ...shift_statement_rules,
     ...split_statement_rules,
+    ...clear_statement_rules,
     ...common_rules
 }

@@ -4978,6 +4978,10 @@
         {
           "type": "SYMBOL",
           "name": "split_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "clear_statement"
         }
       ]
     },
@@ -6036,6 +6040,129 @@
             "type": "SYMBOL",
             "name": "receiving_expression"
           }
+        }
+      ]
+    },
+    "clear_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][lL][eE][aA][rR]"
+          },
+          "named": false,
+          "value": "clear"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "clear_spec"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "clear_spec"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "clear_spec"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "clear_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "with",
+              "content": {
+                "type": "SYMBOL",
+                "name": "clear_value_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "clear_value_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[wW][iI][tT][hH]"
+          },
+          "named": false,
+          "value": "with"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "functional_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "mode",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string_processing_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -12885,6 +13012,14 @@
         {
           "type": "SYMBOL",
           "name": "table_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "declaration_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "named_data_object"
         }
       ]
     },
@@ -17966,21 +18101,8 @@
             "type": "FIELD",
             "name": "left",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "data_object"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "declaration_expression"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "writable_expression"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "writable_expression"
             }
           },
           {
