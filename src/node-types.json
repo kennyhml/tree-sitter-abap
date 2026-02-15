@@ -538,6 +538,10 @@
         "named": true
       },
       {
+        "type": "free_statement",
+        "named": true
+      },
+      {
         "type": "replace_statement",
         "named": true
       },
@@ -4858,6 +4862,21 @@
       "types": [
         {
           "type": "title_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "free_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "named_data_object",
           "named": true
         }
       ]
@@ -11654,6 +11673,10 @@
   },
   {
     "type": "frame",
+    "named": false
+  },
+  {
+    "type": "free",
     "named": false
   },
   {
