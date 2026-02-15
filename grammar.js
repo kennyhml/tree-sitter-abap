@@ -154,7 +154,6 @@ module.exports = grammar({
 
       $.function_call,
       $.dynamic_method_call,
-      $.subroutine_registration,
 
       $.concatenate,
       $.find,

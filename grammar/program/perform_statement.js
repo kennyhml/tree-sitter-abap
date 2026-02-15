@@ -11,6 +11,8 @@ module.exports = {
         field("routine", $.subroutine_spec),
         repeat(
             choice(
+                $.perform_on_commit_spec,
+                $.perform_on_rollback_spec,
                 args("tables", $._positional_argument_list),
                 args("using", $._positional_argument_list),
                 args("changing", $._positional_argument_list)
@@ -35,21 +37,19 @@ module.exports = {
         $.__index_subroutine_spec
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_ON_COMMIT.html
-    subroutine_registration: $ => seq(
-        kw("perform"),
-        field("name", $.identifier),
-        choice(
-            seq(...kws("on", "rollback")),
-            seq(
-                ...kws("on", "commit"),
-                optional(seq(
-                    kw("level"),
-                    field("level", $.data_object)
-                ))
-            )
-        ),
-        "."
+    // ... ON ROLLBACK  ...
+    perform_on_rollback_spec: _ => seq(...kws("on", "rollback")),
+
+    // ... ON {COMMIT [LEVEL idx]} ...
+    perform_on_commit_spec: $ => seq(
+        ...kws("on", "commit"),
+        optional(field("commit_level", $.commit_level_spec))
+    ),
+
+    // LEVEL idx
+    commit_level_spec: $ => seq(
+        kw("level"),
+        field("level", $.data_object)
     ),
 
     // IN PROGRAM {prog|(pname)} 

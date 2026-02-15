@@ -64,10 +64,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "subroutine_registration"
-        },
-        {
-          "type": "SYMBOL",
           "name": "concatenate"
         },
         {
@@ -8331,6 +8327,14 @@
             "type": "CHOICE",
             "members": [
               {
+                "type": "SYMBOL",
+                "name": "perform_on_commit_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "perform_on_rollback_spec"
+              },
+              {
                 "type": "FIELD",
                 "name": "tables",
                 "content": {
@@ -8430,110 +8434,87 @@
         }
       ]
     },
-    "subroutine_registration": {
+    "perform_on_rollback_spec": {
       "type": "SEQ",
       "members": [
         {
           "type": "ALIAS",
           "content": {
             "type": "PATTERN",
-            "value": "[pP][eE][rR][fF][oO][rR][mM]"
+            "value": "[oO][nN]"
           },
           "named": false,
-          "value": "perform"
+          "value": "on"
         },
         {
-          "type": "FIELD",
-          "name": "name",
+          "type": "ALIAS",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
+            "type": "PATTERN",
+            "value": "[rR][oO][lL][lL][bB][aA][cC][kK]"
+          },
+          "named": false,
+          "value": "rollback"
+        }
+      ]
+    },
+    "perform_on_commit_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[oO][nN]"
+          },
+          "named": false,
+          "value": "on"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][oO][mM][mM][iI][tT]"
+          },
+          "named": false,
+          "value": "commit"
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[oO][nN]"
-                  },
-                  "named": false,
-                  "value": "on"
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[rR][oO][lL][lL][bB][aA][cC][kK]"
-                  },
-                  "named": false,
-                  "value": "rollback"
-                }
-              ]
+              "type": "FIELD",
+              "name": "commit_level",
+              "content": {
+                "type": "SYMBOL",
+                "name": "commit_level_spec"
+              }
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[oO][nN]"
-                  },
-                  "named": false,
-                  "value": "on"
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[cC][oO][mM][mM][iI][tT]"
-                  },
-                  "named": false,
-                  "value": "commit"
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "ALIAS",
-                          "content": {
-                            "type": "PATTERN",
-                            "value": "[lL][eE][vV][eE][lL]"
-                          },
-                          "named": false,
-                          "value": "level"
-                        },
-                        {
-                          "type": "FIELD",
-                          "name": "level",
-                          "content": {
-                            "type": "SYMBOL",
-                            "name": "data_object"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                }
-              ]
+              "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "commit_level_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[lL][eE][vV][eE][lL]"
+          },
+          "named": false,
+          "value": "level"
         },
         {
-          "type": "STRING",
-          "value": "."
+          "type": "FIELD",
+          "name": "level",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
         }
       ]
     },

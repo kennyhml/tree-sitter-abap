@@ -3,7 +3,7 @@ const include_statement_rules = require("./include_statement.js");
 const tables_declaration_rules = require("./tables_declaration.js");
 const perform_statement_rules = require("./perform_statement.js");
 const common_rules = require("./common.js");
-const form_rules = require("./form.js");
+const form_rules = require("./form_definition.js");
 
 module.exports = {
 

@@ -75,7 +75,6 @@
 (form_definition name: (identifier) @function.subroutine )
 (subroutine_spec name: (identifier) @function.subroutine )
 (subroutine_list (identifier) @function.subroutine )
-(subroutine_registration name: (identifier) @function.subroutine )
 
 ; For all other variants, there is no method to be highlighted since
 ; it is specified via a literal string or a data object
