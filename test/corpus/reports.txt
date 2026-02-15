@@ -5,8 +5,8 @@ report ZMYTESTREPORT.
 ---
 
 (source
-  (report_initiator
-    (identifier)))
+  (report_statement
+    name: (identifier)))
 
 ==================
 Report Initiator with Message Class
@@ -15,9 +15,10 @@ report ZMYTESTREPORT message-id ZMESSAGE_CLASS.
 ---
 
 (source
-  (report_initiator
-    (identifier)
-    (identifier)))
+  (report_statement
+    name: (identifier)
+    (default_message_class_spec
+      id: (identifier))))
 
 ==================
 Report Initiator with reduced functionality.
@@ -26,8 +27,9 @@ report ZMYTESTREPORT reduced functionality.
 ---
 
 (source
-  (report_initiator
-    (identifier)))
+  (report_statement
+    name: (identifier)
+    (reduced_functionality_spec)))
 
 ==================
 Complex Report Initiator
@@ -42,13 +44,19 @@ report ZMYTESTREPORT
 ---
 
 (source
-  (report_initiator
-    (identifier)
-    (identifier)
-    (identifier)
-    (number)
-    (number)
-    (number)))
+  (report_statement
+    name: (identifier)
+    (reduced_functionality_spec)
+    (default_message_class_spec
+      id: (identifier))
+    (defining_database_spec
+      logical_database: (identifier))
+    (no_standard_page_heading_spec)
+    (line_size_spec
+      size: (number))
+    (line_count_spec
+      page_lines: (number)
+      footer_lines: (number))))
 
 ======
 Include statements

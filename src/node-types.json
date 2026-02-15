@@ -84,7 +84,7 @@
         "named": true
       },
       {
-        "type": "report_initiator",
+        "type": "report_statement",
         "named": true
       },
       {
@@ -3403,6 +3403,22 @@
     }
   },
   {
+    "type": "default_message_class_spec",
+    "named": true,
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "default_range_spec",
     "named": true,
     "fields": {
@@ -3654,6 +3670,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "defining_database_spec",
+    "named": true,
+    "fields": {
+      "logical_database": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -5742,6 +5774,48 @@
     }
   },
   {
+    "type": "line_count_spec",
+    "named": true,
+    "fields": {
+      "footer_lines": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "page_lines": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "line_size_spec",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "line_spec",
     "named": true,
     "fields": {
@@ -6808,6 +6882,11 @@
   },
   {
     "type": "no_intervals_spec",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "no_standard_page_heading_spec",
     "named": true,
     "fields": {}
   },
@@ -8009,6 +8088,11 @@
     }
   },
   {
+    "type": "reduced_functionality_spec",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "ref_expression",
     "named": true,
     "fields": {
@@ -8268,66 +8352,46 @@
     }
   },
   {
-    "type": "report_initiator",
+    "type": "report_statement",
     "named": true,
     "fields": {
-      "footer_lines": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "line_size": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "logical_db": {
-        "multiple": true,
-        "required": false,
+      "name": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "message_class": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "page_lines": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "identifier",
+          "type": "default_message_class_spec",
+          "named": true
+        },
+        {
+          "type": "defining_database_spec",
+          "named": true
+        },
+        {
+          "type": "line_count_spec",
+          "named": true
+        },
+        {
+          "type": "line_size_spec",
+          "named": true
+        },
+        {
+          "type": "no_standard_page_heading_spec",
+          "named": true
+        },
+        {
+          "type": "reduced_functionality_spec",
           "named": true
         }
       ]
