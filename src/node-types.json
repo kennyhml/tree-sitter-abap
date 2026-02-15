@@ -5021,6 +5021,11 @@
     "fields": {}
   },
   {
+    "type": "if_found_spec",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "if_statement",
     "named": true,
     "fields": {
@@ -5276,6 +5281,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "if_found_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
