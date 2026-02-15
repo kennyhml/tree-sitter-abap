@@ -568,6 +568,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "form_definition",
+        "named": true
+      },
+      {
         "type": "include_statement",
         "named": true
       },
@@ -631,10 +635,6 @@
       },
       {
         "type": "dynpro_statement",
-        "named": true
-      },
-      {
-        "type": "form_definition",
         "named": true
       },
       {
@@ -7159,26 +7159,6 @@
           }
         ]
       },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "structure": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "typing": {
         "multiple": false,
         "required": false,
@@ -7208,7 +7188,7 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "optional_spec",
@@ -7220,6 +7200,10 @@
         },
         {
           "type": "simple_param_spec",
+          "named": true
+        },
+        {
+          "type": "structure_param_spec",
           "named": true
         },
         {
@@ -7242,7 +7226,7 @@
           "named": true
         },
         {
-          "type": "preferred_parameter_spec",
+          "type": "preferred_param_spec",
           "named": true
         }
       ]
@@ -7614,7 +7598,7 @@
     }
   },
   {
-    "type": "preferred_parameter_spec",
+    "type": "preferred_param_spec",
     "named": true,
     "fields": {
       "name": {
@@ -9421,6 +9405,22 @@
       "suffix": {
         "multiple": false,
         "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "structure_param_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",

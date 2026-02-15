@@ -187,7 +187,6 @@ export default grammar({
     // Statements that can only occur in special places - usually
     // the 'top level' of the current program.
     special_statement: $ => choice(
-      $.form_definition,
       $.class_statement,
       $.interface_statement,
       $.dynpro_statement,
@@ -2271,9 +2270,6 @@ export default grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
     keys: $ => prec.right(repeat1($.table_key_spec)),
 
-    _form_parameter_list: $ => alias(seq(
-      repeat1(alias($._form_parameter, $.parameter)),
-    ), $.parameter_list),
 
 
 
@@ -2289,26 +2285,6 @@ export default grammar({
       ))
     ),
 
-    _form_parameter: $ => prec.right(seq(
-      choice(
-        seq(
-          optional("!"),
-          field("name", $.identifier),
-        ),
-        seq(
-          kw("value"),
-          token.immediate("("),
-          field("name", $._immediate_identifier),
-          token.immediate(")")
-        ),
-      ),
-      optional(
-        choice(
-          field("typing", $._typing),
-          seq(kw("structure"), field("structure", $.identifier))
-        )
-      )
-    )),
 
 
     group_by_spec: $ => seq(
@@ -2382,27 +2358,6 @@ export default grammar({
       ...kws("transporting", "no", "fields")
     ),
 
-    /**
-     * Technically obsolete but still used excessively.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFORM.html 
-     */
-    form_definition: $ => seq(
-      kw("form"),
-      field("name", $.identifier),
-      repeat(
-        choice(
-          params("tables", $._form_parameter_list),
-          params("using", $._form_parameter_list),
-          params("changing", $._form_parameter_list),
-          params("raising", $.raising_list),
-        )
-      ),
-      ".",
-      optional(field("body", alias($.statement_block, $.form_body))),
-      kw("endform"),
-      "."
-    ),
 
     statement_block: $ => repeat1($._statement),
 
