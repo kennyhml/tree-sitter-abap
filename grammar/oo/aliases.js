@@ -1,7 +1,7 @@
-import { chainable } from "../helpers/decl_gen.js"
-import { kw } from "../helpers/keywords.js"
+const { chainable } = require("../helpers/decl_gen.js")
+const { kw } = require("../helpers/keywords.js");
 
-export default {
+module.exports = {
 
     aliases_declaration: $ => chainable("aliases", $.alias_spec),
 

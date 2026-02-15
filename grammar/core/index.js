@@ -1,5 +1,5 @@
-import control from './control/index.js'
+const control = require("./control/index.js");
 
-export default {
+module.exports = {
     ...control
 }

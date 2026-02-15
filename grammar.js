@@ -1,8 +1,8 @@
-import { chainable, declaration_and_spec } from "./grammar/helpers/decl_gen.js";
-import dynpro from './grammar/dynpro/index.js';
-import core from './grammar/core/index.js';
-import oo from './grammar/oo/index.js';
-import report from './grammar/program/index.js';
+const { declaration_and_spec } = require("./grammar/helpers/decl_gen.js");
+const dynpro = require("./grammar/dynpro/index.js");
+const core = require("./grammar/core/index.js");
+const oo = require("./grammar/oo/index.js");
+const report = require("./grammar/program/index.js");
 
 /**
  * @file Abap grammar for tree-sitter
@@ -43,7 +43,7 @@ const PREC = {
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
-export default grammar({
+module.exports = grammar({
   name: "abap",
 
   externals: $ => [
@@ -154,7 +154,6 @@ export default grammar({
 
       $.function_call,
       $.dynamic_method_call,
-      $.subroutine_call,
       $.subroutine_registration,
 
       $.concatenate,
@@ -1853,66 +1852,6 @@ export default grammar({
       $.object_component_selector,
       $.class_component_selector,
     ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_OBSOLETE.html
-    subroutine_call: $ => seq(
-      kw("perform"),
-      field("routine", $.subroutine_spec),
-      repeat(
-        choice(
-          args("tables", $._positional_argument_list),
-          args("using", $._positional_argument_list),
-          args("changing", $._positional_argument_list)
-        )
-      ),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_ON_COMMIT.html
-    subroutine_registration: $ => seq(
-      kw("perform"),
-      field("name", $.identifier),
-      choice(
-        seq(...kws("on", "rollback")),
-        seq(
-          ...kws("on", "commit"),
-          optional(seq(
-            kw("level"),
-            field("level", $.data_object)
-          ))
-        )
-      ),
-      "."
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_FORM.html
-    subroutine_spec: $ => choice(
-      field("name", $.identifier),
-      seq(
-        field("name", $.identifier),
-        field("program", alias($._immediate_dyn_spec, $.dyn_spec)),
-        optional(seq(...kws("if", "found")))
-      ),
-      seq(
-        field("name", choice(
-          $.identifier,
-          $.dyn_spec
-        )),
-        ...kws("in", "program"),
-        field("program", choice(
-          $.identifier,
-          $.dyn_spec
-        )),
-        optional(seq(...kws("if", "found")))
-      ),
-      seq(
-        field("index", $.data_object),
-        kw("of"),
-        $.subroutine_list
-      )
-    ),
-
-    subroutine_list: $ => repeat1($.identifier),
 
     /**
      * Call of a builtin function. Technically it would be possible to make all

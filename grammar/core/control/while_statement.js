@@ -1,6 +1,6 @@
-import { kw } from "../../helpers/keywords.js"
+const { kw } = require("../../helpers/keywords.js");
 
-export default {
+module.exports = {
 
     /**
      * TODO: Add tests

@@ -1,7 +1,7 @@
-import { kw } from '../helpers/keywords.js'
-import { chainable } from '../helpers/decl_gen.js'
+const { kw } = require('../helpers/keywords.js')
+const { chainable } = require('../helpers/decl_gen.js')
 
-export default {
+module.exports = {
 
     interface_statement: $ => choice(
         $.interface_definition,

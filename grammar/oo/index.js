@@ -1,10 +1,10 @@
-import common_rules from "./common.js";
-import class_rules from "./class.js";
-import interface_rules from "./interface.js";
-import method_rules from "./methods.js";
-import aliases_rules from "./aliases.js";
+const common_rules = require("./common.js");
+const class_rules = require("./class.js");
+const interface_rules = require("./interface.js");
+const method_rules = require("./methods.js");
+const aliases_rules = require("./aliases.js");
 
-export default {
+module.exports = {
     ...common_rules,
     ...class_rules,
     ...interface_rules,

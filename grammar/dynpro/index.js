@@ -1,9 +1,9 @@
-import common_rules from './common.js'
-import parameters_rules from './parameters.js'
-import select_options_rules from './select_options.js'
-import selection_screen_rules from './selection_screen.js'
+const common_rules = require("./common.js");
+const parameters_rules = require("./parameters.js");
+const select_options_rules = require("./select_options.js");
+const selection_screen_rules = require("./selection_screen.js");
 
-export default {
+module.exports = {
 
     dynpro_statement: $ => choice(
         $.selection_screen_statement,
