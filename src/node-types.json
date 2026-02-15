@@ -522,6 +522,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "clear_statement",
+        "named": true
+      },
+      {
         "type": "concatenate_statement",
         "named": true
       },
@@ -669,6 +673,14 @@
     "subtypes": [
       {
         "type": "cast_expression",
+        "named": true
+      },
+      {
+        "type": "declaration_expression",
+        "named": true
+      },
+      {
+        "type": "named_data_object",
         "named": true
       },
       {
@@ -840,14 +852,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
           {
             "type": "writable_expression",
             "named": true
@@ -2459,6 +2463,73 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "clear_spec",
+    "named": true,
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "with": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "clear_value_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "clear_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "clear_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "clear_value_spec",
+    "named": true,
+    "fields": {
+      "mode": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string_processing_spec",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "functional_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -11251,6 +11322,10 @@
   },
   {
     "type": "cleanup",
+    "named": false
+  },
+  {
+    "type": "clear",
     "named": false
   },
   {

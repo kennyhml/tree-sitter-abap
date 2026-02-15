@@ -300,6 +300,8 @@ module.exports = grammar({
       $.new_expression,
       $.cast_expression,
       $.table_expression,
+      $.declaration_expression,
+      $.named_data_object
     ),
 
     /**
@@ -1326,13 +1328,7 @@ module.exports = grammar({
      */
     assignment: $ => prec.right(
       seq(
-        field("left",
-          choice(
-            $.data_object,
-            $.declaration_expression,
-            $.writable_expression,
-          )
-        ),
+        field("left", $.writable_expression),
         // for a regular assignment '=', the right side could be another
         // assignment or a declaration expression, this doesnt make sense
         // for calculation assignments using +=, *=, etc..

@@ -550,6 +550,7 @@
     "work"
     "wait"
     "include"
+    "clear"
     
     ; Dynpro
     "parameters"
