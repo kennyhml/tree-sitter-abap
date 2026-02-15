@@ -137,7 +137,7 @@ METHODS meth
           typing: (builtin_type_spec
             name: (type_identifier))
           (optional_spec))
-        (preferred_parameter_spec
+        (preferred_param_spec
           name: (identifier))))))
 
 ==================

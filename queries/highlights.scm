@@ -105,8 +105,13 @@
 ] comp: (identifier) @variable.property 
 
 (key_components (identifier) @variable.property )
-(parameter name: (identifier) @variable.parameter )
-(preferred_parameter_spec name: (identifier) @variable.parameter )
+
+[
+  (value_param_spec)
+  (simple_param_spec)
+  (reference_param_spec)
+  (preferred_param_spec)
+] name: (identifier) @variable.parameter
 
 (table_key_spec name: (identifier) @variable.key )
 (using_key_spec name: (identifier) @variable.key )

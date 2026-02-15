@@ -159,7 +159,7 @@ export default {
 
     parameter_list: $ => seq(
         repeat1($.parameter),
-        optional($.preferred_parameter_spec)
+        optional($.preferred_param_spec)
     ),
 
     exception_list: $ => repeat1($.identifier),
@@ -168,7 +168,6 @@ export default {
         $.resumable_exception_spec,
         $.simple_exception_spec
     )),
-
 
     /**
      * VALUE(p1) | REFERENCE(p1) | p1 } 
@@ -190,7 +189,7 @@ export default {
         ))
     )),
 
-    preferred_parameter_spec: $ => seq(
+    preferred_param_spec: $ => seq(
         ...kws("preferred", "parameter"),
         field("name", $.identifier)
     ),

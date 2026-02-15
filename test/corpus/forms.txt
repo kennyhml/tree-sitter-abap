@@ -22,12 +22,14 @@ ENDFORM.
     name: (identifier)
     using: (parameter_list
       (parameter
-        name: (identifier)
+        (simple_param_spec
+          name: (identifier))
         typing: (referred_type_spec
           name: (type_identifier))))
     changing: (parameter_list
       (parameter
-        name: (identifier)
+        (simple_param_spec
+          name: (identifier))
         typing: (table_type_spec)))))
 
 ======
@@ -43,8 +45,10 @@ ENDFORM.
     name: (identifier)
     tables: (parameter_list
       (parameter
-        name: (identifier)
-        structure: (identifier)))))
+        (simple_param_spec
+          name: (identifier))
+        (structure_param_spec
+          name: (identifier))))))
 
 ======
 Form with class-based exceptions
@@ -61,7 +65,8 @@ ENDFORM.
     name: (identifier)
     using: (parameter_list
       (parameter
-        name: (identifier)
+        (value_param_spec
+          name: (identifier))
         typing: (table_type_spec)))
     raising: (raising_list
       (simple_exception_spec
