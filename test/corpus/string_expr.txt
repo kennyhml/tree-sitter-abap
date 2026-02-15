@@ -7,65 +7,76 @@ Literal Strings
 '##'.
 `"foo`.
 ---
+
 (source
-    (string_literal)
-    (string_literal)
-    (string_literal)
-    (string_literal)
-    (string_literal))
+  (string_literal)
+  (string_literal)
+  (string_literal)
+  (string_literal)
+  (string_literal))
+
 =======
 Template Strings without embeds
 =======
 |Template String without embedded expresion|
 ---
+
 (source
-    (string_template))
+  (string_template))
+
 =======
 Template strings with embed
 =======
 |Template String with { 1 } embedded expresion|
 ---
+
 (source
-    (string_template
-        (embedded_expression
-            (number))))
+  (string_template
+    (embedded_expression
+      (number))))
+
 =======
 String concatenation
 =======
 `ABAP` && `is` && 'a' && gc_programming && cls=>language( ).
 ---
+
 (source
+  (string_operator
     (string_operator
+      (string_operator
         (string_operator
-            (string_operator
-                (string_operator
-                    (string_literal)
-                    (string_literal))
-                (string_literal))
-            (identifier))
-        (method_call
-            (identifier)
-            (identifier))))
+          (string_literal)
+          (string_literal))
+        (string_literal))
+      (identifier))
+    (method_call
+      (identifier)
+      (identifier))))
+
 =======
 Template string with extra prefixes
 =======
 |"{ 200 }" 321txeT;|.
 |##{ 200 }" 321txeT;|.
 ---
+
 (source
-    (string_template
-        (embedded_expression
-            (number)))
-    (string_template
-        (embedded_expression
-            (number))))
+  (string_template
+    (embedded_expression
+      (number)))
+  (string_template
+    (embedded_expression
+      (number))))
+
 =======
 Template string escape characters
 =======
 |\\ \\|\|\|\|\ \| \{\} \{    \} \{ \}|.
 ---
+
 (source
-    (string_template))
+  (string_template))
 
 ======
 Condense with gaps
@@ -75,98 +86,114 @@ CONDENSE 'aaaaaa'.
 CONDENSE foo-bar.
 CONDENSE obj->attr.
 ---
+
 (source
-    (condense
-        (identifier))
-    (condense
-        (string_literal))
-    (condense
-        (struct_component_selector
-            (identifier)
-            (identifier)))
-    (condense
-        (object_component_selector
-            (identifier)
-            (identifier))))
+  (condense_statement
+    (identifier))
+  (condense_statement
+    (string_literal))
+  (condense_statement
+    (struct_component_selector
+      (identifier)
+      (identifier)))
+  (condense_statement
+    (object_component_selector
+      (identifier)
+      (identifier))))
+
 ======
 Condense without gaps
 ======
 CONDENSE text no-gaps.
 ---
+
 (source
-    (condense
-        (identifier)))
+  (condense_statement
+    (identifier)
+    (no_gaps_spec)))
+
 ======
 Substring access offset only
 ======
 my_string+off.
 my_string+10.
 ---
+
 (source
-    (substring_access
-        target: (identifier)
-        offset: (identifier))
-    (substring_access
-        target: (identifier)
-        offset: (number)))
+  (substring_access
+    target: (identifier)
+    offset: (identifier))
+  (substring_access
+    target: (identifier)
+    offset: (number)))
+
 ======
 Substring access length only
 ======
 my_string(len).
 my_string(10).
 ---
+
 (source
-    (substring_access
-        target: (identifier)
-        length: (identifier))
-    (substring_access
-        target: (identifier)
-        length: (number)))
+  (substring_access
+    target: (identifier)
+    length: (identifier))
+  (substring_access
+    target: (identifier)
+    length: (number)))
+
 ======
 Substring access offset and length
 ======
 my_string+off(len).
 my_string+10(10).
 ---
+
 (source
-    (substring_access
-        target: (identifier)
-        offset: (identifier)
-        length: (identifier))
-    (substring_access
-        target: (identifier)
-        offset: (number)
-        length: (number)))
+  (substring_access
+    target: (identifier)
+    offset: (identifier)
+    length: (identifier))
+  (substring_access
+    target: (identifier)
+    offset: (number)
+    length: (number)))
+
 ======
 Substring access from dereference
 ======
 ref->*+10(length).
 ---
+
 (source
-    (substring_access
-        target: (dereference
-            dref: (identifier))
-        offset: (number)
-        length: (identifier)))
+  (substring_access
+    target: (dereference
+      dref: (identifier))
+    offset: (number)
+    length: (identifier)))
+
 ======
 Substring access from field-symbol
 ======
 <fs>+offset(10).
 ---
+
 (source
-    (substring_access
-        target: (field_symbol
-            name: (identifier))
-        offset: (identifier)
-        length: (number)))
+  (substring_access
+    target: (field_symbol
+      name: (identifier))
+    offset: (identifier)
+    length: (number)))
+
 ======
 Substring access from comp access
 ======
 test-var1(10)
 ---
+
 (source
-    (substring_access
-        target: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier))
-        length: (number)))
+  (substring_access
+    target: (struct_component_selector
+      struct: (identifier)
+      comp: (identifier))
+    length: (number)))

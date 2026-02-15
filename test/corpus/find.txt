@@ -3,98 +3,122 @@ Find substring first implicit occurrence
 ========
 FIND 'a' in str.
 ---
+
 (source
-    (find
-        (substring_spec
-            (string_literal))
-        (identifier)))
+  (find_statement
+    (substring_spec
+      (string_literal))
+    (subject_spec
+      (identifier))))
+
 ========
 Find substring first explicit occurrence
 ========
 FIND FIRST OCCURRENCE OF 'a' in str.
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)))
+  (find_statement
+    (first_occurrence_of_pattern_spec
+      (substring_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))))
+
 ========
 Find substring all occurrences
 ========
 FIND ALL OCCURRENCES OF 'a' in str.
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))))
+
 ========
-Find section 
+Find section
 ========
 FIND ALL OCCURRENCES OF foo 
     IN SECTION OFFSET 12 LENGTH 5 OF str.
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (substring_spec
-            value: (identifier))
-        (section
-            off: (number)
-            len: (number))
-        dobj: (identifier)))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
+        value: (identifier)))
+    subject: (subject_spec
+      (section_spec
+        offset: (section_offset_spec
+          amount: (number))
+        length: (section_length_spec
+          amount: (number)))
+      data_object: (identifier))))
+
 ========
 Find in byte mode
 ========
 FIND ALL OCCURRENCES OF lv_xvar IN xstr IN BYTE MODE. 
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (substring_spec
-            (identifier))
-        (identifier)
-        (string_processing_spec)))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (identifier)))
+    (subject_spec
+      (identifier))
+    (string_processing_spec)))
+
 ========
 Find in character mode
 ========
 FIND ALL OCCURRENCES OF substr IN str IN CHARACTER MODE. 
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (substring_spec
-            (identifier))
-        (identifier)
-        (string_processing_spec)))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (identifier)))
+    (subject_spec
+      (identifier))
+    (string_processing_spec)))
+
 ========
 Find respecting case
 ========
 FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str RESPECTING CASE. 
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (pcre_spec
-            (string_literal))
-        (identifier)
-        (find_options
-            (case_sensitivity_spec))))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      (pcre_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (case_sensitivity_spec)))
+
 ========
 Find ignoring case
 ========
 FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str IGNORING CASE. 
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (pcre_spec
-            (string_literal))
-        (identifier)
-        (find_options
-            (case_sensitivity_spec))))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      (pcre_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (case_sensitivity_spec)))
+
 ========
 Find options meta information
 ========
@@ -103,22 +127,24 @@ FIND ALL OCCURRENCES OF 'know' IN text1
         MATCH OFFSET DATA(off) 
         MATCH LENGTH DATA(len). 
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)
-        (find_options
-            (operation_count_spec
-                (declaration_expression
-                    (identifier)))
-            (operation_offset_spec
-                (declaration_expression
-                    (identifier)))
-            (operation_length_spec
-                (declaration_expression
-                    (identifier))))))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (match_count_spec
+      (declaration_expression
+        (identifier)))
+    (match_offset_spec
+      (declaration_expression
+        (identifier)))
+    (match_length_spec
+      (declaration_expression
+        (identifier)))))
+
 ========
 Find options results variable
 ========
@@ -126,17 +152,19 @@ FIND ALL OCCURRENCES OF `d` IN str
         IGNORING CASE 
         RESULTS FINAL(results). 
 ---
+
 (source
-    (find
-        (occurrence_spec)
-        (substring_spec
-            (string_literal))
-        (identifier)
-        (find_options
-            (case_sensitivity_spec)
-            (operation_results_spec
-                (declaration_expression
-                    (identifier))))))
+  (find_statement
+    (all_occurrences_of_pattern_spec
+      (substring_spec
+        (string_literal)))
+    (subject_spec
+      (identifier))
+    (case_sensitivity_spec)
+    (statement_results_spec
+      (declaration_expression
+        (identifier)))))
+
 ========
 Find pcre submatches
 ========
@@ -147,21 +175,22 @@ FIND PCRE `(\w+)\W+\1\W+(\w+)\W+\2`
      MATCH LENGTH FINAL(mlen) 
      SUBMATCHES FINAL(s1) FINAL(s2).
 ---
+
 (source
-    (find
-        (pcre_spec
-            (string_literal))
-        (identifier)
-        (find_options
-            (case_sensitivity_spec)
-            (operation_offset_spec
-                (declaration_expression
-                    (identifier)))
-            (operation_length_spec
-                (declaration_expression
-                    (identifier)))
-            (submatches_spec
-                (declaration_expression
-                    (identifier))
-                (declaration_expression
-                    (identifier))))))
+  (find_statement
+    (pcre_spec
+      (string_literal))
+    (subject_spec
+      (identifier))
+    (case_sensitivity_spec)
+    (match_offset_spec
+      (declaration_expression
+        (identifier)))
+    (match_length_spec
+      (declaration_expression
+        (identifier)))
+    (submatches_spec
+      (declaration_expression
+        (identifier))
+      (declaration_expression
+        (identifier)))))
