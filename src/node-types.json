@@ -104,10 +104,6 @@
         "named": true
       },
       {
-        "type": "subroutine_registration",
-        "named": true
-      },
-      {
         "type": "types_declaration",
         "named": true
       }
@@ -2523,6 +2519,22 @@
         "types": [
           {
             "type": "visible_length_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "commit_level_spec",
+    "named": true,
+    "fields": {
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
             "named": true
           }
         ]
@@ -7531,6 +7543,27 @@
     }
   },
   {
+    "type": "perform_on_commit_spec",
+    "named": true,
+    "fields": {
+      "commit_level": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "commit_level_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "perform_on_rollback_spec",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "perform_statement",
     "named": true,
     "fields": {
@@ -7586,6 +7619,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "perform_on_commit_spec",
+          "named": true
+        },
+        {
+          "type": "perform_on_rollback_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9540,32 +9587,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "subroutine_registration",
-    "named": true,
-    "fields": {
-      "level": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {

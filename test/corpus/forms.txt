@@ -148,8 +148,13 @@ PERFORM cleanup_temp_buffers ON ROLLBACK.
 ---
 
 (source
-  (subroutine_registration
-    name: (identifier)
-    level: (identifier))
-  (subroutine_registration
-    name: (identifier)))
+  (perform_statement
+    routine: (subroutine_spec
+      name: (identifier))
+    (perform_on_commit_spec
+      commit_level: (commit_level_spec
+        level: (identifier))))
+  (perform_statement
+    routine: (subroutine_spec
+      name: (identifier))
+    (perform_on_rollback_spec)))
