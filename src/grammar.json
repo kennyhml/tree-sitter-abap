@@ -48,23 +48,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "tables_declaration"
-        },
-        {
-          "type": "SYMBOL",
           "name": "message"
         },
         {
           "type": "SYMBOL",
           "name": "assignment"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "report_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "include_statement"
         },
         {
           "type": "SYMBOL",
@@ -149,6 +137,10 @@
         {
           "type": "SYMBOL",
           "name": "control_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "program_statement"
         },
         {
           "type": "SYMBOL",
@@ -7710,6 +7702,23 @@
         }
       ]
     },
+    "program_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "report_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tables_declaration"
+        }
+      ]
+    },
     "report_statement": {
       "type": "SEQ",
       "members": [
@@ -8013,6 +8022,62 @@
           },
           "named": false,
           "value": "found"
+        }
+      ]
+    },
+    "tables_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][aA][bB][lL][eE][sS]"
+          },
+          "named": false,
+          "value": "tables"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -10095,62 +10160,6 @@
             {
               "type": "SYMBOL",
               "name": "types_spec"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "tables_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[tT][aA][bB][lL][eE][sS]"
-          },
-          "named": false,
-          "value": "tables"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": ":"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "identifier"
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "identifier"
             }
           ]
         },
@@ -23553,6 +23562,7 @@
     "special_statement",
     "class_statement",
     "control_statement",
+    "program_statement",
     "dynpro_statement",
     "interface_statement",
     "general_expression",

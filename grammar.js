@@ -2,7 +2,7 @@ import { chainable, declaration_and_spec } from "./grammar/helpers/decl_gen.js";
 import dynpro from './grammar/dynpro/index.js';
 import core from './grammar/core/index.js';
 import oo from './grammar/oo/index.js';
-import report from './grammar/report/index.js';
+import report from './grammar/program/index.js';
 
 /**
  * @file Abap grammar for tree-sitter
@@ -108,6 +108,7 @@ export default grammar({
     $.special_statement,
     $.class_statement,
     $.control_statement,
+    $.program_statement,
     $.dynpro_statement,
     $.interface_statement,
 
@@ -147,13 +148,9 @@ export default grammar({
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
-      $.tables_declaration,
 
       $.message,
       $.assignment,
-
-      $.report_statement,
-      $.include_statement,
 
       $.function_call,
       $.dynamic_method_call,
@@ -182,6 +179,7 @@ export default grammar({
       $.rollback_work_statement,
 
       $.control_statement,
+      $.program_statement,
 
       $._empty_statement,
     ),
@@ -197,6 +195,7 @@ export default grammar({
       $.class_methods_declaration,
     ),
 
+
     ...dynpro,
     ...core,
     ...oo,
@@ -206,7 +205,6 @@ export default grammar({
     ...declaration_and_spec("constants", $ => $.identifier),
     ...declaration_and_spec("types", $ => $._type_identifier),
 
-    tables_declaration: $ => chainable("tables", $.identifier),
 
     _typing: $ => choice(
       $.builtin_type_spec,
