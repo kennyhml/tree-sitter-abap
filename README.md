@@ -53,9 +53,16 @@ Some language elements that are still commonly found in On Premise / Private Clo
 for example the addition `IN BACKGROUND TASK` of a function call.
 
 ## Design
+### Project Layout
 As ABAP contains an excessively large number of syntax variants to cover, parts of the grammar are split apart into their own sub-directories
 within the `grammar/` folder and later consolidated into the main `grammar.js`. This allows for cohesive grouping of language features, such
-as Dynpro-, ABAP OO-, and ABAP SQL Elements. Supposedly, it also leads to better context for AI tools (unconfirmed).
+as Dynpro-, ABAP OO-, or ABAP SQL Elements.
+
+### Syntax Trees
+None of the syntax trees should be considered final / stable in the near future. The current idea is to encapsulate what ABAP often calls 'additions'
+in the keyword documentation in `_spec` nodes (potentially to be renamed into `_addition`). Additionally, each keyword has a visible node representation in the tree. 
+This choice was inspired by the tree-sitter-sql grammar and makes it easier to work with the syntax tree without forcing a full lower-/uppercase convention in post processing,
+as otherwise matching would require a case insensitive regex everywhere and aliasing makes you lose the original case.
 
 ## Why tree-sitter?
 Tree-sitter performs **incremental parsing**, making it ideal for working with large or legacy ABAP codebases that often span thousands of lines in a single report. The resulting 
