@@ -6,6 +6,7 @@ message i333(zmessages).
 
 (source
   (message
+    (keyword_message)
     (message_spec
       type: (message_type)
       number: (number)
@@ -19,6 +20,7 @@ message e220.
 
 (source
   (message
+    (keyword_message)
     (message_spec
       type: (message_type)
       number: (number))))
@@ -31,6 +33,7 @@ message e220.
 
 (source
   (message
+    (keyword_message)
     (message_spec
       type: (message_type)
       number: (number))))
@@ -43,9 +46,13 @@ message id mid type mtyp number mnum.
 
 (source
   (message
+    (keyword_message)
     (message_spec
+      (keyword_id)
       id: (identifier)
+      (keyword_type)
       type: (identifier)
+      (keyword_number)
       number: (identifier))))
 
 ======
@@ -56,9 +63,13 @@ message id 'ZMESSAGES' type 'A' number 999.
 
 (source
   (message
+    (keyword_message)
     (message_spec
+      (keyword_id)
       id: (string_literal)
+      (keyword_type)
       type: (string_literal)
+      (keyword_number)
       number: (number))))
 
 ======
@@ -69,11 +80,13 @@ message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
 
 (source
   (message
+    (keyword_message)
     (message_spec
       type: (message_type)
       number: (number)
       id: (identifier)
       arguments: (message_arguments
+        (keyword_with)
         (string_literal)
         (string_literal)
         (string_literal)))))
@@ -88,11 +101,13 @@ message: e888(msg_class) with 'Foo' 'Bar' 'Baz',
 
 (source
   (message
+    (keyword_message)
     (message_spec
       type: (message_type)
       number: (number)
       id: (identifier)
       arguments: (message_arguments
+        (keyword_with)
         (string_literal)
         (string_literal)
         (string_literal)))
@@ -100,12 +115,16 @@ message: e888(msg_class) with 'Foo' 'Bar' 'Baz',
       type: (message_type)
       number: (number)
       arguments: (message_arguments
+        (keyword_with)
         (string_literal)
         (string_literal)
         (string_literal)))
     (message_spec
+      (keyword_id)
       id: (string_literal)
+      (keyword_type)
       type: (string_literal)
+      (keyword_number)
       number: (number))))
 
 ======
@@ -116,9 +135,12 @@ MESSAGE i200 DISPLAY LIKE 'S'.
 
 (source
   (message
+    (keyword_message)
     (message_spec
       type: (message_type)
       number: (number)
+      display: (keyword_display)
+      display: (keyword_like)
       display_type: (string_literal))))
 
 ======
@@ -129,14 +151,17 @@ message conv string( lines( itab ) ) type 'I'.
 
 (source
   (message
+    (keyword_message)
     (message_spec
       (conv_expression
+        (keyword_conv)
         (type_identifier)
         (builtin_function_call
           (identifier)
           (call_argument_list
             (positional_argument
               (identifier)))))
+      (keyword_type)
       (string_literal))))
 
 ======
@@ -147,10 +172,12 @@ MESSAGE oref->get_text( ) TYPE 'I'.
 
 (source
   (message
+    (keyword_message)
     (message_spec
       (method_call
         (identifier)
         (identifier))
+      (keyword_type)
       (string_literal))))
 
 ======
@@ -161,9 +188,12 @@ MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1.
 
 (source
   (message
+    (keyword_message)
     (message_spec
       text: (string_literal)
+      (keyword_type)
       type: (string_literal)
+      (keyword_raising)
       raising: (identifier))))
 
 ======
@@ -176,19 +206,26 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
 
 (source
   (message
+    (keyword_message)
     (message_spec
+      (keyword_id)
       id: (struct_component_selector
         struct: (identifier)
         comp: (identifier))
+      (keyword_type)
       type: (struct_component_selector
         struct: (identifier)
         comp: (identifier))
+      (keyword_number)
       number: (struct_component_selector
         struct: (identifier)
         comp: (identifier))
+      (keyword_into)
       into: (declaration_expression
+        (keyword_final)
         name: (identifier))
       arguments: (message_arguments
+        (keyword_with)
         (struct_component_selector
           struct: (identifier)
           comp: (identifier))
@@ -210,11 +247,13 @@ message i368(00) with 'No import possible for transport'(002) <ls_request>-trkor
 
 (source
   (message
+    (keyword_message)
     (message_spec
       type: (message_type)
       number: (number)
       id: (number)
       arguments: (message_arguments
+        (keyword_with)
         (symbol_tagged_string_literal
           text: (string_literal)
           symbol: (number))

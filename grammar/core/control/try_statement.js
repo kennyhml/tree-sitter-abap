@@ -1,4 +1,4 @@
-const { kw, kws } = require('../../helpers/keywords.js')
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -15,11 +15,11 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTRY.html
      */
     try_statement: $ => seq(
-        kw("try"), ".",
+        gen.kw("try"), ".",
         optional(field("body", alias($.statement_block, $.try_block))),
         repeat($.catch_clause),
         optional(field("cleanup", $.cleanup_clause)),
-        kw("endtry"), "."
+        gen.kw("endtry"), "."
     ),
 
     /**
@@ -28,7 +28,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCATCH_TRY.html
      */
     catch_clause: $ => seq(
-        kw("catch"),
+        gen.kw("catch"),
         optional($.before_unwind_spec),
         field("exceptions", $.catch_exception_list),
         optional($.catch_into_spec),
@@ -38,18 +38,18 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLEANUP.html
     cleanup_clause: $ => seq(
-        kw("cleanup"),
+        gen.kw("cleanup"),
         optional($.catch_into_spec),
         ".",
         optional(field("body", alias($.statement_block, $.cleanup_block))),
     ),
 
     before_unwind_spec: _ => seq(
-        ...kws("before", "unwind")
+        ...gen.kws("before", "unwind")
     ),
 
     catch_into_spec: $ => seq(
-        kw("into"),
+        gen.kw("into"),
         field("target", choice(
             $.named_data_object,
             $.declaration_expression

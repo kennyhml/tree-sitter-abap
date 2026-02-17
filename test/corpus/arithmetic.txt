@@ -9,77 +9,90 @@ Binary expression
 10 DIV 10.
 10 ** 10.
 ---
+
 (source
-    (binary_operator
-        (number)
-        (number))
-    (binary_operator
-        (number)
-        (number))
-    (binary_operator
-        (number)
-        (number))
-    (binary_operator
-        (number)
-        (number))
-    (binary_operator
-        (number)
-        (number))
-    (binary_operator
-        (number)
-        (number))
-    (binary_operator
-        (number)
-        (number)))
+  (binary_operator
+    (number)
+    (number))
+  (binary_operator
+    (number)
+    (number))
+  (binary_operator
+    (number)
+    (number))
+  (binary_operator
+    (number)
+    (number))
+  (binary_operator
+    (number)
+    (keyword_mod)
+    (number))
+  (binary_operator
+    (number)
+    (keyword_div)
+    (number))
+  (binary_operator
+    (number)
+    (number)))
+
 ==================
 Unary expression
 ==================
 -lv_count.
 ---
+
 (source
-    (unary_operator
-        (identifier)))
+  (unary_operator
+    (identifier)))
+
 ==================
 Multiplicative Precedence
 ==================
 10 + 20 * 20
 ---
+
 (source
+  (binary_operator
+    (number)
     (binary_operator
-        (number)
-        (binary_operator
-            (number)
-            (number))))
+      (number)
+      (number))))
+
 ==================
 Division Precendence
 ==================
 10 + 20 / 20
 ---
+
 (source
+  (binary_operator
+    (number)
     (binary_operator
-        (number)
-        (binary_operator
-            (number)
-            (number))))
+      (number)
+      (number))))
+
 ==================
 Parenthesized Expression
 ==================
 (10 + 10)
 ---
+
 (source
-    (parenthesized_expression
-        (binary_operator
-            (number)
-            (number))))
+  (parenthesized_expression
+    (binary_operator
+      (number)
+      (number))))
+
 ==================
 Parenthesized Precendence
 ==================
 (10 + 20) / 20
 ---
+
 (source
-    (binary_operator
-        (parenthesized_expression
-            (binary_operator
-                (number)
-                (number)))
+  (binary_operator
+    (parenthesized_expression
+      (binary_operator
+        (number)
         (number)))
+    (number)))

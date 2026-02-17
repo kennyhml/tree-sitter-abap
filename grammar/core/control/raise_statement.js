@@ -1,4 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js")
+const gen = require("../generators.js")
 
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION.html
      */
     raise_statement: $ => seq(
-        kw("raise"),
+        gen.kw("raise"),
         field("name", $.identifier)
     ),
 
@@ -25,9 +25,9 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_CLASS.html 
      */
     raise_exception_statement: $ => seq(
-        kw("raise"),
+        gen.kw("raise"),
         optional($.resumable_spec),
-        kw("exception"),
+        gen.kw("exception"),
         field("exception", choice(
             $.general_expression,
             $.new_exception_spec
@@ -36,7 +36,7 @@ module.exports = {
 
     // {TYPE cx_class [message] [EXPORTING p1 = a1 p2 = a2 ...]
     new_exception_spec: $ => prec.right(seq(
-        kw("type"),
+        gen.kw("type"),
         field("class_name", $.identifier),
         optional($.__construct_from_message),
         optional($.__exception_argument_list)
@@ -45,9 +45,9 @@ module.exports = {
     // For some reason 'using message' went missing from the docs, but it
     // just uses the system message fields (sy-msgid, etc..)
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_MESSAGE.html
-    using_message_spec: _ => seq(...kws("using", "message")),
+    using_message_spec: _ => seq(...gen.kws("using", "message")),
 
-    resumable_spec: _ => kw("resumable"),
+    resumable_spec: _ => gen.kw("resumable"),
 
     /**
      * A message specification that is inlined into another statement, e.g
@@ -57,7 +57,7 @@ module.exports = {
      * TODO: Move this to messages
      */
     inline_message_spec: $ => seq(
-        kw("message"),
+        gen.kw("message"),
         field("message", $.message_spec)
     ),
 
@@ -67,7 +67,7 @@ module.exports = {
     ),
 
     __exception_argument_list: $ => seq(
-        kw("exporting"),
+        gen.kw("exporting"),
         field("exporting", $._named_argument_list)
     )
 }

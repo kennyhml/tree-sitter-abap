@@ -1,52 +1,52 @@
-const { kw, kws } = require('../helpers/keywords.js');
+const gen = require("../core/generators.js")
 
 module.exports = {
 
     modif_id_spec: $ => seq(
-        ...kws("modif", "id"),
+        ...gen.kws("modif", "id"),
         field("id", $.identifier)
     ),
 
     default_value_spec: $ => seq(
-        kw("default"),
+        gen.kw("default"),
         field("value", $.data_object)
     ),
 
     visible_length_spec: $ => seq(
-        ...kws("visible", "length"),
+        ...gen.kws("visible", "length"),
         field("length", $.number)
     ),
 
     memory_id_spec: $ => seq(
-        ...kws("memory", "id"),
+        ...gen.kws("memory", "id"),
         field("id", $.identifier)
     ),
 
     search_help_spec: $ => seq(
-        ...kws("matchcode", "object"),
+        ...gen.kws("matchcode", "object"),
         field("name", $.identifier)
     ),
 
     user_command_spec: $ => seq(
-        kw("user-command"),
+        gen.kw("user-command"),
         field("command", $.identifier)
     ),
 
-    lower_case_spec: _ => seq(...kws("lower", "case")),
+    lower_case_spec: _ => seq(...gen.kws("lower", "case")),
 
     obligatory_spec: _ => seq(
-        kw("obligatory"), optional(kw("off"))
+        gen.kw("obligatory"), optional(gen.kw("off"))
     ),
 
     no_intervals_spec: _ => seq(
-        ...kws("no", "intervals"),
-        optional(kw("off"))
+        ...gen.kws("no", "intervals"),
+        optional(gen.kw("off"))
     ),
 
     no_extension_spec: _ => seq(
-        kw("no-extension"),
-        optional(kw("off"))
+        gen.kw("no-extension"),
+        optional(gen.kw("off"))
     ),
 
-    no_display_spec: _ => kw("no-display"),
+    no_display_spec: _ => gen.kw("no-display"),
 }

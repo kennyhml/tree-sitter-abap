@@ -1,5 +1,4 @@
-const { kw } = require("../../helpers/keywords.js")
-const { chainable } = require("../../helpers/decl_gen.js")
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -8,5 +7,5 @@ module.exports = {
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLEAR.html
      */
-    free_statement: $ => chainable("free", $.named_data_object),
+    free_statement: $ => gen.chainable("free", $.named_data_object),
 }

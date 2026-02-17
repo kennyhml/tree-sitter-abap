@@ -6,11 +6,14 @@ VALUE #( FOR j = 1 UNTIL j > 5 ( rnd1->get_next( ) ) )
 
 (source
   (value_expression
+    (keyword_value)
     (itab_expression
       (conditional_iteration
+        (keyword_for)
         (assignment
           (identifier)
           (number))
+        (keyword_until)
         (comparison_expression
           (identifier)
           (number)))
@@ -29,11 +32,16 @@ VALUE carriers( FOR wa IN scarr_tab INDEX INTO i ( no = i  ) ).
 
 (source
   (value_expression
+    (keyword_value)
     (type_identifier)
     (itab_expression
       (table_iteration
+        (keyword_for)
         (identifier)
+        (keyword_in)
         (identifier)
+        (keyword_index)
+        (keyword_into)
         (identifier))
       (line_spec
         (argument_list
@@ -54,13 +62,18 @@ VALUE itab2(
 
 (source
   (value_expression
+    (keyword_value)
     (type_identifier)
     (itab_expression
       (table_iteration
+        (keyword_for)
         (identifier)
+        (keyword_in)
         (identifier))
       (table_iteration
+        (keyword_for)
         (identifier)
+        (keyword_in)
         (struct_component_selector
           (identifier)
           (identifier)))
@@ -92,11 +105,15 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ).
   (assignment
     (identifier)
     (value_expression
+      (keyword_value)
       (itab_expression
         (table_iteration
+          (keyword_for)
           (identifier)
+          (keyword_in)
           (identifier)
           (iteration_cond
+            (keyword_where)
             (parenthesized_expression)
             (parenthesized_expression
               (comparison_expression
@@ -118,11 +135,15 @@ value_tab = VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ).
   (assignment
     (identifier)
     (value_expression
+      (keyword_value)
       (itab_expression
         (table_iteration
+          (keyword_for)
           (identifier)
+          (keyword_in)
           (identifier)
           (iteration_cond
+            (keyword_where)
             (dynamic_cond
               (identifier))))
         (line_spec
@@ -140,11 +161,15 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ).
   (assignment
     (identifier)
     (value_expression
+      (keyword_value)
       (itab_expression
         (table_iteration
+          (keyword_for)
           (identifier)
+          (keyword_in)
           (identifier)
           (iteration_cond
+            (keyword_where)
             (dynamic_cond_tab
               (identifier))))
         (line_spec
@@ -161,17 +186,25 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix FROM 4 TO 16
 
 (source
   (value_expression
+    (keyword_value)
     (itab_expression
       (table_iteration
+        (keyword_for)
         (field_symbol
           (identifier))
+        (keyword_in)
         (identifier)
+        (keyword_index)
+        (keyword_into)
         (identifier)
         (iterate_from_index_spec
+          (keyword_from)
           (number))
         (iterate_to_index_spec
+          (keyword_to)
           (number))
         (iterate_step_spec
+          (keyword_step)
           (number)))
       (line_spec
         (argument_list
@@ -193,20 +226,30 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix
 
 (source
   (value_expression
+    (keyword_value)
     (itab_expression
       (table_iteration
+        (keyword_for)
         (field_symbol
           (identifier))
+        (keyword_in)
         (identifier)
+        (keyword_index)
+        (keyword_into)
         (identifier)
         (iteration_cond
           (using_key_spec
+            (keyword_using)
+            (keyword_key)
             (identifier)))
         (iterate_from_index_spec
+          (keyword_from)
           (number))
         (iterate_to_index_spec
+          (keyword_to)
           (number))
         (iterate_step_spec
+          (keyword_step)
           (number)))
       (line_spec
         (argument_list
@@ -226,15 +269,19 @@ VALUE itab1( FOR j = 41 THEN j - 10 UNTIL j < 10 ( ) )
 
 (source
   (value_expression
+    (keyword_value)
     (type_identifier)
     (itab_expression
       (conditional_iteration
+        (keyword_for)
         (assignment
           (identifier)
           (number))
+        (keyword_then)
         (binary_operator
           (identifier)
           (number))
+        (keyword_until)
         (comparison_expression
           (identifier)
           (number)))
@@ -250,13 +297,19 @@ VALUE itab3(
 
 (source
   (value_expression
+    (keyword_value)
     (type_identifier)
     (itab_expression
       (table_iteration
+        (keyword_for)
         (identifier)
+        (keyword_in)
         (identifier)
+        (keyword_index)
+        (keyword_into)
         (identifier)
         (iteration_cond
+          (keyword_where)
           (parenthesized_expression)
           (parenthesized_expression
             (comparison_expression
@@ -265,7 +318,10 @@ VALUE itab3(
           (parenthesized_expression)))
       (line_spec
         (lines_of
+          (keyword_lines)
+          (keyword_of)
           (identifier)
+          (keyword_from)
           (identifier))))))
 
 ==================
@@ -283,20 +339,26 @@ VALUE itab(
 
 (source
   (value_expression
+    (keyword_value)
     (type_identifier)
     (itab_expression
       (let_expression
+        (keyword_let)
         (assignment
           (identifier)
           (number)))
+      (keyword_in)
       (conditional_iteration
+        (keyword_for)
         (assignment
           (identifier)
           (number))
+        (keyword_until)
         (comparison_expression
           (identifier)
           (number))
         (let_expression
+          (keyword_let)
           (assignment
             (identifier)
             (method_call
@@ -311,7 +373,8 @@ VALUE itab(
             (identifier)
             (binary_operator
               (identifier)
-              (number)))))
+              (number))))
+        (keyword_in))
       (line_spec
         (argument_list
           (named_argument

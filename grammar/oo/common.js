@@ -1,18 +1,18 @@
-const { kw, kws } = require('../helpers/keywords.js')
+const gen = require("../core/generators.js")
 
 module.exports = {
 
-    _visibility: _ => choice(...kws("public", "protected", "private")),
+    _visibility: _ => choice(...gen.kws("public", "protected", "private")),
 
-    abstract_spec: _ => kw("abstract"),
+    abstract_spec: _ => gen.kw("abstract"),
 
-    read_only_spec: _ => kw("read-only"),
+    read_only_spec: _ => gen.kw("read-only"),
 
-    for_testing_spec: _ => seq(...kws("for", "testing")),
+    for_testing_spec: _ => seq(...gen.kws("for", "testing")),
 
-    final_spec: _ => kw("final"),
+    final_spec: _ => gen.kw("final"),
 
-    public_spec: _ => kw("public"),
+    public_spec: _ => gen.kw("public"),
 
     // Any definition that may live inside a class / interface body.
     _class_component: $ => choice(

@@ -6,11 +6,17 @@ COND #( WHEN var IS INITIAL THEN `INITIAL` ELSE `NOT INITIAL` )
 
 (source
   (cond_expression
+    (keyword_cond)
     (case
+      (keyword_when)
       predicate: (predicate_expression
-        (identifier))
+        (identifier)
+        (keyword_is)
+        (keyword_initial))
+      (keyword_then)
       result: (string_literal))
     (case
+      (keyword_else)
       result: (string_literal))))
 
 ======
@@ -25,26 +31,35 @@ COND i( WHEN cflag = abap_true  THEN 1
 
 (source
   (cond_expression
+    (keyword_cond)
     (type_identifier)
     (case
+      (keyword_when)
       (comparison_expression
         (identifier)
         (identifier))
+      (keyword_then)
       (number))
     (case
+      (keyword_when)
       (comparison_expression
         (identifier)
         (identifier))
+      (keyword_then)
       (number))
     (case
+      (keyword_else)
       (throw_exception
+        (keyword_throw)
         (type_identifier)
         (inline_message_spec
+          (keyword_message)
           (message_spec
             (message_type)
             (number)
             (identifier)
             (message_arguments
+              (keyword_with)
               (string_literal)
               (string_literal)
               (string_literal)

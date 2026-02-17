@@ -6,9 +6,11 @@ PARAMETERS p_carrid TYPE carrid.
 
 (source
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
+        (keyword_type)
         name: (type_identifier)))))
 
 ======
@@ -19,12 +21,18 @@ parameters p_impsip as checkbox default abap_true modif id imp.
 
 (source
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
-      checkbox: (checkbox_spec)
+      checkbox: (checkbox_spec
+        (keyword_as)
+        (keyword_checkbox))
       default: (default_value_spec
+        (keyword_default)
         value: (identifier))
       modif_id: (modif_id_spec
+        (keyword_modif)
+        (keyword_id)
         id: (identifier)))))
 
 ======
@@ -38,16 +46,24 @@ PARAMETERS p_carrid TYPE carrid
 
 (source
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
+        (keyword_type)
         name: (type_identifier))
-      listbox: (listbox_spec)
+      listbox: (listbox_spec
+        (keyword_as)
+        (keyword_listbox))
       visible_length: (visible_length_spec
+        (keyword_visible)
+        (keyword_length)
         length: (number))
       user_command: (user_command_spec
+        (keyword_user_command)
         command: (identifier))
       default: (default_value_spec
+        (keyword_default)
         value: (string_literal)))))
 
 ======
@@ -60,17 +76,25 @@ parameters:
 
 (source
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
       radiobutton: (radiobutton_spec
+        (keyword_radiobutton)
+        (keyword_group)
         group: (identifier))
       default: (default_value_spec
+        (keyword_default)
         value: (string_literal)))
     (parameters_spec
       name: (identifier)
       radiobutton: (radiobutton_spec
+        (keyword_radiobutton)
+        (keyword_group)
         group: (identifier))
       modif_id: (modif_id_spec
+        (keyword_modif)
+        (keyword_id)
         id: (identifier)))))
 
 ======
@@ -82,19 +106,28 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
 
 (source
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
       typing: (builtin_type_spec
+        (keyword_type)
         name: (type_identifier))
-      case: (lower_case_spec)
+      case: (lower_case_spec
+        (keyword_lower)
+        (keyword_case))
       visible_length: (visible_length_spec
+        (keyword_visible)
+        (keyword_length)
         length: (number))))
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
+        (keyword_type)
         name: (type_identifier))
-      display: (no_display_spec))))
+      display: (no_display_spec
+        (keyword_no_display)))))
 
 ======
 Dynpro parameters with search help
@@ -104,11 +137,15 @@ PARAMETERS p_cust  TYPE kunnr MATCHCODE OBJECT debi.
 
 (source
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
       typing: (referred_type_spec
+        (keyword_type)
         name: (type_identifier))
       search_help: (search_help_spec
+        (keyword_matchcode)
+        (keyword_object)
         name: (identifier)))))
 
 ======
@@ -119,8 +156,10 @@ SELECT-OPTIONS s_carrid FOR gv_carrid.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier))))
 
 ======
@@ -131,11 +170,15 @@ SELECT-OPTIONS s_date FOR gv_date OBLIGATORY DEFAULT sy-datum.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
-      (obligatory_spec)
+      (obligatory_spec
+        (keyword_obligatory))
       (default_value_spec
+        (keyword_default)
         (struct_component_selector
           (identifier)
           (identifier))))))
@@ -148,12 +191,20 @@ SELECT-OPTIONS s_vbeln FOR gv_vbeln DEFAULT '1000' TO '2000' OPTION BT SIGN I.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
       (default_range_spec
+        (keyword_default)
         (string_literal)
-        (string_literal)))))
+        (keyword_to)
+        (string_literal)
+        (keyword_option)
+        (keyword_bt)
+        (keyword_sign)
+        (keyword_i)))))
 
 ======
 Select-option restricted (No intervals)
@@ -163,10 +214,14 @@ SELECT-OPTIONS s_bukrs FOR gv_bukrs NO INTERVALS.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
-      (no_intervals_spec))))
+      (no_intervals_spec
+        (keyword_no)
+        (keyword_intervals)))))
 
 ======
 Select-option restricted (No extension)
@@ -176,11 +231,16 @@ SELECT-OPTIONS s_kunnr FOR gv_kunnr NO-EXTENSION NO INTERVALS.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
-      (no_extension_spec)
-      (no_intervals_spec))))
+      (no_extension_spec
+        (keyword_no_extension))
+      (no_intervals_spec
+        (keyword_no)
+        (keyword_intervals)))))
 
 ======
 Select-option with search help and memory
@@ -190,12 +250,18 @@ SELECT-OPTIONS s_matnr FOR gv_matnr MEMORY ID mat MATCHCODE OBJECT mat1.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
       (memory_id_spec
+        (keyword_memory)
+        (keyword_id)
         (identifier))
       (search_help_spec
+        (keyword_matchcode)
+        (keyword_object)
         (identifier)))))
 
 ======
@@ -206,13 +272,20 @@ SELECT-OPTIONS s_id FOR gv_id VISIBLE LENGTH 10 NO-DISPLAY MODIF ID gr1.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
       (visible_length_spec
+        (keyword_visible)
+        (keyword_length)
         (number))
-      (no_display_spec)
+      (no_display_spec
+        (keyword_no_display))
       (modif_id_spec
+        (keyword_modif)
+        (keyword_id)
         (identifier)))))
 
 ======
@@ -225,14 +298,19 @@ SELECT-OPTIONS:
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
-      (obligatory_spec))
+      (obligatory_spec
+        (keyword_obligatory)))
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
-      (no_extension_spec))))
+      (no_extension_spec
+        (keyword_no_extension)))))
 
 ======
 Select-option with lowercase and search help
@@ -242,11 +320,17 @@ SELECT-OPTIONS s_path FOR gv_path LOWER CASE MATCHCODE OBJECT zfile.
 
 (source
   (select_options_declaration
+    (keyword_select_options)
     (select_options_spec
       (identifier)
+      (keyword_for)
       (identifier)
-      (lower_case_spec)
+      (lower_case_spec
+        (keyword_lower)
+        (keyword_case))
       (search_help_spec
+        (keyword_matchcode)
+        (keyword_object)
         (identifier)))))
 
 ======
@@ -257,7 +341,9 @@ SELECTION-SCREEN ULINE /10(20).
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (horizontal_line_element
+      (keyword_uline)
       (output_position_spec
         position: (number)
         length: (number)))))
@@ -271,12 +357,16 @@ SELECTION-SCREEN ULINE POS_LOW(10).
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (horizontal_line_element
+      (keyword_uline)
       (output_position_spec
         position: (identifier)
         length: (number))))
   (selection_screen_statement
+    (keyword_selection_screen)
     (horizontal_line_element
+      (keyword_uline)
       (output_position_spec
         position: (identifier)
         length: (number)))))
@@ -289,8 +379,12 @@ SELECTION-SCREEN ULINE MODIF ID lin.
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (horizontal_line_element
+      (keyword_uline)
       modif_id: (modif_id_spec
+        (keyword_modif)
+        (keyword_id)
         id: (identifier)))))
 
 ======
@@ -303,12 +397,18 @@ selection-screen skip: 5, 3, 1.
 
 (source
   (selection_screen_statement
-    (blank_line_directive))
-  (selection_screen_statement
+    (keyword_selection_screen)
     (blank_line_directive
+      (keyword_skip)))
+  (selection_screen_statement
+    (keyword_selection_screen)
+    (blank_line_directive
+      (keyword_skip)
       times: (number)))
   (selection_screen_statement
+    (keyword_selection_screen)
     (blank_line_directive
+      (keyword_skip)
       times: (number)
       times: (number)
       times: (number))))
@@ -325,26 +425,46 @@ selection-screen: begin of screen 100 title text-tt1 as window,
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (begin_of_screen_element
+      (keyword_begin)
+      (keyword_of)
+      (keyword_screen)
       (screen_spec
         dynnr: (number)
         title: (title_spec
+          (keyword_title)
           title: (struct_component_selector
             struct: (identifier)
             comp: (identifier)))
-        window: (window_spec)))
+        window: (window_spec
+          (keyword_as)
+          (keyword_window))))
     (blank_line_directive
+      (keyword_skip)
       times: (number))
     (begin_of_block_element
+      (keyword_begin)
+      (keyword_of)
+      (keyword_block)
       block: (identifier)
       frame: (frame_spec
+        (keyword_with)
+        (keyword_frame)
         (title_spec
+          (keyword_title)
           title: (struct_component_selector
             struct: (identifier)
             comp: (identifier)))))
     (end_of_screen_element
+      (keyword_end)
+      (keyword_of)
+      (keyword_screen)
       dynnr: (number))
     (end_of_block_element
+      (keyword_end)
+      (keyword_of)
+      (keyword_block)
       block: (identifier))))
 
 ======
@@ -355,15 +475,24 @@ SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (begin_of_screen_element
+      (keyword_begin)
+      (keyword_of)
+      (keyword_screen)
       (screen_spec
         dynnr: (number)
-        window: (window_spec)
+        window: (window_spec
+          (keyword_as)
+          (keyword_window))
         title: (title_spec
+          (keyword_title)
           title: (identifier)))
       (screen_spec
         dynnr: (number)
-        window: (window_spec)))))
+        window: (window_spec
+          (keyword_as)
+          (keyword_window))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Basic comment
@@ -373,13 +502,17 @@ SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1.
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (comment_element
+      (keyword_comment)
       (comment_spec
         position: (output_position_spec
           position: (number)
           length: (number))
         text: (identifier)
         modif_id: (modif_id_spec
+          (keyword_modif)
+          (keyword_id)
           id: (identifier))))))
 
 ======
@@ -390,12 +523,16 @@ SELECTION-SCREEN COMMENT /1(50) for field foo.
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (comment_element
+      (keyword_comment)
       (comment_spec
         position: (output_position_spec
           position: (number)
           length: (number))
         target: (for_screen_field_spec
+          (keyword_for)
+          (keyword_field)
           field: (identifier))))))
 
 ======
@@ -406,13 +543,17 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (comment_element
+      (keyword_comment)
       (comment_spec
         position: (output_position_spec
           position: (number)
           length: (number))
         target: (for_screen_field_spec
           text: (identifier)
+          (keyword_for)
+          (keyword_field)
           field: (identifier))))))
 
 ======
@@ -424,12 +565,23 @@ selection-screen: begin of screen 100 as subscreen nesting level 5,
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (begin_of_screen_element
+      (keyword_begin)
+      (keyword_of)
+      (keyword_screen)
       (subscreen_spec
         dynnr: (number)
+        (keyword_as)
+        (keyword_subscreen)
         nesting: (nesting_level_spec
+          (keyword_nesting)
+          (keyword_level)
           level: (number))))
     (end_of_screen_element
+      (keyword_end)
+      (keyword_of)
+      (keyword_screen)
       dynnr: (number))))
 
 ======
@@ -445,29 +597,45 @@ SELECTION-SCREEN:
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (begin_of_screen_element
+      (keyword_begin)
+      (keyword_of)
+      (keyword_screen)
       (screen_spec
         dynnr: (number)
-        window: (window_spec)
+        window: (window_spec
+          (keyword_as)
+          (keyword_window))
         title: (title_spec
+          (keyword_title)
           title: (identifier))))
     (pushbutton_element
+      (keyword_pushbutton)
       position: (output_position_spec
         position: (number)
         length: (number))
       text: (identifier)
       user_command: (user_command_spec
+        (keyword_user_command)
         command: (identifier)))
     (pushbutton_element
+      (keyword_pushbutton)
       position: (output_position_spec
         position: (number)
         length: (number))
       text: (identifier)
       user_command: (user_command_spec
+        (keyword_user_command)
         command: (identifier))
       visible_length: (visible_length_spec
+        (keyword_visible)
+        (keyword_length)
         length: (number)))
     (end_of_screen_element
+      (keyword_end)
+      (keyword_of)
+      (keyword_screen)
       dynnr: (number))))
 
 ======
@@ -483,31 +651,46 @@ SELECTION-SCREEN: COMMENT 40(40) text,
 
 (source
   (selection_screen_statement
-    (begin_of_line_directive)
+    (keyword_selection_screen)
+    (begin_of_line_directive
+      (keyword_begin)
+      (keyword_of)
+      (keyword_line))
     (pushbutton_element
+      (keyword_pushbutton)
       position: (output_position_spec
         position: (number)
         length: (number))
       text: (identifier)
       user_command: (user_command_spec
+        (keyword_user_command)
         command: (identifier)))
     (screen_position_directive
+      (keyword_position)
       position: (output_position_spec
         position: (number))))
   (parameters_declaration
+    (keyword_parameters)
     (parameters_spec
       name: (identifier)
       typing: (builtin_type_spec
+        (keyword_type)
         name: (type_identifier)
+        length: (keyword_length)
         length: (number))))
   (selection_screen_statement
+    (keyword_selection_screen)
     (comment_element
+      (keyword_comment)
       (comment_spec
         position: (output_position_spec
           position: (number)
           length: (number))
         text: (identifier)))
-    (end_of_line_directive)))
+    (end_of_line_directive
+      (keyword_end)
+      (keyword_of)
+      (keyword_line))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Tabbed block
@@ -520,23 +703,37 @@ SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES,
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (begin_of_tabbed_block_element
+      (keyword_begin)
+      (keyword_of)
+      (keyword_tabbed)
+      (keyword_block)
       block: (identifier)
       lines: (tab_lines_spec
-        number: (number)))
+        (keyword_for)
+        number: (number)
+        (keyword_lines)))
     (tab_element
+      (keyword_tab)
       (tab_spec
         length: (number)
         name: (identifier)
         user_command: (user_command_spec
+          (keyword_user_command)
           command: (identifier))))
     (tab_element
+      (keyword_tab)
       (tab_spec
         length: (number)
         name: (identifier)
         user_command: (user_command_spec
+          (keyword_user_command)
           command: (identifier))))
     (end_of_block_element
+      (keyword_end)
+      (keyword_of)
+      (keyword_block)
       block: (identifier))))
 
 ======
@@ -548,16 +745,20 @@ selection-screen TAB: (20) button1 USER-COMMAND push1,
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (tab_element
+      (keyword_tab)
       (tab_spec
         length: (number)
         name: (identifier)
         user_command: (user_command_spec
+          (keyword_user_command)
           command: (identifier)))
       (tab_spec
         length: (number)
         name: (identifier)
         user_command: (user_command_spec
+          (keyword_user_command)
           command: (identifier))))))
 
 ======
@@ -569,9 +770,14 @@ SELECTION-SCREEN: FUNCTION KEY 1,
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (function_key_directive
+      (keyword_function)
+      (keyword_key)
       key: (number))
     (function_key_directive
+      (keyword_function)
+      (keyword_key)
       key: (number))))
 
 ======
@@ -582,7 +788,10 @@ selection-screen function key: 1, 2.
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (function_key_directive
+      (keyword_function)
+      (keyword_key)
       key: (number)
       key: (number))))
 
@@ -597,23 +806,40 @@ SELECTION-SCREEN INCLUDE BLOCKS part1.
 
 (source
   (selection_screen_statement
+    (keyword_selection_screen)
     (include_pushbutton_directive
+      (keyword_include)
+      (keyword_pushbutton)
       (output_position_spec
         (number)
         (number))
       (identifier)
       (user_command_spec
+        (keyword_user_command)
         (identifier))))
   (selection_screen_statement
+    (keyword_selection_screen)
     (include_select_option_directive
+      (keyword_include)
+      (keyword_select_options)
       (identifier)
-      (no_intervals_spec)))
+      (no_intervals_spec
+        (keyword_no)
+        (keyword_intervals))))
   (selection_screen_statement
+    (keyword_selection_screen)
     (include_parameter_directive
+      (keyword_include)
+      (keyword_parameters)
       (identifier)
-      (obligatory_spec)))
+      (obligatory_spec
+        (keyword_obligatory)
+        (keyword_off))))
   (selection_screen_statement
+    (keyword_selection_screen)
     (include_block_directive
+      (keyword_include)
+      (keyword_blocks)
       (identifier))))
 
 ======
@@ -626,12 +852,20 @@ CALL SELECTION-SCREEN '0500' STARTING AT 10 10
 
 (source
   (call_sel_screen_statement
+    (keyword_call)
+    (keyword_selection_screen)
     dynnr: (string_literal)
     starting_at: (starting_at_spec
+      (keyword_starting)
+      (keyword_at)
       column: (number)
       line: (number))
     ending_at: (ending_at_spec
+      (keyword_ending)
+      (keyword_at)
       column: (number)
       line: (number))
     selection_set: (using_selection_set_spec
+      (keyword_using)
+      (keyword_selection_set)
       variant: (identifier))))

@@ -1,5 +1,4 @@
-const { kw, kws } = require('../helpers/keywords.js')
-const { declaration_and_spec } = require('../helpers/decl_gen.js')
+const gen = require("../core/generators.js")
 
 module.exports = {
 
@@ -11,7 +10,7 @@ module.exports = {
         $.class_data_declaration
     ),
 
-    ...declaration_and_spec("class-data", $ => $.identifier),
+    ...gen.declaration_and_spec("class-data", $ => $.identifier),
 
     /**
      * CLASS class DEFINITION [class_options].
@@ -26,10 +25,10 @@ module.exports = {
      * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html}
      */
     class_definition: $ => seq(
-        kw("class"), field("name", $.identifier), kw("definition"),
+        gen.kw("class"), field("name", $.identifier), gen.kw("definition"),
         optional($.class_options), ".",
         optional($.class_body),
-        kw("endclass"), "."
+        gen.kw("endclass"), "."
     ),
 
     class_body: $ => repeat1(
@@ -41,17 +40,17 @@ module.exports = {
     ),
 
     public_section: $ => seq(
-        ...kws("public", "section"), ".",
+        ...gen.kws("public", "section"), ".",
         repeat($._class_component)
     ),
 
     protected_section: $ => seq(
-        ...kws("protected", "section"), ".",
+        ...gen.kws("protected", "section"), ".",
         repeat($._class_component)
     ),
 
     private_section: $ => seq(
-        ...kws("private", "section"), ".",
+        ...gen.kws("private", "section"), ".",
         repeat($._class_component)
     ),
 
@@ -61,17 +60,17 @@ module.exports = {
      * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html }
      */
     deferred_class_definition: $ => seq(
-        kw("class"),
+        gen.kw("class"),
         field("name", $.identifier),
-        ...kws("definition", "deferred"),
+        ...gen.kws("definition", "deferred"),
         "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
     class_implementation: $ => seq(
-        kw("class"), field("name", $.identifier), kw("implementation"), ".",
+        gen.kw("class"), field("name", $.identifier), gen.kw("implementation"), ".",
         repeat($.method_implementation),
-        kw("endclass"), "."
+        gen.kw("endclass"), "."
     ),
 
     /**
@@ -82,9 +81,9 @@ module.exports = {
      * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_LOCAL_FRIENDS.html}
      */
     local_friends_spec: $ => seq(
-        kw("class"),
+        gen.kw("class"),
         field("name", $.identifier),
-        ...kws("definition", "local", "friends"),
+        ...gen.kws("definition", "local", "friends"),
         field("friend", repeat1($.identifier)),
         "."
     ),
@@ -119,24 +118,24 @@ module.exports = {
     ),
 
     superclass_spec: $ => seq(
-        ...kws("inheriting", "from"),
+        ...gen.kws("inheriting", "from"),
         field("name", $.identifier)
     ),
 
     create_visibility_spec: $ => seq(
-        kw("create"),
+        gen.kw("create"),
         field("visibility", $._visibility)
     ),
 
     friends_spec: $ => seq(
-        optional(kw("global")),
-        kw("friends"),
+        optional(gen.kw("global")),
+        gen.kw("friends"),
         repeat1($.identifier)
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_BEHAVIOR_OF.html
     for_rap_behavior_spec: $ => seq(
-        ...kws("for", "behavior", "of"),
+        ...gen.kws("for", "behavior", "of"),
         field("bdef", $.identifier)
     ),
 
@@ -147,20 +146,20 @@ module.exports = {
     ),
 
     shared_memory_enabled_spec: _ => seq(
-        ...kws("shared", "memory", "enabled")
+        ...gen.kws("shared", "memory", "enabled")
     ),
 
     testing_risk_level_spec: $ => seq(
-        ...kws("risk", "level"),
+        ...gen.kws("risk", "level"),
         field("level", $.__test_risk_level),
     ),
 
     testing_duration_spec: $ => seq(
-        kw("duration"),
+        gen.kw("duration"),
         field("duration", $.__test_duration),
     ),
 
-    __test_risk_level: _ => choice(...kws("critical", "dangerous", "harmless")),
-    __test_duration: _ => choice(...kws("short", "medium", "long")),
+    __test_risk_level: _ => choice(...gen.kws("critical", "dangerous", "harmless")),
+    __test_duration: _ => choice(...gen.kws("short", "medium", "long")),
 
 }

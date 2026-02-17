@@ -3,52 +3,64 @@ Simple cast assignment
 ======
 oref2 =  CAST #( oref1 ).
 ---
+
 (source
-    (assignment
+  (assignment
     (identifier)
     (cast_expression
-        (identifier))))
+      (keyword_cast)
+      (identifier))))
+
 ======
 Dereference cast
 ======
 struc      = CAST t_struc( dref )->*. 
 ---
-    (source
-      (assignment
-        (identifier)
-        (dereference
-          (cast_expression
-            (type_identifier)
-            (identifier)))))
+
+(source
+  (assignment
+    (identifier)
+    (dereference
+      (cast_expression
+        (keyword_cast)
+        (type_identifier)
+        (identifier)))))
+
 ======
 Static component selector of cast expression
 ======
 struc-col1 = CAST t_struc( dref )->col1. 
 ---
-    (source
-      (assignment
-        (struct_component_selector
-          (identifier)
-          (identifier))
-        (object_component_selector
-          (cast_expression
-            (type_identifier)
-            (identifier))
-            (identifier))))
+
+(source
+  (assignment
+    (struct_component_selector
+      (identifier)
+      (identifier))
+    (object_component_selector
+      (cast_expression
+        (keyword_cast)
+        (type_identifier)
+        (identifier))
+      (identifier))))
+
 ======
 Dynamic component selector of cast expression
 ======
 num = CAST struc( dref )->('col'). 
 ---
-    (source
-      (assignment
-        (identifier)
-        (object_component_selector
-          (cast_expression
-            (type_identifier)
-            (identifier))
-          (dynamic_component
-            (string_literal)))))
+
+(source
+  (assignment
+    (identifier)
+    (object_component_selector
+      (cast_expression
+        (keyword_cast)
+        (type_identifier)
+        (identifier))
+      (dynamic_component
+        (string_literal)))))
+
 ======
 RTTS downcast
 ======
@@ -57,17 +69,20 @@ FINAL(attributes) =
        cl_abap_classdescr=>describe_by_name( 'CL_ABAP_FORMAT' ) 
        )->attributes. 
 ---
-    (source
-      (assignment
-        (declaration_expression
-          (identifier))
-        (object_component_selector
-          (cast_expression
-            (type_identifier)
-            (method_call
-              (identifier)
-              (identifier)
-              (call_argument_list
-                  (positional_argument
-                    (string_literal)))))
-          (identifier))))
+
+(source
+  (assignment
+    (declaration_expression
+      (keyword_final)
+      (identifier))
+    (object_component_selector
+      (cast_expression
+        (keyword_cast)
+        (type_identifier)
+        (method_call
+          (identifier)
+          (identifier)
+          (call_argument_list
+            (positional_argument
+              (string_literal)))))
+      (identifier))))

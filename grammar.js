@@ -1,4 +1,4 @@
-const { declaration_and_spec } = require("./grammar/helpers/decl_gen.js");
+const gen = require("./grammar/core/generators.js")
 const dynpro = require("./grammar/dynpro/index.js");
 const core = require("./grammar/core/index.js");
 const oo = require("./grammar/oo/index.js");
@@ -133,8 +133,12 @@ module.exports = grammar({
 
   word: $ => $._name,
 
+
   rules: {
-    source: $ => repeat($._statement),
+    source: $ => {
+      gen.state.grammarProxy = $;
+      return repeat($._statement)
+    },
 
     _statement: $ => choice(
       $._simple_statement,
@@ -176,15 +180,14 @@ module.exports = grammar({
       $.class_methods_declaration,
     ),
 
-
     ...dynpro,
     ...core,
     ...oo,
     ...report,
 
-    ...declaration_and_spec("data", $ => $.identifier),
-    ...declaration_and_spec("constants", $ => $.identifier),
-    ...declaration_and_spec("types", $ => $._type_identifier),
+    ...gen.declaration_and_spec("data", $ => $.identifier),
+    ...gen.declaration_and_spec("constants", $ => $.identifier),
+    ...gen.declaration_and_spec("types", $ => $._type_identifier),
 
 
     _typing: $ => choice(
@@ -314,21 +317,21 @@ module.exports = grammar({
     ),
 
     logical_expression: $ => choice(
-      prec.right(4, seq(kw('not'), $._logical_expression)),
+      prec.right(4, seq(gen.kw('not'), $._logical_expression)),
 
       prec.left(3, seq(
         $._logical_expression,
-        kw('and'),
+        gen.kw('and'),
         $._logical_expression
       )),
       prec.left(2, seq(
         $._logical_expression,
-        kw('or'),
+        gen.kw('or'),
         $._logical_expression
       )),
       prec.left(1, seq(
         $._logical_expression,
-        kw('equiv'),
+        gen.kw('equiv'),
         $._logical_expression
       ))
     ),
@@ -347,12 +350,13 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
-    relational_expression: $ => choice(
+    // Needs higher prec than assignment
+    relational_expression: $ => prec(1, choice(
       $.comparison_expression,
       $.predicate_expression,
       $.builtin_function_call,
       $.method_call
-    ),
+    )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
     binary_operator: $ => {
@@ -361,8 +365,8 @@ module.exports = grammar({
         [prec.left, '-', PREC.plus],
         [prec.left, '*', PREC.times],
         [prec.left, '/', PREC.times],
-        [prec.left, kw("div"), PREC.times],
-        [prec.left, kw("mod"), PREC.times],
+        [prec.left, gen.kw("div"), PREC.times],
+        [prec.left, gen.kw("mod"), PREC.times],
         [prec.right, '**', PREC.power],
       ];
 
@@ -414,10 +418,10 @@ module.exports = grammar({
       field("left", $.general_expression),
       choice(
         seq($._comparison_operator, field("right", $.general_expression)),
-        seq(optional(kw("not")), field("right", $.range_expression)),
+        seq(optional(gen.kw("not")), field("right", $.range_expression)),
         seq(
-          optional(kw("not")),
-          kw("in"),
+          optional(gen.kw("not")),
+          gen.kw("in"),
           field("right", choice(
             $.data_object,
             $.method_call
@@ -427,9 +431,9 @@ module.exports = grammar({
     ),
 
     range_expression: $ => seq(
-      kw("between"),
+      gen.kw("between"),
       field("low", $.general_expression),
-      kw("and"),
+      gen.kw("and"),
       field("high", $.general_expression)
     ),
 
@@ -442,7 +446,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_CONSTRUCTOR_PARAMS_ITAB.html
      */
     itab_expression: $ => seq(
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       optional(field("base", $.base_spec)),
 
       // Optionally any number of nested for expressions
@@ -471,7 +475,7 @@ module.exports = grammar({
     ),
 
     base_spec: $ => seq(
-      seq(kw("base"), field("value", $.data_object))
+      seq(gen.kw("base"), field("value", $.data_object))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_LSPC.html
@@ -488,10 +492,10 @@ module.exports = grammar({
 
     lines_of: $ => seq(
       // LINES OF ...
-      ...kws("lines", "of"), field("jtab", $.identifier),
-      optional(seq(kw("from"), field("from", $.data_object))),
-      optional(seq(kw("to"), field("to", $.data_object))),
-      optional(seq(kw("step"), field("step", $.data_object))),
+      ...gen.kws("lines", "of"), field("jtab", $.identifier),
+      optional(seq(gen.kw("from"), field("from", $.data_object))),
+      optional(seq(gen.kw("to"), field("to", $.data_object))),
+      optional(seq(gen.kw("step"), field("step", $.data_object))),
       optional($.using_key_spec)
     ),
 
@@ -507,90 +511,90 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_CONDITIONAL.html
     conditional_iteration: $ => seq(
-      kw("for"),
+      gen.kw("for"),
       field("iter_var", $.assignment),
       // Optional when `var` is numeric as it will be incremeted implicitly
       optional(
         seq(
-          kw("then"),
+          gen.kw("then"),
           field("then", $.general_expression)
         )
       ),
       choice(
         seq(
-          kw("until"),
+          gen.kw("until"),
           field("until", $._logical_expression)
         ),
         seq(
-          kw("while"),
+          gen.kw("while"),
           field("while", $._logical_expression)
         ),
       ),
-      optional(seq($.let_expression, kw("in")))
+      optional(seq($.let_expression, gen.kw("in")))
     ),
 
     _simple_itab_read: $ => seq(
       field("iterator", $.named_data_object),
-      kw("in"),
+      gen.kw("in"),
       field("itab", $.general_expression),
       repeat(choice(
-        seq(...kws("index", "into"), field("index", $.identifier)),
+        seq(...gen.kws("index", "into"), field("index", $.identifier)),
         $.iteration_cond,
         $._iteration_index_spec
       ))
     ),
 
     _grouped_itab_read: $ => seq(
-      kw("groups"), field("group", $.identifier),
-      kw("of"), field("iterator", $.identifier),
-      kw("in"), field("itab", $.identifier),
+      gen.kw("groups"), field("group", $.identifier),
+      gen.kw("of"), field("iterator", $.identifier),
+      gen.kw("in"), field("itab", $.identifier),
       repeat(choice(
-        seq(...kws("index", "into"), field("index", $.identifier)),
+        seq(...gen.kws("index", "into"), field("index", $.identifier)),
         $.iteration_cond,
         $._iteration_index_spec
       )),
-      ...kws("group", "by"), field("group_key", $.group_key),
+      ...gen.kws("group", "by"), field("group_key", $.group_key),
       optional(
         seq(
-          choice(...kws("ascending", "descending")),
-          optional(seq(...kws("as", "text")))
+          choice(...gen.kws("ascending", "descending")),
+          optional(seq(...gen.kws("as", "text")))
         )
       ),
-      optional(seq(...kws("without", "members")))
+      optional(seq(...gen.kws("without", "members")))
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_ITAB.html
     table_iteration: $ => seq(
-      kw("for"),
+      gen.kw("for"),
       choice(
         $._simple_itab_read,
         $._grouped_itab_read,
       ),
-      optional(seq($.let_expression, kw("in")))
+      optional(seq($.let_expression, gen.kw("in")))
     ),
 
     using_key_spec: $ => seq(
-      ...kws("using", "key"),
+      ...gen.kws("using", "key"),
       field("name", $.identifier)
     ),
 
     read_key_spec: $ => seq(
-      kw("key"),
+      gen.kw("key"),
       field("name", $.identifier)
     ),
 
     iterate_from_index_spec: $ => seq(
-      kw("from"),
+      gen.kw("from"),
       field("index", $.numeric_expression)
     ),
 
     iterate_to_index_spec: $ => seq(
-      kw("to"),
+      gen.kw("to"),
       field("index", $.numeric_expression),
     ),
 
     iterate_step_spec: $ => seq(
-      kw("step"),
+      gen.kw("step"),
       field("size", $.numeric_expression),
     ),
 
@@ -609,7 +613,7 @@ module.exports = grammar({
       choice(
         $.using_key_spec,
         seq(
-          kw("where"),
+          gen.kw("where"),
           choice(
             $._logical_expression,
 
@@ -663,38 +667,37 @@ module.exports = grammar({
     group_index_assignment: $ => seq(
       field("field", $.identifier),
       "=",
-      ...kws("group", "index")
+      ...gen.kws("group", "index")
     ),
 
     group_size_assignment: $ => seq(
       field("field", $.identifier),
       "=",
-      ...kws("group", "size")
+      ...gen.kws("group", "size")
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
     // NOTE: Not all general expressions apparently? The docs are kind of vague here..
     predicate_expression: $ => choice(
       // operand
-      seq($.general_expression, kw("is"), optional(kw("not")), kw("initial")),
+      seq($.general_expression, gen.kw("is"), optional(gen.kw("not")), gen.kw("initial")),
       // ref
-      seq($.general_expression, kw("is"), optional(kw("not")), kw("bound")),
+      seq($.general_expression, gen.kw("is"), optional(gen.kw("not")), gen.kw("bound")),
       // oref
-      seq($.general_expression, kw("is"), optional(kw("not")), kw("instance"), kw("of")),
+      seq($.general_expression, gen.kw("is"), optional(gen.kw("not")), gen.kw("instance"), gen.kw("of")),
       // <fs>
-      seq($.general_expression, kw("is"), optional(kw("not")), kw("assigned")),
+      seq($.general_expression, gen.kw("is"), optional(gen.kw("not")), gen.kw("assigned")),
       // parameter
-      seq($.general_expression, kw("is"), optional(kw("not")), kw("supplied")),
+      seq($.general_expression, gen.kw("is"), optional(gen.kw("not")), gen.kw("supplied")),
     ),
 
-    _comparison_operator: _ => choice(...kws(
-      "=", "eq", "<>", "ne", ">", "gt", "<", "lt", ">=", "ge", "<=", "le",
-      "co", "cn", "ca", "na", "cs", "ns", "cp", "np", "bt", "nb",
-      "byte-co", "byte-cn", "byte-ca", "byte-na", "byte-cs", "byte-ns",
-      "o", "z", "m"
-    )),
+    _comparison_operator: $ => choice(...gen.kws(
+      "eq", "ne", "gt", "lt", "ge", "le", "co", "cn", "ca", "na",
+      "cs", "ns", "cp", "np", "bt", "nb", "byte-co", "byte-cn",
+      "byte-ca", "byte-na", "byte-cs", "byte-ns", "o", "z", "m"
+    ), "=", "<>", ">", "<", '>=', "<=",),
 
-    _calculation_assignment_operator: _ => choice(
+    _calculation_assignment_operator: $ => choice(
       "+=", "-=", "*=", "/=", "&&="
     ),
 
@@ -724,7 +727,7 @@ module.exports = grammar({
       optional(
         seq(
           field("key", $.read_key_spec),
-          kw("index")
+          gen.kw("index")
         )
       ),
       field("index", $.numeric_expression)
@@ -738,7 +741,7 @@ module.exports = grammar({
       optional(
         seq(
           field("key", $.read_key_spec),
-          optional(kw("components")) // can be omitted
+          optional(gen.kw("components")) // can be omitted
         )
       ),
       $.search_key_components
@@ -775,7 +778,7 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
     new_expression: $ => seq(
-      kw("new"),
+      gen.kw("new"),
       field("type", $._constructor_result),
       token.immediate("("),
       optional(
@@ -791,7 +794,7 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
     value_expression: $ => seq(
-      kw("value"),
+      gen.kw("value"),
       field("type", $._constructor_result),
       token.immediate("("),
       optional(
@@ -810,10 +813,10 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
     cond_expression: $ => seq(
-      kw("cond"),
+      gen.kw("cond"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       repeat1(alias($._cond_case, $.case)),
       optional(alias($._else_case, $.case)),
       ")"
@@ -821,34 +824,34 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_switch.html
     switch_expression: $ => seq(
-      kw("switch"),
+      gen.kw("switch"),
       field("type", $._constructor_result),
       "(",
       field("operand", $.data_object),
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       repeat1(alias($._switch_case, $.case)),
       optional(alias($._else_case, $.case)),
       ")"
     ),
 
     _cond_case: $ => seq(
-      kw("when"),
+      gen.kw("when"),
       field("predicate", $._logical_expression),
-      kw("then"),
-      optional(seq($.let_expression, kw("in"))),
+      gen.kw("then"),
+      optional(seq($.let_expression, gen.kw("in"))),
       field("result", $._conditional_result)
     ),
 
     _switch_case: $ => seq(
-      kw("when"),
+      gen.kw("when"),
       field("predicate", $.data_object),
-      kw("then"),
-      optional(seq($.let_expression, kw("in"))),
+      gen.kw("then"),
+      optional(seq($.let_expression, gen.kw("in"))),
       field("result", $._conditional_result)
     ),
 
     _else_case: $ => seq(
-      kw("else"), optional(seq($.let_expression, kw("in"))),
+      gen.kw("else"), optional(seq($.let_expression, gen.kw("in"))),
       field("result", $._conditional_result)
     ),
 
@@ -856,10 +859,10 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_CONV.html
      */
     conv_expression: $ => seq(
-      kw("conv"),
+      gen.kw("conv"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       field("dobj", $.general_expression),
       ")"
     ),
@@ -868,10 +871,10 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_EXACT.html
      */
     exact_expression: $ => seq(
-      kw("exact"),
+      gen.kw("exact"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       field("dobj", $.general_expression),
       ")"
     ),
@@ -880,10 +883,10 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_EXACT.html
      */
     cast_expression: $ => seq(
-      kw("cast"),
+      gen.kw("cast"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       field("dobj", $.general_expression),
       ")"
     ),
@@ -892,10 +895,10 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REF.html
      */
     ref_expression: $ => seq(
-      kw("ref"),
+      gen.kw("ref"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       choice(
         field("dobj", $.data_object),
         field("tab_expr", $.table_expression)
@@ -914,7 +917,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPR_CORRESPONDING.html
      */
     corresponding_expression: $ => seq(
-      kw("corresponding"),
+      gen.kw("corresponding"),
       field("type", $._constructor_result),
       "(",
       choice(
@@ -931,16 +934,16 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_ARG_TYPE.html
      */
     _corresponding_basic_form: $ => seq(
-      optional(kw("exact")),
+      optional(gen.kw("exact")),
       // only one of these can occur 
       optional(
         choice(
           alias($._corresponding_base_spec, $.base_spec),
-          kw("deep")
+          gen.kw("deep")
         )
       ),
       field("source", $.general_expression),
-      optional(seq(...kws("discarding", "duplicates"))),
+      optional(seq(...gen.kws("discarding", "duplicates"))),
       optional($.corresponding_mapping_list),
     ),
 
@@ -952,11 +955,11 @@ module.exports = grammar({
      */
     _corresponding_lookup_table_form: $ => seq(
       field("itab", $.general_expression),
-      kw("from"),
+      gen.kw("from"),
       field("lookup_tab", $.general_expression),
       choice(
         $.using_key_spec,
-        kw("using"), // primary key
+        gen.kw("using"), // primary key
       ),
       $.lookup_table_mapping_list,
       optional($.corresponding_mapping_list),
@@ -967,7 +970,7 @@ module.exports = grammar({
      */
     corresponding_mapping_list: $ => choice(
       seq(
-        kw("mapping"),
+        gen.kw("mapping"),
         repeat1(
           choice(
             $.corresponding_submapping,
@@ -997,7 +1000,7 @@ module.exports = grammar({
           ),
           field("default", $._mapping_default)
         ),
-        optional(seq(...kws("discarding", "duplicates"))),
+        optional(seq(...gen.kws("discarding", "duplicates"))),
       )
     ),
 
@@ -1010,7 +1013,7 @@ module.exports = grammar({
     ),
 
     corresponding_exception_list: $ => seq(
-      kw("except"),
+      gen.kw("except"),
       choice(
         "*", // all
         repeat1($.identifier)
@@ -1018,18 +1021,18 @@ module.exports = grammar({
     ),
 
     _mapping_default: $ => seq(
-      kw("default"),
+      gen.kw("default"),
       $.general_expression
     ),
 
     _corresponding_base_spec: $ => seq(
       choice(
         // just the addition base, default..
-        kw("base"),
+        gen.kw("base"),
         // if appending is specified, base has the same effect and is optional
-        seq(kw("appending"), optional(kw("base"))),
+        seq(gen.kw("appending"), optional(gen.kw("base"))),
         // the most specific form
-        seq(...kws("deep", "appending"), optional(kw("base")))
+        seq(...gen.kws("deep", "appending"), optional(gen.kw("base")))
       ),
       "(",
       field("base", $.data_object),
@@ -1040,22 +1043,22 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_FILTER.html
      */
     filter_expression: $ => seq(
-      kw("filter"),
+      gen.kw("filter"),
       field("type", $._constructor_result),
       "(",
       field("itab", $.general_expression),
-      optional(kw("except")),
+      optional(gen.kw("except")),
 
       optional($.using_key_spec),
       optional($.filter_tab_spec),
 
-      kw("where"),
+      gen.kw("where"),
       $._logical_expression,
       ")"
     ),
 
     filter_tab_spec: $ => seq(
-      kw("in"),
+      gen.kw("in"),
       field("ftab", $.general_expression), // functional operand position?
       optional($.using_key_spec),
     ),
@@ -1064,10 +1067,10 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REDUCE.html
      */
     reduce_expression: $ => seq(
-      kw("reduce"),
+      gen.kw("reduce"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       $.reduce_init,
       repeat1($.iteration_expression),
       $.reduce_next,
@@ -1076,7 +1079,7 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
     let_expression: $ => seq(
-      kw("let"),
+      gen.kw("let"),
       repeat1($.assignment)
     ),
 
@@ -1084,7 +1087,7 @@ module.exports = grammar({
      * INIT part of a {@link reduce_expression}
      */
     reduce_init: $ => seq(
-      kw("init"),
+      gen.kw("init"),
       repeat1($.init_spec)
     ),
 
@@ -1092,7 +1095,7 @@ module.exports = grammar({
      * NEXT part of a {@link reduce_expression}
      */
     reduce_next: $ => seq(
-      kw("next"),
+      gen.kw("next"),
       repeat1($.assignment)
     ),
 
@@ -1132,9 +1135,9 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_OPTIONAL_DEFAULT.html
      */
     _table_expr_default: $ => choice(
-      kw("optional"),
+      gen.kw("optional"),
       seq(
-        kw("default"),
+        gen.kw("default"),
         field("default", $.general_expression)
       )
     ),
@@ -1145,9 +1148,9 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
      */
     throw_exception: $ => seq(
-      kw("throw"),
-      optional(kw("resumable")),
-      optional(kw("shortdump")),
+      gen.kw("throw"),
+      optional(gen.kw("resumable")),
+      optional(gen.kw("shortdump")),
       field("name", $._type_identifier),
       "(",
       optional($.inline_message_spec),
@@ -1156,28 +1159,28 @@ module.exports = grammar({
 
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
-    local_updates_statement: _ => seq(
-      ...kws("set", "update", "task", "local"),
+    local_updates_statement: $ => seq(
+      ...gen.kws("set", "update", "task", "local"),
       "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMMIT.html
-    commit_work_statement: _ => seq(
-      ...kws("commit", "work"),
-      optional(seq(...kws("and", "wait"))),
+    commit_work_statement: $ => seq(
+      ...gen.kws("commit", "work"),
+      optional(seq(...gen.kws("and", "wait"))),
       "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPROLLBACK.html
-    rollback_work_statement: _ => seq(
-      ...kws("rollback", "work"), "."
+    rollback_work_statement: $ => seq(
+      ...gen.kws("rollback", "work"), "."
     ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
      */
     message: $ => seq(
-      kw("message"),
+      gen.kw("message"),
       choice(
         seq(":", commaSep1($.message_spec)),
         $.message_spec
@@ -1218,13 +1221,13 @@ module.exports = grammar({
             field("display", $._message_display_override),
             field("arguments", $.message_arguments),
             seq(
-              kw("into"),
+              gen.kw("into"),
               field("into", choice(
                 $.named_data_object,
                 $.declaration_expression
               ))
             ),
-            seq(kw("raising"), field("raising", $.identifier)),
+            seq(gen.kw("raising"), field("raising", $.identifier)),
           )
         ),
       )
@@ -1259,7 +1262,7 @@ module.exports = grammar({
      * can also be specified dynamically through the value of a data object.
      */
     _long_form_message_id: $ => seq(
-      kw("id"),
+      gen.kw("id"),
       field("id", $.data_object),
 
       // Not technically optional, but theres not really any ambiguity in
@@ -1267,24 +1270,24 @@ module.exports = grammar({
       optional($._message_type_spec),
       optional(
         seq(
-          kw("number"),
+          gen.kw("number"),
           field("number", $.data_object),
         )
       )
     ),
 
     _message_type_spec: $ => seq(
-      kw("type"),
+      gen.kw("type"),
       field("type", $.data_object)
     ),
 
     message_arguments: $ => seq(
-      kw("with"), prec.right(repeat1($.general_expression))
+      gen.kw("with"), prec.right(repeat1($.general_expression))
     ),
 
     _message_display_override: $ => seq(
       seq(
-        ...kws("display", "like"),
+        ...gen.kws("display", "like"),
         field("display_type", $.data_object)
       )
     ),
@@ -1298,14 +1301,14 @@ module.exports = grammar({
     declaration_expression: $ => seq(
       choice(
         seq(
-          choice(...kws("final", "data")),
+          choice(...gen.kws("final", "data")),
           // Do we use immediate here? Does that fall under being permissive?..
           token.immediate("("),
           field("name", $._immediate_identifier),
           token.immediate(")")
         ),
         seq(
-          kw("field-symbol"),
+          gen.kw("field-symbol"),
           token.immediate("("),
           field("name", $._immediate_field_symbol),
           token.immediate(")")
@@ -1389,7 +1392,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_METH_IDENT_DYNA.html
      */
     dynamic_method_call: $ => seq(
-      ...kws("call", "method"),
+      ...gen.kws("call", "method"),
       field("method", $.dynamic_method_spec),
       optional($.call_argument_list),
       "."
@@ -1421,7 +1424,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION.html
      */
     function_call: $ => seq(
-      ...kws("call", "function"),
+      ...gen.kws("call", "function"),
       field("name", $.character_like_expression),
       repeat(
         choice(
@@ -1439,33 +1442,33 @@ module.exports = grammar({
     ),
 
     _sync_rfc_destination_spec: $ => seq(
-      kw("destination"),
+      gen.kw("destination"),
       choice(
         field("destination", $.data_object),
         seq(
-          ...kws("in", "group"),
+          ...gen.kws("in", "group"),
           field("group", choice(
             $.named_data_object,
-            kw("default")
+            gen.kw("default")
           ))
         )
       )
     ),
 
     _sync_rfc_session_spec: $ => seq(
-      ...kws("in", "remote", "session"),
+      ...gen.kws("in", "remote", "session"),
       field("session", $.named_data_object)
     ),
 
     _async_rfc_task_spec: $ => seq(
-      ...kws("starting", "new", "task"),
+      ...gen.kws("starting", "new", "task"),
       field("task_id", $.data_object)
     ),
 
     _async_rfc_callback_spec: $ => seq(
       choice(
         seq(
-          kw("calling"),
+          gen.kw("calling"),
           field("callback_method", choice(
             $.identifier,
             $.object_component_selector,
@@ -1473,15 +1476,15 @@ module.exports = grammar({
           ))
         ),
         seq(
-          kw("performing"),
+          gen.kw("performing"),
           field("callback_routine", $.identifier)
         )
       ),
-      ...kws("on", "end", "of", "task")
+      ...gen.kws("on", "end", "of", "task")
     ),
 
     _bg_rfc_unit_spec: $ => seq(
-      ...kws("in", "background", "unit"),
+      ...gen.kws("in", "background", "unit"),
       field("background_unit", $.named_data_object)
     ),
 
@@ -1491,16 +1494,16 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION_BACKGROUND_TASK.html
      */
     _transactional_rfc_spec: $ => prec.right(seq(
-      ...kws("in", "background", "task"),
-      optional(seq(...kws("as", "separate", "unit"))),
+      ...gen.kws("in", "background", "task"),
+      optional(seq(...gen.kws("as", "separate", "unit"))),
       optional(seq(
-        kw("destination"),
+        gen.kw("destination"),
         field("destination", $.data_object)
       ))
     )),
 
-    _update_task_spec: _ => seq(
-      ...kws("in", "update", "task"),
+    _update_task_spec: $ => seq(
+      ...gen.kws("in", "update", "task"),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
@@ -1515,11 +1518,11 @@ module.exports = grammar({
         field("exporting", $.argument_list),
         repeat(
           choice(
-            args("exporting", $.argument_list),
-            args("importing", $.argument_list),
-            args("changing", $.argument_list),
-            args("exceptions", $.argument_list),
-            args("receiving", $.named_argument),
+            gen.kw_tagged("exporting", $.argument_list),
+            gen.kw_tagged("importing", $.argument_list),
+            gen.kw_tagged("changing", $.argument_list),
+            gen.kw_tagged("exceptions", $.argument_list),
+            gen.kw_tagged("receiving", $.named_argument),
           )
         ),
       ),
@@ -1532,7 +1535,7 @@ module.exports = grammar({
      * ambiguous and can only be resolved knowing the actual type of the expression result.
      */
     argument_list: $ => seq(
-      optional(seq($.let_expression, kw("in"))),
+      optional(seq($.let_expression, gen.kw("in"))),
       choice(
         repeat1($.named_argument),
         repeat1($.positional_argument)
@@ -1576,14 +1579,14 @@ module.exports = grammar({
       )),
     ),
 
-    _importing_args: $ => args("importing", $._named_argument_list),
-    _exporting_args: $ => args("exporting", $._named_argument_list),
-    _changing_args: $ => args("changing", $._named_argument_list),
-    _receiving_args: $ => args("receiving", $._named_argument_list),
-    _tables_args: $ => args("tables", $._named_argument_list),
-    _exceptions_args: $ => args("exceptions", $._exception_mapping_list),
-    _parameter_table_args: $ => args("parameter-table", $.named_data_object),
-    _exception_table_args: $ => args("exception-table", $.named_data_object),
+    _importing_args: $ => gen.kw_tagged("importing", $._named_argument_list),
+    _exporting_args: $ => gen.kw_tagged("exporting", $._named_argument_list),
+    _changing_args: $ => gen.kw_tagged("changing", $._named_argument_list),
+    _receiving_args: $ => gen.kw_tagged("receiving", $._named_argument_list),
+    _tables_args: $ => gen.kw_tagged("tables", $._named_argument_list),
+    _exceptions_args: $ => gen.kw_tagged("exceptions", $._exception_mapping_list),
+    _parameter_table_args: $ => gen.kw_tagged("parameter-table", $.named_data_object),
+    _exception_table_args: $ => gen.kw_tagged("exception-table", $.named_data_object),
 
     /**
      * An argument list where only named arguments can occur. This is needed
@@ -1630,7 +1633,7 @@ module.exports = grammar({
      */
     builtin_type_spec: $ => prec.right(choice(
       // Optional Buff size + type + optional type meta
-      seq(optional(BUFF_SIZE($)), seq(kw("type"), field("name", alias(ABAP_TYPE, $.type_identifier))), repeat($._type_meta)),
+      seq(optional(BUFF_SIZE($)), seq(gen.kw("type"), field("name", alias(ABAP_TYPE, $.type_identifier))), repeat($._type_meta)),
       // Optional buff size + required type meta
       seq(optional(BUFF_SIZE($)), repeat1($._type_meta)),
       // Only buf size
@@ -1649,17 +1652,18 @@ module.exports = grammar({
      * See also: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
      */
     referred_type_spec: $ => prec.right(seq(
-      typeOrLikeExpr($, optional(seq(...kws("line", "of")))),
+      typeOrLikeExpr($, optional(seq(...gen.kws("line", "of")))),
       repeat(choice(
-        field("value", seq(
-          kw("value"), choice(
+        seq(
+          gen.kw("value"),
+          field("value", choice(
             $.number,
             $.string_literal,
-            seq(...kws("is", "initial")),
+            seq(...gen.kws("is", "initial")),
             $.identifier,
-          )
-        )),
-        kw("read-only"))
+          ))
+        ),
+        gen.kw("read-only"))
       )
     )),
 
@@ -1671,16 +1675,16 @@ module.exports = grammar({
     table_type_spec: $ => prec.right(seq(
       choice(
         seq(
-          kw("type"),
+          gen.kw("type"),
           field("kind", $._table_category),
-          kw("table")
+          gen.kw("table")
         ),
         // the 'modern' way
         seq(
           typeOrLikeExpr($,
             seq(
               optional(field("kind", $._table_category)),
-              ...kws("table", "of"),
+              ...gen.kws("table", "of"),
             ),
             alias($._inline_ref_type_spec, $.ref_type_spec)
           ),
@@ -1689,24 +1693,24 @@ module.exports = grammar({
         // obsolete way
         seq(
           optional(BUFF_SIZE($)),
-          kw("occurs"),
+          gen.kw("occurs"),
           field("occurs", $.number)
         )
       ),
       repeat(choice(
         seq(
-          ...kws("initial", "size"),
+          ...gen.kws("initial", "size"),
           field("initial_size", $.number)
         ),
-        seq(...kws("value", "is", "initial")),
+        seq(...gen.kws("value", "is", "initial")),
 
-        seq(...kws("with", "further", "secondary", "keys")),
-        seq(...kws("without", "further", "secondary", "keys")),
+        seq(...gen.kws("with", "further", "secondary", "keys")),
+        seq(...gen.kws("without", "further", "secondary", "keys")),
         // Not technically valid for types declarations but intentionally tolerated.
-        seq(...kws("value", "is", "initial")),
-        seq(...kws("read-only")),
+        seq(...gen.kws("value", "is", "initial")),
+        seq(...gen.kws("read-only")),
         // obsolete
-        seq(...kws("with", "header", "line")),
+        seq(...gen.kws("with", "header", "line")),
       ))
     )),
 
@@ -1716,14 +1720,14 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
      */
     range_type_spec: $ => prec.right(seq(
-      typeOrLikeExpr($, seq(...kws("range", "of"))),
+      typeOrLikeExpr($, seq(...gen.kws("range", "of"))),
       repeat(choice(
-        seq(...kws("initial", "size"), field("initial_size", $.number)),
+        seq(...gen.kws("initial", "size"), field("initial_size", $.number)),
         // Not technically valid for types declarations but intentionally tolerated.
-        seq(...kws("value", "is", "initial")),
-        seq(...kws("read-only")),
+        seq(...gen.kws("value", "is", "initial")),
+        seq(...gen.kws("read-only")),
         // obsolete
-        seq(...kws("with", "header", "line")),
+        seq(...gen.kws("with", "header", "line")),
       )
       )
     )),
@@ -1734,12 +1738,12 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
      */
     ref_type_spec: $ => prec.right(seq(
-      typeOrLikeExpr($, seq(...kws("ref", "to"))),
+      typeOrLikeExpr($, seq(...gen.kws("ref", "to"))),
 
       // Not technically valid for types declarations but intentionally tolerated.
       repeat(choice(
-        seq(...kws("value", "is", "initial")),
-        seq(...kws("read-only"))
+        seq(...gen.kws("value", "is", "initial")),
+        seq(...gen.kws("read-only"))
       ))
     )),
 
@@ -1748,7 +1752,7 @@ module.exports = grammar({
      * be inlined into other type specifications such as {@link table_type_spec}
      */
     _inline_ref_type_spec: $ => seq(
-      ...kws("ref", "to"),
+      ...gen.kws("ref", "to"),
       choice(
         $._type_identifier,
         $.type_component_selector
@@ -1768,7 +1772,7 @@ module.exports = grammar({
       "=",
       field("value", $.number),
       optional(seq(
-        kw("message"),
+        gen.kw("message"),
         field("message", $.named_data_object)
       ))
     ),
@@ -1776,7 +1780,7 @@ module.exports = grammar({
 
 
     group_by_spec: $ => seq(
-      ...kws("group", "by"),
+      ...gen.kws("group", "by"),
       field("key", $.group_key),
       repeat(
         choice(
@@ -1794,18 +1798,18 @@ module.exports = grammar({
      */
     sort_order_spec: $ => seq(
       choice(
-        kw("ascending"),
-        kw("descending"),
+        gen.kw("ascending"),
+        gen.kw("descending"),
       ),
       optional($.sort_as_text_spec)
     ),
 
     sort_as_text_spec: $ => seq(
-      ...kws("as", "text")
+      ...gen.kws("as", "text")
     ),
 
     without_members_spec: $ => seq(
-      ...kws("without", "members")
+      ...gen.kws("without", "members")
     ),
 
 
@@ -1817,7 +1821,7 @@ module.exports = grammar({
     ),
 
     into_spec: $ => seq(
-      kw("into"),
+      gen.kw("into"),
       field("work_area", choice(
         $.named_data_object,
         $.declaration_expression
@@ -1825,17 +1829,17 @@ module.exports = grammar({
     ),
 
     assigning_spec: $ => seq(
-      ...kws("assigning"),
+      ...gen.kws("assigning"),
       field("work_area", choice(
         $.field_symbol,
         $.declaration_expression
       )),
-      optional(kw("casting")),
-      optional(seq(...kws("else", "unassign"))),
+      optional(gen.kw("casting")),
+      optional(seq(...gen.kws("else", "unassign"))),
     ),
 
     reference_into_spec: $ => seq(
-      ...kws("reference", "into"),
+      ...gen.kws("reference", "into"),
       field("work_area", choice(
         $.field_symbol,
         $.declaration_expression
@@ -1843,7 +1847,7 @@ module.exports = grammar({
     ),
 
     transporting_no_fields_spec: $ => seq(
-      ...kws("transporting", "no", "fields")
+      ...gen.kws("transporting", "no", "fields")
     ),
 
 
@@ -1854,7 +1858,7 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
     table_key_spec: $ => prec.right(
       seq(
-        kw("with"),
+        gen.kw("with"),
         choice(
           $._primary_key,
           $._secondary_key,
@@ -1868,18 +1872,18 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
      */
     _primary_key: $ => choice(
-      seq(...kws("empty", "key")),
+      seq(...gen.kws("empty", "key")),
       seq(
-        optional(choice(...kws("unique", "non-unique"))),
+        optional(choice(...gen.kws("unique", "non-unique"))),
         choice(
-          seq(...kws("default", "key")),
+          seq(...gen.kws("default", "key")),
           seq(
-            kw("key"),
+            gen.kw("key"),
             optional(
               seq(
-                field("name", alias(kw("primary_key"), $.identifier)),
-                optional(seq(kw("alias"), field("alias", $.identifier))),
-                kw("components")
+                field("name", alias(gen.kw("primary_key"), $.identifier)),
+                optional(seq(gen.kw("alias"), field("alias", $.identifier))),
+                gen.kw("components")
               )
             ),
             field("components", $.key_components)
@@ -1891,14 +1895,14 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_SECONDARY_KEY.html
     _secondary_key: $ => seq(
       choice(
-        seq(...kws("unique", "hashed")),
-        seq(...kws("unique", "sorted")),
-        seq(...kws("non-unique", "sorted")),
+        seq(...gen.kws("unique", "hashed")),
+        seq(...gen.kws("unique", "sorted")),
+        seq(...gen.kws("non-unique", "sorted")),
       ),
-      kw("key"),
+      gen.kw("key"),
       field("name", $.identifier),
-      optional(seq(kw("alias"), field("alias", $.identifier))),
-      kw("components"), field("components", $.key_components)
+      optional(seq(gen.kw("alias"), field("alias", $.identifier))),
+      gen.kw("components"), field("components", $.key_components)
 
     ),
 
@@ -1910,17 +1914,17 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINCLUDE_TYPE.html
      */
     struct_include: $ => seq(
-      kw("include"),
+      gen.kw("include"),
       field("name", choice(
-        seq(kw("type"), $.identifier),
-        seq(kw("structure"), $.identifier),
+        seq(gen.kw("type"), $.identifier),
+        seq(gen.kw("structure"), $.identifier),
       )),
       optional(
-        seq(kw("as"), field("alias", $.identifier)),
+        seq(gen.kw("as"), field("alias", $.identifier)),
       ),
       optional(
         seq(
-          ...kws("renaming", "with", "suffix"),
+          ...gen.kws("renaming", "with", "suffix"),
           field("suffix", $.identifier)
         )
       ),
@@ -2170,12 +2174,12 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
-    _table_category: _ => choice(
-      kw("standard"),
-      kw("sorted"),
-      kw("hashed"),
-      kw("any"),
-      kw("index"),
+    _table_category: $ => choice(
+      gen.kw("standard"),
+      gen.kw("sorted"),
+      gen.kw("hashed"),
+      gen.kw("any"),
+      gen.kw("index"),
     ),
 
     /**
@@ -2190,19 +2194,19 @@ module.exports = grammar({
     _type_meta: $ => choice(
       field("length", $._data_length),
       field("decimals", $._data_decimals),
-      field("value", seq(
-        kw("value"), choice(
+      seq(
+        gen.kw("value"), field("value", choice(
           $.number,
           $.string_literal,
-          seq(...kws("is", "initial")),
+          seq(...gen.kws("is", "initial")),
           $.identifier,
-        )
-      )),
-      field("readonly", kw("read-only"))
+        ))
+      ),
+      gen.kw("read-only")
     ),
 
-    _data_length: $ => seq(kw("length"), choice($.number, $.string_literal)),
-    _data_decimals: $ => seq(kw("decimals"), $.number),
+    _data_length: $ => seq(gen.kw("length"), choice($.number, $.string_literal)),
+    _data_decimals: $ => seq(gen.kw("decimals"), $.number),
 
     // [[/][pos|POS_LOW|POS_HIGH](len)
     output_position_spec: $ => prec.right(repeat1(
@@ -2215,7 +2219,7 @@ module.exports = grammar({
             $.identifier
           )
         )),
-        tightParens(field("length", $.number))
+        gen.immediateTightParens(field("length", $.number))
       )
     )),
 
@@ -2265,7 +2269,7 @@ module.exports = grammar({
       ))
     ),
 
-    inline_comment: _ => prec(0, seq('"', /[^\n\r]*/)),
+    inline_comment: $ => prec(0, seq('"', /[^\n\r]*/)),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenpseudo_comment.html
     pseudo_comment: $ => prec(1, seq(
@@ -2404,9 +2408,9 @@ module.exports = grammar({
       field("name", $.identifier)
     ),
 
-    scope_directive: _ => prec.left(repeat1(".")),
+    scope_directive: $ => prec.left(repeat1(".")),
 
-    linked_object_kind: _ => choice(...caseInsensitiveAliased(
+    linked_object_kind: $ => choice(...gen.caseInsensitive(
       "data", // constants, variables, procedure parameters
       "doma", // ddic domains
       "evnt", // class based events
@@ -2437,9 +2441,9 @@ module.exports = grammar({
      * ```
      * ... because it violates the 'not being inside a simple statement' rule.
      */
-    _empty_statement: _ => token("."),
+    _empty_statement: $ => token("."),
 
-    _name: _ => IDENTIFIER_REGEX,
+    _name: $ => IDENTIFIER_REGEX,
 
     identifier: $ => choice($._name, $._contextual_keyword),
 
@@ -2468,8 +2472,8 @@ module.exports = grammar({
      * 
      * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _contextual_keyword: _ => prec(-1, choice(
-      ...caseInsensitive(
+    _contextual_keyword: $ => prec(-1, choice(
+      ...gen.caseInsensitive(
         "value",
         "new",
         "cond",
@@ -2502,7 +2506,7 @@ module.exports = grammar({
 
     _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
 
-    number: _ => NUMBER_REGEX,
+    number: $ => NUMBER_REGEX,
     _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
     _immediate_string_literal: $ => alias(
       choice(
@@ -2519,25 +2523,11 @@ module.exports = grammar({
 
     symbol_tagged_string_literal: $ => prec(1, seq(
       field("text", $.string_literal),
-      tightParens(field("symbol", $.number))
+      gen.immediateTightParens(field("symbol", $.number))
     )),
   }
 });
 
-function caseInsensitive(...terms) {
-  return terms.map((t) => new RustRegex(t
-    .split('')
-    .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
-    .join('')
-  ));
-}
-
-function caseInsensitiveAliased(...terms) {
-  return terms.map(t => alias(caseInsensitive(t).shift(), t))
-}
-
-function kw(keyword) { return caseInsensitiveAliased(keyword).shift() };
-function kws(...keywords) { return caseInsensitiveAliased(...keywords) }
 
 function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)))
@@ -2554,7 +2544,7 @@ function commaSep1(rule) {
 function typeOrLikeExpr($, addition, ...extraChoices) {
   return choice(
     seq(
-      kw("type"),
+      gen.kw("type"),
       addition,
       field("name", choice(
         $._type_identifier,
@@ -2563,7 +2553,7 @@ function typeOrLikeExpr($, addition, ...extraChoices) {
       ))
     ),
     seq(
-      kw("like"),
+      gen.kw("like"),
       addition,
       field("dobj", choice(
         $.identifier,
@@ -2574,14 +2564,3 @@ function typeOrLikeExpr($, addition, ...extraChoices) {
 }
 
 
-function args(keyword, rule) {
-  return field(keyword.replace("-", "_"), seq(kw(keyword), rule));
-}
-
-function tightParens(rule) {
-  return seq(token.immediate("("), rule, token.immediate(")"))
-}
-
-function params(keyword, rule) {
-  return field(keyword, seq(kw(keyword), rule));
-}

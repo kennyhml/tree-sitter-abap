@@ -7,9 +7,13 @@ endloop.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (into_spec
-      work_area: (identifier))))
+      (keyword_into)
+      work_area: (identifier))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Loop into reference
@@ -20,10 +24,16 @@ endloop.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (reference_into_spec
+      (keyword_reference)
+      (keyword_into)
       work_area: (declaration_expression
-        name: (identifier)))))
+        (keyword_data)
+        name: (identifier)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Loop at with inline declarations
@@ -34,7 +44,10 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (value_expression
+      (keyword_value)
       type: (type_identifier)
       (itab_expression
         (line_spec
@@ -50,8 +63,11 @@ ENDLOOP.
             (positional_argument
               value: (number))))))
     result: (assigning_spec
+      (keyword_assigning)
       work_area: (declaration_expression
-        name: (identifier)))))
+        (keyword_field_symbol)
+        name: (identifier)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Nested loop at
@@ -66,27 +82,40 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (assigning_spec
+      (keyword_assigning)
       work_area: (declaration_expression
+        (keyword_field_symbol)
         name: (identifier)))
     condition: (iteration_cond
+      (keyword_where)
       (comparison_expression
         left: (identifier)
+        (keyword_cp)
         right: (identifier)))
     body: (loop_at_body
       (loop_at_statement
+        (keyword_loop)
+        (keyword_at)
         subject: (identifier)
         result: (into_spec
+          (keyword_into)
           work_area: (declaration_expression
+            (keyword_final)
             name: (identifier)))
         condition: (iteration_cond
+          (keyword_where)
           (comparison_expression
             left: (identifier)
             right: (binary_operator
               left: (field_symbol
                 name: (identifier))
-              right: (identifier))))))))
+              right: (identifier))))
+        (keyword_endloop)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Specifying an explicit key
@@ -97,13 +126,20 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (into_spec
+      (keyword_into)
       work_area: (declaration_expression
+        (keyword_final)
         name: (identifier)))
     condition: (iteration_cond
       (using_key_spec
-        name: (identifier)))))
+        (keyword_using)
+        (keyword_key)
+        name: (identifier)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Loop from index
@@ -114,16 +150,22 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     from: (iterate_from_index_spec
+      (keyword_from)
       index: (builtin_function_call
         name: (identifier)
         (call_argument_list
           exporting: (positional_argument
             value: (identifier)))))
     result: (assigning_spec
+      (keyword_assigning)
       work_area: (declaration_expression
-        name: (identifier)))))
+        (keyword_field_symbol)
+        name: (identifier)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Sliced loop with step
@@ -134,16 +176,24 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     from: (iterate_from_index_spec
+      (keyword_from)
       index: (number))
     step: (iterate_step_spec
+      (keyword_step)
       size: (number))
     result: (assigning_spec
+      (keyword_assigning)
       work_area: (declaration_expression
+        (keyword_field_symbol)
         name: (identifier)))
     to: (iterate_to_index_spec
-      index: (number))))
+      (keyword_to)
+      index: (number))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Where condition with dereference
@@ -154,18 +204,25 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (into_spec
+      (keyword_into)
       work_area: (identifier))
     from: (iterate_from_index_spec
+      (keyword_from)
       index: (number))
     to: (iterate_to_index_spec
+      (keyword_to)
       index: (number))
     condition: (iteration_cond
+      (keyword_where)
       (comparison_expression
         left: (identifier)
         right: (dereference
-          dref: (identifier))))))
+          dref: (identifier))))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Dynamic where condition
@@ -176,16 +233,23 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (into_spec
+      (keyword_into)
       work_area: (identifier))
     from: (iterate_from_index_spec
+      (keyword_from)
       index: (number))
     to: (iterate_to_index_spec
+      (keyword_to)
       index: (number))
     condition: (iteration_cond
+      (keyword_where)
       (dynamic_cond
-        name: (identifier)))))
+        name: (identifier)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Loop without transporting fields
@@ -196,12 +260,19 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
-    result: (transporting_no_fields_spec)
+    result: (transporting_no_fields_spec
+      (keyword_transporting)
+      (keyword_no)
+      (keyword_fields))
     condition: (iteration_cond
+      (keyword_where)
       (comparison_expression
         left: (identifier)
-        right: (number)))))
+        right: (number)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Group level processing in simple loop
@@ -220,17 +291,35 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (assigning_spec
+      (keyword_assigning)
       work_area: (declaration_expression
+        (keyword_field_symbol)
         name: (identifier)))
     body: (loop_at_body
-      (at_first_statement)
+      (at_first_statement
+        (keyword_at)
+        (keyword_first)
+        (keyword_endat))
       (at_new_statement
-        component: (identifier))
+        (keyword_at)
+        (keyword_new)
+        component: (identifier)
+        (keyword_endat))
       (at_end_of_statement
-        component: (identifier))
-      (at_last_statement))))
+        (keyword_at)
+        (keyword_end)
+        (keyword_of)
+        component: (identifier)
+        (keyword_endat))
+      (at_last_statement
+        (keyword_at)
+        (keyword_last)
+        (keyword_endat)))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Group by using group index / size
@@ -245,11 +334,17 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (into_spec
+      (keyword_into)
       work_area: (declaration_expression
+        (keyword_final)
         name: (identifier)))
     grouping: (group_by_spec
+      (keyword_group)
+      (keyword_by)
       key: (group_key
         (group_key_component_spec
           field: (identifier)
@@ -262,12 +357,19 @@ ENDLOOP.
             struct: (identifier)
             comp: (identifier)))
         (group_index_assignment
-          field: (identifier))
+          field: (identifier)
+          (keyword_group)
+          (keyword_index))
         (group_size_assignment
-          field: (identifier)))
+          field: (identifier)
+          (keyword_group)
+          (keyword_size)))
       group_result: (into_spec
+        (keyword_into)
         work_area: (declaration_expression
-          name: (identifier))))))
+          (keyword_data)
+          name: (identifier))))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Group by using expression key
@@ -281,11 +383,17 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (assigning_spec
+      (keyword_assigning)
       work_area: (declaration_expression
+        (keyword_field_symbol)
         name: (identifier)))
     grouping: (group_by_spec
+      (keyword_group)
+      (keyword_by)
       key: (group_key
         expression: (builtin_function_call
           name: (identifier)
@@ -293,10 +401,14 @@ ENDLOOP.
             exporting: (positional_argument
               value: (field_symbol
                 name: (identifier))))))
-      order: (sort_order_spec)
+      order: (sort_order_spec
+        (keyword_ascending))
       group_result: (assigning_spec
+        (keyword_assigning)
         work_area: (declaration_expression
-          name: (identifier))))))
+          (keyword_field_symbol)
+          name: (identifier))))
+    (keyword_endloop)))
 
 ======
 [LOOP-AT] Loop at group
@@ -312,25 +424,41 @@ ENDLOOP.
 
 (source
   (loop_at_statement
+    (keyword_loop)
+    (keyword_at)
     subject: (identifier)
     result: (into_spec
+      (keyword_into)
       work_area: (declaration_expression
+        (keyword_final)
         name: (identifier)))
     grouping: (group_by_spec
+      (keyword_group)
+      (keyword_by)
       key: (group_key
         expression: (struct_component_selector
           struct: (identifier)
           comp: (identifier)))
       group_result: (into_spec
+        (keyword_into)
         work_area: (declaration_expression
+          (keyword_final)
           name: (identifier))))
     body: (loop_at_body
       (loop_at_group_statement
+        (keyword_loop)
+        (keyword_at)
+        (keyword_group)
         subject: (identifier)
         result: (assigning_spec
+          (keyword_assigning)
           work_area: (declaration_expression
+            (keyword_field_symbol)
             name: (identifier)))
         condition: (iteration_cond
+          (keyword_where)
           (comparison_expression
             left: (identifier)
-            right: (string_literal)))))))
+            right: (string_literal)))
+        (keyword_endloop)))
+    (keyword_endloop)))

@@ -8,13 +8,15 @@ ENDIF.
 
 (source
   (if_statement
+    (keyword_if)
     (comparison_expression
       (identifier)
       (string_literal))
     (statement_block
       (assignment
         (identifier)
-        (identifier)))))
+        (identifier)))
+    (keyword_endif)))
 
 ======
 If statement with else clause
@@ -28,6 +30,7 @@ ENDIF.
 
 (source
   (if_statement
+    (keyword_if)
     (comparison_expression
       (identifier)
       (string_literal))
@@ -36,10 +39,12 @@ ENDIF.
         (identifier)
         (identifier)))
     (else_clause
+      (keyword_else)
       (statement_block
         (assignment
           (identifier)
-          (identifier))))))
+          (identifier))))
+    (keyword_endif)))
 
 ======
 If statement with elseif clauses
@@ -57,6 +62,7 @@ ENDIF.
 
 (source
   (if_statement
+    (keyword_if)
     (comparison_expression
       (identifier)
       (string_literal))
@@ -65,6 +71,7 @@ ENDIF.
         (identifier)
         (identifier)))
     (elseif_clause
+      (keyword_elseif)
       (comparison_expression
         (identifier)
         (string_literal))
@@ -73,6 +80,7 @@ ENDIF.
           (identifier)
           (identifier))))
     (elseif_clause
+      (keyword_elseif)
       (comparison_expression
         (identifier)
         (string_literal))
@@ -81,10 +89,12 @@ ENDIF.
           (identifier)
           (string_literal))))
     (else_clause
+      (keyword_else)
       (statement_block
         (assignment
           (identifier)
-          (identifier))))))
+          (identifier))))
+    (keyword_endif)))
 
 ======
 Nested if statement
@@ -99,6 +109,7 @@ ENDIF.
 
 (source
   (if_statement
+    (keyword_if)
     (comparison_expression
       (identifier)
       (string_literal))
@@ -107,10 +118,13 @@ ENDIF.
         (identifier)
         (identifier))
       (if_statement
+        (keyword_if)
         (comparison_expression
           (identifier)
           (identifier))
         (statement_block
           (assignment
             (identifier)
-            (identifier)))))))
+            (identifier)))
+        (keyword_endif)))
+    (keyword_endif)))

@@ -1,4 +1,4 @@
-const { kw, kws } = require('../helpers/keywords.js')
+const gen = require("../core/generators.js")
 
 module.exports = {
 
@@ -8,19 +8,19 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFORM.html 
      */
     form_definition: $ => seq(
-        kw("form"),
+        gen.kw("form"),
         field("name", $.identifier),
         repeat(
             choice(
-                params("tables", $.__form_parameter_list),
-                params("using", $.__form_parameter_list),
-                params("changing", $.__form_parameter_list),
-                params("raising", $.raising_list),
+                gen.kw_tagged("tables", $.__form_parameter_list),
+                gen.kw_tagged("using", $.__form_parameter_list),
+                gen.kw_tagged("changing", $.__form_parameter_list),
+                gen.kw_tagged("raising", $.raising_list),
             )
         ),
         ".",
         optional(field("body", alias($.statement_block, $.form_body))),
-        kw("endform"),
+        gen.kw("endform"),
         "."
     ),
 
@@ -48,12 +48,8 @@ module.exports = {
     )),
 
     structure_param_spec: $ => seq(
-        kw("structure"),
+        gen.kw("structure"),
         field("name", $.identifier)
     )
 
-}
-
-function params(keyword, rule) {
-    return field(keyword, seq(kw(keyword), rule));
 }

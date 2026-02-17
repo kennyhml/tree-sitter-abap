@@ -1,13 +1,12 @@
-const { kw, kws } = require('../helpers/keywords.js')
-const { chainable } = require('../helpers/decl_gen.js')
+const gen = require("../core/generators.js")
 
 module.exports = {
 
-    methods_declaration: $ => chainable(
+    methods_declaration: $ => gen.chainable(
         "methods", choice($.method_spec, $.constructor_spec)
     ),
 
-    class_methods_declaration: $ => chainable(
+    class_methods_declaration: $ => gen.chainable(
         "class-methods", choice($.method_spec, $.class_constructor_spec)
     ),
 
@@ -30,7 +29,7 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHOD.html
     method_implementation: $ => seq(
-        kw("method"),
+        gen.kw("method"),
         field("name",
             choice(
                 $.identifier,
@@ -39,18 +38,18 @@ module.exports = {
         ),
         ".",
         optional($.method_body),
-        kw("endmethod"),
+        gen.kw("endmethod"),
         "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
     constructor_spec: $ => seq(
-        kw("constructor"),
+        gen.kw("constructor"),
         optional($.__method_signature)
     ),
 
     class_constructor_spec: $ => seq(
-        kw("class_constructor"),
+        gen.kw("class_constructor"),
         optional($.__method_signature)
     ),
 
@@ -67,17 +66,17 @@ module.exports = {
             field("amdp", $.amdp_options_spec),
 
             // Parameter lists
-            params("importing", $.parameter_list),
-            params("exporting", $.parameter_list),
-            params("changing", $.parameter_list),
-            params("raising", $.raising_list),
-            params("exceptions", $.exception_list),
-            params("returning", alias($.parameter, $.return_value)),
+            gen.kw_tagged("importing", $.parameter_list),
+            gen.kw_tagged("exporting", $.parameter_list),
+            gen.kw_tagged("changing", $.parameter_list),
+            gen.kw_tagged("raising", $.raising_list),
+            gen.kw_tagged("exceptions", $.exception_list),
+            gen.kw_tagged("returning", alias($.parameter, $.return_value)),
         )
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
-    redefinition_spec: _ => kw("redefinition"),
+    redefinition_spec: _ => gen.kw("redefinition"),
 
     /**
      * AMDP OPTIONS [READ-ONLY] 
@@ -86,7 +85,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS.html 
      */
     amdp_options_spec: $ => seq(
-        ...kws("amdp", "options"),
+        ...gen.kws("amdp", "options"),
         repeat1(choice(
             $.read_only_spec,
             field("client_handling", $.__amdp_client_handling_spec)
@@ -106,7 +105,7 @@ module.exports = {
     ),
 
     cds_session_client_spec: $ => seq(
-        ...kws("cds", "session", "client"),
+        ...gen.kws("cds", "session", "client"),
         field("client", choice(
             $.current_client,
             $.identifier,
@@ -114,14 +113,14 @@ module.exports = {
     ),
 
     cds_session_client_dependent_spec: _ => seq(
-        ...kws("cds", "session", "client", "dependent")
+        ...gen.kws("cds", "session", "client", "dependent")
     ),
 
     client_independent_spec: _ => seq(
-        ...kws("client", "independent")
+        ...gen.kws("client", "independent")
     ),
 
-    current_client: _ => kw("current"),
+    current_client: _ => gen.kw("current"),
 
     /**
      * FOR TABLE FUNCTION cds_tabfunc.
@@ -129,7 +128,7 @@ module.exports = {
      * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_TABFUNC.html}
      */
     for_table_function_spec: $ => seq(
-        ...kws("for", "table", "function"),
+        ...gen.kws("for", "table", "function"),
         field("table_function", $.identifier)
     ),
 
@@ -139,22 +138,22 @@ module.exports = {
      * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_SCALFUNC.html}
      */
     for_scalar_function_spec: $ => seq(
-        ...kws("for", "scalar", "function"),
+        ...gen.kws("for", "scalar", "function"),
         field("scalar_function", $.identifier),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
     for_event_spec: $ => seq(
-        ...kws("for", "event"),
+        ...gen.kws("for", "event"),
         field("name", $.identifier),
-        kw("of"),
+        gen.kw("of"),
         field("source", $.identifier),
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
     interface_default_spec: _ => seq(
-        kw("default"),
-        field("default", choice(...kws("ignore", "fail")))
+        gen.kw("default"),
+        field("default", choice(...gen.kws("ignore", "fail")))
     ),
 
     parameter_list: $ => seq(
@@ -190,14 +189,14 @@ module.exports = {
     )),
 
     preferred_param_spec: $ => seq(
-        ...kws("preferred", "parameter"),
+        ...gen.kws("preferred", "parameter"),
         field("name", $.identifier)
     ),
 
-    optional_spec: _ => kw("optional"),
+    optional_spec: _ => gen.kw("optional"),
 
     param_default_value_spec: $ => seq(
-        kw("default"),
+        gen.kw("default"),
         field("value", choice(
             $.identifier, // constant
             $.number,
@@ -211,21 +210,21 @@ module.exports = {
     ),
 
     value_param_spec: $ => seq(
-        kw("value"),
+        gen.kw("value"),
         token.immediate("("),
         field("name", $._immediate_identifier),
         token.immediate(")"),
     ),
 
     reference_param_spec: $ => seq(
-        kw("reference"),
+        gen.kw("reference"),
         token.immediate("("),
         field("name", $._immediate_identifier),
         token.immediate(")"),
     ),
 
     resumable_exception_spec: $ => seq(
-        kw("resumable"),
+        gen.kw("resumable"),
         token.immediate("("),
         field("name", $._immediate_identifier),
         token.immediate(")"),
@@ -234,8 +233,4 @@ module.exports = {
     simple_exception_spec: $ => field("name", $.identifier),
 
     method_body: $ => repeat1($._statement),
-}
-
-function params(keyword, rule) {
-    return field(keyword, seq(kw(keyword), rule));
 }

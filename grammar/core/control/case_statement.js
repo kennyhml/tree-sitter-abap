@@ -1,4 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js");
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -17,29 +17,29 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE.html
      */
     case_statement: $ => seq(
-        kw("case"),
+        gen.kw("case"),
         field("subject", $.general_expression),
         ".",
         repeat(field("alternative", $.case_clause)),
         optional(field("others", $.others_case_clause)),
-        kw("endcase"), "."
+        gen.kw("endcase"), "."
     ),
 
     case_clause: $ => seq(
-        kw("when"),
+        gen.kw("when"),
         field("condition", $.case_operand_list),
         ".",
         field("consequence", optional($.statement_block)),
     ),
 
     others_case_clause: $ => seq(
-        ...kws("when", "others"), ".",
+        ...gen.kws("when", "others"), ".",
         field("consequence", optional($.statement_block)),
     ),
 
     case_operand_list: $ => seq(
         $.__case_operand,
-        repeat(seq(kw("or"), $.__case_operand))
+        repeat(seq(gen.kw("or"), $.__case_operand))
     ),
 
     /**

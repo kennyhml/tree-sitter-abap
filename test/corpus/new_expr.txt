@@ -3,36 +3,47 @@ With explicit type and value
 ==================
 NEW i( 555 )
 ---
+
 (source
-    (new_expression
-        (type_identifier)
-        (argument_list
-            (positional_argument
-            (number)))))
+  (new_expression
+    (keyword_new)
+    (type_identifier)
+    (argument_list
+      (positional_argument
+        (number)))))
+
 ==================
 Initial derived value
 ==================
 NEW #( )
 ---
+
 (source
-    (new_expression))
+  (new_expression
+    (keyword_new)))
+
 ==================
 Value with let expr
 ==================
 NEW string( let var = 'A String' in |Using let expression { var }| )
 ---
+
 (source
-    (new_expression
+  (new_expression
+    (keyword_new)
     (type_identifier)
     (argument_list
-        (let_expression
-            (assignment
-                (identifier)
-                (string_literal)))
-        (positional_argument
-            (string_template
-                (embedded_expression
-                (identifier)))))))
+      (let_expression
+        (keyword_let)
+        (assignment
+          (identifier)
+          (string_literal)))
+      (keyword_in)
+      (positional_argument
+        (string_template
+          (embedded_expression
+            (identifier)))))))
+
 ==================
 Itab with base spec
 ==================
@@ -40,50 +51,60 @@ NEW #( BASE base1 col2 = 'BB' ).
 NEW #( BASE base1->* col2 = 'BB' ). 
 NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ). 
 ---
+
 (source
-    (new_expression
-        (itab_spec
-            (base_spec
-                (identifier))
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (string_literal)))))
-    (new_expression
-        (itab_spec
-            (base_spec
-                (dereference
-                (identifier)))
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (string_literal)))))
-    (new_expression
-        (itab_spec
-            (base_spec
-                (class_component_selector
-                (identifier)
-                (identifier)))
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (string_literal))))))
+  (new_expression
+    (keyword_new)
+    (itab_spec
+      (base_spec
+        (keyword_base)
+        (identifier))
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal)))))
+  (new_expression
+    (keyword_new)
+    (itab_spec
+      (base_spec
+        (keyword_base)
+        (dereference
+          (identifier)))
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal)))))
+  (new_expression
+    (keyword_new)
+    (itab_spec
+      (base_spec
+        (keyword_base)
+        (class_component_selector
+          (identifier)
+          (identifier)))
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal))))))
+
 ==================
 itab sub-component assignment
 ==================
 NEW t_struct( col2-col1 = 2 col2-col2 = itab ).
 ---
+
 (source
-    (new_expression
-        (type_identifier)
-        (argument_list
-            (named_argument
-                (struct_component_selector
-                    (identifier)
-                    (identifier))
-                (number))
-            (named_argument
-                (struct_component_selector
-                    (identifier)
-                    (identifier))
-                (identifier)))))
+  (new_expression
+    (keyword_new)
+    (type_identifier)
+    (argument_list
+      (named_argument
+        (struct_component_selector
+          (identifier)
+          (identifier))
+        (number))
+      (named_argument
+        (struct_component_selector
+          (identifier)
+          (identifier))
+        (identifier)))))

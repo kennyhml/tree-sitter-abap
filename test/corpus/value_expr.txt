@@ -3,36 +3,47 @@ With explicit type and value
 ==================
 VALUE i( 555 )
 ---
+
 (source
-    (value_expression
-        (type_identifier)
-        (argument_list
-            (positional_argument
-            (number)))))
+  (value_expression
+    (keyword_value)
+    (type_identifier)
+    (argument_list
+      (positional_argument
+        (number)))))
+
 ==================
 Initial derived value
 ==================
 VALUE #( )
 ---
+
 (source
-    (value_expression))
+  (value_expression
+    (keyword_value)))
+
 ==================
 Value with let expr
 ==================
 VALUE string( let var = 'A String' in |Using let expression { var }| )
 ---
+
 (source
-    (value_expression
+  (value_expression
+    (keyword_value)
     (type_identifier)
     (argument_list
-        (let_expression
-            (assignment
-                (identifier)
-                (string_literal)))
-        (positional_argument
-            (string_template
-                (embedded_expression
-                (identifier)))))))
+      (let_expression
+        (keyword_let)
+        (assignment
+          (identifier)
+          (string_literal)))
+      (keyword_in)
+      (positional_argument
+        (string_template
+          (embedded_expression
+            (identifier)))))))
+
 ==================
 Itab with base spec
 ==================
@@ -40,115 +51,138 @@ VALUE #( BASE base1 col2 = 'BB' ).
 VALUE #( BASE base1->* col2 = 'BB' ). 
 VALUE #( BASE /www/my_class=>base_itab col2 = 'BB' ). 
 ---
+
 (source
-    (value_expression
-        (itab_spec
-            (base_spec
-                (identifier))
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (string_literal)))))
-    (value_expression
-        (itab_spec
-            (base_spec
-                (dereference
-                (identifier)))
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (string_literal)))))
-    (value_expression
-        (itab_spec
-            (base_spec
-                (class_component_selector
-                (identifier)
-                (identifier)))
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (string_literal))))))
+  (value_expression
+    (keyword_value)
+    (itab_spec
+      (base_spec
+        (keyword_base)
+        (identifier))
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal)))))
+  (value_expression
+    (keyword_value)
+    (itab_spec
+      (base_spec
+        (keyword_base)
+        (dereference
+          (identifier)))
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal)))))
+  (value_expression
+    (keyword_value)
+    (itab_spec
+      (base_spec
+        (keyword_base)
+        (class_component_selector
+          (identifier)
+          (identifier)))
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal))))))
+
 ==================
 itab sub-component assignment
 ==================
 VALUE t_struct( col2-col1 = 2 col2-col2 = itab ).
 ---
+
 (source
-    (value_expression
-        (type_identifier)
-        (argument_list
-            (named_argument
-                (struct_component_selector
-                    (identifier)
-                    (identifier))
-                (number))
-            (named_argument
-                (struct_component_selector
-                    (identifier)
-                    (identifier))
-                (identifier)))))
+  (value_expression
+    (keyword_value)
+    (type_identifier)
+    (argument_list
+      (named_argument
+        (struct_component_selector
+          (identifier)
+          (identifier))
+        (number))
+      (named_argument
+        (struct_component_selector
+          (identifier)
+          (identifier))
+        (identifier)))))
+
 ==================
 Nested table assignments
 ==================
 VALUE #( ( itab1 ) ( VALUE t_itab1( ( 4 ) ( 5 ) ( 6 ) ) ) ).
 ---
+
 (source
-    (value_expression
-        (itab_expression
-            (line_spec
-                (argument_list
+  (value_expression
+    (keyword_value)
+    (itab_expression
+      (line_spec
+        (argument_list
+          (positional_argument
+            (identifier))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            (value_expression
+              (keyword_value)
+              (type_identifier)
+              (itab_expression
+                (line_spec
+                  (argument_list
                     (positional_argument
-                        (identifier))))
-            (line_spec
-                (argument_list
+                      (number))))
+                (line_spec
+                  (argument_list
                     (positional_argument
-                        (value_expression
-                            (type_identifier)
-                            (itab_expression
-                                (line_spec
-                                    (argument_list
-                                        (positional_argument
-                                            (number))))
-                                (line_spec
-                                    (argument_list
-                                        (positional_argument
-                                            (number))))
-                                (line_spec
-                                    (argument_list
-                                        (positional_argument
-                                            (number))))))))))))
+                      (number))))
+                (line_spec
+                  (argument_list
+                    (positional_argument
+                      (number))))))))))))
+
 ==================
 Table expression with optional value
 ==================
 value #( itab[ 1 ] OPTIONAL ). 
 ---
+
 (source
-    (value_expression
-        (argument_list
-            (positional_argument
-                (table_expression
-                    (identifier)
-                    (index_read
-                    (number)))))))
+  (value_expression
+    (keyword_value)
+    (argument_list
+      (positional_argument
+        (table_expression
+          (identifier)
+          (index_read
+            (number)))))
+    (keyword_optional)))
+
 ==================
 Table expression with default value
 ==================
 value  #( itab[ 1 ] DEFAULT value #( carrid   = 'XXX' 
                                      carrname = 'xxx' ) ). 
 ---
+
 (source
+  (value_expression
+    (keyword_value)
+    (argument_list
+      (positional_argument
+        (table_expression
+          (identifier)
+          (index_read
+            (number)))))
+    (keyword_default)
     (value_expression
-        (argument_list
-            (positional_argument
-                (table_expression
-                    (identifier)
-                    (index_read
-                        (number)))))
-        (value_expression
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (string_literal))
-                (named_argument
-                    (identifier)
-                    (string_literal))))))
+      (keyword_value)
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal))
+        (named_argument
+          (identifier)
+          (string_literal))))))

@@ -1,4 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js")
+const gen = require("../generators.js")
 
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
      *  https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html
      */
     find_statement: $ => seq(
-        kw("find"),
+        gen.kw("find"),
         $._pattern_spec,
         field("subject", $.subject_spec),
         repeat($.__find_addition),
@@ -47,25 +47,25 @@ module.exports = {
      * `SUBMATCHES s1 s2 ...`
      */
     submatches_spec: $ => prec.right(seq(
-        kw("submatches"),
+        gen.kw("submatches"),
         repeat1($.receiving_expression)
     )),
 
     // `MATCH COUNT cnt`
     match_count_spec: $ => seq(
-        ...kws("match", "count"),
+        ...gen.kws("match", "count"),
         field("target", $.receiving_expression)
     ),
 
     // MATCH OFFSET off
     match_offset_spec: $ => seq(
-        ...kws("match", "offset"),
+        ...gen.kws("match", "offset"),
         field("target", $.receiving_expression)
     ),
 
     // MATCH LENGTH len
     match_length_spec: $ => seq(
-        ...kws("match", "length"),
+        ...gen.kws("match", "length"),
         field("target", $.receiving_expression)
     ),
 }

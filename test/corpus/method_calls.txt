@@ -3,11 +3,14 @@ From new expression
 ==================
 NEW c1( )->m1( ).
 ---
+
 (source
-    (method_call
-        (new_expression
-            (type_identifier))
-        (identifier)))
+  (method_call
+    (new_expression
+      (keyword_new)
+      (type_identifier))
+    (identifier)))
+
 ==================
 Linebreak after opening parenthesis
 ==================
@@ -15,31 +18,36 @@ lx->set_location(
     iv_location = iv_location
     is_node     = is_node ).
 ---
+
 (source
-    (method_call
-        (identifier)
-        (identifier)
-        (call_argument_list
-            (argument_list
-                (named_argument
-                    (identifier)
-                    (identifier))
-                (named_argument
-                    (identifier)
-                    (identifier))))))
+  (method_call
+    (identifier)
+    (identifier)
+    (call_argument_list
+      (argument_list
+        (named_argument
+          (identifier)
+          (identifier))
+        (named_argument
+          (identifier)
+          (identifier))))))
+
 ==================
 From cast expression
 ==================
 CAST cls( iref )->meth1( )->meth2( ).
 ---
+
 (source
+  (method_call
     (method_call
-        (method_call
-            (cast_expression
-                (type_identifier)
-                (identifier))
-            (identifier))
-        (identifier)))
+      (cast_expression
+        (keyword_cast)
+        (type_identifier)
+        (identifier))
+      (identifier))
+    (identifier)))
+
 ==================
 Linebreak after opening parenthesis
 ==================
@@ -47,49 +55,63 @@ lx->set_location(
     iv_location = iv_location
     is_node     = is_node ).
 ---
-    (source
-      (method_call
-        (identifier)
-        (identifier)
-        (call_argument_list
-          (argument_list
-            (named_argument
-              (identifier)
-              (identifier))
-            (named_argument
-              (identifier)
-              (identifier))))))
+
+(source
+  (method_call
+    (identifier)
+    (identifier)
+    (call_argument_list
+      (argument_list
+        (named_argument
+          (identifier)
+          (identifier))
+        (named_argument
+          (identifier)
+          (identifier))))))
+
 ==================
 Call member method dynamic without being dynamic
 ==================
 CALL METHOD meth_name.
 ---
+
 (source
-    (dynamic_method_call
-        method: (dynamic_method_spec
-            (identifier))))
+  (dynamic_method_call
+    (keyword_call)
+    (keyword_method)
+    method: (dynamic_method_spec
+      (identifier))))
+
 ==================
 Dynamic member method specification
 ==================
 CALL METHOD (meth_name).
 ---
+
 (source
-    (dynamic_method_call
-        method: (dynamic_method_spec
-            (dyn_spec
-                name: (identifier)))))
+  (dynamic_method_call
+    (keyword_call)
+    (keyword_method)
+    method: (dynamic_method_spec
+      (dyn_spec
+        name: (identifier)))))
+
 ==================
 Dynamic object method specification
 ==================
 CALL METHOD oref->(meth_name).
 ---
-    (source
-      (dynamic_method_call
-        method: (dynamic_method_spec
-          (object_component_selector
-            ref: (identifier)
-            comp: (dynamic_component
-              name: (identifier))))))
+
+(source
+  (dynamic_method_call
+    (keyword_call)
+    (keyword_method)
+    method: (dynamic_method_spec
+      (object_component_selector
+        ref: (identifier)
+        comp: (dynamic_component
+          name: (identifier))))))
+
 ==================
 Dynamic class method specification
 ==================
@@ -97,26 +119,34 @@ CALL METHOD class=>(meth_name).
 CALL METHOD (class_name)=>(meth_name).
 CALL METHOD (class_name)=>meth.
 ---
-    (source
-      (dynamic_method_call
-        method: (dynamic_method_spec
-          (class_component_selector
-            class: (identifier)
-            comp: (dyn_spec
-              name: (identifier)))))
-      (dynamic_method_call
-        method: (dynamic_method_spec
-          (class_component_selector
-            class: (dyn_spec
-              name: (identifier))
-            comp: (dyn_spec
-              name: (identifier)))))
-      (dynamic_method_call
-        method: (dynamic_method_spec
-          (class_component_selector
-            class: (dyn_spec
-              name: (identifier))
-            comp: (identifier)))))
+
+(source
+  (dynamic_method_call
+    (keyword_call)
+    (keyword_method)
+    method: (dynamic_method_spec
+      (class_component_selector
+        class: (identifier)
+        comp: (dyn_spec
+          name: (identifier)))))
+  (dynamic_method_call
+    (keyword_call)
+    (keyword_method)
+    method: (dynamic_method_spec
+      (class_component_selector
+        class: (dyn_spec
+          name: (identifier))
+        comp: (dyn_spec
+          name: (identifier)))))
+  (dynamic_method_call
+    (keyword_call)
+    (keyword_method)
+    method: (dynamic_method_spec
+      (class_component_selector
+        class: (dyn_spec
+          name: (identifier))
+        comp: (identifier)))))
+
 ==================
 Dynamic method call with arguments
 ==================
@@ -126,20 +156,24 @@ CALL METHOD o_ref->('SHOW')
     RECEIVING
         ret_val = ret.
 ---
-    (source
-      (dynamic_method_call
-        (dynamic_method_spec
-          (object_component_selector
-            (identifier)
-            (dynamic_component
-              (string_literal))))
-        (call_argument_list
-          (argument_list
-            (named_argument
-              (identifier)
-              (string_literal)))
-          (argument_list
-            (named_argument
-              (identifier)
-              (identifier))))))
 
+(source
+  (dynamic_method_call
+    (keyword_call)
+    (keyword_method)
+    (dynamic_method_spec
+      (object_component_selector
+        (identifier)
+        (dynamic_component
+          (string_literal))))
+    (call_argument_list
+      (keyword_exporting)
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal)))
+      (keyword_receiving)
+      (argument_list
+        (named_argument
+          (identifier)
+          (identifier))))))

@@ -3,130 +3,188 @@ Simple corresponding move
 ======
 CORRESPONDING flights( spfli_tab )
 ---
-    (source
-      (corresponding_expression
-        (type_identifier)
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (type_identifier)
+    (identifier)))
+
 ======
 Move exact corresponding
 ======
 CORRESPONDING flights( exact spfli_tab )
 ---
-    (source
-      (corresponding_expression
-        (type_identifier)
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (type_identifier)
+    (keyword_exact)
+    (identifier)))
+
 ======
 Move deep corresponding
 ======
 CORRESPONDING flights( deep spfli_tab )
 ---
-    (source
-      (corresponding_expression
-        (type_identifier)
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (type_identifier)
+    (keyword_deep)
+    (identifier)))
+
 ======
 Move exact deep corresponding
 ======
 CORRESPONDING flights( exact deep spfli_tab )
 ---
-    (source
-      (corresponding_expression
-        (type_identifier)
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (type_identifier)
+    (keyword_exact)
+    (keyword_deep)
+    (identifier)))
+
 ======
 Move corresponding with base
 ======
 CORRESPONDING #( BASE ( struct2 ) struct1 )
 ---
-    (source
-      (corresponding_expression
-        (base_spec
-            (identifier))
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (base_spec
+      (keyword_base)
+      (identifier))
+    (identifier)))
+
 ======
 Move corresponding with appending base
 ======
 CORRESPONDING #( APPENDING ( struc2 ) struc1 )
 CORRESPONDING #( APPENDING BASE ( struc2 ) struc1 )
 ---
-    (source
-      (corresponding_expression
-        (base_spec
-            (identifier))
-        (identifier))
-      (corresponding_expression
-        (base_spec
-            (identifier))
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (base_spec
+      (keyword_appending)
+      (identifier))
+    (identifier))
+  (corresponding_expression
+    (keyword_corresponding)
+    (base_spec
+      (keyword_appending)
+      (keyword_base)
+      (identifier))
+    (identifier)))
+
 ======
 Move corresponding with deep appending base
 ======
 CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 ). 
 CORRESPONDING #( DEEP APPENDING BASE ( struc2 ) struc1 ).
 ---
-    (source
-      (corresponding_expression
-        (base_spec
-            (identifier))
-        (identifier))
-      (corresponding_expression
-        (base_spec
-            (identifier))
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (base_spec
+      (keyword_deep)
+      (keyword_appending)
+      (identifier))
+    (identifier))
+  (corresponding_expression
+    (keyword_corresponding)
+    (base_spec
+      (keyword_deep)
+      (keyword_appending)
+      (keyword_base)
+      (identifier))
+    (identifier)))
+
 ======
 Move corresponding with duplicates discarded
 ======
 CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 discarding duplicates ). 
 ---
-    (source
-      (corresponding_expression
-        (base_spec
-            (identifier))
-        (identifier)))
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (base_spec
+      (keyword_deep)
+      (keyword_appending)
+      (identifier))
+    (identifier)
+    (keyword_discarding)
+    (keyword_duplicates)))
+
 ======
 Corresponding with custom mapping
 ======
 CORRESPONDING itab2( itab MAPPING col1 = table_line )
 ---
-    (source
-      (corresponding_expression
-        (type_identifier)
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (type_identifier)
+    (identifier)
+    (corresponding_mapping_list
+      (keyword_mapping)
+      (corresponding_mapping
         (identifier)
-        (corresponding_mapping_list
-          (corresponding_mapping
-            (identifier)
-            (identifier)))))
+        (identifier)))))
+
 ======
 Corresponding with default mapping
 ======
 CORRESPONDING itab2( itab MAPPING col1 = default 10 )
 ---
-    (source
-      (corresponding_expression
-        (type_identifier)
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (type_identifier)
+    (identifier)
+    (corresponding_mapping_list
+      (keyword_mapping)
+      (corresponding_mapping
         (identifier)
-        (corresponding_mapping_list
-          (corresponding_mapping
-            (identifier)
-            (number)))))
+        (keyword_default)
+        (number)))))
+
 ======
 Corresponding with exception field list
 ======
 CORRESPONDING #( struct1 EXCEPT col2 col3 ).
 CORRESPONDING #( struct1 EXCEPT * ).
 ---
-    (source
-      (corresponding_expression
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (identifier)
+    (corresponding_mapping_list
+      (corresponding_exception_list
+        (keyword_except)
         (identifier)
-        (corresponding_mapping_list
-          (corresponding_exception_list
-            (identifier)
-            (identifier))))
-      (corresponding_expression
-        (identifier)
-        (corresponding_mapping_list
-          (corresponding_exception_list))))
+        (identifier))))
+  (corresponding_expression
+    (keyword_corresponding)
+    (identifier)
+    (corresponding_mapping_list
+      (corresponding_exception_list
+        (keyword_except)))))
+
 ======
 Corresponding mapping with multiple sub-levels
 ======
@@ -135,46 +193,61 @@ CORRESPONDING #( str_deep1 mapping
                 ( titi = itab mapping d = c except * ) 
                 pmoc = comp except *  ).
 ---
-    (source
-      (corresponding_expression
-        (identifier)
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (identifier)
+    (corresponding_mapping_list
+      (keyword_mapping)
+      (corresponding_submapping
+        (corresponding_mapping
+          (identifier)
+          (identifier)
+          (keyword_discarding)
+          (keyword_duplicates))
         (corresponding_mapping_list
-          (corresponding_submapping
-            (corresponding_mapping
-              (identifier)
-              (identifier))
-            (corresponding_mapping_list
-              (corresponding_mapping
-                (identifier)
-                (identifier))
-              (corresponding_exception_list)))
-          (corresponding_submapping
-            (corresponding_mapping
-              (identifier)
-              (identifier))
-            (corresponding_mapping_list
-              (corresponding_mapping
-                (identifier)
-                (identifier))
-              (corresponding_exception_list)))
+          (keyword_mapping)
           (corresponding_mapping
             (identifier)
             (identifier))
-          (corresponding_exception_list))))
+          (corresponding_exception_list
+            (keyword_except))))
+      (corresponding_submapping
+        (corresponding_mapping
+          (identifier)
+          (identifier))
+        (corresponding_mapping_list
+          (keyword_mapping)
+          (corresponding_mapping
+            (identifier)
+            (identifier))
+          (corresponding_exception_list
+            (keyword_except))))
+      (corresponding_mapping
+        (identifier)
+        (identifier))
+      (corresponding_exception_list
+        (keyword_except)))))
+
 ======
 Corresponding from lookup table form
 ======
 CORRESPONDING itab1( itab1 FROM itab2 USING value = value cmt = cmt ). 
 ---
-    (source
-      (corresponding_expression
-        (type_identifier)
+
+(source
+  (corresponding_expression
+    (keyword_corresponding)
+    (type_identifier)
+    (identifier)
+    (keyword_from)
+    (identifier)
+    (keyword_using)
+    (lookup_table_mapping_list
+      (lookup_table_mapping
         (identifier)
+        (identifier))
+      (lookup_table_mapping
         (identifier)
-        (lookup_table_mapping_list
-          (lookup_table_mapping
-            (identifier)
-            (identifier))
-          (lookup_table_mapping
-            (identifier)
-            (identifier)))))
+        (identifier)))))

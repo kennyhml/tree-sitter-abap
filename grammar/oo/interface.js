@@ -1,5 +1,4 @@
-const { kw } = require('../helpers/keywords.js')
-const { chainable } = require('../helpers/decl_gen.js')
+const gen = require("../core/generators.js")
 
 module.exports = {
 
@@ -9,16 +8,16 @@ module.exports = {
         $.interfaces_declaration,
     ),
 
-    interfaces_declaration: $ => chainable("interfaces", $.identifier),
+    interfaces_declaration: $ => gen.chainable("interfaces", $.identifier),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE.html
     interface_definition: $ => seq(
-        kw("interface"),
+        gen.kw("interface"),
         field("name", $.identifier),
         optional($.public_spec),
         ".",
         optional($.interface_body),
-        kw("endinterface"), "."
+        gen.kw("endinterface"), "."
     ),
 
     // no public / protected / private sections in interfaces, all public.
@@ -28,9 +27,9 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
     deferred_interface_definition: $ => seq(
-        kw("interface"),
+        gen.kw("interface"),
         field("name", $.identifier),
-        kw("deferred"),
+        gen.kw("deferred"),
         optional($.public_spec),
         "."
     ),

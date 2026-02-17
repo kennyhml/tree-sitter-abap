@@ -1,9 +1,8 @@
-const { chainable } = require("../helpers/decl_gen.js");
-const { kws } = require("../helpers/keywords.js");
+const gen = require("../core/generators.js")
 
 module.exports = {
 
-    parameters_declaration: $ => chainable(
+    parameters_declaration: $ => gen.chainable(
         "parameters", $.parameters_spec
     ),
 
@@ -43,14 +42,14 @@ module.exports = {
     ),
 
     radiobutton_spec: $ => seq(
-        ...kws("radiobutton", "group"),
+        ...gen.kws("radiobutton", "group"),
         field("group", $.identifier),
     ),
 
-    checkbox_spec: _ => seq(...kws("as", "checkbox")),
+    checkbox_spec: _ => seq(...gen.kws("as", "checkbox")),
 
-    value_check_spec: _ => seq(...kws("value", "check")),
+    value_check_spec: _ => seq(...gen.kws("value", "check")),
 
-    listbox_spec: _ => seq(...kws("as", "listbox")),
+    listbox_spec: _ => seq(...gen.kws("as", "listbox")),
 
 }
