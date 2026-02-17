@@ -1,4 +1,4 @@
-const { kw } = require("../../helpers/keywords.js");
+const gen = require("../generators.js")
 
 
 module.exports = {
@@ -12,15 +12,15 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDO.html
      */
     do_statement: $ => seq(
-        kw("do"),
+        gen.kw("do"),
         optional(field("times", $.times_spec)),
         ".",
         optional(field("body", $.statement_block)),
-        kw("enddo"), "."
+        gen.kw("enddo"), "."
     ),
 
     times_spec: $ => seq(
         field("repetitions", $.numeric_expression),
-        kw("times")
+        gen.kw("times")
     )
 }

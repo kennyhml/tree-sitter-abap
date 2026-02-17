@@ -1,4 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js")
+const gen = require("../generators.js")
 
 
 module.exports = {
@@ -9,11 +9,11 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONDENSE.html
      */
     condense_statement: $ => seq(
-        kw("condense"),
+        gen.kw("condense"),
         field("text", $.data_object),
         optional($.no_gaps_spec),
         "."
     ),
 
-    no_gaps_spec: _ => kw("no-gaps"),
+    no_gaps_spec: _ => gen.kw("no-gaps"),
 }

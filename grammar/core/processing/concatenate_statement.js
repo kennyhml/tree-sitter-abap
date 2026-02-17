@@ -1,5 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js")
-
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -13,17 +12,17 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html
      */
     concatenate_statement: $ => seq(
-        kw("concatenate"),
+        gen.kw("concatenate"),
         field("subject", $.__concat_subject_spec),
         field("result", $.__concat_result_spec),
         repeat(choice($.__concat_addition)),
         "."
     ),
 
-    respecting_blanks_spec: _ => seq(...kws("respecting", "blanks")),
+    respecting_blanks_spec: _ => seq(...gen.kws("respecting", "blanks")),
 
     separated_by_spec: $ => seq(
-        ...kws("separated", "by"),
+        ...gen.kws("separated", "by"),
         field("separator", $.character_like_expression)
     ),
 
@@ -42,7 +41,7 @@ module.exports = {
     ),
 
     __concat_result_spec: $ => alias(seq(
-        kw("into"),
+        gen.kw("into"),
         field("target", $.receiving_expression)
     ), $.result_spec),
 }

@@ -1,16 +1,15 @@
-const { chainable } = require("../helpers/decl_gen.js");
-const { kw, kws } = require("../helpers/keywords.js");
+const gen = require("../core/generators.js")
 
 module.exports = {
 
-    select_options_declaration: $ => chainable(
+    select_options_declaration: $ => gen.chainable(
         "select-options", $.select_options_spec
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT-OPTIONS.html
     select_options_spec: $ => seq(
         field("name", $.identifier),
-        kw("for"),
+        gen.kw("for"),
         field("for", choice(
             $.dyn_spec,
             $.named_data_object
@@ -44,13 +43,13 @@ module.exports = {
     ),
 
     default_range_spec: $ => seq(
-        kw("default"),
+        gen.kw("default"),
         field("low", $.data_object),
         repeat1(
             choice(
-                seq(kw("to"), field("high", $.data_object)),
-                seq(kw("option"), field("option", $._comparison_operator)),
-                seq(kw("sign"), field("sign", choice(...kws("i", "e")))),
+                seq(gen.kw("to"), field("high", $.data_object)),
+                seq(gen.kw("option"), field("option", $._comparison_operator)),
+                seq(gen.kw("sign"), field("sign", choice(...gen.kws("i", "e")))),
             )
         )
     ),

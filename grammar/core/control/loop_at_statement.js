@@ -1,4 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js");
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -17,7 +17,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_VARIANTS.html
      */
     loop_at_statement: $ => seq(
-        ...kws("loop", "at"),
+        ...gen.kws("loop", "at"),
         field("subject", $.functional_expression),
         repeat(choice(
             field("result", $.__loop_at_result),
@@ -27,7 +27,7 @@ module.exports = {
         optional(field("grouping", $.group_by_spec)),
         ".",
         optional(field("body", $.loop_at_body)),
-        kw("endloop"), ".",
+        gen.kw("endloop"), ".",
     ),
 
     /**
@@ -39,7 +39,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_GROUP.html
      */
     loop_at_group_statement: $ => seq(
-        ...kws("loop", "at", "group"),
+        ...gen.kws("loop", "at", "group"),
         field("subject", $.named_data_object),
         repeat(choice(
             field("result", $.__loop_at_result),
@@ -49,7 +49,7 @@ module.exports = {
         optional(field("grouping", $.group_by_spec)),
         ".",
         optional(field("body", alias($.statement_block, $.loop_at_body))),
-        kw("endloop"),
+        gen.kw("endloop"),
         "."
     ),
 
@@ -73,9 +73,9 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
      */
     at_first_statement: $ => seq(
-        ...kws("at", "first"), ".",
+        ...gen.kws("at", "first"), ".",
         optional(field("body", alias($.statement_block, $.body))),
-        kw("endat"), "."
+        gen.kw("endat"), "."
     ),
 
     /**
@@ -88,10 +88,10 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
      */
     at_new_statement: $ => seq(
-        ...kws("at", "new"),
+        ...gen.kws("at", "new"),
         field("component", $.itab_comp), ".",
         optional(field("body", alias($.statement_block, $.body))),
-        kw("endat"), "."
+        gen.kw("endat"), "."
     ),
 
     /**
@@ -104,10 +104,10 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
      */
     at_end_of_statement: $ => seq(
-        ...kws("at", "end", "of"),
+        ...gen.kws("at", "end", "of"),
         field("component", $.itab_comp), ".",
         optional(field("body", alias($.statement_block, $.body))),
-        kw("endat"), "."
+        gen.kw("endat"), "."
     ),
 
     /**
@@ -120,9 +120,9 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
      */
     at_last_statement: $ => seq(
-        ...kws("at", "last"), ".",
+        ...gen.kws("at", "last"), ".",
         optional(field("body", alias($.statement_block, $.body))),
-        kw("endat"), "."
+        gen.kw("endat"), "."
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html

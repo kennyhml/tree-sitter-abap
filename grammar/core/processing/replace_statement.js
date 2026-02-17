@@ -1,4 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js")
+const gen = require("../generators.js")
 
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_IN_PATTERN.html
      */
     __pattern_based_replacement: $ => seq(
-        kw("replace"),
+        gen.kw("replace"),
         $._pattern_spec,
         field("subject", $.subject_spec),
         field("substitute", alias($.__replace_substitute_spec, $.subject_spec)),
@@ -33,7 +33,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_IN_POSITION.html
      */
     __position_based_replacement: $ => seq(
-        kw("replace"),
+        gen.kw("replace"),
         field("subject", $.subject_spec),
         field("substitute", alias($.__replace_substitute_spec, $.subject_spec)),
         optional($.string_processing_spec),
@@ -41,7 +41,7 @@ module.exports = {
     ),
 
     __replace_substitute_spec: $ => seq(
-        kw("with"),
+        gen.kw("with"),
         field("value", $.data_object),
     ),
 
@@ -60,21 +60,21 @@ module.exports = {
 
     // `replacement COUNT cnt`
     replacement_count_spec: $ => seq(
-        ...kws("replacement", "count"),
+        ...gen.kws("replacement", "count"),
         field("target", $.receiving_expression)
     ),
 
     // replacement OFFSET off
     replacement_offset_spec: $ => seq(
-        ...kws("replacement", "offset"),
+        ...gen.kws("replacement", "offset"),
         field("target", $.receiving_expression)
     ),
 
     // replacement LENGTH len
     replacement_length_spec: $ => seq(
-        ...kws("replacement", "length"),
+        ...gen.kws("replacement", "length"),
         field("target", $.receiving_expression)
     ),
 
-    verbatim_spec: _ => kw("verbatim"),
+    verbatim_spec: _ => gen.kw("verbatim"),
 }

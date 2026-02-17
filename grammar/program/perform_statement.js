@@ -1,4 +1,4 @@
-const { kw, kws } = require('../helpers/keywords.js')
+const gen = require("../core/generators.js")
 
 module.exports = {
 
@@ -7,15 +7,15 @@ module.exports = {
      */
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_OBSOLETE.html
     perform_statement: $ => seq(
-        kw("perform"),
+        gen.kw("perform"),
         field("routine", $.subroutine_spec),
         repeat(
             choice(
                 $.perform_on_commit_spec,
                 $.perform_on_rollback_spec,
-                args("tables", $._positional_argument_list),
-                args("using", $._positional_argument_list),
-                args("changing", $._positional_argument_list)
+                gen.kw_tagged("tables", $._positional_argument_list),
+                gen.kw_tagged("using", $._positional_argument_list),
+                gen.kw_tagged("changing", $._positional_argument_list)
             )
         ),
         "."
@@ -38,23 +38,23 @@ module.exports = {
     ),
 
     // ... ON ROLLBACK  ...
-    perform_on_rollback_spec: _ => seq(...kws("on", "rollback")),
+    perform_on_rollback_spec: _ => seq(...gen.kws("on", "rollback")),
 
     // ... ON {COMMIT [LEVEL idx]} ...
     perform_on_commit_spec: $ => seq(
-        ...kws("on", "commit"),
+        ...gen.kws("on", "commit"),
         optional(field("commit_level", $.commit_level_spec))
     ),
 
     // LEVEL idx
     commit_level_spec: $ => seq(
-        kw("level"),
+        gen.kw("level"),
         field("level", $.data_object)
     ),
 
     // IN PROGRAM {prog|(pname)} 
     in_program_spec: $ => seq(
-        ...kws("in", "program"),
+        ...gen.kws("in", "program"),
         field("name", $.__dyn_or_explicit_spec),
     ),
 
@@ -77,7 +77,7 @@ module.exports = {
     // PERFORM n OF subr1 subr2
     __index_subroutine_spec: $ => seq(
         field("index", $.data_object),
-        kw("of"),
+        gen.kw("of"),
         field("subroutines", $.subroutine_list)
     ),
 
@@ -85,8 +85,4 @@ module.exports = {
         $.identifier,
         $.dyn_spec
     ),
-}
-
-function args(keyword, rule) {
-    return field(keyword.replace("-", "_"), seq(kw(keyword), rule));
 }

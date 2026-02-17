@@ -6,9 +6,11 @@ FIND 'a' in str.
 
 (source
   (find_statement
+    (keyword_find)
     (substring_spec
       (string_literal))
     (subject_spec
+      (keyword_in)
       (identifier))))
 
 ========
@@ -19,10 +21,15 @@ FIND FIRST OCCURRENCE OF 'a' in str.
 
 (source
   (find_statement
+    (keyword_find)
     (first_occurrence_of_pattern_spec
+      (keyword_first)
+      (keyword_occurrence)
+      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
+      (keyword_in)
       (identifier))))
 
 ========
@@ -33,10 +40,15 @@ FIND ALL OCCURRENCES OF 'a' in str.
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
+      (keyword_in)
       (identifier))))
 
 ========
@@ -48,15 +60,24 @@ FIND ALL OCCURRENCES OF foo
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       pattern: (substring_spec
         value: (identifier)))
     subject: (subject_spec
+      (keyword_in)
       (section_spec
+        (keyword_section)
         offset: (section_offset_spec
+          (keyword_offset)
           amount: (number))
         length: (section_length_spec
-          amount: (number)))
+          (keyword_length)
+          amount: (number))
+        (keyword_of))
       data_object: (identifier))))
 
 ========
@@ -67,12 +88,20 @@ FIND ALL OCCURRENCES OF lv_xvar IN xstr IN BYTE MODE.
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       (substring_spec
         (identifier)))
     (subject_spec
+      (keyword_in)
       (identifier))
-    (string_processing_spec)))
+    (string_processing_spec
+      (keyword_in)
+      (keyword_byte)
+      (keyword_mode))))
 
 ========
 Find in character mode
@@ -82,12 +111,20 @@ FIND ALL OCCURRENCES OF substr IN str IN CHARACTER MODE.
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       (substring_spec
         (identifier)))
     (subject_spec
+      (keyword_in)
       (identifier))
-    (string_processing_spec)))
+    (string_processing_spec
+      (keyword_in)
+      (keyword_character)
+      (keyword_mode))))
 
 ========
 Find respecting case
@@ -97,12 +134,20 @@ FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str RESPECTING CASE.
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       (pcre_spec
+        (keyword_pcre)
         (string_literal)))
     (subject_spec
+      (keyword_in)
       (identifier))
-    (case_sensitivity_spec)))
+    (case_sensitivity_spec
+      (keyword_respecting)
+      (keyword_case))))
 
 ========
 Find ignoring case
@@ -112,12 +157,20 @@ FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str IGNORING CASE.
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       (pcre_spec
+        (keyword_pcre)
         (string_literal)))
     (subject_spec
+      (keyword_in)
       (identifier))
-    (case_sensitivity_spec)))
+    (case_sensitivity_spec
+      (keyword_ignoring)
+      (keyword_case))))
 
 ========
 Find options meta information
@@ -130,19 +183,33 @@ FIND ALL OCCURRENCES OF 'know' IN text1
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
+      (keyword_in)
       (identifier))
     (match_count_spec
+      (keyword_match)
+      (keyword_count)
       (declaration_expression
+        (keyword_data)
         (identifier)))
     (match_offset_spec
+      (keyword_match)
+      (keyword_offset)
       (declaration_expression
+        (keyword_data)
         (identifier)))
     (match_length_spec
+      (keyword_match)
+      (keyword_length)
       (declaration_expression
+        (keyword_data)
         (identifier)))))
 
 ========
@@ -155,14 +222,23 @@ FIND ALL OCCURRENCES OF `d` IN str
 
 (source
   (find_statement
+    (keyword_find)
     (all_occurrences_of_pattern_spec
+      (keyword_all)
+      (keyword_occurrences)
+      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
+      (keyword_in)
       (identifier))
-    (case_sensitivity_spec)
+    (case_sensitivity_spec
+      (keyword_ignoring)
+      (keyword_case))
     (statement_results_spec
+      (keyword_results)
       (declaration_expression
+        (keyword_final)
         (identifier)))))
 
 ========
@@ -178,19 +254,33 @@ FIND PCRE `(\w+)\W+\1\W+(\w+)\W+\2`
 
 (source
   (find_statement
+    (keyword_find)
     (pcre_spec
+      (keyword_pcre)
       (string_literal))
     (subject_spec
+      (keyword_in)
       (identifier))
-    (case_sensitivity_spec)
+    (case_sensitivity_spec
+      (keyword_ignoring)
+      (keyword_case))
     (match_offset_spec
+      (keyword_match)
+      (keyword_offset)
       (declaration_expression
+        (keyword_final)
         (identifier)))
     (match_length_spec
+      (keyword_match)
+      (keyword_length)
       (declaration_expression
+        (keyword_final)
         (identifier)))
     (submatches_spec
+      (keyword_submatches)
       (declaration_expression
+        (keyword_final)
         (identifier))
       (declaration_expression
+        (keyword_final)
         (identifier)))))

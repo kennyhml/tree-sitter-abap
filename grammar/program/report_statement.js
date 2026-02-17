@@ -1,4 +1,4 @@
-const { kw, kws } = require('../helpers/keywords.js')
+const gen = require("../core/generators.js")
 
 module.exports = {
 
@@ -11,7 +11,7 @@ module.exports = {
      * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
      */
     report_statement: $ => seq(
-        kw("report"),
+        gen.kw("report"),
         field("name", $.identifier),
         repeat($.__report_statement_addition),
         "."
@@ -26,22 +26,22 @@ module.exports = {
         $.default_message_class_spec
     ),
 
-    reduced_functionality_spec: $ => seq(...kws("reduced", "functionality")),
+    reduced_functionality_spec: $ => seq(...gen.kws("reduced", "functionality")),
 
-    no_standard_page_heading_spec: $ => seq(...kws("no", "standard", "page", "heading")),
+    no_standard_page_heading_spec: $ => seq(...gen.kws("no", "standard", "page", "heading")),
 
     defining_database_spec: $ => seq(
-        ...kws("defining", "database"),
+        ...gen.kws("defining", "database"),
         field("logical_database", $.identifier)
     ),
 
     line_size_spec: $ => seq(
-        kw("line-size"),
+        gen.kw("line-size"),
         field("size", $.number)
     ),
 
     line_count_spec: $ => seq(
-        kw("line-count"),
+        gen.kw("line-count"),
         field("page_lines", $.number),
         token.immediate("("),
         field("footer_lines", $._immediate_number),
@@ -49,7 +49,7 @@ module.exports = {
     ),
 
     default_message_class_spec: $ => seq(
-        kw("message-id"),
+        gen.kw("message-id"),
         field("id", $.identifier)
     ),
 }

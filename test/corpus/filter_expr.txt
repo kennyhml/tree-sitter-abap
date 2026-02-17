@@ -6,7 +6,9 @@ FILTER #( messages WHERE sprsl = 'D' )
 
 (source
   (filter_expression
+    (keyword_filter)
     (identifier)
+    (keyword_where)
     (comparison_expression
       (identifier)
       (string_literal))))
@@ -19,7 +21,10 @@ FILTER #( messages except WHERE sprsl = 'D' )
 
 (source
   (filter_expression
+    (keyword_filter)
     (identifier)
+    (keyword_except)
+    (keyword_where)
     (comparison_expression
       (identifier)
       (string_literal))))
@@ -34,21 +39,29 @@ FILTER #( spfli_tab EXCEPT USING KEY carr_city
 
 (source
   (filter_expression
+    (keyword_filter)
     (identifier)
+    (keyword_except)
     (using_key_spec
+      (keyword_using)
+      (keyword_key)
       (identifier))
+    (keyword_where)
     (logical_expression
       (comparison_expression
         (identifier)
         (conv_expression
+          (keyword_conv)
           (builtin_function_call
             (identifier)
             (call_argument_list
               (positional_argument
                 (identifier))))))
+      (keyword_and)
       (comparison_expression
         (identifier)
         (conv_expression
+          (keyword_conv)
           (builtin_function_call
             (identifier)
             (call_argument_list
@@ -63,9 +76,12 @@ FILTER #( carriers IN filter WHERE carrid = table_line )
 
 (source
   (filter_expression
+    (keyword_filter)
     (identifier)
     (filter_tab_spec
+      (keyword_in)
       (identifier))
+    (keyword_where)
     (comparison_expression
       (identifier)
       (identifier))))
@@ -78,11 +94,16 @@ FILTER #( carriers using key foo IN filter WHERE carrid = table_line )
 
 (source
   (filter_expression
+    (keyword_filter)
     (identifier)
     (using_key_spec
+      (keyword_using)
+      (keyword_key)
       (identifier))
     (filter_tab_spec
+      (keyword_in)
       (identifier))
+    (keyword_where)
     (comparison_expression
       (identifier)
       (identifier))))
@@ -95,11 +116,16 @@ FILTER #( carriers IN filter using key bar WHERE carrid = table_line )
 
 (source
   (filter_expression
+    (keyword_filter)
     (identifier)
     (filter_tab_spec
+      (keyword_in)
       (identifier)
       (using_key_spec
+        (keyword_using)
+        (keyword_key)
         (identifier)))
+    (keyword_where)
     (comparison_expression
       (identifier)
       (identifier))))

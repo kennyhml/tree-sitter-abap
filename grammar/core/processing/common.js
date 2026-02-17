@@ -1,4 +1,4 @@
-const { kw, kws } = require("../../helpers/keywords.js")
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -8,9 +8,9 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_STATEMENTS.html
      */
     string_processing_spec: _ => seq(
-        kw("in"),
-        field("mode", choice(...kws("character", "byte"))),
-        kw("mode")
+        gen.kw("in"),
+        field("mode", choice(...gen.kws("character", "byte"))),
+        gen.kw("mode")
     ),
 
 
@@ -21,7 +21,7 @@ module.exports = {
     ),
 
     subject_spec: $ => seq(
-        kw("in"),
+        gen.kw("in"),
         optional($.section_spec),
         field("data_object", $.data_object)
     ),
@@ -32,7 +32,7 @@ module.exports = {
      * Used in {@link find_statement} and {@link replace_statement}
      */
     first_occurrence_of_pattern_spec: $ => seq(
-        ...kws("first", "occurrence", "of"),
+        ...gen.kws("first", "occurrence", "of"),
         field("pattern", $.__pattern)
     ),
 
@@ -42,7 +42,7 @@ module.exports = {
      * Used in {@link find_statement} and {@link replace_statement}
      */
     all_occurrences_of_pattern_spec: $ => seq(
-        ...kws("all", "occurrences", "of"),
+        ...gen.kws("all", "occurrences", "of"),
         field("pattern", $.__pattern)
     ),
 
@@ -53,20 +53,20 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND_SECTION_OF.html
      */
     section_spec: $ => seq(
-        kw("section"),
+        gen.kw("section"),
         repeat(choice(
             field("offset", $.section_offset_spec),
             field("length", $.section_length_spec),
         )),
-        kw("of"),
+        gen.kw("of"),
     ),
 
     section_offset_spec: $ => seq(
-        kw("offset"), field("amount", $.numeric_expression)
+        gen.kw("offset"), field("amount", $.numeric_expression)
     ),
 
     section_length_spec: $ => seq(
-        kw("length"), field("amount", $.numeric_expression)
+        gen.kw("length"), field("amount", $.numeric_expression)
     ),
 
     /**
@@ -79,9 +79,9 @@ module.exports = {
         $.regex_spec,
     ),
 
-    substring_spec: $ => seq(optional(kw("substring")), field("value", $.data_object)),
-    pcre_spec: $ => seq(kw("pcre"), field("value", $.data_object)),
-    regex_spec: $ => seq(kw("regex"), field("value", $.data_object)),
+    substring_spec: $ => seq(optional(gen.kw("substring")), field("value", $.data_object)),
+    pcre_spec: $ => seq(gen.kw("pcre"), field("value", $.data_object)),
+    regex_spec: $ => seq(gen.kw("regex"), field("value", $.data_object)),
 
     /**
      * Specification of a case sensitivity in various string operations.
@@ -89,8 +89,8 @@ module.exports = {
      * `RESPECTING/IGNORING CASE`
      */
     case_sensitivity_spec: _ => seq(
-        field("case", choice(...kws("respecting", "ignoring"))),
-        kw("case")
+        field("case", choice(...gen.kws("respecting", "ignoring"))),
+        gen.kw("case")
     ),
 
     /**
@@ -99,7 +99,7 @@ module.exports = {
      * RESULTS result_tab|result_wa
      */
     statement_results_spec: $ => seq(
-        kw("results"),
+        gen.kw("results"),
         field("target", $.receiving_expression)
     ),
 

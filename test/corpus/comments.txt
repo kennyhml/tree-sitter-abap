@@ -3,14 +3,19 @@ Line commennt
 ======
 * This is a line comment
 ---
+
 (source
-    (line_comment))
+  (line_comment))
+
 ======
 Faulty line comment
 :error
 ======
  * This is not a  line comment but an error
 ---
+
+
+
 ======
 Multi line comment
 ======
@@ -18,8 +23,10 @@ Multi line comment
 * This is the second line
 * This is the third line
 ---
+
 (source
-    (multi_line_comment))
+  (multi_line_comment))
+
 ======
 Seperate line comments
 ======
@@ -30,19 +37,23 @@ Seperate line comments
 
 * This is the third line
 ---
+
 (source
-    (line_comment)
-    (line_comment)
-    (line_comment))
+  (line_comment)
+  (line_comment)
+  (line_comment))
+
 ======
 Inline comment
 ======
 " This is an inline comment
     " This is an indented inline comment """"
 ---
+
 (source
-    (inline_comment)
-    (inline_comment))
+  (inline_comment)
+  (inline_comment))
+
 ======
 Mixed comments
 ======
@@ -51,44 +62,51 @@ Mixed comments
 *&And continues with another line comment
 suddenly_there_is = another_inline_comment. " and thats where it ends
 ---
+
 (source
-    (line_comment)
-    (inline_comment)
-    (line_comment)
-    (assignment
-        (identifier)
-        (identifier))
-        (inline_comment))
+  (line_comment)
+  (inline_comment)
+  (line_comment)
+  (assignment
+    (identifier)
+    (identifier))
+  (inline_comment))
+
 ======
 Pseudo comment
 ======
 foo = 10 + 20. "#EC CI_BUFFJOIN 
 ---
+
 (source
-    (assignment
-        (identifier)
-        (binary_operator
-            (number)
-            (number)))
-    (pseudo_comment
-        (kind)
-        (code)))
+  (assignment
+    (identifier)
+    (binary_operator
+      (number)
+      (number)))
+  (pseudo_comment
+    (kind)
+    (code)))
+
 ======
 Pragma
 ======
 DATA TEXT TYPE STRING   ##needed. 
 text  = 'Hello Pragmas' ##no_text.
 ---
+
 (source
-    (data_declaration
-        (data_spec
-            (identifier)
-            (builtin_type_spec
-            (type_identifier)))
-        (pragma
-            (code)))
-    (assignment
-        (identifier)
-        (string_literal)
-        (pragma
-            (code))))
+  (data_declaration
+    (keyword_data)
+    (data_spec
+      (identifier)
+      (builtin_type_spec
+        (keyword_type)
+        (type_identifier)))
+    (pragma
+      (code)))
+  (assignment
+    (identifier)
+    (string_literal)
+    (pragma
+      (code))))

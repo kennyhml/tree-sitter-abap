@@ -5,136 +5,156 @@ itab[ 1 ].
 itab[ idx ].
 itab[ lines( itab ) ].
 ---
+
 (source
-    (table_expression
+  (table_expression
+    (identifier)
+    (index_read
+      (number)))
+  (table_expression
+    (identifier)
+    (index_read
+      (identifier)))
+  (table_expression
+    (identifier)
+    (index_read
+      (builtin_function_call
         (identifier)
-        (index_read
-            (number)))
-    (table_expression
-        (identifier)
-        (index_read
-            (identifier)))
-    (table_expression
-        (identifier)
-        (index_read
-          (builtin_function_call
-            (identifier)
-            (call_argument_list
-                (positional_argument
-                  (identifier)))))))
+        (call_argument_list
+          (positional_argument
+            (identifier)))))))
+
 ==================
 Simple free key read
 ==================
 itab[ carrid = 'AAA' ]
 ---
+
 (source
-    (table_expression
-        (identifier)
-        (search_key_read
-            (search_key_components
-                (itab_comp_spec
-                    (identifier)
-                    (string_literal))))))
+  (table_expression
+    (identifier)
+    (search_key_read
+      (search_key_components
+        (itab_comp_spec
+          (identifier)
+          (string_literal))))))
+
 ==================
 Simple table key read
 ==================
 itab[ key my_awesome_key connid = zclass=>get_connid( ) ]
 itab[ key my_awesome_key components connid = zclass=>get_connid( ) ]
 ---
-    (source
-      (table_expression
-        (identifier)
-        (search_key_read
-            (read_key_spec
-                (identifier))
-            (search_key_components
-                (itab_comp_spec
-                    (identifier)
-                    (method_call
-                        (identifier)
-                        (identifier))))))
-      (table_expression
-        (identifier)
-        (search_key_read
-            (read_key_spec
-                (identifier))
-            (search_key_components
-                (itab_comp_spec
-                    (identifier)
-                    (method_call
-                        (identifier)
-                        (identifier)))))))
+
+(source
+  (table_expression
+    (identifier)
+    (search_key_read
+      (read_key_spec
+        (keyword_key)
+        (identifier))
+      (search_key_components
+        (itab_comp_spec
+          (identifier)
+          (method_call
+            (identifier)
+            (identifier))))))
+  (table_expression
+    (identifier)
+    (search_key_read
+      (read_key_spec
+        (keyword_key)
+        (identifier))
+      (keyword_components)
+      (search_key_components
+        (itab_comp_spec
+          (identifier)
+          (method_call
+            (identifier)
+            (identifier)))))))
+
 ==================
 Secondary index read
 ==================
 itab[ key secondary_key index 15 ].
 ---
+
 (source
-    (table_expression
-        (identifier)
-        (index_read
-            (read_key_spec
-                (identifier))
-            (number))))
+  (table_expression
+    (identifier)
+    (index_read
+      (read_key_spec
+        (keyword_key)
+        (identifier))
+      (keyword_index)
+      (number))))
+
 ==================
 Search key sub-component read
 ==================
 itab[ foo-bar = obj->meth( ) ].
 ---
+
 (source
-    (table_expression
-        (identifier)
-        (search_key_read
-            (search_key_components
-                (itab_comp_spec
-                    (struct_component_selector
-                        (identifier)
-                        (identifier))
-                    (method_call
-                        (identifier)
-                        (identifier)))))))
+  (table_expression
+    (identifier)
+    (search_key_read
+      (search_key_components
+        (itab_comp_spec
+          (struct_component_selector
+            (identifier)
+            (identifier))
+          (method_call
+            (identifier)
+            (identifier)))))))
+
 ==================
 Search key object attr read
 ==================
 itab[ foo->attr = 'A' ].
 ---
+
 (source
-    (table_expression
-        (identifier)
-        (search_key_read
-            (search_key_components
-                (itab_comp_spec
-                    (object_component_selector
-                        (identifier)
-                        (identifier))
-                    (string_literal))))))
+  (table_expression
+    (identifier)
+    (search_key_read
+      (search_key_components
+        (itab_comp_spec
+          (object_component_selector
+            (identifier)
+            (identifier))
+          (string_literal))))))
+
 ==================
 Search key dynamic comp read
 ==================
 itab[ (comp) = 999 ].
 ---
+
 (source
-    (table_expression
-        (identifier)
-        (search_key_read
-            (search_key_components
-                (itab_comp_spec
-                    (dynamic_itab_comp
-                        (identifier))
-                    (number))))))
+  (table_expression
+    (identifier)
+    (search_key_read
+      (search_key_components
+        (itab_comp_spec
+          (dynamic_itab_comp
+            (identifier))
+          (number))))))
+
 ==================
 Search key substring access read
 ==================
 itab[ field1+off(5) = 'AABBC' ].
 ---
+
 (source
-    (table_expression
-        (identifier)
-        (search_key_read
-            (search_key_components
-                (itab_comp_spec
-                    (substring_access
-                        (identifier)
-                        (identifier)
-                        (number))
-                    (string_literal))))))
+  (table_expression
+    (identifier)
+    (search_key_read
+      (search_key_components
+        (itab_comp_spec
+          (substring_access
+            (identifier)
+            (identifier)
+            (number))
+          (string_literal))))))

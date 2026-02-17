@@ -6,6 +6,8 @@ CALL FUNCTION 'Z_MY_FUNCTION'.
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)))
 
 ======
@@ -22,16 +24,21 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
     (call_argument_list
+      (keyword_exporting)
       exporting: (argument_list
         (named_argument
           name: (identifier)
           value: (string_literal)))
+      (keyword_importing)
       importing: (argument_list
         (named_argument
           name: (identifier)
           value: (identifier)))
+      (keyword_exceptions)
       exceptions: (argument_list
         (exception_mapping
           name: (identifier)
@@ -47,9 +54,13 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
     (call_argument_list
+      (keyword_parameter_table)
       parameter_table: (identifier)
+      (keyword_exception_table)
       exception_table: (identifier))))
 
 ======
@@ -63,9 +74,13 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
+    (keyword_destination)
     destination: (string_literal)
     (call_argument_list
+      (keyword_exporting)
       exporting: (argument_list
         (named_argument
           name: (identifier)
@@ -90,17 +105,25 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
+    (keyword_in)
+    (keyword_remote)
+    (keyword_session)
     session: (identifier)
     (call_argument_list
+      (keyword_exporting)
       exporting: (argument_list
         (named_argument
           name: (identifier)
           value: (identifier)))
+      (keyword_importing)
       importing: (argument_list
         (named_argument
           name: (identifier)
           value: (identifier)))
+      (keyword_changing)
       changing: (argument_list
         (named_argument
           name: (identifier)
@@ -117,13 +140,18 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
+    (keyword_destination)
     destination: (identifier)
     (call_argument_list
+      (keyword_exceptions)
       exceptions: (argument_list
         (exception_mapping
           name: (identifier)
           value: (number)
+          (keyword_message)
           message: (identifier))))))
 
 ======
@@ -135,7 +163,12 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
+    (keyword_starting)
+    (keyword_new)
+    (keyword_task)
     task_id: (identifier)))
 
 ======
@@ -148,8 +181,16 @@ CALL FUNCTION co_fb_name
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (identifier)
+    (keyword_starting)
+    (keyword_new)
+    (keyword_task)
     task_id: (identifier)
+    (keyword_destination)
+    (keyword_in)
+    (keyword_group)
     group: (identifier)))
 
 ======
@@ -161,7 +202,12 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
+    (keyword_in)
+    (keyword_background)
+    (keyword_unit)
     background_unit: (identifier)))
 
 ======
@@ -174,8 +220,14 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
+    (keyword_in)
+    (keyword_update)
+    (keyword_task)
     (call_argument_list
+      (keyword_exporting)
       exporting: (argument_list
         (named_argument
           name: (identifier)
@@ -194,9 +246,19 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT'
 
 (source
   (function_call
+    (keyword_call)
+    (keyword_function)
     name: (string_literal)
+    (keyword_in)
+    (keyword_background)
+    (keyword_task)
+    (keyword_as)
+    (keyword_separate)
+    (keyword_unit)
+    (keyword_destination)
     destination: (string_literal)
     (call_argument_list
+      (keyword_exporting)
       exporting: (argument_list
         (named_argument
           name: (identifier)
@@ -209,4 +271,8 @@ SET UPDATE TASK LOCAL.
 ---
 
 (source
-  (local_updates_statement))
+  (local_updates_statement
+    (keyword_set)
+    (keyword_update)
+    (keyword_task)
+    (keyword_local)))

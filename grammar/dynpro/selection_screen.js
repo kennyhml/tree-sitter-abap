@@ -1,11 +1,10 @@
 /// <reference types="tree-sitter-cli/dsl" />
-const { kw, kws } = require('../helpers/keywords.js')
-const { chainable, chainable_immediate } = require('../helpers/decl_gen.js')
+const gen = require("../core/generators.js")
 
 // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselection-screen.html
 module.exports = {
 
-    selection_screen_statement: $ => chainable(
+    selection_screen_statement: $ => gen.chainable(
         "selection-screen", $.__selection_screen_element
     ),
 
@@ -43,8 +42,8 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
     begin_of_screen_element: $ => prec.right(seq(
-        ...kws("begin", "of", "screen"),
-        chainable_immediate(choice($.screen_spec, $.subscreen_spec))
+        ...gen.kws("begin", "of", "screen"),
+        gen.chainable_immediate(choice($.screen_spec, $.subscreen_spec))
     )),
 
     // Inner spec of a screen element to support chaining.
@@ -59,7 +58,7 @@ module.exports = {
     // Inner spec of a subscreen element to support chaining.
     subscreen_spec: $ => seq(
         field("dynnr", $.number),
-        ...kws("as", "subscreen"),
+        ...gen.kws("as", "subscreen"),
         repeat(choice(
             field("nesting", $.nesting_level_spec),
             field("intervals", $.no_intervals_spec),
@@ -68,7 +67,7 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_TABBED.html
     begin_of_tabbed_block_element: $ => seq(
-        ...kws("begin", "of", "tabbed", "block"),
+        ...gen.kws("begin", "of", "tabbed", "block"),
         $.__tabbed_block_spec
     ),
 
@@ -89,8 +88,8 @@ module.exports = {
      * Refer to {@link begin_of_tabbed_block_element}
      */
     tab_element: $ => prec.right(seq(
-        kw("tab"),
-        chainable_immediate($.tab_spec)
+        gen.kw("tab"),
+        gen.chainable_immediate($.tab_spec)
     )),
 
     // Inner spec of a tab element to support chaining.
@@ -111,13 +110,13 @@ module.exports = {
      * Closes a {@link begin_of_screen_element} or {@link begin_of_subscreen_statement}
      */
     end_of_screen_element: $ => prec.right(seq(
-        ...kws("end", "of", "screen"),
-        chainable_immediate(field("dynnr", $.number))
+        ...gen.kws("end", "of", "screen"),
+        gen.chainable_immediate(field("dynnr", $.number))
     )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_BLOCK.html
     begin_of_block_element: $ => prec.right(seq(
-        ...kws("begin", "of", "block"),
+        ...gen.kws("begin", "of", "block"),
         $.__block_spec
     )),
 
@@ -133,19 +132,19 @@ module.exports = {
      * Closes a {@link begin_of_block_element} or {@link begin_of_tabbed_block_element}.
      */
     end_of_block_element: $ => prec.right(seq(
-        ...kws("end", "of", "block"),
-        chainable_immediate(field("block", $.identifier)),
+        ...gen.kws("end", "of", "block"),
+        gen.chainable_immediate(field("block", $.identifier)),
     )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_SKIP.html
     blank_line_directive: $ => prec.right(seq(
-        kw("skip"),
-        optional(chainable_immediate(field("times", $.number)))
+        gen.kw("skip"),
+        optional(gen.chainable_immediate(field("times", $.number)))
     )),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_ULINE.html
     horizontal_line_element: $ => seq(
-        kw("uline"),
+        gen.kw("uline"),
         $.__uline_spec
     ),
 
@@ -158,8 +157,8 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_COMMENT.html
     comment_element: $ => prec.right(seq(
-        kw("comment"),
-        chainable_immediate($.comment_spec)
+        gen.kw("comment"),
+        gen.chainable_immediate($.comment_spec)
     )),
 
     // Inner spec of a block element to support chaining.
@@ -177,7 +176,7 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_COMMENT.html
     pushbutton_element: $ => seq(
-        kw("pushbutton"),
+        gen.kw("pushbutton"),
         field("position", $.output_position_spec),
         field("text", $.__element_text_variable),
         field("user_command", $.user_command_spec),
@@ -188,10 +187,10 @@ module.exports = {
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_LINE.html
-    begin_of_line_directive: _ => seq(...kws("begin", "of", "line")),
+    begin_of_line_directive: _ => seq(...gen.kws("begin", "of", "line")),
 
     screen_position_directive: $ => seq(
-        kw("position"),
+        gen.kw("position"),
         field("position", $.output_position_spec),
     ),
 
@@ -202,7 +201,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_FUNCTIONKEY.html
      */
     function_key_directive: $ => prec.left(seq(
-        ...kws("function", "key"),
+        ...gen.kws("function", "key"),
         choice(
             // function key: 1, 2...
             seq(
@@ -215,7 +214,7 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_PARAM.html
     include_parameter_directive: $ => seq(
-        ...kws("include", "parameters"),
+        ...gen.kws("include", "parameters"),
         field("name", $.identifier),
         repeat(choice(
             field("obligatory", $.obligatory_spec),
@@ -225,7 +224,7 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_SELOP.html
     include_select_option_directive: $ => seq(
-        ...kws("include", "select-options"),
+        ...gen.kws("include", "select-options"),
         field("name", $.identifier),
         repeat(choice(
             field("obligatory", $.obligatory_spec),
@@ -237,7 +236,7 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_COMNT.html
     include_comment_directive: $ => seq(
-        ...kws("include", "comment"),
+        ...gen.kws("include", "comment"),
         field("position", $.output_position_spec),
         repeat(choice(
             field("target", $.for_screen_field_spec),
@@ -247,7 +246,7 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_PUSHB.html
     include_pushbutton_directive: $ => seq(
-        ...kws("include", "pushbutton"),
+        ...gen.kws("include", "pushbutton"),
         field("position", $.output_position_spec),
         field("text", $.__element_text_variable),
         repeat(choice(
@@ -258,20 +257,20 @@ module.exports = {
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_INCLUDE_BLOCK.html
     include_block_directive: $ => seq(
-        ...kws("include", "blocks"),
+        ...gen.kws("include", "blocks"),
         field("block", $.identifier),
     ),
 
-    end_of_line_directive: _ => seq(...kws("end", "of", "line")),
+    end_of_line_directive: _ => seq(...gen.kws("end", "of", "line")),
 
     for_screen_field_spec: $ => seq(
         optional(field("text", $.__element_text_variable)),
-        ...kws("for", "field"),
+        ...gen.kws("for", "field"),
         field("field", $.identifier),
     ),
 
     title_spec: $ => seq(
-        kw("title"),
+        gen.kw("title"),
         field("title", choice(
             $.string_literal,
             $.struct_component_selector,
@@ -280,32 +279,32 @@ module.exports = {
     ),
 
     frame_spec: $ => seq(
-        ...kws("with", "frame"),
+        ...gen.kws("with", "frame"),
         optional($.title_spec)
     ),
 
     nesting_level_spec: $ => seq(
-        ...kws("nesting", "level"),
+        ...gen.kws("nesting", "level"),
         field("level", $.number)
     ),
 
     tab_lines_spec: $ => seq(
-        kw("for"),
+        gen.kw("for"),
         field("number", $.number),
-        kw("lines")
+        gen.kw("lines")
     ),
 
     default_tab_screen_spec: $ => seq(
-        kw("default"),
+        gen.kw("default"),
         optional(seq(
-            kw("program"),
+            gen.kw("program"),
             field("program", $.identifier)
         )),
-        kw("screen"),
+        gen.kw("screen"),
         field("dynnr", $.number)
     ),
 
-    window_spec: _ => seq(...kws("as", "window")),
+    window_spec: _ => seq(...gen.kws("as", "window")),
 
     /**
      * CALL SELECTION-SCREEN dynnr 
@@ -316,7 +315,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPCALL_SELECTION_SCREEN.html
      */
     call_sel_screen_statement: $ => seq(
-        ...kws("call", "selection-screen"),
+        ...gen.kws("call", "selection-screen"),
         field("dynnr", $.data_object),
         repeat(choice(
             field("starting_at", $.starting_at_spec),
@@ -330,7 +329,7 @@ module.exports = {
      * Addition ...[STARTING AT col2 lin2] {@link call_sel_screen_statement}
      */
     starting_at_spec: $ => seq(
-        ...kws("starting", "at"),
+        ...gen.kws("starting", "at"),
         field("column", $.data_object),
         field("line", $.data_object),
     ),
@@ -339,7 +338,7 @@ module.exports = {
      * Addition ...[ENDING AT col2 lin2] {@link call_sel_screen_statement}
      */
     ending_at_spec: $ => seq(
-        ...kws("ending", "at"),
+        ...gen.kws("ending", "at"),
         field("column", $.data_object),
         field("line", $.data_object),
     ),
@@ -348,7 +347,7 @@ module.exports = {
      * Addition ... USING SELECTION-SET variant of {@link call_sel_screen_statement}
      */
     using_selection_set_spec: $ => seq(
-        ...kws("using", "selection-set"),
+        ...gen.kws("using", "selection-set"),
         field("variant", $.data_object),
     ),
 

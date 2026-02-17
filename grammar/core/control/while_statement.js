@@ -1,4 +1,4 @@
-const { kw } = require("../../helpers/keywords.js");
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -12,11 +12,11 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWHILE.html
      */
     while_statement: $ => seq(
-        kw("while"),
+        gen.kw("while"),
         field("condition", $._logical_expression),
         ".",
         optional(field("body", $.statement_block)),
-        kw("endwhile"),
+        gen.kw("endwhile"),
         "."
     ),
 }

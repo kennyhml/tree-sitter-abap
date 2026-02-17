@@ -36,5 +36,5 @@ module.exports = {
     ...case_type_statement_rules,
     ...do_statement_rules,
     ...flow_statement_rules,
-    ...raise_statement_rules
+    ...raise_statement_rules,
 }

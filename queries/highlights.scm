@@ -88,8 +88,8 @@
 
 (constructor_spec
   [
-    "constructor"
-    "class_constructor"
+    (keyword_constructor)
+    (keyword_class_constructor)
   ] @function.constructor
 )
 
@@ -226,410 +226,328 @@
 ; is a control keyword in a for loop, but not in
 ; the combination of regular keywords "FOR TESTING"
 
-(if_statement [ "if" "endif" ] @keyword.control )
-(elseif_clause "elseif" @keyword.control)
-(else_clause "else" @keyword.control)
+(if_statement [(keyword_if) (keyword_endif)] @keyword.control)
+(elseif_clause (keyword_elseif) @keyword.control)
+(else_clause (keyword_else) @keyword.control)
 
-(case_statement ["case" "endcase"] @keyword.control )
-(case_clause "when" @keyword.control)
-(others_case_clause [ "when" "others" ] @keyword.control)
+(case_statement [(keyword_case) (keyword_endcase)] @keyword.control)
+(case_clause (keyword_when) @keyword.control)
+(others_case_clause [(keyword_when) (keyword_others)] @keyword.control)
 
-(case_type_of_statement ["case" "type" "of" "endcase" ] @keyword.control )
-(case_type_clause [ "when" "type" ] @keyword.control)
-(case_others_type_clause [ "when" "others" ] @keyword.control)
+(case_type_of_statement [(keyword_case) (keyword_type) (keyword_of) (keyword_endcase)] @keyword.control)
+(case_type_clause [(keyword_when) (keyword_type)] @keyword.control)
+(case_others_type_clause [(keyword_when) (keyword_others)] @keyword.control)
 
-(do_statement ["do" "times" "enddo"  ] @keyword.control )
-(while_statement ["while" "endwhile" ] @keyword.control )
-(try_statement ["try" "endtry" ] @keyword.control )
-(catch_clause ["catch" "before" "unwind" ] @keyword.control )
-(cleanup_clause "cleanup" @keyword.control )
+(do_statement [(keyword_do) (keyword_times) (keyword_enddo)] @keyword.control)
+(while_statement [(keyword_while) (keyword_endwhile)] @keyword.control)
+(try_statement [(keyword_try) (keyword_endtry)] @keyword.control)
+(catch_clause [(keyword_catch) (keyword_before) (keyword_unwind)] @keyword.control)
+(cleanup_clause (keyword_cleanup) @keyword.control)
 
-(loop_at_statement ["loop" "at" "endloop" ] @keyword.control )
-(at_first_statement ["at" "first"] @keyword.control )
-(at_last_statement ["at" "last"] @keyword.control )
-(at_new_statement ["at" "new"] @keyword.control )
-(at_end_of_statement ["at" "end" "of"] @keyword.control )
+(loop_at_statement [(keyword_loop) (keyword_at) (keyword_endloop)] @keyword.control)
+(at_first_statement [(keyword_at) (keyword_first)] @keyword.control)
+(at_last_statement [(keyword_at) (keyword_last)] @keyword.control)
+(at_new_statement [(keyword_at) (keyword_new)] @keyword.control)
+(at_end_of_statement [(keyword_at) (keyword_end) (keyword_of)] @keyword.control)
 
-(raise_exception_statement ["raise" "exception" ] @keyword.control )
-(resumable_spec "resumable" @keyword.control )
+(raise_exception_statement [(keyword_raise) (keyword_exception)] @keyword.control)
+(resumable_spec (keyword_resumable) @keyword.control)
 
-; Keywords that can be considered control flow without context check
-; As of now, new keywords should be added to the uncontextualized
-; array and only moved to a context if needed.
 [
-	"return"
-	"exit"
-    "check"
-    "continue"
-    "resume"
-    "endat"
+  (keyword_return)
+  (keyword_exit)
+  (keyword_check)
+  (keyword_continue)
+  (keyword_resume)
+  (keyword_endat)
 ] @keyword.control
 
 ; ------------------------------------------
 ; Keywords
 ; ------------------------------------------
-[   
-    "data"
-    "final"
-    "constants"
-    "type"
-    "types"
-    "aliases"
-    "class-data"
-    "ref"
-    "to"
-    "like"
-    "value"
-    "length"
-    "decimals"
-    "is"
-    "initial"
-    "read-only"
-    "begin"
-    "end"
-    "of"
-    "lines"
-    "let"
-    "in"
-    "until"
-    
-    "table"
-    "of"
-    "size"
-    "standard"
-    "sorted"
-    "hashed"
-    "unique"
-    "non-unique"
-    "index"
-    "any"
-    "occurs"
-    "header"
-    "line"
-    "empty"
-
-
-    "report"
-    "no"
-    "page"
-    "heading"
-    "line-size"
-    "line-count"
-    "defining"
-    "database"
-    "reduced"
-    "functionality"
-    "message-id"
-    "range"
-    "mod"
-    "div"
-    "new"
-    "switch"
-
-    "replace"
-    "with"
-    "verbatim"
-    "replacement"
-    
-    "concatenate"
-    "into"
-    "separated"
-    "by"
-    
-    "respecting"
-    "ignoring"
-    "case"
-    "blanks"
-    
-    "find"
-    "first"
-    "occurrence"
-    "all"
-    "occurrences"
-    "in"
-    "section"
-    "offset"
-    
-    "byte"
-    "character"
-    "mode"
-    
-    "pcre"
-    "match"
-    "count"
-    "results"
-    "submatches"
-    
-    "shift"
-    "places"
-    "up"
-    "left"
-    "right"
-    "circular"
-    
-    "deleting"
-    "leading"
-    "trailing"
-    
-    "split"
-    "at"
-    "condense"
-    "no-gaps"
-    
-    "base"
-    "key"
-    "components"
-    
-    "index"
-    
-    "class"
-    "definition"
-    "create"
-    "public"
-    "protected"
-    "private"
-    "inheriting"
-    "from"
-    "abstract"
-    "global"
-    "local"
-    "friends"
-    "shared"
-    "memory"
-    "enabled"
-    "for"
-    "behavior"
-    "testing"
-    "risk"
-    "level"
-    "harmless"
-    "medium"
-    "critical"
-    "duration"
-    "short"
-    "long"
-    "implementation"
-    "deferred"
-    "endclass"
-    
-    "interface"
-    "interfaces"
-    "endinterface"
-    
-    "methods"
-    "method"
-    "endmethod"
-    "class-methods"
-    "importing"
-    "exporting"
-    "changing"
-    "returning"
-    "receiving"
-    "reference"
-    "raising"
-    "exceptions"
-    "default"
-    "optional"
-    "preferred"
-    "parameter"
-    "resumable"
-    "redefinition"
-    "fail"
-    "ignore"
-    "event"
-    
-    "cond"
-    "when"
-    "then"
-    "else"
-    "conv"
-    "exact"
-    "cast"
-	"step"
-    
-    "corresponding"
-    "appending"
-    "deep"
-    "discarding"
-    "duplicates"
-    "mapping"
-    "except"
-    "using"
-    "throw"
-    
-    "filter"
-    "where"
-    "reduce"
-    "init"
-    "next"
-    "while"
-    
-    "and"
-    "or"
-    "equiv"
-    
-    "if"
-    "elseif"
-    "endif"
-    
-    "case"
-    "others"
-    "endcase"
-    
-    "raise"
-    "exception"
-    "return"
-    
-    "do"
-    "times"
-    "enddo"
-    "endwhile"
-    
-    "message"
-    "id"
-    "number"
-    "display"
-    
-    "try"
-    "catch"
-    "before"
-    "unwind"
-    "endtry"
-    "cleanup"
-    
-    "exit"
-    "check"
-    "continue"
-    "resume"
-    
-    "call"
-    "function"
-    "tables"
-    "remote"
-    "session"
-    "destination"
-    "starting"
-    "new"
-    "task"
-    "group"
-    "parameter-table"
-    "exception-table"
-    "performing"
-    "calling"
-    "on"
-    "background"
-    "update"
-    "task"
-    "as"
-    "separate"
-    "unit"
-    
-    "form"
-    "endform"
-    "structure"
-    "perform"
-    "program"
-    "found"
-    "rollback"
-    "commit"
-    
-    "loop"
-    "assigning"
-    "field-symbol"
-    "endloop"
-    "transporting"
-    "fields"
-    "without"
-    "members"
-    "ascending"
-    "descending"
-    "text"
-    
-    "set"
-    "commit"
-    "work"
-    "wait"
-    "include"
-    "clear"
-    "free"
-    
-    ; Dynpro
-    "parameters"
-    "select-options"
-    "modif"
-    "obligatory"
-    "as"
-    "checkbox"
-    "radiobutton"
-    "listbox"
-    "visible"
-    "user-command"
-    "matchcode" 
-    "object"
-    "no-display"
-    "lower"
-    "intervals"
-    "no-extension"
-    "off"
-    "option"
-    "sign"
-    "i"
-    "e"
-    
-    "selection-screen"
-    "skip"
-    "block"
-    "uline"
-    "screen"
-    "subscreen"
-    "nesting" 
-    "level"
-    "title"
-    "window"
-    "frame"
-    "comment"
-    "field"
-    "pushbutton"
-    "position"
-    "tabbed"
-    "tab"
-    "blocks"
-    "ending"
-    "selection-set"
-
-    ; predicates
-    "not"
-    "bound"
-    "instance"
-    "assigned"
-    "supplied"
-
-    ; comparison operators
-    "eq"
-    "ne"
-    "gt"
-    "lt"
-    "ge"
-    "le"
-    "co"
-    "cn"
-    "ca"
-    "na"
-    "cs"
-    "ns"
-    "cp"
-    "np"
-    "bt"
-    "nb"
-    "byte-co"
-    "byte-cn"
-    "byte-ca"
-    "byte-na"
-    "byte-cs"
-    "byte-ns"
-    "o"
-    "z"
-    "m"
+[
+  (keyword_data)
+  (keyword_final)
+  (keyword_constants)
+  (keyword_type)
+  (keyword_types)
+  (keyword_aliases)
+  (keyword_class_data)
+  (keyword_ref)
+  (keyword_to)
+  (keyword_like)
+  (keyword_value)
+  (keyword_length)
+  (keyword_decimals)
+  (keyword_is)
+  (keyword_initial)
+  (keyword_read_only)
+  (keyword_begin)
+  (keyword_end)
+  (keyword_of)
+  (keyword_lines)
+  (keyword_let)
+  (keyword_in)
+  (keyword_until)
+  (keyword_table)
+  (keyword_size)
+  (keyword_standard)
+  (keyword_sorted)
+  (keyword_hashed)
+  (keyword_unique)
+  (keyword_non_unique)
+  (keyword_index)
+  (keyword_any)
+  (keyword_occurs)
+  (keyword_header)
+  (keyword_line)
+  (keyword_empty)
+  (keyword_report)
+  (keyword_no)
+  (keyword_page)
+  (keyword_heading)
+  (keyword_line_size)
+  (keyword_line_count)
+  (keyword_defining)
+  (keyword_database)
+  (keyword_reduced)
+  (keyword_functionality)
+  (keyword_message_id)
+  (keyword_range)
+  (keyword_mod)
+  (keyword_div)
+  (keyword_new)
+  (keyword_switch)
+  (keyword_replace)
+  (keyword_with)
+  (keyword_verbatim)
+  (keyword_replacement)
+  (keyword_concatenate)
+  (keyword_into)
+  (keyword_separated)
+  (keyword_by)
+  (keyword_respecting)
+  (keyword_ignoring)
+  (keyword_case)
+  (keyword_blanks)
+  (keyword_find)
+  (keyword_first)
+  (keyword_occurrence)
+  (keyword_all)
+  (keyword_occurrences)
+  (keyword_section)
+  (keyword_offset)
+  (keyword_byte)
+  (keyword_character)
+  (keyword_mode)
+  (keyword_pcre)
+  (keyword_match)
+  (keyword_count)
+  (keyword_results)
+  (keyword_submatches)
+  (keyword_shift)
+  (keyword_places)
+  (keyword_up)
+  (keyword_left)
+  (keyword_right)
+  (keyword_circular)
+  (keyword_deleting)
+  (keyword_leading)
+  (keyword_trailing)
+  (keyword_split)
+  (keyword_at)
+  (keyword_condense)
+  (keyword_no_gaps)
+  (keyword_base)
+  (keyword_key)
+  (keyword_components)
+  (keyword_class)
+  (keyword_definition)
+  (keyword_create)
+  (keyword_public)
+  (keyword_protected)
+  (keyword_private)
+  (keyword_inheriting)
+  (keyword_from)
+  (keyword_abstract)
+  (keyword_global)
+  (keyword_local)
+  (keyword_friends)
+  (keyword_shared)
+  (keyword_memory)
+  (keyword_enabled)
+  (keyword_for)
+  (keyword_behavior)
+  (keyword_testing)
+  (keyword_risk)
+  (keyword_level)
+  (keyword_harmless)
+  (keyword_medium)
+  (keyword_critical)
+  (keyword_duration)
+  (keyword_short)
+  (keyword_long)
+  (keyword_implementation)
+  (keyword_deferred)
+  (keyword_endclass)
+  (keyword_interface)
+  (keyword_interfaces)
+  (keyword_endinterface)
+  (keyword_methods)
+  (keyword_method)
+  (keyword_endmethod)
+  (keyword_class_methods)
+  (keyword_importing)
+  (keyword_exporting)
+  (keyword_changing)
+  (keyword_returning)
+  (keyword_receiving)
+  (keyword_reference)
+  (keyword_raising)
+  (keyword_exceptions)
+  (keyword_default)
+  (keyword_optional)
+  (keyword_preferred)
+  (keyword_parameter)
+  (keyword_resumable)
+  (keyword_redefinition)
+  (keyword_fail)
+  (keyword_ignore)
+  (keyword_event)
+  (keyword_cond)
+  (keyword_then)
+  (keyword_else)
+  (keyword_conv)
+  (keyword_exact)
+  (keyword_cast)
+  (keyword_step)
+  (keyword_corresponding)
+  (keyword_appending)
+  (keyword_deep)
+  (keyword_discarding)
+  (keyword_duplicates)
+  (keyword_mapping)
+  (keyword_except)
+  (keyword_using)
+  (keyword_throw)
+  (keyword_filter)
+  (keyword_where)
+  (keyword_reduce)
+  (keyword_init)
+  (keyword_next)
+  (keyword_and)
+  (keyword_or)
+  (keyword_equiv)
+  (keyword_message)
+  (keyword_id)
+  (keyword_number)
+  (keyword_display)
+  (keyword_call)
+  (keyword_function)
+  (keyword_tables)
+  (keyword_remote)
+  (keyword_session)
+  (keyword_destination)
+  (keyword_starting)
+  (keyword_task)
+  (keyword_group)
+  (keyword_parameter_table)
+  (keyword_exception_table)
+  (keyword_performing)
+  (keyword_calling)
+  (keyword_on)
+  (keyword_background)
+  (keyword_update)
+  (keyword_as)
+  (keyword_separate)
+  (keyword_unit)
+  (keyword_form)
+  (keyword_endform)
+  (keyword_structure)
+  (keyword_perform)
+  (keyword_program)
+  (keyword_found)
+  (keyword_rollback)
+  (keyword_commit)
+  (keyword_assigning)
+  (keyword_field_symbol)
+  (keyword_transporting)
+  (keyword_fields)
+  (keyword_without)
+  (keyword_members)
+  (keyword_ascending)
+  (keyword_descending)
+  (keyword_text)
+  (keyword_set)
+  (keyword_work)
+  (keyword_wait)
+  (keyword_include)
+  (keyword_clear)
+  (keyword_free)
+  (keyword_parameters)
+  (keyword_select_options)
+  (keyword_modif)
+  (keyword_obligatory)
+  (keyword_checkbox)
+  (keyword_radiobutton)
+  (keyword_listbox)
+  (keyword_visible)
+  (keyword_user_command)
+  (keyword_matchcode)
+  (keyword_object)
+  (keyword_no_display)
+  (keyword_lower)
+  (keyword_intervals)
+  (keyword_no_extension)
+  (keyword_off)
+  (keyword_option)
+  (keyword_sign)
+  (keyword_selection_screen)
+  (keyword_skip)
+  (keyword_block)
+  (keyword_uline)
+  (keyword_screen)
+  (keyword_subscreen)
+  (keyword_nesting)
+  (keyword_title)
+  (keyword_window)
+  (keyword_frame)
+  (keyword_comment)
+  (keyword_field)
+  (keyword_pushbutton)
+  (keyword_position)
+  (keyword_tabbed)
+  (keyword_tab)
+  (keyword_blocks)
+  (keyword_ending)
+  (keyword_selection_set)
+  (keyword_not)
+  (keyword_bound)
+  (keyword_instance)
+  (keyword_assigned)
+  (keyword_supplied)
+  (keyword_eq)
+  (keyword_ne)
+  (keyword_gt)
+  (keyword_lt)
+  (keyword_ge)
+  (keyword_le)
+  (keyword_co)
+  (keyword_cn)
+  (keyword_ca)
+  (keyword_na)
+  (keyword_cs)
+  (keyword_ns)
+  (keyword_cp)
+  (keyword_np)
+  (keyword_bt)
+  (keyword_nb)
+  (keyword_byte_co)
+  (keyword_byte_cn)
+  (keyword_byte_ca)
+  (keyword_byte_na)
+  (keyword_byte_cs)
+  (keyword_byte_ns)
 ] @keyword
 (format_option parameter: (identifier) @keyword )
 

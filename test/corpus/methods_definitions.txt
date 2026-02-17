@@ -6,6 +6,7 @@ METHODS meth .
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier))))
 
@@ -17,6 +18,7 @@ CLASS-METHODS meth .
 
 (source
   (class_methods_declaration
+    (keyword_class_methods)
     (method_spec
       name: (identifier))))
 
@@ -29,6 +31,7 @@ CLASS-METHODS: meth1, meth2, meth3.
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier))
     (method_spec
@@ -36,6 +39,7 @@ CLASS-METHODS: meth1, meth2, meth3.
     (method_spec
       name: (identifier)))
   (class_methods_declaration
+    (keyword_class_methods)
     (method_spec
       name: (identifier))
     (method_spec
@@ -51,9 +55,11 @@ METHODS my_method redefinition.
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
-      (redefinition_spec))))
+      (redefinition_spec
+        (keyword_redefinition)))))
 
 ==================
 Final definition
@@ -63,9 +69,11 @@ METHODS my_method final.
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
-      (final_spec))))
+      (final_spec
+        (keyword_final)))))
 
 ==================
 Abstract method
@@ -75,9 +83,11 @@ METHODS my_method abstract.
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
-      (abstract_spec))))
+      (abstract_spec
+        (keyword_abstract)))))
 
 ==================
 Interface method defaults
@@ -89,17 +99,26 @@ METHODS       m2 DEFAULT IGNORE
 
 (source
   (class_methods_declaration
+    (keyword_class_methods)
     (method_spec
       (identifier)
-      (interface_default_spec)))
+      (interface_default_spec
+        (keyword_default)
+        (keyword_fail))))
   (methods_declaration
+    (keyword_methods)
     (method_spec
       (identifier)
-      (interface_default_spec)
+      (interface_default_spec
+        (keyword_default)
+        (keyword_ignore))
+      (keyword_returning)
       (return_value
         (value_param_spec
+          (keyword_value)
           (identifier))
         (builtin_type_spec
+          (keyword_type)
           (type_identifier))))))
 
 ==================
@@ -115,29 +134,39 @@ METHODS meth
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
+      (keyword_importing)
       importing: (parameter_list
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (builtin_type_spec
+            (keyword_type)
             name: (type_identifier))
           default: (param_default_value_spec
+            (keyword_default)
             value: (number)))
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (builtin_type_spec
+            (keyword_type)
             name: (type_identifier))
-          (optional_spec))
+          (optional_spec
+            (keyword_optional)))
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (builtin_type_spec
+            (keyword_type)
             name: (type_identifier))
-          (optional_spec))
+          (optional_spec
+            (keyword_optional)))
         (preferred_param_spec
+          (keyword_preferred)
+          (keyword_parameter)
           name: (identifier))))))
 
 ==================
@@ -150,21 +179,27 @@ METHODS read_spfli_into_table
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
+      (keyword_importing)
       importing: (parameter_list
         (parameter
           (value_param_spec
+            (keyword_value)
             name: (identifier))
           typing: (referred_type_spec
+            (keyword_type)
             name: (struct_component_selector
               struct: (type_identifier)
               comp: (type_identifier)))))
+      (keyword_exporting)
       exporting: (parameter_list
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (referred_type_spec
+            (keyword_type)
             name: (type_identifier)))))))
 
 ==================
@@ -180,23 +215,31 @@ METHODS divide_1_by
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
+      (keyword_importing)
       importing: (parameter_list
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (builtin_type_spec
+            (keyword_type)
             name: (type_identifier))))
+      (keyword_returning)
       returning: (return_value
         (value_param_spec
+          (keyword_value)
           name: (identifier))
         typing: (builtin_type_spec
+          (keyword_type)
           name: (type_identifier)))
+      (keyword_raising)
       raising: (raising_list
         (simple_exception_spec
           name: (identifier))
         (resumable_exception_spec
+          (keyword_resumable)
           name: (identifier))))))
 
 ==================
@@ -208,15 +251,21 @@ CLASS-METHODS class_constructor.
 
 (source
   (methods_declaration
+    (keyword_methods)
     (constructor_spec
+      (keyword_constructor)
+      (keyword_importing)
       (parameter_list
         (parameter
           (simple_param_spec
             (identifier))
           (builtin_type_spec
+            (keyword_type)
             (type_identifier))))))
   (class_methods_declaration
-    (class_constructor_spec)))
+    (keyword_class_methods)
+    (class_constructor_spec
+      (keyword_class_constructor))))
 
 ==================
 Simple event handler
@@ -228,11 +277,16 @@ METHODS handle_double_click
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
       event: (for_event_spec
+        (keyword_for)
+        (keyword_event)
         name: (identifier)
+        (keyword_of)
         source: (identifier))
+      (keyword_importing)
       importing: (parameter_list
         (parameter
           (simple_param_spec
@@ -252,6 +306,9 @@ METHODS mytest FOR TESTING.
 
 (source
   (methods_declaration
+    (keyword_methods)
     (method_spec
       name: (identifier)
-      (for_testing_spec))))
+      (for_testing_spec
+        (keyword_for)
+        (keyword_testing)))))

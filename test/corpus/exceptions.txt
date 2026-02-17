@@ -6,7 +6,10 @@ RAISE EXCEPTION TYPE cx_demo.
 
 (source
   (raise_exception_statement
+    (keyword_raise)
+    (keyword_exception)
     exception: (new_exception_spec
+      (keyword_type)
       class_name: (identifier))))
 
 ======
@@ -17,6 +20,7 @@ RAISE not_found.
 
 (source
   (raise_statement
+    (keyword_raise)
     name: (identifier)))
 
 ======
@@ -27,6 +31,8 @@ RAISE EXCEPTION oref.
 
 (source
   (raise_exception_statement
+    (keyword_raise)
+    (keyword_exception)
     exception: (identifier)))
 
 ======
@@ -37,8 +43,12 @@ RAISE RESUMABLE EXCEPTION TYPE cx_demo.
 
 (source
   (raise_exception_statement
-    (resumable_spec)
+    (keyword_raise)
+    (resumable_spec
+      (keyword_resumable))
+    (keyword_exception)
     exception: (new_exception_spec
+      (keyword_type)
       class_name: (identifier))))
 
 ======
@@ -52,8 +62,12 @@ RAISE EXCEPTION TYPE cx_sy_dynamic_osql_semantics
 
 (source
   (raise_exception_statement
+    (keyword_raise)
+    (keyword_exception)
     (new_exception_spec
+      (keyword_type)
       (identifier)
+      (keyword_exporting)
       (argument_list
         (named_argument
           (identifier)
@@ -75,15 +89,21 @@ RAISE EXCEPTION TYPE /BOBF/CX_CONF
 
 (source
   (raise_exception_statement
+    (keyword_raise)
+    (keyword_exception)
     (new_exception_spec
+      (keyword_type)
       (identifier)
       (inline_message_spec
+        (keyword_message)
         (message_spec
           (message_type)
           (number)
           (message_arguments
+            (keyword_with)
             (string_literal)
             (string_literal))))
+      (keyword_exporting)
       (argument_list
         (named_argument
           (identifier)
@@ -100,14 +120,22 @@ RAISE EXCEPTION TYPE cx_demo_exception
 
 (source
   (raise_exception_statement
+    (keyword_raise)
+    (keyword_exception)
     exception: (new_exception_spec
+      (keyword_type)
       class_name: (identifier)
       (inline_message_spec
+        (keyword_message)
         message: (message_spec
+          (keyword_id)
           id: (string_literal)
+          (keyword_type)
           type: (string_literal)
+          (keyword_number)
           number: (string_literal)
           arguments: (message_arguments
+            (keyword_with)
             (string_literal)
             (string_literal)))))))
 
@@ -119,9 +147,14 @@ RAISE EXCEPTION TYPE /brx/cx_error USING MESSAGE.
 
 (source
   (raise_exception_statement
+    (keyword_raise)
+    (keyword_exception)
     exception: (new_exception_spec
+      (keyword_type)
       class_name: (identifier)
-      (using_message_spec))))
+      (using_message_spec
+        (keyword_using)
+        (keyword_message)))))
 
 ======
 Simple try statement
@@ -135,20 +168,25 @@ ENDTRY.
 
 (source
   (try_statement
+    (keyword_try)
     (try_block
       (assignment
         (identifier)
         (number)))
     (catch_clause
+      (keyword_catch)
       (catch_exception_list
         (identifier))
       (catch_into_spec
+        (keyword_into)
         (declaration_expression
+          (keyword_final)
           (identifier)))
       (catch_block
         (assignment
           (identifier)
-          (number))))))
+          (number))))
+    (keyword_endtry)))
 
 ======
 Try statement with multiple exceptions
@@ -162,21 +200,26 @@ ENDTRY.
 
 (source
   (try_statement
+    (keyword_try)
     (try_block
       (assignment
         (identifier)
         (number)))
     (catch_clause
+      (keyword_catch)
       (catch_exception_list
         (identifier)
         (identifier))
       (catch_into_spec
+        (keyword_into)
         (declaration_expression
+          (keyword_final)
           (identifier)))
       (catch_block
         (assignment
           (identifier)
-          (number))))))
+          (number))))
+    (keyword_endtry)))
 
 ======
 Try statement with multiple catch clauses
@@ -192,30 +235,38 @@ ENDTRY.
 
 (source
   (try_statement
+    (keyword_try)
     (try_block
       (assignment
         (identifier)
         (number)))
     (catch_clause
+      (keyword_catch)
       (catch_exception_list
         (identifier))
       (catch_into_spec
+        (keyword_into)
         (declaration_expression
+          (keyword_final)
           (identifier)))
       (catch_block
         (assignment
           (identifier)
           (number))))
     (catch_clause
+      (keyword_catch)
       (catch_exception_list
         (identifier))
       (catch_into_spec
+        (keyword_into)
         (declaration_expression
+          (keyword_final)
           (identifier)))
       (catch_block
         (assignment
           (identifier)
-          (number))))))
+          (number))))
+    (keyword_endtry)))
 
 ======
 Try with catch before unwind
@@ -229,21 +280,28 @@ ENDTRY.
 
 (source
   (try_statement
+    (keyword_try)
     (try_block
       (assignment
         (identifier)
         (number)))
     (catch_clause
-      (before_unwind_spec)
+      (keyword_catch)
+      (before_unwind_spec
+        (keyword_before)
+        (keyword_unwind))
       (catch_exception_list
         (identifier))
       (catch_into_spec
+        (keyword_into)
         (declaration_expression
+          (keyword_final)
           (identifier)))
       (catch_block
         (assignment
           (identifier)
-          (number))))))
+          (number))))
+    (keyword_endtry)))
 
 ======
 Try with cleanup block
@@ -263,12 +321,17 @@ ENDTRY.
 
 (source
   (try_statement
+    (keyword_try)
     (try_block
       (try_statement
+        (keyword_try)
         (try_block
           (raise_exception_statement
+            (keyword_raise)
+            (keyword_exception)
             (identifier)))
         (catch_clause
+          (keyword_catch)
           (catch_exception_list
             (identifier))
           (catch_block
@@ -279,14 +342,17 @@ ENDTRY.
                 (positional_argument
                   (string_literal))))))
         (cleanup_clause
+          (keyword_cleanup)
           (cleanup_block
             (method_call
               (identifier)
               (identifier)
               (call_argument_list
                 (positional_argument
-                  (string_literal))))))))
+                  (string_literal))))))
+        (keyword_endtry)))
     (catch_clause
+      (keyword_catch)
       (catch_exception_list
         (identifier))
       (catch_block
@@ -295,4 +361,5 @@ ENDTRY.
           (identifier)
           (call_argument_list
             (positional_argument
-              (string_literal))))))))
+              (string_literal))))))
+    (keyword_endtry)))

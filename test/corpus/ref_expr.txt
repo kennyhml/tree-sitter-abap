@@ -3,43 +3,55 @@ Simple dref to dobj
 ======
 dref = REF #( pict ).
 ---
+
 (source
-    (assignment
-        (identifier)
-        (ref_expression
-            (identifier))))
+  (assignment
+    (identifier)
+    (ref_expression
+      (keyword_ref)
+      (identifier))))
+
 ======
 Ref to table line of table expr
 ======
 FINAL(dref) = REF #( itab[ 5 ] ). 
 ---
+
 (source
-    (assignment
-        (declaration_expression
-            (identifier))
-        (ref_expression
-            (table_expression
-                (identifier)
-                (index_read
-                    (number))))))
+  (assignment
+    (declaration_expression
+      (keyword_final)
+      (identifier))
+    (ref_expression
+      (keyword_ref)
+      (table_expression
+        (identifier)
+        (index_read
+          (number))))))
+
 ======
 Ref to table expression with default value
 ======
 FINAL(dref) = REF #( itab[ field = 'ABC' ] DEFAULT new #( 'ABC' ) ). 
 ---
+
 (source
-    (assignment
-        (declaration_expression
-            (identifier))
-        (ref_expression
-            (table_expression
-                (identifier)
-                (search_key_read
-                    (search_key_components
-                        (itab_comp_spec
-                            (identifier)
-                            (string_literal)))))
-            (new_expression
-                (argument_list
-                    (positional_argument
-                        (string_literal)))))))
+  (assignment
+    (declaration_expression
+      (keyword_final)
+      (identifier))
+    (ref_expression
+      (keyword_ref)
+      (table_expression
+        (identifier)
+        (search_key_read
+          (search_key_components
+            (itab_comp_spec
+              (identifier)
+              (string_literal)))))
+      (keyword_default)
+      (new_expression
+        (keyword_new)
+        (argument_list
+          (positional_argument
+            (string_literal)))))))

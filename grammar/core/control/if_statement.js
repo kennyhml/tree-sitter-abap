@@ -1,4 +1,4 @@
-const { kw } = require("../../helpers/keywords.js");
+const gen = require("../generators.js")
 
 module.exports = {
 
@@ -11,14 +11,14 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
      */
     if_statement: $ => seq(
-        kw("if"),
+        gen.kw("if"),
         field("condition", $._logical_expression), ".",
         field("consequence", optional($.statement_block)),
 
         repeat(field("alternative", $.elseif_clause)),
         optional(field("alternative", $.else_clause)),
 
-        kw("endif"), "."
+        gen.kw("endif"), "."
     ),
 
     /**
@@ -30,7 +30,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
      */
     elseif_clause: $ => seq(
-        kw("elseif"),
+        gen.kw("elseif"),
         field("condition", $._logical_expression),
         ".",
         field("consequence", optional($.statement_block)),
@@ -45,7 +45,7 @@ module.exports = {
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
      */
     else_clause: $ => seq(
-        kw("else"),
+        gen.kw("else"),
         ".",
         field("consequence", optional($.statement_block)),
     ),
