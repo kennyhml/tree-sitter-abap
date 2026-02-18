@@ -434,7 +434,7 @@
         "named": true
       },
       {
-        "type": "search_key_read",
+        "type": "itab_table_key_spec",
         "named": true
       }
     ]
@@ -531,6 +531,10 @@
       },
       {
         "type": "condense_statement",
+        "named": true
+      },
+      {
+        "type": "delete_statement",
         "named": true
       },
       {
@@ -3238,6 +3242,40 @@
     }
   },
   {
+    "type": "comparing_fields_spec",
+    "named": true,
+    "fields": {
+      "components": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "itab_component_list",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_comparing",
+          "named": true
+        },
+        {
+          "type": "keyword_fields",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comparison_expression",
     "named": true,
     "fields": {
@@ -4873,6 +4911,187 @@
         },
         {
           "type": "keyword_defining",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_itab_duplicates_spec",
+    "named": true,
+    "fields": {
+      "comparing": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "comparing_fields_spec",
+            "named": true
+          }
+        ]
+      },
+      "key": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "using_key_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_adjacent",
+          "named": true
+        },
+        {
+          "type": "keyword_duplicates",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_itab_index_spec",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "using_loop_key_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "itab_index_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_itab_key_spec",
+    "named": true,
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "itab_table_key_spec",
+          "named": true
+        },
+        {
+          "type": "itab_work_area_spec",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_itab_lines_spec",
+    "named": true,
+    "fields": {
+      "lines": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "itab_lines_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "delete_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "delete_itab_duplicates_spec",
+          "named": true
+        },
+        {
+          "type": "delete_itab_index_spec",
+          "named": true
+        },
+        {
+          "type": "delete_itab_key_spec",
+          "named": true
+        },
+        {
+          "type": "delete_itab_lines_spec",
+          "named": true
+        },
+        {
+          "type": "keyword_delete",
           "named": true
         }
       ]
@@ -7464,6 +7683,36 @@
     }
   },
   {
+    "type": "itab_comp_spec_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "itab_comp_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "itab_component_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "itab_comp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "itab_expression",
     "named": true,
     "fields": {
@@ -7506,6 +7755,88 @@
     }
   },
   {
+    "type": "itab_index_spec",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      },
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "using_key_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_index",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "itab_lines_spec",
+    "named": true,
+    "fields": {
+      "from": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_from_index_spec",
+            "named": true
+          }
+        ]
+      },
+      "step": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_step_spec",
+            "named": true
+          }
+        ]
+      },
+      "to": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate_to_index_spec",
+            "named": true
+          }
+        ]
+      },
+      "where": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "iteration_cond",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "itab_spec",
     "named": true,
     "fields": {
@@ -7526,6 +7857,80 @@
       "types": [
         {
           "type": "argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "itab_table_key_spec",
+    "named": true,
+    "fields": {
+      "key_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_key",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "search_key_components_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "itab_work_area_spec",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "using_key_spec",
+            "named": true
+          }
+        ]
+      },
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_from",
           "named": true
         }
       ]
@@ -7612,33 +8017,48 @@
   {
     "type": "iteration_cond",
     "named": true,
-    "fields": {},
+    "fields": {
+      "condition": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "dynamic_cond",
+            "named": true
+          },
+          {
+            "type": "dynamic_cond_tab",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "dynamic_cond",
-          "named": true
-        },
-        {
-          "type": "dynamic_cond_tab",
-          "named": true
-        },
-        {
           "type": "keyword_where",
-          "named": true
-        },
-        {
-          "type": "logical_expression",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "relational_expression",
           "named": true
         },
         {
@@ -11561,45 +11981,26 @@
     }
   },
   {
-    "type": "search_key_components",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "itab_comp_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "search_key_read",
+    "type": "search_key_components_spec",
     "named": true,
     "fields": {
-      "key": {
+      "components": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "read_key_spec",
+            "type": "itab_comp_spec_list",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "keyword_components",
-          "named": true
-        },
-        {
-          "type": "search_key_components",
           "named": true
         }
       ]
@@ -14205,6 +14606,36 @@
     }
   },
   {
+    "type": "using_loop_key_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_key",
+          "named": true
+        },
+        {
+          "type": "keyword_using",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "using_message_spec",
     "named": true,
     "fields": {},
@@ -14638,6 +15069,10 @@
     "named": true
   },
   {
+    "type": "keyword_adjacent",
+    "named": true
+  },
+  {
     "type": "keyword_alias",
     "named": true
   },
@@ -14858,6 +15293,10 @@
     "named": true
   },
   {
+    "type": "keyword_comparing",
+    "named": true
+  },
+  {
     "type": "keyword_components",
     "named": true
   },
@@ -14951,6 +15390,10 @@
   },
   {
     "type": "keyword_definition",
+    "named": true
+  },
+  {
+    "type": "keyword_delete",
     "named": true
   },
   {

@@ -92,7 +92,7 @@ ENDLOOP.
         name: (identifier)))
     condition: (iteration_cond
       (keyword_where)
-      (comparison_expression
+      condition: (comparison_expression
         left: (identifier)
         (keyword_cp)
         right: (identifier)))
@@ -108,7 +108,7 @@ ENDLOOP.
             name: (identifier)))
         condition: (iteration_cond
           (keyword_where)
-          (comparison_expression
+          condition: (comparison_expression
             left: (identifier)
             right: (binary_operator
               left: (field_symbol
@@ -218,7 +218,7 @@ ENDLOOP.
       index: (number))
     condition: (iteration_cond
       (keyword_where)
-      (comparison_expression
+      condition: (comparison_expression
         left: (identifier)
         right: (dereference
           dref: (identifier))))
@@ -247,7 +247,7 @@ ENDLOOP.
       index: (number))
     condition: (iteration_cond
       (keyword_where)
-      (dynamic_cond
+      condition: (dynamic_cond
         name: (identifier)))
     (keyword_endloop)))
 
@@ -269,7 +269,7 @@ ENDLOOP.
       (keyword_fields))
     condition: (iteration_cond
       (keyword_where)
-      (comparison_expression
+      condition: (comparison_expression
         left: (identifier)
         right: (number)))
     (keyword_endloop)))
@@ -457,7 +457,7 @@ ENDLOOP.
             name: (identifier)))
         condition: (iteration_cond
           (keyword_where)
-          (comparison_expression
+          condition: (comparison_expression
             left: (identifier)
             right: (string_literal)))
         (keyword_endloop)))
