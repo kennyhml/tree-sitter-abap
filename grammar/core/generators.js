@@ -14,9 +14,17 @@ function kw(keyword) {
         throw Error("Grammar proxy not passed.");
     }
 
+    // Optionals are technically choices
+    let opt = false;
+    if (keyword.type === 'CHOICE') {
+        keyword = keyword.members[0].value;
+        opt = true;
+    }
+
     const regexExpression = caseInsensitive(keyword);
     const nodeName = `keyword_${keyword.replace("-", "_")}`
-    return alias(regexExpression, state.grammarProxy[nodeName]);
+    const rule = alias(regexExpression, state.grammarProxy[nodeName]);
+    return opt ? optional(rule) : rule;
 }
 
 function kws(...keywords) {

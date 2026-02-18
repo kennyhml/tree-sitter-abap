@@ -598,6 +598,7 @@ module.exports = grammar({
       field("size", $.numeric_expression),
     ),
 
+
     _iteration_index_spec: $ => choice(
       field("from", $.iterate_from_index_spec),
       field("to", $.iterate_to_index_spec),
@@ -614,7 +615,7 @@ module.exports = grammar({
         $.using_key_spec,
         seq(
           gen.kw("where"),
-          choice(
+          field("condition", choice(
             $._logical_expression,
 
             // statically specified logical expression log_exp must be placed in parenthese (table iterations)
@@ -624,6 +625,7 @@ module.exports = grammar({
             // dynamic where clause
             $.dynamic_cond,
             $.dynamic_cond_tab,
+          )
           )
         )
       )
@@ -716,7 +718,7 @@ module.exports = grammar({
      */
     itab_line: $ => choice(
       $.index_read,
-      $.search_key_read
+      $.itab_table_key_spec
     ),
 
     /**
@@ -733,27 +735,6 @@ module.exports = grammar({
       field("index", $.numeric_expression)
     ),
 
-    /**
-     * Search key read variant of {@link itab_line}
-     */
-    search_key_read: $ => seq(
-      // If a key is specified, `INDEX` must also be used.
-      optional(
-        seq(
-          field("key", $.read_key_spec),
-          optional(gen.kw("components")) // can be omitted
-        )
-      ),
-      $.search_key_components
-    ),
-
-    search_key_components: $ => repeat1($.itab_comp_spec),
-
-    itab_comp_spec: $ => seq(
-      field("comp", $.itab_comp),
-      "=",
-      field("value", $.general_expression)
-    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
     itab_comp: $ => choice(

@@ -33,11 +33,12 @@ itab[ carrid = 'AAA' ]
 (source
   (table_expression
     (identifier)
-    (search_key_read
-      (search_key_components
-        (itab_comp_spec
-          (identifier)
-          (string_literal))))))
+    (itab_table_key_spec
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (identifier)
+            (string_literal)))))))
 
 ==================
 Simple table key read
@@ -49,29 +50,29 @@ itab[ key my_awesome_key components connid = zclass=>get_connid( ) ]
 (source
   (table_expression
     (identifier)
-    (search_key_read
-      (read_key_spec
-        (keyword_key)
-        (identifier))
-      (search_key_components
-        (itab_comp_spec
-          (identifier)
-          (method_call
+    (itab_table_key_spec
+      (keyword_key)
+      (identifier)
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
             (identifier)
-            (identifier))))))
+            (method_call
+              (identifier)
+              (identifier)))))))
   (table_expression
     (identifier)
-    (search_key_read
-      (read_key_spec
-        (keyword_key)
-        (identifier))
-      (keyword_components)
-      (search_key_components
-        (itab_comp_spec
-          (identifier)
-          (method_call
+    (itab_table_key_spec
+      (keyword_key)
+      (identifier)
+      (search_key_components_spec
+        (keyword_components)
+        (itab_comp_spec_list
+          (itab_comp_spec
             (identifier)
-            (identifier)))))))
+            (method_call
+              (identifier)
+              (identifier))))))))
 
 ==================
 Secondary index read
@@ -98,15 +99,16 @@ itab[ foo-bar = obj->meth( ) ].
 (source
   (table_expression
     (identifier)
-    (search_key_read
-      (search_key_components
-        (itab_comp_spec
-          (struct_component_selector
-            (identifier)
-            (identifier))
-          (method_call
-            (identifier)
-            (identifier)))))))
+    (itab_table_key_spec
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (struct_component_selector
+              (identifier)
+              (identifier))
+            (method_call
+              (identifier)
+              (identifier))))))))
 
 ==================
 Search key object attr read
@@ -117,13 +119,14 @@ itab[ foo->attr = 'A' ].
 (source
   (table_expression
     (identifier)
-    (search_key_read
-      (search_key_components
-        (itab_comp_spec
-          (object_component_selector
-            (identifier)
-            (identifier))
-          (string_literal))))))
+    (itab_table_key_spec
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (object_component_selector
+              (identifier)
+              (identifier))
+            (string_literal)))))))
 
 ==================
 Search key dynamic comp read
@@ -134,12 +137,13 @@ itab[ (comp) = 999 ].
 (source
   (table_expression
     (identifier)
-    (search_key_read
-      (search_key_components
-        (itab_comp_spec
-          (dynamic_itab_comp
-            (identifier))
-          (number))))))
+    (itab_table_key_spec
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (dynamic_itab_comp
+              (identifier))
+            (number)))))))
 
 ==================
 Search key substring access read
@@ -150,11 +154,12 @@ itab[ field1+off(5) = 'AABBC' ].
 (source
   (table_expression
     (identifier)
-    (search_key_read
-      (search_key_components
-        (itab_comp_spec
-          (substring_access
-            (identifier)
-            (identifier)
-            (number))
-          (string_literal))))))
+    (itab_table_key_spec
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (substring_access
+              (identifier)
+              (identifier)
+              (number))
+            (string_literal)))))))

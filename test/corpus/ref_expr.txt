@@ -44,11 +44,12 @@ FINAL(dref) = REF #( itab[ field = 'ABC' ] DEFAULT new #( 'ABC' ) ).
       (keyword_ref)
       (table_expression
         (identifier)
-        (search_key_read
-          (search_key_components
-            (itab_comp_spec
-              (identifier)
-              (string_literal)))))
+        (itab_table_key_spec
+          (search_key_components_spec
+            (itab_comp_spec_list
+              (itab_comp_spec
+                (identifier)
+                (string_literal))))))
       (keyword_default)
       (new_expression
         (keyword_new)

@@ -16,11 +16,12 @@ itab[ field = 'AAA'  ]-value = 10.
     (struct_component_selector
       (table_expression
         (identifier)
-        (search_key_read
-          (search_key_components
-            (itab_comp_spec
-              (identifier)
-              (string_literal)))))
+        (itab_table_key_spec
+          (search_key_components_spec
+            (itab_comp_spec_list
+              (itab_comp_spec
+                (identifier)
+                (string_literal))))))
       (identifier))
     (number)))
 
