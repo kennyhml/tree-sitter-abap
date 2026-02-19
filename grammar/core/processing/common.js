@@ -66,12 +66,14 @@ module.exports = {
         $.search_key_components_spec,
     ),
 
+
     search_key_components_spec: $ => seq(
         optional(gen.kw("components")), // can be omitted
-        field("components", $.itab_comp_spec_list)
+        field("components", $.itab_comp_spec_list),
+        optional($.binary_search)
     ),
 
-    itab_comp_spec_list: $ => repeat1($.itab_comp_spec),
+    itab_comp_spec_list: $ => prec.right(repeat1($.itab_comp_spec)),
 
     itab_comp_spec: $ => seq(
         field("comp", $.itab_comp),
@@ -80,20 +82,22 @@ module.exports = {
     ),
 
     /**
-     * ... COMPARING {comp1 comp2 ...}|{ALL FIELDS}]
+     * ... COMPARING {comp1 comp2 ...}|{ALL FIELDS}/{NO FIELDS}]
      * 
      * Used in, for example:
-     * {@link adjacent_duplicates_spec} @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DUPLICATES.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DUPLICATES.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_TRANSPORT_OPTIONS.html
      */
     comparing_fields_spec: $ => seq(
         gen.kw("comparing"),
         choice(
-            seq(...gen.kws("all", "fields")),
+            $.all_fields,
+            $.no_fields,
             field("components", $.itab_component_list)
         )
     ),
 
-    itab_component_list: $ => repeat1($.itab_comp),
+    itab_component_list: $ => prec.right(repeat1($.itab_comp)),
 
     /**
      * Specification of the processing mode (byte | character) for various statements.
@@ -194,6 +198,18 @@ module.exports = {
     statement_results_spec: $ => seq(
         gen.kw("results"),
         field("target", $.receiving_expression)
+    ),
+
+    binary_search: _ => seq(
+        ...gen.kws("binary", "search")
+    ),
+
+    all_fields: _ => seq(
+        ...gen.kws("all", "fields")
+    ),
+
+    no_fields: _ => seq(
+        ...gen.kws("no", "fields")
     ),
 
 }

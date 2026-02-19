@@ -1,0 +1,217 @@
+======
+[READ-TABLE] Simple index read
+======
+READ TABLE itab WITH KEY table_line = 10 TRANSPORTING NO FIELDS.
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (itab_table_key_spec
+      (keyword_with)
+      (keyword_key)
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (identifier)
+            (number)))))
+    (transporting_no_fields_spec
+      (keyword_transporting)
+      (keyword_no)
+      (keyword_fields))))
+
+======
+[READ-TABLE] Simple index read with key
+======
+READ TABLE itab WITH KEY skey COMPONENTS table_line = 10 
+                         TRANSPORTING NO FIELDS. 
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (itab_table_key_spec
+      (keyword_with)
+      (keyword_key)
+      (identifier)
+      (search_key_components_spec
+        (keyword_components)
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (identifier)
+            (number)))))
+    (transporting_no_fields_spec
+      (keyword_transporting)
+      (keyword_no)
+      (keyword_fields))))
+
+======
+[READ-TABLE] Read from work area
+======
+READ TABLE spfli_tab FROM spfli_key 
+           ASSIGNING FIELD-SYMBOL(<spfli>). 
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (itab_work_area_spec
+      (keyword_from)
+      (identifier))
+    (assigning_spec
+      (keyword_assigning)
+      (declaration_expression
+        (keyword_field_symbol)
+        (identifier)))))
+
+======
+[READ-TABLE] Read from work area with key
+======
+READ TABLE spfli_tab FROM spfli_key USING KEY city_key 
+           ASSIGNING <spfli>. 
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (itab_work_area_spec
+      (keyword_from)
+      (identifier)
+      (using_key_spec
+        (keyword_using)
+        (keyword_key)
+        (identifier)))
+    (assigning_spec
+      (keyword_assigning)
+      (field_symbol
+        (identifier)))))
+
+======
+[READ-TABLE] Read with free key
+======
+READ TABLE html_viewer_tab 
+           WITH KEY table_line->parent = container 
+           INTO html_viewer. 
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (itab_table_key_spec
+      (keyword_with)
+      (keyword_key)
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (object_component_selector
+              (identifier)
+              (identifier))
+            (identifier)))))
+    (read_into_work_area
+      (keyword_into)
+      (identifier))))
+
+======
+[READ-TABLE] Read with free key and binary search
+======
+READ TABLE sflight_tab 
+     WITH KEY carrid = 'LH' connid = '400' fldate = '20240627' 
+     BINARY SEARCH 
+     ASSIGNING FIELD-SYMBOL(<flight>).
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (itab_table_key_spec
+      (keyword_with)
+      (keyword_key)
+      (search_key_components_spec
+        (itab_comp_spec_list
+          (itab_comp_spec
+            (identifier)
+            (string_literal))
+          (itab_comp_spec
+            (identifier)
+            (string_literal))
+          (itab_comp_spec
+            (identifier)
+            (string_literal)))
+        (binary_search
+          (keyword_binary)
+          (keyword_search))))
+    (assigning_spec
+      (keyword_assigning)
+      (declaration_expression
+        (keyword_field_symbol)
+        (identifier)))))
+
+======
+[READ-TABLE] Read with where condition
+======
+READ TABLE itab INTO text_short 
+          WHERE table_line = text_long.
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (read_into_work_area
+      (keyword_into)
+      (identifier))
+    (iteration_cond
+      (keyword_where)
+      (comparison_expression
+        (identifier)
+        (identifier)))))
+
+======
+[READ-TABLE] Ready index with special transport options
+======
+READ TABLE sflight_tab 
+       INDEX sy-index 
+       INTO sflight_wa COMPARING seatsocc 
+                       TRANSPORTING carrid 
+                                    connid 
+                                    fldate 
+                                    seatsocc. 
+---
+
+(source
+  (read_table_statement
+    (keyword_read)
+    (keyword_table)
+    (identifier)
+    (itab_index_spec
+      (keyword_index)
+      (struct_component_selector
+        (identifier)
+        (identifier)))
+    (read_into_work_area
+      (keyword_into)
+      (identifier)
+      (comparing_fields_spec
+        (keyword_comparing)
+        (itab_component_list
+          (identifier)))
+      (transporting_components
+        (keyword_transporting)
+        (itab_component_list
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier))))))

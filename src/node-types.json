@@ -546,6 +546,10 @@
         "named": true
       },
       {
+        "type": "read_table_statement",
+        "named": true
+      },
+      {
         "type": "replace_statement",
         "named": true
       },
@@ -760,6 +764,25 @@
         },
         {
           "type": "keyword_aliases",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "all_fields",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_fields",
           "named": true
         }
       ]
@@ -1433,6 +1456,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "binary_search",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_binary",
+          "named": true
+        },
+        {
+          "type": "keyword_search",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3261,7 +3303,7 @@
       "required": true,
       "types": [
         {
-          "type": "keyword_all",
+          "type": "all_fields",
           "named": true
         },
         {
@@ -3269,7 +3311,7 @@
           "named": true
         },
         {
-          "type": "keyword_fields",
+          "type": "no_fields",
           "named": true
         }
       ]
@@ -9647,6 +9689,25 @@
     }
   },
   {
+    "type": "no_fields",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_fields",
+          "named": true
+        },
+        {
+          "type": "keyword_no",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "no_gaps_spec",
     "named": true,
     "fields": {},
@@ -10975,6 +11036,46 @@
     }
   },
   {
+    "type": "read_into_work_area",
+    "named": true,
+    "fields": {
+      "transport_option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "comparing_fields_spec",
+            "named": true
+          },
+          {
+            "type": "transporting_components",
+            "named": true
+          }
+        ]
+      },
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_into",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "read_key_spec",
     "named": true,
     "fields": {
@@ -11010,6 +11111,74 @@
       "types": [
         {
           "type": "keyword_read_only",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "read_table_statement",
+    "named": true,
+    "fields": {
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assigning_spec",
+            "named": true
+          },
+          {
+            "type": "read_into_work_area",
+            "named": true
+          },
+          {
+            "type": "reference_into_spec",
+            "named": true
+          },
+          {
+            "type": "transporting_no_fields_spec",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "functional_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "itab_index_spec",
+          "named": true
+        },
+        {
+          "type": "itab_table_key_spec",
+          "named": true
+        },
+        {
+          "type": "itab_work_area_spec",
+          "named": true
+        },
+        {
+          "type": "iteration_cond",
+          "named": true
+        },
+        {
+          "type": "keyword_read",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
           "named": true
         }
       ]
@@ -11996,9 +12165,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "binary_search",
+          "named": true
+        },
         {
           "type": "keyword_components",
           "named": true
@@ -14306,6 +14479,36 @@
     }
   },
   {
+    "type": "transporting_components",
+    "named": true,
+    "fields": {
+      "components": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "itab_component_list",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "all_fields",
+          "named": true
+        },
+        {
+          "type": "keyword_transporting",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "transporting_no_fields_spec",
     "named": true,
     "fields": {},
@@ -15142,6 +15345,10 @@
   },
   {
     "type": "keyword_between",
+    "named": true
+  },
+  {
+    "type": "keyword_binary",
     "named": true
   },
   {
@@ -16069,6 +16276,10 @@
     "named": true
   },
   {
+    "type": "keyword_read",
+    "named": true
+  },
+  {
     "type": "keyword_read_only",
     "named": true
   },
@@ -16162,6 +16373,10 @@
   },
   {
     "type": "keyword_screen",
+    "named": true
+  },
+  {
+    "type": "keyword_search",
     "named": true
   },
   {
