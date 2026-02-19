@@ -286,5 +286,6 @@ DELETE ADJACENT DUPLICATES FROM dokhl_tab COMPARING all fields.
       (identifier)
       (comparing_fields_spec
         (keyword_comparing)
-        (keyword_all)
-        (keyword_fields)))))
+        (all_fields
+          (keyword_all)
+          (keyword_fields))))))
