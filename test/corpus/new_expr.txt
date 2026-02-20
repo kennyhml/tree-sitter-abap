@@ -6,7 +6,6 @@ NEW i( 555 )
 
 (source
   (new_expression
-    (keyword_new)
     (type_identifier)
     (argument_list
       (positional_argument
@@ -19,8 +18,7 @@ NEW #( )
 ---
 
 (source
-  (new_expression
-    (keyword_new)))
+  (new_expression))
 
 ==================
 Value with let expr
@@ -30,15 +28,12 @@ NEW string( let var = 'A String' in |Using let expression { var }| )
 
 (source
   (new_expression
-    (keyword_new)
     (type_identifier)
     (argument_list
       (let_expression
-        (keyword_let)
         (assignment
           (identifier)
           (string_literal)))
-      (keyword_in)
       (positional_argument
         (string_template
           (embedded_expression
@@ -54,20 +49,16 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
 
 (source
   (new_expression
-    (keyword_new)
     (itab_spec
       (base_spec
-        (keyword_base)
         (identifier))
       (argument_list
         (named_argument
           (identifier)
           (string_literal)))))
   (new_expression
-    (keyword_new)
     (itab_spec
       (base_spec
-        (keyword_base)
         (dereference
           (identifier)))
       (argument_list
@@ -75,10 +66,8 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
           (identifier)
           (string_literal)))))
   (new_expression
-    (keyword_new)
     (itab_spec
       (base_spec
-        (keyword_base)
         (class_component_selector
           (identifier)
           (identifier)))
@@ -95,7 +84,6 @@ NEW t_struct( col2-col1 = 2 col2-col2 = itab ).
 
 (source
   (new_expression
-    (keyword_new)
     (type_identifier)
     (argument_list
       (named_argument

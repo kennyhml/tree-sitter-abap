@@ -6,16 +6,12 @@ DELETE itab WHERE table_line IS INITIAL.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_lines_spec
       (identifier)
       (itab_lines_spec
         (iteration_cond
-          (keyword_where)
           (predicate_expression
-            (identifier)
-            (keyword_is)
-            (keyword_initial)))))))
+            (identifier)))))))
 
 ======
 [DELETE-STATEMENT] Delete with index key
@@ -25,15 +21,11 @@ DELETE itab INDEX 1 USING KEY skey.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_index_spec
       (identifier)
       (itab_index_spec
-        (keyword_index)
         (number)
         (using_key_spec
-          (keyword_using)
-          (keyword_key)
           (identifier))))))
 
 ======
@@ -44,11 +36,9 @@ DELETE itab INDEX line_index( itab[ KEY primary_key table_line = `Z` ] ).
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_index_spec
       (identifier)
       (itab_index_spec
-        (keyword_index)
         (builtin_function_call
           (identifier)
           (call_argument_list
@@ -56,7 +46,6 @@ DELETE itab INDEX line_index( itab[ KEY primary_key table_line = `Z` ] ).
               (table_expression
                 (identifier)
                 (itab_table_key_spec
-                  (keyword_key)
                   (identifier)
                   (search_key_components_spec
                     (itab_comp_spec_list
@@ -73,16 +62,12 @@ DELETE itab using key loop_key.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_index_spec
       (identifier)))
   (delete_statement
-    (keyword_delete)
     (delete_itab_index_spec
       (identifier)
       (using_loop_key_spec
-        (keyword_using)
-        (keyword_key)
         (identifier)))))
 
 ======
@@ -93,14 +78,10 @@ DELETE TABLE scarr_tab FROM VALUE #( carrid = to_upper( carrid ) ).
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_key_spec
-      (keyword_table)
       (identifier)
       (itab_work_area_spec
-        (keyword_from)
         (value_expression
-          (keyword_value)
           (argument_list
             (named_argument
               (identifier)
@@ -118,14 +99,9 @@ DELETE TABLE scarr_tab WITH TABLE KEY carrid = carrid.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_key_spec
-      (keyword_table)
       (identifier)
       (itab_table_key_spec
-        (keyword_with)
-        (keyword_table)
-        (keyword_key)
         (search_key_components_spec
           (itab_comp_spec_list
             (itab_comp_spec
@@ -142,17 +118,11 @@ DELETE TABLE spfli_tab WITH TABLE KEY skey
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_key_spec
-      (keyword_table)
       (identifier)
       (itab_table_key_spec
-        (keyword_with)
-        (keyword_table)
-        (keyword_key)
         (identifier)
         (search_key_components_spec
-          (keyword_components)
           (itab_comp_spec_list
             (itab_comp_spec
               (identifier)
@@ -169,18 +139,14 @@ DELETE itab FROM 1 TO 8 STEP 2.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_lines_spec
       (identifier)
       (itab_lines_spec
         (iterate_from_index_spec
-          (keyword_from)
           (number))
         (iterate_to_index_spec
-          (keyword_to)
           (number))
         (iterate_step_spec
-          (keyword_step)
           (number))))))
 
 ======
@@ -192,21 +158,16 @@ DELETE spfli_tab USING KEY skey WHERE cityfrom = 'FRANKFURT' AND
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_lines_spec
       (identifier)
       (itab_lines_spec
         (iteration_cond
           (using_key_spec
-            (keyword_using)
-            (keyword_key)
             (identifier))
-          (keyword_where)
           (logical_expression
             (comparison_expression
               (identifier)
               (string_literal))
-            (keyword_and)
             (comparison_expression
               (identifier)
               (string_literal))))))))
@@ -219,16 +180,12 @@ DELETE spfli_tab USING KEY skey WHERE (cond).
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_lines_spec
       (identifier)
       (itab_lines_spec
         (iteration_cond
           (using_key_spec
-            (keyword_using)
-            (keyword_key)
             (identifier))
-          (keyword_where)
           (dynamic_cond
             (identifier)))))))
 
@@ -240,15 +197,9 @@ DELETE ADJACENT DUPLICATES FROM itab USING KEY skey.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_duplicates_spec
-      (keyword_adjacent)
-      (keyword_duplicates)
-      (keyword_from)
       (identifier)
       (using_key_spec
-        (keyword_using)
-        (keyword_key)
         (identifier)))))
 
 ======
@@ -259,14 +210,9 @@ DELETE ADJACENT DUPLICATES FROM dokhl_tab COMPARING object.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_duplicates_spec
-      (keyword_adjacent)
-      (keyword_duplicates)
-      (keyword_from)
       (identifier)
       (comparing_fields_spec
-        (keyword_comparing)
         (itab_component_list
           (identifier))))))
 
@@ -278,14 +224,7 @@ DELETE ADJACENT DUPLICATES FROM dokhl_tab COMPARING all fields.
 
 (source
   (delete_statement
-    (keyword_delete)
     (delete_itab_duplicates_spec
-      (keyword_adjacent)
-      (keyword_duplicates)
-      (keyword_from)
       (identifier)
       (comparing_fields_spec
-        (keyword_comparing)
-        (all_fields
-          (keyword_all)
-          (keyword_fields))))))
+        (all_fields)))))

@@ -14,28 +14,15 @@ ENDCLASS.
 
 (source
   (class_definition
-    (keyword_class)
     name: (identifier)
-    (keyword_definition)
     (class_options
-      (public_spec
-        (keyword_public))
-      (final_spec
-        (keyword_final))
-      accessibility: (create_visibility_spec
-        (keyword_create)
-        visibility: (keyword_public)))
+      (public_spec)
+      (final_spec)
+      accessibility: (create_visibility_spec))
     (class_body
-      (public_section
-        (keyword_public)
-        (keyword_section))
-      (protected_section
-        (keyword_protected)
-        (keyword_section))
-      (private_section
-        (keyword_private)
-        (keyword_section)))
-    (keyword_endclass)))
+      (public_section)
+      (protected_section)
+      (private_section))))
 
 ======
 Declaration with inheritance
@@ -47,15 +34,10 @@ ENDCLASS.
 
 (source
   (class_definition
-    (keyword_class)
     name: (identifier)
-    (keyword_definition)
     (class_options
       superclass: (superclass_spec
-        (keyword_inheriting)
-        (keyword_from)
-        name: (identifier)))
-    (keyword_endclass)))
+        name: (identifier)))))
 
 ======
 Abstract base class
@@ -66,13 +48,9 @@ ENDCLASS.
 
 (source
   (class_definition
-    (keyword_class)
     name: (identifier)
-    (keyword_definition)
     (class_options
-      (abstract_spec
-        (keyword_abstract)))
-    (keyword_endclass)))
+      (abstract_spec))))
 
 ======
 Declaration with friend classes
@@ -88,26 +66,15 @@ ENDCLASS.
 
 (source
   (class_definition
-    (keyword_class)
     name: (identifier)
-    (keyword_definition)
     (class_options
-      (public_spec
-        (keyword_public))
+      (public_spec)
       superclass: (superclass_spec
-        (keyword_inheriting)
-        (keyword_from)
         name: (identifier))
-      (final_spec
-        (keyword_final))
-      accessibility: (create_visibility_spec
-        (keyword_create)
-        visibility: (keyword_private))
+      (final_spec)
+      accessibility: (create_visibility_spec)
       friends: (friends_spec
-        (keyword_global)
-        (keyword_friends)
-        (identifier)))
-    (keyword_endclass)))
+        (identifier)))))
 
 ======
 Declaration for shared memory
@@ -122,22 +89,12 @@ ENDCLASS.
 
 (source
   (class_definition
-    (keyword_class)
     (identifier)
-    (keyword_definition)
     (class_options
-      (public_spec
-        (keyword_public))
-      (final_spec
-        (keyword_final))
-      (create_visibility_spec
-        (keyword_create)
-        (keyword_public))
-      (shared_memory_enabled_spec
-        (keyword_shared)
-        (keyword_memory)
-        (keyword_enabled)))
-    (keyword_endclass)))
+      (public_spec)
+      (final_spec)
+      (create_visibility_spec)
+      (shared_memory_enabled_spec))))
 
 ======
 Declaration for abap unit
@@ -150,22 +107,12 @@ ENDCLASS.
 
 (source
   (class_definition
-    (keyword_class)
     (identifier)
-    (keyword_definition)
     (class_options
       (for_testing_spec
-        (for_testing_spec
-          (keyword_for)
-          (keyword_testing))
-        (testing_risk_level_spec
-          (keyword_risk)
-          (keyword_level)
-          (keyword_harmless))
-        (testing_duration_spec
-          (keyword_duration)
-          (keyword_long))))
-    (keyword_endclass)))
+        (for_testing_spec)
+        (testing_risk_level_spec)
+        (testing_duration_spec)))))
 
 ======
 RAP Behavior declaration
@@ -177,22 +124,13 @@ ENDCLASS.
 
 (source
   (class_definition
-    (keyword_class)
     name: (identifier)
-    (keyword_definition)
     (class_options
-      (public_spec
-        (keyword_public))
-      (abstract_spec
-        (keyword_abstract))
-      (final_spec
-        (keyword_final))
+      (public_spec)
+      (abstract_spec)
+      (final_spec)
       (for_rap_behavior_spec
-        (keyword_for)
-        (keyword_behavior)
-        (keyword_of)
-        bdef: (identifier)))
-    (keyword_endclass)))
+        bdef: (identifier)))))
 
 ======
 Class implementation part
@@ -203,10 +141,7 @@ ENDCLASS.
 
 (source
   (class_implementation
-    (keyword_class)
-    name: (identifier)
-    (keyword_implementation)
-    (keyword_endclass)))
+    name: (identifier)))
 
 ======
 Deferred class declaration
@@ -216,10 +151,7 @@ CLASS c1 DEFINITION DEFERRED.
 
 (source
   (deferred_class_definition
-    (keyword_class)
-    name: (identifier)
-    (keyword_definition)
-    (keyword_deferred)))
+    name: (identifier)))
 
 ======
 Declaration with local friends
@@ -229,9 +161,5 @@ CLASS cl_demo_amdp_mesh DEFINITION LOCAL FRIENDS cl_test_selects.
 
 (source
   (local_friends_spec
-    (keyword_class)
     name: (identifier)
-    (keyword_definition)
-    (keyword_local)
-    (keyword_friends)
     friend: (identifier)))

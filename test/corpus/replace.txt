@@ -6,14 +6,11 @@ REPLACE 'a' in str with 'b'.
 
 (source
   (replace_statement
-    (keyword_replace)
     (substring_spec
       (string_literal))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))))
 
 ========
@@ -24,18 +21,12 @@ REPLACE FIRST OCCURRENCE OF 'a' in str with 'b'.
 
 (source
   (replace_statement
-    (keyword_replace)
     (first_occurrence_of_pattern_spec
-      (keyword_first)
-      (keyword_occurrence)
-      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))))
 
 ========
@@ -46,18 +37,12 @@ REPLACE ALL OCCURRENCES OF 'a' in str with 'b'.
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))))
 
 ========
@@ -68,15 +53,11 @@ REPLACE PCRE 'u*' IN text WITH 'x'.
 
 (source
   (replace_statement
-    (keyword_replace)
     (pcre_spec
-      (keyword_pcre)
       (string_literal))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))))
 
 ========
@@ -89,27 +70,17 @@ REPLACE ALL OCCURRENCES OF foo
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       pattern: (substring_spec
         value: (identifier)))
     subject: (subject_spec
-      (keyword_in)
       (section_spec
-        (keyword_section)
         offset: (section_offset_spec
-          (keyword_offset)
           amount: (number))
         length: (section_length_spec
-          (keyword_length)
-          amount: (number))
-        (keyword_of))
+          amount: (number)))
       data_object: (identifier))
     substitute: (subject_spec
-      (keyword_with)
       value: (identifier))))
 
 ========
@@ -121,23 +92,14 @@ REPLACE ALL OCCURRENCES OF lv_xvar IN xstr
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       (substring_spec
         (identifier)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (identifier))
-    (string_processing_spec
-      (keyword_in)
-      (keyword_byte)
-      (keyword_mode))))
+    (string_processing_spec)))
 
 ========
 Replace in character mode
@@ -148,23 +110,14 @@ REPLACE ALL OCCURRENCES OF lv_xvar IN xstr
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       (substring_spec
         (identifier)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (identifier))
-    (string_processing_spec
-      (keyword_in)
-      (keyword_character)
-      (keyword_mode))))
+    (string_processing_spec)))
 
 ========
 Replace with verbatim PCRE
@@ -174,18 +127,13 @@ REPLACE PCRE regex IN text2 WITH `$1___$3` VERBATIM.
 
 (source
   (replace_statement
-    (keyword_replace)
     (pcre_spec
-      (keyword_pcre)
       (identifier))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))
-    (verbatim_spec
-      (keyword_verbatim))))
+    (verbatim_spec)))
 
 ========
 Replace respecting case
@@ -196,23 +144,14 @@ REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`'
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       (pcre_spec
-        (keyword_pcre)
         (string_literal)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))
-    (case_sensitivity_spec
-      (keyword_respecting)
-      (keyword_case))))
+    (case_sensitivity_spec)))
 
 ========
 Replace ignoring case
@@ -223,23 +162,14 @@ REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`'
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       (pcre_spec
-        (keyword_pcre)
         (string_literal)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))
-    (case_sensitivity_spec
-      (keyword_ignoring)
-      (keyword_case))))
+    (case_sensitivity_spec)))
 
 ========
 Replace options meta information
@@ -253,36 +183,21 @@ REPLACE ALL OCCURRENCES OF 'know' IN
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))
     (replacement_count_spec
-      (keyword_replacement)
-      (keyword_count)
       (declaration_expression
-        (keyword_data)
         (identifier)))
     (replacement_offset_spec
-      (keyword_replacement)
-      (keyword_offset)
       (declaration_expression
-        (keyword_data)
         (identifier)))
     (replacement_length_spec
-      (keyword_replacement)
-      (keyword_length)
       (declaration_expression
-        (keyword_data)
         (identifier)))))
 
 ========
@@ -295,24 +210,14 @@ REPLACE ALL OCCURRENCES OF `d` IN str WITH 't'
 
 (source
   (replace_statement
-    (keyword_replace)
     (all_occurrences_of_pattern_spec
-      (keyword_all)
-      (keyword_occurrences)
-      (keyword_of)
       (substring_spec
         (string_literal)))
     (subject_spec
-      (keyword_in)
       (identifier))
     (subject_spec
-      (keyword_with)
       (string_literal))
-    (case_sensitivity_spec
-      (keyword_ignoring)
-      (keyword_case))
+    (case_sensitivity_spec)
     (statement_results_spec
-      (keyword_results)
       (declaration_expression
-        (keyword_final)
         (identifier)))))

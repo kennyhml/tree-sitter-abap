@@ -7,9 +7,7 @@ ENDFORM.
 
 (source
   (form_definition
-    (keyword_form)
-    name: (identifier)
-    (keyword_endform)))
+    name: (identifier)))
 
 ======
 Form with using/changing parameters
@@ -21,26 +19,18 @@ ENDFORM.
 
 (source
   (form_definition
-    (keyword_form)
     name: (identifier)
-    (keyword_using)
     using: (parameter_list
       (parameter
         (simple_param_spec
           name: (identifier))
         typing: (referred_type_spec
-          (keyword_type)
           name: (type_identifier))))
-    (keyword_changing)
     changing: (parameter_list
       (parameter
         (simple_param_spec
           name: (identifier))
-        typing: (table_type_spec
-          (keyword_type)
-          kind: (keyword_index)
-          (keyword_table))))
-    (keyword_endform)))
+        typing: (table_type_spec)))))
 
 ======
 Form with structure parameter
@@ -52,17 +42,13 @@ ENDFORM.
 
 (source
   (form_definition
-    (keyword_form)
     name: (identifier)
-    (keyword_tables)
     tables: (parameter_list
       (parameter
         (simple_param_spec
           name: (identifier))
         (structure_param_spec
-          (keyword_structure)
-          name: (identifier))))
-    (keyword_endform)))
+          name: (identifier))))))
 
 ======
 Form with class-based exceptions
@@ -76,26 +62,17 @@ ENDFORM.
 
 (source
   (form_definition
-    (keyword_form)
     name: (identifier)
-    (keyword_using)
     using: (parameter_list
       (parameter
         (value_param_spec
-          (keyword_value)
           name: (identifier))
-        typing: (table_type_spec
-          (keyword_type)
-          kind: (keyword_standard)
-          (keyword_table))))
-    (keyword_raising)
+        typing: (table_type_spec)))
     raising: (raising_list
       (simple_exception_spec
         name: (identifier))
       (resumable_exception_spec
-        (keyword_resumable)
-        name: (identifier)))
-    (keyword_endform)))
+        name: (identifier)))))
 
 ======
 Perform subroutine
@@ -106,14 +83,11 @@ PERFORM select_sflight TABLES sflight_tab
 
 (source
   (perform_statement
-    (keyword_perform)
     (subroutine_spec
       (identifier))
-    (keyword_tables)
     (argument_list
       (positional_argument
         (identifier)))
-    (keyword_using)
     (argument_list
       (positional_argument
         (identifier))
@@ -128,18 +102,13 @@ PERFORM (subr) IN PROGRAM (prog) IF FOUND.
 
 (source
   (perform_statement
-    (keyword_perform)
     routine: (subroutine_spec
       name: (dyn_spec
         name: (identifier))
       (in_program_spec
-        (keyword_in)
-        (keyword_program)
         name: (dyn_spec
           name: (identifier)))
-      (if_found_spec
-        (keyword_if)
-        (keyword_found)))))
+      (if_found_spec))))
 
 ======
 Perform subroutine from index
@@ -149,12 +118,10 @@ PERFORM sy-index OF subr_1 subr_2.
 
 (source
   (perform_statement
-    (keyword_perform)
     routine: (subroutine_spec
       index: (struct_component_selector
         struct: (identifier)
         comp: (identifier))
-      (keyword_of)
       subroutines: (subroutine_list
         (identifier)
         (identifier)))))
@@ -167,14 +134,11 @@ PERFORM foo(bar) IF FOUND.
 
 (source
   (perform_statement
-    (keyword_perform)
     routine: (subroutine_spec
       name: (identifier)
       program: (dyn_spec
         name: (identifier))
-      (if_found_spec
-        (keyword_if)
-        (keyword_found)))))
+      (if_found_spec))))
 
 ======
 Register subroutines on luw actions
@@ -185,19 +149,12 @@ PERFORM cleanup_temp_buffers ON ROLLBACK.
 
 (source
   (perform_statement
-    (keyword_perform)
     routine: (subroutine_spec
       name: (identifier))
     (perform_on_commit_spec
-      (keyword_on)
-      (keyword_commit)
       commit_level: (commit_level_spec
-        (keyword_level)
         level: (identifier))))
   (perform_statement
-    (keyword_perform)
     routine: (subroutine_spec
       name: (identifier))
-    (perform_on_rollback_spec
-      (keyword_on)
-      (keyword_rollback))))
+    (perform_on_rollback_spec)))

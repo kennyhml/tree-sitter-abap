@@ -6,21 +6,15 @@ SPLIT text AT space INTO FINAL(str1) FINAL(str2) FINAL(str3).
 
 (source
   (split_statement
-    (keyword_split)
     (identifier)
     (split_at_spec
-      (keyword_at)
       (identifier))
     (split_result_spec
-      (keyword_into)
       (declaration_expression
-        (keyword_final)
         (identifier))
       (declaration_expression
-        (keyword_final)
         (identifier))
       (declaration_expression
-        (keyword_final)
         (identifier)))))
 
 ======
@@ -31,15 +25,10 @@ SPLIT text1 AT ':' INTO TABLE DATA(segments).
 
 (source
   (split_statement
-    (keyword_split)
     (identifier)
     (split_at_spec
-      (keyword_at)
       (string_literal))
     (split_result_spec
-      (keyword_into)
       (split_table_result_spec
-        (keyword_table)
         (declaration_expression
-          (keyword_data)
           (identifier))))))

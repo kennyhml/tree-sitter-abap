@@ -8,24 +8,19 @@ REDUCE string( INIT s = 0
 
 (source
   (reduce_expression
-    (keyword_reduce)
     (type_identifier)
     (reduce_init
-      (keyword_init)
       (init_spec
         (identifier)
         (number)))
     (conditional_iteration
-      (keyword_for)
       (assignment
         (identifier)
         (number))
-      (keyword_until)
       (comparison_expression
         (identifier)
         (number)))
     (reduce_next
-      (keyword_next)
       (assignment
         (identifier)
         (identifier)))))
@@ -40,30 +35,23 @@ REDUCE string( INIT text type string
 
 (source
   (reduce_expression
-    (keyword_reduce)
     (type_identifier)
     (reduce_init
-      (keyword_init)
       (init_spec
         (identifier)
         (builtin_type_spec
-          (keyword_type)
           (type_identifier))))
     (conditional_iteration
-      (keyword_for)
       (assignment
         (identifier)
         (number))
-      (keyword_then)
       (binary_operator
         (identifier)
         (number))
-      (keyword_while)
       (comparison_expression
         (identifier)
         (number)))
     (reduce_next
-      (keyword_next)
       (assignment
         (identifier)
         (string_template
@@ -85,14 +73,11 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
 
 (source
   (reduce_expression
-    (keyword_reduce)
     (type_identifier)
     (reduce_init
-      (keyword_init)
       (init_spec
         (identifier)
         (value_expression
-          (keyword_value)
           (type_identifier)
           (argument_list
             (named_argument
@@ -105,13 +90,10 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
         (identifier)
         (string_literal)))
     (table_iteration
-      (keyword_for)
       (field_symbol
         (identifier))
-      (keyword_in)
       (identifier))
     (reduce_next
-      (keyword_next)
       (assignment
         (struct_component_selector
           (identifier)
@@ -169,10 +151,8 @@ REDUCE string( INIT text = `` sep = ``
 
 (source
   (reduce_expression
-    (keyword_reduce)
     (type_identifier)
     (reduce_init
-      (keyword_init)
       (init_spec
         (identifier)
         (string_literal))
@@ -181,40 +161,28 @@ REDUCE string( INIT text = `` sep = ``
         (string_literal)))
     (inline_comment)
     (table_iteration
-      (keyword_for)
       (identifier)
-      (keyword_in)
       (value_expression
-        (keyword_value)
         (type_identifier)
         (inline_comment)
         (itab_expression
           (table_iteration
-            (keyword_for)
             (identifier)
-            (keyword_in)
             (identifier))
           (line_spec
             (argument_list
               (positional_argument
                 (switch_expression
-                  (keyword_switch)
                   (identifier)
                   (case
-                    (keyword_when)
                     (string_literal)
-                    (keyword_then)
                     (string_literal))
                   (case
-                    (keyword_when)
                     (string_literal)
-                    (keyword_then)
                     (string_literal))
                   (case
-                    (keyword_else)
                     (identifier)))))))))
     (reduce_next
-      (keyword_next)
       (assignment
         (identifier)
         (string_template

@@ -67,6 +67,10 @@ module.exports = grammar({
     $._error_sentinel,
   ],
 
+  conflicts: $ => [
+    [$._long_form_message_id]
+  ],
+
   extras: $ => [
     /**
      * ABAP is whitespace sensitive in certain places, so its a little awkward.
@@ -137,15 +141,19 @@ module.exports = grammar({
   rules: {
     source: $ => {
       gen.state.grammarProxy = $;
-      return repeat($._statement)
+      return repeat(choice(
+        $._statement,
+        // $._orphan_keyword
+      ));
     },
 
     _statement: $ => choice(
       $._simple_statement,
       $.special_statement,
       $.general_expression,
-      $.docstring
+      $.docstring,
     ),
+
 
     _simple_statement: $ => choice(
       // Declarations
@@ -2426,7 +2434,9 @@ module.exports = grammar({
 
     _name: $ => IDENTIFIER_REGEX,
 
-    identifier: $ => choice($._name, $._contextual_keyword),
+    identifier: $ => prec(-1, choice($._name, $._keyword)),
+
+    orphan_keyword: $ => prec(-2, $._keyword),
 
     /**
      * ABAP does not reserve keywords whatsoever. Any keyword is valid to be used as an identifier.
@@ -2453,7 +2463,7 @@ module.exports = grammar({
      * 
      * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _contextual_keyword: $ => prec(-1, choice(
+    _keyword: $ => prec(-1, choice(
       ...gen.caseInsensitive(
         "value",
         "new",

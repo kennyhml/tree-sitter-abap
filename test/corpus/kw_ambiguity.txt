@@ -3,11 +3,12 @@ Value parameter inside function call
 ======
 ceil( value = 10 ).
 ---
+
 (source
-    (builtin_function_call
+  (builtin_function_call
     (identifier)
     (call_argument_list
-        (argument_list
-            (named_argument
-                (identifier)
-                (number))))))
+      (argument_list
+        (named_argument
+          (identifier)
+          (number))))))
