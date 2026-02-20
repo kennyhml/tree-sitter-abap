@@ -6,7 +6,6 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
 
 (source
   (concatenate_statement
-    (keyword_concatenate)
     (data_object_list
       (identifier)
       (string_literal)
@@ -16,10 +15,8 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
       (object_component_selector
         (identifier)
         (identifier)))
-    (keyword_into)
     (result_spec
       (declaration_expression
-        (keyword_final)
         (identifier)))))
 
 ======
@@ -30,15 +27,10 @@ CONCATENATE LINES OF itab INTO FINAL(xstr).
 
 (source
   (concatenate_statement
-    (keyword_concatenate)
     (lines_of
-      (keyword_lines)
-      (keyword_of)
       (identifier))
-    (keyword_into)
     (result_spec
       (declaration_expression
-        (keyword_final)
         (identifier)))))
 
 ======
@@ -49,17 +41,13 @@ CONCATENATE t1 t2 t3 INTO result SEPARATED BY space.
 
 (source
   (concatenate_statement
-    (keyword_concatenate)
     (data_object_list
       (identifier)
       (identifier)
       (identifier))
-    (keyword_into)
     (result_spec
       (identifier))
     (separated_by_spec
-      (keyword_separated)
-      (keyword_by)
       (identifier))))
 
 ======
@@ -70,14 +58,8 @@ CONCATENATE LINES OF itab INTO result RESPECTING BLANKS.
 
 (source
   (concatenate_statement
-    (keyword_concatenate)
     (lines_of
-      (keyword_lines)
-      (keyword_of)
       (identifier))
-    (keyword_into)
     (result_spec
       (identifier))
-    (respecting_blanks_spec
-      (keyword_respecting)
-      (keyword_blanks))))
+    (respecting_blanks_spec)))

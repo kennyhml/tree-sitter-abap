@@ -8,7 +8,6 @@ oref2 =  CAST #( oref1 ).
   (assignment
     (identifier)
     (cast_expression
-      (keyword_cast)
       (identifier))))
 
 ======
@@ -22,7 +21,6 @@ struc      = CAST t_struc( dref )->*.
     (identifier)
     (dereference
       (cast_expression
-        (keyword_cast)
         (type_identifier)
         (identifier)))))
 
@@ -39,7 +37,6 @@ struc-col1 = CAST t_struc( dref )->col1.
       (identifier))
     (object_component_selector
       (cast_expression
-        (keyword_cast)
         (type_identifier)
         (identifier))
       (identifier))))
@@ -55,7 +52,6 @@ num = CAST struc( dref )->('col').
     (identifier)
     (object_component_selector
       (cast_expression
-        (keyword_cast)
         (type_identifier)
         (identifier))
       (dynamic_component
@@ -73,11 +69,9 @@ FINAL(attributes) =
 (source
   (assignment
     (declaration_expression
-      (keyword_final)
       (identifier))
     (object_component_selector
       (cast_expression
-        (keyword_cast)
         (type_identifier)
         (method_call
           (identifier)

@@ -6,7 +6,6 @@ VALUE i( 555 )
 
 (source
   (value_expression
-    (keyword_value)
     (type_identifier)
     (argument_list
       (positional_argument
@@ -19,8 +18,7 @@ VALUE #( )
 ---
 
 (source
-  (value_expression
-    (keyword_value)))
+  (value_expression))
 
 ==================
 Value with let expr
@@ -30,15 +28,12 @@ VALUE string( let var = 'A String' in |Using let expression { var }| )
 
 (source
   (value_expression
-    (keyword_value)
     (type_identifier)
     (argument_list
       (let_expression
-        (keyword_let)
         (assignment
           (identifier)
           (string_literal)))
-      (keyword_in)
       (positional_argument
         (string_template
           (embedded_expression
@@ -54,20 +49,16 @@ VALUE #( BASE /www/my_class=>base_itab col2 = 'BB' ).
 
 (source
   (value_expression
-    (keyword_value)
     (itab_spec
       (base_spec
-        (keyword_base)
         (identifier))
       (argument_list
         (named_argument
           (identifier)
           (string_literal)))))
   (value_expression
-    (keyword_value)
     (itab_spec
       (base_spec
-        (keyword_base)
         (dereference
           (identifier)))
       (argument_list
@@ -75,10 +66,8 @@ VALUE #( BASE /www/my_class=>base_itab col2 = 'BB' ).
           (identifier)
           (string_literal)))))
   (value_expression
-    (keyword_value)
     (itab_spec
       (base_spec
-        (keyword_base)
         (class_component_selector
           (identifier)
           (identifier)))
@@ -95,7 +84,6 @@ VALUE t_struct( col2-col1 = 2 col2-col2 = itab ).
 
 (source
   (value_expression
-    (keyword_value)
     (type_identifier)
     (argument_list
       (named_argument
@@ -117,7 +105,6 @@ VALUE #( ( itab1 ) ( VALUE t_itab1( ( 4 ) ( 5 ) ( 6 ) ) ) ).
 
 (source
   (value_expression
-    (keyword_value)
     (itab_expression
       (line_spec
         (argument_list
@@ -127,7 +114,6 @@ VALUE #( ( itab1 ) ( VALUE t_itab1( ( 4 ) ( 5 ) ( 6 ) ) ) ).
         (argument_list
           (positional_argument
             (value_expression
-              (keyword_value)
               (type_identifier)
               (itab_expression
                 (line_spec
@@ -151,14 +137,12 @@ value #( itab[ 1 ] OPTIONAL ).
 
 (source
   (value_expression
-    (keyword_value)
     (argument_list
       (positional_argument
         (table_expression
           (identifier)
           (index_read
-            (number)))))
-    (keyword_optional)))
+            (number)))))))
 
 ==================
 Table expression with default value
@@ -169,16 +153,13 @@ value  #( itab[ 1 ] DEFAULT value #( carrid   = 'XXX'
 
 (source
   (value_expression
-    (keyword_value)
     (argument_list
       (positional_argument
         (table_expression
           (identifier)
           (index_read
             (number)))))
-    (keyword_default)
     (value_expression
-      (keyword_value)
       (argument_list
         (named_argument
           (identifier)

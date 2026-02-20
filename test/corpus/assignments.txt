@@ -35,7 +35,6 @@ new #( field = 10 )->attr = 'AAA'.
   (assignment
     (object_component_selector
       (new_expression
-        (keyword_new)
         (argument_list
           (named_argument
             (identifier)

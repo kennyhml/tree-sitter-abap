@@ -97,11 +97,9 @@ text  = 'Hello Pragmas' ##no_text.
 
 (source
   (data_declaration
-    (keyword_data)
     (data_spec
       (identifier)
       (builtin_type_spec
-        (keyword_type)
         (type_identifier)))
     (pragma
       (code)))

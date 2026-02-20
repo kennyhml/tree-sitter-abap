@@ -6,7 +6,6 @@ CORRESPONDING flights( spfli_tab )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (type_identifier)
     (identifier)))
 
@@ -18,9 +17,7 @@ CORRESPONDING flights( exact spfli_tab )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (type_identifier)
-    (keyword_exact)
     (identifier)))
 
 ======
@@ -31,9 +28,7 @@ CORRESPONDING flights( deep spfli_tab )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (type_identifier)
-    (keyword_deep)
     (identifier)))
 
 ======
@@ -44,10 +39,7 @@ CORRESPONDING flights( exact deep spfli_tab )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (type_identifier)
-    (keyword_exact)
-    (keyword_deep)
     (identifier)))
 
 ======
@@ -58,9 +50,7 @@ CORRESPONDING #( BASE ( struct2 ) struct1 )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (base_spec
-      (keyword_base)
       (identifier))
     (identifier)))
 
@@ -73,16 +63,11 @@ CORRESPONDING #( APPENDING BASE ( struc2 ) struc1 )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (base_spec
-      (keyword_appending)
       (identifier))
     (identifier))
   (corresponding_expression
-    (keyword_corresponding)
     (base_spec
-      (keyword_appending)
-      (keyword_base)
       (identifier))
     (identifier)))
 
@@ -95,18 +80,11 @@ CORRESPONDING #( DEEP APPENDING BASE ( struc2 ) struc1 ).
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (base_spec
-      (keyword_deep)
-      (keyword_appending)
       (identifier))
     (identifier))
   (corresponding_expression
-    (keyword_corresponding)
     (base_spec
-      (keyword_deep)
-      (keyword_appending)
-      (keyword_base)
       (identifier))
     (identifier)))
 
@@ -118,14 +96,9 @@ CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 discarding duplicates ).
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (base_spec
-      (keyword_deep)
-      (keyword_appending)
       (identifier))
-    (identifier)
-    (keyword_discarding)
-    (keyword_duplicates)))
+    (identifier)))
 
 ======
 Corresponding with custom mapping
@@ -135,11 +108,9 @@ CORRESPONDING itab2( itab MAPPING col1 = table_line )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (type_identifier)
     (identifier)
     (corresponding_mapping_list
-      (keyword_mapping)
       (corresponding_mapping
         (identifier)
         (identifier)))))
@@ -152,14 +123,11 @@ CORRESPONDING itab2( itab MAPPING col1 = default 10 )
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (type_identifier)
     (identifier)
     (corresponding_mapping_list
-      (keyword_mapping)
       (corresponding_mapping
         (identifier)
-        (keyword_default)
         (number)))))
 
 ======
@@ -171,19 +139,15 @@ CORRESPONDING #( struct1 EXCEPT * ).
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (identifier)
     (corresponding_mapping_list
       (corresponding_exception_list
-        (keyword_except)
         (identifier)
         (identifier))))
   (corresponding_expression
-    (keyword_corresponding)
     (identifier)
     (corresponding_mapping_list
-      (corresponding_exception_list
-        (keyword_except)))))
+      (corresponding_exception_list))))
 
 ======
 Corresponding mapping with multiple sub-levels
@@ -196,39 +160,30 @@ CORRESPONDING #( str_deep1 mapping
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (identifier)
     (corresponding_mapping_list
-      (keyword_mapping)
-      (corresponding_submapping
-        (corresponding_mapping
-          (identifier)
-          (identifier)
-          (keyword_discarding)
-          (keyword_duplicates))
-        (corresponding_mapping_list
-          (keyword_mapping)
-          (corresponding_mapping
-            (identifier)
-            (identifier))
-          (corresponding_exception_list
-            (keyword_except))))
       (corresponding_submapping
         (corresponding_mapping
           (identifier)
           (identifier))
         (corresponding_mapping_list
-          (keyword_mapping)
           (corresponding_mapping
             (identifier)
             (identifier))
-          (corresponding_exception_list
-            (keyword_except))))
+          (corresponding_exception_list)))
+      (corresponding_submapping
+        (corresponding_mapping
+          (identifier)
+          (identifier))
+        (corresponding_mapping_list
+          (corresponding_mapping
+            (identifier)
+            (identifier))
+          (corresponding_exception_list)))
       (corresponding_mapping
         (identifier)
         (identifier))
-      (corresponding_exception_list
-        (keyword_except)))))
+      (corresponding_exception_list))))
 
 ======
 Corresponding from lookup table form
@@ -238,12 +193,9 @@ CORRESPONDING itab1( itab1 FROM itab2 USING value = value cmt = cmt ).
 
 (source
   (corresponding_expression
-    (keyword_corresponding)
     (type_identifier)
     (identifier)
-    (keyword_from)
     (identifier)
-    (keyword_using)
     (lookup_table_mapping_list
       (lookup_table_mapping
         (identifier)

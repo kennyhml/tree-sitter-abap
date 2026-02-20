@@ -7,7 +7,6 @@ NEW c1( )->m1( ).
 (source
   (method_call
     (new_expression
-      (keyword_new)
       (type_identifier))
     (identifier)))
 
@@ -42,7 +41,6 @@ CAST cls( iref )->meth1( )->meth2( ).
   (method_call
     (method_call
       (cast_expression
-        (keyword_cast)
         (type_identifier)
         (identifier))
       (identifier))
@@ -77,8 +75,6 @@ CALL METHOD meth_name.
 
 (source
   (dynamic_method_call
-    (keyword_call)
-    (keyword_method)
     method: (dynamic_method_spec
       (identifier))))
 
@@ -90,8 +86,6 @@ CALL METHOD (meth_name).
 
 (source
   (dynamic_method_call
-    (keyword_call)
-    (keyword_method)
     method: (dynamic_method_spec
       (dyn_spec
         name: (identifier)))))
@@ -104,8 +98,6 @@ CALL METHOD oref->(meth_name).
 
 (source
   (dynamic_method_call
-    (keyword_call)
-    (keyword_method)
     method: (dynamic_method_spec
       (object_component_selector
         ref: (identifier)
@@ -122,16 +114,12 @@ CALL METHOD (class_name)=>meth.
 
 (source
   (dynamic_method_call
-    (keyword_call)
-    (keyword_method)
     method: (dynamic_method_spec
       (class_component_selector
         class: (identifier)
         comp: (dyn_spec
           name: (identifier)))))
   (dynamic_method_call
-    (keyword_call)
-    (keyword_method)
     method: (dynamic_method_spec
       (class_component_selector
         class: (dyn_spec
@@ -139,8 +127,6 @@ CALL METHOD (class_name)=>meth.
         comp: (dyn_spec
           name: (identifier)))))
   (dynamic_method_call
-    (keyword_call)
-    (keyword_method)
     method: (dynamic_method_spec
       (class_component_selector
         class: (dyn_spec
@@ -159,20 +145,16 @@ CALL METHOD o_ref->('SHOW')
 
 (source
   (dynamic_method_call
-    (keyword_call)
-    (keyword_method)
     (dynamic_method_spec
       (object_component_selector
         (identifier)
         (dynamic_component
           (string_literal))))
     (call_argument_list
-      (keyword_exporting)
       (argument_list
         (named_argument
           (identifier)
           (string_literal)))
-      (keyword_receiving)
       (argument_list
         (named_argument
           (identifier)

@@ -25,11 +25,9 @@ Binary expression
     (number))
   (binary_operator
     (number)
-    (keyword_mod)
     (number))
   (binary_operator
     (number)
-    (keyword_div)
     (number))
   (binary_operator
     (number)

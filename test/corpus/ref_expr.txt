@@ -8,7 +8,6 @@ dref = REF #( pict ).
   (assignment
     (identifier)
     (ref_expression
-      (keyword_ref)
       (identifier))))
 
 ======
@@ -20,10 +19,8 @@ FINAL(dref) = REF #( itab[ 5 ] ).
 (source
   (assignment
     (declaration_expression
-      (keyword_final)
       (identifier))
     (ref_expression
-      (keyword_ref)
       (table_expression
         (identifier)
         (index_read
@@ -38,10 +35,8 @@ FINAL(dref) = REF #( itab[ field = 'ABC' ] DEFAULT new #( 'ABC' ) ).
 (source
   (assignment
     (declaration_expression
-      (keyword_final)
       (identifier))
     (ref_expression
-      (keyword_ref)
       (table_expression
         (identifier)
         (itab_table_key_spec
@@ -50,9 +45,7 @@ FINAL(dref) = REF #( itab[ field = 'ABC' ] DEFAULT new #( 'ABC' ) ).
               (itab_comp_spec
                 (identifier)
                 (string_literal))))))
-      (keyword_default)
       (new_expression
-        (keyword_new)
         (argument_list
           (positional_argument
             (string_literal)))))))

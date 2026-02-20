@@ -6,7 +6,6 @@ report ZMYTESTREPORT.
 
 (source
   (report_statement
-    (keyword_report)
     name: (identifier)))
 
 ==================
@@ -17,10 +16,8 @@ report ZMYTESTREPORT message-id ZMESSAGE_CLASS.
 
 (source
   (report_statement
-    (keyword_report)
     name: (identifier)
     (default_message_class_spec
-      (keyword_message_id)
       id: (identifier))))
 
 ==================
@@ -31,11 +28,8 @@ report ZMYTESTREPORT reduced functionality.
 
 (source
   (report_statement
-    (keyword_report)
     name: (identifier)
-    (reduced_functionality_spec
-      (keyword_reduced)
-      (keyword_functionality))))
+    (reduced_functionality_spec)))
 
 ==================
 Complex Report Initiator
@@ -51,28 +45,16 @@ report ZMYTESTREPORT
 
 (source
   (report_statement
-    (keyword_report)
     name: (identifier)
-    (reduced_functionality_spec
-      (keyword_reduced)
-      (keyword_functionality))
+    (reduced_functionality_spec)
     (default_message_class_spec
-      (keyword_message_id)
       id: (identifier))
     (defining_database_spec
-      (keyword_defining)
-      (keyword_database)
       logical_database: (identifier))
-    (no_standard_page_heading_spec
-      (keyword_no)
-      (keyword_standard)
-      (keyword_page)
-      (keyword_heading))
+    (no_standard_page_heading_spec)
     (line_size_spec
-      (keyword_line_size)
       size: (number))
     (line_count_spec
-      (keyword_line_count)
       page_lines: (number)
       footer_lines: (number))))
 
@@ -86,13 +68,10 @@ INCLUDE labap_docuuxx.
 
 (source
   (include_statement
-    (keyword_include)
     name: (identifier))
   (include_statement
-    (keyword_include)
     name: (identifier))
   (include_statement
-    (keyword_include)
     name: (identifier)))
 
 ======
@@ -103,11 +82,8 @@ INCLUDE labap_docuuxx if found.
 
 (source
   (include_statement
-    (keyword_include)
     name: (identifier)
-    (if_found_spec
-      (keyword_if)
-      (keyword_found))))
+    (if_found_spec)))
 
 ======
 Program tables declaration
@@ -117,7 +93,6 @@ TABLES: vbak, vbap, kna1.
 
 (source
   (tables_declaration
-    (keyword_tables)
     (identifier)
     (identifier)
     (identifier)))

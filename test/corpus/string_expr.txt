@@ -89,18 +89,14 @@ CONDENSE obj->attr.
 
 (source
   (condense_statement
-    (keyword_condense)
     (identifier))
   (condense_statement
-    (keyword_condense)
     (string_literal))
   (condense_statement
-    (keyword_condense)
     (struct_component_selector
       (identifier)
       (identifier)))
   (condense_statement
-    (keyword_condense)
     (object_component_selector
       (identifier)
       (identifier))))
@@ -113,10 +109,8 @@ CONDENSE text no-gaps.
 
 (source
   (condense_statement
-    (keyword_condense)
     (identifier)
-    (no_gaps_spec
-      (keyword_no_gaps))))
+    (no_gaps_spec)))
 
 ======
 Substring access offset only

@@ -6,21 +6,14 @@ READ TABLE itab WITH KEY table_line = 10 TRANSPORTING NO FIELDS.
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (itab_table_key_spec
-      (keyword_with)
-      (keyword_key)
       (search_key_components_spec
         (itab_comp_spec_list
           (itab_comp_spec
             (identifier)
             (number)))))
-    (transporting_no_fields_spec
-      (keyword_transporting)
-      (keyword_no)
-      (keyword_fields))))
+    (transporting_no_fields_spec)))
 
 ======
 [READ-TABLE] Simple index read with key
@@ -31,23 +24,15 @@ READ TABLE itab WITH KEY skey COMPONENTS table_line = 10
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (itab_table_key_spec
-      (keyword_with)
-      (keyword_key)
       (identifier)
       (search_key_components_spec
-        (keyword_components)
         (itab_comp_spec_list
           (itab_comp_spec
             (identifier)
             (number)))))
-    (transporting_no_fields_spec
-      (keyword_transporting)
-      (keyword_no)
-      (keyword_fields))))
+    (transporting_no_fields_spec)))
 
 ======
 [READ-TABLE] Read from work area
@@ -58,16 +43,11 @@ READ TABLE spfli_tab FROM spfli_key
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (itab_work_area_spec
-      (keyword_from)
       (identifier))
     (assigning_spec
-      (keyword_assigning)
       (declaration_expression
-        (keyword_field_symbol)
         (identifier)))))
 
 ======
@@ -79,18 +59,12 @@ READ TABLE spfli_tab FROM spfli_key USING KEY city_key
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (itab_work_area_spec
-      (keyword_from)
       (identifier)
       (using_key_spec
-        (keyword_using)
-        (keyword_key)
         (identifier)))
     (assigning_spec
-      (keyword_assigning)
       (field_symbol
         (identifier)))))
 
@@ -104,12 +78,8 @@ READ TABLE html_viewer_tab
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (itab_table_key_spec
-      (keyword_with)
-      (keyword_key)
       (search_key_components_spec
         (itab_comp_spec_list
           (itab_comp_spec
@@ -118,7 +88,6 @@ READ TABLE html_viewer_tab
               (identifier))
             (identifier)))))
     (read_into_work_area
-      (keyword_into)
       (identifier))))
 
 ======
@@ -132,12 +101,8 @@ READ TABLE sflight_tab
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (itab_table_key_spec
-      (keyword_with)
-      (keyword_key)
       (search_key_components_spec
         (itab_comp_spec_list
           (itab_comp_spec
@@ -149,13 +114,9 @@ READ TABLE sflight_tab
           (itab_comp_spec
             (identifier)
             (string_literal)))
-        (binary_search
-          (keyword_binary)
-          (keyword_search))))
+        (binary_search)))
     (assigning_spec
-      (keyword_assigning)
       (declaration_expression
-        (keyword_field_symbol)
         (identifier)))))
 
 ======
@@ -167,14 +128,10 @@ READ TABLE itab INTO text_short
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (read_into_work_area
-      (keyword_into)
       (identifier))
     (iteration_cond
-      (keyword_where)
       (comparison_expression
         (identifier)
         (identifier)))))
@@ -193,23 +150,17 @@ READ TABLE sflight_tab
 
 (source
   (read_table_statement
-    (keyword_read)
-    (keyword_table)
     (identifier)
     (itab_index_spec
-      (keyword_index)
       (struct_component_selector
         (identifier)
         (identifier)))
     (read_into_work_area
-      (keyword_into)
       (identifier)
       (comparing_fields_spec
-        (keyword_comparing)
         (itab_component_list
           (identifier)))
       (transporting_components
-        (keyword_transporting)
         (itab_component_list
           (identifier)
           (identifier)

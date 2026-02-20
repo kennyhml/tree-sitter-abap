@@ -6,7 +6,6 @@ SHIFT str.
 
 (source
   (shift_statement
-    (keyword_shift)
     (identifier)))
 
 ======
@@ -17,12 +16,8 @@ SHIFT xstr IN BYTE MODE.
 
 (source
   (shift_statement
-    (keyword_shift)
     (identifier)
-    (string_processing_spec
-      (keyword_in)
-      (keyword_byte)
-      (keyword_mode))))
+    (string_processing_spec)))
 
 ======
 Shift by places
@@ -32,12 +27,9 @@ SHIFT text BY off PLACES.
 
 (source
   (shift_statement
-    (keyword_shift)
     (identifier)
     (shift_by_spec
-      (keyword_by)
-      (identifier)
-      (keyword_places))))
+      (identifier))))
 
 ======
 Shift to substring
@@ -47,11 +39,8 @@ SHIFT text UP TO 'you'.
 
 (source
   (shift_statement
-    (keyword_shift)
     (identifier)
     (shift_up_to_spec
-      (keyword_up)
-      (keyword_to)
       (string_literal))))
 
 ======
@@ -66,32 +55,20 @@ SHIFT text CIRCULAR.
 
 (source
   (shift_statement
-    (keyword_shift)
     (identifier)
-    (shift_direction_spec
-      (keyword_right)))
+    (shift_direction_spec))
   (shift_statement
-    (keyword_shift)
     (identifier)
-    (shift_direction_spec
-      (keyword_left)))
+    (shift_direction_spec))
   (shift_statement
-    (keyword_shift)
     (identifier)
-    (shift_direction_spec
-      (keyword_left)
-      (keyword_circular)))
+    (shift_direction_spec))
   (shift_statement
-    (keyword_shift)
     (identifier)
-    (shift_direction_spec
-      (keyword_right)
-      (keyword_circular)))
+    (shift_direction_spec))
   (shift_statement
-    (keyword_shift)
     (identifier)
-    (shift_direction_spec
-      (keyword_circular))))
+    (shift_direction_spec)))
 
 ======
 Shift left deleting
@@ -101,12 +78,8 @@ SHIFT txt LEFT DELETING LEADING ` `.
 
 (source
   (shift_statement
-    (keyword_shift)
     (identifier)
     (shift_left_deleting_spec
-      (keyword_left)
-      (keyword_deleting)
-      (keyword_leading)
       (string_literal))))
 
 ======
@@ -117,10 +90,6 @@ SHIFT txt RIGHT DELETING TRAILING 'ab cd'.
 
 (source
   (shift_statement
-    (keyword_shift)
     (identifier)
     (shift_right_deleting_spec
-      (keyword_right)
-      (keyword_deleting)
-      (keyword_trailing)
       (string_literal))))

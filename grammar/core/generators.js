@@ -10,9 +10,6 @@ const state = {
 }
 
 function kw(keyword) {
-    if (state.grammarProxy === null) {
-        throw Error("Grammar proxy not passed.");
-    }
 
     // Optionals are technically choices
     let opt = false;
@@ -20,15 +17,53 @@ function kw(keyword) {
         keyword = keyword.members[0].value;
         opt = true;
     }
+    const regexExpression = caseInsensitive(keyword);
+    const rule = alias(regexExpression, keyword.toLowerCase());
+    addKeywordChoice(rule);
+    return opt ? optional(rule) : rule;
+}
+
+/**
+ * Same as the {@link kw} rule, except that the result is represented as
+ * a node in the ruleset.
+ * 
+ * This is useful for certain additions, such as 'OBLIGATORY' which 
+ * consts entirely of keyword in itself.
+ * 
+ * <<< ... OBLIGATORY ...
+ * >>> ... (obligatory) ...
+ */
+function visible_kw(keyword) {
+    if (state.grammarProxy === null) {
+        throw Error("Grammar proxy not passed.");
+    }
+    const repr = keyword.replace("-", "_").toLowerCase();
 
     const regexExpression = caseInsensitive(keyword);
-    const nodeName = `keyword_${keyword.replace("-", "_")}`
-    const rule = alias(regexExpression, state.grammarProxy[nodeName]);
-    return opt ? optional(rule) : rule;
+    addKeywordChoice(alias(regexExpression, repr));
+    return alias(regexExpression, state.grammarProxy[repr]);
 }
 
 function kws(...keywords) {
     return keywords.map(kw)
+}
+
+/**
+ * Same as the {@link kws} rule, except that the result is represented as
+ * a node in the ruleset.
+ * 
+ * This is useful for certain additions, such as 'TRANSPORTING NO FIELDS' 
+ * which consts entirely of keywords.
+ * 
+ * <<< ... TRANSPORTING NO FIELDS ...
+ * >>> ... (transporting_no_fields) ...
+ */
+function visible_kws(...keywords) {
+    const rule = seq(...keywords.map(kw));
+
+    const nodeName = keywords.map(v => v.replace("-", "_")).join("_").toLowerCase();
+    rule = alias(rule, state.grammarProxy[nodeName]);
+    return rule;
 }
 
 function caseInsensitive(...terms) {
@@ -192,12 +227,21 @@ function tightParens(rule) {
     return seq("(", rule, token.immediate(")"))
 }
 
+let orphanRules = [];
+function addKeywordChoice(rule) {
+
+    // rule = alias(rule, state.grammarProxy['orphan_keyword']);
+    // orphanRules.push(rule);
+    // state.grammarProxy['_orphan_keyword'] = $ => prec(10, choice(...orphanRules));
+}
 
 module.exports = {
     state,
     caseInsensitive,
     kw,
     kws,
+    visible_kw,
+    visible_kws,
     chainable_immediate,
     chainable,
     declaration_and_spec,
