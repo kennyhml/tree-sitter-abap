@@ -1,9 +1,4 @@
-const report_statement_rules = require("./report_statement.js");
-const include_statement_rules = require("./include_statement.js");
-const tables_declaration_rules = require("./tables_declaration.js");
-const perform_statement_rules = require("./perform_statement.js");
-const common_rules = require("./common.js");
-const form_rules = require("./form_definition.js");
+const utils = require("../core/utils.js");
 
 module.exports = {
 
@@ -15,10 +10,5 @@ module.exports = {
         $.perform_statement
     ),
 
-    ...report_statement_rules,
-    ...include_statement_rules,
-    ...tables_declaration_rules,
-    ...form_rules,
-    ...perform_statement_rules,
-    ...common_rules
+    ...utils.importDirectoryRules(__dirname)
 }
