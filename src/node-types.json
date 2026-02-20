@@ -522,6 +522,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "add_statement",
+        "named": true
+      },
+      {
         "type": "clear_statement",
         "named": true
       },
@@ -715,6 +719,46 @@
       "types": [
         {
           "type": "keyword_abstract",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "add_statement",
+    "named": true,
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_add",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
           "named": true
         }
       ]
@@ -15269,6 +15313,10 @@
   },
   {
     "type": "keyword_abstract",
+    "named": true
+  },
+  {
+    "type": "keyword_add",
     "named": true
   },
   {

@@ -1,7 +1,4 @@
-const common_rules = require("./common.js");
-const parameters_rules = require("./parameters.js");
-const select_options_rules = require("./select_options.js");
-const selection_screen_rules = require("./selection_screen.js");
+const utils = require("../core/utils.js");
 
 module.exports = {
 
@@ -12,8 +9,5 @@ module.exports = {
         $.call_sel_screen_statement,
     ),
 
-    ...common_rules,
-    ...parameters_rules,
-    ...select_options_rules,
-    ...selection_screen_rules
+    ...utils.importDirectoryRules(__dirname)
 };
