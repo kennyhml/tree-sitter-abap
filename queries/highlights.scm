@@ -553,6 +553,8 @@
     "include"
     "clear"
     "free"
+    "sort"
+    "stable"
     
     ; Dynpro
     "parameters"

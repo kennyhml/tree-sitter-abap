@@ -293,7 +293,8 @@ ENDLOOP.
             exporting: (positional_argument
               value: (field_symbol
                 name: (identifier))))))
-      order: (sort_order_spec)
+      order: (sort_order
+        direction: (ascending))
       group_result: (assigning
         work_area: (declaration_expression
           name: (identifier))))))

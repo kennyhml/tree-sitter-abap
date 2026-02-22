@@ -1,0 +1,164 @@
+======
+[SORT-STATEMENT] Simple sort by primary key
+======
+SORT carriers.
+SORT carriers ASCENDING.
+SORT carriers DESCENDING.
+---
+
+(source
+  (sort_statement
+    subject: (identifier))
+  (sort_statement
+    subject: (identifier)
+    (sort_order
+      direction: (ascending)))
+  (sort_statement
+    subject: (identifier)
+    (sort_order
+      direction: (descending))))
+
+======
+[SORT-STATEMENT] Sort as text
+======
+SORT text_tab AS TEXT. 
+---
+
+(source
+  (sort_statement
+    subject: (identifier)
+    (as_text)))
+
+======
+[SORT-STATEMENT] Dynamic sort component
+======
+sort itab by (comp) ascending.
+---
+
+(source
+  (sort_statement
+    subject: (identifier)
+    (sort_component_list
+      (sort_component
+        comp: (dynamic_itab_comp
+          name: (identifier))
+        (sort_order
+          direction: (ascending))))))
+
+======
+[SORT-STATEMENT] With predefined sort table
+======
+sort itab by (tab).
+---
+
+(source
+  (sort_statement
+    subject: (identifier)
+    (by_order_table
+      order_table: (dyn_spec
+        name: (identifier)))))
+
+======
+[SORT-STATEMENT] Multi-level sort
+======
+SORT itab DESCENDING BY land weight ASCENDING. 
+---
+
+(source
+  (sort_statement
+    subject: (identifier)
+    (sort_order
+      direction: (descending))
+    (sort_component_list
+      (sort_component
+        comp: (identifier))
+      (sort_component
+        comp: (identifier)
+        (sort_order
+          direction: (ascending))))))
+
+======
+[SORT-STATEMENT] Stable sorting
+======
+SORT flights STABLE BY cityfrom cityto.
+---
+
+(source
+  (sort_statement
+    subject: (identifier)
+    (sort_component_list
+      (sort_component
+        comp: (identifier))
+      (sort_component
+        comp: (identifier)))))
+
+======
+[SORT-STATEMENT] Sort by order table expression
+======
+SORT dref->* BY VALUE #( FOR wa IN column_tab ( name = condense( to_upper( wa ) ) ) ). 
+---
+
+(source
+  (sort_statement
+    subject: (dereference
+      dref: (identifier))
+    (by_order_table
+      order_table: (value_expression
+        (itab_expression
+          (table_iteration
+            iterator: (identifier)
+            itab: (identifier))
+          (line_spec
+            value: (argument_list
+              (named_argument
+                name: (identifier)
+                value: (builtin_function_call
+                  name: (identifier)
+                  (call_argument_list
+                    exporting: (positional_argument
+                      value: (builtin_function_call
+                        name: (identifier)
+                        (call_argument_list
+                          exporting: (positional_argument
+                            value: (identifier)))))))))))))))
+
+======
+[SORT-STATEMENT] Sort by deep order table
+======
+SORT itab BY VALUE abap_sortorder_tab( 
+    ( name       = 'TABLE_LINE' 
+        descending = SWITCH #( direction 
+                            WHEN 'UP'   THEN ' ' 
+                            WHEN 'DOWN' THEN 'X' 
+                            ELSE THROW cx_illegal_direction( ) ) 
+        astext     = 'X ' ) ). 
+---
+
+(source
+  (sort_statement
+    subject: (identifier)
+    (by_order_table
+      order_table: (value_expression
+        type: (type_identifier)
+        (itab_expression
+          (line_spec
+            value: (argument_list
+              (named_argument
+                name: (identifier)
+                value: (string_literal))
+              (named_argument
+                name: (identifier)
+                value: (switch_expression
+                  operand: (identifier)
+                  (case
+                    predicate: (string_literal)
+                    result: (string_literal))
+                  (case
+                    predicate: (string_literal)
+                    result: (string_literal))
+                  (case
+                    result: (throw_exception
+                      name: (type_identifier)))))
+              (named_argument
+                name: (identifier)
+                value: (string_literal)))))))))

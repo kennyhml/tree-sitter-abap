@@ -69,7 +69,9 @@ module.exports = grammar({
 
   conflicts: $ => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
-    [$.lines_of]
+    [$.lines_of],
+    // ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???
+    [$.dyn_spec, $.dynamic_component]
   ],
 
   extras: $ => [
@@ -1750,29 +1752,13 @@ module.exports = grammar({
       field("key", $.group_key),
       repeat(
         choice(
-          field("order", $.sort_order_spec),
+          field("order", $.sort_order),
           field("members", $.without_members_spec),
           field("group_result", $._group_by_result)
         )
       )
     ),
 
-    /**
-     * ASCENDING|DESCENDING [AS TEXT]
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY.html
-     */
-    sort_order_spec: $ => seq(
-      choice(
-        gen.kw("ascending"),
-        gen.kw("descending"),
-      ),
-      optional($.sort_as_text_spec)
-    ),
-
-    sort_as_text_spec: $ => seq(
-      ...gen.kws("as", "text")
-    ),
 
     without_members_spec: $ => seq(
       ...gen.kws("without", "members")
@@ -1915,6 +1901,7 @@ module.exports = grammar({
       // A dereference cant result in a type, so no need to copy that.
     ),
 
+    // lower precedence than dyn spec due to conflicts in sort ... by (comp or otab ???) ...
     dynamic_component: $ => seq(
       "(",
       choice(
