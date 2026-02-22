@@ -14,7 +14,7 @@ module.exports = {
     concatenate_statement: $ => seq(
         gen.kw("concatenate"),
         field("subject", $.__concat_subject_spec),
-        field("result", $.__concat_result_spec),
+        field("result", alias($.__concat_result, $.result)),
         repeat(choice($.__concat_addition)),
         "."
     ),
@@ -40,8 +40,8 @@ module.exports = {
         $.lines_of,
     ),
 
-    __concat_result_spec: $ => alias(seq(
+    __concat_result: $ => seq(
         gen.kw("into"),
         field("target", $.receiving_expression)
-    ), $.result_spec),
+    ),
 }

@@ -13,6 +13,7 @@ module.exports = {
         gen.kw("add"),
         field("value", $.data_object),
         gen.kw("to"),
-        field("subject", $.data_object)
+        field("subject", $.data_object),
+        "."
     )
 }

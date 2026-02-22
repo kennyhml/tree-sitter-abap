@@ -68,7 +68,8 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$._long_form_message_id]
+    // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
+    [$.lines_of]
   ],
 
   extras: $ => [
@@ -141,10 +142,7 @@ module.exports = grammar({
   rules: {
     source: $ => {
       gen.state.grammarProxy = $;
-      return repeat(choice(
-        $._statement,
-        // $._orphan_keyword
-      ));
+      return repeat($._statement);
     },
 
     _statement: $ => choice(
@@ -193,6 +191,7 @@ module.exports = grammar({
     ...oo,
     ...report,
 
+    ...gen.kwRules(),
     ...gen.declaration_and_spec("data", $ => $.identifier),
     ...gen.declaration_and_spec("constants", $ => $.identifier),
     ...gen.declaration_and_spec("types", $ => $._type_identifier),
@@ -498,14 +497,6 @@ module.exports = grammar({
       ")"
     ),
 
-    lines_of: $ => seq(
-      // LINES OF ...
-      ...gen.kws("lines", "of"), field("jtab", $.identifier),
-      optional(seq(gen.kw("from"), field("from", $.data_object))),
-      optional(seq(gen.kw("to"), field("to", $.data_object))),
-      optional(seq(gen.kw("step"), field("step", $.data_object))),
-      optional($.using_key_spec)
-    ),
 
     /**
      * FOR [...] UNTIL/WHILE helper expression in constructor expressions.
@@ -591,26 +582,12 @@ module.exports = grammar({
       field("name", $.identifier)
     ),
 
-    iterate_from_index_spec: $ => seq(
-      gen.kw("from"),
-      field("index", $.numeric_expression)
-    ),
-
-    iterate_to_index_spec: $ => seq(
-      gen.kw("to"),
-      field("index", $.numeric_expression),
-    ),
-
-    iterate_step_spec: $ => seq(
-      gen.kw("step"),
-      field("size", $.numeric_expression),
-    ),
 
 
     _iteration_index_spec: $ => choice(
-      field("from", $.iterate_from_index_spec),
-      field("to", $.iterate_to_index_spec),
-      field("step", $.iterate_step_spec),
+      field("from", $.lines_from),
+      field("to", $.lines_to),
+      field("step", $.lines_step),
     ),
 
     /**
@@ -1805,8 +1782,8 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
     _group_by_result: $ => choice(
       $.into_spec,
-      $.assigning_spec,
-      $.reference_into_spec,
+      $.assigning,
+      $.reference_into,
     ),
 
     into_spec: $ => seq(
@@ -1817,7 +1794,7 @@ module.exports = grammar({
       )),
     ),
 
-    assigning_spec: $ => seq(
+    assigning: $ => seq(
       ...gen.kws("assigning"),
       field("work_area", choice(
         $.field_symbol,
@@ -1827,7 +1804,7 @@ module.exports = grammar({
       optional(seq(...gen.kws("else", "unassign"))),
     ),
 
-    reference_into_spec: $ => seq(
+    reference_into: $ => seq(
       ...gen.kws("reference", "into"),
       field("work_area", choice(
         $.field_symbol,
@@ -2434,9 +2411,7 @@ module.exports = grammar({
 
     _name: $ => IDENTIFIER_REGEX,
 
-    identifier: $ => prec(-1, choice($._name, $._keyword)),
-
-    orphan_keyword: $ => prec(-2, $._keyword),
+    identifier: $ => prec(-1, choice($._name, $._contextual_keyword)),
 
     /**
      * ABAP does not reserve keywords whatsoever. Any keyword is valid to be used as an identifier.
@@ -2463,7 +2438,7 @@ module.exports = grammar({
      * 
      * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _keyword: $ => prec(-1, choice(
+    _contextual_keyword: $ => prec(-1, choice(
       ...gen.caseInsensitive(
         "value",
         "new",

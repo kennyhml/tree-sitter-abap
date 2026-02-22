@@ -1,4 +1,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
+const path = require('path');
+const fs = require('fs');
 
 // its a hassle having to pass the grammar proxy around
 // to each call to a generator function. However, its
@@ -17,9 +19,9 @@ function kw(keyword) {
         keyword = keyword.members[0].value;
         opt = true;
     }
-    const regexExpression = caseInsensitive(keyword);
-    const rule = alias(regexExpression, keyword.toLowerCase());
-    addKeywordChoice(rule);
+
+    const nodeName = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
+    const rule = state.grammarProxy[nodeName];
     return opt ? optional(rule) : rule;
 }
 
@@ -227,17 +229,53 @@ function tightParens(rule) {
     return seq("(", rule, token.immediate(")"))
 }
 
-let orphanRules = [];
-function addKeywordChoice(rule) {
+function kwRules() {
+    const root = process.cwd();
 
-    // rule = alias(rule, state.grammarProxy['orphan_keyword']);
-    // orphanRules.push(rule);
-    // state.grammarProxy['_orphan_keyword'] = $ => prec(10, choice(...orphanRules));
+    const files = fs.readdirSync(root, { recursive: true, withFileTypes: true })
+        .filter((f) =>
+            f.isFile() &&
+            f.name.endsWith(".js") &&
+            !f.parentPath.includes("node_modules")
+        );
+
+    const keywords = new Set();
+    const callRegex = /gen\.\w+\(([^)]+)\)/g;
+
+    for (const file of files) {
+        const fullPath = path.join(file.parentPath || file.path, file.name);
+        const content = fs.readFileSync(fullPath, 'utf8');
+
+        let match;
+        while ((match = callRegex.exec(content)) !== null) {
+            const insideParens = match[1];
+            const stringLiteralRegex = /["']([^"']+)["']/g;
+            let strMatch;
+            while ((strMatch = stringLiteralRegex.exec(insideParens)) !== null) {
+                keywords.add(strMatch[1]);
+            }
+        }
+    }
+
+    const rules = {};
+    for (const keyword of keywords) {
+        const regexExpression = caseInsensitive(keyword);
+        const repr = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
+        const rule = alias(regexExpression, keyword.toLowerCase());
+
+        rules[repr] = $ => rule;
+    }
+    // const all = $ => prec(-2, choice(
+    //     ...Object.keys(rules).filter(k => k !== 'keyword').map(k => $[k])
+    // ));
+    // rules['keyword'] = all;
+    return rules;
 }
 
 module.exports = {
     state,
     caseInsensitive,
+    kwRules,
     kw,
     kws,
     visible_kw,

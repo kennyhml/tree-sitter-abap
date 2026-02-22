@@ -167,11 +167,11 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix FROM 4 TO 16
           (identifier))
         (identifier)
         (identifier)
-        (iterate_from_index_spec
+        (lines_from
           (number))
-        (iterate_to_index_spec
+        (lines_to
           (number))
-        (iterate_step_spec
+        (lines_step
           (number)))
       (line_spec
         (argument_list
@@ -202,11 +202,11 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix
         (iteration_cond
           (using_key_spec
             (identifier)))
-        (iterate_from_index_spec
+        (lines_from
           (number))
-        (iterate_to_index_spec
+        (lines_to
           (number))
-        (iterate_step_spec
+        (lines_step
           (number)))
       (line_spec
         (argument_list
@@ -266,7 +266,8 @@ VALUE itab3(
       (line_spec
         (lines_of
           (identifier)
-          (identifier))))))
+          (lines_from
+            (identifier)))))))
 
 ==================
 Table comprehension with let expressions

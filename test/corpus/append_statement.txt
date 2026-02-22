@@ -1,0 +1,127 @@
+======
+[APPEND-STATEMENT] Append expression to itab
+======
+APPEND rnd->get_next( ) TO itab.
+---
+
+(source
+  (append_statement
+    lines: (method_call
+      source: (identifier)
+      name: (identifier))
+    subject: (identifier)))
+
+======
+[APPEND-STATEMENT] Append from work area sorted.
+======
+APPEND seats TO seats_tab SORTED BY seatsfree.
+---
+
+(source
+  (append_statement
+    lines: (identifier)
+    subject: (identifier)
+    (sorted_by
+      comp: (identifier))))
+
+======
+[APPEND-STATEMENT] Assign appended line to field-symbol
+======
+APPEND INITIAL LINE TO itab ASSIGNING <line>. 
+---
+
+(source
+  (append_statement
+    lines: (initial_line)
+    subject: (identifier)
+    result: (assigning
+      work_area: (field_symbol
+        name: (identifier)))))
+
+======
+[APPEND-STATEMENT] Append lines of table
+======
+APPEND LINES OF itab2 TO itab1.
+---
+
+(source
+  (append_statement
+    lines: (lines_of
+      subject: (identifier))
+    subject: (identifier)))
+
+======
+[APPEND-STATEMENT] Append sliced lined of table
+======
+APPEND LINES OF jtab FROM 1 TO 5 STEP 2 TO itab.
+---
+
+(source
+  (append_statement
+    lines: (lines_of
+      subject: (identifier)
+      from: (lines_from
+        index: (number))
+      to: (lines_to
+        index: (number))
+      step: (lines_step
+        size: (number)))
+    subject: (identifier)))
+
+======
+[APPEND-STATEMENT] Append initial line
+======
+APPEND INITIAL LINE TO itab ASSIGNING <fs>.
+---
+
+(source
+  (append_statement
+    lines: (initial_line)
+    subject: (identifier)
+    result: (assigning
+      work_area: (field_symbol
+        name: (identifier)))))
+
+======
+[APPEND-STATEMENT] Append constructor expression
+======
+APPEND VALUE #( comp1 = memberf-comp1 comp2 = memberf-comp2 comp3 = memberf-comp3
+    comp4 = |Key component: '{ keyf-key }', group index: '{ keyf-gi }', group size: '{ keyf-gs }'|
+) TO itf.
+---
+
+(source
+  (append_statement
+    lines: (value_expression
+      (argument_list
+        (named_argument
+          name: (identifier)
+          value: (struct_component_selector
+            struct: (identifier)
+            comp: (identifier)))
+        (named_argument
+          name: (identifier)
+          value: (struct_component_selector
+            struct: (identifier)
+            comp: (identifier)))
+        (named_argument
+          name: (identifier)
+          value: (struct_component_selector
+            struct: (identifier)
+            comp: (identifier)))
+        (named_argument
+          name: (identifier)
+          value: (string_template
+            (embedded_expression
+              (struct_component_selector
+                struct: (identifier)
+                comp: (identifier)))
+            (embedded_expression
+              (struct_component_selector
+                struct: (identifier)
+                comp: (identifier)))
+            (embedded_expression
+              (struct_component_selector
+                struct: (identifier)
+                comp: (identifier)))))))
+    subject: (identifier)))
