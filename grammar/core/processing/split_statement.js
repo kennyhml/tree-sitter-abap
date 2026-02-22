@@ -7,7 +7,7 @@ module.exports = {
         gen.kw("split"),
         field("subject", $.character_like_expression),
         field("split_at", $.split_at_spec),
-        field("result", $.split_result_spec),
+        field("result", $.split_result),
         optional($.string_processing_spec),
         "."
     ),
@@ -20,15 +20,15 @@ module.exports = {
     /**
      * `INTO { {result1 result2 [...]} | {TABLE result_tab} }`
      */
-    split_result_spec: $ => prec.right(seq(
+    split_result: $ => prec.right(seq(
         gen.kw("into"),
         choice(
             repeat1($.receiving_expression),
-            $.split_table_result_spec,
+            $.split_table_result,
         )
     )),
 
-    split_table_result_spec: $ => seq(
+    split_table_result: $ => seq(
         gen.kw("table"),
         field("target", $.receiving_expression)
     ),

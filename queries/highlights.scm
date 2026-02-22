@@ -219,6 +219,7 @@
     "~"
 ] @delimiter
 
+
 ; ------------------------------------------
 ; Control Flow keywords
 ; ------------------------------------------
@@ -603,6 +604,7 @@
     "binary"
     "search"
     "unassign"
+    "append"
 
     ; predicates
     "not"

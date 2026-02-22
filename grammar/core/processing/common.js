@@ -16,11 +16,47 @@ module.exports = {
      */
     itab_lines_spec: $ => repeat1(
         choice(
-            field("from", $.iterate_from_index_spec),
-            field("to", $.iterate_to_index_spec),
-            field("step", $.iterate_step_spec),
+            field("from", $.lines_from),
+            field("to", $.lines_to),
+            field("step", $.lines_step),
             field("where", $.iteration_cond),
         )
+    ),
+
+    /**
+     *  ... {LINES OF jtab [FROM idx1] [TO idx2] [STEP n] [USING KEY keyname]} ...
+     * 
+     * Needs to be left associative due to append statement (both use TO ... )
+     * 
+     * Used in:
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAPPEND_LINESPEC.html
+     */
+    lines_of: $ => seq(
+        ...gen.kws("lines", "of"),
+        field("subject", $.general_expression),
+        repeat(
+            choice(
+                field("from", $.lines_from),
+                field("to", $.lines_to),
+                field("step", $.lines_step),
+                field("key", $.using_key_spec)
+            )
+        )
+    ),
+
+    lines_from: $ => seq(
+        gen.kw("from"),
+        field("index", $.numeric_expression)
+    ),
+
+    lines_to: $ => seq(
+        gen.kw("to"),
+        field("index", $.numeric_expression),
+    ),
+
+    lines_step: $ => seq(
+        gen.kw("step"),
+        field("size", $.numeric_expression),
     ),
 
     /**
@@ -66,6 +102,10 @@ module.exports = {
         $.search_key_components_spec,
     ),
 
+
+    initial_line: $ => seq(
+        ...gen.kws("initial", "line")
+    ),
 
     search_key_components_spec: $ => seq(
         optional(gen.kw("components")), // can be omitted

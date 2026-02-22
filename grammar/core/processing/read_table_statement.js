@@ -42,8 +42,8 @@ module.exports = {
      * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_OUTDESC.html
      */
     __table_read_result: $ => choice(
-        $.assigning_spec,
-        $.reference_into_spec,
+        $.assigning,
+        $.reference_into,
         $.transporting_no_fields_spec,
         $.read_into_work_area
     ),

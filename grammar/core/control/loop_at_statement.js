@@ -128,8 +128,8 @@ module.exports = {
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
     __loop_at_result: $ => choice(
         $.into_spec,
-        $.assigning_spec,
-        $.reference_into_spec,
+        $.assigning,
+        $.reference_into,
         $.transporting_no_fields_spec
     ),
 

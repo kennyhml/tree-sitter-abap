@@ -142,11 +142,11 @@ DELETE itab FROM 1 TO 8 STEP 2.
     (delete_itab_lines_spec
       (identifier)
       (itab_lines_spec
-        (iterate_from_index_spec
+        (lines_from
           (number))
-        (iterate_to_index_spec
+        (lines_to
           (number))
-        (iterate_step_spec
+        (lines_step
           (number))))))
 
 ======

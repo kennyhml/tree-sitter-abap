@@ -46,7 +46,7 @@ READ TABLE spfli_tab FROM spfli_key
     (identifier)
     (itab_work_area_spec
       (identifier))
-    (assigning_spec
+    (assigning
       (declaration_expression
         (identifier)))))
 
@@ -64,7 +64,7 @@ READ TABLE spfli_tab FROM spfli_key USING KEY city_key
       (identifier)
       (using_key_spec
         (identifier)))
-    (assigning_spec
+    (assigning
       (field_symbol
         (identifier)))))
 
@@ -115,7 +115,7 @@ READ TABLE sflight_tab
             (identifier)
             (string_literal)))
         (binary_search)))
-    (assigning_spec
+    (assigning
       (declaration_expression
         (identifier)))))
 

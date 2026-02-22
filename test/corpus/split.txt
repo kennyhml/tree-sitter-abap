@@ -9,7 +9,7 @@ SPLIT text AT space INTO FINAL(str1) FINAL(str2) FINAL(str3).
     (identifier)
     (split_at_spec
       (identifier))
-    (split_result_spec
+    (split_result
       (declaration_expression
         (identifier))
       (declaration_expression
@@ -28,7 +28,7 @@ SPLIT text1 AT ':' INTO TABLE DATA(segments).
     (identifier)
     (split_at_spec
       (string_literal))
-    (split_result_spec
-      (split_table_result_spec
+    (split_result
+      (split_table_result
         (declaration_expression
           (identifier))))))

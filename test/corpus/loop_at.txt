@@ -21,7 +21,7 @@ endloop.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (reference_into_spec
+    result: (reference_into
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -49,7 +49,7 @@ ENDLOOP.
           value: (argument_list
             (positional_argument
               value: (number))))))
-    result: (assigning_spec
+    result: (assigning
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -67,7 +67,7 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning_spec
+    result: (assigning
       work_area: (declaration_expression
         name: (identifier)))
     condition: (iteration_cond
@@ -115,13 +115,13 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    from: (iterate_from_index_spec
+    from: (lines_from
       index: (builtin_function_call
         name: (identifier)
         (call_argument_list
           exporting: (positional_argument
             value: (identifier)))))
-    result: (assigning_spec
+    result: (assigning
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -135,14 +135,14 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    from: (iterate_from_index_spec
+    from: (lines_from
       index: (number))
-    step: (iterate_step_spec
+    step: (lines_step
       size: (number))
-    result: (assigning_spec
+    result: (assigning
       work_area: (declaration_expression
         name: (identifier)))
-    to: (iterate_to_index_spec
+    to: (lines_to
       index: (number))))
 
 ======
@@ -157,9 +157,9 @@ ENDLOOP.
     subject: (identifier)
     result: (into_spec
       work_area: (identifier))
-    from: (iterate_from_index_spec
+    from: (lines_from
       index: (number))
-    to: (iterate_to_index_spec
+    to: (lines_to
       index: (number))
     condition: (iteration_cond
       condition: (comparison_expression
@@ -179,9 +179,9 @@ ENDLOOP.
     subject: (identifier)
     result: (into_spec
       work_area: (identifier))
-    from: (iterate_from_index_spec
+    from: (lines_from
       index: (number))
-    to: (iterate_to_index_spec
+    to: (lines_to
       index: (number))
     condition: (iteration_cond
       condition: (dynamic_cond
@@ -221,7 +221,7 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning_spec
+    result: (assigning
       work_area: (declaration_expression
         name: (identifier)))
     body: (loop_at_body
@@ -282,7 +282,7 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning_spec
+    result: (assigning
       work_area: (declaration_expression
         name: (identifier)))
     grouping: (group_by_spec
@@ -294,7 +294,7 @@ ENDLOOP.
               value: (field_symbol
                 name: (identifier))))))
       order: (sort_order_spec)
-      group_result: (assigning_spec
+      group_result: (assigning
         work_area: (declaration_expression
           name: (identifier))))))
 
@@ -327,7 +327,7 @@ ENDLOOP.
     body: (loop_at_body
       (loop_at_group_statement
         subject: (identifier)
-        result: (assigning_spec
+        result: (assigning
           work_area: (declaration_expression
             name: (identifier)))
         condition: (iteration_cond
