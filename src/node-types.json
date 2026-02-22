@@ -570,6 +570,10 @@
         "named": true
       },
       {
+        "type": "sort_statement",
+        "named": true
+      },
+      {
         "type": "split_statement",
         "named": true
       }
@@ -936,6 +940,16 @@
         }
       ]
     }
+  },
+  {
+    "type": "as_text",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ascending",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "assigning",
@@ -1460,6 +1474,30 @@
           },
           {
             "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "by_order_table",
+    "named": true,
+    "fields": {
+      "order_table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "constructor_expression",
+            "named": true
+          },
+          {
+            "type": "dyn_spec",
+            "named": true
+          },
+          {
+            "type": "method_call",
             "named": true
           }
         ]
@@ -4092,6 +4130,11 @@
     }
   },
   {
+    "type": "descending",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "do_statement",
     "named": true,
     "fields": {
@@ -5269,7 +5312,7 @@
         "required": false,
         "types": [
           {
-            "type": "sort_order_spec",
+            "type": "sort_order",
             "named": true
           }
         ]
@@ -9896,20 +9939,109 @@
     }
   },
   {
-    "type": "sort_as_text_spec",
+    "type": "sort_component",
     "named": true,
-    "fields": {}
-  },
-  {
-    "type": "sort_order_spec",
-    "named": true,
-    "fields": {},
+    "fields": {
+      "comp": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "itab_comp",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "sort_as_text_spec",
+          "type": "sort_order",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sort_component_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sort_component",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sort_order",
+    "named": true,
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ascending",
+            "named": true
+          },
+          {
+            "type": "descending",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "as_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sort_statement",
+    "named": true,
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "as_text",
+          "named": true
+        },
+        {
+          "type": "by_order_table",
+          "named": true
+        },
+        {
+          "type": "sort_component_list",
+          "named": true
+        },
+        {
+          "type": "sort_order",
           "named": true
         }
       ]
@@ -12919,11 +13051,19 @@
     "named": false
   },
   {
+    "type": "sort",
+    "named": false
+  },
+  {
     "type": "sorted",
     "named": false
   },
   {
     "type": "split",
+    "named": false
+  },
+  {
+    "type": "stable",
     "named": false
   },
   {

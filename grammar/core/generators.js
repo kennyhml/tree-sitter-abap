@@ -42,7 +42,6 @@ function visible_kw(keyword) {
     const repr = keyword.replace("-", "_").toLowerCase();
 
     const regexExpression = caseInsensitive(keyword);
-    addKeywordChoice(alias(regexExpression, repr));
     return alias(regexExpression, state.grammarProxy[repr]);
 }
 
