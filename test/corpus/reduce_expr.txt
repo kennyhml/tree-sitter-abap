@@ -98,17 +98,17 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
         (struct_component_selector
           (identifier)
           (identifier))
-        (binary_operator
-          (string_operator
-            (identifier)
+        (string_operator
+          (identifier)
+          (struct_component_selector
             (field_symbol
-              (identifier)))
-          (identifier)))
+              (identifier))
+            (identifier))))
       (assignment
         (struct_component_selector
           (identifier)
           (identifier))
-        (binary_operator
+        (struct_component_selector
           (field_symbol
             (identifier))
           (identifier)))
@@ -127,7 +127,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
                   (identifier)))
               (named_argument
                 (identifier)
-                (binary_operator
+                (struct_component_selector
                   (field_symbol
                     (identifier))
                   (identifier)))))))

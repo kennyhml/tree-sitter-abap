@@ -1895,6 +1895,7 @@ module.exports = grammar({
     // A component selector superclass that can return a type
     type_component_selector: $ => choice(
       alias($._struct_component_type_selector, $.struct_component_selector),
+
       alias($._class_component_type_selector, $.class_component_selector),
       // I dont think it is possible to get to a type through an interface component?
       // That would imply types are accessibly through properties, which they shouldnt be.
@@ -1948,7 +1949,8 @@ module.exports = grammar({
           $.identifier,
           $.data_component_selector,
           $.method_call,
-          $.table_expression
+          $.table_expression,
+          $.field_symbol
         )
       ),
       token.immediate("-"),

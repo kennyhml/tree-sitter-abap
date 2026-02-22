@@ -83,10 +83,10 @@ ENDLOOP.
         condition: (iteration_cond
           condition: (comparison_expression
             left: (identifier)
-            right: (binary_operator
-              left: (field_symbol
+            right: (struct_component_selector
+              struct: (field_symbol
                 name: (identifier))
-              right: (identifier))))))))
+              comp: (identifier))))))))
 
 ======
 [LOOP-AT] Specifying an explicit key

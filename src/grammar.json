@@ -22404,6 +22404,10 @@
               {
                 "type": "SYMBOL",
                 "name": "table_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "field_symbol"
               }
             ]
           }

@@ -218,7 +218,7 @@ message i368(00) with 'No import possible for transport'(002) <ls_request>-trkor
         (symbol_tagged_string_literal
           text: (string_literal)
           symbol: (number))
-        (binary_operator
-          left: (field_symbol
+        (struct_component_selector
+          struct: (field_symbol
             name: (identifier))
-          right: (identifier))))))
+          comp: (identifier))))))
