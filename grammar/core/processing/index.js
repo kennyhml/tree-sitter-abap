@@ -14,7 +14,8 @@ module.exports = {
         $.delete_statement,
         $.read_table_statement,
         $.add_statement,
-        $.append_statement
+        $.append_statement,
+        $.insert_statement
     ),
 
     ...utils.importDirectoryRules(__dirname)

@@ -44,6 +44,20 @@ module.exports = {
         )
     ),
 
+    /**
+     * ... wa 
+     *     | {INITIAL LINE} 
+     *     | {LINES OF jtab [FROM idx1] [TO idx2] [STEP n] [USING KEY keyname]} ...
+     * 
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_ITAB_LINESPEC.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAPPEND_LINESPEC.html
+     */
+    _line_spec: $ => choice(
+        $.general_expression,
+        $.initial_line,
+        $.lines_of,
+    ),
+
     lines_from: $ => seq(
         gen.kw("from"),
         field("index", $.numeric_expression)

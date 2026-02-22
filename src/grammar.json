@@ -4182,6 +4182,10 @@
         {
           "type": "SYMBOL",
           "name": "append_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_statement"
         }
       ]
     },
@@ -4230,7 +4234,7 @@
           "name": "lines",
           "content": {
             "type": "SYMBOL",
-            "name": "__append_lines"
+            "name": "_line_spec"
           }
         },
         {
@@ -4281,23 +4285,6 @@
         {
           "type": "STRING",
           "value": "."
-        }
-      ]
-    },
-    "__append_lines": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "general_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "initial_line"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "lines_of"
         }
       ]
     },
@@ -4551,6 +4538,23 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "_line_spec": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "general_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "initial_line"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "lines_of"
         }
       ]
     },
@@ -5840,6 +5844,136 @@
         {
           "type": "STRING",
           "value": "."
+        }
+      ]
+    },
+    "insert_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_insert"
+        },
+        {
+          "type": "FIELD",
+          "name": "lines",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_line_spec"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "FIELD",
+          "name": "position",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__insert_position"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "result",
+              "content": {
+                "type": "SYMBOL",
+                "name": "__insert_result"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__insert_position": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "into_table"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "at_index"
+        }
+      ]
+    },
+    "into_table": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_table"
+        },
+        {
+          "type": "FIELD",
+          "name": "table",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "at_index": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "table",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_index"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "index",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "general_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__insert_result": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "assigning"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reference_into"
         }
       ]
     },
@@ -12922,6 +13056,15 @@
       },
       "named": false,
       "value": "free"
+    },
+    "_kw_insert": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[iI][nN][sS][eE][rR][tT]"
+      },
+      "named": false,
+      "value": "insert"
     },
     "_kw_read": {
       "type": "ALIAS",
