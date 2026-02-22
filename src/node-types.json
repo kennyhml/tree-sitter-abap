@@ -554,6 +554,10 @@
         "named": true
       },
       {
+        "type": "insert_statement",
+        "named": true
+      },
+      {
         "type": "read_table_statement",
         "named": true
       },
@@ -1053,6 +1057,32 @@
         "types": [
           {
             "type": "body",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "at_index",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -5782,6 +5812,58 @@
     }
   },
   {
+    "type": "insert_statement",
+    "named": true,
+    "fields": {
+      "lines": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "initial_line",
+            "named": true
+          },
+          {
+            "type": "lines_of",
+            "named": true
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "at_index",
+            "named": true
+          },
+          {
+            "type": "into_table",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "assigning",
+            "named": true
+          },
+          {
+            "type": "reference_into",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "interface_body",
     "named": true,
     "fields": {},
@@ -5945,6 +6027,22 @@
           },
           {
             "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "into_table",
+    "named": true,
+    "fields": {
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -12264,6 +12362,10 @@
   },
   {
     "type": "initial",
+    "named": false
+  },
+  {
+    "type": "insert",
     "named": false
   },
   {

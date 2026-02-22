@@ -605,6 +605,7 @@
     "search"
     "unassign"
     "append"
+    "insert"
 
     ; predicates
     "not"

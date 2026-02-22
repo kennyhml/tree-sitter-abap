@@ -1,0 +1,89 @@
+======
+[INSERT-STATEMENT] Insert data object into table
+======
+INSERT dref INTO TABLE ref_tab. 
+---
+
+(source
+  (insert_statement
+    lines: (identifier)
+    position: (into_table
+      table: (identifier))))
+
+======
+[INSERT-STATEMENT] Insert field at table index
+======
+INSERT sy-index INTO int_tab INDEX 1 REFERENCE INTO DATA(dref). 
+---
+
+(source
+  (insert_statement
+    lines: (struct_component_selector
+      struct: (identifier)
+      comp: (identifier))
+    position: (at_index
+      table: (identifier)
+      index: (number))
+    result: (reference_into
+      work_area: (declaration_expression
+        name: (identifier)))))
+
+======
+[INSERT-STATEMENT] Insert constructor expression
+======
+INSERT VALUE #( carrid   = 'XXX' 
+                carrname = 'yyyyyyyyy' 
+                currcode = 'ZZ' 
+                url      = '...' ) INTO TABLE itab.
+---
+
+(source
+  (insert_statement
+    lines: (value_expression
+      (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal))
+        (named_argument
+          name: (identifier)
+          value: (string_literal))
+        (named_argument
+          name: (identifier)
+          value: (string_literal))
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))
+    position: (into_table
+      table: (identifier))))
+
+======
+[INSERT-STATEMENT] Insert initial line
+======
+INSERT INITIAL LINE INTO itab INDEX 1 ASSIGNING <line>. 
+---
+
+(source
+  (insert_statement
+    lines: (initial_line)
+    position: (at_index
+      table: (identifier)
+      index: (number))
+    result: (assigning
+      work_area: (field_symbol
+        name: (identifier)))))
+
+======
+[INSERT-STATEMENT] Insert lines of table using key
+======
+INSERT LINES OF itab USING KEY skey INTO itab INDEX 1. 
+---
+
+(source
+  (insert_statement
+    lines: (lines_of
+      subject: (identifier)
+      key: (using_key_spec
+        name: (identifier)))
+    position: (at_index
+      table: (identifier)
+      index: (number))))
