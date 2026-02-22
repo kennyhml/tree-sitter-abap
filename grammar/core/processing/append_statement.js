@@ -3,11 +3,9 @@ const gen = require("../generators.js")
 module.exports = {
 
     /**
-     * Technically an obsolete language element - still commonly used.
+     * APPEND line_spec TO itab [SORTED BY comp] [result].
      * 
-     * ADD dobj1 TO dobj2.
-     * 
-     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPADD.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapappend.html
      */
     append_statement: $ => seq(
         gen.kw("append"),
