@@ -41,3 +41,17 @@ new #( field = 10 )->attr = 'AAA'.
             (number))))
       (identifier))
     (string_literal)))
+
+==================
+[ASSIGNMENT] Assign to field of field symbol struct
+==================
+<ls_qzeue>-trkorr = '231235183'.
+---
+
+(source
+  (assignment
+    (struct_component_selector
+      (field_symbol
+        (identifier))
+      (identifier))
+    (string_literal)))

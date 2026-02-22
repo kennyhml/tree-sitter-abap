@@ -10364,6 +10364,10 @@
             "named": true
           },
           {
+            "type": "field_symbol",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
