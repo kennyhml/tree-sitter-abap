@@ -7,6 +7,7 @@ module.exports = {
         $.parameters_declaration,
         $.select_options_declaration,
         $.call_sel_screen_statement,
+        $.at_selscreen_statement
     ),
 
     ...utils.importDirectoryRules(__dirname)
