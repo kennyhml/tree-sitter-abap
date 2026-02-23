@@ -1,0 +1,116 @@
+======
+[AT-SELECTION-SCREEN] General selection screen event
+======
+at selection-screen.
+---
+
+(source
+  (at_selscreen_statement))
+
+======
+[AT-SELECTION-SCREEN] On output
+======
+at selection-screen output.
+---
+
+(source
+  (at_selscreen_statement
+    event: (output)))
+
+======
+[AT-SELECTION-SCREEN] On parameter input
+======
+AT SELECTION-SCREEN ON p_carrid. 
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_parameter
+      parameter: (identifier))))
+
+======
+[AT-SELECTION-SCREEN] On end of parameter input
+======
+AT SELECTION-SCREEN ON END OF p_carrid. 
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_end_of_parameter
+      select_options: (identifier))))
+
+======
+[AT-SELECTION-SCREEN] On block
+======
+AT SELECTION-SCREEN ON BLOCK block.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_block
+      block: (identifier))))
+
+======
+[AT-SELECTION-SCREEN] On radiobutton group
+======
+AT SELECTION-SCREEN ON RADIOBUTTON GROUP grp.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_radiobutton_group
+      group: (identifier))))
+
+======
+[AT-SELECTION-SCREEN] On exit command
+======
+AT SELECTION-SCREEN ON EXIT-COMMAND.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_exit_command)))
+
+======
+[AT-SELECTION-SCREEN] On help request
+======
+AT SELECTION-SCREEN ON HELP-REQUEST FOR p_carr_2.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_help_request
+      target: (identifier))))
+
+======
+[AT-SELECTION-SCREEN] On value request
+======
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_carr_2.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_value_request
+      target: (identifier))))
+
+======
+[AT-SELECTION-SCREEN] On output with statement block
+======
+AT SELECTION-SCREEN.
+    clear itab.
+AT SELECTION-SCREEN OUTPUT.
+    clear itab2.
+---
+
+(source
+  (at_selscreen_statement
+    body: (statement_block
+      (clear_statement
+        (clear_spec
+          subject: (identifier)))))
+  (at_selscreen_statement
+    event: (output)
+    body: (statement_block
+      (clear_statement
+        (clear_spec
+          subject: (identifier))))))

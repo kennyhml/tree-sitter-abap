@@ -608,6 +608,12 @@
     "unassign"
     "append"
     "insert"
+    
+    "output"
+    "exit-command"
+    "help-request"
+    "value-request"
+    
 
     ; predicates
     "not"

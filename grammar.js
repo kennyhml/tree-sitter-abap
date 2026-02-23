@@ -154,7 +154,6 @@ module.exports = grammar({
       $.docstring,
     ),
 
-
     _simple_statement: $ => choice(
       // Declarations
       $.data_declaration,
@@ -1803,8 +1802,10 @@ module.exports = grammar({
     ),
 
 
-    statement_block: $ => repeat1($._statement),
-
+    statement_block: $ => prec.right(repeat1(choice(
+      $._simple_statement,
+      $.general_expression
+    ))),
 
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html

@@ -308,6 +308,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "at_selscreen_statement",
+        "named": true
+      },
+      {
         "type": "call_sel_screen_statement",
         "named": true
       },
@@ -1146,6 +1150,60 @@
     }
   },
   {
+    "type": "at_selscreen_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "event": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "on_block",
+            "named": true
+          },
+          {
+            "type": "on_end_of_parameter",
+            "named": true
+          },
+          {
+            "type": "on_exit_command",
+            "named": true
+          },
+          {
+            "type": "on_help_request",
+            "named": true
+          },
+          {
+            "type": "on_parameter",
+            "named": true
+          },
+          {
+            "type": "on_radiobutton_group",
+            "named": true
+          },
+          {
+            "type": "on_value_request",
+            "named": true
+          },
+          {
+            "type": "output",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "base_spec",
     "named": true,
     "fields": {
@@ -1366,15 +1424,7 @@
           "named": true
         },
         {
-          "type": "docstring",
-          "named": true
-        },
-        {
           "type": "general_expression",
-          "named": true
-        },
-        {
-          "type": "special_statement",
           "named": true
         }
       ]
@@ -1962,15 +2012,7 @@
           "named": true
         },
         {
-          "type": "docstring",
-          "named": true
-        },
-        {
           "type": "general_expression",
-          "named": true
-        },
-        {
-          "type": "special_statement",
           "named": true
         }
       ]
@@ -2537,15 +2579,7 @@
           "named": true
         },
         {
-          "type": "docstring",
-          "named": true
-        },
-        {
           "type": "general_expression",
-          "named": true
-        },
-        {
-          "type": "special_statement",
           "named": true
         }
       ]
@@ -4966,15 +5000,7 @@
           "named": true
         },
         {
-          "type": "docstring",
-          "named": true
-        },
-        {
           "type": "general_expression",
-          "named": true
-        },
-        {
-          "type": "special_statement",
           "named": true
         }
       ]
@@ -7726,6 +7752,115 @@
     "fields": {}
   },
   {
+    "type": "on_block",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "on_end_of_parameter",
+    "named": true,
+    "fields": {
+      "select_options": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "on_exit_command",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "on_help_request",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "on_parameter",
+    "named": true,
+    "fields": {
+      "parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "on_radiobutton_group",
+    "named": true,
+    "fields": {
+      "group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "on_value_request",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "struct_component_selector",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "optional_spec",
     "named": true,
     "fields": {}
@@ -7745,6 +7880,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "output",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "output_position_spec",
@@ -10227,15 +10367,7 @@
           "named": true
         },
         {
-          "type": "docstring",
-          "named": true
-        },
-        {
           "type": "general_expression",
-          "named": true
-        },
-        {
-          "type": "special_statement",
           "named": true
         }
       ]
@@ -11317,15 +11449,7 @@
           "named": true
         },
         {
-          "type": "docstring",
-          "named": true
-        },
-        {
           "type": "general_expression",
-          "named": true
-        },
-        {
-          "type": "special_statement",
           "named": true
         }
       ]
@@ -12333,6 +12457,10 @@
     "named": false
   },
   {
+    "type": "exit-command",
+    "named": false
+  },
+  {
     "type": "exporting",
     "named": false
   },
@@ -12442,6 +12570,10 @@
   },
   {
     "type": "heading",
+    "named": false
+  },
+  {
+    "type": "help-request",
     "named": false
   },
   {
@@ -12804,6 +12936,10 @@
   },
   {
     "type": "others",
+    "named": false
+  },
+  {
+    "type": "output",
     "named": false
   },
   {
@@ -13224,6 +13360,10 @@
   },
   {
     "type": "value",
+    "named": false
+  },
+  {
+    "type": "value-request",
     "named": false
   },
   {
