@@ -1,0 +1,182 @@
+======
+[TYPING // TABLE TYPES] Basic table type definition
+======
+types gtyt_std_tab1 type table of gtys_mystruct.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (standard_table)
+        (type_identifier)))))
+
+======
+[TYPING // TABLE TYPES] Table type with default key
+======
+types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (standard_table)
+        (type_identifier)
+        (with_table_key
+          (table_key
+            (default_key)))))))
+
+======
+[TYPING // TABLE TYPES] Table type with reference table line
+======
+types: gtyt_ref_table type standard table of ref to cl_my_class.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (standard_table)
+        (ref_type_spec
+          (type_identifier))))))
+
+======
+[TYPING // TABLE TYPES] Table type with non unique key
+======
+types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var1.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (standard_table)
+        (type_identifier)
+        (with_table_key
+          (table_key
+            (non_unique)
+            (key_components
+              (identifier))))))))
+
+======
+[TYPING // TABLE TYPES] Table type with empty key
+======
+types gtyt_std_tab1 type standard table of gtys_mystruct with empty key.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (standard_table)
+        (type_identifier)
+        (with_table_key
+          (empty_key))))))
+
+======
+[TYPING // TABLE TYPES] Explicit primary key
+======
+types gtyt_std_tab5 type standard table of gtys_mystruct with key primary_key components table_line.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (standard_table)
+        (type_identifier)
+        (with_table_key
+          (table_key
+            (identifier)
+            (key_components
+              (identifier))))))))
+
+======
+[TYPING // TABLE TYPES] Secondary keys
+======
+types gtyt_sec_tab1 type table of gtys_mystruct
+    with non-unique key primary_key components var1 var2
+    with non-unique sorted key secondary_key1 components var3 var4
+    with unique hashed key secondary_key2 components var1 var5.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (standard_table)
+        (type_identifier)
+        (with_table_key
+          (table_key
+            (non_unique)
+            (identifier)
+            (key_components
+              (identifier)
+              (identifier))))
+        (with_table_key
+          (table_key
+            (non_unique)
+            (sorted)
+            (identifier)
+            (key_components
+              (identifier)
+              (identifier))))
+        (with_table_key
+          (table_key
+            (unique)
+            (hashed)
+            (identifier)
+            (key_components
+              (identifier)
+              (identifier))))))))
+
+======
+[TYPING // TABLE TYPES] Index table type
+======
+types: gtyt_tab type index table.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (type_identifier)
+      (table_type
+        (index_table)))))
+
+======
+[TYPING // RANGE TYPES] Range of structure component
+======
+types: carrid_range TYPE RANGE OF spfli-carrid. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (type_identifier)
+      typing: (range_type
+        line_type: (struct_component_selector
+          struct: (type_identifier)
+          comp: (type_identifier))))))
+
+======
+[TYPING // RANGE TYPES] Range of data object
+======
+types: carrid_range LIKE RANGE OF foo->bar. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (type_identifier)
+      typing: (range_type
+        line_type: (object_component_selector
+          ref: (identifier)
+          comp: (identifier))))))

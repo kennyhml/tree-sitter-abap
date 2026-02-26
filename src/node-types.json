@@ -2367,7 +2367,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -2379,7 +2379,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -2391,6 +2391,10 @@
       "types": [
         {
           "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         },
         {
@@ -2867,7 +2871,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -2879,7 +2883,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -2891,6 +2895,10 @@
       "types": [
         {
           "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         },
         {
@@ -3138,7 +3146,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -3150,7 +3158,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -3162,6 +3170,10 @@
       "types": [
         {
           "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         },
         {
@@ -3614,7 +3626,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -3626,7 +3638,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -3638,6 +3650,10 @@
       "types": [
         {
           "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         },
         {
@@ -5843,7 +5859,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -5855,7 +5871,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -8040,7 +8056,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -8052,7 +8068,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -8242,7 +8258,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -8254,7 +8270,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -8796,12 +8812,12 @@
     }
   },
   {
-    "type": "range_type_spec",
+    "type": "range_type",
     "named": true,
     "fields": {
-      "dobj": {
+      "line_type": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "data_component_selector",
@@ -8810,23 +8826,7 @@
           {
             "type": "identifier",
             "named": true
-          }
-        ]
-      },
-      "initial_size": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
             "type": "type_component_selector",
             "named": true
@@ -8837,6 +8837,28 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "initial_size",
+          "named": true
+        },
+        {
+          "type": "initial_value",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        },
+        {
+          "type": "with_header_line",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9531,7 +9553,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -9543,7 +9565,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -11309,7 +11331,7 @@
     }
   },
   {
-    "type": "table_type_spec",
+    "type": "table_type",
     "named": true,
     "fields": {
       "kind": {
@@ -11682,7 +11704,7 @@
             "named": true
           },
           {
-            "type": "range_type_spec",
+            "type": "range_type",
             "named": true
           },
           {
@@ -11694,7 +11716,7 @@
             "named": true
           },
           {
-            "type": "table_type_spec",
+            "type": "table_type",
             "named": true
           }
         ]
@@ -11706,6 +11728,10 @@
       "types": [
         {
           "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         },
         {
