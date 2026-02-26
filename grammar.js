@@ -258,8 +258,8 @@ module.exports = grammar({
       $.builtin_type_spec,
       $.referred_type_spec,
       $.ref_type_spec,
-      $.table_type_spec,
-      $.range_type_spec,
+      $.table_type,
+      $.range_type,
     ),
 
     /**
@@ -1687,25 +1687,6 @@ module.exports = grammar({
           ))
         ),
         gen.kw("read-only"))
-      )
-    )),
-
-
-    /**
-     * Range Table declaration.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
-     */
-    range_type_spec: $ => prec.right(seq(
-      typeOrLikeExpr($, seq(...gen.kws("range", "of"))),
-      repeat(choice(
-        seq(...gen.kws("initial", "size"), field("initial_size", $.number)),
-        // Not technically valid for types declarations but intentionally tolerated.
-        seq(...gen.kws("value", "is", "initial")),
-        seq(...gen.kws("read-only")),
-        // obsolete
-        seq(...gen.kws("with", "header", "line")),
-      )
       )
     )),
 

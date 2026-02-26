@@ -176,7 +176,7 @@ function structureSpec($, keyword, identifierNode, componentRule) {
 
     return seq(
         ...kws("begin", "of"), field("nameOpen", identifierNode),
-        optional(kw("read-only")),
+        optional($.read_only),
         separator,
         // Technically at least one field is required, but this is another one
         // of those situations where it makes more sense to just let it parse
@@ -264,10 +264,6 @@ function kwRules() {
 
         rules[repr] = $ => rule;
     }
-    // const all = $ => prec(-2, choice(
-    //     ...Object.keys(rules).filter(k => k !== 'keyword').map(k => $[k])
-    // ));
-    // rules['keyword'] = all;
     return rules;
 }
 

@@ -30,7 +30,7 @@ ENDFORM.
       (parameter
         (simple_param_spec
           name: (identifier))
-        typing: (table_type_spec
+        typing: (table_type
           kind: (index_table))))))
 
 ======
@@ -68,7 +68,7 @@ ENDFORM.
       (parameter
         (value_param_spec
           name: (identifier))
-        typing: (table_type_spec
+        typing: (table_type
           kind: (standard_table))))
     raising: (raising_list
       (simple_exception_spec
