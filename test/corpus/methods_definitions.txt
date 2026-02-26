@@ -156,7 +156,7 @@ METHODS read_spfli_into_table
         (parameter
           (value_param_spec
             name: (identifier))
-          typing: (referred_type_spec
+          typing: (referred_type
             name: (struct_component_selector
               struct: (type_identifier)
               comp: (type_identifier)))))
@@ -164,7 +164,7 @@ METHODS read_spfli_into_table
         (parameter
           (simple_param_spec
             name: (identifier))
-          typing: (referred_type_spec
+          typing: (referred_type
             name: (type_identifier)))))))
 
 ==================

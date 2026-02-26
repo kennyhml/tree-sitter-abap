@@ -8,7 +8,7 @@ PARAMETERS p_carrid TYPE carrid.
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      typing: (referred_type_spec
+      typing: (referred_type
         name: (type_identifier)))))
 
 ======
@@ -40,7 +40,7 @@ PARAMETERS p_carrid TYPE carrid
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      typing: (referred_type_spec
+      typing: (referred_type
         name: (type_identifier))
       listbox: (listbox_spec)
       visible_length: (visible_length_spec
@@ -92,7 +92,7 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      typing: (referred_type_spec
+      typing: (referred_type
         name: (type_identifier))
       display: (no_display_spec))))
 
@@ -106,7 +106,7 @@ PARAMETERS p_cust  TYPE kunnr MATCHCODE OBJECT debi.
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      typing: (referred_type_spec
+      typing: (referred_type
         name: (type_identifier))
       search_help: (search_help_spec
         name: (identifier)))))

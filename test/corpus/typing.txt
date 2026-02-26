@@ -226,3 +226,45 @@ types: my_type(30).
       typing: (abap_type
         (parenthesized_length
           length: (number))))))
+
+======
+[TYPING // Referred type] Type of global class
+======
+types: gtyt_my_type type zclass=>cool_type_123.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (type_identifier)
+      typing: (referred_type
+        name: (class_component_selector
+          class: (identifier)
+          comp: (type_identifier))))))
+
+======
+[TYPING // Referred type] Type of data object
+======
+types: buffer like wa.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (type_identifier)
+      typing: (referred_type
+        name: (identifier)))))
+
+======
+[TYPING // Referred type] Type of a table line
+======
+types: tab_line type line of sflight.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (type_identifier)
+      typing: (referred_type
+        (line_of
+          subject: (type_identifier))))))
