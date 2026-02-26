@@ -30,7 +30,8 @@ ENDFORM.
       (parameter
         (simple_param_spec
           name: (identifier))
-        typing: (table_type_spec)))))
+        typing: (table_type_spec
+          kind: (index_table))))))
 
 ======
 Form with structure parameter
@@ -67,7 +68,8 @@ ENDFORM.
       (parameter
         (value_param_spec
           name: (identifier))
-        typing: (table_type_spec)))
+        typing: (table_type_spec
+          kind: (standard_table))))
     raising: (raising_list
       (simple_exception_spec
         name: (identifier))

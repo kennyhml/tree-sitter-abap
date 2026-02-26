@@ -162,4 +162,4 @@ CLASS cl_demo_amdp_mesh DEFINITION LOCAL FRIENDS cl_test_selects.
 (source
   (local_friends_spec
     name: (identifier)
-    friend: (identifier)))
+    (identifier)))

@@ -9,6 +9,7 @@ types gtyt_std_tab1 type table of gtys_mystruct.
     (types_spec
       (type_identifier)
       (table_type_spec
+        (standard_table)
         (type_identifier)))))
 
 ======
@@ -22,9 +23,11 @@ types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
     (types_spec
       (type_identifier)
       (table_type_spec
+        (standard_table)
         (type_identifier)
-        (keys
-          (table_key_spec))))))
+        (with_table_key
+          (table_key
+            (default_key)))))))
 
 ======
 Table type with reference table line
@@ -37,6 +40,7 @@ types: gtyt_ref_table type standard table of ref to cl_my_class.
     (types_spec
       (type_identifier)
       (table_type_spec
+        (standard_table)
         (ref_type_spec
           (type_identifier))))))
 
@@ -51,9 +55,11 @@ types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var
     (types_spec
       (type_identifier)
       (table_type_spec
+        (standard_table)
         (type_identifier)
-        (keys
-          (table_key_spec
+        (with_table_key
+          (table_key
+            (non_unique)
             (key_components
               (identifier))))))))
 
@@ -68,9 +74,10 @@ types gtyt_std_tab1 type standard table of gtys_mystruct with empty key.
     (types_spec
       (type_identifier)
       (table_type_spec
+        (standard_table)
         (type_identifier)
-        (keys
-          (table_key_spec))))))
+        (with_table_key
+          (empty_key))))))
 
 ======
 Explicit primary key
@@ -83,9 +90,10 @@ types gtyt_std_tab5 type standard table of gtys_mystruct with key primary_key co
     (types_spec
       (type_identifier)
       (table_type_spec
+        (standard_table)
         (type_identifier)
-        (keys
-          (table_key_spec
+        (with_table_key
+          (table_key
             (identifier)
             (key_components
               (identifier))))))))
@@ -104,19 +112,27 @@ types gtyt_sec_tab1 type table of gtys_mystruct
     (types_spec
       (type_identifier)
       (table_type_spec
+        (standard_table)
         (type_identifier)
-        (keys
-          (table_key_spec
+        (with_table_key
+          (table_key
+            (non_unique)
             (identifier)
             (key_components
               (identifier)
-              (identifier)))
-          (table_key_spec
+              (identifier))))
+        (with_table_key
+          (table_key
+            (non_unique)
+            (sorted)
             (identifier)
             (key_components
               (identifier)
-              (identifier)))
-          (table_key_spec
+              (identifier))))
+        (with_table_key
+          (table_key
+            (unique)
+            (hashed)
             (identifier)
             (key_components
               (identifier)
@@ -132,4 +148,5 @@ types: gtyt_tab type index table.
   (types_declaration
     (types_spec
       (type_identifier)
-      (table_type_spec))))
+      (table_type_spec
+        (index_table)))))

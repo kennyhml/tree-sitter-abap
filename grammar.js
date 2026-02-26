@@ -248,6 +248,7 @@ module.exports = grammar({
     })(),
 
     ...gen.kwRules(),
+
     ...gen.declaration_and_spec("data", $ => $.identifier),
     ...gen.declaration_and_spec("constants", $ => $.identifier),
     ...gen.declaration_and_spec("types", $ => $._type_identifier),
@@ -1689,52 +1690,6 @@ module.exports = grammar({
       )
     )),
 
-    /**
-     * Internal Table type declaration.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
-     */
-    table_type_spec: $ => prec.right(seq(
-      choice(
-        seq(
-          gen.kw("type"),
-          field("kind", $._table_category),
-          gen.kw("table")
-        ),
-        // the 'modern' way
-        seq(
-          typeOrLikeExpr($,
-            seq(
-              optional(field("kind", $._table_category)),
-              ...gen.kws("table", "of"),
-            ),
-            alias($._inline_ref_type_spec, $.ref_type_spec)
-          ),
-          optional($.keys)
-        ),
-        // obsolete way
-        seq(
-          optional(BUFF_SIZE($)),
-          gen.kw("occurs"),
-          field("occurs", $.number)
-        )
-      ),
-      repeat(choice(
-        seq(
-          ...gen.kws("initial", "size"),
-          field("initial_size", $.number)
-        ),
-        seq(...gen.kws("value", "is", "initial")),
-
-        seq(...gen.kws("with", "further", "secondary", "keys")),
-        seq(...gen.kws("without", "further", "secondary", "keys")),
-        // Not technically valid for types declarations but intentionally tolerated.
-        seq(...gen.kws("value", "is", "initial")),
-        seq(...gen.kws("read-only")),
-        // obsolete
-        seq(...gen.kws("with", "header", "line")),
-      ))
-    )),
 
     /**
      * Range Table declaration.
@@ -1781,11 +1736,13 @@ module.exports = grammar({
       )
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_KEYDEF.html
-    keys: $ => prec.right(repeat1($.table_key_spec)),
-
-
-
+    _inline_ref_data_spec: $ => seq(
+      ...gen.kws("ref", "to"),
+      choice(
+        $.identifier,
+        $.data_component_selector
+      )
+    ),
 
     _exception_mapping_list: $ => alias(repeat1($.exception_mapping), $.argument_list),
 
@@ -1856,66 +1813,11 @@ module.exports = grammar({
       ...gen.kws("transporting", "no", "fields")
     ),
 
-
     statement_block: $ => prec.right(repeat1(choice(
       $.simple_statement,
       $.general_expression,
       $.docstring
     ))),
-
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
-    table_key_spec: $ => prec.right(
-      seq(
-        gen.kw("with"),
-        choice(
-          $._primary_key,
-          $._secondary_key,
-        )
-      )
-    ),
-
-    /**
-     * Primary table key, works a little different than secondary keys.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
-     */
-    _primary_key: $ => choice(
-      seq(...gen.kws("empty", "key")),
-      seq(
-        optional(choice(...gen.kws("unique", "non-unique"))),
-        choice(
-          seq(...gen.kws("default", "key")),
-          seq(
-            gen.kw("key"),
-            optional(
-              seq(
-                field("name", alias(gen.kw("primary_key"), $.identifier)),
-                optional(seq(gen.kw("alias"), field("alias", $.identifier))),
-                gen.kw("components")
-              )
-            ),
-            field("components", $.key_components)
-          )
-        )
-      )
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_SECONDARY_KEY.html
-    _secondary_key: $ => seq(
-      choice(
-        seq(...gen.kws("unique", "hashed")),
-        seq(...gen.kws("unique", "sorted")),
-        seq(...gen.kws("non-unique", "sorted")),
-      ),
-      gen.kw("key"),
-      field("name", $.identifier),
-      optional(seq(gen.kw("alias"), field("alias", $.identifier))),
-      gen.kw("components"), field("components", $.key_components)
-
-    ),
-
-    key_components: $ => prec.right(repeat1($.identifier)),
 
     /**
      * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).
@@ -2185,14 +2087,6 @@ module.exports = grammar({
       token.immediate(")"),
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
-    _table_category: $ => choice(
-      gen.kw("standard"),
-      gen.kw("sorted"),
-      gen.kw("hashed"),
-      gen.kw("any"),
-      gen.kw("index"),
-    ),
 
     /**
      * One of the possible specifications alongside a specification.
