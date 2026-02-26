@@ -126,3 +126,17 @@ START-OF-SELECTION.
       (method_call
         source: (identifier)
         name: (identifier)))))
+
+======
+[REPORTS] First load of program
+======
+LOAD-OF-PROGRAM.
+  test = 10.
+---
+
+(source
+  (load_of_program_event
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (number)))))
