@@ -1,8 +1,6 @@
 const gen = require("./grammar/core/generators.js")
-const dynpro = require("./grammar/dynpro/index.js");
-const core = require("./grammar/core/index.js");
-const oo = require("./grammar/oo/index.js");
-const report = require("./grammar/program/index.js");
+const fs = require('fs');
+const path = require('path');
 
 /**
  * @file Abap grammar for tree-sitter
@@ -47,7 +45,7 @@ module.exports = grammar({
   name: "abap",
 
   externals: $ => [
-    // A single full-line comment. External scanner is due to column check.
+    // A single full-line comment, only external scanner can do column check
     $.line_comment,
 
     // Repeated full-line comments without a gap.
@@ -75,50 +73,26 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    /**
-     * ABAP is whitespace sensitive in certain places, so its a little awkward.
-     * 
-     * There are scenarios in which there can be 0 to n whitespaces, e.g
-     * ... into table @itab.
-     * or                  ^    v
-     * ... into table @itab     .
-     * are both valid, this is easily taken care of by just allowing extras.
-     * 
-     * On the other hand, there are situations where n must be 0:
-     * data(foo) = ... is valid, unlike any of data (foo), data( foo), etc..
-     * 
-     * This can be solved carefully using token.immediate as long as the token is a terminal.
-     * 
-     * And finally, scenarios where n must be >= 1:
-     * ... = foo->bar( ).
-     */
     $.line_comment,
     $.inline_comment,
     $.pseudo_comment,
     $.pragma,
     $.multi_line_comment,
 
-    /**
-     * THIS MUST BE A REGEX! Putting this inside a rule or the external scanner will
-     * token.immediate() to not enforce the absence of whitespaces. In return, that
-     * causes some complications inside the external scanner (explained there).
-     */
+    // THIS MUST BE A REGEX! Putting it inside a rule or the external scanner causes
+    // token.immediate() to not enforce the absence of whitespaces. In return, that
+    // causes some complications inside the external scanner (explained there).
     /\s/,
   ],
 
   supertypes: $ => [
+    $.simple_statement,
+    $.reserved_statement,
+
     $.constructor_expression,
 
     $.data_object,
     $.named_data_object,
-
-    $.special_statement,
-    $.class_statement,
-    $.control_statement,
-    $.program_statement,
-    $.dynpro_statement,
-    $.processing_statement,
-    $.interface_statement,
 
     $.general_expression,
     $.functional_expression,
@@ -135,62 +109,141 @@ module.exports = grammar({
     $.data_component_selector,
     $.type_component_selector,
     $.relational_expression,
-    $._simple_statement,
   ],
 
   word: $ => $._name,
 
-
   rules: {
     source: $ => {
+      // Required for aliasing rules in the generators.
       gen.state.grammarProxy = $;
-      return repeat($._statement);
+
+      return repeat(
+        choice(
+          $.general_expression,
+          $.simple_statement,
+          $.reserved_statement,
+          $.docstring
+        )
+      );
     },
 
-    _statement: $ => choice(
-      $._simple_statement,
-      $.special_statement,
-      $.general_expression,
-      $.docstring,
-    ),
-
-    _simple_statement: $ => choice(
-      // Declarations
+    /**
+     * A statement that may appear anywhere in the code. This doesnt necessarily
+     * mean it needs to be valid or meaningful in the current position, but it
+     * excludes things such as event processing blocks or class declarations,
+     * which is needed e.g because the start of such an event block may terminate
+     * another rather than becoming part of it.
+     */
+    simple_statement: $ => choice(
+      // Fundamental declarations
       $.data_declaration,
       $.types_declaration,
       $.constants_declaration,
 
+      // ???
       $.message,
       $.assignment,
 
+      // Processing statements
       $.function_call,
       $.dynamic_method_call,
-
       $.local_updates_statement,
       $.commit_work_statement,
       $.rollback_work_statement,
+      $.concatenate_statement,
+      $.condense_statement,
+      $.find_statement,
+      $.replace_statement,
+      $.shift_statement,
+      $.split_statement,
+      $.clear_statement,
+      $.free_statement,
+      $.delete_statement,
+      $.read_table_statement,
+      $.add_statement,
+      $.append_statement,
+      $.insert_statement,
+      $.sort_statement,
 
-      $.control_statement,
-      $.program_statement,
-      $.processing_statement,
+      // Program
+      $.report_statement,
+      $.include_statement,
+      $.perform_statement,
+
+      // Dynpro
+      $.call_sel_screen_statement,
+
+      // Control flow
+      $.try_statement,
+      $.loop_at_statement,
+      $.loop_at_group_statement,
+      $.if_statement,
+      $.while_statement,
+      $.case_statement,
+      $.case_type_of_statement,
+      $.do_statement,
+      $.return_statement,
+      $.exit_statement,
+      $.continue_statement,
+      $.check_statement,
+      $.raise_statement,
+      $.raise_exception_statement,
+      $.resume_statement,
 
       $._empty_statement,
     ),
 
-    // Statements that can only occur in special places - usually
-    // the 'top level' of the current program.
-    special_statement: $ => choice(
-      $.class_statement,
-      $.interface_statement,
-      $.dynpro_statement,
+    /**
+     * Statements that are only allowed in explicit positions of the source
+     * file, e.g directly from the {@link source} rule in the top level.
+     * 
+     * This doesnt neccessarily mean they are meaningful in this position,
+     * e.g. a method implementation cant technically appear in the top level,
+     * but its fine for permissive parsing.
+     */
+    reserved_statement: $ => choice(
+      // OOP
+      $.class_definition,
+      $.deferred_class_definition,
+      $.local_friends_spec,
+      $.class_implementation,
+      $.class_data_declaration,
+      $.interface_definition,
+      $.deferred_interface_definition,
+      $.interfaces_declaration,
       $.methods_declaration,
       $.class_methods_declaration,
+
+      // Program
+      $.tables_declaration,
+      $.form_definition,
+
+      // Dynpro
+      $.selection_screen_statement,
+      $.parameters_declaration,
+      $.select_options_declaration,
+      $.at_selscreen_statement,
     ),
 
-    ...dynpro,
-    ...core,
-    ...oo,
-    ...report,
+    ...(() => {
+      const root = process.cwd();
+      const exclude = ["node", "generators.js", "grammar.js"];
+
+      // throw new Error(path.basename(__filename))
+      const rules = fs.readdirSync(root, { recursive: true, withFileTypes: true })
+        .filter((f) =>
+          f.isFile()
+          && f.name.endsWith(".js")
+          && !exclude.find((v) => f.path.includes(v) || f.name == v)
+        )
+        .reduce((acc, file) => {
+          const fullPath = path.resolve(file.parentPath || file.path, file.name);
+          return Object.assign(acc, require(fullPath));
+        }, {});
+
+      return rules
+    })(),
 
     ...gen.kwRules(),
     ...gen.declaration_and_spec("data", $ => $.identifier),
@@ -1803,7 +1856,7 @@ module.exports = grammar({
 
 
     statement_block: $ => prec.right(repeat1(choice(
-      $._simple_statement,
+      $.simple_statement,
       $.general_expression
     ))),
 

@@ -55,7 +55,7 @@ module.exports = {
 
     loop_at_body: $ => repeat1(
         choice(
-            $._statement,
+            $.simple_statement,
             $.at_first_statement,
             $.at_new_statement,
             $.at_end_of_statement,
