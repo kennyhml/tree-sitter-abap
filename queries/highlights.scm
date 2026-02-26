@@ -128,7 +128,7 @@
 (type_identifier) @type
 ; Should generic table types be highlighted as builtin?
 ; For example index table, hashed table, etc..
-(builtin_type_spec) @type.builtin
+(abap_type name: (type_identifier) @type.builtin )
 
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.
