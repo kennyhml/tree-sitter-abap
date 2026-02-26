@@ -232,5 +232,5 @@ module.exports = {
 
     simple_exception_spec: $ => field("name", $.identifier),
 
-    method_body: $ => repeat1($._statement),
+    method_body: $ => repeat1($.simple_statement),
 }

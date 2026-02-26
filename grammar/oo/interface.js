@@ -2,12 +2,6 @@ const gen = require("../core/generators.js")
 
 module.exports = {
 
-    interface_statement: $ => choice(
-        $.interface_definition,
-        $.deferred_interface_definition,
-        $.interfaces_declaration,
-    ),
-
     interfaces_declaration: $ => gen.chainable("interfaces", $.identifier),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE.html
