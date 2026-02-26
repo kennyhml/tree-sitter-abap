@@ -38,11 +38,11 @@ types: gtyt_ref_table type standard table of ref to cl_my_class.
 (source
   (types_declaration
     (types_spec
-      (type_identifier)
-      (table_type
-        (standard_table)
-        (ref_type_spec
-          (type_identifier))))))
+      name: (type_identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (ref_to
+          subject: (type_identifier))))))
 
 ======
 [TYPING // TABLE TYPES] Table type with non unique key
@@ -268,3 +268,31 @@ types: tab_line type line of sflight.
       typing: (referred_type
         (line_of
           subject: (type_identifier))))))
+
+======
+[TYPING // Reference type] Simple reference type
+======
+types: oref  TYPE REF TO c1.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (type_identifier)
+      typing: (reference_type
+        (ref_to
+          subject: (type_identifier))))))
+
+======
+[TYPING // Reference type] Simple reference type from dobj
+======
+types: dref1 LIKE REF TO oref.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (type_identifier)
+      typing: (reference_type
+        (ref_to
+          subject: (identifier))))))

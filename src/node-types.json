@@ -2343,7 +2343,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -2847,7 +2847,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -3122,7 +3122,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -3602,7 +3602,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -5859,7 +5859,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -8084,7 +8084,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -8286,7 +8286,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -9160,12 +9160,12 @@
     }
   },
   {
-    "type": "ref_type_spec",
+    "type": "ref_to",
     "named": true,
     "fields": {
-      "dobj": {
+      "subject": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "data_component_selector",
@@ -9174,13 +9174,7 @@
           {
             "type": "identifier",
             "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
             "type": "type_component_selector",
             "named": true
@@ -9191,28 +9185,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "data_component_selector",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "type_component_selector",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -9249,6 +9221,29 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "reference_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "initial_value",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        },
+        {
+          "type": "ref_to",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9583,7 +9578,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
@@ -11399,7 +11394,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "ref_to",
             "named": true
           },
           {
@@ -11770,7 +11765,7 @@
             "named": true
           },
           {
-            "type": "ref_type_spec",
+            "type": "reference_type",
             "named": true
           },
           {
