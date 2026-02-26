@@ -616,6 +616,7 @@
     "value-request"
     "start-of-selection"
     "initialization"
+    "load-of-program"
     
     ; predicates
     "not"

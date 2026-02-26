@@ -5,6 +5,19 @@ const gen = require('../core/generators.js')
 module.exports = {
 
     /**
+     * LOAD-OF-PROGRAM.
+     *     [ ... ]
+     * 
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOAD-OF-PROGRAM.html
+     */
+
+    load_of_program_event: $ => prec.right(seq(
+        gen.kw("load-of-program"),
+        ".",
+        optional(field("body", $.statement_block))
+    )),
+
+    /**
      * INITIALIZATION.
      *     [ ... ]
      * 
@@ -18,7 +31,7 @@ module.exports = {
     )),
 
     /**
-     * INITIALIZATION.
+     * START-OF-SELECTION.
      *     [ ... ]
      * 
      * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html

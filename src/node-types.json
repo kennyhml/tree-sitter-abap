@@ -408,6 +408,10 @@
         "named": true
       },
       {
+        "type": "load_of_program_event",
+        "named": true
+      },
+      {
         "type": "local_friends_spec",
         "named": true
       },
@@ -6674,6 +6678,22 @@
     "fields": {}
   },
   {
+    "type": "load_of_program_event",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "local_friends_spec",
     "named": true,
     "fields": {
@@ -12719,6 +12739,10 @@
   },
   {
     "type": "listbox",
+    "named": false
+  },
+  {
+    "type": "load-of-program",
     "named": false
   },
   {

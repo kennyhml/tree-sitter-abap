@@ -269,6 +269,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "load_of_program_event"
+        },
+        {
+          "type": "SYMBOL",
           "name": "selection_screen_statement"
         },
         {
@@ -3019,28 +3023,7 @@
     },
     "class_statement": {
       "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "class_definition"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "deferred_class_definition"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "local_friends_spec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "class_implementation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "class_data_declaration"
-        }
-      ]
+      "members": []
     },
     "_class_data_comp_spec": {
       "type": "CHOICE",
@@ -5385,6 +5368,39 @@
           "name": "_kw_found"
         }
       ]
+    },
+    "load_of_program_event": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_kw_load_of-program"
+          },
+          {
+            "type": "STRING",
+            "value": "."
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "body",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "statement_block"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "initialization_event": {
       "type": "PREC_RIGHT",
@@ -13006,6 +13022,15 @@
       },
       "named": false,
       "value": "found"
+    },
+    "_kw_load_of-program": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[lL][oO][aA][dD]-[oO][fF]-[pP][rR][oO][gG][rR][aA][mM]"
+      },
+      "named": false,
+      "value": "load-of-program"
     },
     "_kw_initialization": {
       "type": "ALIAS",
