@@ -34,9 +34,10 @@
   ]
 )
 
-; Ambiguous case, its also possible to have a ref to a datatype
-; but in most cases it should be a class.
-(ref_type_spec name: (type_identifier) @class )
+(ref_to 
+  subject: (type_identifier) @class
+  (#match? @class "([cC][lL])|([lL][cC][lL])_")
+)
 
 ; ------------------------------------------
 ; Interface identifiers, ambiguity exists.
@@ -44,6 +45,11 @@
 (deferred_interface_definition name: (identifier) @interface )
 (interfaces_declaration (identifier) @interface )
 (interface_definition name: (identifier) @interface )
+
+(ref_to 
+  subject: (type_identifier) @interface
+  (#match? @interface "([iI][fF])|([lL][iI][fF])_")
+)
 
 ; The component could literally be anything, we have no idea,
 ; but in 90% of cases it should be a method..

@@ -143,7 +143,7 @@ module.exports = {
         field("kind", $.__table_category),
         gen.kw("of"),
         field("line_type", choice(
-            alias($._inline_ref_type_spec, $.ref_type_spec),
+            alias($._ref_to_type, $.ref_to),
             $._type_identifier,
             $.type_component_selector,
         )),
@@ -155,7 +155,7 @@ module.exports = {
         field("kind", $.__table_category),
         gen.kw("of"),
         field("line_type", choice(
-            alias($._inline_ref_data_spec, $.ref_type_spec),
+            alias($._ref_to_data, $.ref_to),
             $.identifier,
             $.data_component_selector,
         )),

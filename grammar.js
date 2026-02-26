@@ -249,7 +249,7 @@ module.exports = grammar({
     _typing: $ => choice(
       $.abap_type,
       $.referred_type,
-      $.ref_type_spec,
+      $.reference_type,
       $.table_type,
       $.range_type,
     ),
@@ -1638,40 +1638,6 @@ module.exports = grammar({
 
     positional_argument: $ => field("value", $.general_expression),
 
-    /**
-     * Reference (NOT DERIVED) type to another type declared with `ref to`.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERENCES.html
-     */
-    ref_type_spec: $ => prec.right(seq(
-      typeOrLikeExpr($, seq(...gen.kws("ref", "to"))),
-
-      // Not technically valid for types declarations but intentionally tolerated.
-      repeat(choice(
-        seq(...gen.kws("value", "is", "initial")),
-        seq(...gen.kws("read-only"))
-      ))
-    )),
-
-    /**
-     * Only the `ref to xyz` part of a reference type specification to
-     * be inlined into other type specifications such as {@link table_type_spec}
-     */
-    _inline_ref_type_spec: $ => seq(
-      ...gen.kws("ref", "to"),
-      choice(
-        $._type_identifier,
-        $.type_component_selector
-      )
-    ),
-
-    _inline_ref_data_spec: $ => seq(
-      ...gen.kws("ref", "to"),
-      choice(
-        $.identifier,
-        $.data_component_selector
-      )
-    ),
 
     _exception_mapping_list: $ => alias(repeat1($.exception_mapping), $.argument_list),
 
