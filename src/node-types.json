@@ -709,6 +709,22 @@
     }
   },
   {
+    "type": "alias",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "alias_spec",
     "named": true,
     "fields": {
@@ -811,6 +827,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "any_table",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "append_statement",
@@ -3651,6 +3672,11 @@
     }
   },
   {
+    "type": "default_key",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "default_message_class_spec",
     "named": true,
     "fields": {
@@ -4463,6 +4489,11 @@
     }
   },
   {
+    "type": "empty_key",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "end_of_block_element",
     "named": true,
     "fields": {
@@ -5260,6 +5291,11 @@
     }
   },
   {
+    "type": "further_secondary_keys",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "group_by_spec",
     "named": true,
     "fields": {
@@ -5414,6 +5450,16 @@
         ]
       }
     }
+  },
+  {
+    "type": "hashed",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "hashed_table",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "horizontal_line_element",
@@ -5766,6 +5812,11 @@
     }
   },
   {
+    "type": "index_table",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "init_spec",
     "named": true,
     "fields": {
@@ -5823,6 +5874,27 @@
   },
   {
     "type": "initial_line",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "initial_size",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "initial_value",
     "named": true,
     "fields": {}
   },
@@ -6412,21 +6484,6 @@
     }
   },
   {
-    "type": "keys",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "table_key_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "let_expression",
     "named": true,
     "fields": {},
@@ -6697,16 +6754,6 @@
     "type": "local_friends_spec",
     "named": true,
     "fields": {
-      "friend": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -6717,6 +6764,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7681,6 +7738,11 @@
     "fields": {}
   },
   {
+    "type": "non_unique",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "object_component_selector",
     "named": true,
     "fields": {
@@ -7734,6 +7796,22 @@
     "type": "obligatory_spec",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "occurs",
+    "named": true,
+    "fields": {
+      "memory_requirement": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "on_block",
@@ -8808,6 +8886,11 @@
     }
   },
   {
+    "type": "read_only",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "read_only_spec",
     "named": true,
     "fields": {}
@@ -9051,6 +9134,14 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "data_component_selector",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
         {
           "type": "type_component_selector",
           "named": true
@@ -10172,6 +10263,11 @@
     }
   },
   {
+    "type": "sorted",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "sorted_by",
     "named": true,
     "fields": {
@@ -10186,6 +10282,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "sorted_table",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "source",
@@ -10311,6 +10412,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "standard_table",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "start_of_selection_event",
@@ -11141,25 +11247,19 @@
     }
   },
   {
-    "type": "table_key_spec",
+    "type": "table_key",
     "named": true,
     "fields": {
-      "alias": {
+      "kind": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "hashed",
             "named": true
-          }
-        ]
-      },
-      "components": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
-            "type": "key_components",
+            "type": "sorted",
             "named": true
           }
         ]
@@ -11173,14 +11273,72 @@
             "named": true
           }
         ]
+      },
+      "unique": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "non_unique",
+            "named": true
+          },
+          {
+            "type": "unique",
+            "named": true
+          }
+        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alias",
+          "named": true
+        },
+        {
+          "type": "default_key",
+          "named": true
+        },
+        {
+          "type": "key_components",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "table_type_spec",
     "named": true,
     "fields": {
-      "dobj": {
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "any_table",
+            "named": true
+          },
+          {
+            "type": "hashed_table",
+            "named": true
+          },
+          {
+            "type": "index_table",
+            "named": true
+          },
+          {
+            "type": "sorted_table",
+            "named": true
+          },
+          {
+            "type": "standard_table",
+            "named": true
+          }
+        ]
+      },
+      "line_type": {
         "multiple": false,
         "required": false,
         "types": [
@@ -11191,59 +11349,7 @@
           {
             "type": "identifier",
             "named": true
-          }
-        ]
-      },
-      "initial_size": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "kind": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "any",
-            "named": false
           },
-          {
-            "type": "hashed",
-            "named": false
-          },
-          {
-            "type": "index",
-            "named": false
-          },
-          {
-            "type": "sorted",
-            "named": false
-          },
-          {
-            "type": "standard",
-            "named": false
-          }
-        ]
-      },
-      "length": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
           {
             "type": "ref_type_spec",
             "named": true
@@ -11257,24 +11363,38 @@
             "named": true
           }
         ]
-      },
-      "occurs": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "keys",
+          "type": "further_secondary_keys",
+          "named": true
+        },
+        {
+          "type": "initial_size",
+          "named": true
+        },
+        {
+          "type": "initial_value",
+          "named": true
+        },
+        {
+          "type": "occurs",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        },
+        {
+          "type": "with_header_line",
+          "named": true
+        },
+        {
+          "type": "with_table_key",
           "named": true
         }
       ]
@@ -11626,6 +11746,11 @@
     }
   },
   {
+    "type": "unique",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "user_command_spec",
     "named": true,
     "fields": {
@@ -11822,6 +11947,30 @@
     "type": "window_spec",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "with_header_line",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "with_table_key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "empty_key",
+          "named": true
+        },
+        {
+          "type": "table_key",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "without_members_spec",
@@ -12996,10 +13145,6 @@
   },
   {
     "type": "preferred",
-    "named": false
-  },
-  {
-    "type": "primary_key",
     "named": false
   },
   {

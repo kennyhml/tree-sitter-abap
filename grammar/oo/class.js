@@ -2,9 +2,6 @@ const gen = require("../core/generators.js")
 
 module.exports = {
 
-    class_statement: $ => choice(
-    ),
-
     ...gen.declaration_and_spec("class-data", $ => $.identifier),
 
     /**
@@ -79,7 +76,7 @@ module.exports = {
         gen.kw("class"),
         field("name", $.identifier),
         ...gen.kws("definition", "local", "friends"),
-        field("friend", repeat1($.identifier)),
+        repeat1($.identifier),
         "."
     ),
 

@@ -112,7 +112,7 @@
   (preferred_param_spec)
 ] name: (identifier) @variable.parameter
 
-(table_key_spec name: (identifier) @variable.key )
+(table_key name: (identifier) @variable.key )
 (using_key_spec name: (identifier) @variable.key )
 
 (exception_list (identifier) @variable.exception )
@@ -126,6 +126,8 @@
 ; General type identifiers (if not specified elsewhere)
 ; ------------------------------------------
 (type_identifier) @type
+; Should generic table types be highlighted as builtin?
+; For example index table, hashed table, etc..
 (builtin_type_spec) @type.builtin
 
 ; ------------------------------------------
@@ -524,6 +526,7 @@
     "as"
     "separate"
     "unit"
+    "alias"
     
     "form"
     "endform"
