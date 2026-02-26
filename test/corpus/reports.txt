@@ -96,3 +96,33 @@ TABLES: vbak, vbap, kna1.
     (identifier)
     (identifier)
     (identifier)))
+
+======
+[REPORTS] Initialization event
+======
+INITIALIZATION. 
+  p_langu = sy-langu.
+---
+
+(source
+  (initialization_event
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))))))
+
+======
+[REPORTS] Start of selection event
+======
+START-OF-SELECTION. 
+  cls=>main( ).
+---
+
+(source
+  (start_of_selection_event
+    body: (statement_block
+      (method_call
+        source: (identifier)
+        name: (identifier)))))

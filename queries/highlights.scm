@@ -609,12 +609,14 @@
     "append"
     "insert"
     
+    ; Should these be considered control keywords??
     "output"
     "exit-command"
     "help-request"
     "value-request"
+    "start-of-selection"
+    "initialization"
     
-
     ; predicates
     "not"
     "bound"

@@ -218,6 +218,8 @@ module.exports = grammar({
       // Program
       $.tables_declaration,
       $.form_definition,
+      $.initialization_event,
+      $.start_of_selection_event,
 
       // Dynpro
       $.selection_screen_statement,
@@ -230,7 +232,6 @@ module.exports = grammar({
       const root = process.cwd();
       const exclude = ["node", "generators.js", "grammar.js"];
 
-      // throw new Error(path.basename(__filename))
       const rules = fs.readdirSync(root, { recursive: true, withFileTypes: true })
         .filter((f) =>
           f.isFile()
@@ -1857,7 +1858,8 @@ module.exports = grammar({
 
     statement_block: $ => prec.right(repeat1(choice(
       $.simple_statement,
-      $.general_expression
+      $.general_expression,
+      $.docstring
     ))),
 
 

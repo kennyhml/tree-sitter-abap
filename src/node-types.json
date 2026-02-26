@@ -396,6 +396,10 @@
         "named": true
       },
       {
+        "type": "initialization_event",
+        "named": true
+      },
+      {
         "type": "interface_definition",
         "named": true
       },
@@ -421,6 +425,10 @@
       },
       {
         "type": "selection_screen_statement",
+        "named": true
+      },
+      {
+        "type": "start_of_selection_event",
         "named": true
       },
       {
@@ -1360,6 +1368,10 @@
       "required": true,
       "types": [
         {
+          "type": "docstring",
+          "named": true
+        },
+        {
           "type": "general_expression",
           "named": true
         },
@@ -1948,6 +1960,10 @@
       "required": true,
       "types": [
         {
+          "type": "docstring",
+          "named": true
+        },
+        {
           "type": "general_expression",
           "named": true
         },
@@ -2514,6 +2530,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "docstring",
+          "named": true
+        },
         {
           "type": "general_expression",
           "named": true
@@ -4936,6 +4956,10 @@
       "required": true,
       "types": [
         {
+          "type": "docstring",
+          "named": true
+        },
+        {
           "type": "general_expression",
           "named": true
         },
@@ -5797,6 +5821,22 @@
     "type": "initial_line",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "initialization_event",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "inline_comment",
@@ -6750,6 +6790,10 @@
         },
         {
           "type": "at_new_statement",
+          "named": true
+        },
+        {
+          "type": "docstring",
           "named": true
         },
         {
@@ -10249,6 +10293,22 @@
     }
   },
   {
+    "type": "start_of_selection_event",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "starting_at_spec",
     "named": true,
     "fields": {
@@ -10282,6 +10342,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "docstring",
+          "named": true
+        },
         {
           "type": "general_expression",
           "named": true
@@ -11364,6 +11428,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "docstring",
+          "named": true
+        },
         {
           "type": "general_expression",
           "named": true
@@ -12553,6 +12621,10 @@
     "named": false
   },
   {
+    "type": "initialization",
+    "named": false
+  },
+  {
     "type": "insert",
     "named": false
   },
@@ -13128,6 +13200,10 @@
   },
   {
     "type": "standard",
+    "named": false
+  },
+  {
+    "type": "start-of-selection",
     "named": false
   },
   {
