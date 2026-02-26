@@ -248,7 +248,7 @@ module.exports = grammar({
 
     _typing: $ => choice(
       $.abap_type,
-      $.referred_type_spec,
+      $.referred_type,
       $.ref_type_spec,
       $.table_type,
       $.range_type,
@@ -1637,33 +1637,6 @@ module.exports = grammar({
     ),
 
     positional_argument: $ => field("value", $.general_expression),
-
-    /**
-     * Type that refers to another type (declared elsewhere or in the DDIC) or
-     * taken over from a data object.
-     * 
-     * The additions `length` and `decimals` are forbidden in this context.
-     * 
-     * Standalone Data Types vs Bound Data Types: 
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDOBJ_GENERAL.html
-     * 
-     * See also: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
-     */
-    referred_type_spec: $ => prec.right(seq(
-      typeOrLikeExpr($, optional(seq(...gen.kws("line", "of")))),
-      repeat(choice(
-        seq(
-          gen.kw("value"),
-          field("value", choice(
-            $.number,
-            $.string_literal,
-            seq(...gen.kws("is", "initial")),
-            $.identifier,
-          ))
-        ),
-        gen.kw("read-only"))
-      )
-    )),
 
     /**
      * Reference (NOT DERIVED) type to another type declared with `ref to`.

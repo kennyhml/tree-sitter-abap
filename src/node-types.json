@@ -2347,7 +2347,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -2851,7 +2851,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -3126,7 +3126,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -3606,7 +3606,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -5863,7 +5863,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -6530,6 +6530,34 @@
         "types": [
           {
             "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "line_of",
+    "named": true,
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_component_selector",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "type_component_selector",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
             "named": true
           }
         ]
@@ -8060,7 +8088,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -8262,7 +8290,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -9224,10 +9252,10 @@
     }
   },
   {
-    "type": "referred_type_spec",
+    "type": "referred_type",
     "named": true,
     "fields": {
-      "dobj": {
+      "name": {
         "multiple": false,
         "required": false,
         "types": [
@@ -9238,13 +9266,7 @@
           {
             "type": "identifier",
             "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
             "type": "type_component_selector",
             "named": true
@@ -9254,33 +9276,25 @@
             "named": true
           }
         ]
-      },
-      "value": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string_literal",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "default_data_value",
+          "named": true
+        },
+        {
+          "type": "line_of",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9573,7 +9587,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
@@ -11760,7 +11774,7 @@
             "named": true
           },
           {
-            "type": "referred_type_spec",
+            "type": "referred_type",
             "named": true
           },
           {
