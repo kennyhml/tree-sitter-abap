@@ -99,7 +99,7 @@ METHODS       m2 DEFAULT IGNORE
       (return_value
         (value_param_spec
           (identifier))
-        (builtin_type_spec
+        (abap_type
           (type_identifier))))))
 
 ==================
@@ -121,20 +121,20 @@ METHODS meth
         (parameter
           (simple_param_spec
             name: (identifier))
-          typing: (builtin_type_spec
+          typing: (abap_type
             name: (type_identifier))
           default: (param_default_value_spec
             value: (number)))
         (parameter
           (simple_param_spec
             name: (identifier))
-          typing: (builtin_type_spec
+          typing: (abap_type
             name: (type_identifier))
           (optional_spec))
         (parameter
           (simple_param_spec
             name: (identifier))
-          typing: (builtin_type_spec
+          typing: (abap_type
             name: (type_identifier))
           (optional_spec))
         (preferred_param_spec
@@ -186,12 +186,12 @@ METHODS divide_1_by
         (parameter
           (simple_param_spec
             name: (identifier))
-          typing: (builtin_type_spec
+          typing: (abap_type
             name: (type_identifier))))
       returning: (return_value
         (value_param_spec
           name: (identifier))
-        typing: (builtin_type_spec
+        typing: (abap_type
           name: (type_identifier)))
       raising: (raising_list
         (simple_exception_spec
@@ -213,7 +213,7 @@ CLASS-METHODS class_constructor.
         (parameter
           (simple_param_spec
             (identifier))
-          (builtin_type_spec
+          (abap_type
             (type_identifier))))))
   (class_methods_declaration
     (class_constructor_spec)))

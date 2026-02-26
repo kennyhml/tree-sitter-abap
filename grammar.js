@@ -8,14 +8,6 @@ const path = require('path');
  * @license MIT
  */
 
-// Cant be a rule due to priority, need to figure how to handle this better..
-const BUFF_SIZE = $ => seq(
-  token.immediate("("),
-  field("length", alias(token.immediate(NUMBER_REGEX), $.number)),
-  token.immediate(")")
-);
-
-const ABAP_TYPE = /[bBcCdDfFiInNpPsStTxX]|decfloat16|decfloat34|string|utclong|xstring/i;
 const IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z\d_/]*/;
 
 // ABAP does allow + and - before any number. However, allowing both inside the regex, we run
@@ -255,7 +247,7 @@ module.exports = grammar({
 
 
     _typing: $ => choice(
-      $.builtin_type_spec,
+      $.abap_type,
       $.referred_type_spec,
       $.ref_type_spec,
       $.table_type,
@@ -1647,23 +1639,6 @@ module.exports = grammar({
     positional_argument: $ => field("value", $.general_expression),
 
     /**
-     * Type based on elementary types. Only here are `length` and `decimals` additions allowed.
-     * 
-     * While part of this statement is optional, tree sitter doesnt allow empty rules,
-     * so we kind of have to list possible combinations (in order).
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
-     */
-    builtin_type_spec: $ => prec.right(choice(
-      // Optional Buff size + type + optional type meta
-      seq(optional(BUFF_SIZE($)), seq(gen.kw("type"), field("name", alias(ABAP_TYPE, $.type_identifier))), repeat($._type_meta)),
-      // Optional buff size + required type meta
-      seq(optional(BUFF_SIZE($)), repeat1($._type_meta)),
-      // Only buf size
-      BUFF_SIZE($)
-    )),
-
-    /**
      * Type that refers to another type (declared elsewhere or in the DDIC) or
      * taken over from a data object.
      * 
@@ -2067,33 +2042,6 @@ module.exports = grammar({
       ),
       token.immediate(")"),
     ),
-
-
-    /**
-     * One of the possible specifications alongside a specification.
-     * 
-     * In reality, not all fields are possible in any context. For example, the `value`
-     * addition cannot be used for `types` declarations, but MUST be used for `constants`.
-     * 
-     * However, to keep things simple and provide better error messages, its far simpler to
-     * just parse it as valid grammar and then match invalid combinations in queries.
-     */
-    _type_meta: $ => choice(
-      field("length", $._data_length),
-      field("decimals", $._data_decimals),
-      seq(
-        gen.kw("value"), field("value", choice(
-          $.number,
-          $.string_literal,
-          seq(...gen.kws("is", "initial")),
-          $.identifier,
-        ))
-      ),
-      gen.kw("read-only")
-    ),
-
-    _data_length: $ => seq(gen.kw("length"), choice($.number, $.string_literal)),
-    _data_decimals: $ => seq(gen.kw("decimals"), $.number),
 
     // [[/][pos|POS_LOW|POS_HIGH](len)
     output_position_spec: $ => prec.right(repeat1(

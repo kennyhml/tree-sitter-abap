@@ -99,7 +99,7 @@ text  = 'Hello Pragmas' ##no_text.
   (data_declaration
     (data_spec
       (identifier)
-      (builtin_type_spec
+      (abap_type
         (type_identifier)))
     (pragma
       (code)))

@@ -39,7 +39,7 @@ REDUCE string( INIT text type string
     (reduce_init
       (init_spec
         (identifier)
-        (builtin_type_spec
+        (abap_type
           (type_identifier))))
     (conditional_iteration
       (assignment
