@@ -571,25 +571,6 @@ module.exports = grammar({
     _dynamic_itab_comp: $ => alias($.dynamic_component, $.dynamic_itab_comp),
 
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
-    value_expression: $ => seq(
-      gen.kw("value"),
-      field("type", $._constructor_result),
-      token.immediate("("),
-      optional($.let_expression),
-      optional(
-        choice(
-          // We technically know that this cant be an argument list and has to be
-          // a list of field assignments since objects are not possible in `value`
-          // but its better to avoid inconsistency with new expressions.
-          $.argument_list,
-          $.table_constructor,
-          $.table_comprehension
-        ),
-      ),
-      optional($._table_expr_default),
-      ")",
-    ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
     cond_expression: $ => seq(
@@ -903,19 +884,6 @@ module.exports = grammar({
       $.throw_exception
     ),
 
-    /**
-     * Modifiers for the evaluation of {@link table_expression} inside 
-     * {@link value_expression} and {@link ref_expression}.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_OPTIONAL_DEFAULT.html
-     */
-    _table_expr_default: $ => choice(
-      gen.kw("optional"),
-      seq(
-        gen.kw("default"),
-        field("default", $.general_expression)
-      )
-    ),
 
     /**
      * THROW exception addition of {@link cond_expression}, {@link switch_expression}
