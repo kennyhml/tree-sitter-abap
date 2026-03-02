@@ -8,8 +8,8 @@ DELETE itab WHERE table_line IS INITIAL.
   (delete_statement
     (delete_itab_lines_spec
       (identifier)
-      (itab_lines_spec
-        (iteration_cond
+      (itab_lines
+        (where_condition
           (predicate_expression
             (identifier)))))))
 
@@ -25,7 +25,7 @@ DELETE itab INDEX 1 USING KEY skey.
       (identifier)
       (itab_index_spec
         (number)
-        (using_key_spec
+        (using_key
           (identifier))))))
 
 ======
@@ -141,7 +141,7 @@ DELETE itab FROM 1 TO 8 STEP 2.
   (delete_statement
     (delete_itab_lines_spec
       (identifier)
-      (itab_lines_spec
+      (itab_lines
         (lines_from
           (number))
         (lines_to
@@ -160,10 +160,10 @@ DELETE spfli_tab USING KEY skey WHERE cityfrom = 'FRANKFURT' AND
   (delete_statement
     (delete_itab_lines_spec
       (identifier)
-      (itab_lines_spec
-        (iteration_cond
-          (using_key_spec
-            (identifier))
+      (itab_lines
+        (using_key
+          (identifier))
+        (where_condition
           (logical_expression
             (comparison_expression
               (identifier)
@@ -182,11 +182,11 @@ DELETE spfli_tab USING KEY skey WHERE (cond).
   (delete_statement
     (delete_itab_lines_spec
       (identifier)
-      (itab_lines_spec
-        (iteration_cond
-          (using_key_spec
-            (identifier))
-          (dynamic_cond
+      (itab_lines
+        (using_key
+          (identifier))
+        (where_condition
+          (dynamic_condition
             (identifier)))))))
 
 ======
@@ -199,7 +199,7 @@ DELETE ADJACENT DUPLICATES FROM itab USING KEY skey.
   (delete_statement
     (delete_itab_duplicates_spec
       (identifier)
-      (using_key_spec
+      (using_key
         (identifier)))))
 
 ======

@@ -60,11 +60,11 @@ APPEND LINES OF jtab FROM 1 TO 5 STEP 2 TO itab.
   (append_statement
     lines: (lines_of
       subject: (identifier)
-      from: (lines_from
+      (lines_from
         index: (number))
-      to: (lines_to
+      (lines_to
         index: (number))
-      step: (lines_step
+      (lines_step
         size: (number)))
     subject: (identifier)))
 

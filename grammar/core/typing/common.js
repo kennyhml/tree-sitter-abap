@@ -1,6 +1,14 @@
-const gen = require('../generators.js');
+
 
 module.exports = {
+
+    _typing: $ => choice(
+        $.abap_type,
+        $.referred_type,
+        $.reference_type,
+        $.table_type,
+        $.range_type,
+    ),
 
     initial_value: _ => seq(...gen.kws("value", "is", "initial")),
 

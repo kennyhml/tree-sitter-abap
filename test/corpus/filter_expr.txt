@@ -35,7 +35,7 @@ FILTER #( spfli_tab EXCEPT USING KEY carr_city
 (source
   (filter_expression
     (identifier)
-    (using_key_spec
+    (using_key
       (identifier))
     (logical_expression
       (comparison_expression
@@ -79,7 +79,7 @@ FILTER #( carriers using key foo IN filter WHERE carrid = table_line )
 (source
   (filter_expression
     (identifier)
-    (using_key_spec
+    (using_key
       (identifier))
     (filter_tab_spec
       (identifier))
@@ -98,7 +98,7 @@ FILTER #( carriers IN filter using key bar WHERE carrid = table_line )
     (identifier)
     (filter_tab_spec
       (identifier)
-      (using_key_spec
+      (using_key
         (identifier)))
     (comparison_expression
       (identifier)

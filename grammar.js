@@ -1,4 +1,4 @@
-const gen = require("./grammar/core/generators.js")
+global.gen = require('./grammar/core/generators.js')
 const fs = require('fs');
 const path = require('path');
 
@@ -245,15 +245,6 @@ module.exports = grammar({
     ...gen.declaration_and_spec("constants", $ => $.identifier),
     ...gen.declaration_and_spec("types", $ => $._type_identifier),
 
-
-    _typing: $ => choice(
-      $.abap_type,
-      $.referred_type,
-      $.reference_type,
-      $.table_type,
-      $.range_type,
-    ),
-
     /**
      * A builtin (keyword) expression resulting in the creation of a certain value. 
      * 
@@ -278,13 +269,13 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDATA_OBJECTS.html
      */
-    data_object: $ => choice(
+    data_object: $ => prec(100, choice(
       $.substring_access,
       $.number,
       $.string_literal,
       $.symbol_tagged_string_literal,
       $.named_data_object
-    ),
+    )),
 
     named_data_object: $ => choice(
       $.identifier,
@@ -320,7 +311,7 @@ module.exports = grammar({
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
-    numeric_expression: $ => choice(
+    numeric_expression: $ => prec(1, choice(
       $.identifier,
       $.field_symbol,
       $.number,
@@ -330,7 +321,7 @@ module.exports = grammar({
       $.method_call,
       $.table_expression,
       $.arithmetic_expression
-    ),
+    )),
 
     // This is made up and not from the keyword documentation. It should be used
     // for positions in which a suitable named data object can be used to receive
@@ -493,29 +484,6 @@ module.exports = grammar({
       field("high", $.general_expression)
     ),
 
-    /**
-     * Constructs an internal table in {@link new_expression} and {@link reduce_expression}
-     * 
-     * Syntactically, there are no differences.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_ITAB.html
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_CONSTRUCTOR_PARAMS_ITAB.html
-     */
-    itab_expression: $ => seq(
-      optional(seq($.let_expression, gen.kw("in"))),
-      optional(field("base", $.base_spec)),
-
-      // Optionally any number of nested for expressions
-      repeat($.iteration_expression),
-
-      repeat1(
-        seq(
-          // Optionally any number of component defaults that apply to subsequent line specs
-          repeat($.named_argument),
-          $.line_spec
-        )
-      )
-    ),
 
     /**
      * Specification of lines of an internal table with the `BASE` addition, e.g:
@@ -526,190 +494,13 @@ module.exports = grammar({
      * sub-rule.
      */
     itab_spec: $ => seq(
-      field("base", $.base_spec),
+      field("base", $.base_table),
       $.argument_list
-    ),
-
-    base_spec: $ => seq(
-      seq(gen.kw("base"), field("value", $.data_object))
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_LSPC.html
-    // Empty line specs are possible and create initial lines.
-    line_spec: $ => seq(
-      "(",
-      field("value", optional(
-        choice(
-          $.lines_of,
-          $.argument_list,
-        ))),
-      ")"
-    ),
-
-
-    /**
-     * FOR [...] UNTIL/WHILE helper expression in constructor expressions.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR.html
-     */
-    iteration_expression: $ => choice(
-      $.conditional_iteration,
-      $.table_iteration
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_CONDITIONAL.html
-    conditional_iteration: $ => seq(
-      gen.kw("for"),
-      field("iter_var", $.assignment),
-      // Optional when `var` is numeric as it will be incremeted implicitly
-      optional(
-        seq(
-          gen.kw("then"),
-          field("then", $.general_expression)
-        )
-      ),
-      choice(
-        seq(
-          gen.kw("until"),
-          field("until", $._logical_expression)
-        ),
-        seq(
-          gen.kw("while"),
-          field("while", $._logical_expression)
-        ),
-      ),
-      optional(seq($.let_expression, gen.kw("in")))
-    ),
-
-    _simple_itab_read: $ => seq(
-      field("iterator", $.named_data_object),
-      gen.kw("in"),
-      field("itab", $.general_expression),
-      repeat(choice(
-        seq(...gen.kws("index", "into"), field("index", $.identifier)),
-        $.iteration_cond,
-        $._iteration_index_spec
-      ))
-    ),
-
-    _grouped_itab_read: $ => seq(
-      gen.kw("groups"), field("group", $.identifier),
-      gen.kw("of"), field("iterator", $.identifier),
-      gen.kw("in"), field("itab", $.identifier),
-      repeat(choice(
-        seq(...gen.kws("index", "into"), field("index", $.identifier)),
-        $.iteration_cond,
-        $._iteration_index_spec
-      )),
-      ...gen.kws("group", "by"), field("group_key", $.group_key),
-      optional(
-        seq(
-          choice(...gen.kws("ascending", "descending")),
-          optional(seq(...gen.kws("as", "text")))
-        )
-      ),
-      optional(seq(...gen.kws("without", "members")))
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_ITAB.html
-    table_iteration: $ => seq(
-      gen.kw("for"),
-      choice(
-        $._simple_itab_read,
-        $._grouped_itab_read,
-      ),
-      optional(seq($.let_expression, gen.kw("in")))
-    ),
-
-    using_key_spec: $ => seq(
-      ...gen.kws("using", "key"),
-      field("name", $.identifier)
     ),
 
     read_key_spec: $ => seq(
       gen.kw("key"),
       field("name", $.identifier)
-    ),
-
-
-
-    _iteration_index_spec: $ => choice(
-      field("from", $.lines_from),
-      field("to", $.lines_to),
-      field("step", $.lines_step),
-    ),
-
-    /**
-     * Iteration condition for a table iteration {@link loop} or {@link table_iteration}
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_COND.html
-     */
-    iteration_cond: $ => prec.right(repeat1(
-      choice(
-        $.using_key_spec,
-        seq(
-          gen.kw("where"),
-          field("condition", choice(
-            $._logical_expression,
-
-            // statically specified logical expression log_exp must be placed in parenthese (table iterations)
-            // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
-            prec(2, seq("(", $._logical_expression, ")")),
-
-            // dynamic where clause
-            $.dynamic_cond,
-            $.dynamic_cond_tab,
-          )
-          )
-        )
-      )
-    )),
-
-    dynamic_cond: $ => seq(
-      "(",
-      field("name", $._immediate_identifier),
-      token.immediate(")")
-    ),
-
-    dynamic_cond_tab: $ => seq(
-      "(", "(",
-      field("name", $._immediate_identifier),
-      token.immediate(")"),
-      ")"
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_KEY.html
-    group_key: $ => choice(
-      prec(1, field("key", $.identifier)),
-      field("expression", $.general_expression),
-      seq(
-        "(",
-        repeat1(choice(
-          $.group_key_component_spec,
-          $.group_index_assignment,
-          $.group_size_assignment
-        )),
-        ")"
-      )
-    ),
-
-    /** Specifcation of a {@link group_key} component. */
-    group_key_component_spec: $ => seq(
-      field("field", $.identifier),
-      "=",
-      field("value", $.general_expression)
-    ),
-
-    group_index_assignment: $ => seq(
-      field("field", $.identifier),
-      "=",
-      ...gen.kws("group", "index")
-    ),
-
-    group_size_assignment: $ => seq(
-      field("field", $.identifier),
-      "=",
-      ...gen.kws("group", "size")
     ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
@@ -791,27 +582,13 @@ module.exports = grammar({
      */
     _dynamic_itab_comp: $ => alias($.dynamic_component, $.dynamic_itab_comp),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html
-    new_expression: $ => seq(
-      gen.kw("new"),
-      field("type", $._constructor_result),
-      token.immediate("("),
-      optional(
-        choice(
-          /** See {@link argument_list} for the ambiguity */
-          $.argument_list,
-          $.itab_spec,
-          $.itab_expression
-        ),
-      ),
-      ")",
-    ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html 
     value_expression: $ => seq(
       gen.kw("value"),
       field("type", $._constructor_result),
       token.immediate("("),
+      optional($.let_expression),
       optional(
         choice(
           // We technically know that this cant be an argument list and has to be
@@ -819,7 +596,7 @@ module.exports = grammar({
           // but its better to avoid inconsistency with new expressions.
           $.argument_list,
           $.itab_spec,
-          $.itab_expression
+          $.table_comprehension
         ),
       ),
       optional($._table_expr_default),
@@ -831,7 +608,7 @@ module.exports = grammar({
       gen.kw("cond"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       repeat1(alias($._cond_case, $.case)),
       optional(alias($._else_case, $.case)),
       ")"
@@ -843,7 +620,7 @@ module.exports = grammar({
       field("type", $._constructor_result),
       "(",
       field("operand", $.data_object),
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       repeat1(alias($._switch_case, $.case)),
       optional(alias($._else_case, $.case)),
       ")"
@@ -853,7 +630,7 @@ module.exports = grammar({
       gen.kw("when"),
       field("predicate", $._logical_expression),
       gen.kw("then"),
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       field("result", $._conditional_result)
     ),
 
@@ -861,12 +638,12 @@ module.exports = grammar({
       gen.kw("when"),
       field("predicate", $.data_object),
       gen.kw("then"),
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       field("result", $._conditional_result)
     ),
 
     _else_case: $ => seq(
-      gen.kw("else"), optional(seq($.let_expression, gen.kw("in"))),
+      gen.kw("else"), optional($.let_expression),
       field("result", $._conditional_result)
     ),
 
@@ -877,7 +654,7 @@ module.exports = grammar({
       gen.kw("conv"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       field("dobj", $.general_expression),
       ")"
     ),
@@ -889,7 +666,7 @@ module.exports = grammar({
       gen.kw("exact"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       field("dobj", $.general_expression),
       ")"
     ),
@@ -901,7 +678,7 @@ module.exports = grammar({
       gen.kw("cast"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       field("dobj", $.general_expression),
       ")"
     ),
@@ -913,7 +690,7 @@ module.exports = grammar({
       gen.kw("ref"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       choice(
         field("dobj", $.data_object),
         field("tab_expr", $.table_expression)
@@ -973,7 +750,7 @@ module.exports = grammar({
       gen.kw("from"),
       field("lookup_tab", $.general_expression),
       choice(
-        $.using_key_spec,
+        $.using_key,
         gen.kw("using"), // primary key
       ),
       $.lookup_table_mapping_list,
@@ -1064,7 +841,7 @@ module.exports = grammar({
       field("itab", $.general_expression),
       optional(gen.kw("except")),
 
-      optional($.using_key_spec),
+      optional($.using_key),
       optional($.filter_tab_spec),
 
       gen.kw("where"),
@@ -1075,7 +852,7 @@ module.exports = grammar({
     filter_tab_spec: $ => seq(
       gen.kw("in"),
       field("ftab", $.general_expression), // functional operand position?
-      optional($.using_key_spec),
+      optional($.using_key),
     ),
 
     /**
@@ -1085,18 +862,13 @@ module.exports = grammar({
       gen.kw("reduce"),
       field("type", $._constructor_result),
       "(",
-      optional(seq($.let_expression, gen.kw("in"))),
+      optional($.let_expression),
       $.reduce_init,
       repeat1($.iteration_expression),
       $.reduce_next,
       ")"
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html
-    let_expression: $ => seq(
-      gen.kw("let"),
-      repeat1($.assignment)
-    ),
 
     /**
      * INIT part of a {@link reduce_expression}
@@ -1550,7 +1322,6 @@ module.exports = grammar({
      * ambiguous and can only be resolved knowing the actual type of the expression result.
      */
     argument_list: $ => seq(
-      optional(seq($.let_expression, gen.kw("in"))),
       choice(
         repeat1($.named_argument),
         repeat1($.positional_argument)
@@ -1651,58 +1422,6 @@ module.exports = grammar({
       ))
     ),
 
-
-
-    group_by_spec: $ => seq(
-      ...gen.kws("group", "by"),
-      field("key", $.group_key),
-      repeat(
-        choice(
-          field("order", $.sort_order),
-          field("members", $.without_members_spec),
-          field("group_result", $._group_by_result)
-        )
-      )
-    ),
-
-
-    without_members_spec: $ => seq(
-      ...gen.kws("without", "members")
-    ),
-
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
-    _group_by_result: $ => choice(
-      $.into_spec,
-      $.assigning,
-      $.reference_into,
-    ),
-
-    into_spec: $ => seq(
-      gen.kw("into"),
-      field("work_area", choice(
-        $.named_data_object,
-        $.declaration_expression
-      )),
-    ),
-
-    assigning: $ => seq(
-      ...gen.kws("assigning"),
-      field("work_area", choice(
-        $.field_symbol,
-        $.declaration_expression
-      )),
-      optional(gen.kw("casting")),
-      optional(seq(...gen.kws("else", "unassign"))),
-    ),
-
-    reference_into: $ => seq(
-      ...gen.kws("reference", "into"),
-      field("work_area", choice(
-        $.field_symbol,
-        $.declaration_expression
-      )),
-    ),
 
     transporting_no_fields_spec: $ => seq(
       ...gen.kws("transporting", "no", "fields")

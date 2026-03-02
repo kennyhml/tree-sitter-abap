@@ -1,4 +1,4 @@
-const gen = require("../generators.js")
+
 
 module.exports = {
 
@@ -70,7 +70,7 @@ module.exports = {
      */
     delete_itab_lines_spec: $ => seq(
         field("subject", $.general_expression),
-        field("lines", $.itab_lines_spec)
+        field("lines", $.itab_lines)
     ),
 
     /**
@@ -86,7 +86,7 @@ module.exports = {
         field("subject", $.general_expression),
         repeat(
             choice(
-                field("key", $.using_key_spec),
+                field("key", $.using_key),
                 field("comparing", $.comparing_fields_spec)
             )
         )

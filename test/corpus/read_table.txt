@@ -44,8 +44,9 @@ READ TABLE spfli_tab FROM spfli_key
 (source
   (read_table_statement
     (identifier)
-    (itab_work_area_spec
-      (identifier))
+    (itab_lines
+      (lines_from
+        (identifier)))
     (assigning
       (declaration_expression
         (identifier)))))
@@ -60,9 +61,10 @@ READ TABLE spfli_tab FROM spfli_key USING KEY city_key
 (source
   (read_table_statement
     (identifier)
-    (itab_work_area_spec
-      (identifier)
-      (using_key_spec
+    (itab_lines
+      (lines_from
+        (identifier))
+      (using_key
         (identifier)))
     (assigning
       (field_symbol
@@ -131,10 +133,11 @@ READ TABLE itab INTO text_short
     (identifier)
     (read_into_work_area
       (identifier))
-    (iteration_cond
-      (comparison_expression
-        (identifier)
-        (identifier)))))
+    (itab_lines
+      (where_condition
+        (comparison_expression
+          (identifier)
+          (identifier))))))
 
 ======
 [READ-TABLE] Ready index with special transport options

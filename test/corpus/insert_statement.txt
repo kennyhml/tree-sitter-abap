@@ -82,7 +82,7 @@ INSERT LINES OF itab USING KEY skey INTO itab INDEX 1.
   (insert_statement
     lines: (lines_of
       subject: (identifier)
-      key: (using_key_spec
+      (using_key
         name: (identifier)))
     position: (at_index
       table: (identifier)
