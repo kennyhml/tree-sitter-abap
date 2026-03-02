@@ -6307,32 +6307,6 @@
     }
   },
   {
-    "type": "itab_spec",
-    "named": true,
-    "fields": {
-      "base": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "base_table",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "argument_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "itab_table_key_spec",
     "named": true,
     "fields": {
@@ -7588,15 +7562,15 @@
           "named": true
         },
         {
-          "type": "itab_spec",
-          "named": true
-        },
-        {
           "type": "let_expression",
           "named": true
         },
         {
           "type": "table_comprehension",
+          "named": true
+        },
+        {
+          "type": "table_constructor",
           "named": true
         }
       ]
@@ -11042,6 +11016,25 @@
     }
   },
   {
+    "type": "table_constructor",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "base_table",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table_expression",
     "named": true,
     "fields": {
@@ -11803,15 +11796,15 @@
           "named": true
         },
         {
-          "type": "itab_spec",
-          "named": true
-        },
-        {
           "type": "let_expression",
           "named": true
         },
         {
           "type": "table_comprehension",
+          "named": true
+        },
+        {
+          "type": "table_constructor",
           "named": true
         }
       ]

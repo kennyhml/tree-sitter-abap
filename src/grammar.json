@@ -6317,7 +6317,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "itab_spec"
+                  "name": "table_constructor"
                 },
                 {
                   "type": "SYMBOL",
@@ -9306,6 +9306,19 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "table_constructor": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "base_table"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "argument_list"
         }
       ]
     },
@@ -13763,42 +13776,6 @@
       "named": false,
       "value": "exception-table"
     },
-    "_kw_assigning": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[aA][sS][sS][iI][gG][nN][iI][nN][gG]"
-      },
-      "named": false,
-      "value": "assigning"
-    },
-    "_kw_casting": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[cC][aA][sS][tT][iI][nN][gG]"
-      },
-      "named": false,
-      "value": "casting"
-    },
-    "_kw_unassign": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[uU][nN][aA][sS][sS][iI][gG][nN]"
-      },
-      "named": false,
-      "value": "unassign"
-    },
-    "_kw_reference": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[rR][eE][fF][eE][rR][eE][nN][cC][eE]"
-      },
-      "named": false,
-      "value": "reference"
-    },
     "_kw_transporting": {
       "type": "ALIAS",
       "content": {
@@ -14960,6 +14937,15 @@
       "named": false,
       "value": "parameter"
     },
+    "_kw_reference": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[rR][eE][fF][eE][rR][eE][nN][cC][eE]"
+      },
+      "named": false,
+      "value": "reference"
+    },
     "_kw_if": {
       "type": "ALIAS",
       "content": {
@@ -15193,6 +15179,33 @@
       },
       "named": false,
       "value": "step"
+    },
+    "_kw_assigning": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[aA][sS][sS][iI][gG][nN][iI][nN][gG]"
+      },
+      "named": false,
+      "value": "assigning"
+    },
+    "_kw_casting": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[cC][aA][sS][tT][iI][nN][gG]"
+      },
+      "named": false,
+      "value": "casting"
+    },
+    "_kw_unassign": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[uU][nN][aA][sS][sS][iI][gG][nN]"
+      },
+      "named": false,
+      "value": "unassign"
     },
     "_kw_text": {
       "type": "ALIAS",
@@ -18788,23 +18801,6 @@
         }
       ]
     },
-    "itab_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "base",
-          "content": {
-            "type": "SYMBOL",
-            "name": "base_table"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "argument_list"
-        }
-      ]
-    },
     "read_key_spec": {
       "type": "SEQ",
       "members": [
@@ -19295,7 +19291,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "itab_spec"
+                  "name": "table_constructor"
                 },
                 {
                   "type": "SYMBOL",
@@ -22298,32 +22294,6 @@
               "type": "BLANK"
             }
           ]
-        }
-      ]
-    },
-    "into_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_into"
-        },
-        {
-          "type": "FIELD",
-          "name": "work_area",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "named_data_object"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "declaration_expression"
-              }
-            ]
-          }
         }
       ]
     },

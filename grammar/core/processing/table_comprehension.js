@@ -32,6 +32,21 @@ module.exports = {
     ),
 
     /**
+     * Technically unrelated to comprehensions and should probably be moved.
+     * 
+     * This rule is used for scenarios such as:
+     * VALUE #( BASE base1->* col2 = 'BB' ). 
+     * 
+     * Where an internal table is constructed without specifying individual lines.
+     * 
+     * Without the base addition, this is amiguous due to the NEW #( ) constructor.
+     */
+    table_constructor: $ => seq(
+        $.base_table,
+        $.argument_list
+    ),
+
+    /**
      * ... line 
      *   / {LINES OF jtab [FROM idx1] [TO idx2] [STEP n] [USING KEY keyname]} ...
      * 
