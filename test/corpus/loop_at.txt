@@ -8,7 +8,7 @@ endloop.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into_spec
+    result: (into
       work_area: (identifier))))
 
 ======
@@ -36,17 +36,17 @@ ENDLOOP.
   (loop_at_statement
     subject: (value_expression
       type: (type_identifier)
-      (itab_expression
+      (table_comprehension
         (line_spec
-          value: (argument_list
+          (argument_list
             (positional_argument
               value: (number))))
         (line_spec
-          value: (argument_list
+          (argument_list
             (positional_argument
               value: (number))))
         (line_spec
-          value: (argument_list
+          (argument_list
             (positional_argument
               value: (number))))))
     result: (assigning
@@ -70,23 +70,25 @@ ENDLOOP.
     result: (assigning
       work_area: (declaration_expression
         name: (identifier)))
-    condition: (iteration_cond
-      condition: (comparison_expression
-        left: (identifier)
-        right: (identifier)))
+    (itab_lines
+      (where_condition
+        condition: (comparison_expression
+          left: (identifier)
+          right: (identifier))))
     body: (loop_at_body
       (loop_at_statement
         subject: (identifier)
-        result: (into_spec
+        result: (into
           work_area: (declaration_expression
             name: (identifier)))
-        condition: (iteration_cond
-          condition: (comparison_expression
-            left: (identifier)
-            right: (struct_component_selector
-              struct: (field_symbol
-                name: (identifier))
-              comp: (identifier))))))))
+        (itab_lines
+          (where_condition
+            condition: (comparison_expression
+              left: (identifier)
+              right: (struct_component_selector
+                struct: (field_symbol
+                  name: (identifier))
+                comp: (identifier)))))))))
 
 ======
 [LOOP-AT] Specifying an explicit key
@@ -98,11 +100,11 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into_spec
+    result: (into
       work_area: (declaration_expression
         name: (identifier)))
-    condition: (iteration_cond
-      (using_key_spec
+    (itab_lines
+      (using_key
         name: (identifier)))))
 
 ======
@@ -115,12 +117,13 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    from: (lines_from
-      index: (builtin_function_call
-        name: (identifier)
-        (call_argument_list
-          exporting: (positional_argument
-            value: (identifier)))))
+    (itab_lines
+      (lines_from
+        index: (builtin_function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (identifier))))))
     result: (assigning
       work_area: (declaration_expression
         name: (identifier)))))
@@ -135,15 +138,17 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    from: (lines_from
-      index: (number))
-    step: (lines_step
-      size: (number))
+    (itab_lines
+      (lines_from
+        index: (number))
+      (lines_step
+        size: (number)))
     result: (assigning
       work_area: (declaration_expression
         name: (identifier)))
-    to: (lines_to
-      index: (number))))
+    (itab_lines
+      (lines_to
+        index: (number)))))
 
 ======
 [LOOP-AT] Where condition with dereference
@@ -155,17 +160,18 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into_spec
+    result: (into
       work_area: (identifier))
-    from: (lines_from
-      index: (number))
-    to: (lines_to
-      index: (number))
-    condition: (iteration_cond
-      condition: (comparison_expression
-        left: (identifier)
-        right: (dereference
-          dref: (identifier))))))
+    (itab_lines
+      (lines_from
+        index: (number))
+      (lines_to
+        index: (number))
+      (where_condition
+        condition: (comparison_expression
+          left: (identifier)
+          right: (dereference
+            dref: (identifier)))))))
 
 ======
 [LOOP-AT] Dynamic where condition
@@ -177,15 +183,16 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into_spec
+    result: (into
       work_area: (identifier))
-    from: (lines_from
-      index: (number))
-    to: (lines_to
-      index: (number))
-    condition: (iteration_cond
-      condition: (dynamic_cond
-        name: (identifier)))))
+    (itab_lines
+      (lines_from
+        index: (number))
+      (lines_to
+        index: (number))
+      (where_condition
+        condition: (dynamic_condition
+          name: (identifier))))))
 
 ======
 [LOOP-AT] Loop without transporting fields
@@ -198,10 +205,11 @@ ENDLOOP.
   (loop_at_statement
     subject: (identifier)
     result: (transporting_no_fields_spec)
-    condition: (iteration_cond
-      condition: (comparison_expression
-        left: (identifier)
-        right: (number)))))
+    (itab_lines
+      (where_condition
+        condition: (comparison_expression
+          left: (identifier)
+          right: (number))))))
 
 ======
 [LOOP-AT] Group level processing in simple loop
@@ -246,26 +254,28 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into_spec
+    result: (into
       work_area: (declaration_expression
         name: (identifier)))
-    grouping: (group_by_spec
-      key: (group_key
-        (group_key_component_spec
+    (group_by
+      (group_key_components
+        (group_key_component
           field: (identifier)
           value: (struct_component_selector
             struct: (identifier)
             comp: (identifier)))
-        (group_key_component_spec
+        (group_key_component
           field: (identifier)
           value: (struct_component_selector
             struct: (identifier)
             comp: (identifier)))
-        (group_index_assignment
-          field: (identifier))
-        (group_size_assignment
-          field: (identifier)))
-      group_result: (into_spec
+        (group_key_component
+          field: (identifier)
+          value: (group_index))
+        (group_key_component
+          field: (identifier)
+          value: (group_size)))
+      result: (into
         work_area: (declaration_expression
           name: (identifier))))))
 
@@ -285,17 +295,16 @@ ENDLOOP.
     result: (assigning
       work_area: (declaration_expression
         name: (identifier)))
-    grouping: (group_by_spec
-      key: (group_key
-        expression: (builtin_function_call
-          name: (identifier)
-          (call_argument_list
-            exporting: (positional_argument
-              value: (field_symbol
-                name: (identifier))))))
-      order: (sort_order
+    (group_by
+      key: (builtin_function_call
+        name: (identifier)
+        (call_argument_list
+          exporting: (positional_argument
+            value: (field_symbol
+              name: (identifier)))))
+      (sort_order
         direction: (ascending))
-      group_result: (assigning
+      result: (assigning
         work_area: (declaration_expression
           name: (identifier))))))
 
@@ -314,15 +323,14 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into_spec
+    result: (into
       work_area: (declaration_expression
         name: (identifier)))
-    grouping: (group_by_spec
-      key: (group_key
-        expression: (struct_component_selector
-          struct: (identifier)
-          comp: (identifier)))
-      group_result: (into_spec
+    (group_by
+      key: (struct_component_selector
+        struct: (identifier)
+        comp: (identifier))
+      result: (into
         work_area: (declaration_expression
           name: (identifier))))
     body: (loop_at_body
@@ -331,7 +339,8 @@ ENDLOOP.
         result: (assigning
           work_area: (declaration_expression
             name: (identifier)))
-        condition: (iteration_cond
-          condition: (comparison_expression
-            left: (identifier)
-            right: (string_literal)))))))
+        (itab_lines
+          (where_condition
+            condition: (comparison_expression
+              left: (identifier)
+              right: (string_literal))))))))

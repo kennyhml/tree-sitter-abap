@@ -119,7 +119,7 @@
 ] name: (identifier) @variable.parameter
 
 (table_key name: (identifier) @variable.key )
-(using_key_spec name: (identifier) @variable.key )
+(using_key name: (identifier) @variable.key )
 
 (exception_list (identifier) @variable.exception )
 (message_spec raising: (identifier) @variable.exception )

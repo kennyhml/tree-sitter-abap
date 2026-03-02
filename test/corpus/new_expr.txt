@@ -29,11 +29,11 @@ NEW string( let var = 'A String' in |Using let expression { var }| )
 (source
   (new_expression
     (type_identifier)
+    (let_expression
+      (assignment
+        (identifier)
+        (string_literal)))
     (argument_list
-      (let_expression
-        (assignment
-          (identifier)
-          (string_literal)))
       (positional_argument
         (string_template
           (embedded_expression
@@ -50,7 +50,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
 (source
   (new_expression
     (itab_spec
-      (base_spec
+      (base_table
         (identifier))
       (argument_list
         (named_argument
@@ -58,7 +58,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
           (string_literal)))))
   (new_expression
     (itab_spec
-      (base_spec
+      (base_table
         (dereference
           (identifier)))
       (argument_list
@@ -67,7 +67,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
           (string_literal)))))
   (new_expression
     (itab_spec
-      (base_spec
+      (base_table
         (class_component_selector
           (identifier)
           (identifier)))

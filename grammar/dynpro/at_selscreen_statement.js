@@ -1,5 +1,5 @@
 /// <reference types="tree-sitter-cli/dsl" />
-const gen = require("../core/generators.js")
+
 
 
 module.exports = {

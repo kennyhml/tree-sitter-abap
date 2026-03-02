@@ -950,10 +950,6 @@
           "named": true
         },
         {
-          "type": "let_expression",
-          "named": true
-        },
-        {
           "type": "named_argument",
           "named": true
         },
@@ -1228,20 +1224,26 @@
     "fields": {
       "base": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "data_object",
             "named": true
           }
         ]
-      },
+      }
+    }
+  },
+  {
+    "type": "base_table",
+    "named": true,
+    "fields": {
       "value": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "named_data_object",
             "named": true
           }
         ]
@@ -2992,7 +2994,7 @@
     "type": "conditional_iteration",
     "named": true,
     "fields": {
-      "iter_var": {
+      "init": {
         "multiple": false,
         "required": true,
         "types": [
@@ -3002,57 +3004,25 @@
           }
         ]
       },
-      "then": {
+      "next": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "until": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "logical_expression",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "relational_expression",
-            "named": true
-          }
-        ]
-      },
-      "while": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "logical_expression",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "relational_expression",
+            "type": "then_clause",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
+        {
+          "type": "iteration_condition",
+          "named": true
+        },
         {
           "type": "let_expression",
           "named": true
@@ -3401,7 +3371,7 @@
           "named": true
         },
         {
-          "type": "using_key_spec",
+          "type": "using_key",
           "named": true
         }
       ]
@@ -3993,7 +3963,7 @@
         "required": false,
         "types": [
           {
-            "type": "using_key_spec",
+            "type": "using_key",
             "named": true
           }
         ]
@@ -4085,7 +4055,7 @@
         "required": true,
         "types": [
           {
-            "type": "itab_lines_spec",
+            "type": "itab_lines",
             "named": true
           }
         ]
@@ -4317,7 +4287,7 @@
     }
   },
   {
-    "type": "dynamic_cond",
+    "type": "dynamic_condition",
     "named": true,
     "fields": {
       "name": {
@@ -4333,7 +4303,7 @@
     }
   },
   {
-    "type": "dynamic_cond_tab",
+    "type": "dynamic_condition_tab",
     "named": true,
     "fields": {
       "name": {
@@ -4730,7 +4700,7 @@
           "named": true
         },
         {
-          "type": "using_key_spec",
+          "type": "using_key",
           "named": true
         }
       ]
@@ -4756,7 +4726,7 @@
       "required": false,
       "types": [
         {
-          "type": "using_key_spec",
+          "type": "using_key",
           "named": true
         }
       ]
@@ -4887,6 +4857,22 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "for_groups",
+    "named": true,
+    "fields": {
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
             "named": true
           }
         ]
@@ -5308,10 +5294,24 @@
     "fields": {}
   },
   {
-    "type": "group_by_spec",
+    "type": "group_by",
     "named": true,
     "fields": {
-      "group_result": {
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "result": {
         "multiple": true,
         "required": false,
         "types": [
@@ -5320,83 +5320,11 @@
             "named": true
           },
           {
-            "type": "into_spec",
+            "type": "into",
             "named": true
           },
           {
             "type": "reference_into",
-            "named": true
-          }
-        ]
-      },
-      "key": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "group_key",
-            "named": true
-          }
-        ]
-      },
-      "members": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "without_members_spec",
-            "named": true
-          }
-        ]
-      },
-      "order": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "sort_order",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "group_index_assignment",
-    "named": true,
-    "fields": {
-      "field": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "group_key",
-    "named": true,
-    "fields": {
-      "expression": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "key": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -5407,22 +5335,27 @@
       "required": false,
       "types": [
         {
-          "type": "group_index_assignment",
+          "type": "group_key_components",
           "named": true
         },
         {
-          "type": "group_key_component_spec",
+          "type": "sort_order",
           "named": true
         },
         {
-          "type": "group_size_assignment",
+          "type": "without_members",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "group_key_component_spec",
+    "type": "group_index",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "group_key_component",
     "named": true,
     "fields": {
       "field": {
@@ -5442,21 +5375,79 @@
           {
             "type": "general_expression",
             "named": true
+          },
+          {
+            "type": "group_index",
+            "named": true
+          },
+          {
+            "type": "group_size",
+            "named": true
           }
         ]
       }
     }
   },
   {
-    "type": "group_size_assignment",
+    "type": "group_key_components",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "group_key_component",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "group_size",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "grouping_subject",
     "named": true,
     "fields": {
-      "field": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "index_into",
+          "named": true
+        },
+        {
+          "type": "itab_lines",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "grouping_work_area",
+    "named": true,
+    "fields": {
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
             "named": true
           }
         ]
@@ -5795,6 +5786,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "index_into",
+    "named": true,
+    "fields": {
+      "enumerator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -6151,7 +6158,7 @@
     }
   },
   {
-    "type": "into_spec",
+    "type": "into",
     "named": true,
     "fields": {
       "work_area": {
@@ -6243,44 +6250,6 @@
     }
   },
   {
-    "type": "itab_expression",
-    "named": true,
-    "fields": {
-      "base": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "base_spec",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "iteration_expression",
-          "named": true
-        },
-        {
-          "type": "let_expression",
-          "named": true
-        },
-        {
-          "type": "line_spec",
-          "named": true
-        },
-        {
-          "type": "named_argument",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "itab_index_spec",
     "named": true,
     "fields": {
@@ -6299,7 +6268,7 @@
         "required": false,
         "types": [
           {
-            "type": "using_key_spec",
+            "type": "using_key",
             "named": true
           }
         ]
@@ -6307,49 +6276,34 @@
     }
   },
   {
-    "type": "itab_lines_spec",
+    "type": "itab_lines",
     "named": true,
-    "fields": {
-      "from": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_from",
-            "named": true
-          }
-        ]
-      },
-      "step": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_step",
-            "named": true
-          }
-        ]
-      },
-      "to": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_to",
-            "named": true
-          }
-        ]
-      },
-      "where": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "iteration_cond",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lines_from",
+          "named": true
+        },
+        {
+          "type": "lines_step",
+          "named": true
+        },
+        {
+          "type": "lines_to",
+          "named": true
+        },
+        {
+          "type": "using_key",
+          "named": true
+        },
+        {
+          "type": "where_condition",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6361,7 +6315,7 @@
         "required": true,
         "types": [
           {
-            "type": "base_spec",
+            "type": "base_table",
             "named": true
           }
         ]
@@ -6413,7 +6367,7 @@
         "required": false,
         "types": [
           {
-            "type": "using_key_spec",
+            "type": "using_key",
             "named": true
           }
         ]
@@ -6431,29 +6385,13 @@
     }
   },
   {
-    "type": "iteration_cond",
+    "type": "iteration_condition",
     "named": true,
     "fields": {
       "condition": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "dynamic_cond",
-            "named": true
-          },
-          {
-            "type": "dynamic_cond_tab",
-            "named": true
-          },
           {
             "type": "logical_expression",
             "named": true
@@ -6467,17 +6405,21 @@
             "named": true
           }
         ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "until",
+            "named": true
+          },
+          {
+            "type": "while",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "using_key_spec",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -6583,21 +6525,20 @@
   {
     "type": "line_spec",
     "named": true,
-    "fields": {
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          },
-          {
-            "type": "lines_of",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "lines_of",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6620,36 +6561,6 @@
     "type": "lines_of",
     "named": true,
     "fields": {
-      "from": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_from",
-            "named": true
-          }
-        ]
-      },
-      "key": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "using_key_spec",
-            "named": true
-          }
-        ]
-      },
-      "step": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_step",
-            "named": true
-          }
-        ]
-      },
       "subject": {
         "multiple": false,
         "required": true,
@@ -6659,17 +6570,29 @@
             "named": true
           }
         ]
-      },
-      "to": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_to",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "lines_from",
+          "named": true
+        },
+        {
+          "type": "lines_step",
+          "named": true
+        },
+        {
+          "type": "lines_to",
+          "named": true
+        },
+        {
+          "type": "using_key",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6938,36 +6861,6 @@
           }
         ]
       },
-      "condition": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "iteration_cond",
-            "named": true
-          }
-        ]
-      },
-      "from": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_from",
-            "named": true
-          }
-        ]
-      },
-      "grouping": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "group_by_spec",
-            "named": true
-          }
-        ]
-      },
       "result": {
         "multiple": true,
         "required": false,
@@ -6977,7 +6870,7 @@
             "named": true
           },
           {
-            "type": "into_spec",
+            "type": "into",
             "named": true
           },
           {
@@ -6986,16 +6879,6 @@
           },
           {
             "type": "transporting_no_fields_spec",
-            "named": true
-          }
-        ]
-      },
-      "step": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_step",
             "named": true
           }
         ]
@@ -7009,17 +6892,21 @@
             "named": true
           }
         ]
-      },
-      "to": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_to",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "group_by",
+          "named": true
+        },
+        {
+          "type": "itab_lines",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7036,36 +6923,6 @@
           }
         ]
       },
-      "condition": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "iteration_cond",
-            "named": true
-          }
-        ]
-      },
-      "from": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_from",
-            "named": true
-          }
-        ]
-      },
-      "grouping": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "group_by_spec",
-            "named": true
-          }
-        ]
-      },
       "result": {
         "multiple": true,
         "required": false,
@@ -7075,7 +6932,7 @@
             "named": true
           },
           {
-            "type": "into_spec",
+            "type": "into",
             "named": true
           },
           {
@@ -7084,16 +6941,6 @@
           },
           {
             "type": "transporting_no_fields_spec",
-            "named": true
-          }
-        ]
-      },
-      "step": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_step",
             "named": true
           }
         ]
@@ -7107,17 +6954,21 @@
             "named": true
           }
         ]
-      },
-      "to": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_to",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "group_by",
+          "named": true
+        },
+        {
+          "type": "itab_lines",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7729,7 +7580,7 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
@@ -7737,11 +7588,15 @@
           "named": true
         },
         {
-          "type": "itab_expression",
+          "type": "itab_spec",
           "named": true
         },
         {
-          "type": "itab_spec",
+          "type": "let_expression",
+          "named": true
+        },
+        {
+          "type": "table_comprehension",
           "named": true
         }
       ]
@@ -9003,15 +8858,15 @@
           "named": true
         },
         {
+          "type": "itab_lines",
+          "named": true
+        },
+        {
           "type": "itab_table_key_spec",
           "named": true
         },
         {
           "type": "itab_work_area_spec",
-          "named": true
-        },
-        {
-          "type": "iteration_cond",
           "named": true
         }
       ]
@@ -11160,6 +11015,33 @@
     }
   },
   {
+    "type": "table_comprehension",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "base_table",
+          "named": true
+        },
+        {
+          "type": "iteration_expression",
+          "named": true
+        },
+        {
+          "type": "line_spec",
+          "named": true
+        },
+        {
+          "type": "named_argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table_expression",
     "named": true,
     "fields": {
@@ -11189,86 +11071,22 @@
     "type": "table_iteration",
     "named": true,
     "fields": {
-      "from": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_from",
-            "named": true
-          }
-        ]
-      },
-      "group": {
+      "subject": {
         "multiple": false,
         "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "group_key": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "group_key",
-            "named": true
-          }
-        ]
-      },
-      "index": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "itab": {
-        "multiple": false,
-        "required": true,
         "types": [
           {
             "type": "general_expression",
             "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
           }
         ]
       },
-      "iterator": {
+      "work_area": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "named_data_object",
-            "named": true
-          }
-        ]
-      },
-      "step": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_step",
-            "named": true
-          }
-        ]
-      },
-      "to": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "lines_to",
             "named": true
           }
         ]
@@ -11279,7 +11097,27 @@
       "required": false,
       "types": [
         {
-          "type": "iteration_cond",
+          "type": "for_groups",
+          "named": true
+        },
+        {
+          "type": "group_by",
+          "named": true
+        },
+        {
+          "type": "grouping_subject",
+          "named": true
+        },
+        {
+          "type": "grouping_work_area",
+          "named": true
+        },
+        {
+          "type": "index_into",
+          "named": true
+        },
+        {
+          "type": "itab_lines",
           "named": true
         },
         {
@@ -11504,6 +11342,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "then_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -11834,6 +11687,11 @@
     "fields": {}
   },
   {
+    "type": "until",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "user_command_spec",
     "named": true,
     "fields": {
@@ -11850,7 +11708,7 @@
     }
   },
   {
-    "type": "using_key_spec",
+    "type": "using_key",
     "named": true,
     "fields": {
       "name": {
@@ -11937,7 +11795,7 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
@@ -11945,11 +11803,15 @@
           "named": true
         },
         {
-          "type": "itab_expression",
+          "type": "itab_spec",
           "named": true
         },
         {
-          "type": "itab_spec",
+          "type": "let_expression",
+          "named": true
+        },
+        {
+          "type": "table_comprehension",
           "named": true
         }
       ]
@@ -11991,6 +11853,51 @@
         ]
       }
     }
+  },
+  {
+    "type": "where_condition",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "dynamic_condition",
+            "named": true
+          },
+          {
+            "type": "dynamic_condition_tab",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "while",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "while_statement",
@@ -12056,7 +11963,7 @@
     }
   },
   {
-    "type": "without_members_spec",
+    "type": "without_members",
     "named": true,
     "fields": {}
   },

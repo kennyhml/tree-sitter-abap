@@ -6,14 +6,16 @@ VALUE #( FOR j = 1 UNTIL j > 5 ( rnd1->get_next( ) ) )
 
 (source
   (value_expression
-    (itab_expression
+    (table_comprehension
       (conditional_iteration
         (assignment
           (identifier)
           (number))
-        (comparison_expression
-          (identifier)
-          (number)))
+        (iteration_condition
+          (until)
+          (comparison_expression
+            (identifier)
+            (number))))
       (line_spec
         (argument_list
           (positional_argument
@@ -30,11 +32,12 @@ VALUE carriers( FOR wa IN scarr_tab INDEX INTO i ( no = i  ) ).
 (source
   (value_expression
     (type_identifier)
-    (itab_expression
+    (table_comprehension
       (table_iteration
         (identifier)
         (identifier)
-        (identifier))
+        (index_into
+          (identifier)))
       (line_spec
         (argument_list
           (named_argument
@@ -55,7 +58,7 @@ VALUE itab2(
 (source
   (value_expression
     (type_identifier)
-    (itab_expression
+    (table_comprehension
       (table_iteration
         (identifier)
         (identifier))
@@ -92,17 +95,18 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ).
   (assignment
     (identifier)
     (value_expression
-      (itab_expression
+      (table_comprehension
         (table_iteration
           (identifier)
           (identifier)
-          (iteration_cond
-            (parenthesized_expression)
-            (parenthesized_expression
-              (comparison_expression
-                (identifier)
-                (string_literal)))
-            (parenthesized_expression)))
+          (itab_lines
+            (where_condition
+              (parenthesized_expression)
+              (parenthesized_expression
+                (comparison_expression
+                  (identifier)
+                  (string_literal)))
+              (parenthesized_expression))))
         (line_spec
           (argument_list
             (positional_argument
@@ -118,13 +122,14 @@ value_tab = VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ).
   (assignment
     (identifier)
     (value_expression
-      (itab_expression
+      (table_comprehension
         (table_iteration
           (identifier)
           (identifier)
-          (iteration_cond
-            (dynamic_cond
-              (identifier))))
+          (itab_lines
+            (where_condition
+              (dynamic_condition
+                (identifier)))))
         (line_spec
           (argument_list
             (positional_argument
@@ -140,13 +145,14 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ).
   (assignment
     (identifier)
     (value_expression
-      (itab_expression
+      (table_comprehension
         (table_iteration
           (identifier)
           (identifier)
-          (iteration_cond
-            (dynamic_cond_tab
-              (identifier))))
+          (itab_lines
+            (where_condition
+              (dynamic_condition_tab
+                (identifier)))))
         (line_spec
           (argument_list
             (positional_argument
@@ -161,18 +167,20 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix FROM 4 TO 16
 
 (source
   (value_expression
-    (itab_expression
+    (table_comprehension
       (table_iteration
         (field_symbol
           (identifier))
         (identifier)
-        (identifier)
-        (lines_from
-          (number))
-        (lines_to
-          (number))
-        (lines_step
-          (number)))
+        (index_into
+          (identifier))
+        (itab_lines
+          (lines_from
+            (number))
+          (lines_to
+            (number))
+          (lines_step
+            (number))))
       (line_spec
         (argument_list
           (named_argument
@@ -193,21 +201,22 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix
 
 (source
   (value_expression
-    (itab_expression
+    (table_comprehension
       (table_iteration
         (field_symbol
           (identifier))
         (identifier)
-        (identifier)
-        (iteration_cond
-          (using_key_spec
-            (identifier)))
-        (lines_from
-          (number))
-        (lines_to
-          (number))
-        (lines_step
-          (number)))
+        (index_into
+          (identifier))
+        (itab_lines
+          (using_key
+            (identifier))
+          (lines_from
+            (number))
+          (lines_to
+            (number))
+          (lines_step
+            (number))))
       (line_spec
         (argument_list
           (named_argument
@@ -227,17 +236,20 @@ VALUE itab1( FOR j = 41 THEN j - 10 UNTIL j < 10 ( ) )
 (source
   (value_expression
     (type_identifier)
-    (itab_expression
+    (table_comprehension
       (conditional_iteration
         (assignment
           (identifier)
           (number))
-        (binary_operator
-          (identifier)
-          (number))
-        (comparison_expression
-          (identifier)
-          (number)))
+        (then_clause
+          (binary_operator
+            (identifier)
+            (number)))
+        (iteration_condition
+          (until)
+          (comparison_expression
+            (identifier)
+            (number))))
       (line_spec))))
 
 ==================
@@ -251,18 +263,20 @@ VALUE itab3(
 (source
   (value_expression
     (type_identifier)
-    (itab_expression
+    (table_comprehension
       (table_iteration
         (identifier)
         (identifier)
-        (identifier)
-        (iteration_cond
-          (parenthesized_expression)
-          (parenthesized_expression
-            (comparison_expression
-              (identifier)
-              (number)))
-          (parenthesized_expression)))
+        (index_into
+          (identifier))
+        (itab_lines
+          (where_condition
+            (parenthesized_expression)
+            (parenthesized_expression
+              (comparison_expression
+                (identifier)
+                (number)))
+            (parenthesized_expression))))
       (line_spec
         (lines_of
           (identifier)
@@ -285,18 +299,20 @@ VALUE itab(
 (source
   (value_expression
     (type_identifier)
-    (itab_expression
-      (let_expression
-        (assignment
-          (identifier)
-          (number)))
+    (let_expression
+      (assignment
+        (identifier)
+        (number)))
+    (table_comprehension
       (conditional_iteration
         (assignment
           (identifier)
           (number))
-        (comparison_expression
-          (identifier)
-          (number))
+        (iteration_condition
+          (until)
+          (comparison_expression
+            (identifier)
+            (number)))
         (let_expression
           (assignment
             (identifier)

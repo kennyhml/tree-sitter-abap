@@ -17,9 +17,11 @@ REDUCE string( INIT s = 0
       (assignment
         (identifier)
         (number))
-      (comparison_expression
-        (identifier)
-        (number)))
+      (iteration_condition
+        (until)
+        (comparison_expression
+          (identifier)
+          (number))))
     (reduce_next
       (assignment
         (identifier)
@@ -45,12 +47,15 @@ REDUCE string( INIT text type string
       (assignment
         (identifier)
         (number))
-      (binary_operator
-        (identifier)
-        (number))
-      (comparison_expression
-        (identifier)
-        (number)))
+      (then_clause
+        (binary_operator
+          (identifier)
+          (number)))
+      (iteration_condition
+        (while)
+        (comparison_expression
+          (identifier)
+          (number))))
     (reduce_next
       (assignment
         (identifier)
@@ -165,7 +170,7 @@ REDUCE string( INIT text = `` sep = ``
       (value_expression
         (type_identifier)
         (inline_comment)
-        (itab_expression
+        (table_comprehension
           (table_iteration
             (identifier)
             (identifier))

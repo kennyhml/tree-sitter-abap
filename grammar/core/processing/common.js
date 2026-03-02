@@ -1,4 +1,4 @@
-const gen = require("../generators.js")
+
 
 module.exports = {
 
@@ -11,16 +11,43 @@ module.exports = {
      * 
      * Used in:
      * 
-     * {@link delete_itab_statement} @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_LINES.html
-     * {@link loop_at_statement}     @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_COND.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_LINES.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_COND.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_COND.html
      */
-    itab_lines_spec: $ => repeat1(
+    itab_lines: $ => prec.right(repeat1(
         choice(
-            field("from", $.lines_from),
-            field("to", $.lines_to),
-            field("step", $.lines_step),
-            field("where", $.iteration_cond),
+            $.lines_from,
+            $.lines_to,
+            $.lines_step,
+            $.where_condition,
+            $.using_key
         )
+    )),
+
+
+    where_condition: $ => seq(
+        gen.kw("where"),
+        field("condition", choice(
+            $._logical_expression,
+
+            // statically specified logical expression log_exp must be placed in parenthese (table iterations)
+            // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
+            prec(2, gen.parenthesized($._logical_expression)),
+
+            // dynamic where clause
+            $.dynamic_condition,
+            $.dynamic_condition_tab,
+        )
+        )
+    ),
+
+    dynamic_condition: $ => gen.tightParens(
+        field("name", $._immediate_identifier)
+    ),
+
+    dynamic_condition_tab: $ => gen.parenthesized(
+        gen.tightParens(field("name", $._immediate_identifier))
     ),
 
     /**
@@ -36,10 +63,10 @@ module.exports = {
         field("subject", $.general_expression),
         repeat(
             choice(
-                field("from", $.lines_from),
-                field("to", $.lines_to),
-                field("step", $.lines_step),
-                field("key", $.using_key_spec)
+                $.lines_from,
+                $.lines_to,
+                $.lines_step,
+                $.using_key
             )
         )
     ),
@@ -71,6 +98,37 @@ module.exports = {
     lines_step: $ => seq(
         gen.kw("step"),
         field("size", $.numeric_expression),
+    ),
+
+    using_key: $ => seq(
+        ...gen.kws("using", "key"),
+        field("name", $.identifier)
+    ),
+
+    into: $ => seq(
+        gen.kw("into"),
+        field("work_area", choice(
+            $.named_data_object,
+            $.declaration_expression
+        )),
+    ),
+
+    assigning: $ => seq(
+        ...gen.kws("assigning"),
+        field("work_area", choice(
+            $.field_symbol,
+            $.declaration_expression
+        )),
+        optional(gen.kw("casting")),
+        optional(seq(...gen.kws("else", "unassign"))),
+    ),
+
+    reference_into: $ => seq(
+        ...gen.kws("reference", "into"),
+        field("work_area", choice(
+            $.field_symbol,
+            $.declaration_expression
+        )),
     ),
 
     /**
@@ -121,7 +179,7 @@ module.exports = {
     itab_index_spec: $ => seq(
         gen.kw("index"),
         field("index", $.numeric_expression),
-        optional(field("key", $.using_key_spec))
+        optional(field("key", $.using_key))
     ),
 
     /**
@@ -135,7 +193,7 @@ module.exports = {
     itab_work_area_spec: $ => seq(
         gen.kw("from"),
         field("work_area", $.general_expression),
-        optional(field("key", $.using_key_spec))
+        optional(field("key", $.using_key))
     ),
 
     /**

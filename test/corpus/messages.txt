@@ -162,7 +162,7 @@ MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1.
 (source
   (message
     (message_spec
-      text: (string_literal)
+      source: (string_literal)
       type: (string_literal)
       raising: (identifier))))
 

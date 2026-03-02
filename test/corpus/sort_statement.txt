@@ -104,12 +104,12 @@ SORT dref->* BY VALUE #( FOR wa IN column_tab ( name = condense( to_upper( wa ) 
       dref: (identifier))
     (by_order_table
       order_table: (value_expression
-        (itab_expression
+        (table_comprehension
           (table_iteration
-            iterator: (identifier)
-            itab: (identifier))
+            work_area: (identifier)
+            subject: (identifier))
           (line_spec
-            value: (argument_list
+            (argument_list
               (named_argument
                 name: (identifier)
                 value: (builtin_function_call
@@ -140,9 +140,9 @@ SORT itab BY VALUE abap_sortorder_tab(
     (by_order_table
       order_table: (value_expression
         type: (type_identifier)
-        (itab_expression
+        (table_comprehension
           (line_spec
-            value: (argument_list
+            (argument_list
               (named_argument
                 name: (identifier)
                 value: (string_literal))

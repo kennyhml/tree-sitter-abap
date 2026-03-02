@@ -207,6 +207,11 @@ function kw_tagged(keyword, rule) {
     return seq(kw(keyword), field(keyword.replace("-", "_"), rule));
 }
 
+
+function parenthesized(rule) {
+    return seq("(", rule, ")")
+}
+
 /**
  * Enforces tight parentheses around a rule that starts immediately.
  * 
@@ -281,5 +286,6 @@ module.exports = {
     commaSep1,
     kw_tagged,
     tightParens,
-    immediateTightParens
+    immediateTightParens,
+    parenthesized
 };

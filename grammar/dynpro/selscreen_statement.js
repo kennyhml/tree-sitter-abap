@@ -1,5 +1,5 @@
 /// <reference types="tree-sitter-cli/dsl" />
-const gen = require("../core/generators.js")
+
 
 // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselection-screen.html
 module.exports = {

@@ -1,4 +1,4 @@
-const gen = require("../generators.js")
+
 
 module.exports = {
 
@@ -28,7 +28,7 @@ module.exports = {
 
     __table_read_variant: $ => choice(
         $.itab_index_spec,
-        $.iteration_cond,
+        $.itab_lines,
         $.itab_table_key_spec,
         $.itab_work_area_spec
     ),
