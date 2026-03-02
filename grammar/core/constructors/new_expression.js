@@ -17,7 +17,7 @@ module.exports = {
             choice(
                 /** See {@link argument_list} for the ambiguity */
                 $.argument_list,
-                $.itab_spec,
+                $.table_constructor,
                 $.table_comprehension
             ),
         ),

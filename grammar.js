@@ -485,18 +485,6 @@ module.exports = grammar({
     ),
 
 
-    /**
-     * Specification of lines of an internal table with the `BASE` addition, e.g:
-     * ... #( BASE itab1 ( field1 = 10 field2 = 20 ) ).
-     * 
-     * BASE cannot be optional in this secnario as the rule would then clash with 
-     * the generic {@link argument_list}. This only serves as a more contextualized
-     * sub-rule.
-     */
-    itab_spec: $ => seq(
-      field("base", $.base_table),
-      $.argument_list
-    ),
 
     read_key_spec: $ => seq(
       gen.kw("key"),
@@ -595,7 +583,7 @@ module.exports = grammar({
           // a list of field assignments since objects are not possible in `value`
           // but its better to avoid inconsistency with new expressions.
           $.argument_list,
-          $.itab_spec,
+          $.table_constructor,
           $.table_comprehension
         ),
       ),
