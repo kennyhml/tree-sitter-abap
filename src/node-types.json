@@ -56,7 +56,7 @@
         "named": true
       },
       {
-        "type": "conditional_expression",
+        "type": "cond_expression",
         "named": true
       },
       {
@@ -85,6 +85,10 @@
       },
       {
         "type": "ref_expression",
+        "named": true
+      },
+      {
+        "type": "switch_expression",
         "named": true
       },
       {
@@ -2927,64 +2931,9 @@
     }
   },
   {
-    "type": "cond",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "condense_statement",
+    "type": "cond_expression",
     "named": true,
     "fields": {
-      "text": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "no_gaps_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "conditional_expression",
-    "named": true,
-    "fields": {
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "cond",
-            "named": true
-          },
-          {
-            "type": "switch",
-            "named": true
-          }
-        ]
-      },
-      "subject": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": false,
         "required": true,
@@ -3014,6 +2963,32 @@
         },
         {
           "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "condense_statement",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "no_gaps_spec",
           "named": true
         }
       ]
@@ -3283,7 +3258,7 @@
     "type": "conv_expression",
     "named": true,
     "fields": {
-      "dobj": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -10885,9 +10860,52 @@
     }
   },
   {
-    "type": "switch",
+    "type": "switch_expression",
     "named": true,
-    "fields": {}
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "else_case",
+          "named": true
+        },
+        {
+          "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "symbol_tagged_string_literal",
