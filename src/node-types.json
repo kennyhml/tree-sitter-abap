@@ -938,6 +938,11 @@
     }
   },
   {
+    "type": "appending",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "argument_list",
     "named": true,
     "fields": {},
@@ -1219,28 +1224,22 @@
     }
   },
   {
-    "type": "base_spec",
+    "type": "base_table",
     "named": true,
     "fields": {
       "base": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "data_object",
             "named": true
           }
         ]
-      }
-    }
-  },
-  {
-    "type": "base_table",
-    "named": true,
-    "fields": {
+      },
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "named_data_object",
@@ -1248,6 +1247,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "appending",
+          "named": true
+        },
+        {
+          "type": "deep_appending",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1894,7 +1907,7 @@
     "type": "cast_expression",
     "named": true,
     "fields": {
-      "dobj": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -3295,25 +3308,10 @@
     }
   },
   {
-    "type": "corresponding_exception_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "corresponding_expression",
     "named": true,
     "fields": {
-      "itab": {
+      "lookup_table": {
         "multiple": false,
         "required": false,
         "types": [
@@ -3323,19 +3321,9 @@
           }
         ]
       },
-      "lookup_tab": {
+      "subject": {
         "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "general_expression",
@@ -3363,108 +3351,31 @@
       "required": false,
       "types": [
         {
-          "type": "base_spec",
+          "type": "base_table",
           "named": true
         },
         {
-          "type": "corresponding_mapping_list",
+          "type": "deep",
           "named": true
         },
         {
-          "type": "lookup_table_mapping_list",
+          "type": "discarding_duplicates",
+          "named": true
+        },
+        {
+          "type": "exact",
+          "named": true
+        },
+        {
+          "type": "lookup_mapping_list",
+          "named": true
+        },
+        {
+          "type": "mapping_list",
           "named": true
         },
         {
           "type": "using_key",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "corresponding_mapping",
-    "named": true,
-    "fields": {
-      "default": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "default",
-            "named": false
-          },
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "left": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "corresponding_mapping_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "corresponding_exception_list",
-          "named": true
-        },
-        {
-          "type": "corresponding_mapping",
-          "named": true
-        },
-        {
-          "type": "corresponding_submapping",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "corresponding_submapping",
-    "named": true,
-    "fields": {
-      "level": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "corresponding_mapping",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "corresponding_mapping_list",
           "named": true
         }
       ]
@@ -3632,6 +3543,16 @@
         ]
       }
     }
+  },
+  {
+    "type": "deep",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "deep_appending",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "default_data_value",
@@ -4145,6 +4066,11 @@
     "fields": {}
   },
   {
+    "type": "discarding_duplicates",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "do_statement",
     "named": true,
     "fields": {
@@ -4573,10 +4499,15 @@
     }
   },
   {
+    "type": "exact",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "exact_expression",
     "named": true,
     "fields": {
-      "dobj": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -4607,6 +4538,21 @@
       "types": [
         {
           "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "except_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -6776,7 +6722,7 @@
     }
   },
   {
-    "type": "lookup_table_mapping",
+    "type": "lookup_mapping",
     "named": true,
     "fields": {
       "left": {
@@ -6802,7 +6748,7 @@
     }
   },
   {
-    "type": "lookup_table_mapping_list",
+    "type": "lookup_mapping_list",
     "named": true,
     "fields": {},
     "children": {
@@ -6810,7 +6756,7 @@
       "required": true,
       "types": [
         {
-          "type": "lookup_table_mapping",
+          "type": "lookup_mapping",
           "named": true
         }
       ]
@@ -6983,6 +6929,84 @@
     "type": "lower_case_spec",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "mapping",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "discarding_duplicates",
+          "named": true
+        },
+        {
+          "type": "mapping_default",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mapping_default",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mapping_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "except_list",
+          "named": true
+        },
+        {
+          "type": "mapping",
+          "named": true
+        },
+        {
+          "type": "submapping",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "match_count_spec",
@@ -8976,20 +9000,14 @@
           }
         ]
       },
-      "dobj": {
+      "subject": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "data_object",
             "named": true
-          }
-        ]
-      },
-      "tab_expr": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
             "type": "table_expression",
             "named": true
@@ -10640,6 +10658,32 @@
       "types": [
         {
           "type": "section_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "submapping",
+    "named": true,
+    "fields": {
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "mapping",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "mapping_list",
           "named": true
         }
       ]

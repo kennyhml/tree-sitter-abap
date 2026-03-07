@@ -8,7 +8,7 @@ dref = REF #( pict )
   (assignment
     left: (identifier)
     right: (ref_expression
-      dobj: (identifier))))
+      subject: (identifier))))
 
 ======
 [REF-EXPRESSION] Simple table expression reference assignment
@@ -21,7 +21,7 @@ FINAL(dref) = REF #( itab[ 5 ] ).
     left: (declaration_expression
       name: (identifier))
     right: (ref_expression
-      tab_expr: (table_expression
+      subject: (table_expression
         itab: (identifier)
         (index_read
           index: (number))))))
@@ -37,7 +37,7 @@ FINAL(dref) = REF #( itab[ guid = my_guid ] default new #( guid = my_guid ) ).
     left: (declaration_expression
       name: (identifier))
     right: (ref_expression
-      tab_expr: (table_expression
+      subject: (table_expression
         itab: (identifier)
         (itab_table_key_spec
           (search_key_components_spec

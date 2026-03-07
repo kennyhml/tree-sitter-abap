@@ -1,0 +1,222 @@
+======
+[CORRESPONDING-EXPRESSION] Basic corresponding
+======
+itab = CORRESPONDING flights( spfli_tab )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      type: (type_identifier)
+      subject: (identifier))))
+
+======
+[CORRESPONDING-EXPRESSION] Exact corresponding
+======
+target2 = CORRESPONDING #( EXACT src ). 
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      (exact)
+      subject: (identifier))))
+
+======
+[CORRESPONDING-EXPRESSION] Corresponding with base
+======
+itab = CORRESPONDING #( BASE ( itab ) itab3 ).
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      (base_table
+        base: (identifier))
+      subject: (identifier))))
+
+======
+[CORRESPONDING-EXPRESSION] Move deep corresponding
+======
+CORRESPONDING flights( deep spfli_tab )
+---
+
+(source
+  (corresponding_expression
+    type: (type_identifier)
+    (deep)
+    subject: (identifier)))
+
+======
+[CORRESPONDING-EXPRESSION] Move deep exact corresponding
+======
+CORRESPONDING flights( exact deep spfli_tab )
+---
+
+(source
+  (corresponding_expression
+    type: (type_identifier)
+    (exact)
+    (deep)
+    subject: (identifier)))
+
+======
+[CORRESPONDING-EXPRESSION] Appending base
+======
+CORRESPONDING #( APPENDING ( struc2 ) struc1 )
+CORRESPONDING #( APPENDING BASE ( struc2 ) struc1 )
+---
+
+(source
+  (corresponding_expression
+    (base_table
+      (appending)
+      base: (identifier))
+    subject: (identifier))
+  (corresponding_expression
+    (base_table
+      (appending)
+      base: (identifier))
+    subject: (identifier)))
+
+======
+[CORRESPONDING-EXPRESSION] Deep appending base
+======
+CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 ). 
+CORRESPONDING #( DEEP APPENDING BASE ( struc2 ) struc1 ).
+---
+
+(source
+  (corresponding_expression
+    (base_table
+      (deep_appending)
+      base: (identifier))
+    subject: (identifier))
+  (corresponding_expression
+    (base_table
+      (deep_appending)
+      base: (identifier))
+    subject: (identifier)))
+
+======
+[CORRESPONDING-EXPRESSION] Discard duplicates
+======
+CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 discarding duplicates ). 
+---
+
+(source
+  (corresponding_expression
+    (base_table
+      (deep_appending)
+      base: (identifier))
+    subject: (identifier)
+    (discarding_duplicates)))
+
+======
+[CORRESPONDING-EXPRESSION] Defined mapping
+======
+CORRESPONDING itab2( itab MAPPING col1 = table_line )
+---
+
+(source
+  (corresponding_expression
+    (type_identifier)
+    (identifier)
+    (mapping_list
+      (mapping
+        (identifier)
+        (identifier)))))
+
+======
+[CORRESPONDING-EXPRESSION] Defined mapping with default
+======
+CORRESPONDING itab2( itab MAPPING col1 = default 10 )
+---
+
+(source
+  (corresponding_expression
+    (type_identifier)
+    (identifier)
+    (mapping_list
+      (mapping
+        (identifier)
+        (mapping_default
+          (number))))))
+
+======
+[CORRESPONDING-EXPRESSION] Defined mapping with exclusions
+======
+CORRESPONDING #( struct1 EXCEPT col2 col3 ).
+CORRESPONDING #( struct1 EXCEPT * ).
+---
+
+(source
+  (corresponding_expression
+    subject: (identifier)
+    (mapping_list
+      (except_list
+        (identifier)
+        (identifier))))
+  (corresponding_expression
+    subject: (identifier)
+    (mapping_list
+      (except_list))))
+
+======
+[CORRESPONDING-EXPRESSION] Defined mapping with nested mapping
+======
+CORRESPONDING #( str_deep1 mapping 
+                ( bati = itab discarding duplicates mapping d = c except * ) 
+                ( titi = itab mapping d = c except * ) 
+                pmoc = comp except *  ).
+---
+
+(source
+  (corresponding_expression
+    subject: (identifier)
+    (mapping_list
+      (submapping
+        level: (mapping
+          left: (identifier)
+          right: (identifier)
+          (discarding_duplicates))
+        (mapping_list
+          (mapping
+            left: (identifier)
+            right: (identifier))
+          (except_list)))
+      (submapping
+        level: (mapping
+          left: (identifier)
+          right: (identifier))
+        (mapping_list
+          (mapping
+            left: (identifier)
+            right: (identifier))
+          (except_list)))
+      (mapping
+        left: (identifier)
+        right: (identifier))
+      (except_list))))
+
+======
+[CORRESPONDING-EXPRESSION] From lookup table
+======
+CORRESPONDING itab1( itab1 FROM itab2 USING value = value cmt = cmt ). 
+---
+
+(source
+  (corresponding_expression
+    type: (type_identifier)
+    subject: (identifier)
+    lookup_table: (identifier)
+    (lookup_mapping_list
+      (lookup_mapping
+        left: (identifier)
+        right: (identifier))
+      (lookup_mapping
+        left: (identifier)
+        right: (identifier)))))
