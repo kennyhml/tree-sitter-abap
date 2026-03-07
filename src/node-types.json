@@ -4544,6 +4544,11 @@
     }
   },
   {
+    "type": "except",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "except_list",
     "named": true,
     "fields": {},
@@ -4634,7 +4639,7 @@
     "type": "filter_expression",
     "named": true,
     "fields": {
-      "itab": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -4664,49 +4669,19 @@
       "required": true,
       "types": [
         {
-          "type": "filter_tab_spec",
+          "type": "except",
           "named": true
         },
         {
-          "type": "logical_expression",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "relational_expression",
+          "type": "in_filter_table",
           "named": true
         },
         {
           "type": "using_key",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "filter_tab_spec",
-    "named": true,
-    "fields": {
-      "ftab": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
+        },
         {
-          "type": "using_key",
+          "type": "where_condition",
           "named": true
         }
       ]
@@ -5526,6 +5501,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "in_filter_table",
+    "named": true,
+    "fields": {
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "using_key",
+          "named": true
+        }
+      ]
     }
   },
   {

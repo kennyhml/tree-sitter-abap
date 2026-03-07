@@ -577,29 +577,6 @@ module.exports = grammar({
 
 
 
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_FILTER.html
-     */
-    filter_expression: $ => seq(
-      gen.kw("filter"),
-      field("type", $._constructor_result),
-      "(",
-      field("itab", $.general_expression),
-      optional(gen.kw("except")),
-
-      optional($.using_key),
-      optional($.filter_tab_spec),
-
-      gen.kw("where"),
-      $._logical_expression,
-      ")"
-    ),
-
-    filter_tab_spec: $ => seq(
-      gen.kw("in"),
-      field("ftab", $.general_expression), // functional operand position?
-      optional($.using_key),
-    ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REDUCE.html

@@ -1,0 +1,89 @@
+======
+[FILTER-EXPRESSION] Simple filter operation
+======
+FILTER #( messages EXCEPT WHERE sprsl = 'D' )
+---
+
+(source
+  (filter_expression
+    subject: (identifier)
+    (except)
+    (where_condition
+      condition: (comparison_expression
+        left: (identifier)
+        right: (string_literal)))))
+
+======
+[FILTER-EXPRESSION] Filter using specified key
+======
+FILTER #( spfli_tab EXCEPT USING KEY carr_city 
+            WHERE carrid   = carrid AND 
+                cityfrom = cityfrom ). 
+---
+
+(source
+  (filter_expression
+    subject: (identifier)
+    (except)
+    (using_key
+      name: (identifier))
+    (where_condition
+      condition: (logical_expression
+        (comparison_expression
+          left: (identifier)
+          right: (identifier))
+        (comparison_expression
+          left: (identifier)
+          right: (identifier))))))
+
+======
+[FILTER-EXPRESSION] Filter table with no keys specified
+======
+FILTER #( carriers IN filter WHERE carrid = table_line )
+---
+
+(source
+  (filter_expression
+    subject: (identifier)
+    (in_filter_table
+      table: (identifier))
+    (where_condition
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+======
+[FILTER-EXPRESSION] Filter table with source key
+======
+FILTER #( carriers using key foo IN filter WHERE carrid = table_line )
+---
+
+(source
+  (filter_expression
+    subject: (identifier)
+    (using_key
+      name: (identifier))
+    (in_filter_table
+      table: (identifier))
+    (where_condition
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+======
+[FILTER-EXPRESSION] Filter table with filter key
+======
+FILTER #( carriers IN filter using key bar WHERE carrid = table_line )
+---
+
+(source
+  (filter_expression
+    subject: (identifier)
+    (in_filter_table
+      table: (identifier)
+      (using_key
+        name: (identifier)))
+    (where_condition
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
