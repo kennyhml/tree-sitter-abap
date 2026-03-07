@@ -134,8 +134,8 @@ module.exports = grammar({
       $.constants_declaration,
 
       // ???
-      $.message,
       $.assignment,
+      $.message_statement,
 
       // Processing statements
       $.function_call,
@@ -596,121 +596,6 @@ module.exports = grammar({
       ...gen.kws("rollback", "work"), "."
     ),
 
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
-     */
-    message: $ => seq(
-      gen.kw("message"),
-      choice(
-        seq(":", commaSep1($.message_spec)),
-        $.message_spec
-      ),
-      "."
-    ),
-
-
-    /**
-     * Inner specification of a {@link message}.
-     * 
-     * Needed as `message` can either be a statement that displays multiple messages at once..
-     * ```
-     * message: e888(msg_class) with 'Foo' 'Bar' 'Baz', 
-     *          i222(msg_class) with '1' '2' '3'.
-     * ```
-     * Or, in certain other contexts, a `message` can also be a statement for raising
-     * an exception from a message. See {@link throw_exception}
-     * 
-     * CAUTION: MESSAGE oref | text have identical syntax and are ambiguous.
-     */
-    message_spec: $ => prec.right(2,
-      seq(
-        choice(
-          $._compact_message_id,
-          $._long_form_message_id,
-          // message from an exception object or character-like data object
-          seq(
-            choice(
-              field("text", choice($.string_literal, $.symbol_tagged_string_literal)),
-              field("source", $.character_like_expression)
-            ),
-            optional($._message_type_spec)
-          ),
-        ),
-        repeat(
-          choice(
-            field("display", $._message_display_override),
-            field("arguments", $.message_arguments),
-            seq(
-              gen.kw("into"),
-              field("into", choice(
-                $.named_data_object,
-                $.declaration_expression
-              ))
-            ),
-            seq(gen.kw("raising"), field("raising", $.identifier)),
-          )
-        ),
-      )
-    ),
-
-    /**
-     * Compact specification of a message type, number and optionally, the ID.
-     * 
-     * For example, i333(zmessages) represents message Nr. 333 as type 'I' of
-     * message class zmessages, where the message class id can be omitted if
-     * its already set at a program level.
-     */
-    _compact_message_id: $ => seq(
-      // could not find a way to do this without help from an
-      // external scanner due to how grouping into word tokens
-      // behaves during lexing.
-      field("type", $.message_type),
-      field("number", $._immediate_number),
-
-      // Optional if specified at program level
-      optional(
-        seq(
-          token.immediate("("),
-          field("id", choice($._immediate_identifier, $._immediate_number)),
-          token.immediate(")"),
-        )
-      )
-    ),
-
-    /**
-     * Long form specification of a message type, number and ID where each
-     * can also be specified dynamically through the value of a data object.
-     */
-    _long_form_message_id: $ => seq(
-      gen.kw("id"),
-      field("id", $.data_object),
-
-      // Not technically optional, but theres not really any ambiguity in
-      // this context and it makes highlighting smoother..
-      optional($._message_type_spec),
-      optional(
-        seq(
-          gen.kw("number"),
-          field("number", $.data_object),
-        )
-      )
-    ),
-
-    _message_type_spec: $ => seq(
-      gen.kw("type"),
-      field("type", $.data_object)
-    ),
-
-    message_arguments: $ => seq(
-      gen.kw("with"), prec.right(repeat1($.general_expression))
-    ),
-
-    _message_display_override: $ => seq(
-      seq(
-        ...gen.kws("display", "like"),
-        field("display_type", $.data_object)
-      )
-    ),
 
     _constructor_result: $ => choice(
       "#", // inferred

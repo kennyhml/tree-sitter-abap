@@ -558,7 +558,7 @@
         "named": true
       },
       {
-        "type": "message",
+        "type": "message_statement",
         "named": true
       },
       {
@@ -4142,6 +4142,22 @@
     "fields": {}
   },
   {
+    "type": "display_like",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "do_statement",
     "named": true,
     "fields": {
@@ -5936,19 +5952,18 @@
     "fields": {}
   },
   {
-    "type": "inline_message_spec",
+    "type": "inline_message",
     "named": true,
-    "fields": {
-      "message": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "message_spec",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "message_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6167,6 +6182,22 @@
           },
           {
             "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "into_clause",
+    "named": true,
+    "fields": {
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
             "named": true
           }
         ]
@@ -7089,77 +7120,9 @@
     }
   },
   {
-    "type": "message",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "message_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "message_arguments",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "general_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "message_spec",
     "named": true,
     "fields": {
-      "arguments": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "message_arguments",
-            "named": true
-          }
-        ]
-      },
-      "display": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          },
-          {
-            "type": "display",
-            "named": false
-          },
-          {
-            "type": "like",
-            "named": false
-          }
-        ]
-      },
-      "display_type": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      },
       "id": {
         "multiple": false,
         "required": false,
@@ -7174,36 +7137,12 @@
           }
         ]
       },
-      "into": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
-      },
       "number": {
         "multiple": false,
         "required": false,
         "types": [
           {
             "type": "data_object",
-            "named": true
-          }
-        ]
-      },
-      "raising": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -7246,6 +7185,43 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "display_like",
+          "named": true
+        },
+        {
+          "type": "into_clause",
+          "named": true
+        },
+        {
+          "type": "raising_exception",
+          "named": true
+        },
+        {
+          "type": "with_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "message_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "message_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7598,7 +7574,7 @@
       "required": false,
       "types": [
         {
-          "type": "inline_message_spec",
+          "type": "inline_message",
           "named": true
         },
         {
@@ -8698,6 +8674,22 @@
     "named": true,
     "fields": {
       "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "raising_exception",
+    "named": true,
+    "fields": {
+      "exception": {
         "multiple": false,
         "required": true,
         "types": [
@@ -11465,7 +11457,7 @@
       "required": false,
       "types": [
         {
-          "type": "inline_message_spec",
+          "type": "inline_message",
           "named": true
         },
         {
@@ -12031,6 +12023,21 @@
     "type": "window_spec",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "with_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "with_header_line",

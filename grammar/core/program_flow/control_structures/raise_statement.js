@@ -49,21 +49,9 @@ module.exports = {
 
     resumable_spec: _ => gen.kw("resumable"),
 
-    /**
-     * A message specification that is inlined into another statement, e.g
-     * a {@link throw_exception} or {@link raise_exception} and preceded by
-     * a 'message' keyword that doesnt technically serve as a declaration.
-     * 
-     * TODO: Move this to messages
-     */
-    inline_message_spec: $ => seq(
-        gen.kw("message"),
-        field("message", $.message_spec)
-    ),
-
     __construct_from_message: $ => choice(
         $.using_message_spec,
-        $.inline_message_spec
+        $.inline_message
     ),
 
     __exception_argument_list: $ => seq(

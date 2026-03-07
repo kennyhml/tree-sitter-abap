@@ -1,0 +1,227 @@
+======
+[MESSAGES] Static compact form message spec
+======
+message i333(zmessages).
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      id: (identifier))))
+
+======
+[MESSAGES] Static compact form message with default id
+======
+message e220.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number))))
+
+======
+[MESSAGES] Message from plain text
+======
+message e220.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number))))
+
+======
+[MESSAGES] Dynamic long form message spec
+======
+message id mid type mtyp number mnum.
+---
+
+(source
+  (message_statement
+    (message_spec
+      id: (identifier)
+      type: (identifier)
+      number: (identifier))))
+
+======
+[MESSAGES] Dynamic long form with literals
+======
+message id 'ZMESSAGES' type 'A' number 999.
+---
+
+(source
+  (message_statement
+    (message_spec
+      id: (string_literal)
+      type: (string_literal)
+      number: (number))))
+
+======
+[MESSAGES] Message spec with argument list
+======
+message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      id: (identifier)
+      (with_arguments
+        (string_literal)
+        (string_literal)
+        (string_literal)))))
+
+======
+[MESSAGES] Chained mixed message declarations
+======
+message: e888(msg_class) with 'Foo' 'Bar' 'Baz', 
+         i222 with '1' '2' '3',
+         id 'zbar' type 'X' number 11.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      id: (identifier)
+      (with_arguments
+        (string_literal)
+        (string_literal)
+        (string_literal)))
+    (message_spec
+      type: (message_type)
+      number: (number)
+      (with_arguments
+        (string_literal)
+        (string_literal)
+        (string_literal)))
+    (message_spec
+      id: (string_literal)
+      type: (string_literal)
+      number: (number))))
+
+======
+[MESSAGES] Message display type override
+======
+MESSAGE i200 DISPLAY LIKE 'S'.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      (display_like
+        type: (string_literal)))))
+
+======
+[MESSAGES] Message from expressions
+======
+message conv string( lines( itab ) ) type 'I'.
+---
+
+(source
+  (message_statement
+    (message_spec
+      (conv_expression
+        (type_identifier)
+        (builtin_function_call
+          (identifier)
+          (call_argument_list
+            (positional_argument
+              (identifier)))))
+      (string_literal))))
+
+======
+[MESSAGES] Message from method call
+======
+MESSAGE oref->get_text( ) TYPE 'I'. 
+---
+
+(source
+  (message_statement
+    (message_spec
+      (method_call
+        (identifier)
+        (identifier))
+      (string_literal))))
+
+======
+[MESSAGES] Message raising an exception
+======
+MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1. 
+---
+
+(source
+  (message_statement
+    (message_spec
+      source: (string_literal)
+      type: (string_literal)
+      (raising_exception
+        exception: (identifier)))))
+
+======
+[MESSAGES] Message into target variable / declaration
+======
+MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno 
+        INTO FINAL(mtext) 
+        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4. 
+---
+
+(source
+  (message_statement
+    (message_spec
+      id: (struct_component_selector
+        struct: (identifier)
+        comp: (identifier))
+      type: (struct_component_selector
+        struct: (identifier)
+        comp: (identifier))
+      number: (struct_component_selector
+        struct: (identifier)
+        comp: (identifier))
+      (into_clause
+        result: (declaration_expression
+          name: (identifier)))
+      (with_arguments
+        (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))
+        (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))
+        (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))
+        (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))))))
+
+======
+[MESSAGES] Message with symbol tagged string literal
+======
+message i368(00) with 'No import'(002) <ls_request>-trkorr.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      id: (number)
+      (with_arguments
+        (symbol_tagged_string_literal
+          text: (string_literal)
+          symbol: (number))
+        (struct_component_selector
+          struct: (field_symbol
+            name: (identifier))
+          comp: (identifier))))))
