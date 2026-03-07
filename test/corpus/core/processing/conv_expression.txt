@@ -1,0 +1,37 @@
+======
+[CONV-EXPRESSION] Simple conversion
+======
+source = CONV string( text )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (conv_expression
+      type: (type_identifier)
+      subject: (identifier))))
+
+======
+[CONV-EXPRESSION] Conversion in arithmetic
+======
+int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (binary_operator
+      left: (conv_expression
+        type: (type_identifier)
+        subject: (builtin_function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (number)))))
+      right: (conv_expression
+        type: (type_identifier)
+        subject: (builtin_function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (number))))))))
