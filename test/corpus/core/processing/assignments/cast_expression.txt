@@ -1,0 +1,42 @@
+======
+[CAST-EXPRESSION] Simple cast assignment
+======
+oref2 =  CAST #( oref1 ). 
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (cast_expression
+      dobj: (identifier))))
+
+======
+[CAST-EXPRESSION] Cast writable expression
+======
+CAST t_struc( dref )->*    = struc. 
+---
+
+(source
+  (assignment
+    left: (dereference
+      dref: (cast_expression
+        type: (type_identifier)
+        dobj: (identifier)))
+    right: (identifier)))
+
+======
+[CAST-EXPRESSION] Cast value in assignment
+======
+struc-col1 = CAST t_struc( dref )->col1. 
+---
+
+(source
+  (assignment
+    left: (struct_component_selector
+      struct: (identifier)
+      comp: (identifier))
+    right: (object_component_selector
+      ref: (cast_expression
+        type: (type_identifier)
+        dobj: (identifier))
+      comp: (identifier))))
