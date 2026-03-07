@@ -77,11 +77,11 @@ RAISE EXCEPTION TYPE /BOBF/CX_CONF
   (raise_exception_statement
     (new_exception_spec
       (identifier)
-      (inline_message_spec
+      (inline_message
         (message_spec
           (message_type)
           (number)
-          (message_arguments
+          (with_arguments
             (string_literal)
             (string_literal))))
       (argument_list
@@ -102,12 +102,12 @@ RAISE EXCEPTION TYPE cx_demo_exception
   (raise_exception_statement
     exception: (new_exception_spec
       class_name: (identifier)
-      (inline_message_spec
-        message: (message_spec
+      (inline_message
+        (message_spec
           id: (string_literal)
           type: (string_literal)
           number: (string_literal)
-          arguments: (message_arguments
+          (with_arguments
             (string_literal)
             (string_literal)))))))
 

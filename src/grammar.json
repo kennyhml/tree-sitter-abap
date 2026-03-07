@@ -44,11 +44,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "message"
+          "name": "assignment"
         },
         {
           "type": "SYMBOL",
-          "name": "assignment"
+          "name": "message_statement"
         },
         {
           "type": "SYMBOL",
@@ -9961,7 +9961,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "inline_message_spec"
+                  "name": "inline_message"
                 },
                 {
                   "type": "BLANK"
@@ -10235,6 +10235,383 @@
               }
             }
           ]
+        }
+      ]
+    },
+    "message_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_message"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "message_spec"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "message_spec"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "message_spec"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "inline_message": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_message"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "message_spec"
+        }
+      ]
+    },
+    "message_spec": {
+      "type": "PREC_RIGHT",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "__compact_message_id"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "__long_form_message_id"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "FIELD",
+                        "name": "text",
+                        "content": {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "string_literal"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "symbol_tagged_string_literal"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "FIELD",
+                        "name": "source",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "character_like_expression"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "__message_type_spec"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "__message_addition"
+            }
+          }
+        ]
+      }
+    },
+    "into_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "FIELD",
+          "name": "result",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "raising_exception": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_raising"
+        },
+        {
+          "type": "FIELD",
+          "name": "exception",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "display_like": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_display"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_like"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "with_arguments": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_with"
+        },
+        {
+          "type": "PREC_RIGHT",
+          "value": 0,
+          "content": {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "general_expression"
+            }
+          }
+        }
+      ]
+    },
+    "__message_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "display_like"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "with_arguments"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "into_clause"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "raising_exception"
+        }
+      ]
+    },
+    "__compact_message_id": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "message_type"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "STRING",
+                    "value": "("
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "id",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_immediate_identifier"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_immediate_number"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "STRING",
+                    "value": ")"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__long_form_message_id": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "__message_type_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_number"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "number",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "data_object"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__message_type_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
         }
       ]
     },
@@ -13758,23 +14135,6 @@
       "type": "SYMBOL",
       "name": "_kw_resumable"
     },
-    "inline_message_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_message"
-        },
-        {
-          "type": "FIELD",
-          "name": "message",
-          "content": {
-            "type": "SYMBOL",
-            "name": "message_spec"
-          }
-        }
-      ]
-    },
     "__construct_from_message": {
       "type": "CHOICE",
       "members": [
@@ -13784,7 +14144,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "inline_message_spec"
+          "name": "inline_message"
         }
       ]
     },
@@ -14550,87 +14910,6 @@
       "named": false,
       "value": "rollback"
     },
-    "_kw_message": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[mM][eE][sS][sS][aA][gG][eE]"
-      },
-      "named": false,
-      "value": "message"
-    },
-    "_kw_into": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[iI][nN][tT][oO]"
-      },
-      "named": false,
-      "value": "into"
-    },
-    "_kw_raising": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[rR][aA][iI][sS][iI][nN][gG]"
-      },
-      "named": false,
-      "value": "raising"
-    },
-    "_kw_id": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[iI][dD]"
-      },
-      "named": false,
-      "value": "id"
-    },
-    "_kw_number": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[nN][uU][mM][bB][eE][rR]"
-      },
-      "named": false,
-      "value": "number"
-    },
-    "_kw_type": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[tT][yY][pP][eE]"
-      },
-      "named": false,
-      "value": "type"
-    },
-    "_kw_with": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[wW][iI][tT][hH]"
-      },
-      "named": false,
-      "value": "with"
-    },
-    "_kw_display": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[dD][iI][sS][pP][lL][aA][yY]"
-      },
-      "named": false,
-      "value": "display"
-    },
-    "_kw_like": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[lL][iI][kK][eE]"
-      },
-      "named": false,
-      "value": "like"
-    },
     "_kw_final": {
       "type": "ALIAS",
       "content": {
@@ -14883,6 +15162,15 @@
       "named": false,
       "value": "exception-table"
     },
+    "_kw_message": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[mM][eE][sS][sS][aA][gG][eE]"
+      },
+      "named": false,
+      "value": "message"
+    },
     "_kw_transporting": {
       "type": "ALIAS",
       "content": {
@@ -14919,6 +15207,15 @@
       "named": false,
       "value": "include"
     },
+    "_kw_type": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[tT][yY][pP][eE]"
+      },
+      "named": false,
+      "value": "type"
+    },
     "_kw_structure": {
       "type": "ALIAS",
       "content": {
@@ -14936,6 +15233,15 @@
       },
       "named": false,
       "value": "renaming"
+    },
+    "_kw_with": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[wW][iI][tT][hH]"
+      },
+      "named": false,
+      "value": "with"
     },
     "_kw_suffix": {
       "type": "ALIAS",
@@ -15135,6 +15441,15 @@
       "named": false,
       "value": "symbol"
     },
+    "_kw_like": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[lL][iI][kK][eE]"
+      },
+      "named": false,
+      "value": "like"
+    },
     "_kw_at": {
       "type": "ALIAS",
       "content": {
@@ -15224,6 +15539,15 @@
       },
       "named": false,
       "value": "modif"
+    },
+    "_kw_id": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[iI][dD]"
+      },
+      "named": false,
+      "value": "id"
     },
     "_kw_visible": {
       "type": "ALIAS",
@@ -15981,6 +16305,15 @@
       "named": false,
       "value": "class_constructor"
     },
+    "_kw_raising": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[rR][aA][iI][sS][iI][nN][gG]"
+      },
+      "named": false,
+      "value": "raising"
+    },
     "_kw_returning": {
       "type": "ALIAS",
       "content": {
@@ -16394,6 +16727,15 @@
       },
       "named": false,
       "value": "step"
+    },
+    "_kw_into": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[iI][nN][tT][oO]"
+      },
+      "named": false,
+      "value": "into"
     },
     "_kw_assigning": {
       "type": "ALIAS",
@@ -17006,6 +17348,24 @@
       },
       "named": false,
       "value": "next"
+    },
+    "_kw_display": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[dD][iI][sS][pP][lL][aA][yY]"
+      },
+      "named": false,
+      "value": "display"
+    },
+    "_kw_number": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[nN][uU][mM][bB][eE][rR]"
+      },
+      "named": false,
+      "value": "number"
     },
     "_kw_decimals": {
       "type": "ALIAS",
@@ -20690,380 +21050,6 @@
         {
           "type": "STRING",
           "value": "."
-        }
-      ]
-    },
-    "message": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_message"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": ":"
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "message_spec"
-                    },
-                    {
-                      "type": "REPEAT",
-                      "content": {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": ","
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "message_spec"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "message_spec"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "message_spec": {
-      "type": "PREC_RIGHT",
-      "value": 2,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_compact_message_id"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_long_form_message_id"
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "FIELD",
-                        "name": "text",
-                        "content": {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "SYMBOL",
-                              "name": "string_literal"
-                            },
-                            {
-                              "type": "SYMBOL",
-                              "name": "symbol_tagged_string_literal"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "FIELD",
-                        "name": "source",
-                        "content": {
-                          "type": "SYMBOL",
-                          "name": "character_like_expression"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_message_type_spec"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "display",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_message_display_override"
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "arguments",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "message_arguments"
-                  }
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_kw_into"
-                    },
-                    {
-                      "type": "FIELD",
-                      "name": "into",
-                      "content": {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "named_data_object"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "declaration_expression"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_kw_raising"
-                    },
-                    {
-                      "type": "FIELD",
-                      "name": "raising",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "identifier"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    "_compact_message_id": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "type",
-          "content": {
-            "type": "SYMBOL",
-            "name": "message_type"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "number",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_immediate_number"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "IMMEDIATE_TOKEN",
-                  "content": {
-                    "type": "STRING",
-                    "value": "("
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "id",
-                  "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_immediate_identifier"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_immediate_number"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "IMMEDIATE_TOKEN",
-                  "content": {
-                    "type": "STRING",
-                    "value": ")"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
-    "_long_form_message_id": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_id"
-        },
-        {
-          "type": "FIELD",
-          "name": "id",
-          "content": {
-            "type": "SYMBOL",
-            "name": "data_object"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_message_type_spec"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_kw_number"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "number",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "data_object"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
-    "_message_type_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_type"
-        },
-        {
-          "type": "FIELD",
-          "name": "type",
-          "content": {
-            "type": "SYMBOL",
-            "name": "data_object"
-          }
-        }
-      ]
-    },
-    "message_arguments": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_with"
-        },
-        {
-          "type": "PREC_RIGHT",
-          "value": 0,
-          "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "SYMBOL",
-              "name": "general_expression"
-            }
-          }
-        }
-      ]
-    },
-    "_message_display_override": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_display"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_kw_like"
-            },
-            {
-              "type": "FIELD",
-              "name": "display_type",
-              "content": {
-                "type": "SYMBOL",
-                "name": "data_object"
-              }
-            }
-          ]
         }
       ]
     },

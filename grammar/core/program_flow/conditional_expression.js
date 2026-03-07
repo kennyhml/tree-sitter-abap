@@ -69,7 +69,7 @@ module.exports = {
         optional($.resumable),
         optional($.shortdump),
         field("name", $._type_identifier),
-        gen.parenthesized(optional($.inline_message_spec)),
+        gen.parenthesized(optional($.inline_message)),
     ),
 
     /**
