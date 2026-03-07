@@ -177,8 +177,7 @@ REDUCE string( INIT text = `` sep = ``
           (line_spec
             (argument_list
               (positional_argument
-                (conditional_expression
-                  (switch)
+                (switch_expression
                   (identifier)
                   (case
                     (string_literal)

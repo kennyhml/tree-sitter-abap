@@ -8002,6 +8002,51 @@
       "type": "SYMBOL",
       "name": "_kw_no_gaps"
     },
+    "conv_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_conv"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_constructor_result"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "let_expression"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
     "delete_statement": {
       "type": "SEQ",
       "members": [
@@ -9683,25 +9728,12 @@
         }
       ]
     },
-    "conditional_expression": {
+    "cond_expression": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "operator",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "switch"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "cond"
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "_kw_cond"
         },
         {
           "type": "FIELD",
@@ -9727,22 +9759,6 @@
                     {
                       "type": "SYMBOL",
                       "name": "let_expression"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "FIELD",
-                      "name": "subject",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "general_expression"
-                      }
                     },
                     {
                       "type": "BLANK"
@@ -9778,13 +9794,79 @@
         }
       ]
     },
-    "switch": {
-      "type": "SYMBOL",
-      "name": "_kw_switch"
-    },
-    "cond": {
-      "type": "SYMBOL",
-      "name": "_kw_cond"
+    "switch_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_switch"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_constructor_result"
+          }
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "let_expression"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "FIELD",
+                  "name": "subject",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "general_expression"
+                  }
+                },
+                {
+                  "type": "REPEAT1",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "case"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "else_case"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
     },
     "resumable": {
       "type": "SYMBOL",
@@ -13504,15 +13586,6 @@
       "named": false,
       "value": "index"
     },
-    "_kw_conv": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[cC][oO][nN][vV]"
-      },
-      "named": false,
-      "value": "conv"
-    },
     "_kw_exact": {
       "type": "ALIAS",
       "content": {
@@ -14277,6 +14350,15 @@
       },
       "named": false,
       "value": "class"
+    },
+    "_kw_conv": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[cC][oO][nN][vV]"
+      },
+      "named": false,
+      "value": "conv"
     },
     "_kw_any": {
       "type": "ALIAS",
@@ -18288,7 +18370,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "conditional_expression"
+          "name": "switch_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_expression"
         },
         {
           "type": "SYMBOL",
@@ -19634,51 +19720,6 @@
       },
       "named": true,
       "value": "dynamic_itab_comp"
-    },
-    "conv_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_conv"
-        },
-        {
-          "type": "FIELD",
-          "name": "type",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_constructor_result"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "let_expression"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "FIELD",
-          "name": "dobj",
-          "content": {
-            "type": "SYMBOL",
-            "name": "general_expression"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
     },
     "exact_expression": {
       "type": "SEQ",

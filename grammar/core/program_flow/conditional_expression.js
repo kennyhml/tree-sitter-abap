@@ -1,43 +1,43 @@
 module.exports = {
 
     /**
-     * ABAP considers both COND and SWITCH to just be a conditional expression.
-     * 
-     * COND and SWITCH respectively are the operators in this case, the syntax
-     * variants only differ ever so slightly.
-     * 
      * ... COND type( [let_exp] 
      *                WHEN log_exp1 THEN [let_exp] result1
      *              [ WHEN log_exp2 THEN [let_exp] result2 ] 
      *              ... 
      *              [ ELSE [let_exp] resultn] ) ...
      * 
-     * OR 
-     * 
-     * ... SWITCH type( [let_exp] 
-     *                  operand
-     *                  WHEN const1 THEN [let_exp] result1
-     *                [ WHEN const2 THEN [let_exp] result2 ] 
-     *                ... 
-     *                [ ELSE [let_exp] resultn] ) ...
-     * 
-     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenconditional_expressions.html
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_COND.html
      */
-    conditional_expression: $ => seq(
-        field("operator", choice($.switch, $.cond)),
+    cond_expression: $ => seq(
+        gen.kw("cond"),
         field("type", $._constructor_result),
         gen.parenthesized(seq(
             optional($.let_expression),
-            // Only in the case of a switch operator
-            optional(field("subject", $.general_expression)),
             repeat1($.case),
             optional($.else_case),
         )),
     ),
 
-    switch: _ => gen.kw("switch"),
-
-    cond: _ => gen.kw("cond"),
+    /** ... SWITCH type( [let_exp] 
+     *                  operand
+     *                  WHEN const1 THEN [let_exp] result1
+     *                [ WHEN const2 THEN [let_exp] result2 ] 
+     *                ... 
+     *                [ELSE[let_exp] resultn] ) ...
+     * 
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_SWITCH.html
+     */
+    switch_expression: $ => seq(
+        gen.kw("switch"),
+        field("type", $._constructor_result),
+        gen.parenthesized(seq(
+            optional($.let_expression),
+            field("subject", $.general_expression),
+            repeat1($.case),
+            optional($.else_case),
+        )),
+    ),
 
     resumable: _ => gen.kw("resumable"),
 

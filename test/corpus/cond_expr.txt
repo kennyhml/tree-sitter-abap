@@ -5,8 +5,7 @@ COND #( WHEN var IS INITIAL THEN `INITIAL` ELSE `NOT INITIAL` )
 ---
 
 (source
-  (conditional_expression
-    operator: (cond)
+  (cond_expression
     (case
       condition: (predicate_expression
         (identifier))
@@ -25,8 +24,7 @@ COND i( WHEN cflag = abap_true  THEN 1
 ---
 
 (source
-  (conditional_expression
-    (cond)
+  (cond_expression
     (type_identifier)
     (case
       (comparison_expression
