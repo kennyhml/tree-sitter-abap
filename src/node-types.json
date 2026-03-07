@@ -56,7 +56,7 @@
         "named": true
       },
       {
-        "type": "cond_expression",
+        "type": "conditional_expression",
         "named": true
       },
       {
@@ -85,10 +85,6 @@
       },
       {
         "type": "ref_expression",
-        "named": true
-      },
-      {
-        "type": "switch_expression",
         "named": true
       },
       {
@@ -1645,9 +1641,9 @@
     "type": "case",
     "named": true,
     "fields": {
-      "predicate": {
+      "condition": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "data_object",
@@ -2931,9 +2927,64 @@
     }
   },
   {
-    "type": "cond_expression",
+    "type": "cond",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "condense_statement",
     "named": true,
     "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "no_gaps_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditional_expression",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cond",
+            "named": true
+          },
+          {
+            "type": "switch",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": true,
@@ -2958,33 +3009,11 @@
           "named": true
         },
         {
-          "type": "let_expression",
+          "type": "else_case",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "condense_statement",
-    "named": true,
-    "fields": {
-      "text": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
+        },
         {
-          "type": "no_gaps_spec",
+          "type": "let_expression",
           "named": true
         }
       ]
@@ -4396,6 +4425,36 @@
         },
         {
           "type": "object_component_selector",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "else_case",
+    "named": true,
+    "fields": {
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "throw_exception",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "let_expression",
           "named": true
         }
       ]
@@ -9339,6 +9398,11 @@
     }
   },
   {
+    "type": "resumable",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "resumable_exception_spec",
     "named": true,
     "fields": {
@@ -9992,6 +10056,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "shortdump",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "simple_exception_spec",
@@ -10816,48 +10885,9 @@
     }
   },
   {
-    "type": "switch_expression",
+    "type": "switch",
     "named": true,
-    "fields": {
-      "operand": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "#",
-            "named": false
-          },
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "case",
-          "named": true
-        },
-        {
-          "type": "let_expression",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "symbol_tagged_string_literal",
@@ -11368,11 +11398,19 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "inline_message_spec",
+          "named": true
+        },
+        {
+          "type": "resumable",
+          "named": true
+        },
+        {
+          "type": "shortdump",
           "named": true
         }
       ]
