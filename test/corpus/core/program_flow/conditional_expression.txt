@@ -1,0 +1,162 @@
+======
+[CONDITIONAL-EXPRESSION] SWITCH Operator with named objects
+======
+SWITCH string( sy-index 
+                WHEN 1 THEN 'one' 
+                WHEN 2 THEN 'two' 
+                WHEN 3 THEN 'three' ).
+---
+
+(source
+  (conditional_expression
+    operator: (switch)
+    type: (type_identifier)
+    subject: (struct_component_selector
+      struct: (identifier)
+      comp: (identifier))
+    (case
+      condition: (number)
+      result: (string_literal))
+    (case
+      condition: (number)
+      result: (string_literal))
+    (case
+      condition: (number)
+      result: (string_literal))))
+
+======
+[CONDITIONAL-EXPRESSION] SWITCH Operator with exception
+======
+SWITCH string( sy-index 
+                WHEN 1 THEN 'one' 
+                ELSE THROW cx_overflow( ) )
+---
+
+(source
+  (conditional_expression
+    (switch)
+    (type_identifier)
+    (struct_component_selector
+      (identifier)
+      (identifier))
+    (case
+      (number)
+      (string_literal))
+    (else_case
+      (throw_exception
+        (type_identifier)))))
+
+======
+[CONDITIONAL-EXPRESSION] SWITCH with complex expressions
+======
+result = SWITCH #( operator
+                    WHEN add THEN num1->* + num2->*
+                    WHEN subtract THEN num1->* - num2->*
+                    WHEN multiply THEN num1->* * num2->*
+                    WHEN divide THEN SWITCH #( num1->* WHEN 0 THEN SWITCH #( num2->* WHEN 0 THEN THROW cx_sy_zerodivide(  ) ) ELSE num1->* / num2->* ) )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (conditional_expression
+      operator: (switch)
+      subject: (identifier)
+      (case
+        condition: (identifier)
+        result: (binary_operator
+          left: (dereference
+            dref: (identifier))
+          right: (dereference
+            dref: (identifier))))
+      (case
+        condition: (identifier)
+        result: (binary_operator
+          left: (dereference
+            dref: (identifier))
+          right: (dereference
+            dref: (identifier))))
+      (case
+        condition: (identifier)
+        result: (binary_operator
+          left: (dereference
+            dref: (identifier))
+          right: (dereference
+            dref: (identifier))))
+      (case
+        condition: (identifier)
+        result: (conditional_expression
+          operator: (switch)
+          subject: (dereference
+            dref: (identifier))
+          (case
+            condition: (number)
+            result: (conditional_expression
+              operator: (switch)
+              subject: (dereference
+                dref: (identifier))
+              (case
+                condition: (number)
+                result: (throw_exception
+                  name: (type_identifier)))))
+          (else_case
+            result: (binary_operator
+              left: (dereference
+                dref: (identifier))
+              right: (dereference
+                dref: (identifier)))))))))
+
+======
+[CONDITIONAL-EXPRESSION] COND Operator with named objects
+======
+COND #( LET t = '120000' IN 
+        WHEN time < t THEN 
+        |{ time TIME = ISO } AM| 
+        WHEN time > t AND time < '240000' THEN 
+        |{ CONV t( time - 12 * 3600 ) TIME = ISO } PM| 
+        WHEN time = t THEN 
+        `High Noon` )
+---
+
+(source
+  (conditional_expression
+    operator: (cond)
+    (let_expression
+      (assignment
+        left: (identifier)
+        right: (string_literal)))
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (string_template
+        (embedded_expression
+          (identifier)
+          (format_option
+            parameter: (identifier)
+            value: (identifier)))))
+    (case
+      condition: (logical_expression
+        (comparison_expression
+          left: (identifier)
+          right: (identifier))
+        (comparison_expression
+          left: (identifier)
+          right: (string_literal)))
+      result: (string_template
+        (embedded_expression
+          (conv_expression
+            type: (type_identifier)
+            dobj: (binary_operator
+              left: (identifier)
+              right: (binary_operator
+                left: (number)
+                right: (number))))
+          (format_option
+            parameter: (identifier)
+            value: (identifier)))))
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (string_literal))))

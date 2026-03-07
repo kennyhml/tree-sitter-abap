@@ -148,15 +148,16 @@ SORT itab BY VALUE abap_sortorder_tab(
                 value: (string_literal))
               (named_argument
                 name: (identifier)
-                value: (switch_expression
-                  operand: (identifier)
+                value: (conditional_expression
+                  operator: (switch)
+                  subject: (identifier)
                   (case
-                    predicate: (string_literal)
+                    condition: (string_literal)
                     result: (string_literal))
                   (case
-                    predicate: (string_literal)
+                    condition: (string_literal)
                     result: (string_literal))
-                  (case
+                  (else_case
                     result: (throw_exception
                       name: (type_identifier)))))
               (named_argument

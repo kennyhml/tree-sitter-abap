@@ -253,8 +253,7 @@ module.exports = grammar({
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_OPERATOR_GLOSRY.html 
      */
     constructor_expression: $ => choice(
-      $.cond_expression,
-      $.switch_expression,
+      $.conditional_expression,
       $.new_expression,
       $.value_expression,
       $.ref_expression,
@@ -572,49 +571,8 @@ module.exports = grammar({
 
 
 
-    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_cond.html
-    cond_expression: $ => seq(
-      gen.kw("cond"),
-      field("type", $._constructor_result),
-      "(",
-      optional($.let_expression),
-      repeat1(alias($._cond_case, $.case)),
-      optional(alias($._else_case, $.case)),
-      ")"
-    ),
 
-    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenconditional_expression_switch.html
-    switch_expression: $ => seq(
-      gen.kw("switch"),
-      field("type", $._constructor_result),
-      "(",
-      field("operand", $.data_object),
-      optional($.let_expression),
-      repeat1(alias($._switch_case, $.case)),
-      optional(alias($._else_case, $.case)),
-      ")"
-    ),
 
-    _cond_case: $ => seq(
-      gen.kw("when"),
-      field("predicate", $._logical_expression),
-      gen.kw("then"),
-      optional($.let_expression),
-      field("result", $._conditional_result)
-    ),
-
-    _switch_case: $ => seq(
-      gen.kw("when"),
-      field("predicate", $.data_object),
-      gen.kw("then"),
-      optional($.let_expression),
-      field("result", $._conditional_result)
-    ),
-
-    _else_case: $ => seq(
-      gen.kw("else"), optional($.let_expression),
-      field("result", $._conditional_result)
-    ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_CONV.html
@@ -874,31 +832,8 @@ module.exports = grammar({
       ),
     ),
 
-    /**
-     * Possible of a {@link cond_expression} or {@link switch_expression}.
-     * 
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
-     */
-    _conditional_result: $ => choice(
-      $.general_expression,
-      $.throw_exception
-    ),
 
 
-    /**
-     * THROW exception addition of {@link cond_expression}, {@link switch_expression}
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
-     */
-    throw_exception: $ => seq(
-      gen.kw("throw"),
-      optional(gen.kw("resumable")),
-      optional(gen.kw("shortdump")),
-      field("name", $._type_identifier),
-      "(",
-      optional($.inline_message_spec),
-      ")"
-    ),
 
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
