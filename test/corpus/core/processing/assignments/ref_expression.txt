@@ -1,0 +1,52 @@
+======
+[REF-EXPRESSION] Simple reference assignment
+======
+dref = REF #( pict )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (ref_expression
+      dobj: (identifier))))
+
+======
+[REF-EXPRESSION] Simple table expression reference assignment
+======
+FINAL(dref) = REF #( itab[ 5 ] ). 
+---
+
+(source
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (ref_expression
+      tab_expr: (table_expression
+        itab: (identifier)
+        (index_read
+          index: (number))))))
+
+======
+[REF-EXPRESSION] Simple table expression reference assignment with default
+======
+FINAL(dref) = REF #( itab[ guid = my_guid ] default new #( guid = my_guid ) ). 
+---
+
+(source
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (ref_expression
+      tab_expr: (table_expression
+        itab: (identifier)
+        (itab_table_key_spec
+          (search_key_components_spec
+            components: (itab_comp_spec_list
+              (itab_comp_spec
+                comp: (identifier)
+                value: (identifier))))))
+      default: (new_expression
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (identifier)))))))
