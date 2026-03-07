@@ -1,0 +1,26 @@
+======
+[EXACT-EXPRESSION] Simple losless assignment
+======
+p2 = EXACT #( p1 )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (exact_expression
+      dobj: (identifier))))
+
+======
+[EXACT-EXPRESSION] Lossless arithmetic
+======
+EXACT #( 3 * ( 1 / 3 ) ). 
+---
+
+(source
+  (exact_expression
+    dobj: (binary_operator
+      left: (number)
+      right: (parenthesized_expression
+        (binary_operator
+          left: (number)
+          right: (number))))))
