@@ -10102,6 +10102,142 @@
       "type": "SYMBOL",
       "name": "_kw_until"
     },
+    "reduce_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_reduce"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_constructor_result"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "let_expression"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "accumulators"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "iteration_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reduce_next"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "accumulators": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_init"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "accumulator_spec"
+          }
+        }
+      ]
+    },
+    "reduce_next": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_next"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "assignment"
+          }
+        }
+      ]
+    },
+    "accumulator_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "field_symbol"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "general_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "FIELD",
+              "name": "typing",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_typing"
+              }
+            }
+          ]
+        }
+      ]
+    },
     "abap_type": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -14342,33 +14478,6 @@
       "named": false,
       "value": "index"
     },
-    "_kw_reduce": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[rR][eE][dD][uU][cC][eE]"
-      },
-      "named": false,
-      "value": "reduce"
-    },
-    "_kw_init": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[iI][nN][iI][tT]"
-      },
-      "named": false,
-      "value": "init"
-    },
-    "_kw_next": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[nN][eE][xX][tT]"
-      },
-      "named": false,
-      "value": "next"
-    },
     "_kw_set": {
       "type": "ALIAS",
       "content": {
@@ -16870,6 +16979,33 @@
       },
       "named": false,
       "value": "until"
+    },
+    "_kw_reduce": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[rR][eE][dD][uU][cC][eE]"
+      },
+      "named": false,
+      "value": "reduce"
+    },
+    "_kw_init": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[iI][nN][iI][tT]"
+      },
+      "named": false,
+      "value": "init"
+    },
+    "_kw_next": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[nN][eE][xX][tT]"
+      },
+      "named": false,
+      "value": "next"
     },
     "_kw_decimals": {
       "type": "ALIAS",
@@ -20476,142 +20612,6 @@
       },
       "named": true,
       "value": "dynamic_itab_comp"
-    },
-    "reduce_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_reduce"
-        },
-        {
-          "type": "FIELD",
-          "name": "type",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_constructor_result"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "let_expression"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "reduce_init"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "iteration_expression"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "reduce_next"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
-    },
-    "reduce_init": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_init"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "init_spec"
-          }
-        }
-      ]
-    },
-    "reduce_next": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_next"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "assignment"
-          }
-        }
-      ]
-    },
-    "init_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "field_symbol"
-              }
-            ]
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "="
-                },
-                {
-                  "type": "FIELD",
-                  "name": "value",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "general_expression"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "FIELD",
-              "name": "typing",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_typing"
-              }
-            }
-          ]
-        }
-      ]
     },
     "local_updates_statement": {
       "type": "SEQ",

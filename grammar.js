@@ -578,60 +578,6 @@ module.exports = grammar({
 
 
 
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REDUCE.html
-     */
-    reduce_expression: $ => seq(
-      gen.kw("reduce"),
-      field("type", $._constructor_result),
-      "(",
-      optional($.let_expression),
-      $.reduce_init,
-      repeat1($.iteration_expression),
-      $.reduce_next,
-      ")"
-    ),
-
-
-    /**
-     * INIT part of a {@link reduce_expression}
-     */
-    reduce_init: $ => seq(
-      gen.kw("init"),
-      repeat1($.init_spec)
-    ),
-
-    /**
-     * NEXT part of a {@link reduce_expression}
-     */
-    reduce_next: $ => seq(
-      gen.kw("next"),
-      repeat1($.assignment)
-    ),
-
-    /**
-     * Cant use a simple {@link assignment} for this because its
-     * possible to declare initial values and specify a type for them.
-     * 
-     * TODO: Conflict with {@link assignment} rule if used in a choice,
-     * figure that out, would be nice to reuse that part at least and
-     * just add a choice for the data declaration.
-     */
-    init_spec: $ => seq(
-      field("name", choice($.identifier, $.field_symbol)),
-      choice(
-        seq(
-          "=",
-          field("value", $.general_expression)
-        ),
-        field("typing", $._typing)
-      ),
-    ),
-
-
-
-
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
     local_updates_statement: $ => seq(
       ...gen.kws("set", "update", "task", "local"),

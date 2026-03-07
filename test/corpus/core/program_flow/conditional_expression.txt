@@ -154,3 +154,40 @@ COND #( LET t = '120000' IN
         left: (identifier)
         right: (identifier))
       result: (string_literal))))
+
+======
+[CONDITIONAL-EXPRESSION] COND operator with message in throw
+======
+COND i( WHEN cflag = abap_true  THEN 1 
+        WHEN cflag = abap_false THEN 0 
+        ELSE THROW cx_demo_dyn_t100( 
+                MESSAGE e888(sabapdemos) 
+                WITH 'Illegal value!' '' '' '' ) )
+---
+
+(source
+  (cond_expression
+    type: (type_identifier)
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (number))
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (number))
+    (else_case
+      result: (throw_exception
+        name: (type_identifier)
+        (inline_message_spec
+          message: (message_spec
+            type: (message_type)
+            number: (number)
+            id: (identifier)
+            arguments: (message_arguments
+              (string_literal)
+              (string_literal)
+              (string_literal)
+              (string_literal))))))))
