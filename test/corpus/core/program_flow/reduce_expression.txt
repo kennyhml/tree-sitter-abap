@@ -1,0 +1,202 @@
+======
+[REDUCE-EXPRESSION] Simple reduce
+======
+REDUCE string( INIT s = 0 
+                 FOR i = 1 UNTIL i > 10 
+                 NEXT s = i )
+---
+
+(source
+  (reduce_expression
+    type: (type_identifier)
+    (accumulators
+      (accumulator_spec
+        name: (identifier)
+        value: (number)))
+    (conditional_iteration
+      init: (assignment
+        left: (identifier)
+        right: (number))
+      (iteration_condition
+        kind: (until)
+        condition: (comparison_expression
+          left: (identifier)
+          right: (number))))
+    (reduce_next
+      (assignment
+        left: (identifier)
+        right: (identifier)))))
+
+======
+[REDUCE-EXPRESSION] Reduce with initial init var
+======
+REDUCE string( INIT text type string
+                FOR n = 10 THEN n - 1 WHILE n > 0 
+                NEXT text &&= | { n }| )
+---
+
+(source
+  (reduce_expression
+    type: (type_identifier)
+    (accumulators
+      (accumulator_spec
+        name: (identifier)
+        typing: (abap_type
+          name: (type_identifier))))
+    (conditional_iteration
+      init: (assignment
+        left: (identifier)
+        right: (number))
+      next: (then_clause
+        (binary_operator
+          left: (identifier)
+          right: (number)))
+      (iteration_condition
+        kind: (while)
+        condition: (comparison_expression
+          left: (identifier)
+          right: (number))))
+    (reduce_next
+      (assignment
+        left: (identifier)
+        right: (string_template
+          (embedded_expression
+            (identifier)))))))
+
+======
+[REDUCE-EXPRESSION] Reduce with multiple init / next steps
+======
+REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` ) 
+                    sep  = `` 
+                     FOR <wa> IN itab 
+                       NEXT res-text &&= sep && <wa>-id 
+                            res-sum += <wa>-num 
+                            res-max = nmax( val1 = res-max 
+                                            val2 = <wa>-num ) 
+                            sep     = `-` ).
+---
+
+(source
+  (reduce_expression
+    type: (type_identifier)
+    (accumulators
+      (accumulator_spec
+        name: (identifier)
+        value: (value_expression
+          type: (type_identifier)
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (number))
+            (named_argument
+              name: (identifier)
+              value: (string_literal)))))
+      (accumulator_spec
+        name: (identifier)
+        value: (string_literal)))
+    (table_iteration
+      work_area: (field_symbol
+        name: (identifier))
+      subject: (identifier))
+    (reduce_next
+      (assignment
+        left: (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))
+        right: (string_operator
+          left: (identifier)
+          right: (struct_component_selector
+            struct: (field_symbol
+              name: (identifier))
+            comp: (identifier))))
+      (assignment
+        left: (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))
+        right: (struct_component_selector
+          struct: (field_symbol
+            name: (identifier))
+          comp: (identifier)))
+      (assignment
+        left: (struct_component_selector
+          struct: (identifier)
+          comp: (identifier))
+        right: (builtin_function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (argument_list
+              (named_argument
+                name: (identifier)
+                value: (struct_component_selector
+                  struct: (identifier)
+                  comp: (identifier)))
+              (named_argument
+                name: (identifier)
+                value: (struct_component_selector
+                  struct: (field_symbol
+                    name: (identifier))
+                  comp: (identifier)))))))
+      (assignment
+        left: (identifier)
+        right: (string_literal)))))
+
+======
+[REDUCE-EXPRESSION] Reduce with nested constructor expressions
+======
+REDUCE string( INIT text = `` sep = `` 
+        "Table reduction 
+        FOR word IN VALUE strings( 
+          "Table comprehension 
+          FOR word IN words 
+           ( SWITCH #( word WHEN `All`        THEN `Some` 
+                            WHEN `imperative` THEN `functional` 
+                            ELSE word ) ) ) 
+        NEXT text = |{ text }{ sep }{ word }| sep = ` ` )
+---
+
+(source
+  (reduce_expression
+    type: (type_identifier)
+    (accumulators
+      (accumulator_spec
+        name: (identifier)
+        value: (string_literal))
+      (accumulator_spec
+        name: (identifier)
+        value: (string_literal)))
+    (inline_comment)
+    (table_iteration
+      work_area: (identifier)
+      subject: (value_expression
+        type: (type_identifier)
+        (inline_comment)
+        (table_comprehension
+          (table_iteration
+            work_area: (identifier)
+            subject: (identifier))
+          (line_spec
+            (argument_list
+              (positional_argument
+                value: (switch_expression
+                  subject: (identifier)
+                  (case
+                    condition: (string_literal)
+                    result: (string_literal))
+                  (case
+                    condition: (string_literal)
+                    result: (string_literal))
+                  (else_case
+                    result: (identifier)))))))))
+    (reduce_next
+      (assignment
+        left: (identifier)
+        right: (string_template
+          (embedded_expression
+            (identifier))
+          (embedded_expression
+            (identifier))
+          (embedded_expression
+            (identifier))))
+      (assignment
+        left: (identifier)
+        right: (string_literal)))))

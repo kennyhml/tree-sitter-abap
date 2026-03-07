@@ -729,6 +729,77 @@
     "fields": {}
   },
   {
+    "type": "accumulator_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_symbol",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "typing": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "abap_type",
+            "named": true
+          },
+          {
+            "type": "range_type",
+            "named": true
+          },
+          {
+            "type": "reference_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
+            "named": true
+          },
+          {
+            "type": "table_type",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "accumulators",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "accumulator_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "add_statement",
     "named": true,
     "fields": {
@@ -5817,62 +5888,6 @@
     "fields": {}
   },
   {
-    "type": "init_spec",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "field_symbol",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "typing": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "abap_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "initial_line",
     "named": true,
     "fields": {}
@@ -8934,6 +8949,10 @@
       "required": true,
       "types": [
         {
+          "type": "accumulators",
+          "named": true
+        },
+        {
           "type": "iteration_expression",
           "named": true
         },
@@ -8942,26 +8961,7 @@
           "named": true
         },
         {
-          "type": "reduce_init",
-          "named": true
-        },
-        {
           "type": "reduce_next",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "reduce_init",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "init_spec",
           "named": true
         }
       ]
