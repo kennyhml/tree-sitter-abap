@@ -8,7 +8,7 @@ oref2 =  CAST #( oref1 ).
   (assignment
     left: (identifier)
     right: (cast_expression
-      dobj: (identifier))))
+      subject: (identifier))))
 
 ======
 [CAST-EXPRESSION] Cast writable expression
@@ -21,7 +21,7 @@ CAST t_struc( dref )->*    = struc.
     left: (dereference
       dref: (cast_expression
         type: (type_identifier)
-        dobj: (identifier)))
+        subject: (identifier)))
     right: (identifier)))
 
 ======
@@ -38,5 +38,5 @@ struc-col1 = CAST t_struc( dref )->col1.
     right: (object_component_selector
       ref: (cast_expression
         type: (type_identifier)
-        dobj: (identifier))
+        subject: (identifier))
       comp: (identifier))))

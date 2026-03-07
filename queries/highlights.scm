@@ -109,7 +109,12 @@
   (itab_comp_spec)
 ] comp: (identifier) @variable.property 
 
-(key_components (identifier) @variable.property )
+[
+  (key_components)
+  (mapping)
+  (lookup_mapping)
+  (except_list)
+] (identifier) @variable.property
 
 [
   (value_param_spec)
