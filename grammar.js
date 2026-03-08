@@ -140,7 +140,7 @@ module.exports = grammar({
 
       // Processing statements
       $.function_call,
-      $.dynamic_method_call,
+      $.call_method_statement,
       $.local_updates_statement,
       $.commit_work_statement,
       $.rollback_work_statement,
@@ -665,52 +665,6 @@ module.exports = grammar({
       )
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALLS.html
-    method_call: $ => prec.right(5, seq(
-      // only a single identifier allowed for static calls
-      choice(
-        field("source",
-          seq(
-            $.identifier,
-            token.immediate("=>")
-          ),
-        ),
-        field("source",
-          seq(
-            choice(
-              $.identifier,
-              $.method_call,
-              $.data_component_selector,
-              $.new_expression,
-              $.cast_expression
-            ),
-            token.immediate("->")
-          ),
-        ),
-      ),
-      field("name", $._immediate_identifier),
-      $._parenthesized_call_arguments
-    )),
-
-    /**
-     * Dynamic variant of a {@link method_call}
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_METH_IDENT_DYNA.html
-     */
-    dynamic_method_call: $ => seq(
-      ...gen.kws("call", "method"),
-      field("method", $.dynamic_method_spec),
-      optional($.call_argument_list),
-      "."
-    ),
-
-    dynamic_method_spec: $ => choice(
-      $.identifier,
-      $.dyn_spec,
-      $.object_component_selector,
-      $.class_component_selector,
-    ),
-
     /**
      * Call of a builtin function. Technically it would be possible to make all
      * of the functions known statically since they cannot be dynamically declared,
@@ -810,135 +764,6 @@ module.exports = grammar({
 
     _update_task_spec: $ => seq(
       ...gen.kws("in", "update", "task"),
-    ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
-    call_arguments: $ => seq(
-      token.immediate("("),
-
-      // avoid ambiguity, if theres no whitespace here it likely isnt a call.
-      token.immediate(/[\t\n\r ]/),
-
-      // If no exporting / importing  etc, is specified, all arguments are exporting
-      choice(
-        field("exporting", $.argument_list),
-        repeat(
-          choice(
-            gen.kw_tagged("exporting", $.argument_list),
-            gen.kw_tagged("importing", $.argument_list),
-            gen.kw_tagged("changing", $.argument_list),
-            gen.kw_tagged("exceptions", $.argument_list),
-            gen.kw_tagged("receiving", $.named_argument),
-          )
-        ),
-      ),
-      ")",
-    ),
-
-    /**
-     * In something like a {@link new_expression}, an assignment list could either 
-     * refer to constructor parameters or components of a structure, it is completely
-     * ambiguous and can only be resolved knowing the actual type of the expression result.
-     */
-    argument_list: $ => seq(
-      choice(
-        repeat1($.named_argument),
-        repeat1($.positional_argument)
-      )
-    ),
-
-    _parenthesized_call_arguments: $ => seq(
-      token.immediate("("),
-      token.immediate(/[\t\n\r ]/),
-      optional($.call_argument_list),
-      ")",
-    ),
-
-    /**
-     * The argument list of e.g a {@link method_call} or {@link function_call}, but also
-     * used for things such as implicit class initialization of {@link raise_exception}.
-     * 
-     * The difference between this and a generic {@link argument_list} is that no let
-     * expression is possible and only {@link named_argument} can be specified.
-     */
-    call_argument_list: $ => choice(
-      repeat1(
-        choice(
-          $._importing_args,
-          $._exporting_args,
-          $._changing_args,
-          $._receiving_args,
-          $._tables_args,
-          $._parameter_table_args,
-          $._exception_table_args,
-          $._tables_args,
-          $._exceptions_args,
-        )
-      ),
-      // In method calls, if the parameter is not preceded by the parameter type,
-      // its always exporting. Only one positional argument or any number of
-      // named arguments may follow.
-      field("exporting", choice(
-        $._named_argument_list,
-        $.positional_argument
-      )),
-    ),
-
-    _importing_args: $ => gen.kw_tagged("importing", $._named_argument_list),
-    _exporting_args: $ => gen.kw_tagged("exporting", $._named_argument_list),
-    _changing_args: $ => gen.kw_tagged("changing", $._named_argument_list),
-    _receiving_args: $ => gen.kw_tagged("receiving", $._named_argument_list),
-    _tables_args: $ => gen.kw_tagged("tables", $._named_argument_list),
-    _exceptions_args: $ => gen.kw_tagged("exceptions", $._exception_mapping_list),
-    _parameter_table_args: $ => gen.kw_tagged("parameter-table", $.named_data_object),
-    _exception_table_args: $ => gen.kw_tagged("exception-table", $.named_data_object),
-
-    /**
-     * An argument list where only named arguments can occur. This is needed
-     * in statements such as {@link raise_exception} because positional args
-     * are impossible in that position and cause parser conflicts.
-     */
-    _named_argument_list: $ => prec.right(
-      alias(repeat1($.named_argument), $.argument_list)
-    ),
-
-    named_argument: $ => seq(
-      field("name",
-        choice(
-          $.identifier,
-          $.struct_component_selector // for components of structures
-        )
-      ),
-      "=",
-      field("value",
-        choice(
-          $.general_expression,
-          $.declaration_expression
-        )
-      )
-    ),
-
-    /**
-     * An argument list where only positional arguments can occur.
-     * Required for calls to a form using {@link subroutine_call}.
-     */
-    _positional_argument_list: $ => prec.right(
-      alias(repeat1($.positional_argument), $.argument_list)
-    ),
-
-    positional_argument: $ => field("value", $.general_expression),
-
-
-    _exception_mapping_list: $ => alias(repeat1($.exception_mapping), $.argument_list),
-
-    exception_mapping: $ => seq(
-      field("name", $.identifier),
-      "=",
-      field("value", $.number),
-      optional(seq(
-        gen.kw("message"),
-        field("message", $.named_data_object)
-      ))
     ),
 
 

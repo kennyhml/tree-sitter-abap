@@ -74,9 +74,8 @@ CALL METHOD meth_name.
 ---
 
 (source
-  (dynamic_method_call
-    method: (dynamic_method_spec
-      (identifier))))
+  (call_method_statement
+    method: (identifier)))
 
 ==================
 Dynamic member method specification
@@ -85,10 +84,9 @@ CALL METHOD (meth_name).
 ---
 
 (source
-  (dynamic_method_call
-    method: (dynamic_method_spec
-      (dyn_spec
-        name: (identifier)))))
+  (call_method_statement
+    method: (dyn_spec
+      name: (identifier))))
 
 ==================
 Dynamic object method specification
@@ -97,12 +95,11 @@ CALL METHOD oref->(meth_name).
 ---
 
 (source
-  (dynamic_method_call
-    method: (dynamic_method_spec
-      (object_component_selector
-        ref: (identifier)
-        comp: (dynamic_component
-          name: (identifier))))))
+  (call_method_statement
+    method: (object_component_selector
+      ref: (identifier)
+      comp: (dynamic_component
+        name: (identifier)))))
 
 ==================
 Dynamic class method specification
@@ -113,25 +110,22 @@ CALL METHOD (class_name)=>meth.
 ---
 
 (source
-  (dynamic_method_call
-    method: (dynamic_method_spec
-      (class_component_selector
-        class: (identifier)
-        comp: (dyn_spec
-          name: (identifier)))))
-  (dynamic_method_call
-    method: (dynamic_method_spec
-      (class_component_selector
-        class: (dyn_spec
-          name: (identifier))
-        comp: (dyn_spec
-          name: (identifier)))))
-  (dynamic_method_call
-    method: (dynamic_method_spec
-      (class_component_selector
-        class: (dyn_spec
-          name: (identifier))
-        comp: (identifier)))))
+  (call_method_statement
+    method: (class_component_selector
+      class: (identifier)
+      comp: (dyn_spec
+        name: (identifier))))
+  (call_method_statement
+    method: (class_component_selector
+      class: (dyn_spec
+        name: (identifier))
+      comp: (dyn_spec
+        name: (identifier))))
+  (call_method_statement
+    method: (class_component_selector
+      class: (dyn_spec
+        name: (identifier))
+      comp: (identifier))))
 
 ==================
 Dynamic method call with arguments
@@ -144,12 +138,11 @@ CALL METHOD o_ref->('SHOW')
 ---
 
 (source
-  (dynamic_method_call
-    (dynamic_method_spec
-      (object_component_selector
-        (identifier)
-        (dynamic_component
-          (string_literal))))
+  (call_method_statement
+    (object_component_selector
+      (identifier)
+      (dynamic_component
+        (string_literal)))
     (call_argument_list
       (argument_list
         (named_argument
