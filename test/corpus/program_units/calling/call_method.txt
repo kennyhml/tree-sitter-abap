@@ -1,0 +1,131 @@
+==================
+[METHOD-CALLS] From new expression
+==================
+NEW c1( )->m1( ).
+---
+
+(source
+  (method_call
+    source: (new_expression
+      type: (type_identifier))
+    name: (identifier)))
+
+==================
+[METHOD-CALLS] Linebreak after opening parenthesis
+==================
+lx->set_location(
+    iv_location = iv_location
+    is_node     = is_node ).
+---
+
+(source
+  (method_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+==================
+[METHOD-CALLS] From cast expression
+==================
+CAST cls( iref )->meth1( ).
+---
+
+(source
+  (method_call
+    source: (cast_expression
+      type: (type_identifier)
+      subject: (identifier))
+    name: (identifier)))
+
+==================
+[METHOD-CALLS] Dynamic call without dynamic method name
+==================
+CALL METHOD meth_name.
+---
+
+(source
+  (call_method_statement
+    method: (identifier)))
+
+==================
+[METHOD-CALLS] Dynamic member method specification
+==================
+CALL METHOD (meth_name).
+---
+
+(source
+  (call_method_statement
+    method: (dyn_spec
+      name: (identifier))))
+
+==================
+[METHOD-CALLS] Dynamic object method specification
+==================
+CALL METHOD oref->(meth_name).
+---
+
+(source
+  (call_method_statement
+    method: (object_component_selector
+      ref: (identifier)
+      comp: (dynamic_component
+        name: (identifier)))))
+
+==================
+[METHOD-CALLS] Dynamic class method specification
+==================
+CALL METHOD class=>(meth_name).
+CALL METHOD (class_name)=>(meth_name).
+CALL METHOD (class_name)=>meth.
+---
+
+(source
+  (call_method_statement
+    method: (class_component_selector
+      class: (identifier)
+      comp: (dyn_spec
+        name: (identifier))))
+  (call_method_statement
+    method: (class_component_selector
+      class: (dyn_spec
+        name: (identifier))
+      comp: (dyn_spec
+        name: (identifier))))
+  (call_method_statement
+    method: (class_component_selector
+      class: (dyn_spec
+        name: (identifier))
+      comp: (identifier))))
+
+==================
+[METHOD-CALLS] Dynamic method call with arguments
+==================
+CALL METHOD o_ref->('SHOW')
+    EXPORTING
+        i_txt   = 'Dynamic call'
+    RECEIVING
+        ret_val = ret.
+---
+
+(source
+  (call_method_statement
+    method: (object_component_selector
+      ref: (identifier)
+      comp: (dynamic_component
+        name: (string_literal)))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal)))
+      receiving: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))

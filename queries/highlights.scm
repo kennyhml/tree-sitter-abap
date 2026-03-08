@@ -69,13 +69,15 @@
 ; Could also be a data object but who on earth would do that..
 (alias_spec alias: (identifier) @function.method )
 
-(function_call 
-  callback_method: [
-    (object_component_selector comp: (identifier) @function.method)
-    (class_component_selector  comp: (identifier) @function.method)
-    (identifier) @function.method
+(asynchronous_callback 
+  [
+    method: [
+      (object_component_selector comp: (identifier) @function.method)
+      (class_component_selector  comp: (identifier) @function.method)
+      (identifier) @function.method
+    ]
+  routine: (identifier) @function.subroutine
   ]
-  callback_routine: (identifier) @function.subroutine
 )
 
 (form_definition name: (identifier) @function.subroutine )

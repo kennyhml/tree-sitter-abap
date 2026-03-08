@@ -139,7 +139,7 @@ module.exports = grammar({
       $.message_statement,
 
       // Processing statements
-      $.function_call,
+      $.call_function_statement,
       $.call_method_statement,
       $.local_updates_statement,
       $.commit_work_statement,
@@ -678,93 +678,6 @@ module.exports = grammar({
       $._parenthesized_call_arguments,
     ),
 
-    /**
-     * Call of a function module using CALL FUNCTION
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION.html
-     */
-    function_call: $ => seq(
-      ...gen.kws("call", "function"),
-      field("name", $.character_like_expression),
-      repeat(
-        choice(
-          $._sync_rfc_destination_spec,
-          $._sync_rfc_session_spec,
-          $._async_rfc_task_spec,
-          $._async_rfc_callback_spec,
-          $._bg_rfc_unit_spec,
-          $._update_task_spec,
-          $._transactional_rfc_spec
-        )
-      ),
-      optional($.call_argument_list),
-      "."
-    ),
-
-    _sync_rfc_destination_spec: $ => seq(
-      gen.kw("destination"),
-      choice(
-        field("destination", $.data_object),
-        seq(
-          ...gen.kws("in", "group"),
-          field("group", choice(
-            $.named_data_object,
-            gen.kw("default")
-          ))
-        )
-      )
-    ),
-
-    _sync_rfc_session_spec: $ => seq(
-      ...gen.kws("in", "remote", "session"),
-      field("session", $.named_data_object)
-    ),
-
-    _async_rfc_task_spec: $ => seq(
-      ...gen.kws("starting", "new", "task"),
-      field("task_id", $.data_object)
-    ),
-
-    _async_rfc_callback_spec: $ => seq(
-      choice(
-        seq(
-          gen.kw("calling"),
-          field("callback_method", choice(
-            $.identifier,
-            $.object_component_selector,
-            $.class_component_selector
-          ))
-        ),
-        seq(
-          gen.kw("performing"),
-          field("callback_routine", $.identifier)
-        )
-      ),
-      ...gen.kws("on", "end", "of", "task")
-    ),
-
-    _bg_rfc_unit_spec: $ => seq(
-      ...gen.kws("in", "background", "unit"),
-      field("background_unit", $.named_data_object)
-    ),
-
-    /**
-     * Despite being an obsolete language element, this is still used quite often.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION_BACKGROUND_TASK.html
-     */
-    _transactional_rfc_spec: $ => prec.right(seq(
-      ...gen.kws("in", "background", "task"),
-      optional(seq(...gen.kws("as", "separate", "unit"))),
-      optional(seq(
-        gen.kw("destination"),
-        field("destination", $.data_object)
-      ))
-    )),
-
-    _update_task_spec: $ => seq(
-      ...gen.kws("in", "update", "task"),
-    ),
 
 
     transporting_no_fields_spec: $ => seq(
