@@ -462,6 +462,10 @@
         "named": true
       },
       {
+        "type": "call_function_statement",
+        "named": true
+      },
+      {
         "type": "call_method_statement",
         "named": true
       },
@@ -531,10 +535,6 @@
       },
       {
         "type": "free_statement",
-        "named": true
-      },
-      {
-        "type": "function_call",
         "named": true
       },
       {
@@ -1041,6 +1041,11 @@
     }
   },
   {
+    "type": "as_seperate_unit",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "as_text",
     "named": true,
     "fields": {}
@@ -1142,6 +1147,40 @@
           },
           {
             "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "asynchronous_callback",
+    "named": true,
+    "fields": {
+      "method": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "class_component_selector",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "object_component_selector",
+            "named": true
+          }
+        ]
+      },
+      "routine": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1695,6 +1734,60 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "call_function_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "asynchronous_callback",
+          "named": true
+        },
+        {
+          "type": "call_argument_list",
+          "named": true
+        },
+        {
+          "type": "in_background_task",
+          "named": true
+        },
+        {
+          "type": "in_background_unit",
+          "named": true
+        },
+        {
+          "type": "in_remote_session",
+          "named": true
+        },
+        {
+          "type": "in_update_task",
+          "named": true
+        },
+        {
+          "type": "rfc_destination",
+          "named": true
+        },
+        {
+          "type": "starting_new_task",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -5311,114 +5404,6 @@
     }
   },
   {
-    "type": "function_call",
-    "named": true,
-    "fields": {
-      "background_unit": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
-      },
-      "callback_method": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "class_component_selector",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "object_component_selector",
-            "named": true
-          }
-        ]
-      },
-      "callback_routine": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "destination": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      },
-      "group": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "default",
-            "named": false
-          },
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "character_like_expression",
-            "named": true
-          }
-        ]
-      },
-      "session": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
-      },
-      "task_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "data_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "call_argument_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "function_key_directive",
     "named": true,
     "fields": {
@@ -5695,6 +5680,37 @@
     }
   },
   {
+    "type": "in_background_task",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "as_seperate_unit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "in_background_unit",
+    "named": true,
+    "fields": {
+      "unit": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "in_filter_table",
     "named": true,
     "fields": {
@@ -5721,6 +5737,26 @@
     }
   },
   {
+    "type": "in_group",
+    "named": true,
+    "fields": {
+      "group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "in_program_spec",
     "named": true,
     "fields": {
@@ -5739,6 +5775,27 @@
         ]
       }
     }
+  },
+  {
+    "type": "in_remote_session",
+    "named": true,
+    "fields": {
+      "session": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "in_update_task",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "include_block_directive",
@@ -9599,6 +9656,25 @@
     }
   },
   {
+    "type": "rfc_destination",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_object",
+          "named": true
+        },
+        {
+          "type": "in_group",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "rollback_work_statement",
     "named": true,
     "fields": {}
@@ -10480,6 +10556,22 @@
         ]
       },
       "line": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "starting_new_task",
+    "named": true,
+    "fields": {
+      "task_id": {
         "multiple": false,
         "required": true,
         "types": [

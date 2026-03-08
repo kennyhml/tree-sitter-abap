@@ -1,0 +1,225 @@
+======
+[CALL-FUNCTION] Without parameters
+======
+CALL FUNCTION 'Z_MY_FUNCTION'.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)))
+
+======
+[CALL-FUNCTION] Dynamic function call
+======
+CALL FUNCTION z_my_function.
+---
+
+(source
+  (call_function_statement
+    name: (identifier)))
+
+======
+[CALL-FUNCTION] With parameters
+======
+CALL FUNCTION 'READ_SPFLI_INTO_TABLE' 
+  EXPORTING 
+    id        = 'LH' 
+  IMPORTING 
+    itab      = itab 
+  EXCEPTIONS 
+    not_found = 4. 
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal)))
+      importing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      exceptions: (argument_list
+        (exception_mapping
+          name: (identifier)
+          value: (number))))))
+
+======
+[CALL-FUNCTION] With table parameters
+======
+CALL FUNCTION 'READ_SPFLI_INTO_TABLE' 
+  parameter-table tab2
+  exception-table tab2.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (call_argument_list
+      parameter_table: (identifier)
+      exception_table: (identifier))))
+
+======
+[CALL-FUNCTION] With remote destination
+======
+CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
+    destination 'A4H'
+    EXPORTING 
+      count        = lines( itab ).
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (rfc_destination
+      (string_literal))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (builtin_function_call
+            name: (identifier)
+            (call_argument_list
+              exporting: (positional_argument
+                value: (identifier)))))))))
+
+======
+[CALL-FUNCTION] In remote session
+======
+CALL FUNCTION 'DEMO_RFM_PARAMETERS' 
+    IN REMOTE SESSION stateful_session 
+    EXPORTING 
+        p_in     = val_in 
+    IMPORTING 
+        p_out    = val_out 
+    CHANGING 
+        p_in_out = val_in_out.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (in_remote_session
+      session: (identifier))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      importing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      changing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+======
+[CALL-FUNCTION] With remote message capture
+======
+CALL FUNCTION 'DEMO_RFM_PARAMETERS' 
+    destination lv_destination
+    exceptions
+        not_found = 1 message lv_message.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (rfc_destination
+      (identifier))
+    (call_argument_list
+      exceptions: (argument_list
+        (exception_mapping
+          name: (identifier)
+          value: (number)
+          message: (identifier))))))
+
+======
+[CALL-FUNCTION] Starting new task
+======
+CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
+    starting new task lv_task_id.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (starting_new_task
+      task_id: (identifier))))
+
+======
+[CALL-FUNCTION] In remote group
+======
+CALL FUNCTION co_fb_name
+    STARTING NEW TASK lv_number
+    DESTINATION IN GROUP lv_group.
+---
+
+(source
+  (call_function_statement
+    name: (identifier)
+    (starting_new_task
+      task_id: (identifier))
+    (rfc_destination
+      (in_group
+        group: (identifier)))))
+
+======
+[CALL-FUNCTION] In background unit
+======
+CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
+    in background unit l_unit.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (in_background_unit
+      unit: (identifier))))
+
+======
+[CALL-FUNCTION] In update task
+======
+CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK 
+  EXPORTING 
+    values = values.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (in_update_task)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+======
+[CALL-FUNCTION] Transactional RFC
+======
+CALL FUNCTION 'DEMO_UPDATE_INSERT' 
+  IN BACKGROUND TASK 
+  AS SEPARATE UNIT
+  DESTINATION 'A4H'
+  EXPORTING 
+    values = values.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (in_background_task
+      (as_seperate_unit))
+    (rfc_destination
+      (string_literal))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
