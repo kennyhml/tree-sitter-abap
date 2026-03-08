@@ -113,15 +113,6 @@ module.exports = {
         )),
     ),
 
-    assigning: $ => seq(
-        ...gen.kws("assigning"),
-        field("work_area", choice(
-            $.field_symbol,
-            $.declaration_expression
-        )),
-        optional(gen.kw("casting")),
-        optional(seq(...gen.kws("else", "unassign"))),
-    ),
 
     reference_into: $ => seq(
         ...gen.kws("reference", "into"),

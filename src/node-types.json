@@ -522,6 +522,10 @@
         "named": true
       },
       {
+        "type": "field_symbols_declaration",
+        "named": true
+      },
+      {
         "type": "find_statement",
         "named": true
       },
@@ -1050,7 +1054,7 @@
     "type": "assigning",
     "named": true,
     "fields": {
-      "work_area": {
+      "target": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1064,6 +1068,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "casting",
+          "named": true
+        },
+        {
+          "type": "else_unassign",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2033,6 +2051,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "casting",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "catch_block",
@@ -4465,6 +4488,11 @@
     }
   },
   {
+    "type": "else_unassign",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "elseif_clause",
     "named": true,
     "fields": {
@@ -4720,6 +4748,101 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "field_symbols_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field_symbols_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field_symbols_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "field_symbol",
+            "named": true
+          }
+        ]
+      },
+      "nameClose": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "field_symbol",
+            "named": true
+          }
+        ]
+      },
+      "nameOpen": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "field_symbol",
+            "named": true
+          }
+        ]
+      },
+      "typing": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "abap_type",
+            "named": true
+          },
+          {
+            "type": "range_type",
+            "named": true
+          },
+          {
+            "type": "reference_type",
+            "named": true
+          },
+          {
+            "type": "referred_type",
+            "named": true
+          },
+          {
+            "type": "table_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "component_spec",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        },
+        {
+          "type": "struct_include",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -12728,6 +12851,10 @@
   },
   {
     "type": "field-symbol",
+    "named": false
+  },
+  {
+    "type": "field-symbols",
     "named": false
   },
   {

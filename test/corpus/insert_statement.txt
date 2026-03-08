@@ -69,7 +69,7 @@ INSERT INITIAL LINE INTO itab INDEX 1 ASSIGNING <line>.
       table: (identifier)
       index: (number))
     result: (assigning
-      work_area: (field_symbol
+      target: (field_symbol
         name: (identifier)))))
 
 ======

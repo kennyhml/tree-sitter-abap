@@ -127,7 +127,7 @@
 (using_key name: (identifier) @variable.key )
 
 (exception_list (identifier) @variable.exception )
-(message_spec raising: (identifier) @variable.exception )
+(raising_exception exception: (identifier) @variable.exception )
 (raise_statement name: (identifier) @variable.exception )
 
 (message_spec type: (message_type) @variable.messagetype )
@@ -286,6 +286,7 @@
     "data"
     "final"
     "constants"
+    "field-symbols"
     "type"
     "types"
     "aliases"

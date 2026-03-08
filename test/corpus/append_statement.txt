@@ -35,7 +35,7 @@ APPEND INITIAL LINE TO itab ASSIGNING <line>.
     lines: (initial_line)
     subject: (identifier)
     result: (assigning
-      work_area: (field_symbol
+      target: (field_symbol
         name: (identifier)))))
 
 ======
@@ -79,7 +79,7 @@ APPEND INITIAL LINE TO itab ASSIGNING <fs>.
     lines: (initial_line)
     subject: (identifier)
     result: (assigning
-      work_area: (field_symbol
+      target: (field_symbol
         name: (identifier)))))
 
 ======
