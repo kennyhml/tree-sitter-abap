@@ -462,6 +462,10 @@
         "named": true
       },
       {
+        "type": "call_method_statement",
+        "named": true
+      },
+      {
         "type": "call_sel_screen_statement",
         "named": true
       },
@@ -511,10 +515,6 @@
       },
       {
         "type": "do_statement",
-        "named": true
-      },
-      {
-        "type": "dynamic_method_call",
         "named": true
       },
       {
@@ -1695,6 +1695,44 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "call_method_statement",
+    "named": true,
+    "fields": {
+      "method": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class_component_selector",
+            "named": true
+          },
+          {
+            "type": "dyn_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "object_component_selector",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "call_argument_list",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4386,59 +4424,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "dynamic_method_call",
-    "named": true,
-    "fields": {
-      "method": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "dynamic_method_spec",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "call_argument_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "dynamic_method_spec",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "class_component_selector",
-          "named": true
-        },
-        {
-          "type": "dyn_spec",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "object_component_selector",
-          "named": true
-        }
-      ]
     }
   },
   {
