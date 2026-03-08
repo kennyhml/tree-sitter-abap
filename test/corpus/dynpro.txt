@@ -329,9 +329,9 @@ selection-screen: begin of screen 100 title text-tt1 as window,
       (screen_spec
         dynnr: (number)
         title: (title_spec
-          title: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))
+          title: (text_symbol
+            (identifier)
+            id: (symbol_id)))
         window: (window_spec)))
     (blank_line_directive
       times: (number))
@@ -339,9 +339,9 @@ selection-screen: begin of screen 100 title text-tt1 as window,
       block: (identifier)
       frame: (frame_spec
         (title_spec
-          title: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))))
+          title: (text_symbol
+            (identifier)
+            id: (symbol_id)))))
     (end_of_screen_element
       dynnr: (number))
     (end_of_block_element

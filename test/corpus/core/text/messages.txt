@@ -1,5 +1,5 @@
 ======
-[MESSAGES] Static compact form message spec
+[MESSAGES] Compact form (static)
 ======
 message i333(zmessages).
 ---
@@ -12,7 +12,7 @@ message i333(zmessages).
       id: (identifier))))
 
 ======
-[MESSAGES] Static compact form message with default id
+[MESSAGES] Compact form with default ID
 ======
 message e220.
 ---
@@ -24,19 +24,18 @@ message e220.
       number: (number))))
 
 ======
-[MESSAGES] Message from plain text
+[MESSAGES] From plain text
 ======
-message e220.
+message 'Hello World'.
 ---
 
 (source
   (message_statement
     (message_spec
-      type: (message_type)
-      number: (number))))
+      source: (string_literal))))
 
 ======
-[MESSAGES] Dynamic long form message spec
+[MESSAGES] Dynamic long form
 ======
 message id mid type mtyp number mnum.
 ---
@@ -79,7 +78,7 @@ message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
         (string_literal)))))
 
 ======
-[MESSAGES] Chained mixed message declarations
+[MESSAGES] Chained mixed messages
 ======
 message: e888(msg_class) with 'Foo' 'Bar' 'Baz', 
          i222 with '1' '2' '3',
@@ -109,7 +108,7 @@ message: e888(msg_class) with 'Foo' 'Bar' 'Baz',
       number: (number))))
 
 ======
-[MESSAGES] Message display type override
+[MESSAGES] Display type override
 ======
 MESSAGE i200 DISPLAY LIKE 'S'.
 ---
@@ -123,7 +122,7 @@ MESSAGE i200 DISPLAY LIKE 'S'.
         type: (string_literal)))))
 
 ======
-[MESSAGES] Message from expressions
+[MESSAGES] From expression
 ======
 message conv string( lines( itab ) ) type 'I'.
 ---
@@ -141,7 +140,7 @@ message conv string( lines( itab ) ) type 'I'.
       (string_literal))))
 
 ======
-[MESSAGES] Message from method call
+[MESSAGES] From method call
 ======
 MESSAGE oref->get_text( ) TYPE 'I'. 
 ---
@@ -155,7 +154,7 @@ MESSAGE oref->get_text( ) TYPE 'I'.
       (string_literal))))
 
 ======
-[MESSAGES] Message raising an exception
+[MESSAGES] Raising exception
 ======
 MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1. 
 ---
@@ -169,7 +168,7 @@ MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1.
         exception: (identifier)))))
 
 ======
-[MESSAGES] Message into target variable / declaration
+[MESSAGES] Into result variable
 ======
 MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno 
         INTO FINAL(mtext) 
@@ -206,7 +205,7 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
           comp: (identifier))))))
 
 ======
-[MESSAGES] Message with symbol tagged string literal
+[MESSAGES] With literal text symbol
 ======
 message i368(00) with 'No import'(002) <ls_request>-trkorr.
 ---
@@ -218,9 +217,30 @@ message i368(00) with 'No import'(002) <ls_request>-trkorr.
       number: (number)
       id: (number)
       (with_arguments
-        (symbol_tagged_string_literal
-          text: (string_literal)
-          symbol: (number))
+        (text_symbol
+          literal: (string_literal)
+          id: (symbol_id))
+        (struct_component_selector
+          struct: (field_symbol
+            name: (identifier))
+          comp: (identifier))))))
+
+======
+[MESSAGES] With text symbol
+======
+message i368(00) with text-aab <ls_request>-trkorr.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      id: (number)
+      (with_arguments
+        (text_symbol
+          (identifier)
+          id: (symbol_id))
         (struct_component_selector
           struct: (field_symbol
             name: (identifier))

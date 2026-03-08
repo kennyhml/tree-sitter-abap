@@ -273,7 +273,7 @@ module.exports = {
         gen.kw("title"),
         field("title", choice(
             $.string_literal,
-            $.struct_component_selector,
+            $.text_symbol,
             $.identifier
         ))
     ),
@@ -353,7 +353,7 @@ module.exports = {
 
     __element_text_variable: $ => choice(
         $.identifier,
-        $.struct_component_selector
+        $.text_symbol
     ),
 }
 
