@@ -1,53 +1,17 @@
 ==================
-From new expression
+[METHOD-CALLS] From new expression
 ==================
 NEW c1( )->m1( ).
 ---
 
 (source
   (method_call
-    (new_expression
-      (type_identifier))
-    (identifier)))
+    source: (new_expression
+      type: (type_identifier))
+    name: (identifier)))
 
 ==================
-Linebreak after opening parenthesis
-==================
-lx->set_location(
-    iv_location = iv_location
-    is_node     = is_node ).
----
-
-(source
-  (method_call
-    (identifier)
-    (identifier)
-    (call_argument_list
-      (argument_list
-        (named_argument
-          (identifier)
-          (identifier))
-        (named_argument
-          (identifier)
-          (identifier))))))
-
-==================
-From cast expression
-==================
-CAST cls( iref )->meth1( )->meth2( ).
----
-
-(source
-  (method_call
-    (method_call
-      (cast_expression
-        (type_identifier)
-        (identifier))
-      (identifier))
-    (identifier)))
-
-==================
-Linebreak after opening parenthesis
+[METHOD-CALLS] Linebreak after opening parenthesis
 ==================
 lx->set_location(
     iv_location = iv_location
@@ -56,19 +20,32 @@ lx->set_location(
 
 (source
   (method_call
-    (identifier)
-    (identifier)
+    source: (identifier)
+    name: (identifier)
     (call_argument_list
-      (argument_list
+      exporting: (argument_list
         (named_argument
-          (identifier)
-          (identifier))
+          name: (identifier)
+          value: (identifier))
         (named_argument
-          (identifier)
-          (identifier))))))
+          name: (identifier)
+          value: (identifier))))))
 
 ==================
-Call member method dynamic without being dynamic
+[METHOD-CALLS] From cast expression
+==================
+CAST cls( iref )->meth1( ).
+---
+
+(source
+  (method_call
+    source: (cast_expression
+      type: (type_identifier)
+      subject: (identifier))
+    name: (identifier)))
+
+==================
+[METHOD-CALLS] Dynamic call without dynamic method name
 ==================
 CALL METHOD meth_name.
 ---
@@ -78,7 +55,7 @@ CALL METHOD meth_name.
     method: (identifier)))
 
 ==================
-Dynamic member method specification
+[METHOD-CALLS] Dynamic member method specification
 ==================
 CALL METHOD (meth_name).
 ---
@@ -89,7 +66,7 @@ CALL METHOD (meth_name).
       name: (identifier))))
 
 ==================
-Dynamic object method specification
+[METHOD-CALLS] Dynamic object method specification
 ==================
 CALL METHOD oref->(meth_name).
 ---
@@ -102,7 +79,7 @@ CALL METHOD oref->(meth_name).
         name: (identifier)))))
 
 ==================
-Dynamic class method specification
+[METHOD-CALLS] Dynamic class method specification
 ==================
 CALL METHOD class=>(meth_name).
 CALL METHOD (class_name)=>(meth_name).
@@ -128,7 +105,7 @@ CALL METHOD (class_name)=>meth.
       comp: (identifier))))
 
 ==================
-Dynamic method call with arguments
+[METHOD-CALLS] Dynamic method call with arguments
 ==================
 CALL METHOD o_ref->('SHOW')
     EXPORTING
@@ -139,16 +116,16 @@ CALL METHOD o_ref->('SHOW')
 
 (source
   (call_method_statement
-    (object_component_selector
-      (identifier)
-      (dynamic_component
-        (string_literal)))
+    method: (object_component_selector
+      ref: (identifier)
+      comp: (dynamic_component
+        name: (string_literal)))
     (call_argument_list
-      (argument_list
+      exporting: (argument_list
         (named_argument
-          (identifier)
-          (string_literal)))
-      (argument_list
+          name: (identifier)
+          value: (string_literal)))
+      receiving: (argument_list
         (named_argument
-          (identifier)
-          (identifier))))))
+          name: (identifier)
+          value: (identifier))))))
