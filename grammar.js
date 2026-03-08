@@ -80,11 +80,11 @@ module.exports = grammar({
   supertypes: $ => [
     $.simple_statement,
     $.reserved_statement,
+    $.named_data_object,
 
     $.constructor_expression,
 
     $.data_object,
-    $.named_data_object,
 
     $.general_expression,
     $.functional_expression,
@@ -273,13 +273,13 @@ module.exports = grammar({
       $.substring_access,
       $.number,
       $.string_literal,
-      $.symbol_tagged_string_literal,
       $.named_data_object
     )),
 
     named_data_object: $ => choice(
       $.identifier,
       $.field_symbol,
+      $.text_symbol,
       $.data_component_selector,
       $.table_body_access
     ),
@@ -1272,7 +1272,6 @@ module.exports = grammar({
         // FIXME: Technically these are keywords
         $.identifier,
         $.string_literal,
-        $.symbol_tagged_string_literal,
         $.number,
         // dynamic dobj specification, do we wrap this in something for querying?
         seq("(", $._immediate_identifier, token.immediate(")")),
@@ -1485,6 +1484,7 @@ module.exports = grammar({
      */
     _contextual_keyword: $ => prec(-1, choice(
       ...gen.caseInsensitive(
+        "text",
         "value",
         "new",
         "cond",
@@ -1531,11 +1531,6 @@ module.exports = grammar({
       /'[^']*'/,
       /`[^`]*`/
     ),
-
-    symbol_tagged_string_literal: $ => prec(1, seq(
-      field("text", $.string_literal),
-      gen.immediateTightParens(field("symbol", $.number))
-    )),
   }
 });
 

@@ -2662,7 +2662,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "struct_component_selector"
+                "name": "text_symbol"
               },
               {
                 "type": "SYMBOL",
@@ -2940,7 +2940,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "struct_component_selector"
+          "name": "text_symbol"
         }
       ]
     },
@@ -10342,7 +10342,7 @@
                             },
                             {
                               "type": "SYMBOL",
-                              "name": "symbol_tagged_string_literal"
+                              "name": "field_symbol"
                             }
                           ]
                         }
@@ -10614,6 +10614,99 @@
           }
         }
       ]
+    },
+    "text_symbol": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__tagged_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__text_pool_symbol"
+        }
+      ]
+    },
+    "__tagged_literal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "literal",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string_literal"
+          }
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "id",
+              "content": {
+                "type": "SYMBOL",
+                "name": "symbol_id"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": ")"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "__text_pool_symbol": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][eE][xX][tT]"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "-"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "symbol_id"
+          }
+        }
+      ]
+    },
+    "symbol_id": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[a-zA-Z\\d]{3}"
+        }
+      }
     },
     "abap_type": {
       "type": "PREC_RIGHT",
@@ -15351,6 +15444,15 @@
       "named": false,
       "value": "xslt"
     },
+    "_kw_text": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[tT][eE][xX][tT]"
+      },
+      "named": false,
+      "value": "text"
+    },
     "_kw_value": {
       "type": "ALIAS",
       "content": {
@@ -15431,15 +15533,6 @@
       },
       "named": false,
       "value": "filter"
-    },
-    "_kw_symbol": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[sS][yY][mM][bB][oO][lL]"
-      },
-      "named": false,
-      "value": "symbol"
     },
     "_kw_like": {
       "type": "ALIAS",
@@ -16772,15 +16865,6 @@
       },
       "named": false,
       "value": "unassign"
-    },
-    "_kw_text": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[tT][eE][xX][tT]"
-      },
-      "named": false,
-      "value": "text"
     },
     "_kw_ascending": {
       "type": "ALIAS",
@@ -19686,10 +19770,6 @@
           },
           {
             "type": "SYMBOL",
-            "name": "symbol_tagged_string_literal"
-          },
-          {
-            "type": "SYMBOL",
             "name": "named_data_object"
           }
         ]
@@ -19705,6 +19785,10 @@
         {
           "type": "SYMBOL",
           "name": "field_symbol"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text_symbol"
         },
         {
           "type": "SYMBOL",
@@ -23237,10 +23321,6 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "symbol_tagged_string_literal"
-              },
-              {
-                "type": "SYMBOL",
                 "name": "number"
               },
               {
@@ -23767,6 +23847,10 @@
         "members": [
           {
             "type": "PATTERN",
+            "value": "[tT][eE][xX][tT]"
+          },
+          {
+            "type": "PATTERN",
             "value": "[vV][aA][lL][uU][eE]"
           },
           {
@@ -23948,50 +24032,6 @@
           "value": "`[^`]*`"
         }
       ]
-    },
-    "symbol_tagged_string_literal": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "text",
-            "content": {
-              "type": "SYMBOL",
-              "name": "string_literal"
-            }
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": "("
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "symbol",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "number"
-                }
-              },
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              }
-            ]
-          }
-        ]
-      }
     }
   },
   "extras": [
@@ -24060,9 +24100,9 @@
   "supertypes": [
     "simple_statement",
     "reserved_statement",
+    "named_data_object",
     "constructor_expression",
     "data_object",
-    "named_data_object",
     "general_expression",
     "functional_expression",
     "iteration_expression",

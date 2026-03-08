@@ -1,0 +1,38 @@
+======
+[TEXT-SYMBOLS] Literal tagged text symbol
+======
+message 'Text in text symbol'(exa).
+---
+
+(source
+  (message_statement
+    (message_spec
+      source: (text_symbol
+        literal: (string_literal)
+        id: (symbol_id)))))
+
+======
+[TEXT-SYMBOLS] Text pool field symbol
+======
+message text-EXA.
+---
+
+(source
+  (message_statement
+    (message_spec
+      source: (text_symbol
+        (identifier)
+        id: (symbol_id)))))
+
+======
+[TEXT-SYMBOLS] Text pool field symbol starting with digit
+======
+message text-0aa.
+---
+
+(source
+  (message_statement
+    (message_spec
+      source: (text_symbol
+        (identifier)
+        id: (symbol_id)))))

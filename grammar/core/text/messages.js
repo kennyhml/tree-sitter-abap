@@ -31,7 +31,7 @@ module.exports = {
             // message from an exception object or character-like data object
             seq(
                 choice(
-                    field("text", choice($.string_literal, $.symbol_tagged_string_literal)),
+                    field("text", choice($.string_literal, $.field_symbol)),
                     field("source", $.character_like_expression)
                 ),
                 optional($.__message_type_spec)
