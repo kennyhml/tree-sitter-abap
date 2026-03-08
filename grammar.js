@@ -130,6 +130,7 @@ module.exports = grammar({
     simple_statement: $ => choice(
       // Fundamental declarations
       $.data_declaration,
+      $.field_symbols_declaration,
       $.types_declaration,
       $.constants_declaration,
 
@@ -1499,17 +1500,6 @@ module.exports = grammar({
       )
     )),
 
-    field_symbol: $ => seq(
-      '<',
-      field("name", $._immediate_identifier),
-      token.immediate(">")
-    ),
-
-    _immediate_field_symbol: $ => seq(
-      token.immediate('<'),
-      field("name", $._immediate_identifier),
-      token.immediate(">")
-    ),
 
     _type_identifier: $ => alias($.identifier, $.type_identifier),
 

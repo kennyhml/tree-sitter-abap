@@ -50,7 +50,7 @@ ENDLOOP.
             (positional_argument
               value: (number))))))
     result: (assigning
-      work_area: (declaration_expression
+      target: (declaration_expression
         name: (identifier)))))
 
 ======
@@ -68,7 +68,7 @@ ENDLOOP.
   (loop_at_statement
     subject: (identifier)
     result: (assigning
-      work_area: (declaration_expression
+      target: (declaration_expression
         name: (identifier)))
     (itab_lines
       (where_condition
@@ -125,7 +125,7 @@ ENDLOOP.
             exporting: (positional_argument
               value: (identifier))))))
     result: (assigning
-      work_area: (declaration_expression
+      target: (declaration_expression
         name: (identifier)))))
 
 ======
@@ -144,7 +144,7 @@ ENDLOOP.
       (lines_step
         size: (number)))
     result: (assigning
-      work_area: (declaration_expression
+      target: (declaration_expression
         name: (identifier)))
     (itab_lines
       (lines_to
@@ -230,7 +230,7 @@ ENDLOOP.
   (loop_at_statement
     subject: (identifier)
     result: (assigning
-      work_area: (declaration_expression
+      target: (declaration_expression
         name: (identifier)))
     body: (loop_at_body
       (at_first_statement)
@@ -293,7 +293,7 @@ ENDLOOP.
   (loop_at_statement
     subject: (identifier)
     result: (assigning
-      work_area: (declaration_expression
+      target: (declaration_expression
         name: (identifier)))
     (group_by
       key: (builtin_function_call
@@ -305,7 +305,7 @@ ENDLOOP.
       (sort_order
         direction: (ascending))
       result: (assigning
-        work_area: (declaration_expression
+        target: (declaration_expression
           name: (identifier))))))
 
 ======
@@ -337,7 +337,7 @@ ENDLOOP.
       (loop_at_group_statement
         subject: (identifier)
         result: (assigning
-          work_area: (declaration_expression
+          target: (declaration_expression
             name: (identifier)))
         (itab_lines
           (where_condition
