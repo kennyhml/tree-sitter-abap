@@ -18,7 +18,7 @@ CAST t_struc( dref )->*    = struc.
 
 (source
   (assignment
-    left: (dereference
+    left: (dereference_expression
       dref: (cast_expression
         type: (type_identifier)
         subject: (identifier)))
@@ -32,11 +32,11 @@ struc-col1 = CAST t_struc( dref )->col1.
 
 (source
   (assignment
-    left: (struct_component_selector
-      struct: (identifier)
-      comp: (identifier))
-    right: (object_component_selector
-      ref: (cast_expression
+    left: (component_expression
+      subject: (identifier)
+      component: (identifier))
+    right: (component_expression
+      subject: (cast_expression
         type: (type_identifier)
         subject: (identifier))
-      comp: (identifier))))
+      component: (identifier))))

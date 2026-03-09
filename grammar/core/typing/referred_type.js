@@ -24,7 +24,7 @@ module.exports = {
         ...gen.kws("line", "of"),
         field("subject", choice(
             $._type_identifier,
-            $.type_component_selector
+            $._type_component_expression
         ))
     ),
 
@@ -32,7 +32,7 @@ module.exports = {
         ...gen.kws("line", "of"),
         field("subject", choice(
             $.identifier,
-            $.data_component_selector
+            $.component_expression
         ))
     ),
 
@@ -48,7 +48,7 @@ module.exports = {
             alias($.__line_of_type, $.line_of),
             field("name", choice(
                 $._type_identifier,
-                $.type_component_selector
+                $._type_component_expression
             ))
         )
     ),
@@ -60,7 +60,7 @@ module.exports = {
             alias($.__line_of_dobj, $.line_of),
             field("name", choice(
                 $.identifier,
-                $.data_component_selector
+                $.component_expression
             ))
         )
     ),

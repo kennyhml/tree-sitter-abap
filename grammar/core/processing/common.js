@@ -36,18 +36,14 @@ module.exports = {
             prec(2, gen.parenthesized($._logical_expression)),
 
             // dynamic where clause
-            $.dynamic_condition,
+            $.dynamic_expression,
             $.dynamic_condition_tab,
         )
         )
     ),
 
-    dynamic_condition: $ => gen.tightParens(
-        field("name", $._immediate_identifier)
-    ),
-
     dynamic_condition_tab: $ => gen.parenthesized(
-        gen.tightParens(field("name", $._immediate_identifier))
+        $.dynamic_expression
     ),
 
     /**

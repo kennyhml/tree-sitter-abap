@@ -162,9 +162,9 @@ types: carrid_range TYPE RANGE OF spfli-carrid.
     (types_spec
       name: (type_identifier)
       typing: (range_type
-        line_type: (struct_component_selector
-          struct: (type_identifier)
-          comp: (type_identifier))))))
+        line_type: (component_expression
+          subject: (identifier)
+          component: (type_identifier))))))
 
 ======
 [TYPING // RANGE TYPES] Range of data object
@@ -177,9 +177,9 @@ types: carrid_range LIKE RANGE OF foo->bar.
     (types_spec
       name: (type_identifier)
       typing: (range_type
-        line_type: (object_component_selector
-          ref: (identifier)
-          comp: (identifier))))))
+        line_type: (component_expression
+          subject: (identifier)
+          component: (identifier))))))
 
 ======
 [TYPING // ABAP TYPE] Elementary floating point type
@@ -238,9 +238,9 @@ types: gtyt_my_type type zclass=>cool_type_123.
     (types_spec
       name: (type_identifier)
       typing: (referred_type
-        name: (class_component_selector
-          class: (identifier)
-          comp: (type_identifier))))))
+        name: (component_expression
+          subject: (identifier)
+          component: (type_identifier))))))
 
 ======
 [TYPING // Referred type] Type of data object

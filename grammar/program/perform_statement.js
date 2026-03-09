@@ -63,7 +63,7 @@ module.exports = {
     // PERFORM subr(prog) IF FOUND. 
     __dynamic_subroutine_spec: $ => seq(
         field("name", $.identifier),
-        field("program", alias($._immediate_dyn_spec, $.dyn_spec)),
+        field("program", $._immediate_dynamic_expression),
         optional($.if_found_spec)
     ),
 
@@ -83,6 +83,6 @@ module.exports = {
 
     __dyn_or_explicit_spec: $ => choice(
         $.identifier,
-        $.dyn_spec
+        $.dynamic_expression
     ),
 }

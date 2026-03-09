@@ -59,7 +59,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
   (new_expression
     (table_constructor
       (base_table
-        (dereference
+        (dereference_expression
           (identifier)))
       (argument_list
         (named_argument
@@ -68,7 +68,7 @@ NEW #( BASE /www/my_class=>base_itab col2 = 'BB' ).
   (new_expression
     (table_constructor
       (base_table
-        (class_component_selector
+        (component_expression
           (identifier)
           (identifier)))
       (argument_list
@@ -87,12 +87,12 @@ NEW t_struct( col2-col1 = 2 col2-col2 = itab ).
     (type_identifier)
     (argument_list
       (named_argument
-        (struct_component_selector
+        (component_expression
           (identifier)
           (identifier))
         (number))
       (named_argument
-        (struct_component_selector
+        (component_expression
           (identifier)
           (identifier))
         (identifier)))))

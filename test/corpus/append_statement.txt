@@ -96,32 +96,32 @@ APPEND VALUE #( comp1 = memberf-comp1 comp2 = memberf-comp2 comp3 = memberf-comp
       (argument_list
         (named_argument
           name: (identifier)
-          value: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))
+          value: (component_expression
+            subject: (identifier)
+            component: (identifier)))
         (named_argument
           name: (identifier)
-          value: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))
+          value: (component_expression
+            subject: (identifier)
+            component: (identifier)))
         (named_argument
           name: (identifier)
-          value: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))
+          value: (component_expression
+            subject: (identifier)
+            component: (identifier)))
         (named_argument
           name: (identifier)
           value: (string_template
             (embedded_expression
-              (struct_component_selector
-                struct: (identifier)
-                comp: (identifier)))
+              (component_expression
+                subject: (identifier)
+                component: (identifier)))
             (embedded_expression
-              (struct_component_selector
-                struct: (identifier)
-                comp: (identifier)))
+              (component_expression
+                subject: (identifier)
+                component: (identifier)))
             (embedded_expression
-              (struct_component_selector
-                struct: (identifier)
-                comp: (identifier)))))))
+              (component_expression
+                subject: (identifier)
+                component: (identifier)))))))
     subject: (identifier)))

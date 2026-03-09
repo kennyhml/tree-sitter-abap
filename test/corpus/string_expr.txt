@@ -93,11 +93,11 @@ CONDENSE obj->attr.
   (condense_statement
     (string_literal))
   (condense_statement
-    (struct_component_selector
+    (component_expression
       (identifier)
       (identifier)))
   (condense_statement
-    (object_component_selector
+    (component_expression
       (identifier)
       (identifier))))
 
@@ -167,7 +167,7 @@ ref->*+10(length).
 
 (source
   (substring_access
-    target: (dereference
+    target: (dereference_expression
       dref: (identifier))
     offset: (number)
     length: (identifier)))
@@ -193,7 +193,7 @@ test-var1(10)
 
 (source
   (substring_access
-    target: (struct_component_selector
-      struct: (identifier)
-      comp: (identifier))
+    target: (component_expression
+      subject: (identifier)
+      component: (identifier))
     length: (number)))

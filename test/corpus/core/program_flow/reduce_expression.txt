@@ -100,42 +100,42 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
       subject: (identifier))
     (reduce_next
       (assignment
-        left: (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))
+        left: (component_expression
+          subject: (identifier)
+          component: (identifier))
         right: (string_operator
           left: (identifier)
-          right: (struct_component_selector
-            struct: (field_symbol
+          right: (component_expression
+            subject: (field_symbol
               name: (identifier))
-            comp: (identifier))))
+            component: (identifier))))
       (assignment
-        left: (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))
-        right: (struct_component_selector
-          struct: (field_symbol
+        left: (component_expression
+          subject: (identifier)
+          component: (identifier))
+        right: (component_expression
+          subject: (field_symbol
             name: (identifier))
-          comp: (identifier)))
+          component: (identifier)))
       (assignment
-        left: (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))
+        left: (component_expression
+          subject: (identifier)
+          component: (identifier))
         right: (builtin_function_call
           name: (identifier)
           (call_argument_list
             exporting: (argument_list
               (named_argument
                 name: (identifier)
-                value: (struct_component_selector
-                  struct: (identifier)
-                  comp: (identifier)))
+                value: (component_expression
+                  subject: (identifier)
+                  component: (identifier)))
               (named_argument
                 name: (identifier)
-                value: (struct_component_selector
-                  struct: (field_symbol
+                value: (component_expression
+                  subject: (field_symbol
                     name: (identifier))
-                  comp: (identifier)))))))
+                  component: (identifier)))))))
       (assignment
         left: (identifier)
         right: (string_literal)))))

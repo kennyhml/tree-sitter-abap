@@ -82,7 +82,7 @@ module.exports = {
         gen.kw("for"),
         field("target", choice(
             $.identifier,
-            $.struct_component_selector
+            $.component_expression
         ))
     )
 

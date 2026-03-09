@@ -85,10 +85,10 @@ ENDLOOP.
           (where_condition
             condition: (comparison_expression
               left: (identifier)
-              right: (struct_component_selector
-                struct: (field_symbol
+              right: (component_expression
+                subject: (field_symbol
                   name: (identifier))
-                comp: (identifier)))))))))
+                component: (identifier)))))))))
 
 ======
 [LOOP-AT] Specifying an explicit key
@@ -170,7 +170,7 @@ ENDLOOP.
       (where_condition
         condition: (comparison_expression
           left: (identifier)
-          right: (dereference
+          right: (dereference_expression
             dref: (identifier)))))))
 
 ======
@@ -191,8 +191,8 @@ ENDLOOP.
       (lines_to
         index: (number))
       (where_condition
-        condition: (dynamic_condition
-          name: (identifier))))))
+        condition: (dynamic_expression
+          value: (identifier))))))
 
 ======
 [LOOP-AT] Loop without transporting fields
@@ -261,14 +261,14 @@ ENDLOOP.
       (group_key_components
         (group_key_component
           field: (identifier)
-          value: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))
+          value: (component_expression
+            subject: (identifier)
+            component: (identifier)))
         (group_key_component
           field: (identifier)
-          value: (struct_component_selector
-            struct: (identifier)
-            comp: (identifier)))
+          value: (component_expression
+            subject: (identifier)
+            component: (identifier)))
         (group_key_component
           field: (identifier)
           value: (group_index))
@@ -327,9 +327,9 @@ ENDLOOP.
       work_area: (declaration_expression
         name: (identifier)))
     (group_by
-      key: (struct_component_selector
-        struct: (identifier)
-        comp: (identifier))
+      key: (component_expression
+        subject: (identifier)
+        component: (identifier))
       result: (into
         work_area: (declaration_expression
           name: (identifier))))

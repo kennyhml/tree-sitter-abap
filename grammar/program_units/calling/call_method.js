@@ -15,7 +15,7 @@ module.exports = {
                     choice(
                         $.identifier,
                         $.method_call,
-                        $.data_component_selector,
+                        $.component_expression,
                         $.new_expression,
                         $.cast_expression
                     ),
@@ -40,9 +40,9 @@ module.exports = {
         ...gen.kws("call", "method"),
         field("method", choice(
             $.identifier,
-            $.dyn_spec,
-            $.object_component_selector,
-            $.class_component_selector,
+            $.dynamic_expression,
+            $.component_expression,
+            $.component_expression,
         )),
         optional($.call_argument_list),
         "."

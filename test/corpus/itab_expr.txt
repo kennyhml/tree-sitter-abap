@@ -64,24 +64,24 @@ VALUE itab2(
         (identifier))
       (table_iteration
         (identifier)
-        (struct_component_selector
+        (component_expression
           (identifier)
           (identifier)))
       (line_spec
         (argument_list
           (named_argument
             (identifier)
-            (struct_component_selector
+            (component_expression
               (identifier)
               (identifier)))
           (named_argument
             (identifier)
-            (struct_component_selector
+            (component_expression
               (identifier)
               (identifier)))
           (named_argument
             (identifier)
-            (struct_component_selector
+            (component_expression
               (identifier)
               (identifier))))))))
 
@@ -128,7 +128,7 @@ value_tab = VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ).
           (identifier)
           (itab_lines
             (where_condition
-              (dynamic_condition
+              (dynamic_expression
                 (identifier)))))
         (line_spec
           (argument_list
@@ -152,7 +152,8 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ).
           (itab_lines
             (where_condition
               (dynamic_condition_tab
-                (identifier)))))
+                (dynamic_expression
+                  (identifier))))))
         (line_spec
           (argument_list
             (positional_argument

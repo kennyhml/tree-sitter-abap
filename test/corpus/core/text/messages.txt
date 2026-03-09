@@ -178,31 +178,31 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
 (source
   (message_statement
     (message_spec
-      id: (struct_component_selector
-        struct: (identifier)
-        comp: (identifier))
-      type: (struct_component_selector
-        struct: (identifier)
-        comp: (identifier))
-      number: (struct_component_selector
-        struct: (identifier)
-        comp: (identifier))
+      id: (component_expression
+        subject: (identifier)
+        component: (identifier))
+      type: (component_expression
+        subject: (identifier)
+        component: (identifier))
+      number: (component_expression
+        subject: (identifier)
+        component: (identifier))
       (into_clause
         result: (declaration_expression
           name: (identifier)))
       (with_arguments
-        (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))
-        (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))
-        (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))
-        (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))))))
+        (component_expression
+          subject: (identifier)
+          component: (identifier))
+        (component_expression
+          subject: (identifier)
+          component: (identifier))
+        (component_expression
+          subject: (identifier)
+          component: (identifier))
+        (component_expression
+          subject: (identifier)
+          component: (identifier))))))
 
 ======
 [MESSAGES] With literal text symbol
@@ -220,10 +220,10 @@ message i368(00) with 'No import'(002) <ls_request>-trkorr.
         (text_symbol
           literal: (string_literal)
           id: (symbol_id))
-        (struct_component_selector
-          struct: (field_symbol
+        (component_expression
+          subject: (field_symbol
             name: (identifier))
-          comp: (identifier))))))
+          component: (identifier))))))
 
 ======
 [MESSAGES] With text symbol
@@ -241,7 +241,7 @@ message i368(00) with text-aab <ls_request>-trkorr.
         (text_symbol
           (identifier)
           id: (symbol_id))
-        (struct_component_selector
-          struct: (field_symbol
+        (component_expression
+          subject: (field_symbol
             name: (identifier))
-          comp: (identifier))))))
+          component: (identifier))))))
