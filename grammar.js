@@ -768,24 +768,7 @@ module.exports = grammar({
 
     inline_comment: $ => prec(0, seq('"', /[^\n\r]*/)),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenpseudo_comment.html
-    pseudo_comment: $ => prec(1, seq(
-      '"#',
-      alias(token.immediate(/[^ ][^ ]/), $.kind),
-      alias(/[^\n\r]*/, $.code)
-    )),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPRAGMA.html
-    pragma: $ => seq(
-      '##',
-      alias(token.immediate(/[^\n\r#. ]+/), $.code),
-      // Up to 2 parameters are possible, but extras dont allow optionals.
-      // While this hack does work fine, it unfortunately causes the parameter nodes
-      // to always show up in the tree even when no parameter are specified.
-      // So im not sure if I want to have it that way.
-      // /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
-      // /\[?/, alias(token.immediate(/[^\n\r\]]*/), $.param), /\]?/,
-    ),
 
 
     /**

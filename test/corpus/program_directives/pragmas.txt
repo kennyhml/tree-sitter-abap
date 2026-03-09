@@ -1,0 +1,35 @@
+======
+[PRAGMAS] Simple pragma without parameter
+======
+##needed
+---
+
+(source
+  (pragma
+    code: (identifier)
+    parameter: (identifier)
+    parameter: (identifier)))
+
+======
+[PRAGMAS] Pragma with single parameter
+======
+##SHADOW[SUBSTRING]
+---
+
+(source
+  (pragma
+    code: (identifier)
+    parameter: (identifier)
+    parameter: (identifier)))
+
+======
+[PRAGMAS] Pragma with two parameters
+======
+##SHADOW[SUBSTRING][ABC]
+---
+
+(source
+  (pragma
+    code: (identifier)
+    parameter: (identifier)
+    parameter: (identifier)))
