@@ -1,0 +1,21 @@
+======
+[PSEUDO-COMMENT] Extended Codecheck
+======
+"#EC CI_BUFFJOIN 
+---
+
+(source
+  (pseudo_comment
+    kind: (identifier)
+    code: (identifier)))
+
+======
+[PSEUDO-COMMENT] Test classes
+======
+"#AU Duration Short
+---
+
+(source
+  (pseudo_comment
+    kind: (identifier)
+    code: (identifier)))
