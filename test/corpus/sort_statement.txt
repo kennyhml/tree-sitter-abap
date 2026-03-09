@@ -40,8 +40,8 @@ sort itab by (comp) ascending.
     subject: (identifier)
     (sort_component_list
       (sort_component
-        comp: (dynamic_itab_comp
-          name: (identifier))
+        comp: (dynamic_expression
+          value: (identifier))
         (sort_order
           direction: (ascending))))))
 
@@ -54,9 +54,10 @@ sort itab by (tab).
 (source
   (sort_statement
     subject: (identifier)
-    (by_order_table
-      order_table: (dyn_spec
-        name: (identifier)))))
+    (sort_component_list
+      (sort_component
+        comp: (dynamic_expression
+          value: (identifier))))))
 
 ======
 [SORT-STATEMENT] Multi-level sort
@@ -100,7 +101,7 @@ SORT dref->* BY VALUE #( FOR wa IN column_tab ( name = condense( to_upper( wa ) 
 
 (source
   (sort_statement
-    subject: (dereference
+    subject: (dereference_expression
       dref: (identifier))
     (by_order_table
       order_table: (value_expression

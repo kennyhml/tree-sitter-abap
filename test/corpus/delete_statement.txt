@@ -186,7 +186,7 @@ DELETE spfli_tab USING KEY skey WHERE (cond).
         (using_key
           (identifier))
         (where_condition
-          (dynamic_condition
+          (dynamic_expression
             (identifier)))))))
 
 ======

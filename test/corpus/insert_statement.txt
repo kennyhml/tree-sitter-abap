@@ -18,9 +18,9 @@ INSERT sy-index INTO int_tab INDEX 1 REFERENCE INTO DATA(dref).
 
 (source
   (insert_statement
-    lines: (struct_component_selector
-      struct: (identifier)
-      comp: (identifier))
+    lines: (component_expression
+      subject: (identifier)
+      component: (identifier))
     position: (at_index
       table: (identifier)
       index: (number))

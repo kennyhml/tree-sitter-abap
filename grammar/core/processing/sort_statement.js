@@ -41,7 +41,7 @@ module.exports = {
     by_order_table: $ => seq(
         gen.kw("by"),
         field("order_table", choice(
-            $.dyn_spec,
+            $.dynamic_expression,
             $.constructor_expression,
             $.method_call
         ))

@@ -136,7 +136,7 @@ SELECT-OPTIONS s_date FOR gv_date OBLIGATORY DEFAULT sy-datum.
       (identifier)
       (obligatory_spec)
       (default_value_spec
-        (struct_component_selector
+        (component_expression
           (identifier)
           (identifier))))))
 

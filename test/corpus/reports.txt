@@ -109,9 +109,9 @@ INITIALIZATION.
     body: (statement_block
       (assignment
         left: (identifier)
-        right: (struct_component_selector
-          struct: (identifier)
-          comp: (identifier))))))
+        right: (component_expression
+          subject: (identifier)
+          component: (identifier))))))
 
 ======
 [REPORTS] Start of selection event

@@ -57,7 +57,7 @@ RAISE EXCEPTION TYPE cx_sy_dynamic_osql_semantics
       (argument_list
         (named_argument
           (identifier)
-          (class_component_selector
+          (component_expression
             (identifier)
             (identifier)))
         (named_argument

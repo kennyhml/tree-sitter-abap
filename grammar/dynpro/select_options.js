@@ -11,7 +11,7 @@ module.exports = {
         field("name", $.identifier),
         gen.kw("for"),
         field("for", choice(
-            $.dyn_spec,
+            $.dynamic_expression,
             $.named_data_object
         )),
         repeat(

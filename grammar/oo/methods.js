@@ -33,7 +33,7 @@ module.exports = {
         field("name",
             choice(
                 $.identifier,
-                $.interface_component_selector
+                $.component_expression
             )
         ),
         ".",

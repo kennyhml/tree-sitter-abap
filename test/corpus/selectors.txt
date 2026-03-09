@@ -3,19 +3,22 @@ Dynamic object selector
 ==================
 obj->('foobarbaz').
 ---
+
 (source
-    (object_component_selector
-        (identifier)
-        (dynamic_component
-        (string_literal))))
+  (component_expression
+    (identifier)
+    (dynamic_expression
+      (string_literal))))
+
 ==================
 Fully dynamic class component selector
 ==================
 (cls_name)=>(meth_name)
 ---
+
 (source
-    (class_component_selector
-        (dyn_spec
-            (identifier))
-        (dyn_spec
-            (identifier))))
+  (component_expression
+    (dynamic_expression
+      (identifier))
+    (dynamic_expression
+      (identifier))))

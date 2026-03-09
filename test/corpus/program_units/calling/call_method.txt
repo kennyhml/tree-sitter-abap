@@ -62,8 +62,8 @@ CALL METHOD (meth_name).
 
 (source
   (call_method_statement
-    method: (dyn_spec
-      name: (identifier))))
+    method: (dynamic_expression
+      value: (identifier))))
 
 ==================
 [METHOD-CALLS] Dynamic object method specification
@@ -73,10 +73,10 @@ CALL METHOD oref->(meth_name).
 
 (source
   (call_method_statement
-    method: (object_component_selector
-      ref: (identifier)
-      comp: (dynamic_component
-        name: (identifier)))))
+    method: (component_expression
+      subject: (identifier)
+      component: (dynamic_expression
+        value: (identifier)))))
 
 ==================
 [METHOD-CALLS] Dynamic class method specification
@@ -88,21 +88,21 @@ CALL METHOD (class_name)=>meth.
 
 (source
   (call_method_statement
-    method: (class_component_selector
-      class: (identifier)
-      comp: (dyn_spec
-        name: (identifier))))
+    method: (component_expression
+      subject: (identifier)
+      component: (dynamic_expression
+        value: (identifier))))
   (call_method_statement
-    method: (class_component_selector
-      class: (dyn_spec
-        name: (identifier))
-      comp: (dyn_spec
-        name: (identifier))))
+    method: (component_expression
+      subject: (dynamic_expression
+        value: (identifier))
+      component: (dynamic_expression
+        value: (identifier))))
   (call_method_statement
-    method: (class_component_selector
-      class: (dyn_spec
-        name: (identifier))
-      comp: (identifier))))
+    method: (component_expression
+      subject: (dynamic_expression
+        value: (identifier))
+      component: (identifier))))
 
 ==================
 [METHOD-CALLS] Dynamic method call with arguments
@@ -116,10 +116,10 @@ CALL METHOD o_ref->('SHOW')
 
 (source
   (call_method_statement
-    method: (object_component_selector
-      ref: (identifier)
-      comp: (dynamic_component
-        name: (string_literal)))
+    method: (component_expression
+      subject: (identifier)
+      component: (dynamic_expression
+        value: (string_literal)))
     (call_argument_list
       exporting: (argument_list
         (named_argument

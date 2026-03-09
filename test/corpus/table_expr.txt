@@ -98,7 +98,7 @@ itab[ foo-bar = obj->meth( ) ].
       (search_key_components_spec
         (itab_comp_spec_list
           (itab_comp_spec
-            (struct_component_selector
+            (component_expression
               (identifier)
               (identifier))
             (method_call
@@ -118,7 +118,7 @@ itab[ foo->attr = 'A' ].
       (search_key_components_spec
         (itab_comp_spec_list
           (itab_comp_spec
-            (object_component_selector
+            (component_expression
               (identifier)
               (identifier))
             (string_literal)))))))
@@ -136,7 +136,7 @@ itab[ (comp) = 999 ].
       (search_key_components_spec
         (itab_comp_spec_list
           (itab_comp_spec
-            (dynamic_itab_comp
+            (dynamic_expression
               (identifier))
             (number)))))))
 

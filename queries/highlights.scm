@@ -16,7 +16,6 @@
 ; ------------------------------------------
 ; Class identifiers, ambiguity exists.
 ; ------------------------------------------
-(class_component_selector class: (identifier) @class )
 (deferred_class_definition name: (identifier) @class )
 (class_definition name: (identifier) @class )
 (class_implementation name: (identifier) @class )
@@ -25,6 +24,11 @@
 (resumable_exception_spec name: (identifier) @class )
 (new_exception_spec class_name: (identifier) @class )
 (catch_exception_list (identifier) @class )
+
+(component_expression
+  subject: (identifier) @class
+  operator: "=>"
+)
 
 (superclass_spec name: (identifier) @class)
 (for_event_spec 
@@ -51,13 +55,13 @@
   (#match? @interface "([iI][fF])|([lL][iI][fF])_")
 )
 
-; The component could literally be anything, we have no idea,
-; but in 90% of cases it should be a method..
-(interface_component_selector 
-	intf: (identifier) @interface
-	comp: (identifier) @function.method
- )
- 
+(component_expression
+  subject: (identifier) @interface
+  operator: "~"
+  component: (identifier) @function.method
+)
+
+
 ; ------------------------------------------
 ; Method identifiers, ambiguity exists.
 ; ------------------------------------------
@@ -72,8 +76,7 @@
 (asynchronous_callback 
   [
     method: [
-      (object_component_selector comp: (identifier) @function.method)
-      (class_component_selector  comp: (identifier) @function.method)
+      (component_expression component: (identifier) @function.method)
       (identifier) @function.method
     ]
   routine: (identifier) @function.subroutine
@@ -88,8 +91,7 @@
 ; it is specified via a literal string or a data object
 (call_method_statement
   method: [
-    (class_component_selector comp: (identifier) @function.method )
-    (object_component_selector comp: (identifier) @function.method )
+    (component_expression component: (identifier) @function.method )
     (identifier) @function.method
   ]
 )
@@ -105,11 +107,13 @@
 ; Variable identifiers
 ; ------------------------------------------
 [ 
-  (struct_component_selector)
-  (object_component_selector)
-  (class_component_selector)
   (itab_comp_spec)
 ] comp: (identifier) @variable.property 
+
+(component_expression
+  operator: ["-" "=>"]
+  component: (identifier) @variable.property
+)
 
 [
   (key_components)

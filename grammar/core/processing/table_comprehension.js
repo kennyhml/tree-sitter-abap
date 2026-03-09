@@ -64,7 +64,7 @@ module.exports = {
     // ... BASE base ...
     base_table: $ => seq(
         gen.kw("base"),
-        field("value", $.named_data_object)
+        field("value", $.general_expression)
     ),
 
 }

@@ -10,9 +10,9 @@ SWITCH string( sy-index
 (source
   (switch_expression
     type: (type_identifier)
-    subject: (struct_component_selector
-      struct: (identifier)
-      comp: (identifier))
+    subject: (component_expression
+      subject: (identifier)
+      component: (identifier))
     (case
       condition: (number)
       result: (string_literal))
@@ -34,7 +34,7 @@ SWITCH string( sy-index
 (source
   (switch_expression
     (type_identifier)
-    (struct_component_selector
+    (component_expression
       (identifier)
       (identifier))
     (case
@@ -62,33 +62,33 @@ result = SWITCH #( operator
       (case
         condition: (identifier)
         result: (binary_operator
-          left: (dereference
+          left: (dereference_expression
             dref: (identifier))
-          right: (dereference
+          right: (dereference_expression
             dref: (identifier))))
       (case
         condition: (identifier)
         result: (binary_operator
-          left: (dereference
+          left: (dereference_expression
             dref: (identifier))
-          right: (dereference
+          right: (dereference_expression
             dref: (identifier))))
       (case
         condition: (identifier)
         result: (binary_operator
-          left: (dereference
+          left: (dereference_expression
             dref: (identifier))
-          right: (dereference
+          right: (dereference_expression
             dref: (identifier))))
       (case
         condition: (identifier)
         result: (switch_expression
-          subject: (dereference
+          subject: (dereference_expression
             dref: (identifier))
           (case
             condition: (number)
             result: (switch_expression
-              subject: (dereference
+              subject: (dereference_expression
                 dref: (identifier))
               (case
                 condition: (number)
@@ -96,9 +96,9 @@ result = SWITCH #( operator
                   name: (type_identifier)))))
           (else_case
             result: (binary_operator
-              left: (dereference
+              left: (dereference_expression
                 dref: (identifier))
-              right: (dereference
+              right: (dereference_expression
                 dref: (identifier)))))))))
 
 ======

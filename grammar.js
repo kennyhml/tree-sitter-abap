@@ -60,8 +60,8 @@ module.exports = grammar({
   conflicts: $ => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
     [$.lines_of],
-    // ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???
-    [$.dyn_spec, $.dynamic_component]
+    // started being needed since the component expression refactor, can probably figure this out.
+    [$._immediate_identifier, $._immediate_type_identifier]
   ],
 
   extras: $ => [
@@ -98,8 +98,6 @@ module.exports = grammar({
     $.itab_comp,
     $.numeric_expression,
     $.character_like_expression,
-    $.data_component_selector,
-    $.type_component_selector,
     $.relational_expression,
   ],
 
@@ -281,7 +279,7 @@ module.exports = grammar({
       $.identifier,
       $.field_symbol,
       $.text_symbol,
-      $.data_component_selector,
+      $.component_expression,
       $.table_body_access
     ),
 
@@ -293,7 +291,8 @@ module.exports = grammar({
       $.method_call,
       $.table_expression,
       $.arithmetic_expression,
-      $.string_expression
+      $.string_expression,
+      $.dereference_expression
     ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
@@ -316,7 +315,7 @@ module.exports = grammar({
       $.identifier,
       $.field_symbol,
       $.number,
-      $.data_component_selector,
+      $.component_expression,
       $.constructor_expression,
       $.builtin_function_call,
       $.method_call,
@@ -352,7 +351,8 @@ module.exports = grammar({
       $.cast_expression,
       $.table_expression,
       $.declaration_expression,
-      $.named_data_object
+      $.named_data_object,
+      $.dereference_expression
     ),
 
     /**
@@ -549,35 +549,21 @@ module.exports = grammar({
       field("index", $.numeric_expression)
     ),
 
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
-    itab_comp: $ => choice(
+    // prec solves  ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???
+    itab_comp: $ => prec(1, choice(
       $._static_itab_comp,
-      $._dynamic_itab_comp,
-    ),
+      $.dynamic_expression
+    )),
 
     /**
      * Static variant of {@link itab_comp}: `{ comp_name[-sub_comp][{+off(len)}|{->attr}] }`
      */
     _static_itab_comp: $ => choice(
       $.identifier,
-      $.struct_component_selector,
-      $.object_component_selector,
+      $.component_expression,
       $.substring_access,
     ),
-
-    /**
-     * Dynamic variant of {@link itab_comp}: `{ (name) }`
-     */
-    _dynamic_itab_comp: $ => alias($.dynamic_component, $.dynamic_itab_comp),
-
-
-
-
-
-
-
-
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
     local_updates_statement: $ => seq(
@@ -712,204 +698,9 @@ module.exports = grammar({
       ),
     ),
 
-    // A component selector superclass that can return a data type
-    // TODO: Do we need an immediate variant of this for dyn specs?
-    data_component_selector: $ => choice(
-      $.struct_component_selector,
-      $.object_component_selector,
-      $.class_component_selector,
-      $.interface_component_selector,
-      $.dereference
-    ),
-
-    // A component selector superclass that can return a type
-    type_component_selector: $ => choice(
-      alias($._struct_component_type_selector, $.struct_component_selector),
-
-      alias($._class_component_type_selector, $.class_component_selector),
-      // I dont think it is possible to get to a type through an interface component?
-      // That would imply types are accessibly through properties, which they shouldnt be.
-      // A dereference cant result in a type, so no need to copy that.
-    ),
-
     // lower precedence than dyn spec due to conflicts in sort ... by (comp or otab ???) ...
-    dynamic_component: $ => seq(
-      "(",
-      choice(
-        field("name", choice(
-          $._immediate_identifier,
-          $._immediate_string_literal,
-        )),
-        field("offset", $._immediate_number),
-      ),
-      token.immediate(")")
-    ),
-
-    _immediate_dyn_spec: $ => seq(
-      token.immediate("("),
-      field("name", choice(
-        $._immediate_identifier,
-        $._immediate_string_literal
-      )),
-      token.immediate(")")
-    ),
-
-    dyn_spec: $ => seq(
-      "(",
-      field("name", choice(
-        $._immediate_identifier,
-        $._immediate_string_literal
-      )),
-      token.immediate(")")
-    ),
-
-    /**
-     * Accesses a component `comp` of a structure or structured data type `struct`.
-     * 
-     * `struct-comp` or `struc-(comp)`
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
-     */
-    struct_component_selector: $ => seq(
-      // Name of a structure or a structured type that can itself be linked.
-      // Functional method call or method chaining with a structured result.
-      // Single or chained table expression that returns a structured table line.
-      field("struct",
-        choice(
-          $.identifier,
-          $.data_component_selector,
-          $.method_call,
-          $.table_expression,
-          $.field_symbol
-        )
-      ),
-      token.immediate("-"),
-      field("comp",
-        choice(
-          $.dynamic_component,
-          $._immediate_identifier
-        )
-      )
-    ),
-
-    /**
-     * The type identifier variant of {@link struct_component_selector}
-     * 
-     * The dynamic path can be stripped since its not allowed for typing.
-     */
-    _struct_component_type_selector: $ => seq(
-      field("struct",
-        choice(
-          $._type_identifier,
-          $.type_component_selector,
-        )
-      ),
-      token.immediate("-"),
-      field("comp", $._type_identifier)
-    ),
-
-    /**
-     * Accesses a component `comp` of an object
-     * 
-     * `ref->comp` or `ref->(comp)`
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJECT_COMPONENT_SELECTOR.html
-     */
-    object_component_selector: $ => seq(
-      field("ref",
-        choice(
-          $.identifier,
-          $.data_component_selector,
-          $.method_call,
-          $.new_expression,
-          $.table_expression,
-          $.cast_expression,
-        )
-      ),
-      token.immediate("->"),
-      field("comp",
-        choice(
-          $.dynamic_component,
-          $._immediate_identifier
-        )
-      )
-    ),
-
-    /**
-     * Accesses a static component `comp` of class `class`. Dynamic access is not possible.
-     * 
-     * Can also be used to access types `type` or constants `const` of interfaces.
-     * 
-     * `class=>comp` or `intf=>type` or `intf=>const`
-     */
-    class_component_selector: $ => seq(
-      field("class", choice(
-        $.identifier,
-        $.dyn_spec
-      )),
-      token.immediate("=>"),
-      field("comp",
-        choice(
-          $.dyn_spec,
-          $._immediate_identifier
-        )
-      )
-    ),
-
-    _class_component_type_selector: $ => seq(
-      field("class", $.identifier),
-      token.immediate("=>"),
-      field("comp", $._immediate_type_identifier)
-    ),
-
-    /**
-     * Accesses component `comp` of an interface `intf`.
-     * 
-     * `intf~comp`
-     *
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERFACE_COMPONENT_SELECTOR.html
-     */
-    interface_component_selector: $ => seq(
-      field("intf",
-        choice(
-          $.identifier,
-          $.data_component_selector,
-          $.method_call,
-          $.new_expression,
-          $.table_expression
-        )
-      ),
-      token.immediate("~"),
-      field("comp", $._immediate_identifier)
-    ),
 
 
-    /**
-     * Accesses the content of a data object  pointed to by a data reference `dref`.
-     * 
-     * `dref->*`
-     * 
-     * Similar to the {@link object_component_selector} except that the immediate dref is accessed.
-     * 
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDEREFERENCING_OPERATOR.html
-     */
-    dereference: $ => seq(
-      // - Name of a reference variable that can itself be a composite.
-      // - Functional method call or method chaining with a reference variable as a result.
-      // - Single or chained table expression whose result is a reference variable.
-      // - Constructor expression with the instance operator NEW or the casting operator CAST
-      field("dref",
-        choice(
-          $.identifier,
-          $.data_component_selector,
-          $.method_call,
-          $.new_expression,
-          $.table_expression,
-          $.cast_expression
-        )
-      ),
-      token.immediate("->*"),
-    ),
 
     table_body_access: $ => seq(
       field("table", $.identifier),
@@ -923,8 +714,8 @@ module.exports = grammar({
       seq(
         field("target", choice(
           $.identifier,
-          $.data_component_selector,
-          $.dereference,
+          $.component_expression,
+          $.dereference_expression,
           $.field_symbol
         )),
         choice(
@@ -1261,40 +1052,5 @@ module.exports = grammar({
     ),
   }
 });
-
-
-function commaSep1(rule) {
-  return seq(rule, repeat(seq(',', rule)))
-}
-
-/**
- * Branches into a `type <addition> ... <type>` or `like <addition> <dobj>`.
- * 
- * Do not use this rule if you require the distinction between type and dobj
- * beyond reaching the `type` clause.
- * 
- * @param {Rule} addition The addition to inject between the keywords.
- */
-function typeOrLikeExpr($, addition, ...extraChoices) {
-  return choice(
-    seq(
-      gen.kw("type"),
-      addition,
-      field("name", choice(
-        $._type_identifier,
-        $.type_component_selector,
-        ...extraChoices
-      ))
-    ),
-    seq(
-      gen.kw("like"),
-      addition,
-      field("dobj", choice(
-        $.identifier,
-        $.data_component_selector
-      ))
-    ),
-  );
-}
 
 
