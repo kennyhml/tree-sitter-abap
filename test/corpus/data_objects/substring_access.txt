@@ -1,0 +1,94 @@
+======
+[SUBSTRING-ACCESS] Literal offset
+======
+my_string+10.
+---
+
+(source
+  (substring_access
+    value: (identifier)
+    offset: (number)))
+
+======
+[SUBSTRING-ACCESS] Data object offset
+======
+my_string+10.
+---
+
+(source
+  (substring_access
+    value: (identifier)
+    offset: (number)))
+
+======
+[SUBSTRING-ACCESS] Literal length
+======
+my_string(10).
+---
+
+(source
+  (substring_access
+    value: (identifier)
+    length: (number)))
+
+======
+[SUBSTRING-ACCESS] Data object length
+======
+my_string(foo).
+---
+
+(source
+  (substring_access
+    value: (identifier)
+    length: (identifier)))
+
+======
+[SUBSTRING-ACCESS] Fully specified slice
+======
+my_string+off(len).
+---
+
+(source
+  (substring_access
+    value: (identifier)
+    offset: (identifier)
+    length: (identifier)))
+
+======
+[SUBSTRING-ACCESS] From dereference
+======
+ref->*+10(length).
+---
+
+(source
+  (substring_access
+    value: (dereference_expression
+      dref: (identifier))
+    offset: (number)
+    length: (identifier)))
+
+======
+[SUBSTRING-ACCESS] From field symbol
+======
+<fs>+offset(10).
+---
+
+(source
+  (substring_access
+    value: (field_symbol
+      name: (identifier))
+    offset: (identifier)
+    length: (number)))
+
+======
+[SUBSTRING-ACCESS] From component expression
+======
+test-var1(10)
+---
+
+(source
+  (substring_access
+    value: (component_expression
+      subject: (identifier)
+      component: (identifier))
+    length: (number)))
