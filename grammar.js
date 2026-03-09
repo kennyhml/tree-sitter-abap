@@ -589,24 +589,6 @@ module.exports = grammar({
       $._type_identifier // explicit
     ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINLINE_DECLARATIONS.html
-    declaration_expression: $ => seq(
-      choice(
-        seq(
-          choice(...gen.kws("final", "data")),
-          // Do we use immediate here? Does that fall under being permissive?..
-          token.immediate("("),
-          field("name", $._immediate_identifier),
-          token.immediate(")")
-        ),
-        seq(
-          gen.kw("field-symbol"),
-          token.immediate("("),
-          field("name", $._immediate_field_symbol),
-          token.immediate(")")
-        )
-      )
-    ),
 
     /**
      * The documentation is lacking as to what an assignment should be considered. In theory, it
