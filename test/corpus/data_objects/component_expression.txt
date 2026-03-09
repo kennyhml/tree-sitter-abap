@@ -1,0 +1,71 @@
+=======
+[COMPONENT-EXPRESSION] Static class component
+=======
+zclass=>component.
+---
+
+(source
+  (component_expression
+    subject: (identifier)
+    component: (identifier)))
+
+=======
+[COMPONENT-EXPRESSION] Object component
+=======
+myobj->component.
+---
+
+(source
+  (component_expression
+    subject: (identifier)
+    component: (identifier)))
+
+=======
+[COMPONENT-EXPRESSION] Struct component
+=======
+struct-component
+---
+
+(source
+  (component_expression
+    subject: (identifier)
+    component: (identifier)))
+
+=======
+[COMPONENT-EXPRESSION] Nested struct component access
+=======
+struct-component->attribute
+---
+
+(source
+  (component_expression
+    subject: (component_expression
+      subject: (identifier)
+      component: (identifier))
+    component: (identifier)))
+
+=======
+[COMPONENT-EXPRESSION] Nested class component access
+=======
+class=>struct-component->attribute
+---
+
+(source
+  (component_expression
+    subject: (component_expression
+      subject: (component_expression
+        subject: (identifier)
+        component: (identifier))
+      component: (identifier))
+    component: (identifier)))
+
+=======
+[COMPONENT-EXPRESSION] Interface component access
+=======
+intf~method
+---
+
+(source
+  (component_expression
+    subject: (identifier)
+    component: (identifier)))

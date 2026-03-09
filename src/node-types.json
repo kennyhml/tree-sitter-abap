@@ -10823,7 +10823,7 @@
           }
         ]
       },
-      "target": {
+      "value": {
         "multiple": false,
         "required": true,
         "types": [

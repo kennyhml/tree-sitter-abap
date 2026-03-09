@@ -700,54 +700,11 @@ module.exports = grammar({
 
     // lower precedence than dyn spec due to conflicts in sort ... by (comp or otab ???) ...
 
-
-
     table_body_access: $ => seq(
       field("table", $.identifier),
       token.immediate("[]")
     ),
 
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOFFSET_LENGTH.html
-     */
-    substring_access: $ => prec.right(1,
-      seq(
-        field("target", choice(
-          $.identifier,
-          $.component_expression,
-          $.dereference_expression,
-          $.field_symbol
-        )),
-        choice(
-          $._substring_length,
-          seq(
-            $._substring_offset,
-            optional($._substring_length)
-          ),
-        )
-      )
-    ),
-
-    _substring_offset: $ => seq(
-      token.immediate("+"),
-      field("offset",
-        choice(
-          $._immediate_number,
-          $._immediate_identifier
-        )
-      )
-    ),
-
-    _substring_length: $ => seq(
-      token.immediate("("),
-      field("length",
-        choice(
-          $._immediate_number,
-          $._immediate_identifier
-        )
-      ),
-      token.immediate(")"),
-    ),
 
     // [[/][pos|POS_LOW|POS_HIGH](len)
     output_position_spec: $ => prec.right(repeat1(
