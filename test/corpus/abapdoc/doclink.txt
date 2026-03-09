@@ -1,0 +1,83 @@
+======
+[ABAPDOC-DOCLINK] Escape doclinks
+======
+"! An instance of something \{ I have no idea what im doing \}
+---
+
+(source
+  (docstring
+    (paragraph)))
+
+======
+[ABAPDOC-DOCLINK] Method of local class
+======
+"! Default html string for method {@link .html.METH:show} 
+---
+
+(source
+  (docstring
+    (paragraph
+      (doclink
+        (linked_object_path
+          locator: (linked_object_path
+            locator: (scope_directive)
+            component: (linked_node
+              name: (identifier)))
+          component: (linked_node
+            kind: (linked_object_kind)
+            name: (identifier)))))))
+
+======
+[ABAPDOC-DOCLINK] Repository class object
+======
+"! @parameter html | Parameter for 
+"! {@link cl_abap_browser.METH:show_html.DATA:html_string}. 
+---
+
+(source
+  (docstring
+    (doctag
+      name: (tag)
+      value: (identifier)
+      documentation: (paragraph))
+    (paragraph
+      (doclink
+        (linked_object_path
+          locator: (linked_object_path
+            locator: (linked_node
+              name: (identifier))
+            component: (linked_node
+              kind: (linked_object_kind)
+              name: (identifier)))
+          component: (linked_node
+            kind: (linked_object_kind)
+            name: (identifier)))))))
+
+======
+[ABAPDOC-DOCLINK] Single repository identifier
+======
+"! of {@link cl_abap_browser} 
+---
+
+(source
+  (docstring
+    (paragraph
+      (doclink
+        (linked_object_path
+          locator: (linked_node
+            name: (identifier)))))))
+
+======
+[ABAPDOC-DOCLINK] Single typed repository identifier
+======
+"! The type must match the technical domain {@link DOMA:/AIF/ACTIONNR}.
+---
+
+(source
+  (docstring
+    (paragraph
+      (doclink
+        (linked_object_path
+          locator: (linked_node
+            kind: (linked_object_kind)
+            name: (identifier)))))))

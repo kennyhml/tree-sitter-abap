@@ -153,17 +153,17 @@
 (doctag
   (tag) @abapdoc.tag
   (#match? @abapdoc.tag "@parameter")
-  name: (identifier) @variable.param)
+  value: (identifier) @variable.param)
 
 (doctag
   (tag) @abapdoc.tag
   (#eq? @abapdoc.tag "@raising")
-  name: (identifier) @class)
+  value: (identifier) @class)
 
 (doctag
   (tag) @abapdoc.tag
   (#eq? @abapdoc.tag "@exception")
-  name: (identifier) @variable.exception)
+  value: (identifier) @variable.exception)
 
 (doctag (tag) @abapdoc.tag )
 (doclink "@link" @abapdoc.tag )
