@@ -2524,11 +2524,15 @@
           "named": true
         },
         {
-          "type": "read_only",
+          "type": "include_structure",
           "named": true
         },
         {
-          "type": "struct_include",
+          "type": "include_type",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         }
       ]
@@ -3112,11 +3116,15 @@
           "named": true
         },
         {
-          "type": "read_only",
+          "type": "include_structure",
           "named": true
         },
         {
-          "type": "struct_include",
+          "type": "include_type",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         }
       ]
@@ -3359,11 +3367,15 @@
           "named": true
         },
         {
-          "type": "read_only",
+          "type": "include_structure",
           "named": true
         },
         {
-          "type": "struct_include",
+          "type": "include_type",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         }
       ]
@@ -3737,11 +3749,15 @@
           "named": true
         },
         {
-          "type": "read_only",
+          "type": "include_structure",
           "named": true
         },
         {
-          "type": "struct_include",
+          "type": "include_type",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         }
       ]
@@ -3752,16 +3768,12 @@
     "named": true,
     "fields": {
       "name": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
+            "type": "field_symbol",
+            "named": true
           },
           {
             "type": "identifier",
@@ -4856,11 +4868,15 @@
           "named": true
         },
         {
-          "type": "read_only",
+          "type": "include_structure",
           "named": true
         },
         {
-          "type": "struct_include",
+          "type": "include_type",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         }
       ]
@@ -5741,6 +5757,22 @@
     "fields": {}
   },
   {
+    "type": "include_alias",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "include_block_directive",
     "named": true,
     "fields": {
@@ -5955,6 +5987,66 @@
       "types": [
         {
           "type": "if_found_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include_structure",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "include_alias",
+          "named": true
+        },
+        {
+          "type": "renaming_with_suffix",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include_type",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "include_alias",
+          "named": true
+        },
+        {
+          "type": "renaming_with_suffix",
           "named": true
         }
       ]
@@ -9197,6 +9289,22 @@
     }
   },
   {
+    "type": "renaming_with_suffix",
+    "named": true,
+    "fields": {
+      "suffix": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "replace_statement",
     "named": true,
     "fields": {
@@ -10552,50 +10660,6 @@
     }
   },
   {
-    "type": "struct_include",
-    "named": true,
-    "fields": {
-      "alias": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "structure",
-            "named": false
-          },
-          {
-            "type": "type",
-            "named": false
-          }
-        ]
-      },
-      "suffix": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "structure_param_spec",
     "named": true,
     "fields": {
@@ -11738,11 +11802,15 @@
           "named": true
         },
         {
-          "type": "read_only",
+          "type": "include_structure",
           "named": true
         },
         {
-          "type": "struct_include",
+          "type": "include_type",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         }
       ]
