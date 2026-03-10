@@ -184,7 +184,8 @@ function structureSpec($, keyword, identifierNode, componentRule) {
         repeat(
             choice(
                 compRule,
-                seq($.struct_include, separator)
+                seq($.include_structure, separator),
+                seq($.include_type, separator)
             )
         ),
         endRule, field("nameClose", identifierNode)

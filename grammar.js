@@ -663,22 +663,6 @@ module.exports = grammar({
      * 
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINCLUDE_TYPE.html
      */
-    struct_include: $ => seq(
-      gen.kw("include"),
-      field("name", choice(
-        seq(gen.kw("type"), $.identifier),
-        seq(gen.kw("structure"), $.identifier),
-      )),
-      optional(
-        seq(gen.kw("as"), field("alias", $.identifier)),
-      ),
-      optional(
-        seq(
-          ...gen.kws("renaming", "with", "suffix"),
-          field("suffix", $.identifier)
-        )
-      ),
-    ),
 
     // lower precedence than dyn spec due to conflicts in sort ... by (comp or otab ???) ...
 
