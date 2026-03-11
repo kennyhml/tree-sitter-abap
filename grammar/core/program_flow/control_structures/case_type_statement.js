@@ -22,7 +22,7 @@ module.exports = {
      */
     case_type_clause: $ => seq(
         ...gen.kws("when", "type"),
-        field("type", $._type_identifier),
+        field("type", $.identifier),
         optional($.cast_into_spec),
         ".",
         field("consequence", optional($.statement_block)),

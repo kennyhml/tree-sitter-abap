@@ -1,0 +1,29 @@
+======
+[RANGE-TYPES] Range of structure component
+======
+types: carrid_range TYPE RANGE OF spfli-carrid. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (range_type
+        line_type: (component_expression
+          subject: (identifier)
+          component: (identifier))))))
+
+======
+[RANGE-TYPES] Range of data object
+======
+types: carrid_range LIKE RANGE OF foo->bar. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (range_type
+        line_type: (component_expression
+          subject: (identifier)
+          component: (identifier))))))

@@ -71,6 +71,6 @@ module.exports = {
             "x",
             "xstring"
         )
-    ), $.type_identifier)),
+    ), $.identifier)),
 
 }

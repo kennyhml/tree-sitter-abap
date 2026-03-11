@@ -20,7 +20,7 @@ CAST t_struc( dref )->*    = struc.
   (assignment
     left: (dereference_expression
       dref: (cast_expression
-        type: (type_identifier)
+        type: (identifier)
         subject: (identifier)))
     right: (identifier)))
 
@@ -37,6 +37,6 @@ struc-col1 = CAST t_struc( dref )->col1.
       component: (identifier))
     right: (component_expression
       subject: (cast_expression
-        type: (type_identifier)
+        type: (identifier)
         subject: (identifier))
       component: (identifier))))

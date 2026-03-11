@@ -10,7 +10,7 @@ FIELD-SYMBOLS <number> TYPE i.
       name: (field_symbol
         name: (identifier))
       typing: (abap_type
-        name: (type_identifier)))))
+        name: (identifier)))))
 
 ======
 [FIELD-SYMBOLS] Chained field symbols
@@ -30,4 +30,4 @@ FIELD-SYMBOLS: <itab> TYPE ANY TABLE,
       name: (field_symbol
         name: (identifier))
       typing: (referred_type
-        name: (type_identifier)))))
+        name: (identifier)))))

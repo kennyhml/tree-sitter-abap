@@ -23,8 +23,8 @@ module.exports = {
     __line_of_type: $ => seq(
         ...gen.kws("line", "of"),
         field("subject", choice(
-            $._type_identifier,
-            $._type_component_expression
+            $.identifier,
+            $.component_expression
         ))
     ),
 
@@ -47,8 +47,8 @@ module.exports = {
         choice(
             alias($.__line_of_type, $.line_of),
             field("name", choice(
-                $._type_identifier,
-                $._type_component_expression
+                $.identifier,
+                $.component_expression
             ))
         )
     ),

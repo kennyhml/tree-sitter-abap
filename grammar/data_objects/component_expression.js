@@ -35,35 +35,4 @@ module.exports = {
             )
         )
     ),
-
-    _type_component_expression: $ => alias(
-        $.__type_component_expression,
-        $.component_expression
-    ),
-
-    __type_component_expression: $ => seq(
-        // Name of a structure or a structured type that can itself be linked.
-        // Functional method call or method chaining with a structured result.
-        // Single or chained table expression that returns a structured table line.
-        field("subject",
-            choice(
-                $.identifier,
-                $.field_symbol,
-                $.component_expression,
-                $.method_call,
-                $.table_expression,
-                $.new_expression,
-                $.cast_expression,
-                $.dynamic_expression
-            )
-        ),
-        field("operator", choice(
-            token.immediate("-"),
-            token.immediate("->"),
-            token.immediate("=>"),
-            token.immediate("~"),
-        )),
-        field("component", $._immediate_type_identifier)
-    ),
-
 }

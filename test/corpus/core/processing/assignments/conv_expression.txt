@@ -8,7 +8,7 @@ source = CONV string( text )
   (assignment
     left: (identifier)
     right: (conv_expression
-      type: (type_identifier)
+      type: (identifier)
       subject: (identifier))))
 
 ======
@@ -22,14 +22,14 @@ int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
     left: (identifier)
     right: (binary_operator
       left: (conv_expression
-        type: (type_identifier)
+        type: (identifier)
         subject: (builtin_function_call
           name: (identifier)
           (call_argument_list
             exporting: (positional_argument
               value: (number)))))
       right: (conv_expression
-        type: (type_identifier)
+        type: (identifier)
         subject: (builtin_function_call
           name: (identifier)
           (call_argument_list

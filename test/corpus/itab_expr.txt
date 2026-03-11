@@ -31,7 +31,7 @@ VALUE carriers( FOR wa IN scarr_tab INDEX INTO i ( no = i  ) ).
 
 (source
   (value_expression
-    (type_identifier)
+    (identifier)
     (table_comprehension
       (table_iteration
         (identifier)
@@ -57,7 +57,7 @@ VALUE itab2(
 
 (source
   (value_expression
-    (type_identifier)
+    (identifier)
     (table_comprehension
       (table_iteration
         (identifier)
@@ -236,7 +236,7 @@ VALUE itab1( FOR j = 41 THEN j - 10 UNTIL j < 10 ( ) )
 
 (source
   (value_expression
-    (type_identifier)
+    (identifier)
     (table_comprehension
       (conditional_iteration
         (assignment
@@ -263,7 +263,7 @@ VALUE itab3(
 
 (source
   (value_expression
-    (type_identifier)
+    (identifier)
     (table_comprehension
       (table_iteration
         (identifier)
@@ -299,7 +299,7 @@ VALUE itab(
 
 (source
   (value_expression
-    (type_identifier)
+    (identifier)
     (let_expression
       (assignment
         (identifier)

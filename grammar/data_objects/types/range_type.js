@@ -19,8 +19,8 @@ module.exports = {
     __range_type_spec: $ => seq(
         ...gen.kws("type", "range", "of"),
         field("line_type", choice(
-            $._type_identifier,
-            $._type_component_expression,
+            $.identifier,
+            $.component_expression,
         )),
     ),
 

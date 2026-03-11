@@ -25,7 +25,7 @@ ENDFORM.
         (simple_param_spec
           name: (identifier))
         typing: (referred_type
-          name: (type_identifier))))
+          name: (identifier))))
     changing: (parameter_list
       (parameter
         (simple_param_spec

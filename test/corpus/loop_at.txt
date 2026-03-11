@@ -35,7 +35,7 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (value_expression
-      type: (type_identifier)
+      type: (identifier)
       (table_comprehension
         (line_spec
           (argument_list
@@ -51,7 +51,8 @@ ENDLOOP.
               value: (number))))))
     result: (assigning
       target: (declaration_expression
-        name: (identifier)))))
+        name: (field_symbol
+          name: (identifier))))))
 
 ======
 [LOOP-AT] Nested loop at
@@ -69,7 +70,8 @@ ENDLOOP.
     subject: (identifier)
     result: (assigning
       target: (declaration_expression
-        name: (identifier)))
+        name: (field_symbol
+          name: (identifier))))
     (itab_lines
       (where_condition
         condition: (comparison_expression
@@ -126,7 +128,8 @@ ENDLOOP.
               value: (identifier))))))
     result: (assigning
       target: (declaration_expression
-        name: (identifier)))))
+        name: (field_symbol
+          name: (identifier))))))
 
 ======
 [LOOP-AT] Sliced loop with step
@@ -145,7 +148,8 @@ ENDLOOP.
         size: (number)))
     result: (assigning
       target: (declaration_expression
-        name: (identifier)))
+        name: (field_symbol
+          name: (identifier))))
     (itab_lines
       (lines_to
         index: (number)))))
@@ -231,7 +235,8 @@ ENDLOOP.
     subject: (identifier)
     result: (assigning
       target: (declaration_expression
-        name: (identifier)))
+        name: (field_symbol
+          name: (identifier))))
     body: (loop_at_body
       (at_first_statement)
       (at_new_statement
@@ -294,7 +299,8 @@ ENDLOOP.
     subject: (identifier)
     result: (assigning
       target: (declaration_expression
-        name: (identifier)))
+        name: (field_symbol
+          name: (identifier))))
     (group_by
       key: (builtin_function_call
         name: (identifier)
@@ -306,7 +312,8 @@ ENDLOOP.
         direction: (ascending))
       result: (assigning
         target: (declaration_expression
-          name: (identifier))))))
+          name: (field_symbol
+            name: (identifier)))))))
 
 ======
 [LOOP-AT] Loop at group
@@ -338,7 +345,8 @@ ENDLOOP.
         subject: (identifier)
         result: (assigning
           target: (declaration_expression
-            name: (identifier)))
+            name: (field_symbol
+              name: (identifier))))
         (itab_lines
           (where_condition
             condition: (comparison_expression

@@ -113,84 +113,23 @@ function chainable_immediate(spec) {
  */
 function declaration_and_spec(keyword, identifier, prefix) {
     prefix ??= "";
-
     rules = {}
-
     const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
     const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
-    const comp = `_${prefix}${keyword.replace("-", "_")}_comp_spec`;
-
-    /**
-     * Regardless of whether a struct is declared using CONSTANTS, TYPES, etc.
-     * the components (fields) that make up the structure should always be
-     * identifier nodes, not const and much less type nodes.
-     * * Because the keyword at the start of each line still needs to be taken into
-     * consideration, such a helper rule is necessary.
-     */
-    rules[comp] = $ => choice(
-        seq(
-            field("name", $.identifier),
-            optional(field("type", $._typing))
-        ),
-
-        structureSpec($, undefined, $.identifier, $[comp]),
-        structureSpec($, keyword, $.identifier, $[comp]),
-    );
 
     rules[spec] = $ => choice(
         seq(
             field("name", identifier($)),
             optional(field("typing", $._typing)),
         ),
-
-        /**
-         * This technically isnt completely legal since it allows sub structure specs preceded by a DATA
-         * keyword inside a `data:` block, but it is such a niche scenario worth keeping the grammar simpler over.
-         * * It is however quite important to generate two absolute paths here, because we at least dont want to allow
-         * the old-style struct declaration to be completed mixed into new-style declarations, i.e when the
-         * declaration block starts with DATA [...]., it shouldnt be allowed to have a component inside the
-         * block that does NOT start with DATA.
-         * */
-        structureSpec($, undefined, identifier($), $[comp]),
-        structureSpec($, keyword, identifier($), $[comp]),
+        $.begin_of_struct,
+        $.end_of_struct,
     );
 
     rules[decl] = $ => chainable(keyword, $[spec]);
     return rules;
 }
 
-/**
- * Generates a structure specification rule.
-...
- */
-function structureSpec($, keyword, identifierNode, componentRule) {
-    // If a keyword is present, the separator MUST be a `.`
-    let separator = keyword ? '.' : ',';
-
-    let compRule = seq(alias(componentRule, $.component_spec), separator);
-    let endRule = seq(...kws("end", "of"));
-    if (separator == '.') {
-        compRule.members.unshift(kw(keyword), optional(":"))
-        endRule.members.unshift(kw(keyword), optional(":"));
-    }
-
-    return seq(
-        ...kws("begin", "of"), field("nameOpen", identifierNode),
-        optional($.read_only),
-        separator,
-        // Technically at least one field is required, but this is another one
-        // of those situations where it makes more sense to just let it parse
-        // and pre process the problem.
-        repeat(
-            choice(
-                compRule,
-                seq($.include_structure, separator),
-                seq($.include_type, separator)
-            )
-        ),
-        endRule, field("nameClose", identifierNode)
-    );
-}
 
 function commaSep1(rule) {
     return seq(rule, repeat(seq(",", rule)))

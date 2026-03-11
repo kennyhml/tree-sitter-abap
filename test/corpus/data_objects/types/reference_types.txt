@@ -1,0 +1,27 @@
+======
+[REFERENCE-TYPES] Simple reference type
+======
+types: oref  TYPE REF TO c1.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (reference_type
+        (ref_to
+          subject: (identifier))))))
+
+======
+[REFERENCE-TYPES] Simple reference type from dobj
+======
+types: dref1 LIKE REF TO oref.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (reference_type
+        (ref_to
+          subject: (identifier))))))
