@@ -1,0 +1,41 @@
+======
+[REFERRED-TYPES] Type of global class
+======
+types: gtyt_my_type type zclass=>cool_type_123.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (component_expression
+          subject: (identifier)
+          component: (identifier))))))
+
+======
+[REFERRED-TYPES] Type of data object
+======
+types: buffer like wa.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier)))))
+
+======
+[REFERRED-TYPES] Type of a table line
+======
+types: tab_line type line of sflight.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        (line_of
+          subject: (identifier))))))

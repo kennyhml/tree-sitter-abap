@@ -23,8 +23,8 @@ module.exports = {
     _ref_to_type: $ => seq(
         ...gen.kws("ref", "to"),
         field("subject", choice(
-            $._type_identifier,
-            $._type_component_expression
+            $.identifier,
+            $.component_expression
         ))
     ),
 

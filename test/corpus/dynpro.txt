@@ -9,7 +9,7 @@ PARAMETERS p_carrid TYPE carrid.
     (parameters_spec
       name: (identifier)
       typing: (referred_type
-        name: (type_identifier)))))
+        name: (identifier)))))
 
 ======
 Checkbox dynpro parameter
@@ -41,7 +41,7 @@ PARAMETERS p_carrid TYPE carrid
     (parameters_spec
       name: (identifier)
       typing: (referred_type
-        name: (type_identifier))
+        name: (identifier))
       listbox: (listbox_spec)
       visible_length: (visible_length_spec
         length: (number))
@@ -85,7 +85,7 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
     (parameters_spec
       name: (identifier)
       typing: (abap_type
-        name: (type_identifier))
+        name: (identifier))
       case: (lower_case_spec)
       visible_length: (visible_length_spec
         length: (number))))
@@ -93,7 +93,7 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
     (parameters_spec
       name: (identifier)
       typing: (referred_type
-        name: (type_identifier))
+        name: (identifier))
       display: (no_display_spec))))
 
 ======
@@ -107,7 +107,7 @@ PARAMETERS p_cust  TYPE kunnr MATCHCODE OBJECT debi.
     (parameters_spec
       name: (identifier)
       typing: (referred_type
-        name: (type_identifier))
+        name: (identifier))
       search_help: (search_help_spec
         name: (identifier)))))
 
@@ -498,7 +498,7 @@ SELECTION-SCREEN: COMMENT 40(40) text,
     (parameters_spec
       name: (identifier)
       typing: (abap_type
-        name: (type_identifier)
+        name: (identifier)
         (type_length
           count: (number)))))
   (selection_screen_statement

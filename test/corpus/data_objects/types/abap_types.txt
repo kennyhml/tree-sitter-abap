@@ -1,0 +1,45 @@
+======
+[ABAP-TYPES] Elementary floating point type
+======
+types: my_type type p length 8 decimals 3.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        name: (identifier)
+        (type_length
+          count: (number))
+        (type_decimals
+          count: (number))))))
+
+======
+[ABAP-TYPES] Parenthesized length specification
+======
+types: my_type(30) type c.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        (parenthesized_length
+          length: (number))
+        name: (identifier)))))
+
+======
+[ABAP-TYPES] Only parenthesized length.
+======
+types: my_type(30).
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        (parenthesized_length
+          length: (number))))))

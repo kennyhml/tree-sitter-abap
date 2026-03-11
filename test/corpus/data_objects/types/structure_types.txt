@@ -1,0 +1,190 @@
+======
+[STRUCTURE-TYPES] Flat structure without chaining
+======
+TYPES BEGIN OF street_type.
+TYPES name TYPE c LENGTH 40.
+TYPES no   TYPE c LENGTH 4.
+TYPES END OF street_type. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (begin_of_struct
+        name: (identifier))))
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        name: (identifier)
+        (type_length
+          count: (number)))))
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        name: (identifier)
+        (type_length
+          count: (number)))))
+  (types_declaration
+    (types_spec
+      (end_of_struct
+        name: (identifier)))))
+
+======
+[STRUCTURE-TYPES] Flat structure
+======
+TYPES: BEGIN OF street_type, 
+         name TYPE c LENGTH 40, 
+         no   TYPE c LENGTH 4, 
+       END OF street_type. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (begin_of_struct
+        (identifier)))
+    (types_spec
+      (identifier)
+      (abap_type
+        (identifier)
+        (type_length
+          (number))))
+    (types_spec
+      (identifier)
+      (abap_type
+        (identifier)
+        (type_length
+          (number))))
+    (types_spec
+      (end_of_struct
+        (identifier)))))
+
+======
+[STRUCTURE-TYPES] Nested structure
+======
+TYPES: BEGIN OF address_type, 
+         name   TYPE c LENGTH 30, 
+         street TYPE street_type, 
+         BEGIN OF city, 
+           zipcode TYPE n LENGTH 5, 
+           name TYPE c LENGTH 40, 
+         END OF city, 
+       END OF address_type.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (begin_of_struct
+        name: (identifier)))
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        name: (identifier)
+        (type_length
+          count: (number))))
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier)))
+    (types_spec
+      (begin_of_struct
+        name: (identifier)))
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        name: (identifier)
+        (type_length
+          count: (number))))
+    (types_spec
+      name: (identifier)
+      typing: (abap_type
+        name: (identifier)
+        (type_length
+          count: (number))))
+    (types_spec
+      (end_of_struct
+        name: (identifier)))
+    (types_spec
+      (end_of_struct
+        name: (identifier)))))
+
+======
+[STRUCTURE-TYPES] Include type
+======
+TYPES BEGIN OF lty_combined_type. 
+    INCLUDE TYPE zst_structure.
+    TYPES date_el TYPE zda_data_element.
+TYPES END OF lty_combined_type. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (begin_of_struct
+        name: (identifier))))
+  (include_type
+    name: (identifier))
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier))))
+  (types_declaration
+    (types_spec
+      (end_of_struct
+        name: (identifier)))))
+
+======
+[STRUCTURE-TYPES] Include structure
+======
+TYPES BEGIN OF lty_combined_type. 
+    INCLUDE STRUCTURE zst_structure.
+    TYPES date_el TYPE zda_data_element.
+TYPES END OF lty_combined_type. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (begin_of_struct
+        name: (identifier))))
+  (include_structure
+    name: (identifier))
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier))))
+  (types_declaration
+    (types_spec
+      (end_of_struct
+        name: (identifier)))))
+
+======
+[STRUCTURE-TYPES] Include structure
+======
+TYPES BEGIN OF lty_combined_type. 
+    INCLUDE STRUCTURE zst_structure.
+    TYPES date_el TYPE zda_data_element.
+TYPES END OF lty_combined_type. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (begin_of_struct
+        name: (identifier))))
+  (include_structure
+    name: (identifier))
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier))))
+  (types_declaration
+    (types_spec
+      (end_of_struct
+        name: (identifier)))))

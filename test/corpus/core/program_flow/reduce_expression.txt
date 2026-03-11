@@ -8,7 +8,7 @@ REDUCE string( INIT s = 0
 
 (source
   (reduce_expression
-    type: (type_identifier)
+    type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
@@ -37,12 +37,12 @@ REDUCE string( INIT text type string
 
 (source
   (reduce_expression
-    type: (type_identifier)
+    type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
         typing: (abap_type
-          name: (type_identifier))))
+          name: (identifier))))
     (conditional_iteration
       init: (assignment
         left: (identifier)
@@ -78,12 +78,12 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
 
 (source
   (reduce_expression
-    type: (type_identifier)
+    type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
         value: (value_expression
-          type: (type_identifier)
+          type: (identifier)
           (argument_list
             (named_argument
               name: (identifier)
@@ -156,7 +156,7 @@ REDUCE string( INIT text = `` sep = ``
 
 (source
   (reduce_expression
-    type: (type_identifier)
+    type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
@@ -168,7 +168,7 @@ REDUCE string( INIT text = `` sep = ``
     (table_iteration
       work_area: (identifier)
       subject: (value_expression
-        type: (type_identifier)
+        type: (identifier)
         (inline_comment)
         (table_comprehension
           (table_iteration

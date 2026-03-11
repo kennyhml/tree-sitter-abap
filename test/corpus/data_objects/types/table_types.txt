@@ -1,0 +1,152 @@
+======
+[TABLE-TYPES] Basic definition
+======
+types gtyt_std_tab1 type table of gtys_mystruct.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (identifier)))))
+
+======
+[TABLE-TYPES] Default key
+======
+types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (identifier)
+        (with_table_key
+          (table_key
+            (default_key)))))))
+
+======
+[TABLE-TYPES] Reference table line
+======
+types: gtyt_ref_table type standard table of ref to cl_my_class.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (ref_to
+          subject: (identifier))))))
+
+======
+[TABLE-TYPES] Non unique key
+======
+types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var1.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (identifier)
+        (with_table_key
+          (table_key
+            unique: (non_unique)
+            (key_components
+              (identifier))))))))
+
+======
+[TABLE-TYPES] Empty key
+======
+types gtyt_std_tab1 type standard table of gtys_mystruct with empty key.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (identifier)
+        (with_table_key
+          (empty_key))))))
+
+======
+[TABLE-TYPES] Explicit primary key
+======
+types gtyt_std_tab5 type standard table of gtys_mystruct with key primary_key components table_line.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (identifier)
+        (with_table_key
+          (table_key
+            name: (identifier)
+            (key_components
+              (identifier))))))))
+
+======
+[TABLE-TYPES] Secondary keys
+======
+types gtyt_sec_tab1 type table of gtys_mystruct
+    with non-unique key primary_key components var1 var2
+    with non-unique sorted key secondary_key1 components var3 var4
+    with unique hashed key secondary_key2 components var1 var5.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        line_type: (identifier)
+        (with_table_key
+          (table_key
+            unique: (non_unique)
+            name: (identifier)
+            (key_components
+              (identifier)
+              (identifier))))
+        (with_table_key
+          (table_key
+            unique: (non_unique)
+            kind: (sorted)
+            name: (identifier)
+            (key_components
+              (identifier)
+              (identifier))))
+        (with_table_key
+          (table_key
+            unique: (unique)
+            kind: (hashed)
+            name: (identifier)
+            (key_components
+              (identifier)
+              (identifier))))))))
+
+======
+[TABLE-TYPES] Index table type
+======
+types: gtyt_tab type index table.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (index_table)))))

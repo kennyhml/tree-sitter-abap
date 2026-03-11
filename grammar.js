@@ -60,8 +60,6 @@ module.exports = grammar({
   conflicts: $ => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
     [$.lines_of],
-    // started being needed since the component expression refactor, can probably figure this out.
-    [$._immediate_identifier, $._immediate_type_identifier]
   ],
 
   extras: $ => [
@@ -131,6 +129,8 @@ module.exports = grammar({
       $.field_symbols_declaration,
       $.types_declaration,
       $.constants_declaration,
+      $.include_structure,
+      $.include_type,
 
       // ???
       $.assignment,
@@ -242,7 +242,7 @@ module.exports = grammar({
 
     ...gen.declaration_and_spec("data", $ => $.identifier),
     ...gen.declaration_and_spec("constants", $ => $.identifier),
-    ...gen.declaration_and_spec("types", $ => $._type_identifier),
+    ...gen.declaration_and_spec("types", $ => $.identifier),
 
     /**
      * A builtin (keyword) expression resulting in the creation of a certain value. 
@@ -586,7 +586,7 @@ module.exports = grammar({
 
     _constructor_result: $ => choice(
       "#", // inferred
-      $._type_identifier // explicit
+      $.identifier // explicit
     ),
 
 
@@ -802,12 +802,7 @@ module.exports = grammar({
       )
     )),
 
-
-    _type_identifier: $ => alias($.identifier, $.type_identifier),
-
     _immediate_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
-
-    _immediate_type_identifier: $ => alias(token.immediate(IDENTIFIER_REGEX), $.type_identifier),
 
     number: $ => NUMBER_REGEX,
     _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),

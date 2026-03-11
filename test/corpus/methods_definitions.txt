@@ -100,7 +100,7 @@ METHODS       m2 DEFAULT IGNORE
         (value_param_spec
           (identifier))
         (abap_type
-          (type_identifier))))))
+          (identifier))))))
 
 ==================
 Importing parameters
@@ -122,20 +122,20 @@ METHODS meth
           (simple_param_spec
             name: (identifier))
           typing: (abap_type
-            name: (type_identifier))
+            name: (identifier))
           default: (param_default_value_spec
             value: (number)))
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (abap_type
-            name: (type_identifier))
+            name: (identifier))
           (optional_spec))
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (abap_type
-            name: (type_identifier))
+            name: (identifier))
           (optional_spec))
         (preferred_param_spec
           name: (identifier))))))
@@ -159,13 +159,13 @@ METHODS read_spfli_into_table
           typing: (referred_type
             name: (component_expression
               subject: (identifier)
-              component: (type_identifier)))))
+              component: (identifier)))))
       exporting: (parameter_list
         (parameter
           (simple_param_spec
             name: (identifier))
           typing: (referred_type
-            name: (type_identifier)))))))
+            name: (identifier)))))))
 
 ==================
 Raising class based exceptions
@@ -187,12 +187,12 @@ METHODS divide_1_by
           (simple_param_spec
             name: (identifier))
           typing: (abap_type
-            name: (type_identifier))))
+            name: (identifier))))
       returning: (return_value
         (value_param_spec
           name: (identifier))
         typing: (abap_type
-          name: (type_identifier)))
+          name: (identifier)))
       raising: (raising_list
         (simple_exception_spec
           name: (identifier))
@@ -214,7 +214,7 @@ CLASS-METHODS class_constructor.
           (simple_param_spec
             (identifier))
           (abap_type
-            (type_identifier))))))
+            (identifier))))))
   (class_methods_declaration
     (class_constructor_spec)))
 

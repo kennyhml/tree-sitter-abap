@@ -131,7 +131,7 @@ message conv string( lines( itab ) ) type 'I'.
   (message_statement
     (message_spec
       (conv_expression
-        (type_identifier)
+        (identifier)
         (builtin_function_call
           (identifier)
           (call_argument_list

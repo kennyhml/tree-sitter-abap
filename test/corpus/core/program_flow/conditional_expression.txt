@@ -9,7 +9,7 @@ SWITCH string( sy-index
 
 (source
   (switch_expression
-    type: (type_identifier)
+    type: (identifier)
     subject: (component_expression
       subject: (identifier)
       component: (identifier))
@@ -33,7 +33,7 @@ SWITCH string( sy-index
 
 (source
   (switch_expression
-    (type_identifier)
+    (identifier)
     (component_expression
       (identifier)
       (identifier))
@@ -42,7 +42,7 @@ SWITCH string( sy-index
       (string_literal))
     (else_case
       (throw_exception
-        (type_identifier)))))
+        (identifier)))))
 
 ======
 [CONDITIONAL-EXPRESSION] SWITCH with complex expressions
@@ -93,7 +93,7 @@ result = SWITCH #( operator
               (case
                 condition: (number)
                 result: (throw_exception
-                  name: (type_identifier)))))
+                  name: (identifier)))))
           (else_case
             result: (binary_operator
               left: (dereference_expression
@@ -140,7 +140,7 @@ COND #( LET t = '120000' IN
       result: (string_template
         (embedded_expression
           (conv_expression
-            type: (type_identifier)
+            type: (identifier)
             subject: (binary_operator
               left: (identifier)
               right: (binary_operator
@@ -167,7 +167,7 @@ COND i( WHEN cflag = abap_true  THEN 1
 
 (source
   (cond_expression
-    type: (type_identifier)
+    type: (identifier)
     (case
       condition: (comparison_expression
         left: (identifier)
@@ -180,7 +180,7 @@ COND i( WHEN cflag = abap_true  THEN 1
       result: (number))
     (else_case
       result: (throw_exception
-        name: (type_identifier)
+        name: (identifier)
         (inline_message
           (message_spec
             type: (message_type)

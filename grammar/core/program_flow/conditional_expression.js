@@ -68,7 +68,7 @@ module.exports = {
         gen.kw("throw"),
         optional($.resumable),
         optional($.shortdump),
-        field("name", $._type_identifier),
+        field("name", $.identifier),
         gen.parenthesized(optional($.inline_message)),
     ),
 

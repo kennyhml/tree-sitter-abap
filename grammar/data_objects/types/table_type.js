@@ -144,8 +144,8 @@ module.exports = {
         gen.kw("of"),
         field("line_type", choice(
             alias($._ref_to_type, $.ref_to),
-            $._type_identifier,
-            $._type_component_expression,
+            $.identifier,
+            $.component_expression,
         )),
     ),
 
