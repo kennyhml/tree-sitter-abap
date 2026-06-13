@@ -1,6 +1,7 @@
 (string_literal) @string
 (string_template) @string
 (number) @number
+(identifier) @variable
 
 [
    (inline_comment)
@@ -145,25 +146,28 @@
 ; Should generic table types be highlighted as builtin?
 ; For example index table, hashed table, etc..
 (abap_type name: (identifier) @type.builtin )
+(referred_type name: (identifier) @type )
+(table_type line_type: (identifier) @type )
 
+
+; Hacky way to support the explicit form of creating structures.
+; Ensures that inner structs are marked as properties over types
 (
   (types_declaration 
-    (begin_of_struct name: (identifier) @type @start ))
+    (begin_of_struct name: (identifier) @type @start-name ))
 
   (types_declaration 
     [
-      (types_spec name: (identifier) @variable.property)
-      (begin_of_struct name: (identifier) @variable.property 
-        (#set! "kind" "inner"))
-      (end_of_struct name: (identifier) @variable.property 
-        (#set! "kind" "inner"))
+      (types_spec name: (identifier) @variable.property )
+      (begin_of_struct name: (identifier) @variable.property ) 
+      (end_of_struct name: (identifier) @variable.property )
     ]
   )*
   (types_declaration 
-    (end_of_struct name: (identifier) @type @end )
-    (#eq? @start @end))
-)
+    (end_of_struct name: (identifier) @type @end-name )
+    (#eq? @end-name @start-name ))
 
+)
 
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.
@@ -693,5 +697,4 @@
 ] @keyword
 (format_option parameter: (identifier) @keyword )
 
-; Other identifiers not yet specified
-(identifier) @variable
+
