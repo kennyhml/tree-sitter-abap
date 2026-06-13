@@ -2472,7 +2472,15 @@
       "required": true,
       "types": [
         {
+          "type": "begin_of_struct",
+          "named": true
+        },
+        {
           "type": "class_data_spec",
+          "named": true
+        },
+        {
+          "type": "end_of_struct",
           "named": true
         }
       ]
@@ -2484,7 +2492,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -2518,20 +2526,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "begin_of_struct",
-          "named": true
-        },
-        {
-          "type": "end_of_struct",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3199,7 +3193,15 @@
       "required": true,
       "types": [
         {
+          "type": "begin_of_struct",
+          "named": true
+        },
+        {
           "type": "constants_spec",
+          "named": true
+        },
+        {
+          "type": "end_of_struct",
           "named": true
         }
       ]
@@ -3211,7 +3213,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -3245,20 +3247,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "begin_of_struct",
-          "named": true
-        },
-        {
-          "type": "end_of_struct",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3538,7 +3526,15 @@
       "required": true,
       "types": [
         {
+          "type": "begin_of_struct",
+          "named": true
+        },
+        {
           "type": "data_spec",
+          "named": true
+        },
+        {
+          "type": "end_of_struct",
           "named": true
         }
       ]
@@ -3565,7 +3561,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -3599,20 +3595,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "begin_of_struct",
-          "named": true
-        },
-        {
-          "type": "end_of_struct",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -4660,6 +4642,14 @@
       "required": true,
       "types": [
         {
+          "type": "begin_of_struct",
+          "named": true
+        },
+        {
+          "type": "end_of_struct",
+          "named": true
+        },
+        {
           "type": "field_symbols_spec",
           "named": true
         }
@@ -4672,7 +4662,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "field_symbol",
@@ -4706,20 +4696,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "begin_of_struct",
-          "named": true
-        },
-        {
-          "type": "end_of_struct",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -11541,6 +11517,14 @@
       "required": true,
       "types": [
         {
+          "type": "begin_of_struct",
+          "named": true
+        },
+        {
+          "type": "end_of_struct",
+          "named": true
+        },
+        {
           "type": "types_spec",
           "named": true
         }
@@ -11553,7 +11537,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -11587,20 +11571,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "begin_of_struct",
-          "named": true
-        },
-        {
-          "type": "end_of_struct",
-          "named": true
-        }
-      ]
     }
   },
   {
