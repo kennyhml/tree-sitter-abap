@@ -940,14 +940,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "begin_of_struct"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "end_of_struct"
         }
       ]
     },
@@ -972,8 +964,21 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "field_symbols_spec"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "field_symbols_spec"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "begin_of_struct"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "end_of_struct"
+                        }
+                      ]
                     },
                     {
                       "type": "REPEAT",
@@ -985,8 +990,21 @@
                             "value": ","
                           },
                           {
-                            "type": "SYMBOL",
-                            "name": "field_symbols_spec"
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "field_symbols_spec"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "begin_of_struct"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "end_of_struct"
+                              }
+                            ]
                           }
                         ]
                       }
@@ -996,8 +1014,21 @@
               ]
             },
             {
-              "type": "SYMBOL",
-              "name": "field_symbols_spec"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "field_symbols_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "begin_of_struct"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "end_of_struct"
+                }
+              ]
             }
           ]
         },
@@ -3897,14 +3928,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "begin_of_struct"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "end_of_struct"
         }
       ]
     },
@@ -3929,8 +3952,21 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "class_data_spec"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "class_data_spec"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "begin_of_struct"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "end_of_struct"
+                        }
+                      ]
                     },
                     {
                       "type": "REPEAT",
@@ -3942,8 +3978,21 @@
                             "value": ","
                           },
                           {
-                            "type": "SYMBOL",
-                            "name": "class_data_spec"
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "class_data_spec"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "begin_of_struct"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "end_of_struct"
+                              }
+                            ]
                           }
                         ]
                       }
@@ -3953,8 +4002,21 @@
               ]
             },
             {
-              "type": "SYMBOL",
-              "name": "class_data_spec"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "class_data_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "begin_of_struct"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "end_of_struct"
+                }
+              ]
             }
           ]
         },
@@ -19728,14 +19790,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "begin_of_struct"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "end_of_struct"
         }
       ]
     },
@@ -19760,8 +19814,21 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "data_spec"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "data_spec"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "begin_of_struct"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "end_of_struct"
+                        }
+                      ]
                     },
                     {
                       "type": "REPEAT",
@@ -19773,8 +19840,21 @@
                             "value": ","
                           },
                           {
-                            "type": "SYMBOL",
-                            "name": "data_spec"
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "data_spec"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "begin_of_struct"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "end_of_struct"
+                              }
+                            ]
                           }
                         ]
                       }
@@ -19784,8 +19864,21 @@
               ]
             },
             {
-              "type": "SYMBOL",
-              "name": "data_spec"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "data_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "begin_of_struct"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "end_of_struct"
+                }
+              ]
             }
           ]
         },
@@ -19826,14 +19919,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "begin_of_struct"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "end_of_struct"
         }
       ]
     },
@@ -19858,8 +19943,21 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "constants_spec"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "constants_spec"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "begin_of_struct"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "end_of_struct"
+                        }
+                      ]
                     },
                     {
                       "type": "REPEAT",
@@ -19871,8 +19969,21 @@
                             "value": ","
                           },
                           {
-                            "type": "SYMBOL",
-                            "name": "constants_spec"
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "constants_spec"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "begin_of_struct"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "end_of_struct"
+                              }
+                            ]
                           }
                         ]
                       }
@@ -19882,8 +19993,21 @@
               ]
             },
             {
-              "type": "SYMBOL",
-              "name": "constants_spec"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "constants_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "begin_of_struct"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "end_of_struct"
+                }
+              ]
             }
           ]
         },
@@ -19924,14 +20048,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "begin_of_struct"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "end_of_struct"
         }
       ]
     },
@@ -19956,8 +20072,21 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "types_spec"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "types_spec"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "begin_of_struct"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "end_of_struct"
+                        }
+                      ]
                     },
                     {
                       "type": "REPEAT",
@@ -19969,8 +20098,21 @@
                             "value": ","
                           },
                           {
-                            "type": "SYMBOL",
-                            "name": "types_spec"
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "types_spec"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "begin_of_struct"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "end_of_struct"
+                              }
+                            ]
                           }
                         ]
                       }
@@ -19980,8 +20122,21 @@
               ]
             },
             {
-              "type": "SYMBOL",
-              "name": "types_spec"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "types_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "begin_of_struct"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "end_of_struct"
+                }
+              ]
             }
           ]
         },

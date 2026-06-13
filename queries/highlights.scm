@@ -39,7 +39,7 @@
 )
 
 (ref_to 
-  subject: (type_identifier) @class
+  subject: (identifier) @class
   (#match? @class "([cC][lL])|([lL][cC][lL])_")
 )
 
@@ -51,7 +51,7 @@
 (interface_definition name: (identifier) @interface )
 
 (ref_to 
-  subject: (type_identifier) @interface
+  subject: (identifier) @interface
   (#match? @interface "([iI][fF])|([lL][iI][fF])_")
 )
 
@@ -115,19 +115,19 @@
   component: (identifier) @variable.property
 )
 
-[
+([
   (key_components)
   (mapping)
   (lookup_mapping)
   (except_list)
-] (identifier) @variable.property
+] (identifier) @variable.property )
 
-[
+([
   (value_param_spec)
   (simple_param_spec)
   (reference_param_spec)
   (preferred_param_spec)
-] name: (identifier) @variable.parameter
+] name: (identifier) @variable.parameter )
 
 (table_key name: (identifier) @variable.key )
 (using_key name: (identifier) @variable.key )
@@ -142,10 +142,28 @@
 ; ------------------------------------------
 ; General type identifiers (if not specified elsewhere)
 ; ------------------------------------------
-(type_identifier) @type
 ; Should generic table types be highlighted as builtin?
 ; For example index table, hashed table, etc..
-(abap_type name: (type_identifier) @type.builtin )
+(abap_type name: (identifier) @type.builtin )
+
+(
+  (types_declaration 
+    (begin_of_struct name: (identifier) @type @start ))
+
+  (types_declaration 
+    [
+      (types_spec name: (identifier) @variable.property)
+      (begin_of_struct name: (identifier) @variable.property 
+        (#set! "kind" "inner"))
+      (end_of_struct name: (identifier) @variable.property 
+        (#set! "kind" "inner"))
+    ]
+  )*
+  (types_declaration 
+    (end_of_struct name: (identifier) @type @end )
+    (#eq? @start @end))
+)
+
 
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.

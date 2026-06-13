@@ -9,9 +9,8 @@ TYPES END OF street_type.
 
 (source
   (types_declaration
-    (types_spec
-      (begin_of_struct
-        name: (identifier))))
+    (begin_of_struct
+      name: (identifier)))
   (types_declaration
     (types_spec
       name: (identifier)
@@ -27,9 +26,8 @@ TYPES END OF street_type.
         (type_length
           count: (number)))))
   (types_declaration
-    (types_spec
-      (end_of_struct
-        name: (identifier)))))
+    (end_of_struct
+      name: (identifier))))
 
 ======
 [STRUCTURE-TYPES] Flat structure
@@ -42,15 +40,8 @@ TYPES: BEGIN OF street_type,
 
 (source
   (types_declaration
-    (types_spec
-      (begin_of_struct
-        (identifier)))
-    (types_spec
-      (identifier)
-      (abap_type
-        (identifier)
-        (type_length
-          (number))))
+    (begin_of_struct
+      (identifier))
     (types_spec
       (identifier)
       (abap_type
@@ -58,8 +49,13 @@ TYPES: BEGIN OF street_type,
         (type_length
           (number))))
     (types_spec
-      (end_of_struct
-        (identifier)))))
+      (identifier)
+      (abap_type
+        (identifier)
+        (type_length
+          (number))))
+    (end_of_struct
+      (identifier))))
 
 ======
 [STRUCTURE-TYPES] Nested structure
@@ -76,9 +72,8 @@ TYPES: BEGIN OF address_type,
 
 (source
   (types_declaration
-    (types_spec
-      (begin_of_struct
-        name: (identifier)))
+    (begin_of_struct
+      name: (identifier))
     (types_spec
       name: (identifier)
       typing: (abap_type
@@ -89,15 +84,8 @@ TYPES: BEGIN OF address_type,
       name: (identifier)
       typing: (referred_type
         name: (identifier)))
-    (types_spec
-      (begin_of_struct
-        name: (identifier)))
-    (types_spec
-      name: (identifier)
-      typing: (abap_type
-        name: (identifier)
-        (type_length
-          count: (number))))
+    (begin_of_struct
+      name: (identifier))
     (types_spec
       name: (identifier)
       typing: (abap_type
@@ -105,11 +93,15 @@ TYPES: BEGIN OF address_type,
         (type_length
           count: (number))))
     (types_spec
-      (end_of_struct
-        name: (identifier)))
-    (types_spec
-      (end_of_struct
-        name: (identifier)))))
+      name: (identifier)
+      typing: (abap_type
+        name: (identifier)
+        (type_length
+          count: (number))))
+    (end_of_struct
+      name: (identifier))
+    (end_of_struct
+      name: (identifier))))
 
 ======
 [STRUCTURE-TYPES] Include type
@@ -122,9 +114,8 @@ TYPES END OF lty_combined_type.
 
 (source
   (types_declaration
-    (types_spec
-      (begin_of_struct
-        name: (identifier))))
+    (begin_of_struct
+      name: (identifier)))
   (include_type
     name: (identifier))
   (types_declaration
@@ -133,9 +124,8 @@ TYPES END OF lty_combined_type.
       typing: (referred_type
         name: (identifier))))
   (types_declaration
-    (types_spec
-      (end_of_struct
-        name: (identifier)))))
+    (end_of_struct
+      name: (identifier))))
 
 ======
 [STRUCTURE-TYPES] Include structure
@@ -148,9 +138,8 @@ TYPES END OF lty_combined_type.
 
 (source
   (types_declaration
-    (types_spec
-      (begin_of_struct
-        name: (identifier))))
+    (begin_of_struct
+      name: (identifier)))
   (include_structure
     name: (identifier))
   (types_declaration
@@ -159,9 +148,8 @@ TYPES END OF lty_combined_type.
       typing: (referred_type
         name: (identifier))))
   (types_declaration
-    (types_spec
-      (end_of_struct
-        name: (identifier)))))
+    (end_of_struct
+      name: (identifier))))
 
 ======
 [STRUCTURE-TYPES] Include structure
@@ -174,9 +162,8 @@ TYPES END OF lty_combined_type.
 
 (source
   (types_declaration
-    (types_spec
-      (begin_of_struct
-        name: (identifier))))
+    (begin_of_struct
+      name: (identifier)))
   (include_structure
     name: (identifier))
   (types_declaration
@@ -185,6 +172,5 @@ TYPES END OF lty_combined_type.
       typing: (referred_type
         name: (identifier))))
   (types_declaration
-    (types_spec
-      (end_of_struct
-        name: (identifier)))))
+    (end_of_struct
+      name: (identifier))))

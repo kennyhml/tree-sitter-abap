@@ -122,11 +122,14 @@ function declaration_and_spec(keyword, identifier, prefix) {
             field("name", identifier($)),
             optional(field("typing", $._typing)),
         ),
-        $.begin_of_struct,
-        $.end_of_struct,
     );
 
-    rules[decl] = $ => chainable(keyword, $[spec]);
+    rules[decl] = $ => chainable(keyword, choice(
+        $[spec],
+        $.begin_of_struct,
+        $.end_of_struct
+    ));
+
     return rules;
 }
 
