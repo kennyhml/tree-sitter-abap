@@ -1,7 +1,6 @@
 (string_literal) @string
 (string_template) @string
 (number) @number
-(identifier) @variable
 
 [
    (inline_comment)
@@ -40,8 +39,8 @@
 )
 
 (ref_to 
-  subject: (identifier) @class
-  (#match? @class "([cC][lL])|([lL][cC][lL])_")
+  subject: (identifier) @class 
+  (#match? @class "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?[cC][lL]_)")
 )
 
 ; ------------------------------------------
@@ -51,9 +50,15 @@
 (interfaces_declaration (identifier) @interface )
 (interface_definition name: (identifier) @interface )
 
+; NOTE: Complement semantics using prefixes: 
+; Z and Y ($TMP) 
+; L (local scope)
+; /xxx/ (Parter / Customer namespace)
+; If no prefix match, it is simply considered a type.
+; To be seen as a best effort that only works with naming conventions.
 (ref_to 
   subject: (identifier) @interface
-  (#match? @interface "([iI][fF])|([lL][iI][fF])_")
+  (#match? @interface "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?[iI][fF]_)")
 )
 
 (component_expression
@@ -116,12 +121,18 @@
   component: (identifier) @variable.property
 )
 
-([
-  (key_components)
-  (mapping)
-  (lookup_mapping)
-  (except_list)
-] (identifier) @variable.property )
+
+(component_expression
+  subject: (identifier)? @variable
+  operator: "->"
+  component: (identifier) @variable.property
+)
+
+
+(key_components (identifier) @variable.property )
+(mapping (identifier) @variable.property )
+(lookup_mapping (identifier) @variable.property )
+(except_list (identifier) @variable.property )
 
 ([
   (value_param_spec)
@@ -145,29 +156,61 @@
 ; ------------------------------------------
 ; Should generic table types be highlighted as builtin?
 ; For example index table, hashed table, etc..
+
+; Access to a publicly exposed type of a class
+(referred_type
+  name: (component_expression
+    operator: "=>"
+    component: (identifier) @type
+))
+
+(line_of subject: (identifier) @type )
+
 (abap_type name: (identifier) @type.builtin )
 (referred_type name: (identifier) @type )
 (table_type line_type: (identifier) @type )
 
-
-; Hacky way to support the explicit form of creating structures.
-; Ensures that inner structs are marked as properties over types
-(
-  (types_declaration 
-    (begin_of_struct name: (identifier) @type @start-name ))
-
-  (types_declaration 
-    [
-      (types_spec name: (identifier) @variable.property )
-      (begin_of_struct name: (identifier) @variable.property ) 
-      (end_of_struct name: (identifier) @variable.property )
-    ]
-  )*
-  (types_declaration 
-    (end_of_struct name: (identifier) @type @end-name )
-    (#eq? @end-name @start-name ))
-
+; Make sure not to overlap with what was previously matched as class / interface
+(ref_to 
+  subject: (identifier) @type
+  (#not-match? @type "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?([cC][lL]|[iI][fF])_)")
 )
+(ref_to object: (identifier) @variable )
+
+; line_type does not include line_kind (LIKE ...) expressions
+(range_type line_type: (_) @type )
+
+; Only applies to immediate decls due to anchor tag (not structs)
+; TODO: This will wrongly tag long-form struct properties, can that be avoided?
+(types_declaration
+  . (types_spec name: (identifier) @type ) )
+
+
+; NOTE: Do not try to integrate the below anchor tags. While that
+; works in the playground and neovim, the CLI highlighter seems
+; to have some issue with it making it fail the tests.
+(types_declaration
+  (begin_of_struct)
+  [
+    (types_spec name: (identifier) @variable.property)
+    (begin_of_struct name: (identifier) @variable.property)
+    (end_of_struct name: (identifier) @variable.property)
+  ]
+  (end_of_struct)
+)
+
+; Only the top-level declaration is considered a type.
+; Split by design to support both chained and explicit decls.
+(types_declaration
+  . (begin_of_struct name: (identifier) @type )
+)
+(types_declaration
+  (end_of_struct name: (identifier) @type) .
+)
+
+; TODO: Gave up on explicit, long form declarations for now.
+; The sibling relationship doesnt work well with incremental parsing
+
 
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.

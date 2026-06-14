@@ -24,4 +24,4 @@ types: dref1 LIKE REF TO oref.
       name: (identifier)
       typing: (reference_type
         (ref_to
-          subject: (identifier))))))
+          object: (identifier))))))

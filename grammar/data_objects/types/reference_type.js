@@ -30,7 +30,7 @@ module.exports = {
 
     _ref_to_data: $ => seq(
         ...gen.kws("ref", "to"),
-        field("subject", choice(
+        field("object", choice(
             $.identifier,
             $.component_expression
         ))

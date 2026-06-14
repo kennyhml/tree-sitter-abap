@@ -7,10 +7,7 @@
       "title": "Abap",
       "scope": "source.abap",
       "file-types": [
-        "intf",
-        "clas",
-        "prog",
-        "incl"
+        "abap"
       ],
       "injection-regex": "^abap$",
       "class-name": "TreeSitterAbap",
