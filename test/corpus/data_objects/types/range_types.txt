@@ -24,6 +24,6 @@ types: carrid_range LIKE RANGE OF foo->bar.
     (types_spec
       name: (identifier)
       typing: (range_type
-        line_type: (component_expression
+        line_kind: (component_expression
           subject: (identifier)
           component: (identifier))))))

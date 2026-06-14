@@ -8680,9 +8680,23 @@
     "type": "range_type",
     "named": true,
     "fields": {
+      "line_kind": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "line_type": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "component_expression",
@@ -8959,9 +8973,23 @@
     "type": "ref_to",
     "named": true,
     "fields": {
+      "object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "subject": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "component_expression",

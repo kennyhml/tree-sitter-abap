@@ -1,5 +1,6 @@
 global.gen = require('./grammar/core/generators.js')
 const fs = require('fs');
+
 const path = require('path');
 
 /**
@@ -15,6 +16,7 @@ const IDENTIFIER_REGEX = /[a-zA-Z_\/][a-zA-Z\d_/]*/;
 // a single positive number token. I believe the minus should be safe though, so we can at
 // least allow that. An explicit + is rarely ever needed anyway..
 const NUMBER_REGEX = /-?\d+/;
+
 
 /**
  * Arithmetic: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
@@ -228,7 +230,7 @@ module.exports = grammar({
         .filter((f) =>
           f.isFile()
           && f.name.endsWith(".js")
-          && !exclude.find((v) => f.path.includes(v) || f.name == v)
+          && !exclude.find((v) => (f.parentPath || f.path).includes(v) || f.name == v)
         )
         .reduce((acc, file) => {
           const fullPath = path.resolve(file.parentPath || file.path, file.name);
