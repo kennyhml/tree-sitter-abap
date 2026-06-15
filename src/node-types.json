@@ -8736,7 +8736,7 @@
     "type": "range_type",
     "named": true,
     "fields": {
-      "line_kind": {
+      "name": {
         "multiple": false,
         "required": false,
         "types": [
@@ -8750,7 +8750,7 @@
           }
         ]
       },
-      "line_type": {
+      "object": {
         "multiple": false,
         "required": false,
         "types": [

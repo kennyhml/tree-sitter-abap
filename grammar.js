@@ -1,4 +1,4 @@
-elobal.gen = require('./grammar/core/generators.js')
+global.gen = require('./grammar/core/generators.js')
 const fs = require('fs');
 
 const path = require('path');

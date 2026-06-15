@@ -160,19 +160,18 @@
 
 (message_spec type: (message_type) @variable.messagetype )
 
-
-; ------------------------------------------
 ; General type identifiers (if not specified elsewhere)
-; ------------------------------------------
-; Should generic table types be highlighted as builtin?
-; For example index table, hashed table, etc..
+; WARN: We need some way to ensure that this doesnt tag variables in
+; 'like' expressions, so the grammar must map those as 'object'
+(types_spec typing: (_ (identifier) @type !object ))
+(types_spec typing: (_ object: (identifier) @variable ))
 
-(types_spec typing: (_ (identifier) @type ))
+; TODO: This is not fully fleshed out yet - builtin types are referred to
+; as referred types in other typing constructs as of now.
 (abap_type name: (identifier) @type.builtin )
 
-; We cant carpet tag here, if we arent more specific than the variable
-; rule it takes precedence. No choice but to support up to a certain depth..
-; NOTE: Currently supports up to 3 levels of nesting
+; Must be more specific than the variable rule so it takes precedence. 
+; No choice but to support up to a certain depth (3)
 (types_spec typing: (_ 
   (component_expression 
     subject: [
@@ -191,8 +190,7 @@
     operator: "-"
 )))
 
-; Different format than for structs because now we want to tag
-; the component, not the subject. Either the subject is annoter
+; To tag the component, not the subject. Either the subject is another
 ; chained expression, in which case we descend, or its an identifier
 ; in which case the immediate component is the type
 (types_spec typing: (_
@@ -200,22 +198,11 @@
      (component_expression 
        subject: [
          (component_expression 
-           subject: [
-             (component_expression 
-               subject: [
-                 (component_expression 
-                   subject: (component_expression))
-                 (component_expression
-                   subject: (identifier) @class
-                   operator: "=>"
-                   component: (identifier) @type )
-                ]
-             )
+           subject:
              (component_expression
                subject: (identifier) @class
                operator: "=>"
                component: (identifier) @type )
-            ]
          )
          (component_expression
            subject: (identifier) @class
