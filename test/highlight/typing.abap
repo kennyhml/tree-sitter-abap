@@ -73,9 +73,6 @@ types tab_line type line of sflight-carrid.
 "     ^ type
 "                           ^ type
 "                                   ^ variable.property
-* -------------
-* STRUCTURE TYPES
-* -------------
 TYPES: BEGIN OF street, name TYPE c LENGTH 41, no TYPE c LENGTH 4, END OF street. 
 "               ^ type
 "                       ^ variable.property
