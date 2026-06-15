@@ -24,7 +24,10 @@ class=>struct-component->attribute
 "             ^ variable.property
 "                      ^ operator
 "                        ^ variable.property
-intf~method
-" <- interface
-"   ^ operator
-"    ^ function.method
+msg~if_message->text
+" <- variable
+"  ^ operator
+"    ^ interface
+"             ^ operator
+"               ^ variable.property
+msg~if_message->get_text( )
