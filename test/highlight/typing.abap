@@ -1,170 +1,68 @@
-types my_type type p length 8 decimals 3.
-" <- keyword
-"      ^ type
-"              ^ keyword
-"                  ^ type.builtin
-"                     ^ keyword
-"                           ^ number
-"                              ^ keyword
-"                                      ^ number
-"                                       ^ delimiter
-types my_type type spfli-carrid.
-" <- keyword
-"      ^ type
-"              ^ keyword
-"                  ^ type
-"                       ^ operator
-"                           ^ variable.property
-"                              ^ delimiter
-types my_type type spfli-carrid-prop.
+types foo type p length 8 decimals 3.
 "     ^ type
-"                  ^ type
-"                       ^ operator
-"                        ^ variable.property
-"                              ^ operator
+"              ^ type.builtin
+types /bar/baz type spfli-carrid.
+"     ^ type
+"                   ^ type
+"                         ^ variable.property
+types __var type spfli-carrid-prop.
+"     ^ type
+"                ^ type
+"                      ^ variable.property
+"                             ^ variable.property
+types num1 type cl_class=>some_type.
+"     ^ type
+"               ^ class
+"                         ^ type
+types foo type cl_class=>flight-seats.
+"     ^ type
+"                  ^ class
+"                        ^ type
 "                               ^ variable.property
-types my_type type cl_class=>carrid.
+types varchar(30) type c.
 "     ^ type
-"                  ^ class
-"                            ^ type
-types my_type type cl_class=>carrid-attr.
-"     ^ type
-"                  ^ class
-"                            ^ type
-"                                   ^ variable.property
-types my_type(30) type c.
-" <- keyword
-"      ^ type
-"            ^ delimiter
-"             ^ number
-"               ^ delimiter
-"                  ^ keyword
 "                      ^ type.builtin
-"                       ^ delimiter
-types my_type(30).
-" <- keyword
-"      ^ type
-"            ^ delimiter
-"             ^ number
-"               ^ delimiter
-"                ^ delimiter
-types my_type(30).
-" <- keyword
-"      ^ type
-"            ^ delimiter
-"             ^ number
-"               ^ delimiter
-"                ^ delimiter
-
-* -------------
-* RANGE TYPES
-* -------------
-types carrid_range TYPE RANGE OF i.
-" <- keyword
-"      ^ type
-"                   ^ keyword
-"                        ^ keyword
-"                             ^ keyword
-"                                ^ type
-"                                 ^ delimiter
-types carrid_range TYPE RANGE OF spfli-carrid.
-" <- keyword
-"      ^ type
-"                  ^ keyword
-"                       ^ keyword
-"                             ^ keyword
-"                                ^ type
-"                                     ^ operator
-"                                       ^ variable.property
-"                                            ^ delimiter
-types carrid_range LIKE RANGE OF foo->bar.
-" <- keyword
+types /foo/bar(30).
 "     ^ type
-"                  ^ keyword
-"                       ^ keyword
-"                             ^ keyword
-"                                ^ variable
-"                                   ^ operator
-"                                     ^ variable.property
-"                                        ^ delimiter
-* -------------
-* REFERENCE TYPES
-* -------------
+types carriers TYPE RANGE OF crmt_object_id.
+"     ^ type
+"                            ^ type
+types carriers TYPE RANGE OF spfli-carrid.
+"     ^ type
+"                            ^ type
+"                                  ^ variable.property
+types objects LIKE RANGE OF foo->bar.
+"     ^ type
+"                           ^ variable
+"                                ^ variable.property
 types oref TYPE REF TO c1.
-" <- keyword
 "     ^ type
-"          ^ keyword
-"               ^ keyword
-"                   ^ keyword
 "                      ^ type
-"                        ^ delimiter
 types oref TYPE REF TO cl_http_response.
-" <- keyword
 "     ^ type
-"          ^ keyword
-"               ^ keyword
-"                   ^ keyword
 "                       ^ class
-"                                      ^ delimiter
 types oref TYPE REF TO /www/cl_order.
-" <- keyword
 "     ^ type
-"          ^ keyword
-"               ^ keyword
-"                   ^ keyword
-"                       ^ class
-"                                   ^ delimiter
+"                      ^ class
 types oref TYPE REF TO if_message.
-" <- keyword
 "     ^ type
-"          ^ keyword
-"               ^ keyword
-"                   ^ keyword
 "                      ^ interface
-"                                ^ delimiter
 types oref TYPE REF TO /www/if_request_handler.
-" <- keyword
 "     ^ type
-"          ^ keyword
-"               ^ keyword
-"                   ^ keyword
-"                       ^ interface
-"                                             ^ delimiter
+"                      ^ interface
 types oref TYPE REF TO zif_request_handler.
-" <- keyword
 "     ^ type
-"          ^ keyword
-"               ^ keyword
-"                   ^ keyword
-"                       ^ interface
-"                                         ^ delimiter
+"                      ^ interface
 types oref TYPE REF TO lif_request_handler.
-" <- keyword
-"      ^ type
-"           ^ keyword
-"               ^ keyword
-"                   ^ keyword
-"                       ^ interface
-"                                         ^ delimiter
+"     ^ type
+"                      ^ interface
 types oref LIKE REF TO object.
-" <- keyword
 "     ^ type
-"          ^ keyword
-"               ^ keyword
-"                   ^ keyword
 "                      ^ variable
-"                            ^ delimiter
-* -------------
-* REFERRED TYPES
-* -------------
 types gtyt_my_type type zclass=>cool_type_123.
-" <- keyword
 "     ^ type
-"                  ^ keyword
 "                       ^ class
-"                             ^ operator
 "                               ^ type
-"                                            ^ delimiter
 types tab_line type line of sflight.
 "     ^ type
 "                           ^ type
@@ -176,43 +74,26 @@ types tab_line type line of sflight-carrid.
 * STRUCTURE TYPES
 * -------------
 TYPES: BEGIN OF street, name TYPE c LENGTH 41, no TYPE c LENGTH 4, END OF street. 
-" <- keyword
-"                 ^ type
+"               ^ type
 "                       ^ variable.property
 "                                 ^ type.builtin
-"                                          ^ number
 "                                              ^ variable.property
 "                                                      ^ type.builtin
 "                                                               ^ number
-"                                                                           ^ type
+"                                                                         ^ type
 TYPES: BEGIN OF top, f1 TYPE mytype, BEGIN OF inner, f2 type i, END OF inner, END OF top. 
-" <- keyword
 "               ^ type
 "                    ^ variable.property
 "                                             ^ variable.property
 "                                                    ^ variable.property
 "                                                                      ^ variable.property
 "                                                                                    ^ type
-* -------------
-* TABLE TYPES
-* -------------
 types gtyt_std_tab1 type table of gtys_mystruct.
-" <- keyword
 "     ^ type
-"                   ^ keyword
-"                        ^ keyword
-"                              ^ keyword
 "                                 ^ type
 types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
-" <- keyword
 "     ^ type
-"                   ^ keyword
-"                        ^ keyword
-"                                 ^ keyword
-"                                       ^ keyword
 "                                          ^ type
-"                                                        ^ keyword
-"                                                             ^ keyword
 types: gtyt_ref_table type standard table of ref to cl_my_class.
 "      ^ type
 "                                                   ^ class
