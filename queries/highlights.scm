@@ -168,13 +168,6 @@
 ; For example index table, hashed table, etc..
 
 ; Access to a publicly exposed type of a class
-(referred_type
-  name: (component_expression
-    operator: "=>"
-    component: (identifier) @type
-))
-
-
 (abap_type name: (identifier) @type.builtin )
 
 ; We cant carpet tag here, if we arent more specific than the variable
@@ -203,15 +196,41 @@
   operator: "-"
 )))
 
+
+(types_spec typing: (_ (component_expression 
+  subject: [
+    (identifier)
+    (component_expression
+      subject: [
+        (identifier)
+        (component_expression
+          subject: [
+            (identifier)
+            (component_expression
+              subject: (identifier)
+              operator: "=>"
+              component: (identifier) @type
+            )
+          ]
+          operator: "=>"
+          component: (identifier) @type
+        )
+      ]
+      operator: "=>"
+      component: (identifier) @type
+    )
+  ]
+  operator: "=>"
+  component: (identifier) @type
+)))
+
 ; Make sure not to overlap with what was previously matched as class / interface
 (ref_to 
   subject: (identifier) @type
   (#not-match? @type "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?([cC][lL]|[iI][fF])_)")
 )
 (ref_to object: (identifier) @variable )
-
-; line_type does not include line_kind (LIKE ...) expressions
-(range_type line_type: (_) @type )
+(referred_type name: (identifier) @type )
 
 ; Only applies to immediate decls due to anchor tag (not structs)
 ; TODO: This will wrongly tag long-form struct properties, can that be avoided?
