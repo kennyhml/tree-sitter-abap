@@ -31,6 +31,9 @@ types carriers TYPE RANGE OF spfli-carrid.
 "     ^ type
 "                            ^ type
 "                                  ^ variable.property
+types objects LIKE RANGE OF foo.
+"     ^ type
+"                           ^ variable
 types objects LIKE RANGE OF foo->bar.
 "     ^ type
 "                           ^ variable

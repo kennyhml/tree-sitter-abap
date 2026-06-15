@@ -18,7 +18,7 @@ module.exports = {
   // {TYPE RANGE OF type}
   __range_type_spec: $ => seq(
     ...gen.kws("type", "range", "of"),
-    field("line_type", choice(
+    field("name", choice(
       $.identifier,
       $.component_expression,
     )),
@@ -27,7 +27,7 @@ module.exports = {
   // {LIKE RANGE OF dobj}
   __range_like_spec: $ => seq(
     ...gen.kws("like", "range", "of"),
-    field("line_kind", choice(
+    field("object", choice(
       $.identifier,
       $.component_expression,
     )),

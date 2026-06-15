@@ -11561,7 +11561,7 @@
         },
         {
           "type": "FIELD",
-          "name": "line_type",
+          "name": "name",
           "content": {
             "type": "CHOICE",
             "members": [
@@ -11595,7 +11595,7 @@
         },
         {
           "type": "FIELD",
-          "name": "line_kind",
+          "name": "object",
           "content": {
             "type": "CHOICE",
             "members": [
