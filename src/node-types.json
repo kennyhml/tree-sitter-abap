@@ -731,6 +731,10 @@
             "named": true
           },
           {
+            "type": "line_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
@@ -2509,6 +2513,10 @@
             "named": true
           },
           {
+            "type": "line_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
@@ -3230,6 +3238,10 @@
             "named": true
           },
           {
+            "type": "line_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
@@ -3575,6 +3587,10 @@
         "types": [
           {
             "type": "abap_type",
+            "named": true
+          },
+          {
+            "type": "line_type",
             "named": true
           },
           {
@@ -4676,6 +4692,10 @@
         "types": [
           {
             "type": "abap_type",
+            "named": true
+          },
+          {
+            "type": "line_type",
             "named": true
           },
           {
@@ -6450,26 +6470,6 @@
     }
   },
   {
-    "type": "line_of",
-    "named": true,
-    "fields": {
-      "subject": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "component_expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "line_size_spec",
     "named": true,
     "fields": {
@@ -6499,6 +6499,54 @@
         },
         {
           "type": "lines_of",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "line_type",
+    "named": true,
+    "fields": {
+      "object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "default_data_value",
+          "named": true
+        },
+        {
+          "type": "read_only",
           "named": true
         }
       ]
@@ -7871,6 +7919,10 @@
             "named": true
           },
           {
+            "type": "line_type",
+            "named": true
+          },
+          {
             "type": "range_type",
             "named": true
           },
@@ -8070,6 +8122,10 @@
         "types": [
           {
             "type": "abap_type",
+            "named": true
+          },
+          {
+            "type": "line_type",
             "named": true
           },
           {
@@ -9068,7 +9124,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "component_expression",
@@ -9087,10 +9143,6 @@
       "types": [
         {
           "type": "default_data_value",
-          "named": true
-        },
-        {
-          "type": "line_of",
           "named": true
         },
         {
@@ -9400,6 +9452,10 @@
         "types": [
           {
             "type": "abap_type",
+            "named": true
+          },
+          {
+            "type": "line_type",
             "named": true
           },
           {
@@ -11579,6 +11635,10 @@
         "types": [
           {
             "type": "abap_type",
+            "named": true
+          },
+          {
+            "type": "line_type",
             "named": true
           },
           {

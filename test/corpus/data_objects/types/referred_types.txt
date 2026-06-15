@@ -36,6 +36,5 @@ types: tab_line type line of sflight.
   (types_declaration
     (types_spec
       name: (identifier)
-      typing: (referred_type
-        (line_of
-          subject: (identifier))))))
+      typing: (line_type
+        subject: (identifier)))))
