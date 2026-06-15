@@ -23,6 +23,13 @@ types my_type type spfli-carrid-prop.
 "                        ^ variable.property
 "                              ^ operator
 "                               ^ variable.property
+types my_type type cl_class=>carrid-pop.
+" <- keyword
+"                  ^ class
+"                          ^ operator
+"                            ^ type
+"                                  ^ operator
+"                                   ^ variable.property
 types my_type(30) type c.
 " <- keyword
 "      ^ type
