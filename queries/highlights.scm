@@ -61,12 +61,26 @@
   (#match? @interface "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?[iI][fF]_)")
 )
 
+; TODO: These only work as standalone nodes atm, not in deeper nesting..
+
+; Covers access to an instance attribute through the interface
 (component_expression
-  subject: (identifier) @interface
-  operator: "~"
-  component: (identifier) @function.method
+  subject: (component_expression
+    subject: (identifier) @variable
+    operator: "~"
+    component: (identifier) @interface
+  )
+  operator: "->"
+  component: (identifier) @variable.property
 )
 
+; Covers access to a methoc through the interface
+(method_call 
+  source: (component_expression 
+    subject: (identifier) @variable
+    operator: "~"
+    component: (identifier) @interface ) 
+) 
 
 ; ------------------------------------------
 ; Method identifiers, ambiguity exists.
