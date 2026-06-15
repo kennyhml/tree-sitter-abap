@@ -23,12 +23,14 @@ types my_type type spfli-carrid-prop.
 "                        ^ variable.property
 "                              ^ operator
 "                               ^ variable.property
-types my_type type cl_class=>carrid-pop.
-" <- keyword
+types my_type type cl_class=>carrid.
+"     ^ type
 "                  ^ class
-"                          ^ operator
 "                            ^ type
-"                                  ^ operator
+types my_type type cl_class=>carrid-attr.
+"     ^ type
+"                  ^ class
+"                            ^ type
 "                                   ^ variable.property
 types my_type(30) type c.
 " <- keyword
@@ -164,13 +166,12 @@ types gtyt_my_type type zclass=>cool_type_123.
 "                               ^ type
 "                                            ^ delimiter
 types tab_line type line of sflight.
-" <- keyword
 "     ^ type
-"              ^ keyword
-"                   ^ keyword
-"                        ^ keyword
 "                           ^ type
-"                                  ^ delimiter
+types tab_line type line of sflight-carrid.
+"     ^ type
+"                           ^ type
+"                                   ^ variable.property
 * -------------
 * STRUCTURE TYPES
 * -------------

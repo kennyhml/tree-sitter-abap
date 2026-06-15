@@ -167,62 +167,68 @@
 ; Should generic table types be highlighted as builtin?
 ; For example index table, hashed table, etc..
 
-; Access to a publicly exposed type of a class
+(types_spec typing: (_ (identifier) @type ))
 (abap_type name: (identifier) @type.builtin )
 
 ; We cant carpet tag here, if we arent more specific than the variable
 ; rule it takes precedence. No choice but to support up to a certain depth..
-; NOTE: Currently supports up to 4 levels of nesting
-(types_spec typing: (_ (component_expression 
-  subject: [
-    (identifier) @type
-    (component_expression
-      subject: [
-        (identifier) @type
-        (component_expression
-          subject: [
-            (identifier) @type
-            (component_expression
+; NOTE: Currently supports up to 3 levels of nesting
+(types_spec typing: (_ 
+  (component_expression 
+    subject: [
+      (identifier) @type
+      (component_expression
+        subject: [
+          (identifier) @type
+          (component_expression
               subject: (identifier) @type
               operator: "-"
-            )
-          ]
-          operator: "-"
-        )
-      ]
-      operator: "-"
-    )
-  ]
-  operator: "-"
+          )
+        ]
+        operator: "-"
+      )
+    ]
+    operator: "-"
 )))
 
-
-(types_spec typing: (_ (component_expression 
-  subject: [
-    (identifier)
-    (component_expression
-      subject: [
-        (identifier)
-        (component_expression
-          subject: [
-            (identifier)
-            (component_expression
-              subject: (identifier)
-              operator: "=>"
-              component: (identifier) @type
-            )
-          ]
-          operator: "=>"
-          component: (identifier) @type
-        )
-      ]
-      operator: "=>"
-      component: (identifier) @type
-    )
-  ]
-  operator: "=>"
-  component: (identifier) @type
-)))
+; Different format than for structs because now we want to tag
+; the component, not the subject. Either the subject is annoter
+; chained expression, in which case we descend, or its an identifier
+; in which case the immediate component is the type
+(types_spec typing: (_
+    [
+     (component_expression 
+       subject: [
+         (component_expression 
+           subject: [
+             (component_expression 
+               subject: [
+                 (component_expression 
+                   subject: (component_expression))
+                 (component_expression
+                   subject: (identifier) @class
+                   operator: "=>"
+                   component: (identifier) @type )
+                ]
+             )
+             (component_expression
+               subject: (identifier) @class
+               operator: "=>"
+               component: (identifier) @type )
+            ]
+         )
+         (component_expression
+           subject: (identifier) @class
+           operator: "=>"
+           component: (identifier) @type )
+        ]
+      )
+     (component_expression
+       subject: (identifier) @class
+       operator: "=>"
+       component: (identifier) @type )
+    ]
+))
 
 ; Make sure not to overlap with what was previously matched as class / interface
 (ref_to 
