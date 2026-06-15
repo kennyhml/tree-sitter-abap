@@ -116,9 +116,19 @@
   (itab_comp_spec)
 ] comp: (identifier) @variable.property 
 
+
+; The appendix of a struct access is always a property
+; even in a type context. The subject however may be 
+; a data object or a type..
 (component_expression
   operator: ["-" "=>"]
   component: (identifier) @variable.property
+)
+
+; Honstly dont know how we tag this as variable outside of type context
+(component_expression
+  subject: (identifier) @variable
+  operator: "-"
 )
 
 
@@ -164,11 +174,34 @@
     component: (identifier) @type
 ))
 
-(line_of subject: (identifier) @type )
 
 (abap_type name: (identifier) @type.builtin )
-(referred_type name: (identifier) @type )
-(table_type line_type: (identifier) @type )
+
+; We cant carpet tag here, if we arent more specific than the variable
+; rule it takes precedence. No choice but to support up to a certain depth..
+; NOTE: Currently supports up to 4 levels of nesting
+(types_spec typing: (_ (component_expression 
+  subject: [
+    (identifier) @type
+    (component_expression
+      subject: [
+        (identifier) @type
+        (component_expression
+          subject: [
+            (identifier) @type
+            (component_expression
+              subject: (identifier) @type
+              operator: "-"
+            )
+          ]
+          operator: "-"
+        )
+      ]
+      operator: "-"
+    )
+  ]
+  operator: "-"
+)))
 
 ; Make sure not to overlap with what was previously matched as class / interface
 (ref_to 

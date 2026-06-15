@@ -8,6 +8,21 @@ types my_type type p length 8 decimals 3.
 "                              ^ keyword
 "                                      ^ number
 "                                       ^ delimiter
+types my_type type spfli-carrid.
+" <- keyword
+"      ^ type
+"              ^ keyword
+"                  ^ type
+"                       ^ operator
+"                           ^ variable.property
+"                              ^ delimiter
+types my_type type spfli-carrid-prop.
+"     ^ type
+"                  ^ type
+"                       ^ operator
+"                        ^ variable.property
+"                              ^ operator
+"                               ^ variable.property
 types my_type(30) type c.
 " <- keyword
 "      ^ type
