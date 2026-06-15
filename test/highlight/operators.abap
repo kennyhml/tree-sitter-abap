@@ -10,3 +10,21 @@ struct-component
 " <- variable
 "     ^ operator
 "      ^ variable.property
+struct-component->attribute
+" <- variable
+"     ^ operator
+"      ^ variable.property
+"               ^ operator
+"                 ^ variable.property
+class=>struct-component->attribute
+" <- class
+"    ^ operator
+"      ^ variable.property
+"            ^ operator
+"             ^ variable.property
+"                      ^ operator
+"                        ^ variable.property
+intf~method
+" <- interface
+"   ^ operator
+"    ^ function.method
