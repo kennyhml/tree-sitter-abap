@@ -123,21 +123,43 @@
   ] @function.constructor
 )
 
-; ------------------------------------------
-; Variable identifiers
-; ------------------------------------------
+; VARIABLES AND PROPERTIES
+; ------------------------
+; Due to the nature of the typing system, we cant just mark
+; each identifier as variable globally and must scope them to
+; more local expressions, like declarations or operations
 (dynamic_expression (identifier) @variable )
 (dereference_expression dref: (identifier) @variable )
 (substring_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
 
 (declaration_expression (identifier) @variable )
-(data_spec name: (identifier) @variable )
+(data_declaration 
+  . (data_spec name: (identifier) @variable )
+  (data_spec name: (identifier) @variable )?
+)
 (constants_spec name: (identifier) @variable )
 
+
+(default_data_value (identifier) @variable )
+
+; Similar to how typed structures work, only the outermost elements
+; are actually variables while all inner specs / structs are properties.
+(data_declaration 
+  (end_of_struct name: (identifier) @variable ) . 
+)
 (data_declaration 
   . (begin_of_struct name: (identifier) @variable ) 
-  (end_of_struct name: (identifier) @variable ) . 
+)
+
+(data_declaration
+  (begin_of_struct)
+  [
+    (data_spec name: (identifier) @variable.property)
+    (begin_of_struct name: (identifier) @variable.property)
+    (end_of_struct name: (identifier) @variable.property)
+  ]
+  (end_of_struct)
 )
 
 
@@ -188,6 +210,12 @@
 (raise_statement name: (identifier) @variable.exception )
 
 (message_spec type: (message_type) @variable.messagetype )
+
+
+; CONSTANTS
+((identifier) @constant.builtin
+  (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD])))$" )
+)
 
 ; General type identifiers (if not specified elsewhere)
 ; WARN: We need some way to ensure that this doesnt tag variables in

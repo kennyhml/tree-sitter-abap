@@ -6,10 +6,11 @@ data(inline) = 'baz'
 "    ^ variable
 final(immutable) = 123.
 "     ^ variable
-constants myconst type i value 777.
+constants myconst type abap_bool value abap_undefined.
 "<- keyword
 "         ^ variable
-"                      ^ type.builtin
+"                      ^ type
+"                                      ^ constant.builtin
 constants myconst type i value is initial.
 "         ^ variable
 "                      ^ type.builtin
@@ -17,21 +18,26 @@ constants myconst type i value is initial.
 field-symbols <symbol> type x read-only.
 "<- keyword
 "              ^ variable
-"                            ^ type.builtin
+"                           ^ type.builtin
 "                              ^ keyword
 loop at itab assigning field-symbol(<inline>). endloop.
 "                                    ^ variable
 DATA: one TYPE abap_bool VALUE abap_true, two TYPE abap_bool VALUE abap_false.
 "     ^ variable
 "              ^ type
-"                              ^ variable
+"                              ^ constant.builtin
 "                                         ^ variable
 "                                                  ^ type
-"                                                                  ^ variable
+"                                                                  ^ constant.builtin
 DATA: BEGIN OF s1, c1 TYPE c VALUE '1', c2 TYPE c VALUE '2', END OF s1.
 "              ^ variable
 "                  ^ variable.property
 "                                       ^ variable.property
-"                                         ^ variable
 "                                                                   ^ variable
-
+DATA: BEGIN OF s1, c1 TYPE c, begin of s2, c2 TYPE c, end of s2, END OF s1.
+"              ^ variable
+"                  ^ variable.property
+"                                      ^ variable.property
+"                                          ^ variable.property
+"                                                            ^ variable.property
+"                                                                       ^ variable
