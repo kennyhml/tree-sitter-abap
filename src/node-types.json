@@ -7280,15 +7280,15 @@
             "named": false
           },
           {
-            "type": "=>",
-            "named": false
-          },
-          {
             "type": "cast_expression",
             "named": true
           },
           {
             "type": "component_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_expression",
             "named": true
           },
           {

@@ -49,3 +49,15 @@ itab-(num)->baz
 " <- variable
 "     ^ variable
 "           ^ variable.property
+(classname)=>attribute
+"^ variable
+"            ^ variable.property
+(classname)=>(attrname)
+"^ variable
+"             ^ variable
+(classname)=>foo( )
+"^ variable
+"            ^ function.method
+(classname)=>foo( )
+"^ variable
+"            ^ function.method
