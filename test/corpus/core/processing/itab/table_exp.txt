@@ -11,6 +11,61 @@ itab[ 3 ]
       index: (number))))
 
 =========================================================
+[Core / Processing / Internal Tables / Table Expressions] Specifiy deep subcomponent
+=========================================================
+itab[ inner-carrid = 'AAA' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (component_expression
+              subject: (identifier)
+              component: (identifier))
+            value: (string_literal)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Search by object component
+=========================================================
+itab[ obj->carrid = 'AAA' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (component_expression
+              subject: (identifier)
+              component: (identifier))
+            value: (string_literal)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Search by substring
+=========================================================
+itab[ field1+off(5) = 'AABBC' ].
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (substring_access
+              value: (identifier)
+              offset: (identifier)
+              length: (number))
+            value: (string_literal)))))))
+
+=========================================================
 [Core / Processing / Internal Tables / Table Expressions] Read by index explicitly
 =========================================================
 itab[ key primary_key INDEX 3 ]
@@ -124,3 +179,57 @@ deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
       (index_read
         index: (number)))
     component: (identifier)))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Dynamic components
+=========================================================
+itab[ (comp_name) = 1 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (dynamic_expression
+              value: (identifier))
+            value: (number)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Dynamic key
+=========================================================
+itab[ key (key_name) (comp_name) = 1 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      key_name: (dynamic_expression
+        value: (identifier))
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (dynamic_expression
+              value: (identifier))
+            value: (number)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Method call as value spec
+=========================================================
+itab[ connid = zclass=>get_connid( ) ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (method_call
+              source: (identifier)
+              name: (identifier))))))))

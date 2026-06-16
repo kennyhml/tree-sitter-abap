@@ -6340,6 +6340,10 @@
         "required": false,
         "types": [
           {
+            "type": "dynamic_expression",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
