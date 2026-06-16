@@ -466,6 +466,10 @@
               {
                 "type": "SYMBOL",
                 "name": "_immediate_string_literal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_number"
               }
             ]
           }
@@ -504,6 +508,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "_immediate_string_literal"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_immediate_number"
                 }
               ]
             }

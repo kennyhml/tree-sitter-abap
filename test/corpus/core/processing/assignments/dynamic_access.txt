@@ -1,0 +1,55 @@
+========
+[DYNAMIC ACCESS] Struct access by literal string
+========
+foo-('bar')-baz
+---
+
+(source
+  (component_expression
+    subject: (component_expression
+      subject: (identifier)
+      component: (dynamic_expression
+        value: (string_literal)))
+    component: (identifier)))
+
+========
+[DYNAMIC ACCESS] Class access by variable
+========
+cl_class=>(name)-baz
+---
+
+(source
+  (component_expression
+    subject: (component_expression
+      subject: (identifier)
+      component: (dynamic_expression
+        value: (identifier)))
+    component: (identifier)))
+
+========
+[DYNAMIC ACCESS] Struct access by literal index
+========
+itab-(1)->baz
+---
+
+(source
+  (component_expression
+    (component_expression
+      (identifier)
+      (dynamic_expression
+        (number)))
+    (identifier)))
+
+========
+[DYNAMIC ACCESS] Struct index by variable index
+========
+itab-(num)->baz
+---
+
+(source
+  (component_expression
+    subject: (component_expression
+      subject: (identifier)
+      component: (dynamic_expression
+        value: (identifier)))
+    component: (identifier)))
