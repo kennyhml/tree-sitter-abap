@@ -127,6 +127,9 @@
 ; Variable identifiers
 ; ------------------------------------------
 (dynamic_expression (identifier) @variable )
+(dereference_expression dref: (identifier) @variable )
+(substring_access (identifier) @variable )
+(field_symbol name: (identifier) @variable )
 
 [ 
   (itab_comp_spec)
