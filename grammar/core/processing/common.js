@@ -196,7 +196,7 @@ module.exports = {
     itab_table_key_spec: $ => seq(
         optional(seq(
             ...gen.kws(optional("with"), optional("table"), "key"),
-            optional(field("key_name", $.identifier)),
+            optional(field("key_name", choice($.identifier, $.dynamic_expression))),
         )),
         $.search_key_components_spec,
     ),
