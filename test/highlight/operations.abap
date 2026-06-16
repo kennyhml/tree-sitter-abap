@@ -19,7 +19,6 @@ ref->*+10(length)
 "      ^ number
 "         ^ variable
 <fs>+offset(10)
-
 " ^ variable
 "   ^ operator
 "    ^ variable

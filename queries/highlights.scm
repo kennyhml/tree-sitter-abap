@@ -131,6 +131,16 @@
 (substring_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
 
+(declaration_expression (identifier) @variable )
+(data_spec name: (identifier) @variable )
+(constants_spec name: (identifier) @variable )
+
+(data_declaration 
+  . (begin_of_struct name: (identifier) @variable ) 
+  (end_of_struct name: (identifier) @variable ) . 
+)
+
+
 [ 
   (itab_comp_spec)
 ] comp: (identifier) @variable.property 
