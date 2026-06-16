@@ -1,0 +1,10 @@
+========
+[IDENTIFIERS] RAP builtins (%)
+========
+obj-%keys
+---
+
+(source
+  (component_expression
+    subject: (identifier)
+    component: (identifier)))
