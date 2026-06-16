@@ -13324,24 +13324,33 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "FIELD",
-                "name": "source",
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "identifier"
-                    },
-                    {
-                      "type": "IMMEDIATE_TOKEN",
-                      "content": {
-                        "type": "STRING",
-                        "value": "=>"
-                      }
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "source",
+                    "content": {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "dynamic_expression"
+                        }
+                      ]
                     }
-                  ]
-                }
+                  },
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "=>"
+                    }
+                  }
+                ]
               },
               {
                 "type": "FIELD",
@@ -13437,10 +13446,6 @@
               {
                 "type": "SYMBOL",
                 "name": "dynamic_expression"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "component_expression"
               },
               {
                 "type": "SYMBOL",

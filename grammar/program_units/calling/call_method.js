@@ -6,7 +6,10 @@ module.exports = {
       seq(
         // only a single identifier allowed for static calls
         choice(
-          field("source", seq($.identifier, token.immediate("=>"))),
+          seq(
+            field("source", choice($.identifier, $.dynamic_expression)),
+            token.immediate("=>"),
+          ),
           field(
             "source",
             seq(
@@ -40,15 +43,9 @@ module.exports = {
       ...gen.kws("call", "method"),
       field(
         "method",
-        choice(
-          $.identifier,
-          $.dynamic_expression,
-          $.component_expression,
-          $.component_expression,
-        ),
+        choice($.identifier, $.dynamic_expression, $.component_expression),
       ),
       optional($.call_argument_list),
       ".",
     ),
 };
-
