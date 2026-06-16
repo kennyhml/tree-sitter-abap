@@ -22,7 +22,7 @@ FINAL(dref) = REF #( itab[ 5 ] ).
       name: (identifier))
     right: (ref_expression
       subject: (table_expression
-        itab: (identifier)
+        subject: (identifier)
         (index_read
           index: (number))))))
 
@@ -38,7 +38,7 @@ FINAL(dref) = REF #( itab[ guid = my_guid ] default new #( guid = my_guid ) ).
       name: (identifier))
     right: (ref_expression
       subject: (table_expression
-        itab: (identifier)
+        subject: (identifier)
         (itab_table_key_spec
           (search_key_components_spec
             components: (itab_comp_spec_list

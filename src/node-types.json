@@ -11062,12 +11062,16 @@
     "type": "table_expression",
     "named": true,
     "fields": {
-      "itab": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "table_expression",
             "named": true
           }
         ]
