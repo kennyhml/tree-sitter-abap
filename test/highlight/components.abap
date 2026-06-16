@@ -33,3 +33,19 @@ reported-obj-%msg->if_message~get_text( )
 "            ^ variable.property
 "                  ^ variable.property
 "                             ^ function.method
+foo-('bar')-baz
+" <- variable
+"     ^ string
+"           ^ variable.property
+cl_class=>('bar')-baz
+" <- class
+"           ^ string
+"                 ^ variable.property
+itab-(1)->baz
+" <- variable
+"     ^ number
+"         ^ variable.property
+itab-(num)->baz
+" <- variable
+"     ^ variable
+"           ^ variable.property

@@ -126,6 +126,8 @@
 ; ------------------------------------------
 ; Variable identifiers
 ; ------------------------------------------
+(dynamic_expression (identifier) @variable )
+
 [ 
   (itab_comp_spec)
 ] comp: (identifier) @variable.property 
@@ -798,5 +800,3 @@
     "m"
 ] @keyword
 (format_option parameter: (identifier) @keyword )
-
-

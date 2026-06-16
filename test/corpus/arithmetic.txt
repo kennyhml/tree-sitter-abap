@@ -72,7 +72,7 @@ Division Precendence
 ==================
 Parenthesized Expression
 ==================
-(10 + 10)
+( 10 + 10 )
 ---
 
 (source
@@ -84,7 +84,7 @@ Parenthesized Expression
 ==================
 Parenthesized Precendence
 ==================
-(10 + 20) / 20
+( 10 + 20 ) / 20
 ---
 
 (source
