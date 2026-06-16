@@ -7294,6 +7294,10 @@
           {
             "type": "new_expression",
             "named": true
+          },
+          {
+            "type": "~",
+            "named": false
           }
         ]
       }
