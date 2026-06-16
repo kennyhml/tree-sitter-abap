@@ -21448,15 +21448,27 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "itab",
+          "name": "subject",
           "content": {
-            "type": "SYMBOL",
-            "name": "data_object"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "data_object"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "table_expression"
+              }
+            ]
           }
         },
         {
-          "type": "STRING",
-          "value": "["
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "["
+          }
         },
         {
           "type": "SYMBOL",
@@ -22033,7 +22045,7 @@
     },
     "_name": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_\\/%][a-zA-Z\\d_/]*"
+      "value": "[a-zA-Z_\\/%][a-zA-Z\\d_\\/]*"
     },
     "identifier": {
       "type": "PREC",
@@ -22115,7 +22127,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "[a-zA-Z_\\/%][a-zA-Z\\d_/]*"
+          "value": "[a-zA-Z_\\/%][a-zA-Z\\d_\\/]*"
         }
       },
       "named": true,

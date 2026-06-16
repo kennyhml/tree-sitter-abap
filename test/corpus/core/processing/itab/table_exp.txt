@@ -1,0 +1,126 @@
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Read by index
+=========================================================
+itab[ 3 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (index_read
+      index: (number))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Read by index explicitly
+=========================================================
+itab[ key primary_key INDEX 3 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (index_read
+      key: (read_key_spec
+        name: (identifier))
+      index: (number))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Read with free key
+=========================================================
+itab[ b = 2 country = 'DE' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number))
+          (itab_comp_spec
+            comp: (identifier)
+            value: (string_literal)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Read with explicit key
+=========================================================
+itab[ KEY primary_key comp1 = 1 comp4 = 'aaa' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      key_name: (identifier)
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number))
+          (itab_comp_spec
+            comp: (identifier)
+            value: (string_literal)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Read with table key & components
+=========================================================
+itab[ TABLE KEY primary_key COMPONENTS a = 1 b = 2 ].
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      key_name: (identifier)
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number))
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Read with table key omitting components
+=========================================================
+itab[ TABLE KEY primary_key a = 1 b = 2 ].
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (itab_table_key_spec
+      key_name: (identifier)
+      (search_key_components_spec
+        components: (itab_comp_spec_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number))
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number)))))))
+
+=========================================================
+[Core / Processing / Internal Tables / Table Expressions] Deep table access chain
+=========================================================
+deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
+---
+
+(source
+  (component_expression
+    subject: (table_expression
+      subject: (table_expression
+        subject: (component_expression
+          subject: (table_expression
+            subject: (identifier)
+            (index_read
+              index: (number)))
+          component: (identifier))
+        (index_read
+          index: (number)))
+      (index_read
+        index: (number)))
+    component: (identifier)))

@@ -61,3 +61,4 @@ itab-(num)->baz
 (classname)=>foo( )
 "^ variable
 "            ^ function.method
+deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2

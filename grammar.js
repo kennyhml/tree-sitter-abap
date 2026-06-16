@@ -8,7 +8,7 @@ const path = require("path");
  * @license MIT
  */
 
-const IDENTIFIER_REGEX = /[a-zA-Z_\/%][a-zA-Z\d_/]*/;
+const IDENTIFIER_REGEX = /[a-zA-Z_\/%][a-zA-Z\d_\/]*/;
 
 // ABAP does allow + and - before any number. However, allowing both inside the regex, we run
 // into an issue where the lexer considers the offset in a substring access like str+10 as
@@ -605,8 +605,13 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
      */
-    table_expression: ($) =>
-      seq(field("itab", $.data_object), "[", $.itab_line, "]"),
+    table_expression: ($) => seq(
+      field("subject", choice(
+        $.data_object,
+        $.table_expression
+      )),
+      token.immediate("["), $.itab_line, "]"
+    ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_ITAB_LINE.html
