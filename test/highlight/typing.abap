@@ -4,12 +4,12 @@ types foo type p length 8 decimals 3.
 types /bar/baz type spfli-carrid.
 "     ^ type
 "                   ^ type
-"                         ^ variable.property
+"                         ^ property
 types __var type spfli-carrid-prop.
 "     ^ type
 "                ^ type
-"                      ^ variable.property
-"                             ^ variable.property
+"                      ^ property
+"                             ^ property
 types num1 type cl_class=>some_type.
 "     ^ type
 "               ^ class
@@ -18,7 +18,7 @@ types foo type cl_class=>flight-seats.
 "     ^ type
 "                  ^ class
 "                        ^ type
-"                               ^ variable.property
+"                               ^ property
 types varchar(30) type c.
 "     ^ type
 "                      ^ type.builtin
@@ -30,14 +30,14 @@ types carriers TYPE RANGE OF crmt_object_id.
 types carriers TYPE RANGE OF spfli-carrid.
 "     ^ type
 "                            ^ type
-"                                  ^ variable.property
+"                                  ^ property
 types objects LIKE RANGE OF foo.
 "     ^ type
 "                           ^ variable
 types objects LIKE RANGE OF foo->bar.
 "     ^ type
 "                           ^ variable
-"                                ^ variable.property
+"                                ^ property
 types oref TYPE REF TO c1.
 "     ^ type
 "                      ^ type
@@ -72,21 +72,21 @@ types tab_line type line of sflight.
 types tab_line type line of sflight-carrid.
 "     ^ type
 "                           ^ type
-"                                   ^ variable.property
+"                                   ^ property
 TYPES: BEGIN OF street, name TYPE c LENGTH 41, no TYPE c LENGTH 4, END OF street. 
 "               ^ type
-"                       ^ variable.property
+"                       ^ property
 "                                 ^ type.builtin
-"                                              ^ variable.property
+"                                              ^ property
 "                                                      ^ type.builtin
 "                                                               ^ number
 "                                                                         ^ type
 TYPES: BEGIN OF top, f1 TYPE mytype, BEGIN OF inner, f2 type i, END OF inner, END OF top. 
 "               ^ type
-"                    ^ variable.property
-"                                             ^ variable.property
-"                                                    ^ variable.property
-"                                                                      ^ variable.property
+"                    ^ property
+"                                             ^ property
+"                                                    ^ property
+"                                                                      ^ property
 "                                                                                    ^ type
 types gtyt_std_tab1 type table of gtys_mystruct.
 "     ^ type
@@ -100,8 +100,8 @@ types: gtyt_ref_table type standard table of ref to cl_my_class.
 types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var1 var2.
 "     ^ type                               
 "                                          ^ type                            
-"                                                                            ^ variable.property
-"                                                                                 ^ variable.property
+"                                                                            ^ property
+"                                                                                 ^ property
 types gtyt_std_tab1 type standard table of gtys_mystruct with empty key.
 "     ^ type                               
 "                                          ^ type                            
@@ -109,13 +109,13 @@ types gtyt_std_tab5 type standard table of gtys_mystruct with key primary_key co
 "     ^ type                               
 "                                          ^ type                            
 "                                                                 ^ variable.key
-"                                                                                        ^ variable.property
+"                                                                                        ^ property
 types bar type table of foo with non-unique key primary_key components f1 with unique hashed key k2 components f2.
 "     ^ type                               
 "                       ^ type                            
 "                                               ^ variable.key
-"                                                                      ^ variable.property
+"                                                                      ^ property
 "                                                                                                ^ variable.key
-"                                                                                                              ^ variable.property
+"                                                                                                              ^ property
 types gtyt_tab type index table. " TODO: Is a generic 'index table' a type?
 "     ^ type

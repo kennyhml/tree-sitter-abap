@@ -29,53 +29,53 @@ range_tab_with_header_line[]
 zclass=>component.
 " <- class
 "     ^ operator
-"       ^ variable.property
+"       ^ property
 myobj->component.
 " <- variable
 "    ^ operator
-"      ^ variable.property
+"      ^ property
 struct-component
 " <- variable
 "     ^ operator
-"      ^ variable.property
+"      ^ property
 struct-component->attribute
 " <- variable
 "     ^ operator
-"      ^ variable.property
+"      ^ property
 "               ^ operator
-"                 ^ variable.property
+"                 ^ property
 class=>struct-component->attribute
 " <- class
 "    ^ operator
-"      ^ variable.property
+"      ^ property
 "            ^ operator
-"             ^ variable.property
+"             ^ property
 "                      ^ operator
-"                        ^ variable.property
+"                        ^ property
 if_message~text
 " <- interface
 "         ^ operator
-"          ^ variable.property
+"          ^ property
 msg->if_message~text
 " <- variable
 "   ^ operator
 "              ^ operator
-"    ^ variable.property
-"               ^ variable.property
+"    ^ property
+"               ^ property
 msg->if_message~get_text( )
 " <- variable
 "  ^ operator
-"    ^ variable.property
+"    ^ property
 "              ^ operator
 "               ^ function.method
 reported-obj-%msg->if_message~get_text( )
 " <- variable
 "       ^ operator
-"        ^ variable.property
+"        ^ property
 "           ^ operator
-"            ^ variable.property
+"            ^ property
 "                ^ operator
-"                  ^ variable.property
+"                  ^ property
 "                            ^ operator
 "                             ^ function.method
 foo-('bar')-baz
@@ -83,29 +83,29 @@ foo-('bar')-baz
 "  ^ operator
 "     ^ string
 "          ^ operator
-"           ^ variable.property
+"           ^ property
 cl_class=>('bar')-baz
 " <- class
 "       ^ operator
 "           ^ string
 "                ^ operator
-"                 ^ variable.property
+"                 ^ property
 itab-(1)->baz
 " <- variable
 "   ^ operator
 "     ^ number
 "       ^ operator
-"         ^ variable.property
+"         ^ property
 itab-(num)->baz
 " <- variable
 "   ^ operator
 "     ^ variable
 "         ^ operator
-"           ^ variable.property
+"           ^ property
 (classname)=>attribute
 "^ variable
 "          ^ operator
-"            ^ variable.property
+"            ^ property
 (classname)=>(attrname)
 "^ variable
 "          ^ operator
@@ -122,8 +122,8 @@ deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
 "<- variable
 "       ^ operator
 "            ^ operator
-"             ^ variable.property
+"             ^ property
 "                  ^ operator
 "                       ^ operator
 "                            ^ operator
-"                             ^ variable.property
+"                             ^ property
