@@ -23,3 +23,5 @@ ref->*+10(length)
 "   ^ operator
 "    ^ variable
 "           ^ number
+range_tab_with_header_line[]
+" ^ variable

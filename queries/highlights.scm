@@ -137,6 +137,7 @@
 (dynamic_expression (identifier) @variable )
 (dereference_expression dref: (identifier) @variable )
 (substring_access (identifier) @variable )
+(table_body_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
 
 (declaration_expression (identifier) @variable )
