@@ -128,6 +128,12 @@
 ; Due to the nature of the typing system, we cant just mark
 ; each identifier as variable globally and must scope them to
 ; more local expressions, like declarations or operations
+
+
+; This helps a great deal marking basically all identifiers as variables
+; where they are interchangable with other data-like expressions.
+(named_data_object/identifier) @variable
+
 (dynamic_expression (identifier) @variable )
 (dereference_expression dref: (identifier) @variable )
 (substring_access (identifier) @variable )
@@ -138,10 +144,9 @@
   . (data_spec name: (identifier) @variable )
   (data_spec name: (identifier) @variable )?
 )
-(constants_spec name: (identifier) @variable )
-
-
 (default_data_value (identifier) @variable )
+
+
 
 ; Similar to how typed structures work, only the outermost elements
 ; are actually variables while all inner specs / structs are properties.
@@ -168,20 +173,11 @@
 ] comp: (identifier) @variable.property 
 
 
-; The appendix of a struct access is always a property
-; even in a type context. The subject however may be 
-; a data object or a type..
+; The component of a struct access is always a property even in a type context.
 (component_expression
   operator: ["-" "=>"]
   component: (identifier) @variable.property
 )
-
-; Honstly dont know how we tag this as variable outside of type context
-(component_expression
-  subject: (identifier) @variable
-  operator: "-"
-)
-
 
 (component_expression
   subject: (identifier)? @variable
@@ -189,6 +185,12 @@
   component: (identifier) @variable.property
 )
 
+; TODO: This incorrectly tags in a typing context as well, are there
+; some mental gymnastics we can do to prevent that? 
+(component_expression
+  subject: (identifier) @variable
+  operator: "-"
+)
 
 (key_components (identifier) @variable.property )
 (mapping (identifier) @variable.property )
@@ -216,6 +218,7 @@
 ((identifier) @constant.builtin
   (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD])))$" )
 )
+(constants_spec name: (identifier) @constant )
 
 ; General type identifiers (if not specified elsewhere)
 ; WARN: We need some way to ensure that this doesnt tag variables in
