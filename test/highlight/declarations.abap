@@ -8,11 +8,11 @@ final(immutable) = 123.
 "     ^ variable
 constants myconst type abap_bool value abap_undefined.
 "<- keyword
-"         ^ variable
+"         ^ constant
 "                      ^ type
 "                                      ^ constant.builtin
 constants myconst type i value is initial.
-"         ^ variable
+"         ^ constant
 "                      ^ type.builtin
 "                                 ^ keyword
 field-symbols <symbol> type x read-only.
