@@ -69,7 +69,7 @@
       )
     ]
     operator: "~"
-    component: (identifier) @variable.property
+    component: (identifier) @property
 )
 
 (method_call
@@ -161,9 +161,9 @@
 (data_declaration
   (begin_of_struct)
   [
-    (data_spec name: (identifier) @variable.property)
-    (begin_of_struct name: (identifier) @variable.property)
-    (end_of_struct name: (identifier) @variable.property)
+    (data_spec name: (identifier) @property)
+    (begin_of_struct name: (identifier) @property)
+    (end_of_struct name: (identifier) @property)
   ]
   (end_of_struct)
 )
@@ -171,19 +171,19 @@
 
 [ 
   (itab_comp_spec)
-] comp: (identifier) @variable.property 
+] comp: (identifier) @property 
 
 
 ; The component of a struct access is always a property even in a type context.
 (component_expression
   operator: ["-" "=>"]
-  component: (identifier) @variable.property
+  component: (identifier) @property
 )
 
 (component_expression
   subject: (identifier)? @variable
   operator: "->"
-  component: (identifier) @variable.property
+  component: (identifier) @property
 )
 
 ; TODO: This incorrectly tags in a typing context as well, are there
@@ -193,10 +193,10 @@
   operator: "-"
 )
 
-(key_components (identifier) @variable.property )
-(mapping (identifier) @variable.property )
-(lookup_mapping (identifier) @variable.property )
-(except_list (identifier) @variable.property )
+(key_components (identifier) @property )
+(mapping (identifier) @property )
+(lookup_mapping (identifier) @property )
+(except_list (identifier) @property )
 
 ([
   (value_param_spec)
@@ -298,9 +298,9 @@
 (types_declaration
   (begin_of_struct)
   [
-    (types_spec name: (identifier) @variable.property)
-    (begin_of_struct name: (identifier) @variable.property)
-    (end_of_struct name: (identifier) @variable.property)
+    (types_spec name: (identifier) @property)
+    (begin_of_struct name: (identifier) @property)
+    (end_of_struct name: (identifier) @property)
   ]
   (end_of_struct)
 )
