@@ -147,8 +147,6 @@
 )
 (default_data_value (identifier) @variable )
 
-
-
 ; Similar to how typed structures work, only the outermost elements
 ; are actually variables while all inner specs / structs are properties.
 (data_declaration 
@@ -198,6 +196,9 @@
 (lookup_mapping (identifier) @property )
 (except_list (identifier) @property )
 
+; Parameter identifiers
+(named_argument name: (identifier) @variable.parameter )
+
 ([
   (value_param_spec)
   (simple_param_spec)
@@ -213,6 +214,7 @@
 (raise_statement name: (identifier) @variable.exception )
 
 (message_spec type: (message_type) @variable.messagetype )
+
 
 
 ; CONSTANTS
