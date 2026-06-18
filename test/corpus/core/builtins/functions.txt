@@ -5,7 +5,7 @@ line_exists( itab[ 1 ] )
 ---
 
 (source
-  (builtin_function_call
+  (function_call
     name: (identifier)
     (call_argument_list
       exporting: (positional_argument
@@ -15,27 +15,13 @@ line_exists( itab[ 1 ] )
             index: (number)))))))
 
 =========================================================
-[Core / Builtins / Functions] Method call is not a builtin
-:error
-=========================================================
-my_cool_method( 10 )
----
-
-(source
-  (builtin_function_call
-    name: (identifier)
-    (call_argument_list
-      exporting: (positional_argument
-        value: (number)))))
-
-=========================================================
 [Core / Builtins / Functions] One named parameter
 =========================================================
 condense( val = `...` )
 ---
 
 (source
-  (builtin_function_call
+  (function_call
     name: (identifier)
     (call_argument_list
       exporting: (argument_list
@@ -50,7 +36,7 @@ condense( val = `...` del = ` ` )
 ---
 
 (source
-  (builtin_function_call
+  (function_call
     name: (identifier)
     (call_argument_list
       exporting: (argument_list
@@ -68,15 +54,15 @@ ceil( floor( nmin( val1 = var1 val2 = var2 ) ) ).
 ---
 
 (source
-  (builtin_function_call
+  (function_call
     name: (identifier)
     (call_argument_list
       exporting: (positional_argument
-        value: (builtin_function_call
+        value: (function_call
           name: (identifier)
           (call_argument_list
             exporting: (positional_argument
-              value: (builtin_function_call
+              value: (function_call
                 name: (identifier)
                 (call_argument_list
                   exporting: (argument_list

@@ -22,10 +22,6 @@
     "named": true,
     "subtypes": [
       {
-        "type": "builtin_function_call",
-        "named": true
-      },
-      {
         "type": "constructor_expression",
         "named": true
       },
@@ -34,7 +30,7 @@
         "named": true
       },
       {
-        "type": "method_call",
+        "type": "function_call",
         "named": true
       },
       {
@@ -128,7 +124,7 @@
         "named": true
       },
       {
-        "type": "method_call",
+        "type": "function_call",
         "named": true
       },
       {
@@ -150,10 +146,6 @@
         "named": true
       },
       {
-        "type": "builtin_function_call",
-        "named": true
-      },
-      {
         "type": "constructor_expression",
         "named": true
       },
@@ -166,7 +158,7 @@
         "named": true
       },
       {
-        "type": "method_call",
+        "type": "function_call",
         "named": true
       },
       {
@@ -264,10 +256,6 @@
         "named": true
       },
       {
-        "type": "builtin_function_call",
-        "named": true
-      },
-      {
         "type": "component_expression",
         "named": true
       },
@@ -280,11 +268,11 @@
         "named": true
       },
       {
-        "type": "identifier",
+        "type": "function_call",
         "named": true
       },
       {
-        "type": "method_call",
+        "type": "identifier",
         "named": true
       },
       {
@@ -316,15 +304,11 @@
     "named": true,
     "subtypes": [
       {
-        "type": "builtin_function_call",
-        "named": true
-      },
-      {
         "type": "comparison_expression",
         "named": true
       },
       {
-        "type": "method_call",
+        "type": "function_call",
         "named": true
       },
       {
@@ -1585,32 +1569,6 @@
     }
   },
   {
-    "type": "builtin_function_call",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "call_argument_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "by_order_table",
     "named": true,
     "fields": {
@@ -1627,7 +1585,7 @@
             "named": true
           },
           {
-            "type": "method_call",
+            "type": "function_call",
             "named": true
           }
         ]
@@ -1945,10 +1903,6 @@
       "required": true,
       "types": [
         {
-          "type": "builtin_function_call",
-          "named": true
-        },
-        {
           "type": "constructor_expression",
           "named": true
         },
@@ -1957,7 +1911,7 @@
           "named": true
         },
         {
-          "type": "method_call",
+          "type": "function_call",
           "named": true
         }
       ]
@@ -3021,11 +2975,11 @@
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "function_call",
             "named": true
           },
           {
-            "type": "method_call",
+            "type": "identifier",
             "named": true
           },
           {
@@ -4130,11 +4084,11 @@
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "function_call",
             "named": true
           },
           {
-            "type": "method_call",
+            "type": "identifier",
             "named": true
           },
           {
@@ -5142,11 +5096,11 @@
             "named": false
           },
           {
-            "type": "identifier",
+            "type": "function_call",
             "named": true
           },
           {
-            "type": "method_call",
+            "type": "identifier",
             "named": true
           },
           {
@@ -5201,6 +5155,62 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_call",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_expression",
+            "named": true
+          },
+          {
+            "type": "function_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "call_argument_list",
           "named": true
         }
       ]
@@ -7256,70 +7266,6 @@
       "types": [
         {
           "type": "simple_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "method_call",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "->",
-            "named": false
-          },
-          {
-            "type": "cast_expression",
-            "named": true
-          },
-          {
-            "type": "component_expression",
-            "named": true
-          },
-          {
-            "type": "dynamic_expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "method_call",
-            "named": true
-          },
-          {
-            "type": "new_expression",
-            "named": true
-          },
-          {
-            "type": "~",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "call_argument_list",
           "named": true
         }
       ]

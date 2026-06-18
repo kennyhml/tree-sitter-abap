@@ -8,21 +8,21 @@ const fs = require('fs');
 // rules to real nodes in the tree. Since global variables
 // can only be exported as read-only, we need a wrapper.
 const state = {
-    grammarProxy: null
+  grammarProxy: null
 }
 
 function kw(keyword) {
 
-    // Optionals are technically choices
-    let opt = false;
-    if (keyword.type === 'CHOICE') {
-        keyword = keyword.members[0].value;
-        opt = true;
-    }
+  // Optionals are technically choices
+  let opt = false;
+  if (keyword.type === 'CHOICE') {
+    keyword = keyword.members[0].value;
+    opt = true;
+  }
 
-    const nodeName = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
-    const rule = state.grammarProxy[nodeName];
-    return opt ? optional(rule) : rule;
+  const nodeName = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
+  const rule = state.grammarProxy[nodeName];
+  return opt ? optional(rule) : rule;
 }
 
 /**
@@ -36,17 +36,17 @@ function kw(keyword) {
  * >>> ... (obligatory) ...
  */
 function visible_kw(keyword) {
-    if (state.grammarProxy === null) {
-        throw Error("Grammar proxy not passed.");
-    }
-    const repr = keyword.replace("-", "_").toLowerCase();
+  if (state.grammarProxy === null) {
+    throw Error("Grammar proxy not passed.");
+  }
+  const repr = keyword.replace("-", "_").toLowerCase();
 
-    const regexExpression = caseInsensitive(keyword);
-    return alias(regexExpression, state.grammarProxy[repr]);
+  const regexExpression = caseInsensitive(keyword);
+  return alias(regexExpression, state.grammarProxy[repr]);
 }
 
 function kws(...keywords) {
-    return keywords.map(kw)
+  return keywords.map(kw)
 }
 
 /**
@@ -60,37 +60,48 @@ function kws(...keywords) {
  * >>> ... (transporting_no_fields) ...
  */
 function visible_kws(...keywords) {
-    const rule = seq(...keywords.map(kw));
+  const rule = seq(...keywords.map(kw));
 
-    const nodeName = keywords.map(v => v.replace("-", "_")).join("_").toLowerCase();
-    rule = alias(rule, state.grammarProxy[nodeName]);
-    return rule;
+  const nodeName = keywords.map(v => v.replace("-", "_")).join("_").toLowerCase();
+  rule = alias(rule, state.grammarProxy[nodeName]);
+  return rule;
 }
 
 function caseInsensitive(...terms) {
-    terms = terms.map((t) => new RustRegex(t
-        .split('')
-        .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
-        .join('')
-    ));
+  terms = terms.map((t) => new RustRegex(t
+    .split('')
+    .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
+    .join('')
+  ));
 
-    return terms.length == 1 ? terms[0] : terms;
+  return terms.length == 1 ? terms[0] : terms;
+}
+
+function caseInsensitiveJoined(...terms) {
+  terms = terms.map((t) => {
+    const pattern = t
+      .split('')
+      .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
+      .join('')
+    return `(${pattern})`;
+  }).join('|');
+  return new RegExp(`(${terms})`);
 }
 
 /**
  * Generates a declaration node for the given keyword and specification.
  */
 function chainable(keyword, spec) {
-    return seq(
-        kw(keyword),
-        // If the declaration is followed by a `:` it means multiple
-        // specifications are likely to follow.
-        choice(
-            seq(":", commaSep1(spec)),
-            spec
-        ),
-        "."
-    );
+  return seq(
+    kw(keyword),
+    // If the declaration is followed by a `:` it means multiple
+    // specifications are likely to follow.
+    choice(
+      seq(":", commaSep1(spec)),
+      spec
+    ),
+    "."
+  );
 }
 
 /**
@@ -99,10 +110,10 @@ function chainable(keyword, spec) {
  * strictly required.
  */
 function chainable_immediate(spec) {
-    return choice(
-        seq(":", spec, repeat(seq(",", spec))),
-        spec
-    )
+  return choice(
+    seq(":", spec, repeat(seq(",", spec))),
+    spec
+  )
 }
 
 /**
@@ -112,30 +123,30 @@ function chainable_immediate(spec) {
 ...
  */
 function declaration_and_spec(keyword, identifier, prefix) {
-    prefix ??= "";
-    rules = {}
-    const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
-    const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
+  prefix ??= "";
+  rules = {}
+  const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
+  const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
 
-    rules[spec] = $ => choice(
-        seq(
-            field("name", identifier($)),
-            optional(field("typing", $._typing)),
-        ),
-    );
+  rules[spec] = $ => choice(
+    seq(
+      field("name", identifier($)),
+      optional(field("typing", $._typing)),
+    ),
+  );
 
-    rules[decl] = $ => chainable(keyword, choice(
-        $[spec],
-        $.begin_of_struct,
-        $.end_of_struct
-    ));
+  rules[decl] = $ => chainable(keyword, choice(
+    $[spec],
+    $.begin_of_struct,
+    $.end_of_struct
+  ));
 
-    return rules;
+  return rules;
 }
 
 
 function commaSep1(rule) {
-    return seq(rule, repeat(seq(",", rule)))
+  return seq(rule, repeat(seq(",", rule)))
 }
 
 /**
@@ -147,12 +158,12 @@ function commaSep1(rule) {
  * be tagged with a field named after the keyword.
  */
 function kw_tagged(keyword, rule) {
-    return seq(kw(keyword), field(keyword.replace("-", "_"), rule));
+  return seq(kw(keyword), field(keyword.replace("-", "_"), rule));
 }
 
 
 function parenthesized(rule) {
-    return seq("(", rule, ")")
+  return seq("(", rule, ")")
 }
 
 /**
@@ -162,7 +173,7 @@ function parenthesized(rule) {
  *                         ^^^^^^
  */
 function immediateTightParens(rule) {
-    return seq(token.immediate("("), rule, token.immediate(")"))
+  return seq(token.immediate("("), rule, token.immediate(")"))
 }
 
 /**
@@ -173,62 +184,63 @@ function immediateTightParens(rule) {
  *                       ^^^^^^^ 
  */
 function tightParens(rule) {
-    return seq("(", rule, token.immediate(")"))
+  return seq("(", rule, token.immediate(")"))
 }
 
 function kwRules() {
-    const root = process.cwd();
+  const root = process.cwd();
 
-    const files = fs.readdirSync(root, { recursive: true, withFileTypes: true })
-        .filter((f) =>
-            f.isFile() &&
-            f.name.endsWith(".js") &&
-            !f.parentPath.includes("node_modules")
-        );
+  const files = fs.readdirSync(root, { recursive: true, withFileTypes: true })
+    .filter((f) =>
+      f.isFile() &&
+      f.name.endsWith(".js") &&
+      !f.parentPath.includes("node_modules")
+    );
 
-    const keywords = new Set();
-    const callRegex = /gen\.\w+\(([^)]+)\)/g;
+  const keywords = new Set();
+  const callRegex = /gen\.\w+\(([^)]+)\)/g;
 
-    for (const file of files) {
-        const fullPath = path.join(file.parentPath || file.path, file.name);
-        const content = fs.readFileSync(fullPath, 'utf8');
+  for (const file of files) {
+    const fullPath = path.join(file.parentPath || file.path, file.name);
+    const content = fs.readFileSync(fullPath, 'utf8');
 
-        let match;
-        while ((match = callRegex.exec(content)) !== null) {
-            const insideParens = match[1];
-            const stringLiteralRegex = /["']([^"']+)["']/g;
-            let strMatch;
-            while ((strMatch = stringLiteralRegex.exec(insideParens)) !== null) {
-                keywords.add(strMatch[1]);
-            }
-        }
+    let match;
+    while ((match = callRegex.exec(content)) !== null) {
+      const insideParens = match[1];
+      const stringLiteralRegex = /["']([^"']+)["']/g;
+      let strMatch;
+      while ((strMatch = stringLiteralRegex.exec(insideParens)) !== null) {
+        keywords.add(strMatch[1]);
+      }
     }
+  }
 
-    const rules = {};
-    for (const keyword of keywords) {
-        const regexExpression = caseInsensitive(keyword);
-        const repr = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
-        const rule = alias(regexExpression, keyword.toLowerCase());
+  const rules = {};
+  for (const keyword of keywords) {
+    const regexExpression = caseInsensitive(keyword);
+    const repr = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
+    const rule = alias(regexExpression, keyword.toLowerCase());
 
-        rules[repr] = $ => rule;
-    }
-    return rules;
+    rules[repr] = $ => rule;
+  }
+  return rules;
 }
 
 module.exports = {
-    state,
-    caseInsensitive,
-    kwRules,
-    kw,
-    kws,
-    visible_kw,
-    visible_kws,
-    chainable_immediate,
-    chainable,
-    declaration_and_spec,
-    commaSep1,
-    kw_tagged,
-    tightParens,
-    immediateTightParens,
-    parenthesized
+  state,
+  caseInsensitive,
+  caseInsensitiveJoined,
+  kwRules,
+  kw,
+  kws,
+  visible_kw,
+  visible_kws,
+  chainable_immediate,
+  chainable,
+  declaration_and_spec,
+  commaSep1,
+  kw_tagged,
+  tightParens,
+  immediateTightParens,
+  parenthesized
 };

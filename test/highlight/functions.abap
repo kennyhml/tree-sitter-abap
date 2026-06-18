@@ -20,3 +20,7 @@ ceil( floor( nmin( val1 = var1 val2 = var2 ) ) ).
 "                         ^ variable
 "                              ^ variable.parameter
 "                                     ^ variable
+my_custom_function( foo = bar )
+"<- function.method
+"                   ^ variable.parameter
+"                         ^ variable

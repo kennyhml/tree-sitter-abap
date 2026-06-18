@@ -39,7 +39,7 @@ DELETE itab INDEX line_index( itab[ KEY primary_key table_line = `Z` ] ).
     (delete_itab_index_spec
       (identifier)
       (itab_index_spec
-        (builtin_function_call
+        (function_call
           (identifier)
           (call_argument_list
             (positional_argument
@@ -85,7 +85,7 @@ DELETE TABLE scarr_tab FROM VALUE #( carrid = to_upper( carrid ) ).
           (argument_list
             (named_argument
               (identifier)
-              (builtin_function_call
+              (function_call
                 (identifier)
                 (call_argument_list
                   (positional_argument

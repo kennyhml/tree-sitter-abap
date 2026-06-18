@@ -121,7 +121,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
         left: (component_expression
           subject: (identifier)
           component: (identifier))
-        right: (builtin_function_call
+        right: (function_call
           name: (identifier)
           (call_argument_list
             exporting: (argument_list

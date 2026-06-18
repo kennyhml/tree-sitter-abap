@@ -132,7 +132,7 @@ message conv string( lines( itab ) ) type 'I'.
     (message_spec
       (conv_expression
         (identifier)
-        (builtin_function_call
+        (function_call
           (identifier)
           (call_argument_list
             (positional_argument
@@ -148,7 +148,7 @@ MESSAGE oref->get_text( ) TYPE 'I'.
 (source
   (message_statement
     (message_spec
-      (method_call
+      (function_call
         (identifier)
         (identifier))
       (string_literal))))

@@ -303,8 +303,7 @@ module.exports = grammar({
       choice(
         $.data_object,
         $.constructor_expression,
-        $.builtin_function_call,
-        $.method_call,
+        $.function_call,
         $.table_expression,
         $.arithmetic_expression,
         $.string_expression,
@@ -317,7 +316,7 @@ module.exports = grammar({
         $.named_data_object,
         $.constructor_expression,
         $.table_expression,
-        $.method_call,
+        $.function_call,
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_EXPRESSION_GLOSRY.html
@@ -338,8 +337,7 @@ module.exports = grammar({
           $.number,
           $.component_expression,
           $.constructor_expression,
-          $.builtin_function_call,
-          $.method_call,
+          $.function_call,
           $.table_expression,
           $.arithmetic_expression,
         ),
@@ -358,8 +356,7 @@ module.exports = grammar({
         $.constructor_expression,
         $.string_expression,
         $.table_expression,
-        $.builtin_function_call,
-        $.method_call,
+        $.function_call,
       ),
 
     /**
@@ -420,8 +417,7 @@ module.exports = grammar({
         choice(
           $.comparison_expression,
           $.predicate_expression,
-          $.builtin_function_call,
-          $.method_call,
+          $.function_call,
         ),
       ),
 
@@ -505,7 +501,7 @@ module.exports = grammar({
           seq(
             optional(gen.kw("not")),
             gen.kw("in"),
-            field("right", choice($.data_object, $.method_call)),
+            field("right", choice($.data_object, $.function_call)),
           ),
         ),
       ),
@@ -779,7 +775,7 @@ module.exports = grammar({
             $.number,
             // dynamic dobj specification, do we wrap this in something for querying?
             seq("(", $._immediate_identifier, token.immediate(")")),
-            $.method_call,
+            $.function_call,
           ),
         ),
       ),
@@ -838,7 +834,6 @@ module.exports = grammar({
       prec(
         -1,
         choice(
-          $._builtin_function_identifier,
           ...gen.caseInsensitive(
             "text",
             "value",
@@ -852,6 +847,7 @@ module.exports = grammar({
             "any",
             "filter",
             "data",
+            "condense"
           ),
         ),
       ),
