@@ -1,0 +1,74 @@
+=========================================================
+[Core / Builtins / Functions] Unnamed parameter
+=========================================================
+line_exists( itab[ 1 ] )
+---
+
+(source
+  (builtin_function_call
+    name: (identifier)
+    (call_argument_list
+      exporting: (positional_argument
+        value: (table_expression
+          subject: (identifier)
+          (index_read
+            index: (number)))))))
+
+=========================================================
+[Core / Builtins / Functions] One named parameter
+=========================================================
+condense( val = `...` )
+---
+
+(source
+  (builtin_function_call
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))))
+
+=========================================================
+[Core / Builtins / Functions] Multiple arguments
+=========================================================
+condense( val = `...` del = ` ` )
+---
+
+(source
+  (builtin_function_call
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal))
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))))
+
+=========================================================
+[Core / Builtins / Functions] Nested function call
+=========================================================
+ceil( floor( min( val1 = var1 val2 = var2 ) ) ).
+---
+
+(source
+  (builtin_function_call
+    name: (identifier)
+    (call_argument_list
+      exporting: (positional_argument
+        value: (builtin_function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (builtin_function_call
+                name: (identifier)
+                (call_argument_list
+                  exporting: (argument_list
+                    (named_argument
+                      name: (identifier)
+                      value: (identifier))
+                    (named_argument
+                      name: (identifier)
+                      value: (identifier))))))))))))

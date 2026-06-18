@@ -16976,6 +16976,15 @@
       "named": false,
       "value": "filter"
     },
+    "_kw_condense": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[cC][oO][nN][dD][eE][nN][sS][eE]"
+      },
+      "named": false,
+      "value": "condense"
+    },
     "_kw_begin": {
       "type": "ALIAS",
       "content": {
@@ -18730,15 +18739,6 @@
       },
       "named": false,
       "value": "separated"
-    },
-    "_kw_condense": {
-      "type": "ALIAS",
-      "content": {
-        "type": "PATTERN",
-        "value": "[cC][oO][nN][dD][eE][nN][sS][eE]"
-      },
-      "named": false,
-      "value": "condense"
     },
     "_kw_no_gaps": {
       "type": "ALIAS",
@@ -22126,6 +22126,10 @@
           {
             "type": "PATTERN",
             "value": "[dD][aA][tT][aA]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[cC][oO][nN][dD][eE][nN][sS][eE]"
           }
         ]
       }
