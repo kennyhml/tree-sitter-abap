@@ -6,7 +6,7 @@ APPEND rnd->get_next( ) TO itab.
 
 (source
   (append_statement
-    lines: (method_call
+    lines: (function_call
       source: (identifier)
       name: (identifier))
     subject: (identifier)))

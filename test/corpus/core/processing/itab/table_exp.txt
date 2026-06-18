@@ -230,6 +230,6 @@ itab[ connid = zclass=>get_connid( ) ]
         components: (itab_comp_spec_list
           (itab_comp_spec
             comp: (identifier)
-            value: (method_call
+            value: (function_call
               source: (identifier)
               name: (identifier))))))))

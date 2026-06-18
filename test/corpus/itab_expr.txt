@@ -19,7 +19,7 @@ VALUE #( FOR j = 1 UNTIL j > 5 ( rnd1->get_next( ) ) )
       (line_spec
         (argument_list
           (positional_argument
-            (method_call
+            (function_call
               (identifier)
               (identifier))))))))
 
@@ -317,7 +317,7 @@ VALUE itab(
         (let_expression
           (assignment
             (identifier)
-            (method_call
+            (function_call
               (identifier)
               (identifier)))
           (assignment

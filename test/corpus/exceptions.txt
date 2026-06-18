@@ -272,7 +272,7 @@ ENDTRY.
           (catch_exception_list
             (identifier))
           (catch_block
-            (method_call
+            (function_call
               (identifier)
               (identifier)
               (call_argument_list
@@ -280,7 +280,7 @@ ENDTRY.
                   (string_literal))))))
         (cleanup_clause
           (cleanup_block
-            (method_call
+            (function_call
               (identifier)
               (identifier)
               (call_argument_list
@@ -290,7 +290,7 @@ ENDTRY.
       (catch_exception_list
         (identifier))
       (catch_block
-        (method_call
+        (function_call
           (identifier)
           (identifier)
           (call_argument_list

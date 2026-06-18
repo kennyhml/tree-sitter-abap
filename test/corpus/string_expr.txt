@@ -50,7 +50,7 @@ String concatenation
           (string_literal))
         (string_literal))
       (identifier))
-    (method_call
+    (function_call
       (identifier)
       (identifier))))
 

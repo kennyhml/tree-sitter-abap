@@ -113,11 +113,11 @@ SORT dref->* BY VALUE #( FOR wa IN column_tab ( name = condense( to_upper( wa ) 
             (argument_list
               (named_argument
                 name: (identifier)
-                value: (builtin_function_call
+                value: (function_call
                   name: (identifier)
                   (call_argument_list
                     exporting: (positional_argument
-                      value: (builtin_function_call
+                      value: (function_call
                         name: (identifier)
                         (call_argument_list
                           exporting: (positional_argument

@@ -121,7 +121,7 @@ ENDLOOP.
     subject: (identifier)
     (itab_lines
       (lines_from
-        index: (builtin_function_call
+        index: (function_call
           name: (identifier)
           (call_argument_list
             exporting: (positional_argument
@@ -302,7 +302,7 @@ ENDLOOP.
         name: (field_symbol
           name: (identifier))))
     (group_by
-      key: (builtin_function_call
+      key: (function_call
         name: (identifier)
         (call_argument_list
           exporting: (positional_argument
