@@ -50,7 +50,7 @@ condense( val = `...` del = ` ` )
 =========================================================
 [Core / Builtins / Functions] Nested function call
 =========================================================
-ceil( floor( min( val1 = var1 val2 = var2 ) ) ).
+ceil( floor( nmin( val1 = var1 val2 = var2 ) ) ).
 ---
 
 (source
