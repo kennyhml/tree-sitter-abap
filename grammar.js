@@ -701,17 +701,6 @@ module.exports = grammar({
         ),
       ),
 
-    /**
-     * Call of a builtin function. Technically it would be possible to make all
-     * of the functions known statically since they cannot be dynamically declared,
-     * but its easier to just do it dynamically.
-     *
-     * Its not currently possible to declare functions to be called the same way builtin
-     * functions can be called, so theres no conflict.
-     */
-    builtin_function_call: ($) =>
-      seq(field("name", $.identifier), $._parenthesized_call_arguments),
-
     transporting_no_fields_spec: ($) =>
       seq(...gen.kws("transporting", "no", "fields")),
 
@@ -849,6 +838,7 @@ module.exports = grammar({
       prec(
         -1,
         choice(
+          $._builtin_function_identifier,
           ...gen.caseInsensitive(
             "text",
             "value",
@@ -862,7 +852,6 @@ module.exports = grammar({
             "any",
             "filter",
             "data",
-            "condense",
           ),
         ),
       ),

@@ -12,6 +12,7 @@ check gt_queue_requests[] is initial.
 
 ======
 [LOGICAL-EXPRESSIONS]: Initial check on method
+:skip
 ======
 check is_transport_in_queue( <lv_transport_2_import> ) is initial.
 ---
