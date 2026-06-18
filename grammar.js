@@ -862,6 +862,7 @@ module.exports = grammar({
             "any",
             "filter",
             "data",
+            "condense",
           ),
         ),
       ),
