@@ -63,33 +63,33 @@ result = SWITCH #( operator
         condition: (identifier)
         result: (binary_operator
           left: (dereference_expression
-            dref: (identifier))
+            subject: (identifier))
           right: (dereference_expression
-            dref: (identifier))))
+            subject: (identifier))))
       (case
         condition: (identifier)
         result: (binary_operator
           left: (dereference_expression
-            dref: (identifier))
+            subject: (identifier))
           right: (dereference_expression
-            dref: (identifier))))
+            subject: (identifier))))
       (case
         condition: (identifier)
         result: (binary_operator
           left: (dereference_expression
-            dref: (identifier))
+            subject: (identifier))
           right: (dereference_expression
-            dref: (identifier))))
+            subject: (identifier))))
       (case
         condition: (identifier)
         result: (switch_expression
           subject: (dereference_expression
-            dref: (identifier))
+            subject: (identifier))
           (case
             condition: (number)
             result: (switch_expression
               subject: (dereference_expression
-                dref: (identifier))
+                subject: (identifier))
               (case
                 condition: (number)
                 result: (throw_exception
@@ -97,9 +97,9 @@ result = SWITCH #( operator
           (else_case
             result: (binary_operator
               left: (dereference_expression
-                dref: (identifier))
+                subject: (identifier))
               right: (dereference_expression
-                dref: (identifier)))))))))
+                subject: (identifier)))))))))
 
 ======
 [CONDITIONAL-EXPRESSION] COND Operator with named objects

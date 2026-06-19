@@ -4071,7 +4071,7 @@
     "type": "dereference_expression",
     "named": true,
     "fields": {
-      "dref": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [

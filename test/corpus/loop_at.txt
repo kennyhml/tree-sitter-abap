@@ -175,7 +175,7 @@ ENDLOOP.
         condition: (comparison_expression
           left: (identifier)
           right: (dereference_expression
-            dref: (identifier)))))))
+            subject: (identifier)))))))
 
 ======
 [LOOP-AT] Dynamic where condition

@@ -102,7 +102,7 @@ SORT dref->* BY VALUE #( FOR wa IN column_tab ( name = condense( to_upper( wa ) 
 (source
   (sort_statement
     subject: (dereference_expression
-      dref: (identifier))
+      subject: (identifier))
     (by_order_table
       order_table: (value_expression
         (table_comprehension

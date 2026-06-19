@@ -19,7 +19,7 @@ CAST t_struc( dref )->*    = struc.
 (source
   (assignment
     left: (dereference_expression
-      dref: (cast_expression
+      subject: (cast_expression
         type: (identifier)
         subject: (identifier)))
     right: (identifier)))
