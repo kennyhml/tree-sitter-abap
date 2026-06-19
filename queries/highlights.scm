@@ -217,11 +217,14 @@
 (table_key name: (identifier) @variable.key )
 (using_key name: (identifier) @variable.key )
 
-(exception_list (identifier) @variable.exception )
-(raising_exception exception: (identifier) @variable.exception )
-(raise_statement name: (identifier) @variable.exception )
+(exception_list (identifier) @variable.parameter )
+(raising_exception exception: (identifier) @variable.parameter )
+(raise_statement name: (identifier) @variable.parameter )
 
-(message_spec type: (message_type) @variable.messagetype )
+(message_spec 
+  type: (message_type)? @constant.builtin 
+  id: (identifier)? @variable 
+  )
 
 
 
@@ -334,7 +337,7 @@
 (doctag
   (tag) @abapdoc.tag
   (#match? @abapdoc.tag "@parameter")
-  value: (identifier) @variable.param)
+  value: (identifier) @variable.parameter)
 
 (doctag
   (tag) @abapdoc.tag
@@ -344,7 +347,7 @@
 (doctag
   (tag) @abapdoc.tag
   (#eq? @abapdoc.tag "@exception")
-  value: (identifier) @variable.exception)
+  value: (identifier) @variable.parameter)
 
 (doctag (tag) @abapdoc.tag )
 (doclink "@link" @abapdoc.tag )

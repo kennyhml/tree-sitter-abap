@@ -1,7 +1,7 @@
 ======
-[MESSAGES] Compact form (static)
+[ABAP - Text Repositories / Messages] Compact statement
 ======
-message i333(zmessages).
+message i014(sabapdemos).
 ---
 
 (source
@@ -12,43 +12,7 @@ message i333(zmessages).
       id: (identifier))))
 
 ======
-[MESSAGES] Compact form with default ID
-======
-message e220.
----
-
-(source
-  (message_statement
-    (message_spec
-      type: (message_type)
-      number: (number))))
-
-======
-[MESSAGES] From plain text
-======
-message 'Hello World'.
----
-
-(source
-  (message_statement
-    (message_spec
-      source: (string_literal))))
-
-======
-[MESSAGES] Dynamic long form
-======
-message id mid type mtyp number mnum.
----
-
-(source
-  (message_statement
-    (message_spec
-      id: (identifier)
-      type: (identifier)
-      number: (identifier))))
-
-======
-[MESSAGES] Dynamic long form with literals
+[ABAP - Text Repositories / Messages] Long form statement
 ======
 message id 'ZMESSAGES' type 'A' number 999.
 ---
@@ -61,7 +25,94 @@ message id 'ZMESSAGES' type 'A' number 999.
       number: (number))))
 
 ======
-[MESSAGES] Message spec with argument list
+[ABAP - Text Repositories / Messages] Display alias
+======
+MESSAGE i200 DISPLAY LIKE 'S'.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      (display_like
+        type: (string_literal)))))
+
+======
+[ABAP - Text Repositories / Messages] Using default class
+======
+message i220.
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number))))
+
+======
+[ABAP - Text Repositories / Messages] Raising a sy-subrc
+======
+MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1. 
+---
+
+(source
+  (message_statement
+    (message_spec
+      source: (string_literal)
+      type: (string_literal)
+      (raising_exception
+        exception: (identifier)))))
+
+======
+[ABAP - Text Repositories / Messages] Passing only a literal string
+======
+message 'Hello World'.
+---
+
+(source
+  (message_statement
+    (message_spec
+      source: (string_literal))))
+
+======
+[ABAP - Text Repositories / Messages] Into inline declaration
+======
+MESSAGE s888(sabapdemos) 
+        WITH 'This' 'is' 'not' 'America' 
+        INTO FINAL(msg).
+---
+
+(source
+  (message_statement
+    (message_spec
+      type: (message_type)
+      number: (number)
+      id: (identifier)
+      (with_arguments
+        (string_literal)
+        (string_literal)
+        (string_literal)
+        (string_literal))
+      (into_clause
+        result: (declaration_expression
+          name: (identifier))))))
+
+======
+[ABAP - Text Repositories / Messages] Properties are data objects
+======
+message id mid type mtyp number mnum.
+---
+
+(source
+  (message_statement
+    (message_spec
+      id: (identifier)
+      type: (identifier)
+      number: (identifier))))
+
+======
+[ABAP - Text Repositories / Messages] Passing placeholder values
 ======
 message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
 ---
@@ -78,7 +129,7 @@ message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
         (string_literal)))))
 
 ======
-[MESSAGES] Chained mixed messages
+[ABAP - Text Repositories / Messages] Chained statements
 ======
 message: e888(msg_class) with 'Foo' 'Bar' 'Baz', 
          i222 with '1' '2' '3',
@@ -108,21 +159,7 @@ message: e888(msg_class) with 'Foo' 'Bar' 'Baz',
       number: (number))))
 
 ======
-[MESSAGES] Display type override
-======
-MESSAGE i200 DISPLAY LIKE 'S'.
----
-
-(source
-  (message_statement
-    (message_spec
-      type: (message_type)
-      number: (number)
-      (display_like
-        type: (string_literal)))))
-
-======
-[MESSAGES] From expression
+[ABAP - Text Repositories / Messages] Expression as text
 ======
 message conv string( lines( itab ) ) type 'I'.
 ---
@@ -140,7 +177,7 @@ message conv string( lines( itab ) ) type 'I'.
       (string_literal))))
 
 ======
-[MESSAGES] From method call
+[ABAP - Text Repositories / Messages] Method call as text
 ======
 MESSAGE oref->get_text( ) TYPE 'I'. 
 ---
@@ -154,21 +191,7 @@ MESSAGE oref->get_text( ) TYPE 'I'.
       (string_literal))))
 
 ======
-[MESSAGES] Raising exception
-======
-MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1. 
----
-
-(source
-  (message_statement
-    (message_spec
-      source: (string_literal)
-      type: (string_literal)
-      (raising_exception
-        exception: (identifier)))))
-
-======
-[MESSAGES] Into result variable
+[ABAP - Text Repositories / Messages] From system fields
 ======
 MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno 
         INTO FINAL(mtext) 
@@ -205,7 +228,7 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
           component: (identifier))))))
 
 ======
-[MESSAGES] With literal text symbol
+[ABAP - Text Repositories / Messages] Message class is numeric
 ======
 message i368(00) with 'No import'(002) <ls_request>-trkorr.
 ---
@@ -226,7 +249,7 @@ message i368(00) with 'No import'(002) <ls_request>-trkorr.
           component: (identifier))))))
 
 ======
-[MESSAGES] With text symbol
+[ABAP - Text Repositories / Messages] Text symbol as parameter
 ======
 message i368(00) with text-aab <ls_request>-trkorr.
 ---

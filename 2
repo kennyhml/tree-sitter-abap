@@ -1,0 +1,37 @@
+message i014(sabapdemos).
+"<- keyword
+"       ^ constant.builtin
+"        ^ number
+"            ^ variable
+message id 'ZMESSAGES' type 'A' number 999.
+"       ^ keyword
+"           ^ string
+"                      ^ keyword
+"                            ^ string
+"                               ^ keyword
+"                                      ^ number
+MESSAGE i200 DISPLAY LIKE 'S'.
+"       ^ constant.builtin
+"        ^ number
+"            ^ keyword
+"                    ^ keyword
+"                          ^ string
+MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1. 
+"       ^ string
+"                                      ^ keyword
+"                                              ^ variable.parameter
+message id mid type mtyp number mnum.
+"          ^ variable
+"                   ^ variable
+"                               ^ variable
+message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
+"       ^ constant.builtin
+"        ^ number
+"            ^ variable
+"                             ^ string
+"                                   ^ string
+"                                         ^ string
+message i368(00).
+"       ^ constant.builtin
+"        ^ number
+"            ^ number
