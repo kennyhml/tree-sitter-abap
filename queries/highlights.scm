@@ -143,7 +143,7 @@
 (named_data_object/identifier) @variable
 
 (dynamic_expression (identifier) @variable )
-(dereference_expression dref: (identifier) @variable )
+(dereference_expression subject: (identifier) @variable )
 (substring_access (identifier) @variable )
 (table_body_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
