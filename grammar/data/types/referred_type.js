@@ -41,7 +41,7 @@ module.exports = {
     gen.kw("type"),
     field("name", choice(
       $.identifier,
-      $.component_expression
+      $.selector_expression
     ))
   ),
 
@@ -50,7 +50,7 @@ module.exports = {
     gen.kw("like"),
     field("name", choice(
       $.identifier,
-      $.component_expression
+      $.selector_expression
     ))
   ),
 
@@ -59,7 +59,7 @@ module.exports = {
     ...gen.kws("line", "of"),
     field("subject", choice(
       $.identifier,
-      $.component_expression
+      $.selector_expression
     ))
   ),
 
@@ -69,7 +69,7 @@ module.exports = {
     ...gen.kws("line", "of"),
     field("object", choice(
       $.identifier,
-      $.component_expression
+      $.selector_expression
     ))
   )
 }

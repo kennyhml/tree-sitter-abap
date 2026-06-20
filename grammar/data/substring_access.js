@@ -10,7 +10,7 @@ module.exports = {
   substring_access: $ => prec.right(1, seq(
     field("value", choice(
       $.identifier,
-      $.component_expression,
+      $.selector_expression,
       $.dereference_expression,
       $.field_symbol
     )),

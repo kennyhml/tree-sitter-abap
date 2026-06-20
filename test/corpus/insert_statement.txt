@@ -18,7 +18,7 @@ INSERT sy-index INTO int_tab INDEX 1 REFERENCE INTO DATA(dref).
 
 (source
   (insert_statement
-    lines: (component_expression
+    lines: (selector_expression
       subject: (identifier)
       component: (identifier))
     position: (at_index

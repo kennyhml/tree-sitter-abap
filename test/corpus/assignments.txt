@@ -13,7 +13,7 @@ itab[ field = 'AAA'  ]-value = 10.
         (number)))
     (string_literal))
   (assignment
-    (component_expression
+    (selector_expression
       (table_expression
         (identifier)
         (itab_table_key_spec
@@ -33,7 +33,7 @@ new #( field = 10 )->attr = 'AAA'.
 
 (source
   (assignment
-    (component_expression
+    (selector_expression
       (new_expression
         (argument_list
           (named_argument
@@ -50,7 +50,7 @@ new #( field = 10 )->attr = 'AAA'.
 
 (source
   (assignment
-    (component_expression
+    (selector_expression
       (field_symbol
         (identifier))
       (identifier))

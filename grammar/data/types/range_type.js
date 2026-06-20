@@ -20,7 +20,7 @@ module.exports = {
     ...gen.kws("type", "range", "of"),
     field("name", choice(
       $.identifier,
-      $.component_expression,
+      $.selector_expression,
     )),
   ),
 
@@ -29,7 +29,7 @@ module.exports = {
     ...gen.kws("like", "range", "of"),
     field("object", choice(
       $.identifier,
-      $.component_expression,
+      $.selector_expression,
     )),
   ),
 
