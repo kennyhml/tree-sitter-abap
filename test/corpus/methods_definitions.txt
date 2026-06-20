@@ -157,7 +157,7 @@ METHODS read_spfli_into_table
           (value_param_spec
             name: (identifier))
           typing: (referred_type
-            name: (component_expression
+            name: (selector_expression
               subject: (identifier)
               component: (identifier)))))
       exporting: (parameter_list

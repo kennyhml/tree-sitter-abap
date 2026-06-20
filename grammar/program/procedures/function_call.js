@@ -20,7 +20,7 @@ module.exports = {
         field("source", choice(
           $.identifier,
           $.function_call,
-          $.component_expression,
+          $.selector_expression,
           $.new_expression,
           $.cast_expression,
         )),
@@ -50,7 +50,7 @@ module.exports = {
       ...gen.kws("call", "method"),
       field(
         "method",
-        choice($.identifier, $.dynamic_expression, $.component_expression),
+        choice($.identifier, $.dynamic_expression, $.selector_expression),
       ),
       optional($.call_argument_list),
       ".",

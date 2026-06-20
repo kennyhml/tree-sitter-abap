@@ -5,6 +5,6 @@ obj-%keys
 ---
 
 (source
-  (component_expression
+  (selector_expression
     subject: (identifier)
     component: (identifier)))

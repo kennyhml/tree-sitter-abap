@@ -121,7 +121,7 @@ PERFORM sy-index OF subr_1 subr_2.
 (source
   (perform_statement
     routine: (subroutine_spec
-      index: (component_expression
+      index: (selector_expression
         subject: (identifier)
         component: (identifier))
       subroutines: (subroutine_list

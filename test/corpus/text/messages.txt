@@ -201,29 +201,29 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
 (source
   (message_statement
     (message_spec
-      id: (component_expression
+      id: (selector_expression
         subject: (identifier)
         component: (identifier))
-      type: (component_expression
+      type: (selector_expression
         subject: (identifier)
         component: (identifier))
-      number: (component_expression
+      number: (selector_expression
         subject: (identifier)
         component: (identifier))
       (into_clause
         result: (declaration_expression
           name: (identifier)))
       (with_arguments
-        (component_expression
+        (selector_expression
           subject: (identifier)
           component: (identifier))
-        (component_expression
+        (selector_expression
           subject: (identifier)
           component: (identifier))
-        (component_expression
+        (selector_expression
           subject: (identifier)
           component: (identifier))
-        (component_expression
+        (selector_expression
           subject: (identifier)
           component: (identifier))))))
 
@@ -243,7 +243,7 @@ message i368(00) with 'No import'(002) <ls_request>-trkorr.
         (text_symbol
           literal: (string_literal)
           id: (symbol_id))
-        (component_expression
+        (selector_expression
           subject: (field_symbol
             name: (identifier))
           component: (identifier))))))
@@ -264,7 +264,7 @@ message i368(00) with text-aab <ls_request>-trkorr.
         (text_symbol
           (identifier)
           id: (symbol_id))
-        (component_expression
+        (selector_expression
           subject: (field_symbol
             name: (identifier))
           component: (identifier))))))

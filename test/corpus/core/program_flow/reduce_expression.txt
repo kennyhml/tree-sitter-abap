@@ -100,25 +100,25 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
       subject: (identifier))
     (reduce_next
       (assignment
-        left: (component_expression
+        left: (selector_expression
           subject: (identifier)
           component: (identifier))
         right: (string_operator
           left: (identifier)
-          right: (component_expression
+          right: (selector_expression
             subject: (field_symbol
               name: (identifier))
             component: (identifier))))
       (assignment
-        left: (component_expression
+        left: (selector_expression
           subject: (identifier)
           component: (identifier))
-        right: (component_expression
+        right: (selector_expression
           subject: (field_symbol
             name: (identifier))
           component: (identifier)))
       (assignment
-        left: (component_expression
+        left: (selector_expression
           subject: (identifier)
           component: (identifier))
         right: (function_call
@@ -127,12 +127,12 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
             exporting: (argument_list
               (named_argument
                 name: (identifier)
-                value: (component_expression
+                value: (selector_expression
                   subject: (identifier)
                   component: (identifier)))
               (named_argument
                 name: (identifier)
-                value: (component_expression
+                value: (selector_expression
                   subject: (field_symbol
                     name: (identifier))
                   component: (identifier)))))))

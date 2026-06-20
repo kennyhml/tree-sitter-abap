@@ -5,7 +5,7 @@ obj->('foobarbaz').
 ---
 
 (source
-  (component_expression
+  (selector_expression
     (identifier)
     (dynamic_expression
       (string_literal))))
@@ -17,7 +17,7 @@ Fully dynamic class component selector
 ---
 
 (source
-  (component_expression
+  (selector_expression
     (dynamic_expression
       (identifier))
     (dynamic_expression

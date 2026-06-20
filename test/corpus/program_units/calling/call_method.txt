@@ -73,7 +73,7 @@ CALL METHOD oref->(meth_name).
 
 (source
   (call_method_statement
-    method: (component_expression
+    method: (selector_expression
       subject: (identifier)
       component: (dynamic_expression
         value: (identifier)))))
@@ -88,18 +88,18 @@ CALL METHOD (class_name)=>meth.
 
 (source
   (call_method_statement
-    method: (component_expression
+    method: (selector_expression
       subject: (identifier)
       component: (dynamic_expression
         value: (identifier))))
   (call_method_statement
-    method: (component_expression
+    method: (selector_expression
       subject: (dynamic_expression
         value: (identifier))
       component: (dynamic_expression
         value: (identifier))))
   (call_method_statement
-    method: (component_expression
+    method: (selector_expression
       subject: (dynamic_expression
         value: (identifier))
       component: (identifier))))
@@ -116,7 +116,7 @@ CALL METHOD o_ref->('SHOW')
 
 (source
   (call_method_statement
-    method: (component_expression
+    method: (selector_expression
       subject: (identifier)
       component: (dynamic_expression
         value: (string_literal)))

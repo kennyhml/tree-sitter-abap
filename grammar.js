@@ -294,7 +294,7 @@ module.exports = grammar({
         $.identifier,
         $.field_symbol,
         $.text_symbol,
-        $.component_expression,
+        $.selector_expression,
         $.table_body_access,
       ),
 
@@ -335,7 +335,7 @@ module.exports = grammar({
           $.identifier,
           $.field_symbol,
           $.number,
-          $.component_expression,
+          $.selector_expression,
           $.constructor_expression,
           $.function_call,
           $.table_expression,
@@ -633,7 +633,7 @@ module.exports = grammar({
      * Static variant of {@link itab_comp}: `{ comp_name[-sub_comp][{+off(len)}|{->attr}] }`
      */
     _static_itab_comp: ($) =>
-      choice($.identifier, $.component_expression, $.substring_access),
+      choice($.identifier, $.selector_expression, $.substring_access),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
     local_updates_statement: ($) =>

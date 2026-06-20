@@ -93,11 +93,11 @@ CONDENSE obj->attr.
   (condense_statement
     (string_literal))
   (condense_statement
-    (component_expression
+    (selector_expression
       (identifier)
       (identifier)))
   (condense_statement
-    (component_expression
+    (selector_expression
       (identifier)
       (identifier))))
 

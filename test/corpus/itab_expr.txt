@@ -64,24 +64,24 @@ VALUE itab2(
         (identifier))
       (table_iteration
         (identifier)
-        (component_expression
+        (selector_expression
           (identifier)
           (identifier)))
       (line_spec
         (argument_list
           (named_argument
             (identifier)
-            (component_expression
+            (selector_expression
               (identifier)
               (identifier)))
           (named_argument
             (identifier)
-            (component_expression
+            (selector_expression
               (identifier)
               (identifier)))
           (named_argument
             (identifier)
-            (component_expression
+            (selector_expression
               (identifier)
               (identifier))))))))
 

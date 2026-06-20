@@ -5,8 +5,8 @@ foo-('bar')-baz
 ---
 
 (source
-  (component_expression
-    subject: (component_expression
+  (selector_expression
+    subject: (selector_expression
       subject: (identifier)
       component: (dynamic_expression
         value: (string_literal)))
@@ -19,8 +19,8 @@ cl_class=>(name)-baz
 ---
 
 (source
-  (component_expression
-    subject: (component_expression
+  (selector_expression
+    subject: (selector_expression
       subject: (identifier)
       component: (dynamic_expression
         value: (identifier)))
@@ -33,8 +33,8 @@ itab-(1)->baz
 ---
 
 (source
-  (component_expression
-    (component_expression
+  (selector_expression
+    (selector_expression
       (identifier)
       (dynamic_expression
         (number)))
@@ -47,8 +47,8 @@ itab-(num)->baz
 ---
 
 (source
-  (component_expression
-    subject: (component_expression
+  (selector_expression
+    subject: (selector_expression
       subject: (identifier)
       component: (dynamic_expression
         value: (identifier)))

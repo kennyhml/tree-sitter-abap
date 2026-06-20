@@ -9,7 +9,7 @@ types: carrid_range TYPE RANGE OF spfli-carrid.
     (types_spec
       name: (identifier)
       typing: (range_type
-        name: (component_expression
+        name: (selector_expression
           subject: (identifier)
           component: (identifier))))))
 
@@ -24,6 +24,6 @@ types: carrid_range LIKE RANGE OF foo->bar.
     (types_spec
       name: (identifier)
       typing: (range_type
-        object: (component_expression
+        object: (selector_expression
           subject: (identifier)
           component: (identifier))))))

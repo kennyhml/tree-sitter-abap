@@ -23,7 +23,7 @@ itab[ inner-carrid = 'AAA' ]
       (search_key_components_spec
         components: (itab_comp_spec_list
           (itab_comp_spec
-            comp: (component_expression
+            comp: (selector_expression
               subject: (identifier)
               component: (identifier))
             value: (string_literal)))))))
@@ -41,7 +41,7 @@ itab[ obj->carrid = 'AAA' ]
       (search_key_components_spec
         components: (itab_comp_spec_list
           (itab_comp_spec
-            comp: (component_expression
+            comp: (selector_expression
               subject: (identifier)
               component: (identifier))
             value: (string_literal)))))))
@@ -165,10 +165,10 @@ deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
 ---
 
 (source
-  (component_expression
+  (selector_expression
     subject: (table_expression
       subject: (table_expression
-        subject: (component_expression
+        subject: (selector_expression
           subject: (table_expression
             subject: (identifier)
             (index_read

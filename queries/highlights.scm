@@ -25,9 +25,9 @@
 (new_exception_spec class_name: (identifier) @class )
 (catch_exception_list (identifier) @class )
 
-(component_expression
+(selector_expression
   subject: (identifier) @class
-  operator: "=>"
+  selector: "=>"
 )
 
 (superclass_spec name: (identifier) @class)
@@ -61,21 +61,21 @@
   (#match? @interface "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?[iI][fF]_)")
 )
 
-(component_expression 
+(selector_expression 
     subject: [
       (identifier) @interface 
-      (component_expression
+      (selector_expression
         component: (identifier) @interface
       )
     ]
-    operator: "~"
+    selector: "~"
     component: (identifier) @property
 )
 
 (function_call
   source: [
       (identifier) @interface 
-      (component_expression
+      (selector_expression
         component: (identifier) @interface
       )
   ] 
@@ -104,7 +104,7 @@
 (asynchronous_callback 
   [
     method: [
-      (component_expression component: (identifier) @function.method)
+      (selector_expression component: (identifier) @function.method)
       (identifier) @function.method
     ]
   routine: (identifier) @function.subroutine
@@ -119,7 +119,7 @@
 ; it is specified via a literal string or a data object
 (call_method_statement
   method: [
-    (component_expression component: (identifier) @function.method )
+    (selector_expression component: (identifier) @function.method )
     (identifier) @function.method
   ]
 )
@@ -181,22 +181,22 @@
 
 
 ; The component of a struct access is always a property even in a type context.
-(component_expression
-  operator: ["-" "=>"]
+(selector_expression
+  selector: ["-" "=>"]
   component: (identifier) @property
 )
 
-(component_expression
+(selector_expression
   subject: (identifier)? @variable
-  operator: "->"
+  selector: "->"
   component: (identifier) @property
 )
 
 ; TODO: This incorrectly tags in a typing context as well, are there
 ; some mental gymnastics we can do to prevent that? 
-(component_expression
+(selector_expression
   subject: (identifier) @variable
-  operator: "-"
+  selector: "-"
 )
 
 (key_components (identifier) @property )
@@ -247,21 +247,21 @@
 ; Must be more specific than the variable rule so it takes precedence. 
 ; No choice but to support up to a certain depth (3)
 (types_spec typing: (_ 
-  (component_expression 
+  (selector_expression 
     subject: [
       (identifier) @type
-      (component_expression
+      (selector_expression
         subject: [
           (identifier) @type
-          (component_expression
+          (selector_expression
               subject: (identifier) @type
-              operator: "-"
+              selector: "-"
           )
         ]
-        operator: "-"
+        selector: "-"
       )
     ]
-    operator: "-"
+    selector: "-"
 )))
 
 ; To tag the component, not the subject. Either the subject is another
@@ -269,24 +269,24 @@
 ; in which case the immediate component is the type
 (types_spec typing: (_
     [
-     (component_expression 
+     (selector_expression 
        subject: [
-         (component_expression 
+         (selector_expression 
            subject:
-             (component_expression
+             (selector_expression
                subject: (identifier) @class
-               operator: "=>"
+               selector: "=>"
                component: (identifier) @type )
          )
-         (component_expression
+         (selector_expression
            subject: (identifier) @class
-           operator: "=>"
+           selector: "=>"
            component: (identifier) @type )
         ]
       )
-     (component_expression
+     (selector_expression
        subject: (identifier) @class
-       operator: "=>"
+       selector: "=>"
        component: (identifier) @type )
     ]
 ))

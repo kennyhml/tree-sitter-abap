@@ -176,15 +176,15 @@
     "named": true,
     "subtypes": [
       {
-        "type": "component_expression",
-        "named": true
-      },
-      {
         "type": "dynamic_expression",
         "named": true
       },
       {
         "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "selector_expression",
         "named": true
       },
       {
@@ -226,15 +226,15 @@
     "named": true,
     "subtypes": [
       {
-        "type": "component_expression",
-        "named": true
-      },
-      {
         "type": "field_symbol",
         "named": true
       },
       {
         "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "selector_expression",
         "named": true
       },
       {
@@ -256,10 +256,6 @@
         "named": true
       },
       {
-        "type": "component_expression",
-        "named": true
-      },
-      {
         "type": "constructor_expression",
         "named": true
       },
@@ -277,6 +273,10 @@
       },
       {
         "type": "number",
+        "named": true
+      },
+      {
+        "type": "selector_expression",
         "named": true
       },
       {
@@ -825,7 +825,7 @@
       "required": true,
       "types": [
         {
-          "type": "component_expression",
+          "type": "selector_expression",
           "named": true
         }
       ]
@@ -1122,11 +1122,11 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -1745,15 +1745,15 @@
         "required": true,
         "types": [
           {
-            "type": "component_expression",
-            "named": true
-          },
-          {
             "type": "dynamic_expression",
             "named": true
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -2915,86 +2915,6 @@
     }
   },
   {
-    "type": "component_expression",
-    "named": true,
-    "fields": {
-      "component": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "dynamic_expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "->",
-            "named": false
-          },
-          {
-            "type": "=>",
-            "named": false
-          },
-          {
-            "type": "~",
-            "named": false
-          }
-        ]
-      },
-      "subject": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "cast_expression",
-            "named": true
-          },
-          {
-            "type": "component_expression",
-            "named": true
-          },
-          {
-            "type": "dynamic_expression",
-            "named": true
-          },
-          {
-            "type": "field_symbol",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "new_expression",
-            "named": true
-          },
-          {
-            "type": "table_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "concatenate_statement",
     "named": true,
     "fields": {
@@ -4080,10 +4000,6 @@
             "named": true
           },
           {
-            "type": "component_expression",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -4093,6 +4009,10 @@
           },
           {
             "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
             "named": true
           },
           {
@@ -5183,10 +5103,6 @@
             "named": true
           },
           {
-            "type": "component_expression",
-            "named": true
-          },
-          {
             "type": "dynamic_expression",
             "named": true
           },
@@ -5200,6 +5116,10 @@
           },
           {
             "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -6535,11 +6455,11 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -6549,11 +6469,11 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -7280,11 +7200,11 @@
         "required": true,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -7475,11 +7395,11 @@
         "required": true,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -7700,11 +7620,11 @@
         "required": true,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -7752,11 +7672,11 @@
         "required": true,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -8703,11 +8623,11 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -8717,11 +8637,11 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -8996,11 +8916,11 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -9010,11 +8930,11 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -9089,11 +9009,11 @@
         "required": true,
         "types": [
           {
-            "type": "component_expression",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -9877,6 +9797,86 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "selector_expression",
+    "named": true,
+    "fields": {
+      "component": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "selector": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "->",
+            "named": false
+          },
+          {
+            "type": "=>",
+            "named": false
+          },
+          {
+            "type": "~",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_expression",
+            "named": true
+          },
+          {
+            "type": "field_symbol",
+            "named": true
+          },
+          {
+            "type": "function_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -10760,10 +10760,6 @@
         "required": true,
         "types": [
           {
-            "type": "component_expression",
-            "named": true
-          },
-          {
             "type": "dereference_expression",
             "named": true
           },
@@ -10773,6 +10769,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -11195,15 +11195,15 @@
         "required": false,
         "types": [
           {
-            "type": "component_expression",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "ref_to",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
             "named": true
           }
         ]
