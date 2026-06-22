@@ -434,25 +434,46 @@
     "}"
 ] @delimiter
 
+[     
+  "eq"
+  "ne"
+  "and"
+  "or"
+  "equiv"
+  "gt"
+  "lt"
+  "ge"
+  "le"
+  "co"
+  "cn"
+  "ca"
+  "na"
+  "cs"
+  "ns"
+  "cp"
+  "np"
+  "byte-co"
+  "byte-cn"
+  "byte-ca"
+  "byte-na"
+  "byte-cs"
+  "byte-ns"
+  "o"
+  "z"
+  "m"
+] @keyword.operator
 
-; ------------------------------------------
-; Control Flow keywords
-; ------------------------------------------
-; For alot of keywords, the context matters. E.g "FOR" 
-; is a control keyword in a for loop, but not in
-; the combination of regular keywords "FOR TESTING"
+(if_statement [ "if" "endif" ] @keyword.conditional )
+(elseif_clause "elseif" @keyword.conditional)
+(else_clause "else" @keyword.conditional)
 
-(if_statement [ "if" "endif" ] @keyword.control )
-(elseif_clause "elseif" @keyword.control)
-(else_clause "else" @keyword.control)
+(case_statement ["case" "endcase"] @keyword.conditional )
+(case_clause "when" @keyword.conditional)
+(others_case_clause [ "when" "others" ] @keyword.conditional )
 
-(case_statement ["case" "endcase"] @keyword.control )
-(case_clause "when" @keyword.control)
-(others_case_clause [ "when" "others" ] @keyword.control)
-
-(case_type_of_statement ["case" "type" "of" "endcase" ] @keyword.control )
-(case_type_clause [ "when" "type" ] @keyword.control)
-(case_others_type_clause [ "when" "others" ] @keyword.control)
+(case_type_of_statement ["case" "type" "of" "endcase" ] @keyword.conditional )
+(case_type_clause [ "when" "type" ] @keyword.conditional )
+(case_others_type_clause [ "when" "others" ] @keyword.conditional )
 
 (do_statement ["do" "times" "enddo"  ] @keyword.control )
 (while_statement ["while" "endwhile" ] @keyword.control )
