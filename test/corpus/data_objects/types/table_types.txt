@@ -10,7 +10,7 @@ types gtyt_std_tab1 type table of gtys_mystruct.
       name: (identifier)
       typing: (table_type
         kind: (standard_table)
-        line_type: (identifier)))))
+        name: (identifier)))))
 
 ======
 [TABLE-TYPES] Default key
@@ -24,7 +24,7 @@ types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
       name: (identifier)
       typing: (table_type
         kind: (standard_table)
-        line_type: (identifier)
+        name: (identifier)
         (with_table_key
           (table_key
             (default_key)))))))
@@ -41,7 +41,7 @@ types: gtyt_ref_table type standard table of ref to cl_my_class.
       name: (identifier)
       typing: (table_type
         kind: (standard_table)
-        line_type: (ref_to
+        name: (ref_to
           subject: (identifier))))))
 
 ======
@@ -56,7 +56,7 @@ types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var
       name: (identifier)
       typing: (table_type
         kind: (standard_table)
-        line_type: (identifier)
+        name: (identifier)
         (with_table_key
           (table_key
             unique: (non_unique)
@@ -75,7 +75,7 @@ types gtyt_std_tab1 type standard table of gtys_mystruct with empty key.
       name: (identifier)
       typing: (table_type
         kind: (standard_table)
-        line_type: (identifier)
+        name: (identifier)
         (with_table_key
           (empty_key))))))
 
@@ -91,7 +91,7 @@ types gtyt_std_tab5 type standard table of gtys_mystruct with key primary_key co
       name: (identifier)
       typing: (table_type
         kind: (standard_table)
-        line_type: (identifier)
+        name: (identifier)
         (with_table_key
           (table_key
             name: (identifier)
@@ -113,7 +113,7 @@ types gtyt_sec_tab1 type table of gtys_mystruct
       name: (identifier)
       typing: (table_type
         kind: (standard_table)
-        line_type: (identifier)
+        name: (identifier)
         (with_table_key
           (table_key
             unique: (non_unique)

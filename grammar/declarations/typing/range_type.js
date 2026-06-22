@@ -2,6 +2,12 @@ module.exports = {
 
   /**
    * Specification of a range table type
+   *
+   * TYPES dtype {TYPE RANGE OF type} / {LIKE RANGE OF dobj}
+   *              [INITIAL SIZE n].
+   *
+   * As for all other type positons where a data object or type
+   * name can be specified, they are tagged `object` and `name` respectively.
    * 
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
    */

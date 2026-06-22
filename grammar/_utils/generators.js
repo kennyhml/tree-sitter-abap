@@ -131,7 +131,7 @@ function declaration_and_spec(keyword, identifier, prefix) {
   rules[spec] = $ => choice(
     seq(
       field("name", identifier($)),
-      optional(field("typing", $._typing)),
+      optional(field("typing", $.typing)),
     ),
   );
 

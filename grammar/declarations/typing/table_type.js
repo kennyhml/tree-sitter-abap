@@ -1,5 +1,4 @@
 
-
 module.exports = {
 
   /**
@@ -11,11 +10,9 @@ module.exports = {
    *       [INITIAL SIZE n] 
    *       [VALUE IS INITIAL]
    *       [READ-ONLY].
-   * 
-   * Technically, the available additions depend on the context. For example,
-   * the addition VALUE IS INITIAL cannot be specified in a TYPES declaration.
-   * 
-   * To enable permissive parsing and to keep it simple however, it is allowed here.
+   *
+   * As for all other type positons where a data object or type
+   * name can be specified, they are tagged `object` and `name` respectively.
    * 
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
    */
@@ -152,7 +149,7 @@ module.exports = {
     gen.kw("type"),
     field("kind", $.__table_category),
     gen.kw("of"),
-    field("line_type", choice(
+    field("name", choice(
       alias($._ref_to_type, $.ref_to),
       $.identifier,
       $.component_selection
@@ -164,7 +161,7 @@ module.exports = {
     gen.kw("like"),
     field("kind", $.__table_category),
     gen.kw("of"),
-    field("line_type", choice(
+    field("object", choice(
       alias($._ref_to_data, $.ref_to),
       $.identifier,
       $.component_selection
