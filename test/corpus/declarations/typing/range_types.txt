@@ -1,0 +1,70 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / RANGE OF ] Elementary type range
+=================================================================================
+types foo TYPE RANGE OF i.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (range_type
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / RANGE OF ] Object type range
+=================================================================================
+types foo LIKE RANGE OF var.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (range_type
+        object: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / RANGE OF ] Component type range
+=================================================================================
+types foo TYPE RANGE OF splfi-carrid.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (range_type
+        name: (component_selection
+          subject: (identifier)
+          component: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / RANGE OF ] Member type range
+=================================================================================
+types foo TYPE RANGE OF bar->baz.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (range_type
+        name: (component_selection
+          subject: (identifier)
+          component: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / RANGE OF ] Object range
+=================================================================================
+types foo LIKE RANGE OF bar-baz.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (range_type
+        object: (component_selection
+          subject: (identifier)
+          component: (identifier))))))

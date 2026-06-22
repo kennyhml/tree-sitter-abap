@@ -1,0 +1,256 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Basic table
+=================================================================================
+types foo type table of spfli.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Generic standard table
+=================================================================================
+types foo type standard table.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Generic any table
+=================================================================================
+types foo type any table.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (any_table)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Generic table
+=================================================================================
+types foo type table.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Generic sorted table
+=================================================================================
+types foo type table.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Generic hashed table
+=================================================================================
+types foo type table.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Default key
+=================================================================================
+types foo type standard table of bar with default key.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        name: (identifier)
+        (with_table_key
+          (table_key
+            (default_key)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Empty key
+=================================================================================
+types foo type standard table of bar with empty key.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        name: (identifier)
+        (with_table_key
+          (empty_key))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Explicit index table
+=================================================================================
+types foo type index table of spfli.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (index_table)
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Sorted table
+=================================================================================
+types foo type sorted table of spfli with non-unique key carrid.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (sorted_table)
+        name: (identifier)
+        (with_table_key
+          (table_key
+            unique: (non_unique)
+            (key_components
+              (identifier))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Sorted unique table
+=================================================================================
+types foo type sorted table of spfli with unique key carrid.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (sorted_table)
+        name: (identifier)
+        (with_table_key
+          (table_key
+            unique: (unique)
+            (key_components
+              (identifier))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Reference table
+=================================================================================
+types foo type standard table of ref to cl_transport.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        name: (ref_to
+          subject: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Hash table
+=================================================================================
+types foo type hashed table of spfli with unique key carrid.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (hashed_table)
+        name: (identifier)
+        (with_table_key
+          (table_key
+            unique: (unique)
+            (key_components
+              (identifier))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Explicit pkey
+=================================================================================
+types foo type standard table of bar with key primary_key components table_line.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        name: (identifier)
+        (with_table_key
+          (table_key
+            name: (identifier)
+            (key_components
+              (identifier))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / TABLE OF ] Defining secondary keys
+=================================================================================
+types foo type table of bar
+    with non-unique key pk components var1 var2
+    with non-unique sorted key sk1 components var3 var4
+    with unique hashed key sk2 components var1 var5.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (table_type
+        kind: (standard_table)
+        name: (identifier)
+        (with_table_key
+          (table_key
+            unique: (non_unique)
+            name: (identifier)
+            (key_components
+              (identifier)
+              (identifier))))
+        (with_table_key
+          (table_key
+            unique: (non_unique)
+            kind: (sorted)
+            name: (identifier)
+            (key_components
+              (identifier)
+              (identifier))))
+        (with_table_key
+          (table_key
+            unique: (unique)
+            kind: (hashed)
+            name: (identifier)
+            (key_components
+              (identifier)
+              (identifier))))))))

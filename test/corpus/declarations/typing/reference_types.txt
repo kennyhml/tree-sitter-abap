@@ -1,0 +1,27 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / REF TO ] Class reference
+=================================================================================
+types foo TYPE REF TO cl_order_maintain.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (reference_type
+        (ref_to
+          subject: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / REF TO ] Object reference
+=================================================================================
+types foo LIKE REF TO oret.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (reference_type
+        (ref_to
+          object: (identifier))))))
