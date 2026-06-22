@@ -840,27 +840,24 @@ module.exports = grammar({
      *
      * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _contextual_keyword: ($) =>
-      prec(
-        -1,
-        choice(
-          ...gen.caseInsensitive(
-            "text",
-            "value",
-            "new",
-            "cond",
-            "switch",
-            "cast",
-            "class",
-            "conv",
-            "ref",
-            "any",
-            "filter",
-            "data",
-            "condense"
-          ),
-        ),
+    _contextual_keyword: ($) => prec(-1, choice(
+      ...gen.caseInsensitive(
+        "text",
+        "value",
+        "new",
+        "cond",
+        "switch",
+        "cast",
+        "class",
+        "conv",
+        "ref",
+        "any",
+        "filter",
+        "data",
+        "condense"
       ),
+    ),
+    ),
 
     _immediate_identifier: ($) =>
       alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
