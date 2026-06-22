@@ -87,7 +87,7 @@ ENDLOOP.
           (where_condition
             condition: (comparison_expression
               left: (identifier)
-              right: (selector_expression
+              right: (component_selection
                 subject: (field_symbol
                   name: (identifier))
                 component: (identifier)))))))))
@@ -195,7 +195,7 @@ ENDLOOP.
       (lines_to
         index: (number))
       (where_condition
-        condition: (dynamic_expression
+        condition: (dynamic_spec
           value: (identifier))))))
 
 ======
@@ -266,12 +266,12 @@ ENDLOOP.
       (group_key_components
         (group_key_component
           field: (identifier)
-          value: (selector_expression
+          value: (component_selection
             subject: (identifier)
             component: (identifier)))
         (group_key_component
           field: (identifier)
-          value: (selector_expression
+          value: (component_selection
             subject: (identifier)
             component: (identifier)))
         (group_key_component
@@ -334,7 +334,7 @@ ENDLOOP.
       work_area: (declaration_expression
         name: (identifier)))
     (group_by
-      key: (selector_expression
+      key: (component_selection
         subject: (identifier)
         component: (identifier))
       result: (into

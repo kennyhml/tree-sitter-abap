@@ -11,7 +11,7 @@ module.exports = {
     choice(
       // static calls on a class level
       seq(
-        field("source", choice($.identifier, $.dynamic_expression)),
+        field("source", choice($.identifier, $.dynamic_spec)),
         token.immediate("=>"),
         field("name", $._immediate_identifier),
       ),
@@ -20,7 +20,7 @@ module.exports = {
         field("source", choice(
           $.identifier,
           $.function_call,
-          $.selector_expression,
+          $.component_selection,
           $.new_expression,
           $.cast_expression,
         )),
@@ -50,7 +50,7 @@ module.exports = {
       ...gen.kws("call", "method"),
       field(
         "method",
-        choice($.identifier, $.dynamic_expression, $.selector_expression),
+        choice($.identifier, $.dynamic_spec, $.component_selection),
       ),
       optional($.call_argument_list),
       ".",

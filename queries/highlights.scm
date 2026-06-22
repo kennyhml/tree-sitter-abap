@@ -25,7 +25,7 @@
 (new_exception_spec class_name: (identifier) @class )
 (catch_exception_list (identifier) @class )
 
-(selector_expression
+(component_selection
   subject: (identifier) @class
   selector: "=>"
 )
@@ -61,10 +61,10 @@
   (#match? @interface "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?[iI][fF]_)")
 )
 
-(selector_expression 
+(component_selection 
     subject: [
       (identifier) @interface 
-      (selector_expression
+      (component_selection
         component: (identifier) @interface
       )
     ]
@@ -75,7 +75,7 @@
 (function_call
   source: [
       (identifier) @interface 
-      (selector_expression
+      (component_selection
         component: (identifier) @interface
       )
   ] 
@@ -104,7 +104,7 @@
 (asynchronous_callback 
   [
     method: [
-      (selector_expression component: (identifier) @function.method)
+      (component_selection component: (identifier) @function.method)
       (identifier) @function.method
     ]
   routine: (identifier) @function.subroutine
@@ -119,7 +119,7 @@
 ; it is specified via a literal string or a data object
 (call_method_statement
   method: [
-    (selector_expression component: (identifier) @function.method )
+    (component_selection component: (identifier) @function.method )
     (identifier) @function.method
   ]
 )
@@ -142,7 +142,7 @@
 ; where they are interchangable with other data-like expressions.
 (named_data_object/identifier) @variable
 
-(dynamic_expression (identifier) @variable )
+(dynamic_spec (identifier) @variable )
 (dereference_expression subject: (identifier) @variable )
 (substring_access (identifier) @variable )
 (table_body_access (identifier) @variable )
@@ -181,12 +181,12 @@
 
 
 ; The component of a struct access is always a property even in a type context.
-(selector_expression
+(component_selection
   selector: ["-" "=>"]
   component: (identifier) @property
 )
 
-(selector_expression
+(component_selection
   subject: (identifier)? @variable
   selector: "->"
   component: (identifier) @property
@@ -194,7 +194,7 @@
 
 ; TODO: This incorrectly tags in a typing context as well, are there
 ; some mental gymnastics we can do to prevent that? 
-(selector_expression
+(component_selection
   subject: (identifier) @variable
   selector: "-"
 )
@@ -247,13 +247,13 @@
 ; Must be more specific than the variable rule so it takes precedence. 
 ; No choice but to support up to a certain depth (3)
 (types_spec typing: (_ 
-  (selector_expression 
+  (component_selection 
     subject: [
       (identifier) @type
-      (selector_expression
+      (component_selection
         subject: [
           (identifier) @type
-          (selector_expression
+          (component_selection
               subject: (identifier) @type
               selector: "-"
           )
@@ -269,22 +269,22 @@
 ; in which case the immediate component is the type
 (types_spec typing: (_
     [
-     (selector_expression 
+     (component_selection 
        subject: [
-         (selector_expression 
+         (component_selection 
            subject:
-             (selector_expression
+             (component_selection
                subject: (identifier) @class
                selector: "=>"
                component: (identifier) @type )
          )
-         (selector_expression
+         (component_selection
            subject: (identifier) @class
            selector: "=>"
            component: (identifier) @type )
         ]
       )
-     (selector_expression
+     (component_selection
        subject: (identifier) @class
        selector: "=>"
        component: (identifier) @type )

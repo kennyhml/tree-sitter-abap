@@ -10,7 +10,7 @@ SWITCH string( sy-index
 (source
   (switch_expression
     type: (identifier)
-    subject: (selector_expression
+    subject: (component_selection
       subject: (identifier)
       component: (identifier))
     (case
@@ -34,7 +34,7 @@ SWITCH string( sy-index
 (source
   (switch_expression
     (identifier)
-    (selector_expression
+    (component_selection
       (identifier)
       (identifier))
     (case

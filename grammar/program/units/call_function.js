@@ -64,7 +64,7 @@ module.exports = {
         gen.kw("calling"),
         field("method", choice(
           $.identifier,
-          $.selector_expression,
+          $.component_selection,
         ))
       ),
       seq(

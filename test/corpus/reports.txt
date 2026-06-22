@@ -109,7 +109,7 @@ INITIALIZATION.
     body: (statement_block
       (assignment
         left: (identifier)
-        right: (selector_expression
+        right: (component_selection
           subject: (identifier)
           component: (identifier))))))
 

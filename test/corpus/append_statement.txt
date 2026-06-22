@@ -96,32 +96,32 @@ APPEND VALUE #( comp1 = memberf-comp1 comp2 = memberf-comp2 comp3 = memberf-comp
       (argument_list
         (named_argument
           name: (identifier)
-          value: (selector_expression
+          value: (component_selection
             subject: (identifier)
             component: (identifier)))
         (named_argument
           name: (identifier)
-          value: (selector_expression
+          value: (component_selection
             subject: (identifier)
             component: (identifier)))
         (named_argument
           name: (identifier)
-          value: (selector_expression
+          value: (component_selection
             subject: (identifier)
             component: (identifier)))
         (named_argument
           name: (identifier)
           value: (string_template
             (embedded_expression
-              (selector_expression
+              (component_selection
                 subject: (identifier)
                 component: (identifier)))
             (embedded_expression
-              (selector_expression
+              (component_selection
                 subject: (identifier)
                 component: (identifier)))
             (embedded_expression
-              (selector_expression
+              (component_selection
                 subject: (identifier)
                 component: (identifier)))))))
     subject: (identifier)))

@@ -5,7 +5,7 @@ zclass=>component.
 ---
 
 (source
-  (selector_expression
+  (component_selection
     subject: (identifier)
     component: (identifier)))
 
@@ -16,7 +16,7 @@ myobj->component.
 ---
 
 (source
-  (selector_expression
+  (component_selection
     subject: (identifier)
     component: (identifier)))
 
@@ -27,7 +27,7 @@ struct-component
 ---
 
 (source
-  (selector_expression
+  (component_selection
     subject: (identifier)
     component: (identifier)))
 
@@ -38,8 +38,8 @@ struct-component->attribute
 ---
 
 (source
-  (selector_expression
-    subject: (selector_expression
+  (component_selection
+    subject: (component_selection
       subject: (identifier)
       component: (identifier))
     component: (identifier)))
@@ -51,9 +51,9 @@ class=>struct-component->attribute
 ---
 
 (source
-  (selector_expression
-    subject: (selector_expression
-      subject: (selector_expression
+  (component_selection
+    subject: (component_selection
+      subject: (component_selection
         subject: (identifier)
         component: (identifier))
       component: (identifier))
@@ -66,6 +66,6 @@ intf~method
 ---
 
 (source
-  (selector_expression
+  (component_selection
     subject: (identifier)
     component: (identifier)))
