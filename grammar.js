@@ -585,8 +585,6 @@ module.exports = grammar({
           "ns",
           "cp",
           "np",
-          "bt",
-          "nb",
           "byte-co",
           "byte-cn",
           "byte-ca",
