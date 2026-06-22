@@ -9,7 +9,7 @@ FIELD-SYMBOLS <number> TYPE i.
     (field_symbols_spec
       name: (field_symbol
         name: (identifier))
-      typing: (abap_type
+      typing: (referred_type
         name: (identifier)))))
 
 ======

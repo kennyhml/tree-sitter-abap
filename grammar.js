@@ -222,6 +222,15 @@ module.exports = grammar({
         $.at_selscreen_statement,
       ),
 
+    _typing: $ => choice(
+      $.builtin_type_spec,
+      $.referred_type,
+      $.line_type,
+      $.reference_type,
+      $.table_type,
+      $.range_type,
+    ),
+
     ...(() => {
       const root = process.cwd();
       const exclude = ["node", "generators.js", "grammar.js"];

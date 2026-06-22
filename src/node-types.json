@@ -638,52 +638,6 @@
     ]
   },
   {
-    "type": "abap_type",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "default_data_value",
-          "named": true
-        },
-        {
-          "type": "initial_value",
-          "named": true
-        },
-        {
-          "type": "parenthesized_length",
-          "named": true
-        },
-        {
-          "type": "read_only",
-          "named": true
-        },
-        {
-          "type": "type_decimals",
-          "named": true
-        },
-        {
-          "type": "type_length",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "abstract_spec",
     "named": true,
     "fields": {}
@@ -711,7 +665,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -1563,6 +1517,52 @@
         },
         {
           "type": "simple_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "builtin_type_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "default_data_value",
+          "named": true
+        },
+        {
+          "type": "initial_value",
+          "named": true
+        },
+        {
+          "type": "parenthesized_length",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        },
+        {
+          "type": "type_decimals",
+          "named": true
+        },
+        {
+          "type": "type_length",
           "named": true
         }
       ]
@@ -2463,7 +2463,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -3188,7 +3188,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -3540,7 +3540,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -4653,7 +4653,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -6568,6 +6568,10 @@
           "named": true
         },
         {
+          "type": "initial_value",
+          "named": true
+        },
+        {
           "type": "read_only",
           "named": true
         }
@@ -7877,7 +7881,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -8083,7 +8087,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -9108,6 +9112,10 @@
           "named": true
         },
         {
+          "type": "initial_value",
+          "named": true
+        },
+        {
           "type": "read_only",
           "named": true
         }
@@ -9413,7 +9421,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {
@@ -11600,7 +11608,7 @@
         "required": false,
         "types": [
           {
-            "type": "abap_type",
+            "type": "builtin_type_spec",
             "named": true
           },
           {

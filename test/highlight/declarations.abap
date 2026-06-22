@@ -31,6 +31,8 @@ DATA: one TYPE abap_bool VALUE abap_true, two TYPE abap_bool VALUE abap_false.
 "                                                                  ^ constant.builtin
 DATA: BEGIN OF s1, c1 TYPE c VALUE '1', c2 TYPE c VALUE '2', END OF s1.
 "              ^ variable
+"                          ^ type.builtin
+"                                               ^ type.builtin
 "                  ^ property
 "                                       ^ property
 "                                                                   ^ variable
