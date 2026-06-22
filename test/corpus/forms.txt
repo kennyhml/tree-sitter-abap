@@ -105,10 +105,10 @@ PERFORM (subr) IN PROGRAM (prog) IF FOUND.
 (source
   (perform_statement
     routine: (subroutine_spec
-      name: (dynamic_expression
+      name: (dynamic_spec
         value: (identifier))
       (in_program_spec
-        name: (dynamic_expression
+        name: (dynamic_spec
           value: (identifier)))
       (if_found_spec))))
 
@@ -121,7 +121,7 @@ PERFORM sy-index OF subr_1 subr_2.
 (source
   (perform_statement
     routine: (subroutine_spec
-      index: (selector_expression
+      index: (component_selection
         subject: (identifier)
         component: (identifier))
       subroutines: (subroutine_list
@@ -138,10 +138,10 @@ PERFORM foo(bar) IF FOUND.
   (perform_statement
     routine: (subroutine_spec
       name: (identifier)
-      program: (dynamic_expression)
-      value: (dynamic_expression
+      program: (dynamic_spec)
+      value: (dynamic_spec
         (identifier))
-      program: (dynamic_expression)
+      program: (dynamic_spec)
       (if_found_spec))))
 
 ======

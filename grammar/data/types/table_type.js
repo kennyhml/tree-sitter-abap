@@ -155,7 +155,7 @@ module.exports = {
     field("line_type", choice(
       alias($._ref_to_type, $.ref_to),
       $.identifier,
-      $.selector_expression,
+      $.component_selection
     )),
   ),
 
@@ -167,7 +167,7 @@ module.exports = {
     field("line_type", choice(
       alias($._ref_to_data, $.ref_to),
       $.identifier,
-      $.selector_expression,
+      $.component_selection
     )),
   ),
 

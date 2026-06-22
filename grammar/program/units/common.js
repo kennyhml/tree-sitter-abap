@@ -39,7 +39,7 @@ module.exports = {
     field("name",
       choice(
         $.identifier,
-        $.selector_expression // for components of structures
+        $.component_selection // for components of structures
       )
     ),
     "=",

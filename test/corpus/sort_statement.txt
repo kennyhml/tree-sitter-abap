@@ -40,7 +40,7 @@ sort itab by (comp) ascending.
     subject: (identifier)
     (sort_component_list
       (sort_component
-        comp: (dynamic_expression
+        comp: (dynamic_spec
           value: (identifier))
         (sort_order
           direction: (ascending))))))
@@ -56,7 +56,7 @@ sort itab by (tab).
     subject: (identifier)
     (sort_component_list
       (sort_component
-        comp: (dynamic_expression
+        comp: (dynamic_spec
           value: (identifier))))))
 
 ======

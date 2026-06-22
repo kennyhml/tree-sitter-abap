@@ -9,10 +9,10 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
     (data_object_list
       (identifier)
       (string_literal)
-      (selector_expression
+      (component_selection
         (identifier)
         (identifier))
-      (selector_expression
+      (component_selection
         (identifier)
         (identifier)))
     (result

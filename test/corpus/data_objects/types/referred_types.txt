@@ -9,7 +9,7 @@ types: gtyt_my_type type zclass=>cool_type_123.
     (types_spec
       name: (identifier)
       typing: (referred_type
-        name: (selector_expression
+        name: (component_selection
           subject: (identifier)
           component: (identifier))))))
 

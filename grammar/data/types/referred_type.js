@@ -36,21 +36,19 @@ module.exports = {
     $.read_only,
   ),
 
-  // {TYPE [LINE OF] type}
   __referred_type_type_spec: $ => seq(
     gen.kw("type"),
     field("name", choice(
       $.identifier,
-      $.selector_expression
+      $.component_selection
     ))
   ),
 
-  // {LIKE [LINE OF] dobj}
   __referred_type_like_spec: $ => seq(
     gen.kw("like"),
     field("name", choice(
       $.identifier,
-      $.selector_expression
+      $.component_selection
     ))
   ),
 
@@ -59,7 +57,7 @@ module.exports = {
     ...gen.kws("line", "of"),
     field("subject", choice(
       $.identifier,
-      $.selector_expression
+      $.component_selection
     ))
   ),
 
@@ -69,7 +67,7 @@ module.exports = {
     ...gen.kws("line", "of"),
     field("object", choice(
       $.identifier,
-      $.selector_expression
+      $.component_selection
     ))
   )
 }

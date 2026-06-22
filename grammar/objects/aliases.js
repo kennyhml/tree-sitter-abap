@@ -8,7 +8,7 @@ module.exports = {
   alias_spec: $ => seq(
     field("alias", $.identifier),
     gen.kw("for"),
-    $.selector_expression
+    $.component_selection
   ),
 
 }

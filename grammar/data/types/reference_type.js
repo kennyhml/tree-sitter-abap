@@ -24,7 +24,7 @@ module.exports = {
     ...gen.kws("ref", "to"),
     field("subject", choice(
       $.identifier,
-      $.selector_expression
+      $.component_selection
     ))
   ),
 
@@ -32,7 +32,7 @@ module.exports = {
     ...gen.kws("ref", "to"),
     field("object", choice(
       $.identifier,
-      $.selector_expression
+      $.component_selection
     ))
   ),
 

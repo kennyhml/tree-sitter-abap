@@ -32,10 +32,10 @@ struc-col1 = CAST t_struc( dref )->col1.
 
 (source
   (assignment
-    left: (selector_expression
+    left: (component_selection
       subject: (identifier)
       component: (identifier))
-    right: (selector_expression
+    right: (component_selection
       subject: (cast_expression
         type: (identifier)
         subject: (identifier))

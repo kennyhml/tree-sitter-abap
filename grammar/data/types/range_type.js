@@ -1,5 +1,3 @@
-
-
 module.exports = {
 
   /**
@@ -20,7 +18,7 @@ module.exports = {
     ...gen.kws("type", "range", "of"),
     field("name", choice(
       $.identifier,
-      $.selector_expression,
+      $.component_selection
     )),
   ),
 
@@ -29,7 +27,7 @@ module.exports = {
     ...gen.kws("like", "range", "of"),
     field("object", choice(
       $.identifier,
-      $.selector_expression,
+      $.component_selection
     )),
   ),
 

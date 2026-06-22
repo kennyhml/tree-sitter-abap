@@ -86,7 +86,7 @@ READ TABLE html_viewer_tab
       (search_key_components_spec
         (itab_comp_spec_list
           (itab_comp_spec
-            (selector_expression
+            (component_selection
               (identifier)
               (identifier))
             (identifier)))))
@@ -157,7 +157,7 @@ READ TABLE sflight_tab
   (read_table_statement
     (identifier)
     (itab_index_spec
-      (selector_expression
+      (component_selection
         (identifier)
         (identifier)))
     (read_into_work_area

@@ -294,7 +294,7 @@ module.exports = grammar({
         $.identifier,
         $.field_symbol,
         $.text_symbol,
-        $.selector_expression,
+        $.component_selection,
         $.table_body_access,
       ),
 
@@ -335,7 +335,7 @@ module.exports = grammar({
           $.identifier,
           $.field_symbol,
           $.number,
-          $.selector_expression,
+          $.component_selection,
           $.constructor_expression,
           $.function_call,
           $.table_expression,
@@ -627,13 +627,13 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
     // prec solves  ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???
     itab_comp: ($) =>
-      prec(1, choice($._static_itab_comp, $.dynamic_expression)),
+      prec(1, choice($._static_itab_comp, $.dynamic_spec)),
 
     /**
      * Static variant of {@link itab_comp}: `{ comp_name[-sub_comp][{+off(len)}|{->attr}] }`
      */
     _static_itab_comp: ($) =>
-      choice($.identifier, $.selector_expression, $.substring_access),
+      choice($.identifier, $.component_selection, $.substring_access),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
     local_updates_statement: ($) =>
