@@ -84,7 +84,7 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      typing: (abap_type
+      typing: (referred_type
         name: (identifier))
       case: (lower_case_spec)
       visible_length: (visible_length_spec
@@ -497,7 +497,7 @@ SELECTION-SCREEN: COMMENT 40(40) text,
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      typing: (abap_type
+      typing: (builtin_type_spec
         name: (identifier)
         (type_length
           count: (number)))))

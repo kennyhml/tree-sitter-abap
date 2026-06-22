@@ -41,7 +41,7 @@ REDUCE string( INIT text type string
     (accumulators
       (accumulator_spec
         name: (identifier)
-        typing: (abap_type
+        typing: (referred_type
           name: (identifier))))
     (conditional_iteration
       init: (assignment

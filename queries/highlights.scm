@@ -226,8 +226,6 @@
   id: (identifier)? @variable 
   )
 
-
-
 ; CONSTANTS
 ((identifier) @constant.builtin
   (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD])))$" )
@@ -239,10 +237,6 @@
 ; 'like' expressions, so the grammar must map those as 'object'
 (types_spec typing: (_ (identifier) @type !object ))
 (types_spec typing: (_ object: (identifier) @variable ))
-
-; TODO: This is not fully fleshed out yet - builtin types are referred to
-; as referred types in other typing constructs as of now.
-(abap_type name: (identifier) @type.builtin )
 
 ; Must be more specific than the variable rule so it takes precedence. 
 ; No choice but to support up to a certain depth (3)
@@ -326,6 +320,9 @@
 (types_declaration
   (end_of_struct name: (identifier) @type) .
 )
+
+((identifier) @type.builtin
+  (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG])$"))
 
 ; TODO: Gave up on explicit, long form declarations for now.
 ; The sibling relationship doesnt work well with incremental parsing

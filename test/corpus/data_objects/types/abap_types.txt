@@ -8,7 +8,7 @@ types: my_type type p length 8 decimals 3.
   (types_declaration
     (types_spec
       name: (identifier)
-      typing: (abap_type
+      typing: (builtin_type_spec
         name: (identifier)
         (type_length
           count: (number))
@@ -25,7 +25,7 @@ types: my_type(30) type c.
   (types_declaration
     (types_spec
       name: (identifier)
-      typing: (abap_type
+      typing: (builtin_type_spec
         (parenthesized_length
           length: (number))
         name: (identifier)))))
@@ -40,6 +40,6 @@ types: my_type(30).
   (types_declaration
     (types_spec
       name: (identifier)
-      typing: (abap_type
+      typing: (builtin_type_spec
         (parenthesized_length
           length: (number))))))
