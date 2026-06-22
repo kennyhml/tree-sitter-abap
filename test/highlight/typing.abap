@@ -116,6 +116,29 @@ types bar type table of foo with non-unique key primary_key components f1 with u
 "                                               ^ variable.key
 "                                                                      ^ property
 "                                                                                                ^ variable.key
-"                                                                                                              ^ property
-types gtyt_tab type index table. " TODO: Is a generic 'index table' a type?
+types foo type any.
 "     ^ type
+"              ^ type.builtin
+types foo type index table.
+"     ^ type
+"              ^ type.builtin
+"                    ^ type.builtin
+types foo type any table.
+"     ^ type
+"              ^ type.builtin
+"                  ^ type.builtin
+types foo type hashed table.
+"     ^ type
+"              ^ type.builtin
+"                     ^ type.builtin
+types foo type sorted table.
+"     ^ type
+"              ^ type.builtin
+"                     ^ type.builtin
+types foo type table.
+"     ^ type
+"              ^ type.builtin
+types foo type standard table.
+"     ^ type
+"              ^ type.builtin
+"                       ^ type.builtin

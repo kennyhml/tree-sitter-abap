@@ -2,6 +2,13 @@
 (string_template) @string
 (number) @number
 
+; Keywords are aliased to anonymous snake_cased literal representations.
+; This alone would not allow us to query them. For that reason, they are
+; tagged with a keyword field. That gives us more control, as some keywords 
+; can overlap with other tokens. See the table_type capture for instance.
+; Bonus points for not having to maintain a huge alternation of literals :)
+(_ keyword: _ @keyword)
+
 [
    (inline_comment)
    (line_comment)
@@ -240,7 +247,7 @@
 (_ typing: (_ object: (identifier) @variable ))
 (_ typing: (_ (identifier) @type !object ))
 (_ typing: (_ (identifier) @type.builtin !object 
-  (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG])$")
+  (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG]|[aA][nN][yY])$")
 ))
 
 
@@ -325,6 +332,11 @@
 )
 (types_declaration
   (end_of_struct name: (identifier) @type) .
+)
+
+; In this context, table kind keywords specify a generic type.
+(typing/table_type
+  kind: (_ keyword: _ @type.builtin ) .
 )
 
 ; TODO: Gave up on explicit, long form declarations for now.
@@ -461,400 +473,12 @@
 ; As of now, new keywords should be added to the uncontextualized
 ; array and only moved to a context if needed.
 [
-	"return"
-	"exit"
+	  "return"
+	  "exit"
     "check"
     "continue"
     "resume"
     "endat"
 ] @keyword.control
 
-; ------------------------------------------
-; Keywords
-; ------------------------------------------
-[   
-    "data"
-    "final"
-    "constants"
-    "field-symbols"
-    "type"
-    "types"
-    "aliases"
-    "class-data"
-    "ref"
-    "to"
-    "like"
-    "value"
-    "length"
-    "decimals"
-    "is"
-    "initial"
-    "read-only"
-    "begin"
-    "end"
-    "of"
-    "lines"
-    "let"
-    "in"
-    "until"
-    
-    "table"
-    "of"
-    "size"
-    "standard"
-    "sorted"
-    "hashed"
-    "unique"
-    "non-unique"
-    "index"
-    "any"
-    "occurs"
-    "header"
-    "line"
-    "empty"
-
-
-    "report"
-    "no"
-    "page"
-    "heading"
-    "line-size"
-    "line-count"
-    "defining"
-    "database"
-    "reduced"
-    "functionality"
-    "message-id"
-    "range"
-    "mod"
-    "div"
-    "new"
-    "switch"
-
-    "replace"
-    "with"
-    "verbatim"
-    "replacement"
-    
-    "concatenate"
-    "into"
-    "separated"
-    "by"
-    
-    "respecting"
-    "ignoring"
-    "case"
-    "blanks"
-    
-    "find"
-    "first"
-    "occurrence"
-    "all"
-    "occurrences"
-    "in"
-    "section"
-    "offset"
-    
-    "byte"
-    "character"
-    "mode"
-    
-    "pcre"
-    "match"
-    "count"
-    "results"
-    "submatches"
-    
-    "shift"
-    "places"
-    "up"
-    "left"
-    "right"
-    "circular"
-    
-    "deleting"
-    "leading"
-    "trailing"
-    
-    "split"
-    "at"
-    "condense"
-    "no-gaps"
-    
-    "base"
-    "key"
-    "components"
-    
-    "index"
-    
-    "class"
-    "definition"
-    "create"
-    "public"
-    "protected"
-    "private"
-    "inheriting"
-    "from"
-    "abstract"
-    "global"
-    "local"
-    "friends"
-    "shared"
-    "memory"
-    "enabled"
-    "for"
-    "behavior"
-    "testing"
-    "risk"
-    "level"
-    "harmless"
-    "medium"
-    "critical"
-    "duration"
-    "short"
-    "long"
-    "implementation"
-    "deferred"
-    "endclass"
-    
-    "interface"
-    "interfaces"
-    "endinterface"
-    
-    "methods"
-    "method"
-    "endmethod"
-    "class-methods"
-    "importing"
-    "exporting"
-    "changing"
-    "returning"
-    "receiving"
-    "reference"
-    "raising"
-    "exceptions"
-    "default"
-    "optional"
-    "preferred"
-    "parameter"
-    "resumable"
-    "redefinition"
-    "fail"
-    "ignore"
-    "event"
-    
-    "cond"
-    "when"
-    "then"
-    "else"
-    "conv"
-    "exact"
-    "cast"
-	"step"
-    
-    "corresponding"
-    "appending"
-    "deep"
-    "discarding"
-    "duplicates"
-    "mapping"
-    "except"
-    "using"
-    "throw"
-    
-    "filter"
-    "where"
-    "reduce"
-    "init"
-    "next"
-    "while"
-    
-    "and"
-    "or"
-    "equiv"
-    
-    "if"
-    "elseif"
-    "endif"
-    
-    "case"
-    "others"
-    "endcase"
-    
-    "raise"
-    "exception"
-    "return"
-    
-    "do"
-    "times"
-    "enddo"
-    "endwhile"
-    
-    "message"
-    "id"
-    "number"
-    "display"
-    
-    "try"
-    "catch"
-    "before"
-    "unwind"
-    "endtry"
-    "cleanup"
-    
-    "exit"
-    "check"
-    "continue"
-    "resume"
-    
-    "call"
-    "function"
-    "tables"
-    "remote"
-    "session"
-    "destination"
-    "starting"
-    "new"
-    "task"
-    "group"
-    "parameter-table"
-    "exception-table"
-    "performing"
-    "calling"
-    "on"
-    "background"
-    "update"
-    "task"
-    "as"
-    "separate"
-    "unit"
-    "alias"
-    
-    "form"
-    "endform"
-    "structure"
-    "perform"
-    "program"
-    "found"
-    "rollback"
-    "commit"
-    
-    "loop"
-    "assigning"
-    "field-symbol"
-    "endloop"
-    "transporting"
-    "fields"
-    "without"
-    "members"
-    "ascending"
-    "descending"
-    "text"
-    
-    "set"
-    "commit"
-    "work"
-    "wait"
-    "include"
-    "clear"
-    "free"
-    "sort"
-    "stable"
-    
-    ; Dynpro
-    "parameters"
-    "select-options"
-    "modif"
-    "obligatory"
-    "as"
-    "checkbox"
-    "radiobutton"
-    "listbox"
-    "visible"
-    "user-command"
-    "matchcode" 
-    "object"
-    "no-display"
-    "lower"
-    "intervals"
-    "no-extension"
-    "off"
-    "option"
-    "sign"
-    "i"
-    "e"
-    
-    "selection-screen"
-    "skip"
-    "block"
-    "uline"
-    "screen"
-    "subscreen"
-    "nesting" 
-    "level"
-    "title"
-    "window"
-    "frame"
-    "comment"
-    "field"
-    "pushbutton"
-    "position"
-    "tabbed"
-    "tab"
-    "blocks"
-    "ending"
-    "selection-set"
-    "delete"
-    "adjacent"
-    "comparing"
-    "read"
-    "binary"
-    "search"
-    "unassign"
-    "append"
-    "insert"
-    
-    ; Should these be considered control keywords??
-    "output"
-    "exit-command"
-    "help-request"
-    "value-request"
-    "start-of-selection"
-    "initialization"
-    "load-of-program"
-    
-    ; predicates
-    "not"
-    "bound"
-    "instance"
-    "assigned"
-    "supplied"
-
-    ; comparison operators
-    "eq"
-    "ne"
-    "gt"
-    "lt"
-    "ge"
-    "le"
-    "co"
-    "cn"
-    "ca"
-    "na"
-    "cs"
-    "ns"
-    "cp"
-    "np"
-    "bt"
-    "nb"
-    "byte-co"
-    "byte-cn"
-    "byte-ca"
-    "byte-na"
-    "byte-cs"
-    "byte-ns"
-    "o"
-    "z"
-    "m"
-] @keyword
 (format_option parameter: (identifier) @keyword )

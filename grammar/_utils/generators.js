@@ -219,7 +219,7 @@ function kwRules() {
   for (const keyword of keywords) {
     const regexExpression = caseInsensitive(keyword);
     const repr = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
-    const rule = alias(regexExpression, keyword.toLowerCase());
+    const rule = field("keyword", alias(regexExpression, keyword.toLowerCase()));
 
     rules[repr] = $ => rule;
   }
