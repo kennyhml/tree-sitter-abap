@@ -608,6 +608,36 @@
     ]
   },
   {
+    "type": "typing",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "builtin_type_spec",
+        "named": true
+      },
+      {
+        "type": "range_type",
+        "named": true
+      },
+      {
+        "type": "reference_type",
+        "named": true
+      },
+      {
+        "type": "referred_type",
+        "named": true
+      },
+      {
+        "type": "table_type",
+        "named": true
+      },
+      {
+        "type": "type_line_of",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "writable_expression",
     "named": true,
     "subtypes": [
@@ -665,27 +695,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -2463,27 +2473,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -3188,27 +3178,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -3540,27 +3510,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -4653,27 +4603,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -6527,58 +6457,6 @@
     }
   },
   {
-    "type": "line_type",
-    "named": true,
-    "fields": {
-      "object": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "subject": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "default_data_value",
-          "named": true
-        },
-        {
-          "type": "initial_value",
-          "named": true
-        },
-        {
-          "type": "read_only",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "lines_from",
     "named": true,
     "fields": {
@@ -7881,27 +7759,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -8087,27 +7945,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -9090,7 +8928,21 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "component_selection",
@@ -9421,27 +9273,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]
@@ -11198,7 +11030,25 @@
           }
         ]
       },
-      "line_type": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "ref_to",
+            "named": true
+          }
+        ]
+      },
+      "object": {
         "multiple": false,
         "required": false,
         "types": [
@@ -11567,6 +11417,58 @@
     }
   },
   {
+    "type": "type_line_of",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "default_data_value",
+          "named": true
+        },
+        {
+          "type": "initial_value",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "types_declaration",
     "named": true,
     "fields": {},
@@ -11608,27 +11510,7 @@
         "required": false,
         "types": [
           {
-            "type": "builtin_type_spec",
-            "named": true
-          },
-          {
-            "type": "line_type",
-            "named": true
-          },
-          {
-            "type": "range_type",
-            "named": true
-          },
-          {
-            "type": "reference_type",
-            "named": true
-          },
-          {
-            "type": "referred_type",
-            "named": true
-          },
-          {
-            "type": "table_type",
+            "type": "typing",
             "named": true
           }
         ]

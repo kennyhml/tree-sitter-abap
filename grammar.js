@@ -76,6 +76,7 @@ module.exports = grammar({
   ],
 
   supertypes: ($) => [
+    $.typing,
     $.simple_statement,
     $.reserved_statement,
     $.named_data_object,
@@ -222,10 +223,10 @@ module.exports = grammar({
         $.at_selscreen_statement,
       ),
 
-    _typing: $ => choice(
+    typing: $ => choice(
       $.builtin_type_spec,
       $.referred_type,
-      $.line_type,
+      $.type_line_of,
       $.reference_type,
       $.table_type,
       $.range_type,

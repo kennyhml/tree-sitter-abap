@@ -1,8 +1,6 @@
 module.exports = {
 
-
   initial_value: _ => seq(...gen.kws("value", "is", "initial")),
-
 
   default_data_value: $ => seq(
     gen.kw("value"),

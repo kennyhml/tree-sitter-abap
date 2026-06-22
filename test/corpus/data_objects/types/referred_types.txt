@@ -24,7 +24,7 @@ types: buffer like wa.
     (types_spec
       name: (identifier)
       typing: (referred_type
-        name: (identifier)))))
+        object: (identifier)))))
 
 ======
 [REFERRED-TYPES] Type of a table line
@@ -36,5 +36,5 @@ types: tab_line type line of sflight.
   (types_declaration
     (types_spec
       name: (identifier)
-      typing: (line_type
-        subject: (identifier)))))
+      typing: (type_line_of
+        name: (identifier)))))

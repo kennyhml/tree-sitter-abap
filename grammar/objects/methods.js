@@ -181,7 +181,7 @@ module.exports = {
       $.reference_param_spec,
       $.value_param_spec,
     ),
-    optional(field("typing", $._typing)),
+    optional(field("typing", $.typing)),
     optional(choice(
       $.optional_spec,
       field("default", $.param_default_value_spec),

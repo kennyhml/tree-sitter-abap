@@ -1,15 +1,22 @@
-
-
 module.exports = {
 
   /**
-   * Specification of a type by referring to another type (declared elsewhere or in DDIC)
+   * Specification of a type by referring to another, existing type
    * 
    * DATA var { {TYPE [LINE OF] type} 
    *          / {LIKE [LINE OF] dobj} } 
    *          [VALUE val|{IS INITIAL}]
    *          [READ-ONLY].
+   *
+   * The naming for this is a little difficult considering its likely the
+   * most frequent typing kind. An alternative would be `type_reference`,
+   * which imo sounds too similar to `reference_type`. The term 'referring'
+   * in this context comes from the ABAP spec itself and is not to be
+   * confused with the term `referencing`.
    * 
+   * As for all other type positons where a data object or type
+   * name can be specified, they are tagged `object` and `name` respectively.
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
    */
   referred_type: $ => prec.right(seq(
@@ -21,9 +28,11 @@ module.exports = {
   )),
 
   /**
-   * Easier to query and more meaningful than nesting
+   * If we nest this into the referred type, while semantically correct,
+   * it causes another level of depth that is difficult for the queries
+   * to account for as the root must be the typing context.
    */
-  line_type: $ => prec.right(seq(
+  type_line_of: $ => prec.right(seq(
     choice(
       $.__type_line_of,
       $.__like_line_of
@@ -47,7 +56,7 @@ module.exports = {
 
   __referred_type_like_spec: $ => seq(
     gen.kw("like"),
-    field("name", choice(
+    field("object", choice(
       $.identifier,
       $.component_selection
     ))
@@ -56,7 +65,7 @@ module.exports = {
   __type_line_of: $ => seq(
     gen.kw("type"),
     ...gen.kws("line", "of"),
-    field("subject", choice(
+    field("name", choice(
       $.identifier,
       $.component_selection
     ))
