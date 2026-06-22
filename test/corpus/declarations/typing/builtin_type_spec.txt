@@ -1,0 +1,45 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types ] Fully specified float
+=================================================================================
+types foo type p length 8 decimals 3.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (builtin_type_spec
+        name: (identifier)
+        (type_length
+          count: (number))
+        (type_decimals
+          count: (number))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types ] Legacy style length spec
+=================================================================================
+types foo(30) type c.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (builtin_type_spec
+        (parenthesized_length
+          length: (number))
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types ] Only length spec
+=================================================================================
+types foo(30).
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (builtin_type_spec
+        (parenthesized_length
+          length: (number))))))

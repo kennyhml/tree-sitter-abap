@@ -1,0 +1,66 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / REFFERRING ] Local / DDIC type
+=================================================================================
+types foo type crmt_object_id.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / REFERRING ] Global class type
+=================================================================================
+types foo type bar=>baz.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (component_selection
+          subject: (identifier)
+          component: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / REFERRING ] Global class type
+=================================================================================
+types buffer like wa.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (referred_type
+        object: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / REFERRING ] Line of type
+=================================================================================
+types tab_line type line of sflight.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (type_line_of
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / REFERRING ] Line of object
+=================================================================================
+types tab_line like line of mt_itab.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (type_line_of
+        object: (identifier)))))
