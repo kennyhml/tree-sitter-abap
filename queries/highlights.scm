@@ -162,7 +162,30 @@
 ((identifier) @constant.builtin
   (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD])))$" )
 )
-(constants_spec name: (identifier) @constant )
+
+; Only for immediate declarations
+; TODO: Wont work when it starts with a struct.
+(constants_declaration 
+  . (constants_spec name: (identifier) @constant )
+  (constants_spec name: (identifier) @constant )?
+)
+
+(constants_declaration 
+  (end_of_struct name: (identifier) @constant ) . 
+)
+(constants_declaration 
+  . (begin_of_struct name: (identifier) @constant ) 
+)
+
+(constants_declaration
+  (begin_of_struct)
+  [
+    (constants_spec name: (identifier) @property)
+    (begin_of_struct name: (identifier) @property)
+    (end_of_struct name: (identifier) @property)
+  ]
+  (end_of_struct)
+)
 
 ; TYPES
 (deferred_class_definition name: (identifier) @type )
@@ -214,8 +237,12 @@
 )
 ; WARN: We need some way to ensure that this doesnt tag variables in
 ; 'like' expressions, so the grammar must map those as 'object'
-(types_spec typing: (_ (identifier) @type !object ))
-(types_spec typing: (_ object: (identifier) @variable ))
+(_ typing: (_ object: (identifier) @variable ))
+(_ typing: (_ (identifier) @type !object ))
+(_ typing: (_ (identifier) @type.builtin !object 
+  (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG])$")
+))
+
 
 ; Must be more specific than the variable rule so it takes precedence. 
 ; No choice but to support up to a certain depth (3)
@@ -272,8 +299,6 @@
   ]
 )
 
-(referred_type name: (identifier) @type )
-
 ; Only applies to immediate decls due to anchor tag (not structs)
 ; TODO: This will wrongly tag long-form struct properties, can that be avoided?
 (types_declaration
@@ -301,9 +326,6 @@
 (types_declaration
   (end_of_struct name: (identifier) @type) .
 )
-
-((identifier) @type.builtin
-  (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG])$"))
 
 ; TODO: Gave up on explicit, long form declarations for now.
 ; The sibling relationship doesnt work well with incremental parsing
