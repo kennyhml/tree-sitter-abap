@@ -87,3 +87,24 @@ cleanup.
 "<- keyword.exception
 endtry.
 "<- keyword.exception
+
+loop at itab.
+"<- keyword.repeat
+"    ^ keyword.repeat
+continue.
+"<- keyword.repeat
+at first.
+"<- keyword.repeat
+"  ^ keyword.repeat
+endat.
+"<- keyword.repeat
+at new.
+"<- keyword.repeat
+"  ^ keyword.repeat
+endat.
+at last.
+"<- keyword.repeat
+"  ^ keyword.repeat
+endat.
+endloop.
+"<- keyword.repeat
