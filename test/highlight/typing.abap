@@ -12,11 +12,11 @@ types __var type spfli-carrid-prop.
 "                             ^ property
 types num1 type cl_class=>some_type.
 "     ^ type
-"               ^ class
+"               ^ type
 "                         ^ type
 types foo type cl_class=>flight-seats.
 "     ^ type
-"                  ^ class
+"                  ^ type
 "                        ^ type
 "                               ^ property
 types varchar(30) type c.
@@ -43,28 +43,28 @@ types oref TYPE REF TO c1.
 "                      ^ type
 types oref TYPE REF TO cl_http_response.
 "     ^ type
-"                       ^ class
+"                       ^ type
 types oref TYPE REF TO /www/cl_order.
 "     ^ type
-"                      ^ class
+"                      ^ type
 types oref TYPE REF TO if_message.
 "     ^ type
-"                      ^ interface
+"                      ^ type
 types oref TYPE REF TO /www/if_request_handler.
 "     ^ type
-"                      ^ interface
+"                      ^ type
 types oref TYPE REF TO zif_request_handler.
 "     ^ type
-"                      ^ interface
+"                      ^ type
 types oref TYPE REF TO lif_request_handler.
 "     ^ type
-"                      ^ interface
+"                      ^ type
 types oref LIKE REF TO object.
 "     ^ type
 "                      ^ variable
 types gtyt_my_type type zclass=>cool_type_123.
 "     ^ type
-"                       ^ class
+"                       ^ type
 "                               ^ type
 types tab_line type line of sflight.
 "     ^ type
@@ -96,7 +96,7 @@ types gtyt_std_tab1 type standard table of gtys_mystruct with default key.
 "                                          ^ type
 types: gtyt_ref_table type standard table of ref to cl_my_class.
 "      ^ type
-"                                                   ^ class
+"                                                   ^ type
 types gtyt_std_tab4 type standard table of gtys_mystruct with non-unique key var1 var2.
 "     ^ type                               
 "                                          ^ type                            

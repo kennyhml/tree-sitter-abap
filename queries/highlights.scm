@@ -13,74 +13,6 @@
    (pseudo_comment)
 ] @comment.pragma
 
-; ------------------------------------------
-; Class identifiers, ambiguity exists.
-; ------------------------------------------
-(deferred_class_definition name: (identifier) @class )
-(class_definition name: (identifier) @class )
-(class_implementation name: (identifier) @class )
-
-(simple_exception_spec name: (identifier) @class )
-(resumable_exception_spec name: (identifier) @class )
-(new_exception_spec class_name: (identifier) @class )
-(catch_exception_list (identifier) @class )
-
-(component_selection
-  subject: (identifier) @class
-  selector: "=>"
-)
-
-(superclass_spec name: (identifier) @class)
-(for_event_spec 
-  [
-	source: (identifier) @class
-    name: (identifier) @variable.event
-  ]
-)
-
-(ref_to 
-  subject: (identifier) @class 
-  (#match? @class "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?[cC][lL]_)")
-)
-
-; ------------------------------------------
-; Interface identifiers, ambiguity exists.
-; ------------------------------------------
-(deferred_interface_definition name: (identifier) @interface )
-(interfaces_declaration (identifier) @interface )
-(interface_definition name: (identifier) @interface )
-
-; NOTE: Complement semantics using prefixes: 
-; Z and Y ($TMP) 
-; L (local scope)
-; /xxx/ (Parter / Customer namespace)
-; If no prefix match, it is simply considered a type.
-; To be seen as a best effort that only works with naming conventions.
-(ref_to 
-  subject: (identifier) @interface
-  (#match? @interface "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?[iI][fF]_)")
-)
-
-(component_selection 
-    subject: [
-      (identifier) @interface 
-      (component_selection
-        component: (identifier) @interface
-      )
-    ]
-    selector: "~"
-    component: (identifier) @property
-)
-
-(function_call
-  source: [
-      (identifier) @interface 
-      (component_selection
-        component: (identifier) @interface
-      )
-  ] 
-  "~"
-)
 
 ; ------------------------------------------
 ; Method identifiers, ambiguity exists.
@@ -232,7 +164,54 @@
 )
 (constants_spec name: (identifier) @constant )
 
-; General type identifiers (if not specified elsewhere)
+; TYPES
+(deferred_class_definition name: (identifier) @type )
+(class_definition name: (identifier) @type )
+(class_implementation name: (identifier) @type )
+
+(simple_exception_spec name: (identifier) @type )
+(resumable_exception_spec name: (identifier) @type )
+(new_exception_spec class_name: (identifier) @type )
+(catch_exception_list (identifier) @type )
+
+(component_selection
+  subject: (identifier) @type
+  selector: "=>"
+)
+
+(superclass_spec name: (identifier) @type)
+(for_event_spec 
+  [
+	source: (identifier) @type
+    name: (identifier) @variable.event
+  ]
+)
+
+
+(deferred_interface_definition name: (identifier) @type )
+(interfaces_declaration (identifier) @type )
+(interface_definition name: (identifier) @type )
+
+(component_selection 
+    subject: [
+      (identifier) @type 
+      (component_selection
+        component: (identifier) @type
+      )
+    ]
+    selector: "~"
+    component: (identifier) @property
+)
+
+(function_call
+  source: [
+      (identifier) @type 
+      (component_selection
+        component: (identifier) @type
+      )
+  ] 
+  "~"
+)
 ; WARN: We need some way to ensure that this doesnt tag variables in
 ; 'like' expressions, so the grammar must map those as 'object'
 (types_spec typing: (_ (identifier) @type !object ))
@@ -268,18 +247,18 @@
          (component_selection 
            subject:
              (component_selection
-               subject: (identifier) @class
+               subject: (identifier) @type
                selector: "=>"
                component: (identifier) @type )
          )
          (component_selection
-           subject: (identifier) @class
+           subject: (identifier) @type
            selector: "=>"
            component: (identifier) @type )
         ]
       )
      (component_selection
-       subject: (identifier) @class
+       subject: (identifier) @type
        selector: "=>"
        component: (identifier) @type )
     ]
@@ -287,10 +266,12 @@
 
 ; Make sure not to overlap with what was previously matched as class / interface
 (ref_to 
-  subject: (identifier) @type
-  (#not-match? @type "^(([zZyYlL]|/[a-zA-Z][a-zA-Z][a-zA-Z]/)?([cC][lL]|[iI][fF])_)")
+  [
+    subject: (identifier) @type
+    object: (identifier) @variable
+  ]
 )
-(ref_to object: (identifier) @variable )
+
 (referred_type name: (identifier) @type )
 
 ; Only applies to immediate decls due to anchor tag (not structs)
@@ -339,7 +320,7 @@
 (doctag
   (tag) @abapdoc.tag
   (#eq? @abapdoc.tag "@raising")
-  value: (identifier) @class)
+  value: (identifier) @type)
 
 (doctag
   (tag) @abapdoc.tag
