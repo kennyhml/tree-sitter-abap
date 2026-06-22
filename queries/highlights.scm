@@ -470,6 +470,7 @@
 
 [
     "continue"
+    "endat"
 ] @keyword.repeat
 
 [
