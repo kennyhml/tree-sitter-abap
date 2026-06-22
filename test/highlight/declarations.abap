@@ -33,20 +33,20 @@ DATA: BEGIN OF s1, c1 TYPE c VALUE '1', c2 TYPE c VALUE '2', END OF s1.
 "              ^ variable
 "                          ^ type.builtin
 "                                               ^ type.builtin
-"                  ^ property
-"                                       ^ property
+"                  ^ variable.member
+"                                       ^ variable.member
 "                                                                   ^ variable
 DATA: BEGIN OF s1, c1 TYPE c, begin of s2, c2 TYPE c, end of s2, END OF s1.
 "              ^ variable
-"                  ^ property
-"                                      ^ property
-"                                          ^ property
-"                                                            ^ property
+"                  ^ variable.member
+"                                      ^ variable.member
+"                                          ^ variable.member
+"                                                            ^ variable.member
 "                                                                       ^ variable
 CONSTANTS: BEGIN OF s1, c1 TYPE c, begin of s2, c2 TYPE c, end of s2, END OF s1.
 "                   ^ constant
-"                       ^ property
-"                                           ^ property
-"                                               ^ property
-"                                                                 ^ property
+"                       ^ variable.member
+"                                           ^ variable.member
+"                                               ^ variable.member
+"                                                                 ^ variable.member
 "                                                                            ^ constant

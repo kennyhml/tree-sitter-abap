@@ -29,39 +29,39 @@ range_tab_with_header_line[]
 zclass=>component.
 " <- type
 "     ^ operator
-"       ^ property
+"       ^ variable.member
 myobj->component.
 " <- variable
 "    ^ operator
-"      ^ property
+"      ^ variable.member
 struct-component
 " <- variable
 "     ^ operator
-"      ^ property
+"      ^ variable.member
 struct-component->attribute
 " <- variable
 "     ^ operator
-"      ^ property
+"      ^ variable.member
 "               ^ operator
-"                 ^ property
+"                 ^ variable.member
 class=>struct-component->attribute
 " <- type
 "    ^ operator
-"      ^ property
+"      ^ variable.member
 "            ^ operator
-"             ^ property
+"             ^ variable.member
 "                      ^ operator
-"                        ^ property
+"                        ^ variable.member
 if_message~text
 " <- type
 "         ^ operator
-"          ^ property
+"          ^ variable.member
 msg->if_message~text
 " <- variable
 "   ^ operator
 "    ^ type
 "              ^ operator
-"               ^ property
+"               ^ variable.member
 msg->if_message~get_text( )
 " <- variable
 "  ^ operator
@@ -71,9 +71,9 @@ msg->if_message~get_text( )
 reported-obj-%msg->if_message~get_text( )
 " <- variable
 "       ^ operator
-"        ^ property
+"        ^ variable.member
 "           ^ operator
-"            ^ property
+"            ^ variable.member
 "                ^ operator
 "                  ^ type
 "                            ^ operator
@@ -83,29 +83,29 @@ foo-('bar')-baz
 "  ^ operator
 "     ^ string
 "          ^ operator
-"           ^ property
+"           ^ variable.member
 cl_class=>('bar')-baz
 " <- type
 "       ^ operator
 "           ^ string
 "                ^ operator
-"                 ^ property
+"                 ^ variable.member
 itab-(1)->baz
 " <- variable
 "   ^ operator
 "     ^ number
 "       ^ operator
-"         ^ property
+"         ^ variable.member
 itab-(num)->baz
 " <- variable
 "   ^ operator
 "     ^ variable
 "         ^ operator
-"           ^ property
+"           ^ variable.member
 (classname)=>attribute
 "^ variable
 "          ^ operator
-"            ^ property
+"            ^ variable.member
 (classname)=>(attrname)
 "^ variable
 "          ^ operator
@@ -122,8 +122,8 @@ deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
 "<- variable
 "       ^ operator
 "            ^ operator
-"             ^ property
+"             ^ variable.member
 "                  ^ operator
 "                       ^ operator
 "                            ^ operator
-"                             ^ property
+"                             ^ variable.member

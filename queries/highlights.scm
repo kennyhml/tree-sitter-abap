@@ -106,9 +106,9 @@
 (data_declaration
   (begin_of_struct)
   [
-    (data_spec name: (identifier) @property)
-    (begin_of_struct name: (identifier) @property)
-    (end_of_struct name: (identifier) @property)
+    (data_spec name: (identifier) @variable.member)
+    (begin_of_struct name: (identifier) @variable.member)
+    (end_of_struct name: (identifier) @variable.member)
   ]
   (end_of_struct)
 )
@@ -116,19 +116,19 @@
 
 [ 
   (itab_comp_spec)
-] comp: (identifier) @property 
+] comp: (identifier) @variable.member 
 
 
-; The component of a struct access is always a property even in a type context.
+; The component of a struct access is always a variable.member even in a type context.
 (component_selection
   selector: ["-" "=>"]
-  component: (identifier) @property
+  component: (identifier) @variable.member
 )
 
 (component_selection
   subject: (identifier)? @variable
   selector: "->"
-  component: (identifier) @property
+  component: (identifier) @variable.member
 )
 
 ; TODO: This incorrectly tags in a typing context as well, are there
@@ -138,10 +138,10 @@
   selector: "-"
 )
 
-(key_components (identifier) @property )
-(mapping (identifier) @property )
-(lookup_mapping (identifier) @property )
-(except_list (identifier) @property )
+(key_components (identifier) @variable.member )
+(mapping (identifier) @variable.member )
+(lookup_mapping (identifier) @variable.member )
+(except_list (identifier) @variable.member )
 
 ; Parameter identifiers
 (named_argument name: (identifier) @variable.parameter )
@@ -187,9 +187,9 @@
 (constants_declaration
   (begin_of_struct)
   [
-    (constants_spec name: (identifier) @property)
-    (begin_of_struct name: (identifier) @property)
-    (end_of_struct name: (identifier) @property)
+    (constants_spec name: (identifier) @variable.member)
+    (begin_of_struct name: (identifier) @variable.member)
+    (end_of_struct name: (identifier) @variable.member)
   ]
   (end_of_struct)
 )
@@ -230,7 +230,7 @@
       )
     ]
     selector: "~"
-    component: (identifier) @property
+    component: (identifier) @variable.member
 )
 
 (function_call
@@ -318,9 +318,9 @@
 (types_declaration
   (begin_of_struct)
   [
-    (types_spec name: (identifier) @property)
-    (begin_of_struct name: (identifier) @property)
-    (end_of_struct name: (identifier) @property)
+    (types_spec name: (identifier) @variable.member)
+    (begin_of_struct name: (identifier) @variable.member)
+    (end_of_struct name: (identifier) @variable.member)
   ]
   (end_of_struct)
 )
