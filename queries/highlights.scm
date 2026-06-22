@@ -463,6 +463,32 @@
   "m"
 ] @keyword.operator
 
+[
+	  "return"
+	  "exit"
+] @keyword.return
+
+[
+    "continue"
+] @keyword.repeat
+
+[
+    "check"
+] @keyword.conditional
+
+[
+    "resume"
+] @keyword.exception
+
+; I wanna be careful cause these keywords may appear in other context?
+; Like in a parameters decl, I feel like resumable should not be tagged
+(raise_exception_statement ["raise" "exception" ] @keyword.exception )
+(resumable_spec "resumable" @keyword.exception )
+(try_statement ["try" "endtry" ] @keyword.exception )
+(catch_clause ["catch" ] @keyword.exception )
+(before_unwind_spec ["before" "unwind" ] @keyword.exception )
+(cleanup_clause "cleanup" @keyword.exception )
+
 (if_statement [ "if" "endif" ] @keyword.conditional )
 (elseif_clause "elseif" @keyword.conditional)
 (else_clause "else" @keyword.conditional)
@@ -475,31 +501,18 @@
 (case_type_clause [ "when" "type" ] @keyword.conditional )
 (case_others_type_clause [ "when" "others" ] @keyword.conditional )
 
-(do_statement ["do" "times" "enddo"  ] @keyword.control )
-(while_statement ["while" "endwhile" ] @keyword.control )
-(try_statement ["try" "endtry" ] @keyword.control )
-(catch_clause ["catch" "before" "unwind" ] @keyword.control )
-(cleanup_clause "cleanup" @keyword.control )
+(do_statement ["do" "times" "enddo"  ] @keyword.repeat )
+(while_statement ["while" "endwhile" ] @keyword.repeat )
 
-(loop_at_statement ["loop" "at" "endloop" ] @keyword.control )
-(at_first_statement ["at" "first"] @keyword.control )
-(at_last_statement ["at" "last"] @keyword.control )
-(at_new_statement ["at" "new"] @keyword.control )
-(at_end_of_statement ["at" "end" "of"] @keyword.control )
+(loop_at_statement ["loop" "at" "endloop" ] @keyword.repeat )
+(at_first_statement ["at" "first"] @keyword.repeat )
+(at_last_statement ["at" "last"] @keyword.repeat )
+(at_new_statement ["at" "new"] @keyword.repeat )
+(at_end_of_statement ["at" "end" "of"] @keyword.repeat )
 
-(raise_exception_statement ["raise" "exception" ] @keyword.control )
-(resumable_spec "resumable" @keyword.control )
 
 ; Keywords that can be considered control flow without context check
 ; As of now, new keywords should be added to the uncontextualized
 ; array and only moved to a context if needed.
-[
-	  "return"
-	  "exit"
-    "check"
-    "continue"
-    "resume"
-    "endat"
-] @keyword.control
 
 (format_option parameter: (identifier) @keyword )

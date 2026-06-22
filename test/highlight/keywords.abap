@@ -16,8 +16,9 @@ when others.
 "    ^ keyword.conditional
 endcase.
 "<- keyword.conditional
-
+check foo = abap_true.
 "<- keyword.conditional
+
 case type of foo.
 "<- keyword.conditional
 when type cl_tranport.
@@ -65,3 +66,24 @@ elseif f1 o m1 and f1 z m1 or f1 m m1.
 "                     ^ keyword.operator
 "                                ^ keyword.operator
 endif.
+
+return.
+"<- keyword.return
+exit.
+"<- keyword.return
+try.
+"<- keyword.exception
+raise resumable exception type cx_root.
+"<- keyword.exception
+"     ^ keyword.exception
+"               ^ keyword.exception
+catch before unwind cx_exception into err.
+"<- keyword.exception
+"     ^ keyword.exception
+"            ^ keyword.exception
+resume.
+"<- keyword.exception
+cleanup.
+"<- keyword.exception
+endtry.
+"<- keyword.exception
