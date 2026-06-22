@@ -43,3 +43,10 @@ DATA: BEGIN OF s1, c1 TYPE c, begin of s2, c2 TYPE c, end of s2, END OF s1.
 "                                          ^ property
 "                                                            ^ property
 "                                                                       ^ variable
+CONSTANTS: BEGIN OF s1, c1 TYPE c, begin of s2, c2 TYPE c, end of s2, END OF s1.
+"                   ^ constant
+"                       ^ property
+"                                           ^ property
+"                                               ^ property
+"                                                                 ^ property
+"                                                                            ^ constant
