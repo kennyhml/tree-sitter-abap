@@ -27,7 +27,7 @@ range_tab_with_header_line[]
 "                         ^ operator
 " ^ variable
 zclass=>component.
-" <- class
+" <- type
 "     ^ operator
 "       ^ property
 myobj->component.
@@ -45,7 +45,7 @@ struct-component->attribute
 "               ^ operator
 "                 ^ property
 class=>struct-component->attribute
-" <- class
+" <- type
 "    ^ operator
 "      ^ property
 "            ^ operator
@@ -53,19 +53,19 @@ class=>struct-component->attribute
 "                      ^ operator
 "                        ^ property
 if_message~text
-" <- interface
+" <- type
 "         ^ operator
 "          ^ property
 msg->if_message~text
 " <- variable
 "   ^ operator
+"    ^ type
 "              ^ operator
-"    ^ property
 "               ^ property
 msg->if_message~get_text( )
 " <- variable
 "  ^ operator
-"    ^ property
+"    ^ type
 "              ^ operator
 "               ^ function.method
 reported-obj-%msg->if_message~get_text( )
@@ -75,7 +75,7 @@ reported-obj-%msg->if_message~get_text( )
 "           ^ operator
 "            ^ property
 "                ^ operator
-"                  ^ property
+"                  ^ type
 "                            ^ operator
 "                             ^ function.method
 foo-('bar')-baz
@@ -85,7 +85,7 @@ foo-('bar')-baz
 "          ^ operator
 "           ^ property
 cl_class=>('bar')-baz
-" <- class
+" <- type
 "       ^ operator
 "           ^ string
 "                ^ operator
