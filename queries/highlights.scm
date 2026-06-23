@@ -18,7 +18,7 @@
 [
    (pragma)
    (pseudo_comment)
-] @comment.pragma
+] @keyword.directive
 
 
 ; ------------------------------------------
