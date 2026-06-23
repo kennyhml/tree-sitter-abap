@@ -5,8 +5,15 @@ elseif foo = abab_false.
 else.
 "<- keyword.conditional
 endif.
-
 "<- keyword.conditional
+
+include zbainc.
+"<- keyword.import
+methods foo.
+"<- keyword.function
+class-methods foo.
+"<- keyword.function
+
 case foo.
 "<- keyword.conditional
 when baz.

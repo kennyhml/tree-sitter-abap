@@ -469,6 +469,10 @@
     "resume"
 ] @keyword.exception
 
+(include_statement "include" @keyword.import )
+(methods_declaration "methods" @keyword.function ) 
+(class_methods_declaration "class-methods" @keyword.function ) 
+
 ; I wanna be careful cause these keywords may appear in other context?
 ; Like in a parameters decl, I feel like resumable should not be tagged
 (raise_exception_statement ["raise" "exception" ] @keyword.exception )
