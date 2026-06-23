@@ -23,9 +23,6 @@ ref->*+10(length)
 "   ^ operator
 "    ^ variable
 "           ^ number
-range_tab_with_header_line[]
-"                         ^ operator
-" ^ variable
 zclass=>component.
 " <- type
 "     ^ operator
@@ -120,10 +117,7 @@ itab-(num)->baz
 "            ^ function.method
 deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
 "<- variable
-"       ^ operator
 "            ^ operator
 "             ^ variable.member
-"                  ^ operator
-"                       ^ operator
 "                            ^ operator
 "                             ^ variable.member

@@ -1,6 +1,5 @@
 line_exists( itab[ 1 ] )
 "<- function.builtin
-"          ^ delimiter
 "            ^ variable
 condense( val = `...` )
 "<- function.builtin
