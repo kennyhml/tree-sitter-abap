@@ -173,6 +173,11 @@
   ]
 )
 
+(parameters_spec name: (identifier) @variable.parameter )
+(user_command_spec (identifier) @constant )
+(modif_id_spec (identifier) @constant )
+(radiobutton_group (identifier) @constant )
+(search_help_spec (identifier) @type )
 
 (message_spec 
   type: (message_type)? @constant.builtin 
@@ -266,7 +271,7 @@
 
 ; Must be more specific than the variable rule so it takes precedence. 
 ; No choice but to support up to a certain depth (3)
-(types_spec typing: (_ 
+(_ typing: (_ 
   (component_selection 
     subject: [
       (identifier) @type

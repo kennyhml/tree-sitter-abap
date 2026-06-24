@@ -10,6 +10,23 @@ AT SELECTION-SCREEN ON HELP-REQUEST FOR p_carr_2.
 "                                       ^ variable.parameter
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_carr_2.
 "                                        ^ variable.parameter
-
-    
-
+PARAMETERS p_carrid TYPE carrid obligatory.
+"          ^ variable.parameter
+"                        ^ type
+parameters p_impsip as checkbox default abap_true modif id imp.
+"          ^ variable.parameter
+"                                                          ^ constant
+PARAMETERS p_carrid TYPE spfli-carrid USER-COMMAND onli  DEFAULT 'LH'. 
+"          ^ variable.parameter
+"                        ^ type
+"                              ^ variable.member
+"                                                  ^ constant
+parameters:	p_queue radiobutton group r1 default 'X', 
+"           ^ variable.parameter
+"                                     ^ constant
+            p_seq radiobutton group r1.
+"           ^ variable.parameter
+"                                   ^ constant
+PARAMETERS p_cust  TYPE kunnr MATCHCODE OBJECT debi.
+"          ^ variable.parameter
+"                                              ^ type

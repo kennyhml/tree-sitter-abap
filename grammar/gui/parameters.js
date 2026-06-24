@@ -1,5 +1,3 @@
-
-
 module.exports = {
 
   parameters_declaration: $ => gen.chainable(
@@ -23,9 +21,9 @@ module.exports = {
     field("visible_length", $.visible_length_spec),
     field("user_command", $.user_command_spec),
 
-    field("checkbox", $.checkbox_spec),
-    field("radiobutton", $.radiobutton_spec),
-    field("listbox", $.listbox_spec),
+    field("checkbox", $.as_checkbox),
+    field("radiobutton", $.radiobutton_group),
+    field("listbox", $.as_listbox),
 
     field("obligatory", $.obligatory_spec),
     field("display", $.no_display_spec),
@@ -38,18 +36,18 @@ module.exports = {
     field("case", $.lower_case_spec),
     field("search_help", $.search_help_spec),
     field("memory_id", $.memory_id_spec),
-    field("value_check", $.value_check_spec),
+    field("value_check", $.value_check),
   ),
 
-  radiobutton_spec: $ => seq(
+  radiobutton_group: $ => seq(
     ...gen.kws("radiobutton", "group"),
     field("group", $.identifier),
   ),
 
-  checkbox_spec: _ => seq(...gen.kws("as", "checkbox")),
+  as_checkbox: _ => seq(...gen.kws("as", "checkbox")),
 
-  value_check_spec: _ => seq(...gen.kws("value", "check")),
+  value_check: _ => seq(...gen.kws("value", "check")),
 
-  listbox_spec: _ => seq(...gen.kws("as", "listbox")),
+  as_listbox: _ => seq(...gen.kws("as", "listbox")),
 
 }

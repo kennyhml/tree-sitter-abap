@@ -929,7 +929,7 @@
           "name": "checkbox",
           "content": {
             "type": "SYMBOL",
-            "name": "checkbox_spec"
+            "name": "as_checkbox"
           }
         },
         {
@@ -937,7 +937,7 @@
           "name": "radiobutton",
           "content": {
             "type": "SYMBOL",
-            "name": "radiobutton_spec"
+            "name": "radiobutton_group"
           }
         },
         {
@@ -945,7 +945,7 @@
           "name": "listbox",
           "content": {
             "type": "SYMBOL",
-            "name": "listbox_spec"
+            "name": "as_listbox"
           }
         },
         {
@@ -1014,12 +1014,12 @@
           "name": "value_check",
           "content": {
             "type": "SYMBOL",
-            "name": "value_check_spec"
+            "name": "value_check"
           }
         }
       ]
     },
-    "radiobutton_spec": {
+    "radiobutton_group": {
       "type": "SEQ",
       "members": [
         {
@@ -1040,7 +1040,7 @@
         }
       ]
     },
-    "checkbox_spec": {
+    "as_checkbox": {
       "type": "SEQ",
       "members": [
         {
@@ -1053,7 +1053,7 @@
         }
       ]
     },
-    "value_check_spec": {
+    "value_check": {
       "type": "SEQ",
       "members": [
         {
@@ -1066,7 +1066,7 @@
         }
       ]
     },
-    "listbox_spec": {
+    "as_listbox": {
       "type": "SEQ",
       "members": [
         {
