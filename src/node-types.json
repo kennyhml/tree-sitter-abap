@@ -1119,6 +1119,46 @@
     }
   },
   {
+    "type": "as_checkbox",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "as",
+            "named": false
+          },
+          {
+            "type": "checkbox",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "as_listbox",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "as",
+            "named": false
+          },
+          {
+            "type": "listbox",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "as_seperate_unit",
     "named": true,
     "fields": {
@@ -3091,26 +3131,6 @@
         "types": [
           {
             "type": "check",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "checkbox_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "as",
-            "named": false
-          },
-          {
-            "type": "checkbox",
             "named": false
           }
         ]
@@ -9459,26 +9479,6 @@
     }
   },
   {
-    "type": "listbox_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "as",
-            "named": false
-          },
-          {
-            "type": "listbox",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "load_of_program_event",
     "named": true,
     "fields": {
@@ -11356,7 +11356,7 @@
         "required": false,
         "types": [
           {
-            "type": "checkbox_spec",
+            "type": "as_checkbox",
             "named": true
           }
         ]
@@ -11386,7 +11386,7 @@
         "required": false,
         "types": [
           {
-            "type": "listbox_spec",
+            "type": "as_listbox",
             "named": true
           }
         ]
@@ -11436,7 +11436,7 @@
         "required": false,
         "types": [
           {
-            "type": "radiobutton_spec",
+            "type": "radiobutton_group",
             "named": true
           }
         ]
@@ -11476,7 +11476,7 @@
         "required": false,
         "types": [
           {
-            "type": "value_check_spec",
+            "type": "value_check",
             "named": true
           }
         ]
@@ -12105,7 +12105,7 @@
     }
   },
   {
-    "type": "radiobutton_spec",
+    "type": "radiobutton_group",
     "named": true,
     "fields": {
       "group": {
@@ -16660,7 +16660,7 @@
     }
   },
   {
-    "type": "value_check_spec",
+    "type": "value_check",
     "named": true,
     "fields": {
       "keyword": {
