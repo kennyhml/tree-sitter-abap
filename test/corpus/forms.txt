@@ -110,7 +110,7 @@ PERFORM (subr) IN PROGRAM (prog) IF FOUND.
       (in_program_spec
         name: (dynamic_spec
           value: (identifier)))
-      (if_found_spec))))
+      (if_found))))
 
 ======
 Perform subroutine from index
@@ -142,7 +142,7 @@ PERFORM foo(bar) IF FOUND.
       value: (dynamic_spec
         (identifier))
       program: (dynamic_spec)
-      (if_found_spec))))
+      (if_found))))
 
 ======
 Register subroutines on luw actions

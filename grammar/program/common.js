@@ -1,8 +1,5 @@
-
-
-
 module.exports = {
 
-    if_found_spec: _ => seq(...gen.kws("if", "found"))
+  if_found: _ => seq(...gen.kws("if", "found"))
 
 }
