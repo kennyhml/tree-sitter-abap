@@ -1,0 +1,20 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Tables ] Simple form
+=================================================================================
+TABLES table_wa.
+---
+
+(source
+  (tables_declaration
+    (identifier)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Tables ] Chained form
+=================================================================================
+TABLES: table_wa1, tables_wa2.
+---
+
+(source
+  (tables_declaration
+    (identifier)
+    (identifier)))

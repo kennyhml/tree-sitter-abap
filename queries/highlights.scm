@@ -87,6 +87,7 @@
 (substring_access (identifier) @variable )
 (table_body_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
+(tables_declaration (identifier) @variable )
 
 (declaration_expression (identifier) @variable )
 (data_declaration 

@@ -50,3 +50,6 @@ CONSTANTS: BEGIN OF s1, c1 TYPE c, begin of s2, c2 TYPE c, end of s2, END OF s1.
 "                                               ^ variable.member
 "                                                                 ^ variable.member
 "                                                                            ^ constant
+TABLES: table_wa, table_wa2.
+"       ^ variable
+"                 ^ variable
