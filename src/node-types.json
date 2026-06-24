@@ -394,7 +394,7 @@
         "named": true
       },
       {
-        "type": "tables_declaration",
+        "type": "tables_statement",
         "named": true
       }
     ]
@@ -4941,19 +4941,9 @@
     }
   },
   {
-    "type": "default_message_class_spec",
+    "type": "default_message_class",
     "named": true,
     "fields": {
-      "id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": false,
         "required": true,
@@ -4961,6 +4951,16 @@
           {
             "type": "message-id",
             "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -5411,7 +5411,7 @@
     }
   },
   {
-    "type": "defining_database_spec",
+    "type": "defining_database",
     "named": true,
     "fields": {
       "keyword": {
@@ -5428,7 +5428,7 @@
           }
         ]
       },
-      "logical_database": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -9183,7 +9183,7 @@
     }
   },
   {
-    "type": "line_count_spec",
+    "type": "line_count",
     "named": true,
     "fields": {
       "footer_lines": {
@@ -9219,7 +9219,7 @@
     }
   },
   {
-    "type": "line_size_spec",
+    "type": "line_size",
     "named": true,
     "fields": {
       "keyword": {
@@ -10790,7 +10790,7 @@
     }
   },
   {
-    "type": "no_standard_page_heading_spec",
+    "type": "no_standard_page_heading",
     "named": true,
     "fields": {
       "keyword": {
@@ -12634,7 +12634,7 @@
     }
   },
   {
-    "type": "reduced_functionality_spec",
+    "type": "reduced_functionality",
     "named": true,
     "fields": {
       "keyword": {
@@ -13213,27 +13213,27 @@
       "required": false,
       "types": [
         {
-          "type": "default_message_class_spec",
+          "type": "default_message_class",
           "named": true
         },
         {
-          "type": "defining_database_spec",
+          "type": "defining_database",
           "named": true
         },
         {
-          "type": "line_count_spec",
+          "type": "line_count",
           "named": true
         },
         {
-          "type": "line_size_spec",
+          "type": "line_size",
           "named": true
         },
         {
-          "type": "no_standard_page_heading_spec",
+          "type": "no_standard_page_heading",
           "named": true
         },
         {
-          "type": "reduced_functionality_spec",
+          "type": "reduced_functionality",
           "named": true
         }
       ]
@@ -15851,7 +15851,7 @@
     }
   },
   {
-    "type": "tables_declaration",
+    "type": "tables_statement",
     "named": true,
     "fields": {
       "keyword": {

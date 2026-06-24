@@ -1,0 +1,80 @@
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Simple report statement
+=================================================================================
+report ZMYTESTREPORT.
+---
+
+(source
+  (report_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Using message class
+=================================================================================
+report ZMYTESTREPORT message-id ZMESSAGE_CLASS.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (default_message_class
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Reduced functionality
+=================================================================================
+report ZMYTESTREPORT reduced functionality.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (reduced_functionality)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Defining database
+=================================================================================
+report ZMYTESTREPORT defining database mydb.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (defining_database
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] No standard heading
+=================================================================================
+report ZMYTESTREPORT no standard page heading.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (no_standard_page_heading)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Line size
+=================================================================================
+report ZMYTESTREPORT line-size 200.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (line_size
+      size: (number))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Line count
+=================================================================================
+report ZMYTESTREPORT line-count 100(500).
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (line_count
+      page_lines: (number)
+      footer_lines: (number))))
