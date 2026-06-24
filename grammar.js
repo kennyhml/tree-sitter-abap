@@ -210,7 +210,7 @@ module.exports = grammar({
         $.class_methods_declaration,
 
         // Program
-        $.tables_statement,
+        $.tables_declaration,
         $.form_definition,
         $.initialization_event,
         $.start_of_selection_event,

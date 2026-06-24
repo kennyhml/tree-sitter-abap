@@ -394,7 +394,7 @@
         "named": true
       },
       {
-        "type": "tables_statement",
+        "type": "tables_declaration",
         "named": true
       }
     ]
@@ -15851,7 +15851,7 @@
     }
   },
   {
-    "type": "tables_statement",
+    "type": "tables_declaration",
     "named": true,
     "fields": {
       "keyword": {
