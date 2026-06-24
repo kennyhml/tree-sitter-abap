@@ -1,6 +1,6 @@
-======
-[PRAGMAS] Simple pragma without parameter
-======
+==========================================================================
+[ ABAP - Syntax Elements / Directives / Pragmas ] Simple needed annotation
+==========================================================================
 ##needed
 ---
 
@@ -10,9 +10,9 @@
     parameter: (identifier)
     parameter: (identifier)))
 
-======
-[PRAGMAS] Pragma with single parameter
-======
+==========================================================================
+[ ABAP - Syntax Elements / Directives / Pragmas ] Shadowing with parameter
+==========================================================================
 ##SHADOW[SUBSTRING]
 ---
 
@@ -22,9 +22,9 @@
     parameter: (identifier)
     parameter: (identifier)))
 
-======
-[PRAGMAS] Pragma with two parameters
-======
+==========================================================================
+[ ABAP - Syntax Elements / Directives / Pragmas ] Shadowing with 2 params
+==========================================================================
 ##SHADOW[SUBSTRING][ABC]
 ---
 
@@ -33,3 +33,18 @@
     code: (identifier)
     parameter: (identifier)
     parameter: (identifier)))
+
+==========================================================================
+[ ABAP - Syntax Elements / Directives / Pragmas ] Delimiter after pragma
+==========================================================================
+report foobar ##NO_TEXT.
+
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (pragma
+      code: (identifier)
+      parameter: (identifier)
+      parameter: (identifier))))
