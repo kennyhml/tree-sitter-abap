@@ -344,6 +344,11 @@
 ; The sibling relationship doesnt work well with incremental parsing
 
 
+(include_statement
+  name: (identifier) @module
+)
+
+
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.
 ; ------------------------------------------
