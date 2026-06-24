@@ -10883,16 +10883,6 @@
     "type": "on_block",
     "named": true,
     "fields": {
-      "block": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -10904,6 +10894,16 @@
           {
             "type": "on",
             "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -10931,7 +10931,7 @@
           }
         ]
       },
-      "select_options": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -10985,7 +10985,7 @@
           }
         ]
       },
-      "target": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -11015,7 +11015,7 @@
           }
         ]
       },
-      "parameter": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -11031,16 +11031,6 @@
     "type": "on_radiobutton_group",
     "named": true,
     "fields": {
-      "group": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -11056,6 +11046,16 @@
           {
             "type": "radiobutton",
             "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -11083,7 +11083,7 @@
           }
         ]
       },
-      "target": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

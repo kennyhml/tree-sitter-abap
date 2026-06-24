@@ -162,16 +162,27 @@
 (raising_exception exception: (identifier) @variable.parameter )
 (raise_statement name: (identifier) @variable.parameter )
 
+(at_selscreen_statement
+  event: [
+    (on_help_request (identifier) @variable.parameter )
+    (on_parameter (identifier) @variable.parameter )
+    (on_value_request (identifier) @variable.parameter )
+    (on_end_of_parameter (identifier) @variable.parameter )
+    (on_radiobutton_group (identifier) @constant )
+    (on_block (identifier) @constant )
+  ]
+)
+
+
 (message_spec 
   type: (message_type)? @constant.builtin 
   id: (identifier)? @variable 
-  )
+)
 
 ; CONSTANTS
 ((identifier) @constant.builtin
   (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD])))$" )
 )
-
 ; Only for immediate declarations
 ; TODO: Wont work when it starts with a struct.
 (constants_declaration 
