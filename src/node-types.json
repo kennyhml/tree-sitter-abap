@@ -3904,10 +3904,6 @@
         "required": false,
         "types": [
           {
-            "type": "bt",
-            "named": false
-          },
-          {
             "type": "byte-ca",
             "named": false
           },
@@ -3981,10 +3977,6 @@
           },
           {
             "type": "na",
-            "named": false
-          },
-          {
-            "type": "nb",
             "named": false
           },
           {
@@ -5081,7 +5073,7 @@
             "named": false
           },
           {
-            "type": "nb",
+            "type": "nbt",
             "named": false
           },
           {
@@ -5233,7 +5225,7 @@
             "named": false
           },
           {
-            "type": "nb",
+            "type": "nbt",
             "named": false
           },
           {
@@ -7643,7 +7635,7 @@
     "fields": {}
   },
   {
-    "type": "if_found_spec",
+    "type": "if_found",
     "named": true,
     "fields": {
       "keyword": {
@@ -8278,7 +8270,7 @@
       "required": false,
       "types": [
         {
-          "type": "if_found_spec",
+          "type": "if_found",
           "named": true
         }
       ]
@@ -15158,7 +15150,7 @@
       "required": false,
       "types": [
         {
-          "type": "if_found_spec",
+          "type": "if_found",
           "named": true
         },
         {
@@ -18066,7 +18058,7 @@
     "named": false
   },
   {
-    "type": "nb",
+    "type": "nbt",
     "named": false
   },
   {

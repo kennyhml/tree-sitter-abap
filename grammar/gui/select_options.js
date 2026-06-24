@@ -48,7 +48,10 @@ module.exports = {
     repeat1(
       choice(
         seq(gen.kw("to"), field("high", $.data_object)),
-        seq(gen.kw("option"), field("option", $._comparison_operator)),
+        seq(
+          gen.kw("option"),
+          field("option", choice($._comparison_operator, ...gen.kws("bt", "nbt")))
+        ),
         seq(gen.kw("sign"), field("sign", choice(...gen.kws("i", "e")))),
       )
     )

@@ -1842,8 +1842,21 @@
                     "type": "FIELD",
                     "name": "option",
                     "content": {
-                      "type": "SYMBOL",
-                      "name": "_comparison_operator"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_comparison_operator"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_kw_bt"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_kw_nbt"
+                        }
+                      ]
                     }
                   }
                 ]
@@ -8606,7 +8619,7 @@
         }
       ]
     },
-    "if_found_spec": {
+    "if_found": {
       "type": "SEQ",
       "members": [
         {
@@ -8930,39 +8943,6 @@
         }
       ]
     },
-    "include_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_include"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "if_found_spec"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
     "perform_statement": {
       "type": "SEQ",
       "members": [
@@ -9187,7 +9167,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "if_found_spec"
+              "name": "if_found"
             },
             {
               "type": "BLANK"
@@ -9216,7 +9196,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "if_found_spec"
+              "name": "if_found"
             },
             {
               "type": "BLANK"
@@ -16289,6 +16269,39 @@
         }
       ]
     },
+    "include_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_include"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "if_found"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "_kw_data": {
       "type": "FIELD",
       "name": "keyword",
@@ -16716,32 +16729,6 @@
         },
         "named": false,
         "value": "np"
-      }
-    },
-    "_kw_bt": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[bB][tT]"
-        },
-        "named": false,
-        "value": "bt"
-      }
-    },
-    "_kw_nb": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[nN][bB]"
-        },
-        "named": false,
-        "value": "nb"
       }
     },
     "_kw_byte_co": {
@@ -18926,6 +18913,32 @@
         },
         "named": false,
         "value": "option"
+      }
+    },
+    "_kw_bt": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[bB][tT]"
+        },
+        "named": false,
+        "value": "bt"
+      }
+    },
+    "_kw_nbt": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[nN][bB][tT]"
+        },
+        "named": false,
+        "value": "nbt"
       }
     },
     "_kw_i": {
@@ -23581,14 +23594,6 @@
         {
           "type": "SYMBOL",
           "name": "_kw_np"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_bt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_nb"
         },
         {
           "type": "SYMBOL",

@@ -64,14 +64,14 @@ module.exports = {
   __dynamic_subroutine_spec: $ => seq(
     field("name", $.identifier),
     field("program", $._immediate_dynamic_spec),
-    optional($.if_found_spec)
+    optional($.if_found)
   ),
 
   // PERFORM (subr) IN PROGRAM (prog) IF FOUND. 
   __long_form_subroutine_spec: $ => seq(
     field("name", $.__dyn_or_explicit_spec),
     $.in_program_spec,
-    optional($.if_found_spec)
+    optional($.if_found)
   ),
 
   // PERFORM n OF subr1 subr2
