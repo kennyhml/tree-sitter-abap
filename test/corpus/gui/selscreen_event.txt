@@ -1,0 +1,116 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] Base event
+=================================================================================
+at selection-screen.
+---
+
+(source
+  (at_selscreen_statement))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On output event
+=================================================================================
+at selection-screen output.
+---
+
+(source
+  (at_selscreen_statement
+    event: (output)))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On param input
+=================================================================================
+AT SELECTION-SCREEN ON p_carrid. 
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_parameter
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] End of param input
+=================================================================================
+AT SELECTION-SCREEN ON END OF p_carrid. 
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_end_of_parameter
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] End block input
+=================================================================================
+AT SELECTION-SCREEN ON BLOCK block.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_block
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On radio group
+=================================================================================
+AT SELECTION-SCREEN ON RADIOBUTTON GROUP grp.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_radiobutton_group
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On exit command
+=================================================================================
+AT SELECTION-SCREEN ON EXIT-COMMAND.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_exit_command)))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On help request
+=================================================================================
+AT SELECTION-SCREEN ON HELP-REQUEST FOR p_carr_2.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_help_request
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On value request
+=================================================================================
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_carr_2.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_value_request
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] With statement block
+=================================================================================
+AT SELECTION-SCREEN.
+    clear itab.
+AT SELECTION-SCREEN OUTPUT.
+    clear itab2.
+---
+
+(source
+  (at_selscreen_statement
+    body: (statement_block
+      (clear_statement
+        (clear_spec
+          subject: (identifier)))))
+  (at_selscreen_statement
+    event: (output)
+    body: (statement_block
+      (clear_statement
+        (clear_spec
+          subject: (identifier))))))
