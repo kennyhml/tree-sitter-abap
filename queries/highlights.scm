@@ -21,6 +21,7 @@
 ] @keyword.directive
 
 
+
 ; ------------------------------------------
 ; Method identifiers, ambiguity exists.
 ; ------------------------------------------
@@ -346,45 +347,51 @@
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.
 ; ------------------------------------------
+(docstring) @comment.documentation
+
 (doctag
-  (tag) @abapdoc.tag
-  (#match? @abapdoc.tag "@parameter")
+  (tag) @keyword.directive
+  (#any-of? @keyword.directive "@parameter" "@exception")
   value: (identifier) @variable.parameter)
 
 (doctag
-  (tag) @abapdoc.tag
-  (#eq? @abapdoc.tag "@raising")
-  value: (identifier) @type)
+  (tag) @keyword.directive
+  (#any-of? @keyword.directive "@raising" "@testing")
+  value: (identifier)? @type)
 
-(doctag
-  (tag) @abapdoc.tag
-  (#eq? @abapdoc.tag "@exception")
-  value: (identifier) @variable.parameter)
-
-(doctag (tag) @abapdoc.tag )
-(doclink "@link" @abapdoc.tag )
+; Custom tags e.g. @brief that are just followed by documentation
+(doctag 
+  (tag) @keyword.directive  
+  (#not-any-of? @keyword.directive "@parameter" "@exception" "@raising" "@testing" )
+)
+(doclink "@link" @keyword.directive )
 
 ; METH for methods
 (linked_node
-	(linked_object_kind) @abapdoc.kind
-    (#match? @abapdoc.kind "[Mm][Ee][Tt][Hh]")
-    (identifier) @function.method
+  (linked_object_kind) @keyword.directive
+  (#match? @keyword.directive "[Mm][Ee][Tt][Hh]")
+  (identifier) @function.method
 )
 
 ; DATA for constants, variables, and procedure parameters in the appropriate context
 (linked_node
-	(linked_object_kind) @abapdoc.kind
-    (#match? @abapdoc.kind "[Dd][Aa][Tt][Aa]")
-    (identifier) @variable
+	(linked_object_kind) @keyword.directive
+  (#match? @keyword.directive "[Dd][Aa][Tt][Aa]")
+  (identifier) @variable
 )
 
-(docstring) @abapdoc
 
 ; No kind: is specified so the identifier is ambiguous. It could be
 ; a data element, global class / interface or a CDs entity.
 ; Could take a guess by looking at the prefix?
 (linked_node
-    (identifier) @type
+	(linked_object_kind) @keyword.directive
+  (#not-match? @keyword.directive "([Mm][Ee][Tt][Hh])|([dD][aA][tT][aA])")
+  (identifier) @type
+)
+(linked_node
+  !kind
+  (identifier) @type
 )
 
 [ "." "," ":" ] @punctuation.delimiter
