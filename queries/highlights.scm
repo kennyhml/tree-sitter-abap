@@ -348,6 +348,13 @@
   name: (identifier) @module
 )
 
+(report_statement
+  name: (identifier) @module
+  (default_message_class name: (identifier) @type )?
+  (defining_database name: (identifier) @type )?
+)
+
+
 
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.
