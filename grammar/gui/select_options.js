@@ -1,5 +1,3 @@
-
-
 module.exports = {
 
   select_options_declaration: $ => gen.chainable(
@@ -36,13 +34,13 @@ module.exports = {
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT-OPTIONS_VALUE.html
   __selopt_value_option: $ => choice(
     field("default", $.default_value_spec),
-    field("default", $.default_range_spec),
+    field("default", $.default_range),
     field("case", $.lower_case_spec),
     field("search_help", $.search_help_spec),
     field("memory_id", $.memory_id_spec),
   ),
 
-  default_range_spec: $ => seq(
+  default_range: $ => seq(
     gen.kw("default"),
     field("low", $.data_object),
     repeat1(
@@ -50,7 +48,7 @@ module.exports = {
         seq(gen.kw("to"), field("high", $.data_object)),
         seq(
           gen.kw("option"),
-          field("option", choice($._comparison_operator, ...gen.kws("bt", "nbt")))
+          field("option", choice($._comparison_operator, ...gen.kws("bt", "nb")))
         ),
         seq(gen.kw("sign"), field("sign", choice(...gen.kws("i", "e")))),
       )

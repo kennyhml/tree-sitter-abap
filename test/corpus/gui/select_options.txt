@@ -1,0 +1,162 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Simple param
+=================================================================================
+SELECT-OPTIONS s_carrid FOR gv_carrid.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] For table attr
+=================================================================================
+SELECT-OPTIONS s_vbeln FOR vbak-vbeln.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (component_selection
+        subject: (identifier)
+        component: (identifier)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Obligatory
+=================================================================================
+SELECT-OPTIONS s_date FOR gv_date OBLIGATORY.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      obligatory: (obligatory_spec))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Simple default
+=================================================================================
+SELECT-OPTIONS s_date FOR gv_date default sy-subrc.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      default: (default_value_spec
+        value: (component_selection
+          subject: (identifier)
+          component: (identifier))))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Range default
+=================================================================================
+SELECT-OPTIONS s_vbeln FOR gv_vbeln DEFAULT '1000' TO '2000' OPTION BT SIGN I.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      default: (default_range
+        low: (string_literal)
+        high: (string_literal)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] No intervals
+=================================================================================
+SELECT-OPTIONS s_bukrs FOR gv_bukrs NO INTERVALS.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      intervals: (no_intervals_spec))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] No extension
+=================================================================================
+SELECT-OPTIONS s_kunnr FOR gv_kunnr NO-EXTENSION.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      extension: (no_extension_spec))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Search help
+=================================================================================
+SELECT-OPTIONS s_matnr FOR gv_matnr MEMORY ID mat MATCHCODE OBJECT mat1.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      memory_id: (memory_id_spec
+        id: (identifier))
+      search_help: (search_help_spec
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Modif id
+=================================================================================
+SELECT-OPTIONS s_id FOR gv_id VISIBLE LENGTH 10 NO-DISPLAY MODIF ID gr1.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      visible_length: (visible_length_spec
+        length: (number))
+      display: (no_display_spec)
+      modif_id: (modif_id_spec
+        id: (identifier)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Chained
+=================================================================================
+SELECT-OPTIONS: 
+  s_land FOR gv_land OBLIGATORY,
+  s_city FOR gv_city NO-EXTENSION.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      obligatory: (obligatory_spec))
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      extension: (no_extension_spec))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Lower case
+=================================================================================
+SELECT-OPTIONS s_path FOR gv_path LOWER CASE MATCHCODE OBJECT zfile.
+---
+
+(source
+  (select_options_declaration
+    (select_options_spec
+      name: (identifier)
+      for: (identifier)
+      case: (lower_case_spec)
+      search_help: (search_help_spec
+        name: (identifier)))))

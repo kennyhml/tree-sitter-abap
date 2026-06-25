@@ -1254,7 +1254,7 @@
           "name": "default",
           "content": {
             "type": "SYMBOL",
-            "name": "default_range_spec"
+            "name": "default_range"
           }
         },
         {
@@ -1283,7 +1283,7 @@
         }
       ]
     },
-    "default_range_spec": {
+    "default_range": {
       "type": "SEQ",
       "members": [
         {
@@ -1343,7 +1343,7 @@
                         },
                         {
                           "type": "SYMBOL",
-                          "name": "_kw_nbt"
+                          "name": "_kw_nb"
                         }
                       ]
                     }
@@ -18759,17 +18759,17 @@
         "value": "bt"
       }
     },
-    "_kw_nbt": {
+    "_kw_nb": {
       "type": "FIELD",
       "name": "keyword",
       "content": {
         "type": "ALIAS",
         "content": {
           "type": "PATTERN",
-          "value": "[nN][bB][tT]"
+          "value": "[nN][bB]"
         },
         "named": false,
-        "value": "nbt"
+        "value": "nb"
       }
     },
     "_kw_i": {
