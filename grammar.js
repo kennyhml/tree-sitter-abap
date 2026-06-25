@@ -198,9 +198,9 @@ module.exports = grammar({
     reserved_statement: ($) =>
       choice(
         // OOP
-        $.class_definition,
-        $.deferred_class_definition,
-        $.local_friends_spec,
+        $.class_declaration,
+        $.deferred_class_declaration,
+        $.local_friends_declaration,
         $.class_implementation,
         $.class_data_declaration,
         $.interface_definition,
