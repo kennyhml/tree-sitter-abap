@@ -213,6 +213,16 @@
 ((identifier) @constant.builtin
   (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD])))$" )
 )
+(text_symbol
+  (string_literal)
+  id: (symbol_id) @constant
+) 
+
+(text_symbol 
+  (identifier) @constant.builtin
+  id: (symbol_id) @variable.member 
+) 
+
 ; Only for immediate declarations
 ; TODO: Wont work when it starts with a struct.
 (constants_declaration 

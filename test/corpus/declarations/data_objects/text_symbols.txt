@@ -1,0 +1,34 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Text Symbols ] Tagged literal
+=================================================================================
+'Text in text symbol'(exa)
+---
+
+(source
+  (text_symbol
+    literal: (string_literal)
+    id: (symbol_id)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Text Symbols ] Symbol
+=================================================================================
+text-EXA
+---
+
+(source
+  (text_symbol
+    (identifier)
+    id: (symbol_id)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Text Symbols ] Symbol with digit
+=================================================================================
+message text-0aa.
+---
+
+(source
+  (message_statement
+    (message_spec
+      (text_symbol
+        (identifier)
+        (symbol_id)))))
