@@ -247,9 +247,16 @@
   (end_of_struct)
 )
 
-; TYPES
-(deferred_class_definition name: (identifier) @type )
-(class_definition name: (identifier) @type )
+; Any identifier inside a class declaration is an identifier
+(class_declaration 
+  name: (identifier) @type 
+  (class_options 
+    (_ (identifier) @type )
+  )?
+)
+
+(local_friends_declaration (identifier) @type )
+(deferred_class_declaration name: (identifier) @type )
 (class_implementation name: (identifier) @type )
 
 (simple_exception_spec name: (identifier) @type )
@@ -262,7 +269,6 @@
   selector: "=>"
 )
 
-(superclass_spec name: (identifier) @type)
 (for_event_spec 
   [
 	source: (identifier) @type
@@ -539,6 +545,15 @@
 [
     "resume"
 ] @keyword.exception
+
+[
+    (public_section)
+    (protected_section)
+    (private_section)
+    (final)
+    (abstract)
+    (public)
+] @keyword.modifier
 
 (include_statement "include" @keyword.import )
 (methods_declaration "methods" @keyword.function ) 

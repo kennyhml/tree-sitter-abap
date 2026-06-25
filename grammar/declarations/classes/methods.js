@@ -1,0 +1,236 @@
+
+
+module.exports = {
+
+  methods_declaration: $ => gen.chainable(
+    "methods", choice($.method_spec, $.constructor_spec)
+  ),
+
+  class_methods_declaration: $ => gen.chainable(
+    "class-methods", choice($.method_spec, $.class_constructor_spec)
+  ),
+
+  /**
+   * 
+   * METHODS meth [ABSTRACT|FINAL] 
+   *              |[DEFAULT IGNORE|FAIL] 
+   *  [IMPORTING parameters [PREFERRED PARAMETER p]] 
+   *  [EXPORTING parameters] 
+   *  [CHANGING  parameters] 
+   *  [{RAISING exc1|RESUMABLE(exc1) exc2|RESUMABLE(exc2) ...} 
+   *               |{EXCEPTIONS exc1 exc2 ...}].
+   * 
+   * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_GENERAL.html
+   */
+  method_spec: $ => seq(
+    field("name", $.identifier),
+    optional($.__method_signature)
+  ),
+
+  // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHOD.html
+  method_implementation: $ => seq(
+    gen.kw("method"),
+    field("name",
+      choice(
+        $.identifier,
+        $.component_selection
+      )
+    ),
+    ".",
+    optional($.method_body),
+    gen.kw("endmethod"),
+    "."
+  ),
+
+  // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
+  constructor_spec: $ => seq(
+    gen.kw("constructor"),
+    optional($.__method_signature)
+  ),
+
+  class_constructor_spec: $ => seq(
+    gen.kw("class_constructor"),
+    optional($.__method_signature)
+  ),
+
+  __method_signature: $ => repeat1(
+    choice(
+      $.abstract,
+      $.final,
+      $.redefinition_spec,
+      $.for_testing,
+      $.interface_default_spec,
+      $.for_table_function_spec,
+      $.for_scalar_function_spec,
+      field("event", $.for_event_spec),
+      field("amdp", $.amdp_options_spec),
+
+      // Parameter lists
+      gen.kw_tagged("importing", $.parameter_list),
+      gen.kw_tagged("exporting", $.parameter_list),
+      gen.kw_tagged("changing", $.parameter_list),
+      gen.kw_tagged("raising", $.raising_list),
+      gen.kw_tagged("exceptions", $.exception_list),
+      gen.kw_tagged("returning", alias($.parameter, $.return_value)),
+    )
+  ),
+
+  // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
+  redefinition_spec: _ => gen.kw("redefinition"),
+
+  /**
+   * AMDP OPTIONS [READ-ONLY] 
+   *              [client_handling] ...
+   * 
+   * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS.html 
+   */
+  amdp_options_spec: $ => seq(
+    ...gen.kws("amdp", "options"),
+    repeat1(choice(
+      $.read_only,
+      field("client_handling", $.__amdp_client_handling_spec)
+    ))
+  ),
+
+  /**
+   * AMDP OPTIONS [CDS SESSION CLIENT CURRENT|clnt]
+   * ...
+   * {CDS SESSION CLIENT DEPENDENT} | {CLIENT INDEPENDENT}
+   * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS_CLIENT.html
+   */
+  __amdp_client_handling_spec: $ => choice(
+    $.cds_session_client_dependent_spec,
+    $.client_independent_spec,
+    $.cds_session_client_spec
+  ),
+
+  cds_session_client_spec: $ => seq(
+    ...gen.kws("cds", "session", "client"),
+    field("client", choice(
+      $.current_client,
+      $.identifier,
+    ))
+  ),
+
+  cds_session_client_dependent_spec: _ => seq(
+    ...gen.kws("cds", "session", "client", "dependent")
+  ),
+
+  client_independent_spec: _ => seq(
+    ...gen.kws("client", "independent")
+  ),
+
+  current_client: _ => gen.kw("current"),
+
+  /**
+   * FOR TABLE FUNCTION cds_tabfunc.
+   * 
+   * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_TABFUNC.html}
+   */
+  for_table_function_spec: $ => seq(
+    ...gen.kws("for", "table", "function"),
+    field("table_function", $.identifier)
+  ),
+
+  /**
+   * FOR SCALAR FUNCTION cds_scalar_func.
+   * 
+   * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_SCALFUNC.html}
+   */
+  for_scalar_function_spec: $ => seq(
+    ...gen.kws("for", "scalar", "function"),
+    field("scalar_function", $.identifier),
+  ),
+
+  // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
+  for_event_spec: $ => seq(
+    ...gen.kws("for", "event"),
+    field("name", $.identifier),
+    gen.kw("of"),
+    field("source", $.identifier),
+  ),
+
+  // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
+  interface_default_spec: _ => seq(
+    gen.kw("default"),
+    field("default", choice(...gen.kws("ignore", "fail")))
+  ),
+
+  parameter_list: $ => seq(
+    repeat1($.parameter),
+    optional($.preferred_param_spec)
+  ),
+
+  exception_list: $ => repeat1($.identifier),
+
+  raising_list: $ => repeat1(choice(
+    $.resumable_exception_spec,
+    $.simple_exception_spec
+  )),
+
+  /**
+   * VALUE(p1) | REFERENCE(p1) | p1 } 
+   *   typing [OPTIONAL|{DEFAULT def1}] 
+   * 
+   * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html}
+   * 
+   */
+  parameter: $ => prec.right(seq(
+    choice(
+      $.simple_param_spec,
+      $.reference_param_spec,
+      $.value_param_spec,
+    ),
+    optional(field("typing", $.typing)),
+    optional(choice(
+      $.optional_spec,
+      field("default", $.param_default_value_spec),
+    ))
+  )),
+
+  preferred_param_spec: $ => seq(
+    ...gen.kws("preferred", "parameter"),
+    field("name", $.identifier)
+  ),
+
+  optional_spec: _ => gen.kw("optional"),
+
+  param_default_value_spec: $ => seq(
+    gen.kw("default"),
+    field("value", choice(
+      $.identifier, // constant
+      $.number,
+      $.string_literal
+    ))
+  ),
+
+  simple_param_spec: $ => seq(
+    optional("!"),
+    field("name", $.identifier),
+  ),
+
+  value_param_spec: $ => seq(
+    gen.kw("value"),
+    token.immediate("("),
+    field("name", $._immediate_identifier),
+    token.immediate(")"),
+  ),
+
+  reference_param_spec: $ => seq(
+    gen.kw("reference"),
+    token.immediate("("),
+    field("name", $._immediate_identifier),
+    token.immediate(")"),
+  ),
+
+  resumable_exception_spec: $ => seq(
+    gen.kw("resumable"),
+    token.immediate("("),
+    field("name", $._immediate_identifier),
+    token.immediate(")"),
+  ),
+
+  simple_exception_spec: $ => field("name", $.identifier),
+
+  method_body: $ => repeat1($.simple_statement),
+}

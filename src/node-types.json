@@ -330,7 +330,7 @@
         "named": true
       },
       {
-        "type": "class_definition",
+        "type": "class_declaration",
         "named": true
       },
       {
@@ -342,7 +342,7 @@
         "named": true
       },
       {
-        "type": "deferred_class_definition",
+        "type": "deferred_class_declaration",
         "named": true
       },
       {
@@ -370,7 +370,7 @@
         "named": true
       },
       {
-        "type": "local_friends_spec",
+        "type": "local_friends_declaration",
         "named": true
       },
       {
@@ -668,7 +668,7 @@
     ]
   },
   {
-    "type": "abstract_spec",
+    "type": "abstract",
     "named": true,
     "fields": {
       "keyword": {
@@ -981,7 +981,7 @@
       "required": false,
       "types": [
         {
-          "type": "read_only_spec",
+          "type": "read_only",
           "named": true
         }
       ]
@@ -3280,11 +3280,11 @@
       "required": false,
       "types": [
         {
-          "type": "abstract_spec",
+          "type": "abstract",
           "named": true
         },
         {
-          "type": "final_spec",
+          "type": "final",
           "named": true
         },
         {
@@ -3296,7 +3296,7 @@
           "named": true
         },
         {
-          "type": "for_testing_spec",
+          "type": "for_testing",
           "named": true
         },
         {
@@ -3371,7 +3371,7 @@
     }
   },
   {
-    "type": "class_definition",
+    "type": "class_declaration",
     "named": true,
     "fields": {
       "keyword": {
@@ -3495,70 +3495,49 @@
   {
     "type": "class_options",
     "named": true,
-    "fields": {
-      "accessibility": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "create_visibility_spec",
-            "named": true
-          }
-        ]
-      },
-      "friends": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "friends_spec",
-            "named": true
-          }
-        ]
-      },
-      "superclass": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "superclass_spec",
-            "named": true
-          }
-        ]
-      },
-      "testing": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "for_testing_spec",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "abstract_spec",
+          "type": "abstract",
           "named": true
         },
         {
-          "type": "final_spec",
+          "type": "create_visibility",
           "named": true
         },
         {
-          "type": "for_rap_behavior_spec",
+          "type": "final",
           "named": true
         },
         {
-          "type": "public_spec",
+          "type": "for_behavior_of",
           "named": true
         },
         {
-          "type": "shared_memory_enabled_spec",
+          "type": "for_testing",
+          "named": true
+        },
+        {
+          "type": "friends",
+          "named": true
+        },
+        {
+          "type": "global_friends",
+          "named": true
+        },
+        {
+          "type": "inheriting_from",
+          "named": true
+        },
+        {
+          "type": "public",
+          "named": true
+        },
+        {
+          "type": "shared_memory_enabled",
           "named": true
         }
       ]
@@ -4485,11 +4464,11 @@
       "required": false,
       "types": [
         {
-          "type": "abstract_spec",
+          "type": "abstract",
           "named": true
         },
         {
-          "type": "final_spec",
+          "type": "final",
           "named": true
         },
         {
@@ -4501,7 +4480,7 @@
           "named": true
         },
         {
-          "type": "for_testing_spec",
+          "type": "for_testing",
           "named": true
         },
         {
@@ -4674,7 +4653,7 @@
     }
   },
   {
-    "type": "create_visibility_spec",
+    "type": "create_visibility",
     "named": true,
     "fields": {
       "keyword": {
@@ -5335,7 +5314,7 @@
     }
   },
   {
-    "type": "deferred_class_definition",
+    "type": "deferred_class_declaration",
     "named": true,
     "fields": {
       "keyword": {
@@ -5402,7 +5381,7 @@
       "required": false,
       "types": [
         {
-          "type": "public_spec",
+          "type": "public",
           "named": true
         }
       ]
@@ -5843,6 +5822,52 @@
           {
             "type": "linked_object_path",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "duration",
+    "named": true,
+    "fields": {
+      "duration": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "long",
+            "named": false
+          },
+          {
+            "type": "medium",
+            "named": false
+          },
+          {
+            "type": "short",
+            "named": false
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "duration",
+            "named": false
+          },
+          {
+            "type": "long",
+            "named": false
+          },
+          {
+            "type": "medium",
+            "named": false
+          },
+          {
+            "type": "short",
+            "named": false
           }
         ]
       }
@@ -6560,7 +6585,7 @@
     }
   },
   {
-    "type": "final_spec",
+    "type": "final",
     "named": true,
     "fields": {
       "keyword": {
@@ -6704,6 +6729,40 @@
     }
   },
   {
+    "type": "for_behavior_of",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "behavior",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "for_event_spec",
     "named": true,
     "fields": {
@@ -6772,40 +6831,6 @@
           {
             "type": "named_data_object",
             "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "for_rap_behavior_spec",
-    "named": true,
-    "fields": {
-      "bdef": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "behavior",
-            "named": false
-          },
-          {
-            "type": "for",
-            "named": false
-          },
-          {
-            "type": "of",
-            "named": false
           }
         ]
       }
@@ -6910,7 +6935,7 @@
     }
   },
   {
-    "type": "for_testing_spec",
+    "type": "for_testing",
     "named": true,
     "fields": {
       "keyword": {
@@ -6933,15 +6958,15 @@
       "required": false,
       "types": [
         {
-          "type": "for_testing_spec",
+          "type": "duration",
           "named": true
         },
         {
-          "type": "testing_duration_spec",
+          "type": "for_testing",
           "named": true
         },
         {
-          "type": "testing_risk_level_spec",
+          "type": "risk_level",
           "named": true
         }
       ]
@@ -7169,19 +7194,15 @@
     }
   },
   {
-    "type": "friends_spec",
+    "type": "friends",
     "named": true,
     "fields": {
       "keyword": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
             "type": "friends",
-            "named": false
-          },
-          {
-            "type": "global",
             "named": false
           }
         ]
@@ -7314,6 +7335,36 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "global_friends",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "friends",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8381,6 +8432,36 @@
     }
   },
   {
+    "type": "inheriting_from",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "inheriting",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "initial_line",
     "named": true,
     "fields": {
@@ -8697,7 +8778,7 @@
           "named": true
         },
         {
-          "type": "public_spec",
+          "type": "public",
           "named": true
         }
       ]
@@ -9415,7 +9496,7 @@
     }
   },
   {
-    "type": "local_friends_spec",
+    "type": "local_friends_declaration",
     "named": true,
     "fields": {
       "keyword": {
@@ -10343,11 +10424,11 @@
       "required": false,
       "types": [
         {
-          "type": "abstract_spec",
+          "type": "abstract",
           "named": true
         },
         {
-          "type": "final_spec",
+          "type": "final",
           "named": true
         },
         {
@@ -10359,7 +10440,7 @@
           "named": true
         },
         {
-          "type": "for_testing_spec",
+          "type": "for_testing",
           "named": true
         },
         {
@@ -11871,6 +11952,22 @@
     }
   },
   {
+    "type": "public",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "public",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "public_section",
     "named": true,
     "fields": {
@@ -11926,22 +12023,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "public_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "public",
-            "named": false
-          }
-        ]
-      }
     }
   },
   {
@@ -12327,22 +12408,6 @@
   },
   {
     "type": "read_only",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "read-only",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "read_only_spec",
     "named": true,
     "fields": {
       "keyword": {
@@ -13356,6 +13421,56 @@
     }
   },
   {
+    "type": "risk_level",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "critical",
+            "named": false
+          },
+          {
+            "type": "dangerous",
+            "named": false
+          },
+          {
+            "type": "harmless",
+            "named": false
+          },
+          {
+            "type": "level",
+            "named": false
+          },
+          {
+            "type": "risk",
+            "named": false
+          }
+        ]
+      },
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "critical",
+            "named": false
+          },
+          {
+            "type": "dangerous",
+            "named": false
+          },
+          {
+            "type": "harmless",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "rollback_work_statement",
     "named": true,
     "fields": {
@@ -13893,7 +14008,7 @@
     }
   },
   {
-    "type": "shared_memory_enabled_spec",
+    "type": "shared_memory_enabled",
     "named": true,
     "fields": {
       "keyword": {
@@ -15173,36 +15288,6 @@
     }
   },
   {
-    "type": "superclass_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "from",
-            "named": false
-          },
-          {
-            "type": "inheriting",
-            "named": false
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "switch_expression",
     "named": true,
     "fields": {
@@ -15742,102 +15827,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "testing_duration_spec",
-    "named": true,
-    "fields": {
-      "duration": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "medium",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "duration",
-            "named": false
-          },
-          {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "medium",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "testing_risk_level_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "critical",
-            "named": false
-          },
-          {
-            "type": "dangerous",
-            "named": false
-          },
-          {
-            "type": "harmless",
-            "named": false
-          },
-          {
-            "type": "level",
-            "named": false
-          },
-          {
-            "type": "risk",
-            "named": false
-          }
-        ]
-      },
-      "level": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "critical",
-            "named": false
-          },
-          {
-            "type": "dangerous",
-            "named": false
-          },
-          {
-            "type": "harmless",
-            "named": false
-          }
-        ]
-      }
     }
   },
   {

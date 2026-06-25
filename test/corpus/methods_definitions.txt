@@ -65,7 +65,7 @@ METHODS my_method final.
   (methods_declaration
     (method_spec
       name: (identifier)
-      (final_spec))))
+      (final))))
 
 ==================
 Abstract method
@@ -77,7 +77,7 @@ METHODS my_method abstract.
   (methods_declaration
     (method_spec
       name: (identifier)
-      (abstract_spec))))
+      (abstract))))
 
 ==================
 Interface method defaults
@@ -254,4 +254,4 @@ METHODS mytest FOR TESTING.
   (methods_declaration
     (method_spec
       name: (identifier)
-      (for_testing_spec))))
+      (for_testing))))

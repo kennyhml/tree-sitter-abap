@@ -1,0 +1,154 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Basic class decl
+=================================================================================
+CLASS cl_demo_spfli DEFINITION 
+  PUBLIC 
+  FINAL 
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_options
+      (public)
+      (final)
+      (create_visibility))
+    (class_body
+      (public_section)
+      (protected_section)
+      (private_section))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Inheriting
+=================================================================================
+CLASS cls2 DEFINITION 
+           INHERITING FROM cls1. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_options
+      (inheriting_from
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Abstract class
+=================================================================================
+CLASS cls2 DEFINITION ABSTRACT.
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_options
+      (abstract))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Global friends
+=================================================================================
+CLASS cl_demo_flights DEFINITION 
+  PUBLIC 
+  INHERITING FROM cl_shm_area 
+  FINAL 
+  CREATE PRIVATE 
+  GLOBAL FRIENDS cl_shm_area.
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_options
+      (public)
+      (inheriting_from
+        name: (identifier))
+      (final)
+      (create_visibility)
+      (global_friends
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Shared memory
+=================================================================================
+CLASS cl_demo_flight_list DEFINITION 
+  PUBLIC 
+  FINAL 
+  CREATE PUBLIC 
+  SHARED MEMORY ENABLED.
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    (identifier)
+    (class_options
+      (public)
+      (final)
+      (create_visibility)
+      (shared_memory_enabled))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] For testing
+=================================================================================
+CLASS class DEFINITION
+    FOR TESTING RISK LEVEL HARMLESS
+    DURATION LONG.
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    (identifier)
+    (class_options
+      (for_testing
+        (for_testing)
+        (risk_level)
+        (duration)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Behavior BDEF
+=================================================================================
+CLASS bp_demo_managed_additional_sav DEFINITION PUBLIC 
+   ABSTRACT FINAL FOR BEHAVIOR OF demo_managed_additional_save. 
+ENDCLASS. 
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_options
+      (public)
+      (abstract)
+      (final)
+      (for_behavior_of
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Forward declaration
+=================================================================================
+CLASS c1 DEFINITION DEFERRED. 
+---
+
+(source
+  (deferred_class_declaration
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Local friends declaration
+=================================================================================
+CLASS cl_demo_amdp_mesh DEFINITION LOCAL FRIENDS cl_test_selects.
+---
+
+(source
+  (local_friends_declaration
+    name: (identifier)
+    (identifier)))
