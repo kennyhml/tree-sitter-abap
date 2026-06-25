@@ -1,0 +1,49 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Comment ] Simple comment
+=================================================================================
+SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1. 
+---
+
+(source
+  (selection_screen_statement
+    (comment_element
+      (comment_spec
+        (output_position
+          position: (number)
+          length: (number))
+        name: (identifier)
+        (modif_id_spec
+          id: (identifier))))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Comment ] For field
+=================================================================================
+SELECTION-SCREEN COMMENT /1(50) for field foo. 
+---
+
+(source
+  (selection_screen_statement
+    (comment_element
+      (comment_spec
+        (output_position
+          position: (number)
+          length: (number))
+        (for_screen_field
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Comment ] For field with text
+=================================================================================
+SELECTION-SCREEN COMMENT /1(50) bar for field foo. 
+---
+
+(source
+  (selection_screen_statement
+    (comment_element
+      (comment_spec
+        (output_position
+          position: (number)
+          length: (number))
+        name: (identifier)
+        (for_screen_field
+          name: (identifier))))))

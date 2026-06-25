@@ -2441,15 +2441,26 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "text",
+              "name": "name",
               "content": {
                 "type": "SYMBOL",
                 "name": "__element_text_variable"
               }
             },
             {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "for_screen_field"
+            },
+            {
+              "type": "BLANK"
             }
           ]
         },
@@ -2484,7 +2495,7 @@
         },
         {
           "type": "FIELD",
-          "name": "text",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "__element_text_variable"
@@ -2746,7 +2757,7 @@
         },
         {
           "type": "FIELD",
-          "name": "text",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "__element_text_variable"
@@ -2811,22 +2822,6 @@
     "for_screen_field": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "text",
-              "content": {
-                "type": "SYMBOL",
-                "name": "__element_text_variable"
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
         {
           "type": "SYMBOL",
           "name": "_kw_for"

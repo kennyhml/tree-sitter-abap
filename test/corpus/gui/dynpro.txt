@@ -51,56 +51,6 @@ SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
         (as_window)))))
 
 ======
-[DYNPRO // SELECTION-SCREEN] Basic comment
-======
-SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1. 
----
-
-(source
-  (selection_screen_statement
-    (comment_element
-      (comment_spec
-        (output_position
-          position: (number)
-          length: (number))
-        text: (identifier)
-        (modif_id_spec
-          id: (identifier))))))
-
-======
-[DYNPRO // SELECTION-SCREEN] Comment as label
-======
-SELECTION-SCREEN COMMENT /1(50) for field foo. 
----
-
-(source
-  (selection_screen_statement
-    (comment_element
-      (comment_spec
-        (output_position
-          position: (number)
-          length: (number))
-        (for_screen_field
-          name: (identifier))))))
-
-======
-[DYNPRO // SELECTION-SCREEN] Comment as label with text
-======
-SELECTION-SCREEN COMMENT /1(50) bar for field foo. 
----
-
-(source
-  (selection_screen_statement
-    (comment_element
-      (comment_spec
-        (output_position
-          position: (number)
-          length: (number))
-        (for_screen_field
-          text: (identifier)
-          name: (identifier))))))
-
-======
 [DYNPRO // SELECTION-SCREEN] Subscreen definition
 ======
 selection-screen: begin of screen 100 as subscreen nesting level 5,
@@ -140,14 +90,14 @@ SELECTION-SCREEN:
       (output_position
         position: (number)
         length: (number))
-      text: (identifier)
+      name: (identifier)
       (user_command_spec
         command: (identifier)))
     (pushbutton_element
       (output_position
         position: (number)
         length: (number))
-      text: (identifier)
+      name: (identifier)
       (user_command_spec
         command: (identifier))
       (visible_length_spec
@@ -173,7 +123,7 @@ SELECTION-SCREEN: COMMENT 40(40) text,
       (output_position
         position: (number)
         length: (number))
-      text: (identifier)
+      name: (identifier)
       (user_command_spec
         command: (identifier)))
     (screen_position_directive
@@ -192,7 +142,7 @@ SELECTION-SCREEN: COMMENT 40(40) text,
         (output_position
           position: (number)
           length: (number))
-        text: (identifier)))
+        name: (identifier)))
     (end_of_line_directive)))
 
 ======
