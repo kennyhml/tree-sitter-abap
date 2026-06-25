@@ -1,42 +1,4 @@
 ======
-[DYNPRO // SELECTION-SCREEN] Pushbuttons
-======
-SELECTION-SCREEN: 
-  BEGIN OF SCREEN 500 AS WINDOW TITLE title, 
-    PUSHBUTTON 2(10)  but1 USER-COMMAND cli1, 
-    PUSHBUTTON 12(30) but2 USER-COMMAND cli2 
-                           VISIBLE LENGTH 10, 
-  END OF SCREEN 500. 
----
-
-(source
-  (selection_screen_statement
-    (begin_of_screen_element
-      (screen_spec
-        dynnr: (number)
-        (as_window)
-        (title
-          text: (identifier))))
-    (pushbutton_element
-      (output_position
-        position: (number)
-        length: (number))
-      name: (identifier)
-      (user_command_spec
-        command: (identifier)))
-    (pushbutton_element
-      (output_position
-        position: (number)
-        length: (number))
-      name: (identifier)
-      (user_command_spec
-        command: (identifier))
-      (visible_length_spec
-        length: (number)))
-    (end_of_screen_element
-      dynnr: (number))))
-
-======
 [DYNPRO // SELECTION-SCREEN] Line / position directives
 ======
 SELECTION-SCREEN: BEGIN OF LINE, 

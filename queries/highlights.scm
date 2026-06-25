@@ -175,6 +175,7 @@
 
 (parameters_spec name: (identifier) @variable.parameter )
 (select_options_spec name: (identifier) @variable.parameter )
+(pushbutton_element name: (identifier) @variable )
 (user_command_spec (identifier) @constant )
 (memory_id_spec (identifier) @constant )
 (modif_id_spec (identifier) @constant )

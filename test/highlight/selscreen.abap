@@ -96,4 +96,7 @@ SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES,
 "                          ^ variable
                   TAB (20) button2 USER-COMMAND push2, 
 "                          ^ variable
-                  END OF BLOCK variable
+                  END OF BLOCK mytab
+"                              ^ variable
+SELECTION-SCREEN PUSHBUTTON 2(10) but1 USER-COMMAND cli1.
+"                                 ^ variable
