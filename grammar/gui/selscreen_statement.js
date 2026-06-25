@@ -161,10 +161,8 @@ module.exports = {
   // Inner spec of a block element to support chaining.
   comment_spec: $ => seq(
     $.output_position,
-    choice(
-      field("text", $.__element_text_variable),
-      $.for_screen_field
-    ),
+    optional(field("name", $.__element_text_variable)),
+    optional($.for_screen_field),
     repeat(choice(
       $.visible_length_spec,
       $.modif_id_spec
@@ -175,7 +173,7 @@ module.exports = {
   pushbutton_element: $ => seq(
     gen.kw("pushbutton"),
     $.output_position,
-    field("text", $.__element_text_variable),
+    field("name", $.__element_text_variable),
     $.user_command_spec,
     repeat(choice(
       $.visible_length_spec,
@@ -245,7 +243,7 @@ module.exports = {
   include_pushbutton_directive: $ => seq(
     ...gen.kws("include", "pushbutton"),
     $.output_position,
-    field("text", $.__element_text_variable),
+    field("name", $.__element_text_variable),
     repeat(choice(
       $.user_command_spec,
       $.modif_id_spec,
@@ -261,7 +259,6 @@ module.exports = {
   end_of_line_directive: _ => seq(...gen.kws("end", "of", "line")),
 
   for_screen_field: $ => seq(
-    optional(field("text", $.__element_text_variable)),
     ...gen.kws("for", "field"),
     field("name", $.identifier),
   ),

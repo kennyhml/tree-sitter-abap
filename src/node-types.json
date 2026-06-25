@@ -3761,7 +3761,7 @@
     "type": "comment_spec",
     "named": true,
     "fields": {
-      "text": {
+      "name": {
         "multiple": false,
         "required": false,
         "types": [
@@ -6872,20 +6872,6 @@
             "named": true
           }
         ]
-      },
-      "text": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "text_symbol",
-            "named": true
-          }
-        ]
       }
     }
   },
@@ -8098,7 +8084,7 @@
           }
         ]
       },
-      "text": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -11972,7 +11958,7 @@
           }
         ]
       },
-      "text": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

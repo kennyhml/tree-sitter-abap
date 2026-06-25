@@ -68,3 +68,13 @@ SELECTION-SCREEN SKIP: 10, 1, 5.
 "                      ^ number
 "                          ^ number
 "                             ^ number
+SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1. 
+"                         ^ number
+"                           ^ number
+"                               ^ variable
+"                                              ^ constant
+SELECTION-SCREEN COMMENT /1(50) for field foo. 
+"                                         ^ variable.parameter
+SELECTION-SCREEN COMMENT /1(50) bar for field foo. 
+"                               ^ variable
+"                                             ^ variable.parameter

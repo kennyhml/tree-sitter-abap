@@ -182,6 +182,12 @@
 (default_value_spec (identifier) @constant )
 (search_help_spec (identifier) @type )
 
+(comment_spec 
+  [
+    name: (identifier) @variable
+    (for_screen_field name: (identifier) @variable.parameter )
+  ]
+) 
 (output_position
   position: (identifier) @constant.builtin
 )

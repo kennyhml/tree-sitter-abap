@@ -31,7 +31,7 @@ SELECTION-SCREEN ULINE POS_LOW(10).
         length: (number)))))
 
 =================================================================================
-[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Modif id
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Lines ] POS_LOW/HIGH
 =================================================================================
 SELECTION-SCREEN ULINE MODIF ID lin.
 ---
@@ -43,7 +43,7 @@ SELECTION-SCREEN ULINE MODIF ID lin.
         id: (identifier)))))
 
 =================================================================================
-[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Blank line skips
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Lines ] POS_LOW/HIGH
 =================================================================================
 SELECTION-SCREEN SKIP.
 SELECTION-SCREEN SKIP 10.
