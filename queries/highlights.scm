@@ -174,8 +174,11 @@
 )
 
 (parameters_spec name: (identifier) @variable.parameter )
+(include_parameter_directive name: (identifier) @variable.parameter )
 (select_options_spec name: (identifier) @variable.parameter )
+(include_select_option_directive name: (identifier) @variable.parameter )
 (pushbutton_element name: (identifier) @variable )
+(include_pushbutton_directive name: (identifier) @variable )
 (user_command_spec (identifier) @constant )
 (memory_id_spec (identifier) @constant )
 (modif_id_spec (identifier) @constant )
@@ -186,6 +189,7 @@
 ; Regular block is technically a constant, but its difficult
 ; to disambiguate from an end of tabbed block
 (begin_of_block_element (identifier) @variable )
+(include_block_directive (identifier) @variable )
 (tab_spec name: (identifier) @variable )
 (begin_of_tabbed_block_element (identifier) @variable )
 (end_of_block_element (identifier) @variable )
