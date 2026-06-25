@@ -81,11 +81,19 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
 selection-screen: begin of screen 100 title text as window,
 "                                           ^ variable
                   begin of block block with frame title 'text',
-"                                ^ constant
+"                                ^ variable
                   end of screen 100,
                   end of block block.
-"                              ^ constant
+"                              ^ variable
 SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
 "                                                     ^ variable
 selection-screen: begin of screen 100 as subscreen nesting level 5,
                 end of screen 100.
+
+SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES, 
+"                                       ^ variable
+                  TAB (20) button1 USER-COMMAND push1, 
+"                          ^ variable
+                  TAB (20) button2 USER-COMMAND push2, 
+"                          ^ variable
+                  END OF BLOCK variable
