@@ -725,7 +725,7 @@ module.exports = grammar({
       seq(field("table", $.identifier), token.immediate("[]")),
 
     // [[/][pos|POS_LOW|POS_HIGH](len)
-    output_position_spec: ($) =>
+    output_position: ($) =>
       prec.right(
         repeat1(
           choice(

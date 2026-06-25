@@ -182,6 +182,10 @@
 (default_value_spec (identifier) @constant )
 (search_help_spec (identifier) @type )
 
+(output_position
+  position: (identifier) @constant.builtin
+)
+
 (message_spec 
   type: (message_type)? @constant.builtin 
   id: (identifier)? @variable 

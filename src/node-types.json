@@ -1203,6 +1203,26 @@
     }
   },
   {
+    "type": "as_window",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "as",
+            "named": false
+          },
+          {
+            "type": "window",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ascending",
     "named": true,
     "fields": {
@@ -1724,36 +1744,6 @@
     "type": "begin_of_block_element",
     "named": true,
     "fields": {
-      "block": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "frame": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "frame_spec",
-            "named": true
-          }
-        ]
-      },
-      "intervals": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -1771,7 +1761,31 @@
             "named": false
           }
         ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "frame_spec",
+          "named": true
+        },
+        {
+          "type": "no_intervals_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1870,26 +1884,6 @@
     "type": "begin_of_tabbed_block_element",
     "named": true,
     "fields": {
-      "block": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "intervals": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -1912,16 +1906,30 @@
           }
         ]
       },
-      "lines": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "tab_lines_spec",
+            "type": "identifier",
             "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "no_intervals_spec",
+          "named": true
+        },
+        {
+          "type": "tab_lines",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2415,16 +2423,6 @@
           }
         ]
       },
-      "ending_at": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "ending_at_spec",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -2438,27 +2436,25 @@
             "named": false
           }
         ]
-      },
-      "selection_set": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "using_selection_set_spec",
-            "named": true
-          }
-        ]
-      },
-      "starting_at": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "starting_at_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ending_at",
+          "named": true
+        },
+        {
+          "type": "starting_at",
+          "named": true
+        },
+        {
+          "type": "using_selection_set",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3765,36 +3761,6 @@
     "type": "comment_spec",
     "named": true,
     "fields": {
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
-      },
-      "position": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "output_position_spec",
-            "named": true
-          }
-        ]
-      },
-      "target": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "for_screen_field_spec",
-            "named": true
-          }
-        ]
-      },
       "text": {
         "multiple": false,
         "required": false,
@@ -3808,17 +3774,29 @@
             "named": true
           }
         ]
-      },
-      "visible_length": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "visible_length_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_screen_field",
+          "named": true
+        },
+        {
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "output_position",
+          "named": true
+        },
+        {
+          "type": "visible_length_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -5287,7 +5265,7 @@
     }
   },
   {
-    "type": "default_tab_screen_spec",
+    "type": "default_tab_screen",
     "named": true,
     "fields": {
       "dynnr": {
@@ -6100,16 +6078,6 @@
     "type": "end_of_block_element",
     "named": true,
     "fields": {
-      "block": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -6125,6 +6093,16 @@
           {
             "type": "of",
             "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -6219,7 +6197,7 @@
     }
   },
   {
-    "type": "ending_at_spec",
+    "type": "ending_at",
     "named": true,
     "fields": {
       "column": {
@@ -6868,19 +6846,9 @@
     }
   },
   {
-    "type": "for_screen_field_spec",
+    "type": "for_screen_field",
     "named": true,
     "fields": {
-      "field": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -6892,6 +6860,16 @@
           {
             "type": "for",
             "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       },
@@ -7172,7 +7150,7 @@
       "required": false,
       "types": [
         {
-          "type": "title_spec",
+          "type": "title",
           "named": true
         }
       ]
@@ -7626,24 +7604,18 @@
             "named": false
           }
         ]
-      },
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "output_position_spec",
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "output_position",
           "named": true
         }
       ]
@@ -8000,16 +7972,6 @@
     "type": "include_block_directive",
     "named": true,
     "fields": {
-      "block": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -8021,6 +7983,16 @@
           {
             "type": "include",
             "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -8043,37 +8015,25 @@
             "named": false
           }
         ]
-      },
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
-      },
-      "position": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "output_position_spec",
-            "named": true
-          }
-        ]
-      },
-      "target": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "for_screen_field_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_screen_field",
+          "named": true
+        },
+        {
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "output_position",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8094,16 +8054,6 @@
           }
         ]
       },
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -8113,17 +8063,21 @@
             "named": true
           }
         ]
-      },
-      "obligatory": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "obligatory_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "obligatory_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8144,26 +8098,6 @@
           }
         ]
       },
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
-      },
-      "position": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "output_position_spec",
-            "named": true
-          }
-        ]
-      },
       "text": {
         "multiple": false,
         "required": true,
@@ -8177,43 +8111,31 @@
             "named": true
           }
         ]
-      },
-      "user_command": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "user_command_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "output_position",
+          "named": true
+        },
+        {
+          "type": "user_command_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "include_select_option_directive",
     "named": true,
     "fields": {
-      "extensions": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "no_extension_spec",
-            "named": true
-          }
-        ]
-      },
-      "intervals": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -8228,16 +8150,6 @@
           }
         ]
       },
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -8247,17 +8159,29 @@
             "named": true
           }
         ]
-      },
-      "obligatory": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "obligatory_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "no_extension_spec",
+          "named": true
+        },
+        {
+          "type": "no_intervals_spec",
+          "named": true
+        },
+        {
+          "type": "obligatory_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -10558,7 +10482,7 @@
     }
   },
   {
-    "type": "nesting_level_spec",
+    "type": "nesting_level",
     "named": true,
     "fields": {
       "keyword": {
@@ -11162,7 +11086,7 @@
     }
   },
   {
-    "type": "output_position_spec",
+    "type": "output_position",
     "named": true,
     "fields": {
       "length": {
@@ -12048,26 +11972,6 @@
           }
         ]
       },
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
-            "named": true
-          }
-        ]
-      },
-      "position": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "output_position_spec",
-            "named": true
-          }
-        ]
-      },
       "text": {
         "multiple": false,
         "required": true,
@@ -12081,27 +11985,29 @@
             "named": true
           }
         ]
-      },
-      "user_command": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "user_command_spec",
-            "named": true
-          }
-        ]
-      },
-      "visible_length": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "visible_length_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "output_position",
+          "named": true
+        },
+        {
+          "type": "user_command_spec",
+          "named": true
+        },
+        {
+          "type": "visible_length_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -13501,17 +13407,17 @@
             "named": false
           }
         ]
-      },
-      "position": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "output_position_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "output_position",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -13527,27 +13433,21 @@
             "named": true
           }
         ]
-      },
-      "title": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "title_spec",
-            "named": true
-          }
-        ]
-      },
-      "window": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "window_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "as_window",
+          "named": true
+        },
+        {
+          "type": "title",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -14713,7 +14613,7 @@
     }
   },
   {
-    "type": "starting_at_spec",
+    "type": "starting_at",
     "named": true,
     "fields": {
       "column": {
@@ -15174,16 +15074,6 @@
           }
         ]
       },
-      "intervals": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "no_intervals_spec",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -15197,17 +15087,21 @@
             "named": false
           }
         ]
-      },
-      "nesting": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "nesting_level_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "nesting_level",
+          "named": true
+        },
+        {
+          "type": "no_intervals_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -15407,7 +15301,7 @@
     }
   },
   {
-    "type": "tab_lines_spec",
+    "type": "tab_lines",
     "named": true,
     "fields": {
       "keyword": {
@@ -15440,32 +15334,12 @@
     "type": "tab_spec",
     "named": true,
     "fields": {
-      "default": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "default_tab_screen_spec",
-            "named": true
-          }
-        ]
-      },
       "length": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "modif_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "modif_id_spec",
             "named": true
           }
         ]
@@ -15479,17 +15353,25 @@
             "named": true
           }
         ]
-      },
-      "user_command": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "user_command_spec",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "default_tab_screen",
+          "named": true
+        },
+        {
+          "type": "modif_id_spec",
+          "named": true
+        },
+        {
+          "type": "user_command_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -16105,7 +15987,7 @@
     }
   },
   {
-    "type": "title_spec",
+    "type": "title",
     "named": true,
     "fields": {
       "keyword": {
@@ -16630,7 +16512,7 @@
     }
   },
   {
-    "type": "using_selection_set_spec",
+    "type": "using_selection_set",
     "named": true,
     "fields": {
       "keyword": {
@@ -16647,7 +16529,7 @@
           }
         ]
       },
-      "variant": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -16929,26 +16811,6 @@
           },
           {
             "type": "while",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "window_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "as",
-            "named": false
-          },
-          {
-            "type": "window",
             "named": false
           }
         ]

@@ -1,0 +1,63 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Lines ] Simple line
+=================================================================================
+SELECTION-SCREEN ULINE /10(20).
+---
+
+(source
+  (selection_screen_statement
+    (horizontal_line_element
+      (output_position
+        position: (number)
+        length: (number)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Lines ] POS_LOW/HIGH
+=================================================================================
+SELECTION-SCREEN ULINE POS_HIGH(10).
+SELECTION-SCREEN ULINE POS_LOW(10).
+---
+
+(source
+  (selection_screen_statement
+    (horizontal_line_element
+      (output_position
+        position: (identifier)
+        length: (number))))
+  (selection_screen_statement
+    (horizontal_line_element
+      (output_position
+        position: (identifier)
+        length: (number)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Modif id
+=================================================================================
+SELECTION-SCREEN ULINE MODIF ID lin.
+---
+
+(source
+  (selection_screen_statement
+    (horizontal_line_element
+      (modif_id_spec
+        id: (identifier)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Select-Options ] Blank line skips
+=================================================================================
+SELECTION-SCREEN SKIP.
+SELECTION-SCREEN SKIP 10.
+selection-screen skip: 5, 3, 1.
+---
+
+(source
+  (selection_screen_statement
+    (blank_line_directive))
+  (selection_screen_statement
+    (blank_line_directive
+      times: (number)))
+  (selection_screen_statement
+    (blank_line_directive
+      times: (number)
+      times: (number)
+      times: (number))))

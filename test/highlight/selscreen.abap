@@ -53,3 +53,18 @@ SELECT-OPTIONS s_matnr FOR gv_matnr MEMORY ID mat MATCHCODE OBJECT mat1.
 SELECT-OPTIONS s_id FOR gv_id VISIBLE LENGTH 10 NO-DISPLAY MODIF ID gr1.
 "              ^ variable.parameter
 "                                                                   ^ constant
+SELECTION-SCREEN ULINE /10(20).
+"                       ^ number
+"                          ^ number
+SELECTION-SCREEN ULINE POS_HIGH(10).
+"                      ^ constant.builtin
+"                               ^ number
+SELECTION-SCREEN ULINE POS_LOW(10).
+"                      ^ constant.builtin
+"                              ^ number
+SELECTION-SCREEN ULINE MODIF ID lin.
+"                               ^ constant
+SELECTION-SCREEN SKIP: 10, 1, 5.
+"                      ^ number
+"                          ^ number
+"                             ^ number
