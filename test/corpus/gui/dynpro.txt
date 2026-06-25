@@ -1,68 +1,4 @@
 ======
-[DYNPRO // SELECTION-SCREEN] Standard horzizonal line
-======
-SELECTION-SCREEN ULINE /10(20).
----
-
-(source
-  (selection_screen_statement
-    (horizontal_line_element
-      (output_position_spec
-        position: (number)
-        length: (number)))))
-
-======
-[DYNPRO // SELECTION-SCREEN] POS_HIGH/LOW horzizonal line
-======
-SELECTION-SCREEN ULINE POS_HIGH(10).
-SELECTION-SCREEN ULINE POS_LOW(10).
----
-
-(source
-  (selection_screen_statement
-    (horizontal_line_element
-      (output_position_spec
-        position: (identifier)
-        length: (number))))
-  (selection_screen_statement
-    (horizontal_line_element
-      (output_position_spec
-        position: (identifier)
-        length: (number)))))
-
-======
-[DYNPRO // SELECTION-SCREEN] Empty horzizonal line
-======
-SELECTION-SCREEN ULINE MODIF ID lin.
----
-
-(source
-  (selection_screen_statement
-    (horizontal_line_element
-      modif_id: (modif_id_spec
-        id: (identifier)))))
-
-======
-[DYNPRO // SELECTION-SCREEN] Blank lines
-======
-SELECTION-SCREEN SKIP.
-SELECTION-SCREEN SKIP 10.
-selection-screen skip: 5, 3, 1.
----
-
-(source
-  (selection_screen_statement
-    (blank_line_directive))
-  (selection_screen_statement
-    (blank_line_directive
-      times: (number)))
-  (selection_screen_statement
-    (blank_line_directive
-      times: (number)
-      times: (number)
-      times: (number))))
-
-======
 [DYNPRO // SELECTION-SCREEN] Begin/end of screen/block
 ======
 selection-screen: begin of screen 100 title text-tt1 as window,
@@ -77,24 +13,24 @@ selection-screen: begin of screen 100 title text-tt1 as window,
     (begin_of_screen_element
       (screen_spec
         dynnr: (number)
-        title: (title_spec
+        (title
           title: (text_symbol
             (identifier)
             id: (symbol_id)))
-        window: (window_spec)))
+        (as_window)))
     (blank_line_directive
       times: (number))
     (begin_of_block_element
-      block: (identifier)
-      frame: (frame_spec
-        (title_spec
+      name: (identifier)
+      (frame_spec
+        (title
           title: (text_symbol
             (identifier)
             id: (symbol_id)))))
     (end_of_screen_element
       dynnr: (number))
     (end_of_block_element
-      block: (identifier))))
+      name: (identifier))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Chained screen specifications
@@ -107,12 +43,12 @@ SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
     (begin_of_screen_element
       (screen_spec
         dynnr: (number)
-        window: (window_spec)
-        title: (title_spec
+        (as_window)
+        (title
           title: (identifier)))
       (screen_spec
         dynnr: (number)
-        window: (window_spec)))))
+        (as_window)))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Basic comment
@@ -124,11 +60,11 @@ SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1.
   (selection_screen_statement
     (comment_element
       (comment_spec
-        position: (output_position_spec
+        (output_position
           position: (number)
           length: (number))
         text: (identifier)
-        modif_id: (modif_id_spec
+        (modif_id_spec
           id: (identifier))))))
 
 ======
@@ -141,11 +77,11 @@ SELECTION-SCREEN COMMENT /1(50) for field foo.
   (selection_screen_statement
     (comment_element
       (comment_spec
-        position: (output_position_spec
+        (output_position
           position: (number)
           length: (number))
-        target: (for_screen_field_spec
-          field: (identifier))))))
+        (for_screen_field
+          name: (identifier))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Comment as label with text
@@ -157,12 +93,12 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
   (selection_screen_statement
     (comment_element
       (comment_spec
-        position: (output_position_spec
+        (output_position
           position: (number)
           length: (number))
-        target: (for_screen_field_spec
+        (for_screen_field
           text: (identifier)
-          field: (identifier))))))
+          name: (identifier))))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Subscreen definition
@@ -176,7 +112,7 @@ selection-screen: begin of screen 100 as subscreen nesting level 5,
     (begin_of_screen_element
       (subscreen_spec
         dynnr: (number)
-        nesting: (nesting_level_spec
+        (nesting_level
           level: (number))))
     (end_of_screen_element
       dynnr: (number))))
@@ -197,24 +133,24 @@ SELECTION-SCREEN:
     (begin_of_screen_element
       (screen_spec
         dynnr: (number)
-        window: (window_spec)
-        title: (title_spec
+        (as_window)
+        (title
           title: (identifier))))
     (pushbutton_element
-      position: (output_position_spec
+      (output_position
         position: (number)
         length: (number))
       text: (identifier)
-      user_command: (user_command_spec
+      (user_command_spec
         command: (identifier)))
     (pushbutton_element
-      position: (output_position_spec
+      (output_position
         position: (number)
         length: (number))
       text: (identifier)
-      user_command: (user_command_spec
+      (user_command_spec
         command: (identifier))
-      visible_length: (visible_length_spec
+      (visible_length_spec
         length: (number)))
     (end_of_screen_element
       dynnr: (number))))
@@ -234,14 +170,14 @@ SELECTION-SCREEN: COMMENT 40(40) text,
   (selection_screen_statement
     (begin_of_line_directive)
     (pushbutton_element
-      position: (output_position_spec
+      (output_position
         position: (number)
         length: (number))
       text: (identifier)
-      user_command: (user_command_spec
+      (user_command_spec
         command: (identifier)))
     (screen_position_directive
-      position: (output_position_spec
+      (output_position
         position: (number))))
   (parameters_declaration
     (parameters_spec
@@ -253,7 +189,7 @@ SELECTION-SCREEN: COMMENT 40(40) text,
   (selection_screen_statement
     (comment_element
       (comment_spec
-        position: (output_position_spec
+        (output_position
           position: (number)
           length: (number))
         text: (identifier)))
@@ -271,23 +207,23 @@ SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES,
 (source
   (selection_screen_statement
     (begin_of_tabbed_block_element
-      block: (identifier)
-      lines: (tab_lines_spec
+      name: (identifier)
+      (tab_lines
         number: (number)))
     (tab_element
       (tab_spec
         length: (number)
         name: (identifier)
-        user_command: (user_command_spec
+        (user_command_spec
           command: (identifier))))
     (tab_element
       (tab_spec
         length: (number)
         name: (identifier)
-        user_command: (user_command_spec
+        (user_command_spec
           command: (identifier))))
     (end_of_block_element
-      block: (identifier))))
+      name: (identifier))))
 
 ======
 [DYNPRO // SELECTION-SCREEN] Chained tab block elements.
@@ -302,12 +238,12 @@ selection-screen TAB: (20) button1 USER-COMMAND push1,
       (tab_spec
         length: (number)
         name: (identifier)
-        user_command: (user_command_spec
+        (user_command_spec
           command: (identifier)))
       (tab_spec
         length: (number)
         name: (identifier)
-        user_command: (user_command_spec
+        (user_command_spec
           command: (identifier))))))
 
 ======
@@ -348,7 +284,7 @@ SELECTION-SCREEN INCLUDE BLOCKS part1.
 (source
   (selection_screen_statement
     (include_pushbutton_directive
-      (output_position_spec
+      (output_position
         (number)
         (number))
       (identifier)
@@ -377,11 +313,11 @@ CALL SELECTION-SCREEN '0500' STARTING AT 10 10
 (source
   (call_sel_screen_statement
     dynnr: (string_literal)
-    starting_at: (starting_at_spec
+    (starting_at
       column: (number)
       line: (number))
-    ending_at: (ending_at_spec
+    (ending_at
       column: (number)
       line: (number))
-    selection_set: (using_selection_set_spec
-      variant: (identifier))))
+    (using_selection_set
+      name: (identifier))))
