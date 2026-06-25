@@ -174,9 +174,12 @@
 )
 
 (parameters_spec name: (identifier) @variable.parameter )
+(select_options_spec name: (identifier) @variable.parameter )
 (user_command_spec (identifier) @constant )
+(memory_id_spec (identifier) @constant )
 (modif_id_spec (identifier) @constant )
 (radiobutton_group (identifier) @constant )
+(default_value_spec (identifier) @constant )
 (search_help_spec (identifier) @type )
 
 (message_spec 

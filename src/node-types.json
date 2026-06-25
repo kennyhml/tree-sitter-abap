@@ -4987,7 +4987,7 @@
     }
   },
   {
-    "type": "default_range_spec",
+    "type": "default_range",
     "named": true,
     "fields": {
       "high": {
@@ -5093,7 +5093,7 @@
             "named": false
           },
           {
-            "type": "nbt",
+            "type": "nb",
             "named": false
           },
           {
@@ -5245,7 +5245,7 @@
             "named": false
           },
           {
-            "type": "nbt",
+            "type": "nb",
             "named": false
           },
           {
@@ -13753,7 +13753,7 @@
         "required": false,
         "types": [
           {
-            "type": "default_range_spec",
+            "type": "default_range",
             "named": true
           },
           {
@@ -18058,7 +18058,7 @@
     "named": false
   },
   {
-    "type": "nbt",
+    "type": "nb",
     "named": false
   },
   {
