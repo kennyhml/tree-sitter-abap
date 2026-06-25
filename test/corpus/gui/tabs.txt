@@ -1,0 +1,51 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Tabs ] Simble tab block
+=================================================================================
+SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES, 
+                  TAB (20) button1 USER-COMMAND push1, 
+                  TAB (20) button2 USER-COMMAND push2, 
+                  END OF BLOCK mytab. 
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_tabbed_block_element
+      name: (identifier)
+      (tab_lines
+        number: (number)))
+    (tab_element
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        (user_command_spec
+          command: (identifier))))
+    (tab_element
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        (user_command_spec
+          command: (identifier))))
+    (end_of_block_element
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Tabs ] Chained tabs
+=================================================================================
+selection-screen TAB: (20) button1 USER-COMMAND push1,
+                      (20) button2 USER-COMMAND push2.
+---
+
+(source
+  (selection_screen_statement
+    (tab_element
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        (user_command_spec
+          command: (identifier)))
+      (tab_spec
+        length: (number)
+        name: (identifier)
+        (user_command_spec
+          command: (identifier))))))
+

@@ -182,8 +182,12 @@
 (default_value_spec (identifier) @constant )
 (search_help_spec (identifier) @type )
 
-(begin_of_block_element (identifier) @constant )
-(end_of_block_element (identifier) @constant )
+; Regular block is technically a constant, but its difficult
+; to disambiguate from an end of tabbed block
+(begin_of_block_element (identifier) @variable )
+(tab_spec name: (identifier) @variable )
+(begin_of_tabbed_block_element (identifier) @variable )
+(end_of_block_element (identifier) @variable )
 
 (comment_spec 
   [
