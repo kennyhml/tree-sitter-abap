@@ -1,0 +1,26 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Pushbuttons ] Chained
+=================================================================================
+SELECTION-SCREEN: 
+    PUSHBUTTON 2(10)  but1 USER-COMMAND cli1, 
+    PUSHBUTTON 12(30) but2 USER-COMMAND cli2 VISIBLE LENGTH 10.
+---
+
+(source
+  (selection_screen_statement
+    (pushbutton_element
+      (output_position
+        position: (number)
+        length: (number))
+      name: (identifier)
+      (user_command_spec
+        command: (identifier)))
+    (pushbutton_element
+      (output_position
+        position: (number)
+        length: (number))
+      name: (identifier)
+      (user_command_spec
+        command: (identifier))
+      (visible_length_spec
+        length: (number)))))
