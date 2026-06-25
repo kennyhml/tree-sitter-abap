@@ -61,3 +61,19 @@ selection-screen skip: 5, 3, 1.
       times: (number)
       times: (number)
       times: (number))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Lines ] Directives
+=================================================================================
+SELECTION-SCREEN: BEGIN OF LINE, 
+                  POSITION 16,
+                  END OF LINE. 
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_line_directive)
+    (screen_position_directive
+      (output_position
+        position: (number)))
+    (end_of_line_directive)))

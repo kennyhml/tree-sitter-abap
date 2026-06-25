@@ -100,3 +100,6 @@ SELECTION-SCREEN: BEGIN OF TABBED BLOCK mytab FOR 10 LINES,
 "                              ^ variable
 SELECTION-SCREEN PUSHBUTTON 2(10) but1 USER-COMMAND cli1.
 "                                 ^ variable
+selection-screen function key: 1, 2.
+"                              ^ number
+"                                 ^ number
