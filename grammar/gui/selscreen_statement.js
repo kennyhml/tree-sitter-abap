@@ -265,11 +265,7 @@ module.exports = {
 
   title: $ => seq(
     gen.kw("title"),
-    field("title", choice(
-      $.string_literal,
-      $.text_symbol,
-      $.identifier
-    ))
+    field("text", $.data_object)
   ),
 
   frame_spec: $ => seq(

@@ -182,6 +182,9 @@
 (default_value_spec (identifier) @constant )
 (search_help_spec (identifier) @type )
 
+(begin_of_block_element (identifier) @constant )
+(end_of_block_element (identifier) @constant )
+
 (comment_spec 
   [
     name: (identifier) @variable
