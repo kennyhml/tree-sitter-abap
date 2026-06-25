@@ -103,3 +103,12 @@ SELECTION-SCREEN PUSHBUTTON 2(10) but1 USER-COMMAND cli1.
 selection-screen function key: 1, 2.
 "                              ^ number
 "                                 ^ number
+SELECTION-SCREEN INCLUDE PUSHBUTTON /5(25) btn_text USER-COMMAND click.
+"                                          ^ variable
+"                                                                ^ constant
+SELECTION-SCREEN INCLUDE SELECT-OPTIONS s_date NO INTERVALS.
+"                                       ^ variable.parameter
+SELECTION-SCREEN INCLUDE PARAMETERS p_user OBLIGATORY OFF.
+"                                   ^ variable.parameter
+SELECTION-SCREEN INCLUDE BLOCKS part1.
+"                               ^ variable

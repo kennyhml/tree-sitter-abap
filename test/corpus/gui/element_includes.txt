@@ -1,0 +1,50 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Include ] Pushbutton
+=================================================================================
+SELECTION-SCREEN INCLUDE PUSHBUTTON /5(25) btn_text USER-COMMAND click.
+---
+
+(source
+  (selection_screen_statement
+    (include_pushbutton_directive
+      (output_position
+        position: (number)
+        length: (number))
+      name: (identifier)
+      (user_command_spec
+        command: (identifier)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Include ] Select options
+=================================================================================
+SELECTION-SCREEN INCLUDE SELECT-OPTIONS s_date NO INTERVALS.
+---
+
+(source
+  (selection_screen_statement
+    (include_select_option_directive
+      name: (identifier)
+      (no_intervals_spec))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Include ] Parameters
+=================================================================================
+SELECTION-SCREEN INCLUDE PARAMETERS p_user OBLIGATORY OFF.
+---
+
+(source
+  (selection_screen_statement
+    (include_parameter_directive
+      name: (identifier)
+      (obligatory_spec))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Include ] Blocks
+=================================================================================
+SELECTION-SCREEN INCLUDE BLOCKS part1.
+---
+
+(source
+  (selection_screen_statement
+    (include_block_directive
+      name: (identifier))))

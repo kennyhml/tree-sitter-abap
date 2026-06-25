@@ -1,34 +1,4 @@
 ======
-[DYNPRO // SELECTION-SCREEN] Include directives
-======
-SELECTION-SCREEN INCLUDE PUSHBUTTON /5(25) btn_text USER-COMMAND click.
-SELECTION-SCREEN INCLUDE SELECT-OPTIONS s_date NO INTERVALS.
-SELECTION-SCREEN INCLUDE PARAMETERS p_user OBLIGATORY OFF.
-SELECTION-SCREEN INCLUDE BLOCKS part1.
----
-
-(source
-  (selection_screen_statement
-    (include_pushbutton_directive
-      (output_position
-        (number)
-        (number))
-      (identifier)
-      (user_command_spec
-        (identifier))))
-  (selection_screen_statement
-    (include_select_option_directive
-      (identifier)
-      (no_intervals_spec)))
-  (selection_screen_statement
-    (include_parameter_directive
-      (identifier)
-      (obligatory_spec)))
-  (selection_screen_statement
-    (include_block_directive
-      (identifier))))
-
-======
 [DYNPRO // SELECTION-SCREEN] Call screen statement
 ======
 CALL SELECTION-SCREEN '0500' STARTING AT 10 10 
