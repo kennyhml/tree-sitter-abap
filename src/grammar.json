@@ -2849,23 +2849,10 @@
         },
         {
           "type": "FIELD",
-          "name": "title",
+          "name": "text",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "string_literal"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text_symbol"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "data_object"
           }
         }
       ]

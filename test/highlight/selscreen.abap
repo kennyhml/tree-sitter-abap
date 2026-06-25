@@ -70,11 +70,22 @@ SELECTION-SCREEN SKIP: 10, 1, 5.
 "                             ^ number
 SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1. 
 "                         ^ number
+selection-screen comment /1(50).
 "                           ^ number
-"                               ^ variable
 "                                              ^ constant
 SELECTION-SCREEN COMMENT /1(50) for field foo. 
 "                                         ^ variable.parameter
 SELECTION-SCREEN COMMENT /1(50) bar for field foo. 
 "                               ^ variable
 "                                             ^ variable.parameter
+selection-screen: begin of screen 100 title text as window,
+"                                           ^ variable
+                  begin of block block with frame title 'text',
+"                                ^ constant
+                  end of screen 100,
+                  end of block block.
+"                              ^ constant
+SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
+"                                                     ^ variable
+selection-screen: begin of screen 100 as subscreen nesting level 5,
+                end of screen 100.

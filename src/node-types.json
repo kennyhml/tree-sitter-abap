@@ -15986,20 +15986,12 @@
           }
         ]
       },
-      "title": {
+      "text": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "string_literal",
-            "named": true
-          },
-          {
-            "type": "text_symbol",
+            "type": "data_object",
             "named": true
           }
         ]

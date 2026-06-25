@@ -1,0 +1,65 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Screens ] Block in screen
+=================================================================================
+selection-screen: begin of screen 100 title text-tt1 as window,
+                  begin of block block with frame title text-tt2,
+                  end of screen 100,
+                  end of block block.
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_screen_element
+      (screen_spec
+        dynnr: (number)
+        (title
+          text: (text_symbol
+            (identifier)
+            id: (symbol_id)))
+        (as_window)))
+    (begin_of_block_element
+      name: (identifier)
+      (frame_spec
+        (title
+          text: (text_symbol
+            (identifier)
+            id: (symbol_id)))))
+    (end_of_screen_element
+      dynnr: (number))
+    (end_of_block_element
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Screens ] Chained screens
+=================================================================================
+SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_screen_element
+      (screen_spec
+        dynnr: (number)
+        (as_window)
+        (title
+          text: (identifier)))
+      (screen_spec
+        dynnr: (number)
+        (as_window)))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Screens ] Subscreen
+=================================================================================
+selection-screen: begin of screen 100 as subscreen nesting level 5,
+                end of screen 100.
+---
+
+(source
+  (selection_screen_statement
+    (begin_of_screen_element
+      (subscreen_spec
+        dynnr: (number)
+        (nesting_level
+          level: (number))))
+    (end_of_screen_element
+      dynnr: (number))))
