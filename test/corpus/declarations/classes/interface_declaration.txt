@@ -1,0 +1,47 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Basic decl
+=================================================================================
+INTERFACE i1. 
+ENDINTERFACE.
+---
+
+(source
+  (interface_declaration
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Public
+=================================================================================
+INTERFACE i1 PUBLIC. 
+ENDINTERFACE.
+---
+
+(source
+  (interface_declaration
+    name: (identifier)
+    (public)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Deferred
+=================================================================================
+INTERFACE i1 DEFERRED. 
+ENDINTERFACE.
+---
+
+(source
+  (deferred_interface_declaration
+    name: (identifier))
+  (identifier))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Public deferred
+=================================================================================
+INTERFACE i1 DEFERRED PUBLIC. 
+ENDINTERFACE.
+---
+
+(source
+  (deferred_interface_declaration
+    name: (identifier)
+    (public))
+  (identifier))

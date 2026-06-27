@@ -1,0 +1,130 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] Basic declaration
+=================================================================================
+CLASS foo DEFINITION. 
+  PUBLIC SECTION.
+    INTERFACES intf. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (interfaces_declaration
+          (interfaces_spec
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] Abstract methods
+=================================================================================
+CLASS foo DEFINITION. 
+  PUBLIC SECTION.
+    INTERFACES intf ABSTRACT METHODS intf1~meth1 meth2. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (interfaces_declaration
+          (interfaces_spec
+            name: (identifier)
+            (abstract_methods
+              (component_selection
+                subject: (identifier)
+                component: (identifier))
+              (identifier))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] Final methods
+=================================================================================
+CLASS foo DEFINITION. 
+  PUBLIC SECTION.
+    INTERFACES intf FINAL METHODS intf1~meth1 meth2. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (interfaces_declaration
+          (interfaces_spec
+            name: (identifier)
+            (final_methods
+              (component_selection
+                subject: (identifier)
+                component: (identifier))
+              (identifier))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] All final
+=================================================================================
+CLASS foo DEFINITION. 
+  PUBLIC SECTION.
+    INTERFACES intf ALL METHODS FINAL. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (interfaces_declaration
+          (interfaces_spec
+            name: (identifier)
+            (all_methods
+              (final))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] All abstract
+=================================================================================
+CLASS foo DEFINITION. 
+  PUBLIC SECTION.
+    INTERFACES intf ALL METHODS ABSTRACT. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (interfaces_declaration
+          (interfaces_spec
+            name: (identifier)
+            (all_methods
+              (abstract))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] Data values
+=================================================================================
+CLASS foo DEFINITION. 
+  PUBLIC SECTION.
+    INTERFACES intf 
+      DATA VALUES attr1 = 'Hello' 
+      attr2 = 'World'. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (interfaces_declaration
+          (interfaces_spec
+            name: (identifier)
+            (data_values
+              (data_value_assignment
+                member: (identifier)
+                value: (string_literal))
+              (data_value_assignment
+                member: (identifier)
+                value: (string_literal)))))))))

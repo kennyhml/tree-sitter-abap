@@ -247,6 +247,18 @@
   (end_of_struct)
 )
 
+(component_selection 
+    subject: [
+      (identifier) @type 
+      (component_selection
+        component: (identifier) @type
+      )
+    ]
+    selector: "~"
+    component: (identifier) @variable.member
+)
+
+
 ; Any identifier inside a class declaration is an identifier
 (class_declaration 
   name: (identifier) @type 
@@ -255,14 +267,47 @@
   )?
 )
 
+(interface_declaration name: (identifier) @type )
+
 (local_friends_declaration (identifier) @type )
 (deferred_class_declaration name: (identifier) @type )
+(deferred_interface_declaration name: (identifier) @type )
 (class_implementation name: (identifier) @type )
 
 (simple_exception_spec name: (identifier) @type )
 (resumable_exception_spec name: (identifier) @type )
 (new_exception_spec class_name: (identifier) @type )
 (catch_exception_list (identifier) @type )
+
+(interfaces_spec 
+  [
+    name: (identifier) @type 
+    (abstract_methods 
+      [
+        (identifier) @function.method
+        (component_selection
+          selector: "~"
+          component: (identifier) @function.method
+        )
+      ]
+    )
+    (final_methods 
+      [
+        (identifier) @function.method
+        (component_selection
+          selector: "~"
+          component: (identifier) @function.method
+        )
+      ]
+    )
+    (data_values 
+      (data_value_assignment
+        member: (identifier) @variable.member
+      )
+
+    )
+  ]
+)
 
 (component_selection
   subject: (identifier) @type
@@ -276,21 +321,6 @@
   ]
 )
 
-
-(deferred_interface_definition name: (identifier) @type )
-(interfaces_declaration (identifier) @type )
-(interface_definition name: (identifier) @type )
-
-(component_selection 
-    subject: [
-      (identifier) @type 
-      (component_selection
-        component: (identifier) @type
-      )
-    ]
-    selector: "~"
-    component: (identifier) @variable.member
-)
 
 (function_call
   source: [
@@ -547,13 +577,14 @@
 ] @keyword.exception
 
 [
-    (public_section)
-    (protected_section)
-    (private_section)
     (final)
     (abstract)
     (public)
 ] @keyword.modifier
+
+(public_section keyword: _ @keyword.modifier )
+(protected_section keyword: _ @keyword.modifier )
+(private_section keyword: _ @keyword.modifier )
 
 (include_statement "include" @keyword.import )
 (methods_declaration "methods" @keyword.function ) 

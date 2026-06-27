@@ -245,11 +245,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "interface_definition"
+          "name": "interface_declaration"
         },
         {
           "type": "SYMBOL",
-          "name": "deferred_interface_definition"
+          "name": "deferred_interface_declaration"
         },
         {
           "type": "SYMBOL",
@@ -8166,7 +8166,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "identifier"
+                      "name": "interfaces_spec"
                     },
                     {
                       "type": "REPEAT",
@@ -8179,7 +8179,7 @@
                           },
                           {
                             "type": "SYMBOL",
-                            "name": "identifier"
+                            "name": "interfaces_spec"
                           }
                         ]
                       }
@@ -8190,7 +8190,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "interfaces_spec"
             }
           ]
         },
@@ -8200,7 +8200,215 @@
         }
       ]
     },
-    "interface_definition": {
+    "interfaces_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__interfaces_addition"
+          }
+        }
+      ]
+    },
+    "__interfaces_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "partially_implemented"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "abstract_methods"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "final_methods"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "all_methods"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_values"
+        }
+      ]
+    },
+    "partially_implemented": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_partially"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_implemented"
+        }
+      ]
+    },
+    "abstract_methods": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_kw_abstract"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_kw_methods"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "component_selection"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "final_methods": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_kw_final"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_kw_methods"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "component_selection"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "all_methods": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_all"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_methods"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "final"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "abstract"
+            }
+          ]
+        }
+      ]
+    },
+    "data_values": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_kw_data"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_kw_values"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "data_value_assignment"
+            }
+          }
+        ]
+      }
+    },
+    "data_value_assignment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "member",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "component_selection"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "interface_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -8260,7 +8468,7 @@
         "name": "_class_component"
       }
     },
-    "deferred_interface_definition": {
+    "deferred_interface_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -20344,6 +20552,58 @@
         "value": "interfaces"
       }
     },
+    "_kw_partially": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[pP][aA][rR][tT][iI][aA][lL][lL][yY]"
+        },
+        "named": false,
+        "value": "partially"
+      }
+    },
+    "_kw_implemented": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[iI][mM][pP][lL][eE][mM][eE][nN][tT][eE][dD]"
+        },
+        "named": false,
+        "value": "implemented"
+      }
+    },
+    "_kw_methods": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[mM][eE][tT][hH][oO][dD][sS]"
+        },
+        "named": false,
+        "value": "methods"
+      }
+    },
+    "_kw_values": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[vV][aA][lL][uU][eE][sS]"
+        },
+        "named": false,
+        "value": "values"
+      }
+    },
     "_kw_interface": {
       "type": "FIELD",
       "name": "keyword",
@@ -20368,19 +20628,6 @@
         },
         "named": false,
         "value": "endinterface"
-      }
-    },
-    "_kw_methods": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[mM][eE][tT][hH][oO][dD][sS]"
-        },
-        "named": false,
-        "value": "methods"
       }
     },
     "_kw_class_methods": {
