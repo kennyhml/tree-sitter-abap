@@ -346,7 +346,7 @@
         "named": true
       },
       {
-        "type": "deferred_interface_definition",
+        "type": "deferred_interface_declaration",
         "named": true
       },
       {
@@ -358,7 +358,7 @@
         "named": true
       },
       {
-        "type": "interface_definition",
+        "type": "interface_declaration",
         "named": true
       },
       {
@@ -684,6 +684,40 @@
     }
   },
   {
+    "type": "abstract_methods",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "abstract",
+            "named": false
+          },
+          {
+            "type": "methods",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "component_selection",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "accumulator_spec",
     "named": true,
     "fields": {
@@ -895,6 +929,40 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "all_methods",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "all",
+            "named": false
+          },
+          {
+            "type": "methods",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "abstract",
+          "named": true
+        },
+        {
+          "type": "final",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4790,6 +4858,66 @@
     }
   },
   {
+    "type": "data_value_assignment",
+    "named": true,
+    "fields": {
+      "member": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "data_values",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "data",
+            "named": false
+          },
+          {
+            "type": "values",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_value_assignment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "declaration_expression",
     "named": true,
     "fields": {
@@ -5348,7 +5476,7 @@
     }
   },
   {
-    "type": "deferred_interface_definition",
+    "type": "deferred_interface_declaration",
     "named": true,
     "fields": {
       "keyword": {
@@ -6598,6 +6726,40 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "final_methods",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "final",
+            "named": false
+          },
+          {
+            "type": "methods",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "component_selection",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8703,45 +8865,7 @@
     }
   },
   {
-    "type": "interface_default_spec",
-    "named": true,
-    "fields": {
-      "default": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "fail",
-            "named": false
-          },
-          {
-            "type": "ignore",
-            "named": false
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "default",
-            "named": false
-          },
-          {
-            "type": "fail",
-            "named": false
-          },
-          {
-            "type": "ignore",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_definition",
+    "type": "interface_declaration",
     "named": true,
     "fields": {
       "keyword": {
@@ -8785,6 +8909,44 @@
     }
   },
   {
+    "type": "interface_default_spec",
+    "named": true,
+    "fields": {
+      "default": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fail",
+            "named": false
+          },
+          {
+            "type": "ignore",
+            "named": false
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "fail",
+            "named": false
+          },
+          {
+            "type": "ignore",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "interfaces_declaration",
     "named": true,
     "fields": {
@@ -8804,7 +8966,49 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "interfaces_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interfaces_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "abstract_methods",
+          "named": true
+        },
+        {
+          "type": "all_methods",
+          "named": true
+        },
+        {
+          "type": "data_values",
+          "named": true
+        },
+        {
+          "type": "final_methods",
+          "named": true
+        },
+        {
+          "type": "partially_implemented",
           "named": true
         }
       ]
@@ -11518,6 +11722,26 @@
           {
             "type": "number",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "partially_implemented",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "implemented",
+            "named": false
+          },
+          {
+            "type": "partially",
+            "named": false
           }
         ]
       }
@@ -17665,6 +17889,10 @@
     "named": false
   },
   {
+    "type": "implemented",
+    "named": false
+  },
+  {
     "type": "importing",
     "named": false
   },
@@ -18024,6 +18252,10 @@
   },
   {
     "type": "parameters",
+    "named": false
+  },
+  {
+    "type": "partially",
     "named": false
   },
   {
@@ -18436,6 +18668,10 @@
   },
   {
     "type": "value-request",
+    "named": false
+  },
+  {
+    "type": "values",
     "named": false
   },
   {
