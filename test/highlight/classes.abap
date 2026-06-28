@@ -16,6 +16,22 @@ CLASS cl_demo_spfli DEFINITION
 "                 ^ type
   PUBLIC SECTION.
 " ^ keyword.modifier
+    data t_requested_transports type scts_trkorrs.
+"        ^ variable.member
+    data: begin of gc_constants,
+"                  ^ variable.member
+           f1 type x,
+           f2 type c,
+           end of gc_constants.
+"                  ^ variable.member
+    class-data gv_batch type flag.
+"              ^ variable.member
+    class-data: begin of gc_constants,
+"                        ^ variable.member
+               f1 type x,
+               f2 type c,
+               end of gc_constants.
+"                     ^ variable.member
   PROTECTED SECTION.
 " ^ keyword.modifier
   PRIVATE SECTION.

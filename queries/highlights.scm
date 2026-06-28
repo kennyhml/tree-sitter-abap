@@ -111,6 +111,23 @@
   (end_of_struct)
 )
 
+(class_body
+  (_ ; any section
+    [
+      (data_declaration
+        (data_spec name: (identifier) @variable.member )?
+        (begin_of_struct name: (identifier) @variable.member )?
+        (end_of_struct name: (identifier) @variable.member )?
+      )
+      (class_data_declaration
+        (class_data_spec name: (identifier) @variable.member )?
+        (begin_of_struct name: (identifier) @variable.member )?
+        (end_of_struct name: (identifier) @variable.member )?
+      )
+    ]
+  )
+)
+
 
 [ 
   (itab_comp_spec)
