@@ -64,12 +64,8 @@
   ]
 )
 
-(constructor_spec
-  [
-    "constructor"
-    "class_constructor"
-  ] @function.constructor
-)
+(constructor_spec "constructor" @constructor )
+(class_constructor_spec "class_constructor" @constructor )
 
 ; VARIABLES AND PROPERTIES
 ; ------------------------
@@ -148,17 +144,15 @@
 ; Parameter identifiers
 (named_argument name: (identifier) @variable.parameter )
 
-([
-  (value_param_spec)
-  (simple_param_spec)
-  (reference_param_spec)
-  (preferred_param_spec)
-] name: (identifier) @variable.parameter )
+(implicit_reference name: (identifier) @variable.parameter )
+(explicit_value name: (identifier) @variable.parameter )
+(explicit_reference name: (identifier) @variable.parameter )
+(preferred_parameter name: (identifier) @variable.parameter )
 
 (table_key name: (identifier) @variable.key )
 (using_key name: (identifier) @variable.key )
 
-(exception_list (identifier) @variable.parameter )
+(exceptions (identifier) @variable.parameter )
 (raising_exception exception: (identifier) @variable.parameter )
 (raise_statement name: (identifier) @variable.parameter )
 
@@ -274,8 +268,8 @@
 (deferred_interface_declaration name: (identifier) @type )
 (class_implementation name: (identifier) @type )
 
-(simple_exception_spec name: (identifier) @type )
-(resumable_exception_spec name: (identifier) @type )
+(non_resumable_exception name: (identifier) @type )
+(resumable_exception name: (identifier) @type )
 (new_exception_spec class_name: (identifier) @type )
 (catch_exception_list (identifier) @type )
 
@@ -314,7 +308,7 @@
   selector: "=>"
 )
 
-(for_event_spec 
+(for_event
   [
 	source: (identifier) @type
     name: (identifier) @variable.event
@@ -581,6 +575,11 @@
     (abstract)
     (public)
 ] @keyword.modifier
+
+(parameter (optional) @keyword.modifier )
+(explicit_value "value" @keyword.modifier )
+(explicit_reference "reference" @keyword.modifier )
+(resumable_exception "resumable" @keyword.modifier )
 
 (public_section keyword: _ @keyword.modifier )
 (protected_section keyword: _ @keyword.modifier )

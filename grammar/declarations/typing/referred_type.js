@@ -17,9 +17,11 @@ module.exports = {
    * As for all other type positons where a data object or type
    * name can be specified, they are tagged `object` and `name` respectively.
    *
+   * WARN: This need to be left associative to not cause issues in param lists (value addition)
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_REFERRING.html
    */
-  referred_type: $ => prec.right(seq(
+  referred_type: $ => prec.left(seq(
     choice(
       $.__referred_type_type_spec,
       $.__referred_type_like_spec

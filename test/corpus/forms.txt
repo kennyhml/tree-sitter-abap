@@ -22,13 +22,13 @@ ENDFORM.
     name: (identifier)
     using: (parameter_list
       (parameter
-        (simple_param_spec
+        (implicit_reference
           name: (identifier))
         typing: (referred_type
           name: (identifier))))
     changing: (parameter_list
       (parameter
-        (simple_param_spec
+        (implicit_reference
           name: (identifier))
         typing: (table_type
           kind: (index_table))))))
@@ -46,7 +46,7 @@ ENDFORM.
     name: (identifier)
     tables: (parameter_list
       (parameter
-        (simple_param_spec
+        (implicit_reference
           name: (identifier))
         (structure_param_spec
           name: (identifier))))))
@@ -66,14 +66,14 @@ ENDFORM.
     name: (identifier)
     using: (parameter_list
       (parameter
-        (value_param_spec
+        (explicit_value
           name: (identifier))
         typing: (table_type
           kind: (standard_table))))
     raising: (raising_list
-      (simple_exception_spec
+      (non_resumable_exception
         name: (identifier))
-      (resumable_exception_spec
+      (resumable_exception
         name: (identifier)))))
 
 ======

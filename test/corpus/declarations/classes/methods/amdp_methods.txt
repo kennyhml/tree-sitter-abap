@@ -1,0 +1,91 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Scalar func
+=================================================================================
+CLASS-METHODS meth FOR SCALAR FUNCTION cds_scalar_func.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_scalar_function
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Table func
+=================================================================================
+CLASS-METHODS meth FOR TABLE FUNCTION cds_tabfunc.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_table_function
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] SQL Service
+=================================================================================
+CLASS-METHODS meth FOR SQL SERVICE 
+    AMDP OPTIONS READ-ONLY CLIENT INDEPENDENT.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_sql_service)
+      (amdp_options
+        (read_only)
+        (client_independent)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] CDS session client
+=================================================================================
+CLASS-METHODS meth
+    AMDP OPTIONS CDS SESSION CLIENT DEPENDENT.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (amdp_options
+        (cds_session_client_dependent)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Speciflic client
+=================================================================================
+CLASS-METHODS meth
+    AMDP OPTIONS CDS SESSION CLIENT iv_client.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (amdp_options
+        (cds_session_client
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Current client
+=================================================================================
+CLASS-METHODS meth
+    AMDP OPTIONS CDS SESSION CLIENT CURRENT.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (amdp_options
+        (cds_session_client
+          name: (current))))))
