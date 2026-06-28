@@ -1,4 +1,5 @@
 CLASS cl_demo_spfli DEFINITION 
+"<- keyword.type
 "     ^ type
   PUBLIC 
 " ^ keyword.modifier
@@ -30,6 +31,7 @@ CLASS cl_demo_amdp_mesh DEFINITION
 "                      ^ type
 "                             ^ type
 INTERFACE intf1. 
+"<- keyword.type
 "         ^ type
 interfaces zinf.
 "          ^ type

@@ -585,6 +585,9 @@
 (protected_section keyword: _ @keyword.modifier )
 (private_section keyword: _ @keyword.modifier )
 
+(class_declaration "class" @keyword.type )
+(interface_declaration "interface" @keyword.type )
+
 (include_statement "include" @keyword.import )
 (methods_declaration "methods" @keyword.function ) 
 (class_methods_declaration "class-methods" @keyword.function ) 
