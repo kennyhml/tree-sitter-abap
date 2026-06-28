@@ -1,0 +1,147 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Basic declaration
+=================================================================================
+METHODS meth .
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Static method
+=================================================================================
+CLASS-METHODS meth .
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Constructor
+=================================================================================
+METHODS constructor.
+---
+
+(source
+  (methods_declaration
+    (constructor_spec)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Class constructor
+=================================================================================
+CLASS-METHODS class_constructor.
+---
+
+(source
+  (class_methods_declaration
+    (class_constructor_spec)))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Chained
+=================================================================================
+METHODS: meth1, meth2, meth3.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier))
+    (method_spec
+      name: (identifier))
+    (method_spec
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Redefinition
+=================================================================================
+METHODS my_method redefinition.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (redefinition))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Final
+=================================================================================
+METHODS my_method final.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Abstract
+=================================================================================
+METHODS my_method abstract.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (abstract))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Interface default
+=================================================================================
+CLASS-METHODS m1 DEFAULT FAIL. 
+CLASS-METHODS m1 DEFAULT IGNORE. 
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      (identifier)
+      (default_fail)))
+  (class_methods_declaration
+    (method_spec
+      (identifier)
+      (default_ignore))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Event handler
+=================================================================================
+METHODS handle_double_click 
+    FOR EVENT picture_dblclick OF cl_gui_picture 
+    IMPORTING mouse_pos_x mouse_pos_y sender. 
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_event
+        name: (identifier)
+        source: (identifier))
+      importing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Test methods
+=================================================================================
+METHODS mytest FOR TESTING. 
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_testing))))

@@ -38,8 +38,8 @@ module.exports = {
    */
   __form_parameter: $ => prec.right(seq(
     choice(
-      $.simple_param_spec,
-      $.value_param_spec,
+      $.implicit_reference,
+      $.explicit_value,
     ),
     optional(choice(
       field("typing", $.typing),

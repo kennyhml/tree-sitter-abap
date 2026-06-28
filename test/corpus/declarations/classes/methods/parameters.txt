@@ -1,0 +1,247 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Importing param
+=================================================================================
+METHODS meth IMPORTING p1 TYPE i.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Return value
+=================================================================================
+METHODS meth RETURNING VALUE(result) type abap_bool.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      returning: (return_value
+        (explicit_value
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Explicit value
+=================================================================================
+METHODS meth IMPORTING value(p1) TYPE i.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (explicit_value
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Explicit reference
+=================================================================================
+METHODS meth IMPORTING reference(p1) TYPE i.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (explicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Optional param
+=================================================================================
+METHODS meth IMPORTING p1 TYPE i OPTIONAL.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier))
+          (optional))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Default param
+=================================================================================
+METHODS meth IMPORTING p1 TYPE i DEFAULT 99.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier))
+          (parameter_default
+            value: (number)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Preferred param
+=================================================================================
+METHODS meth 
+    IMPORTING 
+        p1 TYPE i OPTIONAL
+        p2 TYPE i OPTIONAL
+        PREFERRED PARAMETER p1.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier))
+          (optional))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier))
+          (optional))
+        (preferred_parameter
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Exporting param
+=================================================================================
+METHODS read_spfli_into_table 
+    EXPORTING flight_tab TYPE spfli_tab. 
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      exporting: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Changing param
+=================================================================================
+METHODS read_spfli_into_table 
+    CHANGING flight_tab TYPE spfli_tab. 
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Multiple params
+=================================================================================
+METHODS meth 
+    IMPORTING 
+        p1 TYPE i
+        value(p2) TYPE i
+        reference(p3) TYPE i.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (explicit_value
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (explicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Exceptions
+=================================================================================
+METHODS read_spfli_into_table 
+    EXCEPTIONS
+        not_found
+        system_error.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      exceptions: (exceptions
+        (identifier)
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Raising
+=================================================================================
+METHODS divide 
+    RAISING cx_sy_arithmetic_error.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      raising: (raising_list
+        (non_resumable_exception
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Raising resumable
+=================================================================================
+METHODS divide 
+    RAISING resumable(cx_sy_arithmetic_error).
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      raising: (raising_list
+        (resumable_exception
+          name: (identifier))))))
