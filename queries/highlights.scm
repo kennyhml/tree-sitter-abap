@@ -340,7 +340,7 @@
         component: (identifier) @type
       )
   ] 
-  "~"
+  ["~" "=>"]
 )
 ; WARN: We need some way to ensure that this doesnt tag variables in
 ; 'like' expressions, so the grammar must map those as 'object'

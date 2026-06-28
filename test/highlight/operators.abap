@@ -99,6 +99,10 @@ itab-(num)->baz
 "     ^ variable
 "         ^ operator
 "           ^ variable.member
+cl_class=>foo( )
+"^ type
+"        ^ operator
+"          ^ function.method
 (classname)=>attribute
 "^ variable
 "          ^ operator
