@@ -77,6 +77,7 @@
 ; This helps a great deal marking basically all identifiers as variables
 ; where they are interchangable with other data-like expressions.
 (named_data_object/identifier) @variable
+((identifier) @variable.builtin ( #any-of? @variable.builtin "me" "super" "sy" ) )
 
 (dynamic_spec (identifier) @variable )
 (dereference_expression subject: (identifier) @variable )
@@ -127,6 +128,7 @@
     ]
   )
 )
+
 
 
 [ 
@@ -222,7 +224,7 @@
 
 ; CONSTANTS
 ((identifier) @constant.builtin
-  (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD])))$" )
+  (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD]))|([sS][pP][aA][cC][eE]))$" )
 )
 (text_symbol
   (string_literal)
