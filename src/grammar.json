@@ -12517,6 +12517,56 @@
         }
       ]
     },
+    "call_method_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_method"
+        },
+        {
+          "type": "FIELD",
+          "name": "method",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "component_selection"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "call_argument_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "call_argument_list": {
       "type": "CHOICE",
       "members": [
@@ -12603,6 +12653,10 @@
               {
                 "type": "SYMBOL",
                 "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
               },
               {
                 "type": "SYMBOL",
@@ -13046,56 +13100,6 @@
           }
         ]
       }
-    },
-    "call_method_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_call"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_method"
-        },
-        {
-          "type": "FIELD",
-          "name": "method",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "dynamic_spec"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "component_selection"
-              }
-            ]
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "call_argument_list"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
     },
     "for_table_function": {
       "type": "SEQ",
@@ -21215,6 +21219,19 @@
         "value": "separate"
       }
     },
+    "_kw_method": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[mM][eE][tT][hH][oO][dD]"
+        },
+        "named": false,
+        "value": "method"
+      }
+    },
     "_kw_importing": {
       "type": "FIELD",
       "name": "keyword",
@@ -21291,19 +21308,6 @@
         },
         "named": false,
         "value": "exception-table"
-      }
-    },
-    "_kw_method": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[mM][eE][tT][hH][oO][dD]"
-        },
-        "named": false,
-        "value": "method"
       }
     },
     "_kw_scalar": {

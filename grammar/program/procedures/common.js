@@ -39,6 +39,7 @@ module.exports = {
     field("name",
       choice(
         $.identifier,
+        $.dynamic_spec,       // dynamic param spec in dynamic method calls
         $.component_selection // for components of structures
       )
     ),
