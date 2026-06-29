@@ -103,6 +103,10 @@ cl_class=>foo( )
 "^ type
 "        ^ operator
 "          ^ function.method
+lo_obj->foo( )
+"^ variable
+"     ^ operator
+"       ^ function.method
 (classname)=>attribute
 "^ variable
 "          ^ operator

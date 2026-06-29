@@ -38,3 +38,13 @@ methods constructor.
 class-methods class_constructor.
 "<- keyword.function
 "             ^ constructor
+
+
+method test.
+"      ^ function.method
+
+endmethod.
+
+method if_oo_adt_classrun~main.
+"                         ^ function.method
+endmethod.

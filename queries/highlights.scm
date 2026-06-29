@@ -21,10 +21,6 @@
 ] @keyword.directive
 
 
-
-; ------------------------------------------
-; Method identifiers, ambiguity exists.
-; ------------------------------------------
 (function_call 
   name: (identifier) @function.builtin
   (#match? @function.builtin "^([bB][oO][oO][lL][cC]|[bB][oO][oO][lL][xX]|[xX][sS][dB][bB][oO][oO][lL]|[cC][oO][nN][tT][aA][iI][nN][sS]|[cC][oO][nN][tT][aA][iI][nN][sS]_[aA][nN][yY]_[oO][fF]|[cC][oO][nN][tT][aA][iI][nN][sS]_[aA][nN][yY]_[nN][oO][tT]_[oO][fF]|[mM][aA][tT][cC][hH][eE][sS]|[lL][iI][nN][eE]_[eE][xX][iI][sS][tT][sS]|[aA][bB][sS]|[cC][eE][iI][lL]|[fF][lL][oO][oO][rR]|[fF][rR][aA][cC]|[sS][iI][gG][nN]|[tT][rR][uU][nN][cC]|[iI][pP][oO][wW]|[nN][mM][aA][xX]|[nN][mM][iI][nN]|[aA][cC][oO][sS]|[aA][sS][iI][nN]|[aA][tT][aA][nN]|[cC][oO][sS]|[sS][iI][nN]|[tT][aA][nN]|[cC][oO][sS][hH]|[sS][iI][nN][hH]|[tT][aA][nN][hH]|[eE][xX][pP]|[lL][oO][gG]|[lL][oO][gG]10|[sS][qQ][rR][tT]|[rR][oO][uU][nN][dB]|[rR][eE][sS][cC][aA][lL][eE]|[gG][aA][mM][mM][aA]|[lL][oO][gG]_[gG][aA][mM][mM][aA]|[gG][aA][mM][mM][aA]_[lL][oO][wW][eE][rR]|[fF][aA][cC][tT][oO][rR][iI][aA][lL]|[bB][iI][nN][oO][mM][iI][aA][lL]|[eE][rR][fF]|[eE][rR][fF][cC]|[eE][rR][fF]_[iI][nN][vV]|[eE][rR][fF][cC]_[iI][nN][vV]|[cC][hH][aA][rR][lL][eE][nN]|[dD][bB][mM][aA][xX][lL][eE][nN]|[nN][uU][mM][oO][fF][cC][hH][aA][rR]|[sS][tT][rR][lL][eE][nN]|[cC][hH][aA][rR]_[oO][fF][fF]|[cC][mM][aA][xX]|[cC][mM][iI][nN]|[cC][oO][uU][nN][tT]|[cC][oO][uU][nN][tT]_[aA][nN][yY]_[oO][fF]|[cC][oO][uU][nN][tT]_[aA][nN][yY]_[nN][oO][tT]_[oO][fF]|[dD][iI][sS][tT][aA][nN][cC][eE]|[cC][oO][nN][dB][eE][nN][sS][eE]|[cC][oO][nN][cC][aA][tT]_[lL][iI][nN][eE][sS]_[oO][fF]|[eE][sS][cC][aA][pP][eE]|[fF][iI][nN][dB]|[fF][iI][nN][dB]_[eE][nN][dB]|[fF][iI][nN][dB]_[aA][nN][yY]_[oO][fF]|[fF][iI][nN][dB]_[aA][nN][yY]_[nN][oO][tT]_[oO][fF]|[iI][nN][sS][eE][rR][tT]|[mM][aA][tT][cC][hH]|[rR][eE][pP][eE][aA][tT]|[rR][eE][pP][lL][aA][cC][eE]|[rR][eE][vV][eE][rR][sS][eE]|[sS][eE][gG][mM][eE][nN][tT]|[sS][hH][iI][fF][tT]_[lL][eE][fF][tT]|[sS][hH][iI][fF][tT]_[rR][iI][gG][hH][tT]|[sS][uU][bB][sS][tT][rR][iI][nN][gG]|[sS][uU][bB][sS][tT][rR][iI][nN][gG]_[aA][fF][tT][eE][rR]|[sS][uU][bB][sS][tT][rR][iI][nN][gG]_[fF][rR][oO][mM]|[sS][uU][bB][sS][tT][rR][iI][nN][gG]_[bB][eE][fF][oO][rR][eE]|[sS][uU][bB][sS][tT][rR][iI][nN][gG]_[tT][oO]|[tT][oO]_[uU][pP][pP][eE][rR]|[tT][oO]_[lL][oO][wW][eE][rR]|[tT][oO]_[mM][iI][xX][eE][dB]|[fF][rR][oO][mM]_[mM][iI][xX][eE][dB]|[tT][rR][aA][nN][sS][lL][aA][tT][eE]|[xX][sS][tT][rR][lL][eE][nN]|[bB][iI][tT]-[sS][eE][tT]|[uU][tT][cC][lL][oO][nN][gG]_[cC][uU][rR][rR][eE][nN][tT]|[uU][tT][cC][lL][oO][nN][gG]_[aA][dB][dB]|[uU][tT][cC][lL][oO][nN][gG]_[dD][iI][fF][fF]|[lL][iI][nN][eE][sS]|[lL][iI][nN][eE]_[iI][nN][dB][eE][xX])$")
@@ -36,7 +32,6 @@
 )
 
 (method_spec name: (identifier) @function.method ) 
-(method_implementation name: (identifier) @function.method )
 
 ; Could also be a data object but who on earth would do that..
 (alias_spec alias: (identifier) @function.method )
@@ -271,6 +266,15 @@
     component: (identifier) @variable.member
 )
 
+(method_implementation 
+  name: [
+    (identifier) @function.method
+    (component_selection
+      selector: "~"
+      component: (identifier) @function.method
+    ) @function.method
+  ]
+)
 
 ; Any identifier inside a class declaration is an identifier
 (class_declaration 
@@ -344,6 +348,12 @@
   ] 
   ["~" "=>"]
 )
+
+(function_call
+  source: (identifier) @variable
+  "->"
+)
+
 ; WARN: We need some way to ensure that this doesnt tag variables in
 ; 'like' expressions, so the grammar must map those as 'object'
 (_ typing: (_ object: (identifier) @variable ))
