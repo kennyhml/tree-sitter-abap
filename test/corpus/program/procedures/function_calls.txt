@@ -1,0 +1,182 @@
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Simple method call
+=================================================================================
+lo_object->meth1( ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Static method call
+=================================================================================
+cl_class=>meth1( ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Interface method call
+=================================================================================
+msg->if_message~get_text( ).
+---
+
+(source
+  (function_call
+    source: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Local function call
+=================================================================================
+func_or_meth_we_dont_know( ).
+---
+
+(source
+  (function_call
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Single parameter
+=================================================================================
+lo_object->meth1( '0.8' ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      exporting: (positional_argument
+        value: (string_literal)))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Single named parameter
+=================================================================================
+lo_object->meth1( value = '0.8' ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Explicitly exporting
+=================================================================================
+lo_object->meth1( EXPORTING value = '0.8' ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Multiple parameters
+=================================================================================
+lx->set_location(
+    iv_location = iv_location
+    is_node     = is_node ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Chainings
+=================================================================================
+cl_aic_islm_compl_api_factory=>get( )->create_instance( islm_scenario = lv_scenario_name ).
+---
+
+(source
+  (function_call
+    source: (function_call
+      source: (identifier)
+      name: (identifier))
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Subsequent calls
+=================================================================================
+ro_salv->get_display_settings( )->set_list_header( t01 ).
+ro_salv->get_columns( )->set_optimize( abap_true ).
+---
+
+(source
+  (function_call
+    source: (function_call
+      source: (identifier)
+      name: (identifier))
+    name: (identifier)
+    (call_argument_list
+      exporting: (positional_argument
+        value: (identifier))))
+  (function_call
+    source: (function_call
+      source: (identifier)
+      name: (identifier))
+    name: (identifier)
+    (call_argument_list
+      exporting: (positional_argument
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Chained from cast
+=================================================================================
+CAST cls( iref )->meth1( ).
+---
+
+(source
+  (function_call
+    source: (cast_expression
+      type: (identifier)
+      subject: (identifier))
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Chained from new
+=================================================================================
+NEW cls( iref )->meth1( ).
+---
+
+(source
+  (function_call
+    source: (new_expression
+      type: (identifier)
+      (argument_list
+        (positional_argument
+          value: (identifier))))
+    name: (identifier)))
