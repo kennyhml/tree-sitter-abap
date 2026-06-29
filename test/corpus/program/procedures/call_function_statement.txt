@@ -1,6 +1,6 @@
-======
-[CALL-FUNCTION] Without parameters
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Simple call
+=================================================================================
 CALL FUNCTION 'Z_MY_FUNCTION'.
 ---
 
@@ -8,9 +8,9 @@ CALL FUNCTION 'Z_MY_FUNCTION'.
   (call_function_statement
     name: (string_literal)))
 
-======
-[CALL-FUNCTION] Dynamic function call
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Dynamic call
+=================================================================================
 CALL FUNCTION z_my_function.
 ---
 
@@ -18,9 +18,9 @@ CALL FUNCTION z_my_function.
   (call_function_statement
     name: (identifier)))
 
-======
-[CALL-FUNCTION] With parameters
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Basic parameters
+=================================================================================
 CALL FUNCTION 'READ_SPFLI_INTO_TABLE' 
   EXPORTING 
     id        = 'LH' 
@@ -47,9 +47,25 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
           name: (identifier)
           value: (number))))))
 
-======
-[CALL-FUNCTION] With table parameters
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Tables parameter
+=================================================================================
+CALL FUNCTION 'READ_SPFLI_INTO_TABLE' 
+    TABLES tab = lv_tab. 
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (call_argument_list
+      tables: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Parameter tables
+=================================================================================
 CALL FUNCTION 'READ_SPFLI_INTO_TABLE' 
   parameter-table tab2
   exception-table tab2.
@@ -62,9 +78,9 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
       parameter_table: (identifier)
       exception_table: (identifier))))
 
-======
-[CALL-FUNCTION] With remote destination
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Basic RFC
+=================================================================================
 CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
     destination 'A4H'
     EXPORTING 
@@ -86,9 +102,9 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
               exporting: (positional_argument
                 value: (identifier)))))))))
 
-======
-[CALL-FUNCTION] In remote session
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Remote session
+=================================================================================
 CALL FUNCTION 'DEMO_RFM_PARAMETERS' 
     IN REMOTE SESSION stateful_session 
     EXPORTING 
@@ -118,9 +134,9 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
           name: (identifier)
           value: (identifier))))))
 
-======
-[CALL-FUNCTION] With remote message capture
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Capturing remote message
+=================================================================================
 CALL FUNCTION 'DEMO_RFM_PARAMETERS' 
     destination lv_destination
     exceptions
@@ -139,9 +155,9 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
           value: (number)
           message: (identifier))))))
 
-======
-[CALL-FUNCTION] Starting new task
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Starting new task
+=================================================================================
 CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
     starting new task lv_task_id.
 ---
@@ -152,9 +168,9 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
     (starting_new_task
       task_id: (identifier))))
 
-======
-[CALL-FUNCTION] In remote group
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Remote group
+=================================================================================
 CALL FUNCTION co_fb_name
     STARTING NEW TASK lv_number
     DESTINATION IN GROUP lv_group.
@@ -169,9 +185,9 @@ CALL FUNCTION co_fb_name
       (in_group
         group: (identifier)))))
 
-======
-[CALL-FUNCTION] In background unit
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] bgRFC
+=================================================================================
 CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
     in background unit l_unit.
 ---
@@ -182,9 +198,9 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
     (in_background_unit
       unit: (identifier))))
 
-======
-[CALL-FUNCTION] In update task
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Update task
+=================================================================================
 CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK 
   EXPORTING 
     values = values.
@@ -200,9 +216,9 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK
           name: (identifier)
           value: (identifier))))))
 
-======
-[CALL-FUNCTION] Transactional RFC
-======
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] tRFC
+=================================================================================
 CALL FUNCTION 'DEMO_UPDATE_INSERT' 
   IN BACKGROUND TASK 
   AS SEPARATE UNIT
