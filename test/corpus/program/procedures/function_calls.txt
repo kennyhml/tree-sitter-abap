@@ -90,6 +90,117 @@ lo_object->meth1( EXPORTING value = '0.8' ).
           value: (string_literal))))))
 
 =================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Importing parameters
+=================================================================================
+lo_object->meth1( 
+    IMPORTING
+        sum = data(result_sum)
+        total = result_total
+    ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      importing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (declaration_expression
+            name: (identifier)))
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Changing parameters
+=================================================================================
+lo_object->meth1( 
+    CHANGING
+        sum = result_sum
+        total = result_total
+    ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      changing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Receiving parameter
+=================================================================================
+lo_object->meth1( RECEIVING result = data(result) ).
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      receiving: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (declaration_expression
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Exceptions
+=================================================================================
+cl_gui_frontend_services=>directory_exist( 
+  EXPORTING 
+    directory            =  '...' 
+  RECEIVING 
+    result               =   FINAL(flag) 
+  EXCEPTIONS 
+    cntl_error           = 1 
+    error_no_gui         = 2 
+    wrong_parameter      = 3 
+    not_supported_by_gui = 4 
+    OTHERS               = 5 ). 
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal)))
+      receiving: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (declaration_expression
+            name: (identifier))))
+      exceptions: (argument_list
+        (exception_mapping
+          name: (identifier)
+          value: (number))
+        (exception_mapping
+          name: (identifier)
+          value: (number))
+        (exception_mapping
+          name: (identifier)
+          value: (number))
+        (exception_mapping
+          name: (identifier)
+          value: (number))
+        (exception_mapping
+          name: (identifier)
+          value: (number))))))
+
+=================================================================================
 [ ABAP - Calling and Exiting Program Units / Calling Procedures ] Multiple parameters
 =================================================================================
 lx->set_location(
