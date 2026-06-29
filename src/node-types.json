@@ -374,6 +374,10 @@
         "named": true
       },
       {
+        "type": "method_implementation",
+        "named": true
+      },
+      {
         "type": "methods_declaration",
         "named": true
       },

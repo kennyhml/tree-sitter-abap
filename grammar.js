@@ -207,6 +207,7 @@ module.exports = grammar({
         $.deferred_interface_declaration,
         $.interfaces_declaration,
         $.methods_declaration,
+        $.method_implementation,
         $.class_methods_declaration,
 
         // Program

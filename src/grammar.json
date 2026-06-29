@@ -261,6 +261,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "method_implementation"
+        },
+        {
+          "type": "SYMBOL",
           "name": "class_methods_declaration"
         },
         {
@@ -13278,6 +13282,63 @@
       "type": "SYMBOL",
       "name": "_kw_current"
     },
+    "method_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_method"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "component_selection"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "method_body"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_endmethod"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "method_body": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "simple_statement"
+      }
+    },
     "methods_declaration": {
       "type": "SEQ",
       "members": [
@@ -13732,63 +13793,6 @@
           "name": "_kw_fail"
         }
       ]
-    },
-    "method_implementation": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_method"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "component_selection"
-              }
-            ]
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "method_body"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_endmethod"
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "method_body": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "simple_statement"
-      }
     },
     "parameters": {
       "type": "SEQ",
@@ -21432,6 +21436,19 @@
         "value": "current"
       }
     },
+    "_kw_endmethod": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[eE][nN][dD][mM][eE][tT][hH][oO][dD]"
+        },
+        "named": false,
+        "value": "endmethod"
+      }
+    },
     "_kw_class_methods": {
       "type": "FIELD",
       "name": "keyword",
@@ -21534,19 +21551,6 @@
         },
         "named": false,
         "value": "fail"
-      }
-    },
-    "_kw_endmethod": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[eE][nN][dD][mM][eE][tT][hH][oO][dD]"
-        },
-        "named": false,
-        "value": "endmethod"
       }
     },
     "_kw_preferred": {
