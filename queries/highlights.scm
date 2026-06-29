@@ -162,6 +162,8 @@
 (explicit_value name: (identifier) @variable.parameter )
 (explicit_reference name: (identifier) @variable.parameter )
 (preferred_parameter name: (identifier) @variable.parameter )
+(exception_mapping name: (identifier) @variable.parameter )
+(exception_mapping name: (identifier) @variable.parameter.builtin (#eq? @variable.parameter.builtin "others") )
 
 (table_key name: (identifier) @variable.key )
 (using_key name: (identifier) @variable.key )
