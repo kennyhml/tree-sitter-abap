@@ -274,8 +274,17 @@
     (component_selection
       selector: "~"
       component: (identifier) @function.method
-    ) @function.method
+    )
   ]
+)
+
+(method_implementation 
+  name: (identifier) @constructor
+  (#any-of? @constructor "constructor" "class_constructor" )
+)
+(function_call 
+  name: (identifier) @constructor
+  (#eq? @constructor "constructor" )
 )
 
 ; Any identifier inside a class declaration is an identifier
