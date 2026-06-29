@@ -50,15 +50,6 @@
 (subroutine_spec name: (identifier) @function.subroutine )
 (subroutine_list (identifier) @function.subroutine )
 
-; For all other variants, there is no method to be highlighted since
-; it is specified via a literal string or a data object
-(call_method_statement
-  method: [
-    (component_selection component: (identifier) @function.method )
-    (identifier) @function.method
-  ]
-)
-
 (constructor_spec "constructor" @constructor )
 (class_constructor_spec "class_constructor" @constructor )
 
@@ -140,7 +131,7 @@
 (component_selection
   subject: (identifier)? @variable
   selector: "->"
-  component: (identifier) @variable.member
+  component: (identifier)? @variable.member
 )
 
 ; TODO: This incorrectly tags in a typing context as well, are there
@@ -363,6 +354,13 @@
 (function_call
   source: (identifier) @variable
   "->"
+)
+
+(call_method_statement
+  method: [
+    (component_selection component: (identifier) @function.method )
+    (identifier) @function.method
+  ]
 )
 
 ; WARN: We need some way to ensure that this doesnt tag variables in
