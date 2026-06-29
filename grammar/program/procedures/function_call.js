@@ -34,25 +34,4 @@ module.exports = {
   ),
   ),
 
-  /**
-   * Covers the long form CALL METHOD statement
-   *
-   * ... (meth_name)
-   *    / oref->(meth_name)
-   *    / class=>(meth_name)
-   *    / (class_name)=>(meth_name)
-   *    / (class_name)=>meth ...
-   *
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_METH_IDENT_DYNA.html
-   */
-  call_method_statement: ($) =>
-    seq(
-      ...gen.kws("call", "method"),
-      field(
-        "method",
-        choice($.identifier, $.dynamic_spec, $.component_selection),
-      ),
-      optional($.call_argument_list),
-      ".",
-    ),
 };

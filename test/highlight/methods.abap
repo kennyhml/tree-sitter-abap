@@ -61,3 +61,29 @@ method class_constructor.
 "      ^ constructor
 
 endmethod.
+
+CALL METHOD meth_name.
+"           ^ function.method
+CALL METHOD (meth_name).
+"            ^ variable
+CALL METHOD oref->(meth_name).
+"           ^ variable
+"                  ^ variable
+CALL METHOD class=>(meth_name).
+"           ^ type
+"                   ^ variable
+CALL METHOD (class_name)=>meth.
+"            ^ variable
+"                         ^ function.method
+CALL METHOD (class_name)=>(meth_name).
+"            ^ variable
+"                          ^ variable
+CALL METHOD (class)=>(meth) 
+  PARAMETER-TABLE ptab 
+"                 ^ variable
+  EXCEPTION-TABLE etab. 
+"                 ^ variable
+CALL METHOD ('CL_ABAP_BROWSER')=>('SHOW_HTML') 
+  EXPORTING 
+    (name) = `<html><body>Oh no ...</html></body>`. 
+"    ^ variable
