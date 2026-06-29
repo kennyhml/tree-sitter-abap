@@ -46,6 +46,18 @@ method test.
 endmethod.
 
 method if_oo_adt_classrun~main.
+"      ^ type
 "                         ^ function.method
 endmethod.
 
+method constructor.
+"      ^ constructor
+  super->constructor( ).
+"        ^ constructor
+
+endmethod.
+
+method class_constructor.
+"      ^ constructor
+
+endmethod.
