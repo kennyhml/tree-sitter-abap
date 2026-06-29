@@ -77,7 +77,7 @@ module.exports = {
 
   in_background_unit: $ => seq(
     ...gen.kws("in", "background", "unit"),
-    field("unit", $.named_data_object)
+    field("name", $.named_data_object)
   ),
 
   /**
