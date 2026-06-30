@@ -1,0 +1,88 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Without embeddings
+=================================================================================
+|Template String without embedded expresion|
+---
+
+(source
+  (string_template))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Literal embedding
+=================================================================================
+|Template String with { 1 } embedded expresion|
+---
+
+(source
+  (string_template
+    (embedded_expression
+      (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Lexing conflicts
+=================================================================================
+|"{ 200 }" 321txeT;|.
+|##{ 200 }" 321txeT;|.
+---
+
+(source
+  (string_template
+    (embedded_expression
+      (number)))
+  (string_template
+    (embedded_expression
+      (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Escape characters
+=================================================================================
+|\\ \\|\|\|\|\ \| \{\} \{    \} \{ \}|.
+---
+
+(source
+  (string_template))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Format option
+=================================================================================
+|{ attr WIDTH = 6 ALIGN = RIGHT }|
+
+---
+
+(source
+  (string_template
+    (embedded_expression
+      (identifier)
+      (format_option
+        name: (identifier)
+        value: (number))
+      (format_option
+        name: (identifier)
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Control characters
+=================================================================================
+|\n\r\t|
+
+---
+
+(source
+  (string_template))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Dynamic spec
+=================================================================================
+|{ `UPPER CASE, lower case ` CASE = (<case>) }| 
+
+---
+
+(source
+  (string_template
+    (embedded_expression
+      (string_literal)
+      (format_option
+        name: (identifier)
+        value: (dynamic_spec
+          value: (field_symbol
+            name: (identifier)))))))

@@ -127,7 +127,7 @@ COND #( LET t = '120000' IN
         (embedded_expression
           (identifier)
           (format_option
-            parameter: (identifier)
+            name: (identifier)
             value: (identifier)))))
     (case
       condition: (logical_expression
@@ -147,7 +147,7 @@ COND #( LET t = '120000' IN
                 left: (number)
                 right: (number))))
           (format_option
-            parameter: (identifier)
+            name: (identifier)
             value: (identifier)))))
     (case
       condition: (comparison_expression

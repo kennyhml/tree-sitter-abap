@@ -15,25 +15,6 @@ Literal Strings
   (string_literal)
   (string_literal))
 
-=======
-Template Strings without embeds
-=======
-|Template String without embedded expresion|
----
-
-(source
-  (string_template))
-
-=======
-Template strings with embed
-=======
-|Template String with { 1 } embedded expresion|
----
-
-(source
-  (string_template
-    (embedded_expression
-      (number))))
 
 =======
 String concatenation
@@ -53,30 +34,6 @@ String concatenation
     (function_call
       (identifier)
       (identifier))))
-
-=======
-Template string with extra prefixes
-=======
-|"{ 200 }" 321txeT;|.
-|##{ 200 }" 321txeT;|.
----
-
-(source
-  (string_template
-    (embedded_expression
-      (number)))
-  (string_template
-    (embedded_expression
-      (number))))
-
-=======
-Template string escape characters
-=======
-|\\ \\|\|\|\|\ \| \{\} \{    \} \{ \}|.
----
-
-(source
-  (string_template))
 
 ======
 Condense with gaps
