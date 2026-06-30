@@ -2445,7 +2445,7 @@
           }
         ]
       },
-      "method": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -6055,6 +6055,10 @@
         "required": false,
         "types": [
           {
+            "type": "field_symbol",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -6073,6 +6077,10 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "field_symbol",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -7363,7 +7371,7 @@
     "type": "format_option",
     "named": true,
     "fields": {
-      "parameter": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -7374,31 +7382,15 @@
         ]
       },
       "value": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "function_call",
+            "type": "dynamic_spec",
             "named": true
           },
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string_literal",
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -8085,7 +8077,7 @@
           }
         ]
       },
-      "unit": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

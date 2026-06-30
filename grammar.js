@@ -224,14 +224,15 @@ module.exports = grammar({
         $.at_selscreen_statement,
       ),
 
-    typing: $ => choice(
-      $.builtin_type_spec,
-      $.referred_type,
-      $.type_line_of,
-      $.reference_type,
-      $.table_type,
-      $.range_type,
-    ),
+    typing: ($) =>
+      choice(
+        $.builtin_type_spec,
+        $.referred_type,
+        $.type_line_of,
+        $.reference_type,
+        $.table_type,
+        $.range_type,
+      ),
 
     ...(() => {
       const root = process.cwd();
@@ -610,13 +611,13 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
      */
-    table_expression: ($) => seq(
-      field("subject", choice(
-        $.data_object,
-        $.table_expression
-      )),
-      token.immediate("["), $.itab_line, "]"
-    ),
+    table_expression: ($) =>
+      seq(
+        field("subject", choice($.data_object, $.table_expression)),
+        token.immediate("["),
+        $.itab_line,
+        "]",
+      ),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_ITAB_LINE.html
@@ -635,8 +636,7 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
     // prec solves  ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???
-    itab_comp: ($) =>
-      prec(1, choice($._static_itab_comp, $.dynamic_spec)),
+    itab_comp: ($) => prec(1, choice($._static_itab_comp, $.dynamic_spec)),
 
     /**
      * Static variant of {@link itab_comp}: `{ comp_name[-sub_comp][{+off(len)}|{->attr}] }`
@@ -743,52 +743,6 @@ module.exports = grammar({
         ),
       ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES_EXPRESSIONS.html
-    string_template: ($) =>
-      seq(
-        // Must allow " directly after the pipe, otherwise the inline comment rule strikes..
-        /[|](["#]*)/,
-        repeat(
-          choice(
-            // Allow {,  } and | when escaped
-            /(?:\\.|[^{}|])+/,
-            $.embedded_expression,
-          ),
-        ),
-        "|",
-      ),
-
-    // A general expression position within a template string
-    // TODO: Figure out general expression position & functional expression position
-    //
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
-    embedded_expression: ($) =>
-      seq("{", $.general_expression, repeat($.format_option), "}"),
-
-    /**
-     * String template formatting arguments, e.g `ALPHA = IN`.
-     *
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_STRING_FORMAT_OPTIONS.html
-     */
-    format_option: ($) =>
-      seq(
-        // FIXME: Treated as keywords by eclipse..
-        field("parameter", $.identifier),
-        "=",
-        field(
-          "value",
-          choice(
-            // FIXME: Technically these are keywords
-            $.identifier,
-            $.string_literal,
-            $.number,
-            // dynamic dobj specification, do we wrap this in something for querying?
-            seq("(", $._immediate_identifier, token.immediate(")")),
-            $.function_call,
-          ),
-        ),
-      ),
-
     inline_comment: ($) => prec(0, seq('"', /[^\n\r]*/)),
 
     /**
@@ -839,24 +793,27 @@ module.exports = grammar({
      *
      * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _contextual_keyword: ($) => prec(-1, choice(
-      ...gen.caseInsensitive(
-        "text",
-        "value",
-        "new",
-        "cond",
-        "switch",
-        "cast",
-        "class",
-        "conv",
-        "ref",
-        "any",
-        "filter",
-        "data",
-        "condense"
+    _contextual_keyword: ($) =>
+      prec(
+        -1,
+        choice(
+          ...gen.caseInsensitive(
+            "text",
+            "value",
+            "new",
+            "cond",
+            "switch",
+            "cast",
+            "class",
+            "conv",
+            "ref",
+            "any",
+            "filter",
+            "data",
+            "condense",
+          ),
+        ),
       ),
-    ),
-    ),
 
     _immediate_identifier: ($) =>
       alias(token.immediate(IDENTIFIER_REGEX), $.identifier),

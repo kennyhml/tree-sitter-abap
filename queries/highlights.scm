@@ -357,7 +357,7 @@
 )
 
 (call_method_statement
-  method: [
+  name: [
     (component_selection component: (identifier) @function.method )
     (identifier) @function.method
   ]
@@ -661,8 +661,4 @@
 (at_end_of_statement ["at" "end" "of"] @keyword.repeat )
 
 
-; Keywords that can be considered control flow without context check
-; As of now, new keywords should be added to the uncontextualized
-; array and only moved to a context if needed.
-
-(format_option parameter: (identifier) @keyword )
+(format_option name: (identifier) @variable.parameter.builtin )

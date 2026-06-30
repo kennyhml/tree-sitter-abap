@@ -6,7 +6,7 @@ CALL METHOD meth_name.
 
 (source
   (call_method_statement
-    method: (identifier)))
+    name: (identifier)))
 
 =================================================================================
 [ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL METHOD ] Dynamic spec
@@ -16,7 +16,7 @@ CALL METHOD (meth_name).
 
 (source
   (call_method_statement
-    method: (dynamic_spec
+    name: (dynamic_spec
       value: (identifier))))
 
 =================================================================================
@@ -27,7 +27,7 @@ CALL METHOD oref->(meth_name).
 
 (source
   (call_method_statement
-    method: (component_selection
+    name: (component_selection
       subject: (identifier)
       component: (dynamic_spec
         value: (identifier)))))
@@ -40,7 +40,7 @@ CALL METHOD class=>(meth_name).
 
 (source
   (call_method_statement
-    method: (component_selection
+    name: (component_selection
       subject: (identifier)
       component: (dynamic_spec
         value: (identifier)))))
@@ -53,7 +53,7 @@ CALL METHOD (class_name)=>meth.
 
 (source
   (call_method_statement
-    method: (component_selection
+    name: (component_selection
       subject: (dynamic_spec
         value: (identifier))
       component: (identifier))))
@@ -66,7 +66,7 @@ CALL METHOD (class_name)=>(meth_name).
 
 (source
   (call_method_statement
-    method: (component_selection
+    name: (component_selection
       subject: (dynamic_spec
         value: (identifier))
       component: (dynamic_spec
@@ -82,7 +82,7 @@ CALL METHOD (class)=>(meth)
 
 (source
   (call_method_statement
-    method: (component_selection
+    name: (component_selection
       subject: (dynamic_spec
         value: (identifier))
       component: (dynamic_spec
@@ -101,7 +101,7 @@ CALL METHOD ('CL_ABAP_BROWSER')=>('SHOW_HTML')
 
 (source
   (call_method_statement
-    method: (component_selection
+    name: (component_selection
       subject: (dynamic_spec
         value: (string_literal))
       component: (dynamic_spec

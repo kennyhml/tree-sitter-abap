@@ -196,7 +196,7 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
   (call_function_statement
     name: (string_literal)
     (in_background_unit
-      unit: (identifier))))
+      name: (identifier))))
 
 =================================================================================
 [ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Update task
