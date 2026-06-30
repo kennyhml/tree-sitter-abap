@@ -733,8 +733,6 @@ module.exports = grammar({
         ),
       ),
 
-    inline_comment: ($) => prec(0, seq('"', /[^\n\r]*/)),
-
     /**
      * When not currently inside a statement, ABAP allows spraying `...` all over the place.
      *
