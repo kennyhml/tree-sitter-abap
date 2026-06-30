@@ -243,7 +243,7 @@ VALUE itab1( FOR j = 41 THEN j - 10 UNTIL j < 10 ( ) )
           (identifier)
           (number))
         (then_clause
-          (binary_operator
+          (arithmetic_expression
             (identifier)
             (number)))
         (iteration_condition
@@ -322,27 +322,27 @@ VALUE itab(
               (identifier)))
           (assignment
             (identifier)
-            (binary_operator
+            (arithmetic_expression
               (identifier)
               (identifier)))
           (assignment
             (identifier)
-            (binary_operator
+            (arithmetic_expression
               (identifier)
               (number)))))
       (line_spec
         (argument_list
           (named_argument
             (identifier)
-            (binary_operator
-              (binary_operator
+            (arithmetic_expression
+              (arithmetic_expression
                 (identifier)
                 (identifier))
               (identifier)))
           (named_argument
             (identifier)
-            (binary_operator
-              (binary_operator
+            (arithmetic_expression
+              (arithmetic_expression
                 (identifier)
                 (identifier))
               (identifier))))))))

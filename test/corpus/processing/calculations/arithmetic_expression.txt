@@ -1,0 +1,164 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Addition
+=================================================================================
+10 + foo
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Subtraction
+=================================================================================
+10 - bar
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Multiplication
+=================================================================================
+10 * cl_class=>attr
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (component_selection
+      subject: (identifier)
+      component: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Division
+=================================================================================
+10 / 10
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Floor division
+=================================================================================
+10 div 10
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Modulo
+=================================================================================
+10 mod 10
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Pow
+=================================================================================
+10 ** 10
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Unary
+=================================================================================
+-foo
+---
+
+(source
+  (arithmetic_expression
+    value: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Multiplication prec.
+=================================================================================
+10 + 20 * 20
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (arithmetic_expression
+      left: (number)
+      right: (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Division prec.
+=================================================================================
+10 + 20 / 20
+---
+
+(source
+  (arithmetic_expression
+    left: (number)
+    right: (arithmetic_expression
+      left: (number)
+      right: (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Parenthesized
+=================================================================================
+( 10 + 10 )
+---
+
+(source
+  (parenthesized_expression
+    (arithmetic_expression
+      left: (number)
+      right: (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Parenthesized prec.
+=================================================================================
+( 10 * 20 ) / 20
+---
+
+(source
+  (arithmetic_expression
+    left: (parenthesized_expression
+      (arithmetic_expression
+        left: (number)
+        right: (number)))
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Calculations / Arithmetic Expression ] Expressions operands
+=================================================================================
+( exp( x ) - exp( -1 * x ) ) / 2
+---
+
+(source
+  (arithmetic_expression
+    left: (parenthesized_expression
+      (arithmetic_expression
+        left: (function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (identifier))))
+        right: (function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (arithmetic_expression
+                left: (number)
+                right: (identifier)))))))
+    right: (number)))

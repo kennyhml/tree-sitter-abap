@@ -16,21 +16,6 @@ const IDENTIFIER_REGEX = /[a-zA-Z_\/%][a-zA-Z\d_\/]*/;
 // least allow that. An explicit + is rarely ever needed anyway..
 const NUMBER_REGEX = /-?\d+/;
 
-/**
- * Arithmetic: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
- */
-const PREC = {
-  plus: 1,
-  minus: 1,
-  times: 2,
-  division: 2,
-  floor_div: 2,
-  modulo: 2,
-  power: 3,
-  unary: 4,
-  parenthesized_expression: 5,
-};
-
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-nocheck
 module.exports = grammar({
@@ -89,7 +74,6 @@ module.exports = grammar({
     $.functional_expression,
     $.iteration_expression,
     $.writable_expression,
-    $.arithmetic_expression,
     $.calculation_expression,
     $.receiving_expression,
     $.string_expression,
@@ -318,6 +302,7 @@ module.exports = grammar({
         $.function_call,
         $.table_expression,
         $.arithmetic_expression,
+        $.parenthesized_expression,
         $.string_expression,
         $.dereference_expression,
       ),
@@ -396,6 +381,12 @@ module.exports = grammar({
         $._parenthesized_logical_expression,
       ),
 
+    _parenthesized_logical_expression: ($) =>
+      alias(
+        prec(5, seq("(", $._logical_expression, ")")),
+        $.parenthesized_expression,
+      ),
+
     logical_expression: ($) =>
       choice(
         prec.right(4, seq(gen.kw("not"), $._logical_expression)),
@@ -414,10 +405,6 @@ module.exports = grammar({
         ),
       ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_ARITH.html
-    arithmetic_expression: ($) =>
-      choice($.binary_operator, $.unary_operator, $.parenthesized_expression),
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
     string_expression: ($) => choice($.string_template, $.string_concatenation),
 
@@ -432,63 +419,6 @@ module.exports = grammar({
           $.function_call,
         ),
       ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
-    binary_operator: ($) => {
-      const table = [
-        [prec.left, "+", PREC.plus],
-        [prec.left, "-", PREC.plus],
-        [prec.left, "*", PREC.times],
-        [prec.left, "/", PREC.times],
-        [prec.left, gen.kw("div"), PREC.times],
-        [prec.left, gen.kw("mod"), PREC.times],
-        [prec.right, "**", PREC.power],
-      ];
-
-      return choice(
-        ...table.map(([fn, op, prec]) =>
-          fn(
-            prec,
-            seq(
-              field("left", $.general_expression),
-              field("operator", op),
-              field("right", $.general_expression),
-            ),
-          ),
-        ),
-      );
-    },
-
-    unary_operator: ($) =>
-      prec(
-        PREC.unary,
-        seq(
-          field("operator", choice("+", "-")),
-          field("value", $.general_expression),
-        ),
-      ),
-
-    /**
-     * In ABAP, parentheses cant just arbitrarly be added anywhere like in most modern languages.
-     * They can, however, be used in arithmetic expressions to control precendence.
-     *
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
-     */
-    parenthesized_expression: ($) =>
-      prec(
-        PREC.parenthesized_expression,
-        seq("(", $.arithmetic_expression, ")"),
-      ),
-
-    _parenthesized_logical_expression: ($) =>
-      alias(
-        prec(
-          PREC.parenthesized_expression,
-          seq("(", $._logical_expression, ")"),
-        ),
-        $.parenthesized_expression,
-      ),
-
     /**
      * Comparison of two or more operands represented as {@link general_expression}.
      *
