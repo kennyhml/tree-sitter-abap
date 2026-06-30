@@ -419,7 +419,7 @@ module.exports = grammar({
       choice($.binary_operator, $.unary_operator, $.parenthesized_expression),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
-    string_expression: ($) => choice($.string_template, $.string_operator),
+    string_expression: ($) => choice($.string_template, $.string_concatenation),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
     // Needs higher prec than assignment
@@ -487,16 +487,6 @@ module.exports = grammar({
           seq("(", $._logical_expression, ")"),
         ),
         $.parenthesized_expression,
-      ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_OPERATORS.html
-    string_operator: ($) =>
-      prec.left(
-        seq(
-          field("left", $.character_like_expression),
-          field("operator", "&&"), // only possible operator right now.
-          field("right", $.character_like_expression),
-        ),
       ),
 
     /**
