@@ -61,21 +61,21 @@ result = SWITCH #( operator
       subject: (identifier)
       (case
         condition: (identifier)
-        result: (binary_operator
+        result: (arithmetic_expression
           left: (dereference_expression
             subject: (identifier))
           right: (dereference_expression
             subject: (identifier))))
       (case
         condition: (identifier)
-        result: (binary_operator
+        result: (arithmetic_expression
           left: (dereference_expression
             subject: (identifier))
           right: (dereference_expression
             subject: (identifier))))
       (case
         condition: (identifier)
-        result: (binary_operator
+        result: (arithmetic_expression
           left: (dereference_expression
             subject: (identifier))
           right: (dereference_expression
@@ -95,7 +95,7 @@ result = SWITCH #( operator
                 result: (throw_exception
                   name: (identifier)))))
           (else_case
-            result: (binary_operator
+            result: (arithmetic_expression
               left: (dereference_expression
                 subject: (identifier))
               right: (dereference_expression
@@ -141,9 +141,9 @@ COND #( LET t = '120000' IN
         (embedded_expression
           (conv_expression
             type: (identifier)
-            subject: (binary_operator
+            subject: (arithmetic_expression
               left: (identifier)
-              right: (binary_operator
+              right: (arithmetic_expression
                 left: (number)
                 right: (number))))
           (format_option

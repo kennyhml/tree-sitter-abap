@@ -1,23 +1,5 @@
 [
   {
-    "type": "arithmetic_expression",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "binary_operator",
-        "named": true
-      },
-      {
-        "type": "parenthesized_expression",
-        "named": true
-      },
-      {
-        "type": "unary_operator",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "character_like_expression",
     "named": true,
     "subtypes": [
@@ -159,6 +141,10 @@
       },
       {
         "type": "function_call",
+        "named": true
+      },
+      {
+        "type": "parenthesized_expression",
         "named": true
       },
       {
@@ -1185,6 +1171,90 @@
     }
   },
   {
+    "type": "arithmetic_expression",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "div",
+            "named": false
+          },
+          {
+            "type": "mod",
+            "named": false
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "**",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "div",
+            "named": false
+          },
+          {
+            "type": "mod",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "as_checkbox",
     "named": true,
     "fields": {
@@ -1996,80 +2066,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "binary_operator",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "div",
-            "named": false
-          },
-          {
-            "type": "mod",
-            "named": false
-          }
-        ]
-      },
-      "left": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "**",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "div",
-            "named": false
-          },
-          {
-            "type": "mod",
-            "named": false
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -11806,6 +11802,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "relational_expression",
           "named": true
         }
@@ -16555,36 +16555,6 @@
         "types": [
           {
             "type": "typing",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "unary_operator",
-    "named": true,
-    "fields": {
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
             "named": true
           }
         ]

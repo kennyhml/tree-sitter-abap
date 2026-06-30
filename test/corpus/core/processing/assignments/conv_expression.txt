@@ -20,7 +20,7 @@ int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
 (source
   (assignment
     left: (identifier)
-    right: (binary_operator
+    right: (arithmetic_expression
       left: (conv_expression
         type: (identifier)
         subject: (function_call

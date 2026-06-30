@@ -48,7 +48,7 @@ REDUCE string( INIT text type string
         left: (identifier)
         right: (number))
       next: (then_clause
-        (binary_operator
+        (arithmetic_expression
           left: (identifier)
           right: (number)))
       (iteration_condition
