@@ -614,6 +614,23 @@
         }
       ]
     },
+    "inline_comment": {
+      "type": "PREC",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\""
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\n\\r]*"
+          }
+        ]
+      }
+    },
     "modif_id_spec": {
       "type": "SEQ",
       "members": [
@@ -24335,23 +24352,6 @@
             }
           ]
         }
-      }
-    },
-    "inline_comment": {
-      "type": "PREC",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "\""
-          },
-          {
-            "type": "PATTERN",
-            "value": "[^\\n\\r]*"
-          }
-        ]
       }
     },
     "_empty_statement": {
