@@ -602,7 +602,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "string_operator",
+        "type": "string_concatenation",
         "named": true
       },
       {
@@ -15098,12 +15098,7 @@
     }
   },
   {
-    "type": "string_literal",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "string_operator",
+    "type": "string_concatenation",
     "named": true,
     "fields": {
       "left": {
@@ -15113,16 +15108,6 @@
           {
             "type": "character_like_expression",
             "named": true
-          }
-        ]
-      },
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "&&",
-            "named": false
           }
         ]
       },
@@ -15137,6 +15122,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "string_literal",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "string_processing_spec",

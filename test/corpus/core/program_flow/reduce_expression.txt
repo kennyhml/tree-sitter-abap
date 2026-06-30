@@ -103,7 +103,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
         left: (component_selection
           subject: (identifier)
           component: (identifier))
-        right: (string_operator
+        right: (string_concatenation
           left: (identifier)
           right: (component_selection
             subject: (field_symbol

@@ -1,0 +1,57 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Cocatenation Operator ] Conctat literals
+=================================================================================
+`ABAP` && `is` && 'a' && 'language'
+---
+
+(source
+  (string_concatenation
+    left: (string_concatenation
+      left: (string_concatenation
+        left: (string_literal)
+        right: (string_literal))
+      right: (string_literal))
+    right: (string_literal)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Cocatenation Operator ] Conctat identifiers
+=================================================================================
+gc_abap && gc_is && cl_constants=>gc_language
+---
+
+(source
+  (string_concatenation
+    left: (string_concatenation
+      left: (identifier)
+      right: (identifier))
+    right: (component_selection
+      subject: (identifier)
+      component: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Cocatenation Operator ] Conctat numbers
+=================================================================================
+`string` && -1 
+---
+
+(source
+  (string_concatenation
+    left: (string_literal)
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Cocatenation Operator ] Conctat string template
+=================================================================================
+text  = text && ` ` &&  'world' && |!|.
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (string_concatenation
+      left: (string_concatenation
+        left: (string_concatenation
+          left: (identifier)
+          right: (string_literal))
+        right: (string_literal))
+      right: (string_template))))
