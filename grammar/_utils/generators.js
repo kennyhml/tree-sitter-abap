@@ -1,6 +1,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
-const path = require('path');
-const fs = require('fs');
+const path = require("path");
+const fs = require("fs");
 
 // its a hassle having to pass the grammar proxy around
 // to each call to a generator function. However, its
@@ -8,14 +8,13 @@ const fs = require('fs');
 // rules to real nodes in the tree. Since global variables
 // can only be exported as read-only, we need a wrapper.
 const state = {
-  grammarProxy: null
-}
+  grammarProxy: null,
+};
 
 function kw(keyword) {
-
   // Optionals are technically choices
   let opt = false;
-  if (keyword.type === 'CHOICE') {
+  if (keyword.type === "CHOICE") {
     keyword = keyword.members[0].value;
     opt = true;
   }
@@ -28,10 +27,10 @@ function kw(keyword) {
 /**
  * Same as the {@link kw} rule, except that the result is represented as
  * a node in the ruleset.
- * 
- * This is useful for certain additions, such as 'OBLIGATORY' which 
+ *
+ * This is useful for certain additions, such as 'OBLIGATORY' which
  * consts entirely of keyword in itself.
- * 
+ *
  * <<< ... OBLIGATORY ...
  * >>> ... (obligatory) ...
  */
@@ -46,45 +45,54 @@ function visible_kw(keyword) {
 }
 
 function kws(...keywords) {
-  return keywords.map(kw)
+  return keywords.map(kw);
 }
 
 /**
  * Same as the {@link kws} rule, except that the result is represented as
  * a node in the ruleset.
- * 
- * This is useful for certain additions, such as 'TRANSPORTING NO FIELDS' 
+ *
+ * This is useful for certain additions, such as 'TRANSPORTING NO FIELDS'
  * which consts entirely of keywords.
- * 
+ *
  * <<< ... TRANSPORTING NO FIELDS ...
  * >>> ... (transporting_no_fields) ...
  */
 function visible_kws(...keywords) {
   const rule = seq(...keywords.map(kw));
 
-  const nodeName = keywords.map(v => v.replace("-", "_")).join("_").toLowerCase();
+  const nodeName = keywords
+    .map((v) => v.replace("-", "_"))
+    .join("_")
+    .toLowerCase();
   rule = alias(rule, state.grammarProxy[nodeName]);
   return rule;
 }
 
 function caseInsensitive(...terms) {
-  terms = terms.map((t) => new RustRegex(t
-    .split('')
-    .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
-    .join('')
-  ));
+  terms = terms.map(
+    (t) =>
+      new RustRegex(
+        t
+          .split("")
+          .map((l) => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
+          .join(""),
+      ),
+  );
 
   return terms.length == 1 ? terms[0] : terms;
 }
 
 function caseInsensitiveJoined(...terms) {
-  terms = terms.map((t) => {
-    const pattern = t
-      .split('')
-      .map(l => l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l)
-      .join('')
-    return `(${pattern})`;
-  }).join('|');
+  terms = terms
+    .map((t) => {
+      const pattern = t
+        .split("")
+        .map((l) => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
+        .join("");
+      return `(${pattern})`;
+    })
+    .join("|");
   return new RegExp(`(${terms})`);
 }
 
@@ -96,11 +104,8 @@ function chainable(keyword, spec) {
     kw(keyword),
     // If the declaration is followed by a `:` it means multiple
     // specifications are likely to follow.
-    choice(
-      seq(":", commaSep1(spec)),
-      spec
-    ),
-    "."
+    choice(seq(":", commaSep1(spec)), spec),
+    ".",
   );
 }
 
@@ -110,10 +115,7 @@ function chainable(keyword, spec) {
  * strictly required.
  */
 function chainable_immediate(spec) {
-  return choice(
-    seq(":", spec, repeat(seq(",", spec))),
-    spec
-  )
+  return choice(seq(":", spec, repeat(seq(",", spec))), spec);
 }
 
 /**
@@ -124,36 +126,30 @@ function chainable_immediate(spec) {
  */
 function declaration_and_spec(keyword, identifier, prefix) {
   prefix ??= "";
-  rules = {}
+  rules = {};
   const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
   const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
 
-  rules[spec] = $ => choice(
-    seq(
-      field("name", identifier($)),
-      optional(field("typing", $.typing)),
-    ),
-  );
+  rules[spec] = ($) =>
+    choice(
+      seq(field("name", identifier($)), optional(field("typing", $.typing))),
+    );
 
-  rules[decl] = $ => chainable(keyword, choice(
-    $[spec],
-    $.begin_of_struct,
-    $.end_of_struct
-  ));
+  rules[decl] = ($) =>
+    chainable(keyword, choice($[spec], $.begin_of_struct, $.end_of_struct));
 
   return rules;
 }
 
-
 function commaSep1(rule) {
-  return seq(rule, repeat(seq(",", rule)))
+  return seq(rule, repeat(seq(",", rule)));
 }
 
 /**
  * Receives a keyword and a rule and returns a sequence of that
  * keyword, followed by the rule tagged with a field named the
  * same as the keyword.
- * 
+ *
  * This can be useful when a keyword introduces a node that should
  * be tagged with a field named after the keyword.
  */
@@ -161,40 +157,41 @@ function kw_tagged(keyword, rule) {
   return seq(kw(keyword), field(keyword.replace("-", "_"), rule));
 }
 
-
 function parenthesized(rule) {
-  return seq("(", rule, ")")
+  return seq("(", rule, ")");
 }
 
 /**
  * Enforces tight parentheses around a rule that starts immediately.
- * 
+ *
  * For example: ... struct-(comp).
  *                         ^^^^^^
  */
 function immediateTightParens(rule) {
-  return seq(token.immediate("("), rule, token.immediate(")"))
+  return seq(token.immediate("("), rule, token.immediate(")"));
 }
 
 /**
  * Enforces tight parentheses around a rule but allows any number
  * of extras up to the first parenthesis.
- * 
+ *
  * For example: ... where (expr).
- *                       ^^^^^^^ 
+ *                       ^^^^^^^
  */
 function tightParens(rule) {
-  return seq("(", rule, token.immediate(")"))
+  return seq("(", rule, token.immediate(")"));
 }
 
 function kwRules() {
   const root = process.cwd();
 
-  const files = fs.readdirSync(root, { recursive: true, withFileTypes: true })
-    .filter((f) =>
-      f.isFile() &&
-      f.name.endsWith(".js") &&
-      !f.parentPath.includes("node_modules")
+  const files = fs
+    .readdirSync(root, { recursive: true, withFileTypes: true })
+    .filter(
+      (f) =>
+        f.isFile() &&
+        f.name.endsWith(".js") &&
+        !f.parentPath.includes("node_modules"),
     );
 
   const keywords = new Set();
@@ -202,7 +199,7 @@ function kwRules() {
 
   for (const file of files) {
     const fullPath = path.join(file.parentPath || file.path, file.name);
-    const content = fs.readFileSync(fullPath, 'utf8');
+    const content = fs.readFileSync(fullPath, "utf8");
 
     let match;
     while ((match = callRegex.exec(content)) !== null) {
@@ -219,9 +216,12 @@ function kwRules() {
   for (const keyword of keywords) {
     const regexExpression = caseInsensitive(keyword);
     const repr = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
-    const rule = field("keyword", alias(regexExpression, keyword.toLowerCase()));
+    const rule = field(
+      "keyword",
+      alias(regexExpression, keyword.toLowerCase()),
+    );
 
-    rules[repr] = $ => rule;
+    rules[repr] = ($) => rule;
   }
   return rules;
 }
@@ -242,5 +242,5 @@ module.exports = {
   kw_tagged,
   tightParens,
   immediateTightParens,
-  parenthesized
+  parenthesized,
 };
