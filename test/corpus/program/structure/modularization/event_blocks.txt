@@ -1,0 +1,41 @@
+=================================================================================
+[ ABAP - Program Structure / Modularization / Event Blocks ] Initialization
+=================================================================================
+INITIALIZATION. 
+  p_langu = 'DE'.
+---
+
+(source
+  (initialization_event
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (string_literal)))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Event Blocks ] Start of selection
+=================================================================================
+START-OF-SELECTION. 
+  cls=>main( ).
+---
+
+(source
+  (start_of_selection_event
+    body: (statement_block
+      (function_call
+        source: (identifier)
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Event Blocks ] Load of program
+=================================================================================
+LOAD-OF-PROGRAM.
+  test = 10.
+---
+
+(source
+  (load_of_program_event
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (number)))))
