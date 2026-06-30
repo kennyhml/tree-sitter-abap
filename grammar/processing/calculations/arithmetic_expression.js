@@ -9,15 +9,6 @@ module.exports = {
    */
   arithmetic_expression: ($) => choice($._binary_operation, $._unary_operation),
 
-  /**
-   * In ABAP, parentheses cant just arbitrarly be added anywhere like in most modern languages.
-   * They can, however, be used around arithmetic expressions to control precendence.
-   *
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
-   */
-  parenthesized_expression: ($) =>
-    prec(5, seq("(", $.arithmetic_expression, ")")),
-
   _binary_operation: ($) => {
     // Arithmetic operator precedences
     // @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html

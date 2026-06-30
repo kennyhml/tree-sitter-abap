@@ -81,7 +81,7 @@ module.exports = grammar({
     $.itab_comp,
     $.numeric_expression,
     $.character_like_expression,
-    $.relational_expression,
+    $.predicate_expression,
   ],
 
   word: ($) => $._name,
@@ -250,6 +250,18 @@ module.exports = grammar({
     ...gen.declaration_and_spec("types", ($) => $.identifier),
 
     /**
+     * In ABAP, parentheses cant just arbitrarly be added anywhere like in most modern languages.
+     * They can, however, be used around arithmetic expressions and logical expressions.
+     *
+     * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
+     */
+    parenthesized_expression: ($) =>
+      prec(
+        5,
+        seq("(", choice($.arithmetic_expression, $.logical_expression), ")"),
+      ),
+
+    /**
      * A builtin (keyword) expression resulting in the creation of a certain value.
      *
      * For example `NEW`, `VALUE`, `COND`, etc.. Refer to the link for more examples.
@@ -371,159 +383,10 @@ module.exports = grammar({
         $.dereference_expression,
       ),
 
-    /**
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP.html
-     */
-    _logical_expression: ($) =>
-      choice(
-        $.logical_expression,
-        $.relational_expression,
-        $._parenthesized_logical_expression,
-      ),
-
-    _parenthesized_logical_expression: ($) =>
-      alias(
-        prec(5, seq("(", $._logical_expression, ")")),
-        $.parenthesized_expression,
-      ),
-
-    logical_expression: ($) =>
-      choice(
-        prec.right(4, seq(gen.kw("not"), $._logical_expression)),
-
-        prec.left(
-          3,
-          seq($._logical_expression, gen.kw("and"), $._logical_expression),
-        ),
-        prec.left(
-          2,
-          seq($._logical_expression, gen.kw("or"), $._logical_expression),
-        ),
-        prec.left(
-          1,
-          seq($._logical_expression, gen.kw("equiv"), $._logical_expression),
-        ),
-      ),
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
     string_expression: ($) => choice($.string_template, $.string_concatenation),
 
-    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
-    // Needs higher prec than assignment
-    relational_expression: ($) =>
-      prec(
-        1,
-        choice(
-          $.comparison_expression,
-          $.predicate_expression,
-          $.function_call,
-        ),
-      ),
-    /**
-     * Comparison of two or more operands represented as {@link general_expression}.
-     *
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_COMP.html
-     */
-    comparison_expression: ($) =>
-      seq(
-        field("left", $.general_expression),
-        choice(
-          seq($._comparison_operator, field("right", $.general_expression)),
-          seq(optional(gen.kw("not")), field("right", $.range_expression)),
-          seq(
-            optional(gen.kw("not")),
-            gen.kw("in"),
-            field("right", choice($.data_object, $.function_call)),
-          ),
-        ),
-      ),
-
-    range_expression: ($) =>
-      seq(
-        gen.kw("between"),
-        field("low", $.general_expression),
-        gen.kw("and"),
-        field("high", $.general_expression),
-      ),
-
     read_key_spec: ($) => seq(gen.kw("key"), field("name", $.identifier)),
-
-    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPREDICATE_EXPRESSIONS.html
-    // NOTE: Not all general expressions apparently? The docs are kind of vague here..
-    predicate_expression: ($) =>
-      choice(
-        // operand
-        seq(
-          $.general_expression,
-          gen.kw("is"),
-          optional(gen.kw("not")),
-          gen.kw("initial"),
-        ),
-        // ref
-        seq(
-          $.general_expression,
-          gen.kw("is"),
-          optional(gen.kw("not")),
-          gen.kw("bound"),
-        ),
-        // oref
-        seq(
-          $.general_expression,
-          gen.kw("is"),
-          optional(gen.kw("not")),
-          gen.kw("instance"),
-          gen.kw("of"),
-        ),
-        // <fs>
-        seq(
-          $.general_expression,
-          gen.kw("is"),
-          optional(gen.kw("not")),
-          gen.kw("assigned"),
-        ),
-        // parameter
-        seq(
-          $.general_expression,
-          gen.kw("is"),
-          optional(gen.kw("not")),
-          gen.kw("supplied"),
-        ),
-      ),
-
-    _comparison_operator: ($) =>
-      choice(
-        ...gen.kws(
-          "eq",
-          "ne",
-          "gt",
-          "lt",
-          "ge",
-          "le",
-          "co",
-          "cn",
-          "ca",
-          "na",
-          "cs",
-          "ns",
-          "cp",
-          "np",
-          "byte-co",
-          "byte-cn",
-          "byte-ca",
-          "byte-na",
-          "byte-cs",
-          "byte-ns",
-          "o",
-          "z",
-          "m",
-        ),
-        "=",
-        "<>",
-        ">",
-        "<",
-        ">=",
-        "<=",
-      ),
 
     _calculation_assignment_operator: ($) =>
       choice("+=", "-=", "*=", "/=", "&&="),
