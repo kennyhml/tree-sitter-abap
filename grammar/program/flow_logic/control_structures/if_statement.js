@@ -10,7 +10,7 @@ module.exports = {
   if_statement: ($) =>
     seq(
       gen.kw("if"),
-      field("condition", $.logical_expression),
+      field("condition", $._logical_expression),
       ".",
       field("consequence", optional($.statement_block)),
 
@@ -32,7 +32,7 @@ module.exports = {
   elseif_clause: ($) =>
     seq(
       gen.kw("elseif"),
-      field("condition", $.logical_expression),
+      field("condition", $._logical_expression),
       ".",
       field("consequence", optional($.statement_block)),
     ),

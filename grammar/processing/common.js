@@ -31,11 +31,11 @@ module.exports = {
       field(
         "condition",
         choice(
-          $.logical_expression,
+          $._logical_expression,
 
           // statically specified logical expression log_exp must be placed in parenthese (table iterations)
           // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
-          prec(2, gen.parenthesized($.logical_expression)),
+          prec(2, gen.parenthesized($._logical_expression)),
 
           // dynamic where clause
           $.dynamic_spec,

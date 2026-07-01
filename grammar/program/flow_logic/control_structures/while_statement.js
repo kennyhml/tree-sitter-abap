@@ -11,7 +11,7 @@ module.exports = {
   while_statement: ($) =>
     seq(
       gen.kw("while"),
-      field("condition", $.logical_expression),
+      field("condition", $._logical_expression),
       ".",
       optional(field("body", $.statement_block)),
       gen.kw("endwhile"),

@@ -12,10 +12,10 @@ VALUE #( FOR j = 1 UNTIL j > 5 ( rnd1->get_next( ) ) )
           (identifier)
           (number))
         (iteration_condition
-          (until)
-          (comparison_expression
-            (identifier)
-            (number))))
+          (until
+            (comparison_expression
+              (identifier)
+              (number)))))
       (line_spec
         (argument_list
           (positional_argument
@@ -101,12 +101,10 @@ value_tab = VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ).
           (identifier)
           (itab_lines
             (where_condition
-              (parenthesized_expression)
               (parenthesized_expression
                 (comparison_expression
                   (identifier)
-                  (string_literal)))
-              (parenthesized_expression))))
+                  (string_literal))))))
         (line_spec
           (argument_list
             (positional_argument
@@ -247,10 +245,10 @@ VALUE itab1( FOR j = 41 THEN j - 10 UNTIL j < 10 ( ) )
             (identifier)
             (number)))
         (iteration_condition
-          (until)
-          (comparison_expression
-            (identifier)
-            (number))))
+          (until
+            (comparison_expression
+              (identifier)
+              (number)))))
       (line_spec))))
 
 ==================
@@ -272,12 +270,10 @@ VALUE itab3(
           (identifier))
         (itab_lines
           (where_condition
-            (parenthesized_expression)
             (parenthesized_expression
               (comparison_expression
                 (identifier)
-                (number)))
-            (parenthesized_expression))))
+                (number))))))
       (line_spec
         (lines_of
           (identifier)
@@ -310,10 +306,10 @@ VALUE itab(
           (identifier)
           (number))
         (iteration_condition
-          (until)
-          (comparison_expression
-            (identifier)
-            (number)))
+          (until
+            (comparison_expression
+              (identifier)
+              (number))))
         (let_expression
           (assignment
             (identifier)

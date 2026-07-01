@@ -10,7 +10,7 @@ DELETE itab WHERE table_line IS INITIAL.
       (identifier)
       (itab_lines
         (where_condition
-          (predicate_expression
+          (initial_predicate
             (identifier)))))))
 
 ======

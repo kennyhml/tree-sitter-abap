@@ -18,10 +18,10 @@ REDUCE string( INIT s = 0
         left: (identifier)
         right: (number))
       (iteration_condition
-        kind: (until)
-        condition: (comparison_expression
-          left: (identifier)
-          right: (number))))
+        (until
+          condition: (comparison_expression
+            left: (identifier)
+            right: (number)))))
     (reduce_next
       (assignment
         left: (identifier)
@@ -52,10 +52,10 @@ REDUCE string( INIT text type string
           left: (identifier)
           right: (number)))
       (iteration_condition
-        kind: (while)
-        condition: (comparison_expression
-          left: (identifier)
-          right: (number))))
+        (while
+          condition: (comparison_expression
+            left: (identifier)
+            right: (number)))))
     (reduce_next
       (assignment
         left: (identifier)

@@ -272,6 +272,36 @@
     ]
   },
   {
+    "type": "predicate_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "assigned_predicate",
+        "named": true
+      },
+      {
+        "type": "bound_predicate",
+        "named": true
+      },
+      {
+        "type": "initial_predicate",
+        "named": true
+      },
+      {
+        "type": "instance_of_predicate",
+        "named": true
+      },
+      {
+        "type": "requested_predicate",
+        "named": true
+      },
+      {
+        "type": "supplied_predicate",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "receiving_expression",
     "named": true,
     "subtypes": [
@@ -291,10 +321,6 @@
     "subtypes": [
       {
         "type": "comparison_expression",
-        "named": true
-      },
-      {
-        "type": "function_call",
         "named": true
       },
       {
@@ -1375,6 +1401,40 @@
     }
   },
   {
+    "type": "assigned_predicate",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "assigned",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "assigning",
     "named": true,
     "fields": {
@@ -2069,6 +2129,50 @@
     }
   },
   {
+    "type": "between",
+    "named": true,
+    "fields": {
+      "high": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "between",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      },
+      "low": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "binary_search",
     "named": true,
     "fields": {
@@ -2135,6 +2239,40 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "bound_predicate",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "bound",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2524,7 +2662,7 @@
     "named": true,
     "fields": {
       "condition": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -3166,7 +3304,7 @@
     "named": true,
     "fields": {
       "condition": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -3935,7 +4073,7 @@
     "named": true,
     "fields": {
       "keyword": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -3995,10 +4133,6 @@
             "named": false
           },
           {
-            "type": "in",
-            "named": false
-          },
-          {
             "type": "le",
             "named": false
           },
@@ -4016,10 +4150,6 @@
           },
           {
             "type": "ne",
-            "named": false
-          },
-          {
-            "type": "not",
             "named": false
           },
           {
@@ -4055,11 +4185,15 @@
         "required": true,
         "types": [
           {
+            "type": "between",
+            "named": true
+          },
+          {
             "type": "general_expression",
             "named": true
           },
           {
-            "type": "range_expression",
+            "type": "in_table",
             "named": true
           }
         ]
@@ -6183,7 +6317,7 @@
     "named": true,
     "fields": {
       "condition": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -7958,7 +8092,7 @@
         ]
       },
       "condition": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -8221,6 +8355,36 @@
         "types": [
           {
             "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "in_table",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "in",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -8754,6 +8918,40 @@
     }
   },
   {
+    "type": "initial_predicate",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "initial",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "initial_size",
     "named": true,
     "fields": {
@@ -8925,6 +9123,54 @@
           },
           {
             "type": "reference_into",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "instance_of_predicate",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "instance",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -9378,39 +9624,20 @@
   {
     "type": "iteration_condition",
     "named": true,
-    "fields": {
-      "condition": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "logical_expression",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "relational_expression",
-            "named": true
-          }
-        ]
-      },
-      "kind": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "until",
-            "named": true
-          },
-          {
-            "type": "while",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "until",
+          "named": true
+        },
+        {
+          "type": "while",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9872,25 +10099,61 @@
             "named": false
           }
         ]
+      },
+      "left": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
+            "named": true
+          }
+        ]
+      },
+      "negated": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "logical_expression",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "relational_expression",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -11790,8 +12053,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
           "type": "arithmetic_expression",
@@ -12015,7 +12278,31 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "constructor_expression",
+            "named": true
+          },
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "function_call",
+            "named": true
+          },
+          {
+            "type": "string_expression",
+            "named": true
+          },
+          {
+            "type": "table_expression",
             "named": true
           }
         ]
@@ -12047,60 +12334,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "predicate_expression",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "assigned",
-            "named": false
-          },
-          {
-            "type": "bound",
-            "named": false
-          },
-          {
-            "type": "initial",
-            "named": false
-          },
-          {
-            "type": "instance",
-            "named": false
-          },
-          {
-            "type": "is",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          },
-          {
-            "type": "of",
-            "named": false
-          },
-          {
-            "type": "supplied",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "general_expression",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -12545,46 +12778,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "range_expression",
-    "named": true,
-    "fields": {
-      "high": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "and",
-            "named": false
-          },
-          {
-            "type": "between",
-            "named": false
-          }
-        ]
-      },
-      "low": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -13493,6 +13686,40 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "requested_predicate",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "requested",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -15539,6 +15766,40 @@
     }
   },
   {
+    "type": "supplied_predicate",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "supplied",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "switch_expression",
     "named": true,
     "fields": {
@@ -16581,6 +16842,24 @@
     "type": "until",
     "named": true,
     "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": false,
         "required": true,
@@ -16919,6 +17198,24 @@
     "type": "while",
     "named": true,
     "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": false,
         "required": true,
@@ -16946,7 +17243,7 @@
         ]
       },
       "condition": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -18343,6 +18640,10 @@
   },
   {
     "type": "report",
+    "named": false
+  },
+  {
+    "type": "requested",
     "named": false
   },
   {
