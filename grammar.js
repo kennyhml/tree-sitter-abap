@@ -45,7 +45,6 @@ module.exports = grammar({
   conflicts: ($) => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
     [$.lines_of],
-    // [$.general_expression, $.positional_argument],
   ],
 
   extras: ($) => [
