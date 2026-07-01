@@ -428,3 +428,18 @@ check auth->is_authorized( ).
       subject: (function_call
         source: (identifier)
         name: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Boolean function
+=================================================================================
+boolc( sy-subrc is initial )
+---
+
+(source
+  (function_call
+    name: (identifier)
+    (call_argument_list
+      exporting: (initial_predicate
+        subject: (component_selection
+          subject: (identifier)
+          component: (identifier))))))

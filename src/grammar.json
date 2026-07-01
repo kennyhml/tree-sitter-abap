@@ -13668,70 +13668,69 @@
       ]
     },
     "call_argument_list": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_importing_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_exporting_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_changing_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_receiving_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_tables_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_parameter_table_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_exception_table_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_tables_args"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_exceptions_args"
-              }
-            ]
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_importing_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_exporting_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_changing_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_receiving_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_tables_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_parameter_table_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_exception_table_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_tables_args"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_exceptions_args"
           }
-        },
-        {
-          "type": "FIELD",
-          "name": "exporting",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_named_argument_list"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "positional_argument"
-              }
-            ]
+        ]
+      }
+    },
+    "_implicit_exporting_arguments": {
+      "type": "FIELD",
+      "name": "exporting",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_named_argument_list"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "positional_argument"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_logical_expression"
           }
-        }
-      ]
+        ]
+      }
     },
     "positional_argument": {
       "type": "PREC",
@@ -13775,51 +13774,55 @@
       }
     },
     "named_argument": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "dynamic_spec"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "component_selection"
-              }
-            ]
+      "type": "PREC",
+      "value": 7,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "dynamic_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "component_selection"
+                }
+              ]
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "="
+          },
+          {
+            "type": "FIELD",
+            "name": "value",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "general_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "declaration_expression"
+                }
+              ]
+            }
           }
-        },
-        {
-          "type": "STRING",
-          "value": "="
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "general_expression"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "declaration_expression"
-              }
-            ]
-          }
-        }
-      ]
+        ]
+      }
     },
     "_parenthesized_call_arguments": {
       "type": "SEQ",
@@ -13842,8 +13845,22 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "call_argument_list"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "call_argument_list"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_implicit_exporting_arguments"
+                  },
+                  "named": true,
+                  "value": "call_argument_list"
+                }
+              ]
             },
             {
               "type": "BLANK"
