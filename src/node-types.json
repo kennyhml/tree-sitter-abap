@@ -2400,7 +2400,19 @@
             "named": true
           },
           {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
             "type": "positional_argument",
+            "named": true
+          },
+          {
+            "type": "relational_expression",
             "named": true
           }
         ]

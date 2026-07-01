@@ -10,28 +10,29 @@ module.exports = {
    * 
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_PARAMETERS.html
    */
-  call_argument_list: $ => choice(
-    repeat1(
-      choice(
-        $._importing_args,
-        $._exporting_args,
-        $._changing_args,
-        $._receiving_args,
-        $._tables_args,
-        $._parameter_table_args,
-        $._exception_table_args,
-        $._tables_args,
-        $._exceptions_args,
-      )
-    ),
-    // In method calls, if the parameter is not preceded by the parameter type,
-    // its always exporting. Only one positional argument or any number of
-    // named arguments may follow.
+  call_argument_list: $ => repeat1(
+    choice(
+      $._importing_args,
+      $._exporting_args,
+      $._changing_args,
+      $._receiving_args,
+      $._tables_args,
+      $._parameter_table_args,
+      $._exception_table_args,
+      $._tables_args,
+      $._exceptions_args,
+    )
+  ),
+
+  // Needs to be a separate choice for builtin functio calls
+  // or method calls where the EXPORTING parameter can be omitted
+  // unlike the CALL FUNCTION statement.
+  _implicit_exporting_arguments: $ =>
     field("exporting", choice(
       $._named_argument_list,
-      $.positional_argument
+      $.positional_argument,
+      $._logical_expression // technically only for boolean functions like boolc etc..
     )),
-  ),
 
   // Needs higher prec than parenthesized expressions
   // on order to get arithmetic to work
@@ -47,7 +48,7 @@ module.exports = {
     ),
   )),
 
-  named_argument: $ => seq(
+  named_argument: $ => prec(7, seq(
     field("name",
       choice(
         $.identifier,
@@ -60,12 +61,17 @@ module.exports = {
       $.general_expression,
       $.declaration_expression
     ))
-  ),
+  )),
 
   _parenthesized_call_arguments: $ => seq(
     token.immediate("("),
     token.immediate(/[\t\n\r ]/), // disambiguate from dynamic stuff, a space must exist here.
-    optional($.call_argument_list),
+    optional(
+      choice(
+        $.call_argument_list,
+        alias($._implicit_exporting_arguments, $.call_argument_list)
+      )
+    ),
     ")",
   ),
 
