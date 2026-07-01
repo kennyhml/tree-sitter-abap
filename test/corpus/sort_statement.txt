@@ -140,7 +140,7 @@ SORT itab BY VALUE abap_sortorder_tab(
     subject: (identifier)
     (by_order_table
       order_table: (value_expression
-        type: (identifier)
+        result_type: (identifier)
         (table_comprehension
           (line_spec
             (argument_list

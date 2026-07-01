@@ -35,7 +35,7 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (value_expression
-      type: (identifier)
+      result_type: (identifier)
       (table_comprehension
         (line_spec
           (argument_list

@@ -371,6 +371,12 @@
   (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG]|[aA][nN][yY])$")
 ))
 
+; Constructor results
+(_ result_type: (identifier) @type )
+(_ result_type: (identifier) @type.builtin
+  (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG]|[aA][nN][yY])$")
+)
+
 
 ; Must be more specific than the variable rule so it takes precedence. 
 ; No choice but to support up to a certain depth (3)
@@ -444,6 +450,58 @@
     (end_of_struct name: (identifier) @variable.member)
   ]
   (end_of_struct)
+)
+
+; Tables / structs are always field assignments, not parameters.
+; Up to 3 levels of nesting supported for deep component assignments.
+(table_comprehension
+  (named_argument
+    name: (identifier) @variable.member
+  )
+)
+
+(line_spec
+  (argument_list
+    (named_argument
+      name: [
+        (identifier) @variable.member
+        (component_selection 
+          subject: [
+            (identifier) @variable.member
+            (component_selection 
+              subject: [
+                (identifier) @variable.member
+              ]
+              selector: "-"
+            )
+          ]
+          selector: "-"
+        )
+      ]
+    )
+  )
+)
+
+(value_expression
+  (argument_list
+    (named_argument
+      name: [
+        (identifier) @variable.member
+        (component_selection 
+          subject: [
+            (identifier) @variable.member
+            (component_selection 
+              subject: [
+                (identifier) @variable.member
+              ]
+              selector: "-"
+            )
+          ]
+          selector: "-"
+        )
+      ]
+    )
+  )
 )
 
 ; Only the top-level declaration is considered a type.

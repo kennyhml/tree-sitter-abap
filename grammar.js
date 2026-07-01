@@ -351,10 +351,8 @@ module.exports = grammar({
       prec(
         1,
         choice(
-          $.identifier,
-          $.field_symbol,
+          $.named_data_object,
           $.number,
-          $.component_selection,
           $.constructor_expression,
           $.function_call,
           $.table_expression,

@@ -242,15 +242,7 @@
         "named": true
       },
       {
-        "type": "component_selection",
-        "named": true
-      },
-      {
         "type": "constructor_expression",
-        "named": true
-      },
-      {
-        "type": "field_symbol",
         "named": true
       },
       {
@@ -258,7 +250,7 @@
         "named": true
       },
       {
-        "type": "identifier",
+        "type": "named_data_object",
         "named": true
       },
       {
@@ -17060,7 +17052,7 @@
           }
         ]
       },
-      "type": {
+      "result_type": {
         "multiple": false,
         "required": true,
         "types": [

@@ -44,9 +44,8 @@ READ TABLE spfli_tab FROM spfli_key
 (source
   (read_table_statement
     (identifier)
-    (itab_lines
-      (lines_from
-        (identifier)))
+    (itab_work_area_spec
+      (identifier))
     (assigning
       (declaration_expression
         (field_symbol
@@ -62,9 +61,8 @@ READ TABLE spfli_tab FROM spfli_key USING KEY city_key
 (source
   (read_table_statement
     (identifier)
-    (itab_lines
-      (lines_from
-        (identifier))
+    (itab_work_area_spec
+      (identifier)
       (using_key
         (identifier)))
     (assigning
