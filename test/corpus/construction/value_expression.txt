@@ -1,0 +1,428 @@
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Initial value
+=================================================================================
+VALUE i( )
+---
+
+(source
+  (value_expression
+    type: (identifier)))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Type inference
+=================================================================================
+VALUE #( )
+---
+
+(source
+  (value_expression))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Elementary value
+=================================================================================
+VALUE #( 123 )
+---
+
+(source
+  (value_expression
+    (argument_list
+      (positional_argument
+        value: (number)))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Let expression
+=================================================================================
+VALUE string( let var = 'A String' in |Using let expression { var }| )
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (let_expression
+      (assignment
+        left: (identifier)
+        right: (string_literal)))
+    (argument_list
+      (positional_argument
+        value: (string_template
+          (embedded_expression
+            (identifier)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Structure creation
+=================================================================================
+VALUE t_struct( col1 = 1 
+                col2 = col2 ). 
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (argument_list
+      (named_argument
+        name: (identifier)
+        value: (number))
+      (named_argument
+        name: (identifier)
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Deep structure creation
+=================================================================================
+VALUE t_struct( col1 = 1 
+                col2-col1 = 1 
+                col2-col2 = 2 ). 
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (argument_list
+      (named_argument
+        name: (identifier)
+        value: (number))
+      (named_argument
+        name: (component_selection
+          subject: (identifier)
+          component: (identifier))
+        value: (number))
+      (named_argument
+        name: (component_selection
+          subject: (identifier)
+          component: (identifier))
+        value: (number)))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Nested structure creation
+=================================================================================
+VALUE t_struct( col1 = 1 
+                col2 = VALUE #( col1 = 1 
+                                col2 = 2 ) ).
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (argument_list
+      (named_argument
+        name: (identifier)
+        value: (number))
+      (named_argument
+        name: (identifier)
+        value: (value_expression
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (number))
+            (named_argument
+              name: (identifier)
+              value: (number))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Base structure
+=================================================================================
+VALUE struct( BASE base2 col2 = 'BB' ). 
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (table_constructor
+      (base_table
+        value: (identifier))
+      (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Table line specs
+=================================================================================
+VALUE #( ( col1 = 1 col2 = 2 ) 
+         ( col1 = 3 col2 = 4 ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number))
+          (named_argument
+            name: (identifier)
+            value: (number))))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number))
+          (named_argument
+            name: (identifier)
+            value: (number)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Scalar line type
+=================================================================================
+VALUE itab1( 
+    ( `x1y1z1` ) 
+    ( `x2y2z2` ) 
+    ( `x3y3z3` ) ).
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (table_comprehension
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (string_literal))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (string_literal))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (string_literal)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Initial lines
+=================================================================================
+VALUE itab1( ( ) ( ) ( ) ).
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (table_comprehension
+      (line_spec)
+      (line_spec)
+      (line_spec))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Nested tables
+=================================================================================
+VALUE #( ( itab1 ) 
+         ( VALUE t_itab1( ( 4 ) ( 5 ) ( 6 ) ) ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (value_expression
+              type: (identifier)
+              (table_comprehension
+                (line_spec
+                  (argument_list
+                    (positional_argument
+                      value: (number))))
+                (line_spec
+                  (argument_list
+                    (positional_argument
+                      value: (number))))
+                (line_spec
+                  (argument_list
+                    (positional_argument
+                      value: (number))))))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Base table
+=================================================================================
+VALUE #( BASE itab ( `d` ) ( `e` ) ( `f` ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (base_table
+        value: (identifier))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (string_literal))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (string_literal))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (string_literal)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Expression line spec
+=================================================================================
+VALUE #( BASE itab ( ipow( base = sy-index exp = 2 ) ) )
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (base_table
+        value: (identifier))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (function_call
+              name: (identifier)
+              (call_argument_list
+                exporting: (argument_list
+                  (named_argument
+                    name: (identifier)
+                    value: (component_selection
+                      subject: (identifier)
+                      component: (identifier)))
+                  (named_argument
+                    name: (identifier)
+                    value: (number)))))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Table short form
+=================================================================================
+VALUE #( sign = 'I' option = 'BT' 
+                        ( low = 1  high = 10 ) 
+                        ( low = 21 high = 30 ) 
+                        ( low = 41 high = 50 ) 
+        option = 'GE'   ( low = 61 )  ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (named_argument
+        name: (identifier)
+        value: (string_literal))
+      (named_argument
+        name: (identifier)
+        value: (string_literal))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number))
+          (named_argument
+            name: (identifier)
+            value: (number))))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number))
+          (named_argument
+            name: (identifier)
+            value: (number))))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number))
+          (named_argument
+            name: (identifier)
+            value: (number))))
+      (named_argument
+        name: (identifier)
+        value: (string_literal))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Lines of
+=================================================================================
+VALUE t_itab( ( ) ( 1 ) ( 2 ) ( LINES OF jtab ) )
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (table_comprehension
+      (line_spec)
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (number))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (number))))
+      (line_spec
+        (lines_of
+          subject: (identifier))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Specific lines of
+=================================================================================
+VALUE t_itab( ( ) ( 1 ) ( 2 ) ( LINES OF jtab FROM start to END STEP 3 using key primary_key ) )
+---
+
+(source
+  (value_expression
+    type: (identifier)
+    (table_comprehension
+      (line_spec)
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (number))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (number))))
+      (line_spec
+        (lines_of
+          subject: (identifier)
+          (lines_from
+            index: (identifier))
+          (lines_to
+            index: (identifier))
+          (lines_step
+            size: (number))
+          (using_key
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Arithmetic
+=================================================================================
+value #( ( 10 + 10 ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (number)
+              right: (number))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Arithmetic with inner parens
+=================================================================================
+value #( ( ( 10 + 10 ) - 20 ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (parenthesized_expression
+                (arithmetic_expression
+                  left: (number)
+                  right: (number)))
+              right: (number))))))))

@@ -233,3 +233,43 @@ itab[ connid = zclass=>get_connid( ) ]
             value: (function_call
               source: (identifier)
               name: (identifier))))))))
+
+==================
+Table expression with optional value
+==================
+value #( itab[ 1 ] OPTIONAL ). 
+---
+
+(source
+  (value_expression
+    (argument_list
+      (positional_argument
+        (table_expression
+          (identifier)
+          (index_read
+            (number)))))))
+
+==================
+Table expression with default value
+==================
+value  #( itab[ 1 ] DEFAULT value #( carrid   = 'XXX' 
+                                     carrname = 'xxx' ) ). 
+---
+
+(source
+  (value_expression
+    (argument_list
+      (positional_argument
+        (table_expression
+          (identifier)
+          (index_read
+            (number)))))
+    (value_expression
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal))
+        (named_argument
+          (identifier)
+          (string_literal))))))
+
