@@ -14,7 +14,7 @@ module.exports = {
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_PROCESSING_BLOCKS.html
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_LOOP.html
   check_statement: ($) =>
-    seq(gen.kw("check"), field("condition", $.logical_expression), "."),
+    seq(gen.kw("check"), field("condition", $._logical_expression), "."),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONTINUE.html
   continue_statement: (_) => seq(gen.kw("continue"), "."),

@@ -29,10 +29,10 @@ FILTER #( spfli_tab EXCEPT USING KEY carr_city
       name: (identifier))
     (where_condition
       condition: (logical_expression
-        (comparison_expression
+        left: (comparison_expression
           left: (identifier)
           right: (identifier))
-        (comparison_expression
+        right: (comparison_expression
           left: (identifier)
           right: (identifier))))))
 

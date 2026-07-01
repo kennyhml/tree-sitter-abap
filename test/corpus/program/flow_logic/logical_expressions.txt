@@ -1,0 +1,430 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Equal
+=================================================================================
+check count = 10.
+check count EQ 10.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (number)))
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (number))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Not equal
+=================================================================================
+check count <> 10.
+check count NE 10.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (number)))
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (number))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Bigger than
+=================================================================================
+check count > min.
+check count GT min.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (identifier)))
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Smaller than
+=================================================================================
+check 10 < result-amount.
+check 10 LT result-amount.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (number)
+      right: (component_selection
+        subject: (identifier)
+        component: (identifier))))
+  (check_statement
+    condition: (comparison_expression
+      left: (number)
+      right: (component_selection
+        subject: (identifier)
+        component: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Smaller equal to
+=================================================================================
+check lines( itab ) <= policies->min_lines.
+check lines( itab ) LE policies->min_lines.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (function_call
+        name: (identifier)
+        (call_argument_list
+          exporting: (positional_argument
+            value: (identifier))))
+      right: (component_selection
+        subject: (identifier)
+        component: (identifier))))
+  (check_statement
+    condition: (comparison_expression
+      left: (function_call
+        name: (identifier)
+        (call_argument_list
+          exporting: (positional_argument
+            value: (identifier))))
+      right: (component_selection
+        subject: (identifier)
+        component: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Bigger equal to
+=================================================================================
+check cl_class=>attr >= <val>.
+check cl_class=>attr GE <val>.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (component_selection
+        subject: (identifier)
+        component: (identifier))
+      right: (field_symbol
+        name: (identifier))))
+  (check_statement
+    condition: (comparison_expression
+      left: (component_selection
+        subject: (identifier)
+        component: (identifier))
+      right: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Between
+=================================================================================
+check foo between bar and 100.
+check foo not between bar and 100.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (between
+        low: (identifier)
+        high: (number))))
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (between
+        low: (identifier)
+        high: (number)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] In table
+=================================================================================
+check foo in range_tab->*.
+check foo not in range_tab->*.
+---
+
+(source
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (in_table
+        table: (dereference_expression
+          subject: (identifier)))))
+  (check_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (in_table
+        table: (dereference_expression
+          subject: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] AND operator
+=================================================================================
+check operand > limit1 AND operand < limit2.
+---
+
+(source
+  (check_statement
+    condition: (logical_expression
+      left: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      right: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] OR operator
+=================================================================================
+check time BETWEEN '080000' AND '120000' OR time BETWEEN '130000' AND '170000'.
+---
+
+(source
+  (check_statement
+    condition: (logical_expression
+      left: (comparison_expression
+        left: (identifier)
+        right: (between
+          low: (string_literal)
+          high: (string_literal)))
+      right: (comparison_expression
+        left: (identifier)
+        right: (between
+          low: (string_literal)
+          high: (string_literal))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] EQUIV operator
+=================================================================================
+check o1 = o2 EQUIV o3 = o4.
+---
+
+(source
+  (check_statement
+    condition: (logical_expression
+      left: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      right: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] NOT operator
+=================================================================================
+check NOT sy-subrc = 0.
+---
+
+(source
+  (check_statement
+    condition: (logical_expression
+      negated: (comparison_expression
+        left: (component_selection
+          subject: (identifier)
+          component: (identifier))
+        right: (number)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] AND precedence
+=================================================================================
+check foo <> 'a' and bar <> 'a' or baz <> 'a'.
+---
+
+(source
+  (check_statement
+    condition: (logical_expression
+      left: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (string_literal))
+        right: (comparison_expression
+          left: (identifier)
+          right: (string_literal)))
+      right: (comparison_expression
+        left: (identifier)
+        right: (string_literal)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Parens precedence
+=================================================================================
+check foo <> 'a' and ( bar <> 'a' or baz <> 'a' ).
+---
+
+(source
+  (check_statement
+    condition: (logical_expression
+      left: (comparison_expression
+        left: (identifier)
+        right: (string_literal))
+      right: (parenthesized_expression
+        (logical_expression
+          left: (comparison_expression
+            left: (identifier)
+            right: (string_literal))
+          right: (comparison_expression
+            left: (identifier)
+            right: (string_literal)))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Parenthesized NOT
+=================================================================================
+check ( NOT a = b ) OR c < d AND ( NOT e <> f ) AND g > h EQUIV j is initial.
+---
+
+(source
+  (check_statement
+    condition: (logical_expression
+      left: (logical_expression
+        left: (parenthesized_expression
+          (logical_expression
+            negated: (comparison_expression
+              left: (identifier)
+              right: (identifier))))
+        right: (logical_expression
+          left: (logical_expression
+            left: (comparison_expression
+              left: (identifier)
+              right: (identifier))
+            right: (parenthesized_expression
+              (logical_expression
+                negated: (comparison_expression
+                  left: (identifier)
+                  right: (identifier)))))
+          right: (comparison_expression
+            left: (identifier)
+            right: (identifier))))
+      right: (initial_predicate
+        subject: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Initial predicate
+=================================================================================
+check queue is initial.
+check queue is not initial.
+---
+
+(source
+  (check_statement
+    condition: (initial_predicate
+      subject: (identifier)))
+  (check_statement
+    condition: (initial_predicate
+      subject: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Assigned predicate
+=================================================================================
+check <queue> is assigned.
+check <queue> is not assigned.
+---
+
+(source
+  (check_statement
+    condition: (assigned_predicate
+      subject: (field_symbol
+        name: (identifier))))
+  (check_statement
+    condition: (assigned_predicate
+      subject: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Instance of predicate
+=================================================================================
+check cl_class=>get( ) is instance of cl_foo.
+check cl_class=>get( ) is not instance of cl_foo.
+---
+
+(source
+  (check_statement
+    condition: (instance_of_predicate
+      subject: (function_call
+        source: (identifier)
+        name: (identifier))
+      type: (identifier)))
+  (check_statement
+    condition: (instance_of_predicate
+      subject: (function_call
+        source: (identifier)
+        name: (identifier))
+      type: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Bound predicate
+=================================================================================
+check foo is bound.
+check foo is not bound.
+---
+
+(source
+  (check_statement
+    condition: (bound_predicate
+      subject: (identifier)))
+  (check_statement
+    condition: (bound_predicate
+      subject: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Supplied predicate
+=================================================================================
+check value is supplied.
+check value is not supplied.
+---
+
+(source
+  (check_statement
+    condition: (supplied_predicate
+      subject: (identifier)))
+  (check_statement
+    condition: (supplied_predicate
+      subject: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Requested predicate
+=================================================================================
+check value is requested.
+check value is not requested.
+---
+
+(source
+  (check_statement
+    condition: (requested_predicate
+      subject: (identifier)))
+  (check_statement
+    condition: (requested_predicate
+      subject: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Predicative function call
+=================================================================================
+check lines( itab ).
+---
+
+(source
+  (check_statement
+    condition: (initial_predicate
+      subject: (function_call
+        name: (identifier)
+        (call_argument_list
+          exporting: (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Expressions for Conditions / Logical Expressions ] Predicative method call
+=================================================================================
+check auth->is_authorized( ).
+---
+
+(source
+  (check_statement
+    condition: (initial_predicate
+      subject: (function_call
+        source: (identifier)
+        name: (identifier)))))

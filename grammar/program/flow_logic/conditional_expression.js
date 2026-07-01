@@ -47,7 +47,7 @@ module.exports = {
   case: ($) =>
     seq(
       gen.kw("when"),
-      field("condition", choice($.logical_expression, $.data_object)),
+      field("condition", choice($._logical_expression, $.data_object)),
       gen.kw("then"),
       optional($.let_expression),
       field("result", $.__conditional_result),

@@ -167,3 +167,43 @@ value  #( itab[ 1 ] DEFAULT value #( carrid   = 'XXX'
         (named_argument
           (identifier)
           (string_literal))))))
+
+==================
+Ambituity with arithmetic expression
+==================
+test = value #( ( 10 + 10 ) ).
+---
+
+(source
+  (assignment
+    (identifier)
+    (value_expression
+      (table_comprehension
+        (line_spec
+          (argument_list
+            (positional_argument
+              (arithmetic_expression
+                (number)
+                (number)))))))))
+
+==================
+Ambituity with arithmetic expression v2
+==================
+test = value #( ( ( 10 + 10 ) - 20 ) ).
+---
+
+(source
+  (assignment
+    (identifier)
+    (value_expression
+      (table_comprehension
+        (line_spec
+          (argument_list
+            (positional_argument
+              (arithmetic_expression
+                (parenthesized_expression
+                  (arithmetic_expression
+                    (number)
+                    (number)))
+                (number)))))))))
+

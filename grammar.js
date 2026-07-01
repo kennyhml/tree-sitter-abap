@@ -45,6 +45,7 @@ module.exports = grammar({
   conflicts: ($) => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
     [$.lines_of],
+    // [$.general_expression, $.positional_argument],
   ],
 
   extras: ($) => [
@@ -71,6 +72,7 @@ module.exports = grammar({
     $.data_object,
 
     $.general_expression,
+    $.predicate_expression,
     $.functional_expression,
     $.iteration_expression,
     $.writable_expression,
@@ -81,7 +83,7 @@ module.exports = grammar({
     $.itab_comp,
     $.numeric_expression,
     $.character_like_expression,
-    $.predicate_expression,
+    $.relational_expression,
   ],
 
   word: ($) => $._name,
@@ -253,12 +255,21 @@ module.exports = grammar({
      * In ABAP, parentheses cant just arbitrarly be added anywhere like in most modern languages.
      * They can, however, be used around arithmetic expressions and logical expressions.
      *
+     * WARN: Can cause ambiguity. Consider:
+     * value type( ( field = abap_true ) )
+     *
+     * The parser can get confused here because the value expression receives an expression
+     * that could be a parenthesized expression wrapping a logical expression if we allowed it.
+     *
+     * The best way to solve this is to not allow general expressions as operands in such
+     * positions.
+     *
      * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
      */
     parenthesized_expression: ($) =>
       prec(
         5,
-        seq("(", choice($.arithmetic_expression, $.logical_expression), ")"),
+        seq("(", choice($.arithmetic_expression), ")"),
       ),
 
     /**

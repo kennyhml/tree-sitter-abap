@@ -131,10 +131,10 @@ COND #( LET t = '120000' IN
             value: (identifier)))))
     (case
       condition: (logical_expression
-        (comparison_expression
+        left: (comparison_expression
           left: (identifier)
           right: (identifier))
-        (comparison_expression
+        right: (comparison_expression
           left: (identifier)
           right: (string_literal)))
       result: (string_template

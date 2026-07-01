@@ -28,13 +28,16 @@ module.exports = {
   then_clause: ($) => seq(gen.kw("then"), $.general_expression),
 
   // ... UNTIL / WHILE log_exp ...
-  iteration_condition: ($) =>
-    seq(
-      field("kind", choice($.while, $.until)),
-      field("condition", $.logical_expression),
-    ),
+  iteration_condition: ($) => choice($.while, $.until),
 
-  while: (_) => gen.kw("while"),
-  until: (_) => gen.kw("until"),
+  while: $ => seq(
+    gen.kw("while"),
+    field("condition", $._logical_expression),
+  ),
+
+  until: $ => seq(
+    gen.kw("until"),
+    field("condition", $._logical_expression),
+  ),
 };
 

@@ -33,7 +33,19 @@ module.exports = {
     )),
   ),
 
-  positional_argument: $ => field("value", $.general_expression),
+  // Needs higher prec than parenthesized expressions
+  // on order to get arithmetic to work
+  positional_argument: $ => prec(7, field("value",
+    choice(
+      $.data_object,
+      $.constructor_expression,
+      $.function_call,
+      $.table_expression,
+      $.arithmetic_expression,
+      $.string_expression,
+      $.dereference_expression,
+    ),
+  )),
 
   named_argument: $ => seq(
     field("name",
@@ -57,12 +69,26 @@ module.exports = {
     ")",
   ),
 
+  /**
+   * We cant be using positional argument LISTS in all argument lists
+   * as it causes conflicts with how unary operators work in arithmetic
+   * expressions. Consider:
+   *
+   * value #( ( foo + bar) )
+   *
+   * Its not possible to tell if its an aritmetic addition expression
+   * or the argument foo alongside a unary operation argument + bar.
+   *
+   * In forms, multiple positional arguments are allowed - but no expressions
+   * so this problem does not occur.
+   */
   argument_list: $ => seq(
     choice(
       repeat1($.named_argument),
-      repeat1($.positional_argument)
+      $.positional_argument
     )
   ),
+
 
   _importing_args: $ => gen.kw_tagged("importing", $._named_argument_list),
   _exporting_args: $ => gen.kw_tagged("exporting", $._named_argument_list),
@@ -85,9 +111,11 @@ module.exports = {
   /**
    * An argument list where only positional arguments can occur.
    * Required for calls to a form using {@link subroutine_call}.
+   *
+   * WARN: Expressions are not possible here!!!
    */
   _positional_argument_list: $ => prec.right(
-    alias(repeat1($.positional_argument), $.argument_list)
+    alias(repeat1(alias($.named_data_object, $.positional_argument)), $.argument_list)
   ),
 
   _exception_mapping_list: $ => alias(repeat1($.exception_mapping), $.argument_list),
