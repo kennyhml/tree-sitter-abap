@@ -83,7 +83,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
       (accumulator_spec
         name: (identifier)
         value: (value_expression
-          type: (identifier)
+          result_type: (identifier)
           (argument_list
             (named_argument
               name: (identifier)
@@ -168,7 +168,7 @@ REDUCE string( INIT text = `` sep = ``
     (table_iteration
       work_area: (identifier)
       subject: (value_expression
-        type: (identifier)
+        result_type: (identifier)
         (inline_comment)
         (table_comprehension
           (table_iteration

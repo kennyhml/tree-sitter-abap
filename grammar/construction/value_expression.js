@@ -7,7 +7,7 @@ module.exports = {
    */
   value_expression: $ => seq(
     gen.kw("value"),
-    field("type", $._constructor_result),
+    field("result_type", $._constructor_result),
     gen.parenthesized(seq(
       optional($.let_expression),
       optional($.__value_expr_inner),
