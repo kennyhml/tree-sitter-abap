@@ -655,16 +655,13 @@
 [
 	  "return"
 	  "exit"
+    "check"
 ] @keyword.return
 
 [
     "continue"
     "endat"
 ] @keyword.repeat
-
-[
-    "check"
-] @keyword.conditional
 
 [
     "resume"

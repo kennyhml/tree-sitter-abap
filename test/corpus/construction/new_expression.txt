@@ -443,3 +443,24 @@ new #( ( ( 10 + 10 ) - 20 ) ).
                   left: (number)
                   right: (number)))
               right: (number))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / NEW, Instance Operator ] Constructor as param
+=================================================================================
+c2=>m2( NEW #( p1 = 1 p2 = 2 ) )
+---
+
+(source
+  (function_call
+    source: (identifier)
+    name: (identifier)
+    (call_argument_list
+      exporting: (positional_argument
+        value: (new_expression
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (number))
+            (named_argument
+              name: (identifier)
+              value: (number))))))))

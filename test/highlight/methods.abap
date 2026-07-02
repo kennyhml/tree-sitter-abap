@@ -87,3 +87,35 @@ CALL METHOD ('CL_ABAP_BROWSER')=>('SHOW_HTML')
   EXPORTING 
     (name) = `<html><body>Oh no ...</html></body>`. 
 "    ^ variable
+
+lo_object->meth1( 
+    EXPORTING
+        foo = bar
+"       ^ variable.parameter
+        baz = abap_true
+"       ^ variable.parameter
+    IMPORTING
+        foo = final(foo)
+"       ^ variable.parameter
+    RECEIVING
+        foobar = foobar
+"       ^ variable.parameter
+    CHANGING
+        sum = result_sum
+"       ^ variable.parameter
+        total = result_total
+"       ^ variable.parameter
+    EXCEPTIONS
+        not_found = 1
+"       ^ variable.parameter
+        foo = 2
+"       ^ variable.parameter
+        bar = 3
+"       ^ variable.parameter
+        others = 10
+"       ^ variable.parameter.builtin
+    ).
+new cl_class( )->meth1( p = a )
+"   ^ type
+"                ^ function.method
+"                       ^ variable.parameter

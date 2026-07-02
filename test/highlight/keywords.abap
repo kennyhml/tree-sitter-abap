@@ -23,8 +23,6 @@ when others.
 "    ^ keyword.conditional
 endcase.
 "<- keyword.conditional
-check foo = abap_true.
-"<- keyword.conditional
 
 case type of foo.
 "<- keyword.conditional
@@ -73,6 +71,9 @@ elseif f1 o m1 and f1 z m1 or f1 m m1.
 "                     ^ keyword.operator
 "                                ^ keyword.operator
 endif.
+
+check foo = abap_true.
+"<- keyword.return
 
 return.
 "<- keyword.return

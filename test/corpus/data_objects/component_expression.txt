@@ -69,3 +69,15 @@ intf~method
   (component_selection
     subject: (identifier)
     component: (identifier)))
+
+=======
+[COMPONENT-EXPRESSION] Dynamic access on new expression
+=======
+new #( )->('attr')
+---
+
+(source
+  (component_selection
+    subject: (new_expression)
+    component: (dynamic_spec
+      value: (string_literal))))
