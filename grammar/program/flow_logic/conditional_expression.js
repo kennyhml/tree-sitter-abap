@@ -8,7 +8,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_COND.html
    */
-  cond_expression: ($) =>
+  cond_expression: $ =>
     seq(
       gen.kw("cond"),
       field("type", $._constructor_result),
@@ -26,7 +26,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_SWITCH.html
    */
-  switch_expression: ($) =>
+  switch_expression: $ =>
     seq(
       gen.kw("switch"),
       field("type", $._constructor_result),
@@ -40,11 +40,11 @@ module.exports = {
       ),
     ),
 
-  resumable: (_) => gen.kw("resumable"),
+  resumable: _ => gen.kw("resumable"),
 
-  shortdump: (_) => gen.kw("shortdump"),
+  shortdump: _ => gen.kw("shortdump"),
 
-  case: ($) =>
+  case: $ =>
     seq(
       gen.kw("when"),
       field("condition", choice($._logical_expression, $.data_object)),
@@ -53,7 +53,7 @@ module.exports = {
       field("result", $.__conditional_result),
     ),
 
-  else_case: ($) =>
+  else_case: $ =>
     seq(
       gen.kw("else"),
       optional($.let_expression),
@@ -67,7 +67,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
    */
-  throw_exception: ($) =>
+  throw_exception: $ =>
     seq(
       gen.kw("throw"),
       optional($.resumable),
@@ -79,6 +79,5 @@ module.exports = {
   /**
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
    */
-  __conditional_result: ($) => choice($.general_expression, $.throw_exception),
+  __conditional_result: $ => choice($.general_expression, $.throw_exception),
 };
-

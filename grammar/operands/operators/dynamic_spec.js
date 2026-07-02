@@ -9,7 +9,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDYNAMIC_COMPONENT_ABEXA.html
    * @seeh ttps://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENOPERANDS_SPECIFYING.html
    */
-  dynamic_spec: ($) =>
+  dynamic_spec: $ =>
     gen.tightParens(
       field(
         "value",
@@ -23,7 +23,7 @@ module.exports = {
     ),
 
   // Same rule but enforced immediately for e.g. dynamic component selection
-  _immediate_dynamic_spec: ($) =>
+  _immediate_dynamic_spec: $ =>
     alias(
       gen.immediateTightParens(
         field(

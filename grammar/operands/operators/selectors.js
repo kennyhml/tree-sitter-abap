@@ -1,5 +1,4 @@
 module.exports = {
-
   /**
    * ABAPs call this a 'component selector' operation.
    *
@@ -7,7 +6,7 @@ module.exports = {
    * frankly a little bit confusing. Because at the same time, it can be nested
    * inside expressions. It states pretty clearly that e.g a {@link chained_identifier}
    * is not an expression but a 'single operand' instead.
-   * 
+   *
    * In favor of simplicity, state count and readability, it appears better
    * to parse them as one rule with the only difference being the operator.
    *
@@ -26,37 +25,35 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_COMPONENT_SELECTOR.html
    */
-  component_selection: $ => seq(
-    field("subject",
-      choice(
-        $.identifier,
-        $.field_symbol,
-        $.component_selection,
-        $.function_call,
-        $.table_expression,
-        $.new_expression,
-        $.cast_expression,
-        $.dynamic_spec
-      )
+  component_selection: $ =>
+    seq(
+      field(
+        "subject",
+        choice(
+          $.identifier,
+          $.field_symbol,
+          $.component_selection,
+          $.function_call,
+          $.table_expression,
+          $.new_expression,
+          $.cast_expression,
+          $.dynamic_spec,
+        ),
+      ),
+      field(
+        "selector",
+        choice(
+          token.immediate("-"),
+          token.immediate("->"),
+          token.immediate("=>"),
+          token.immediate("~"),
+        ),
+      ),
+      field("component", choice($.dynamic_spec, $._immediate_identifier)),
     ),
-    field("selector", choice(
-      token.immediate("-"),
-      token.immediate("->"),
-      token.immediate("=>"),
-      token.immediate("~"),
-    )),
-    field("component",
-      choice(
-        $.dynamic_spec,
-        $._immediate_identifier
-      )
-    )
-  ),
-}
-
+};
 
 const in_consideration = {
-
   /**
    * Based on the ABAP spec, identifiers 'constructed from multiple names separated
    * by component selectors' are NOT expressions but single (or composite?) operands
@@ -68,21 +65,27 @@ const in_consideration = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCHAINED_NAME_GLOSRY.html
    */
-  chained_identifier: $ => alias($._elementary_component_selection, $.component_selection),
+  chained_identifier: $ =>
+    alias($._elementary_component_selection, $.component_selection),
 
-  _elementary_component_selection: $ => seq(
-    field("subject",
-      choice(
-        $.identifier,
-        alias($._elementary_component_selection, $.component_selection),
-      )
+  _elementary_component_selection: $ =>
+    seq(
+      field(
+        "subject",
+        choice(
+          $.identifier,
+          alias($._elementary_component_selection, $.component_selection),
+        ),
+      ),
+      field(
+        "selector",
+        choice(
+          token.immediate("-"),
+          token.immediate("->"),
+          token.immediate("=>"),
+          token.immediate("~"),
+        ),
+      ),
+      field("component", $._immediate_identifier),
     ),
-    field("selector", choice(
-      token.immediate("-"),
-      token.immediate("->"),
-      token.immediate("=>"),
-      token.immediate("~"),
-    )),
-    field("component", $._immediate_identifier)
-  ),
-}
+};

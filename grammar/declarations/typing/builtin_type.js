@@ -1,11 +1,10 @@
 module.exports = {
-
   /**
    * Specification of a builtin type (also called abap_type)
    *
-   * TYPES { {dtype[(len)] TYPE abap_type [DECIMALS dec]} 
+   * TYPES { {dtype[(len)] TYPE abap_type [DECIMALS dec]}
    *     / {dtype TYPE abap_type [LENGTH len] [DECIMALS dec]}}.
-   * 
+   *
    * The special part about this form is that it allows the specification
    * of metadata such as type length, decimals in different syntax forms.
    *
@@ -24,37 +23,36 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_SIMPLE.html
    */
-  builtin_type_spec: $ => prec.right(-1, seq(
-    choice(
+  builtin_type_spec: $ =>
+    prec.right(
+      -1,
       seq(
-        optional($.parenthesized_length),
-        gen.kw("type"),
-        field("name", $.identifier),
+        choice(
+          seq(
+            optional($.parenthesized_length),
+            gen.kw("type"),
+            field("name", $.identifier),
+          ),
+          $.parenthesized_length,
+        ),
+        repeat($.__abap_type_additions),
       ),
-      $.parenthesized_length,
     ),
-    repeat($.__abap_type_additions)
-  )),
 
-  parenthesized_length: $ => gen.immediateTightParens(
-    field("length", $._immediate_number)
-  ),
+  parenthesized_length: $ =>
+    gen.immediateTightParens(field("length", $._immediate_number)),
 
-  type_length: $ => seq(
-    gen.kw("length"),
-    field("count", choice($.number, $.string_literal))
-  ),
+  type_length: $ =>
+    seq(gen.kw("length"), field("count", choice($.number, $.string_literal))),
 
-  type_decimals: $ => seq(
-    gen.kw("decimals"),
-    field("count", $.number)
-  ),
+  type_decimals: $ => seq(gen.kw("decimals"), field("count", $.number)),
 
-  __abap_type_additions: $ => choice(
-    $.type_length,
-    $.type_decimals,
-    $.initial_value,
-    $.default_data_value,
-    $.read_only
-  ),
-}
+  __abap_type_additions: $ =>
+    choice(
+      $.type_length,
+      $.type_decimals,
+      $.initial_value,
+      $.default_data_value,
+      $.read_only,
+    ),
+};

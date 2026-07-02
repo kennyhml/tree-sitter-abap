@@ -4,7 +4,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES_EXPRESSIONS.html
    */
-  string_template: ($) =>
+  string_template: $ =>
     seq(
       // Must allow " and # directly after the pipe, otherwise the inline comment rule strikes..
       /[|](["#]*)/,
@@ -22,7 +22,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
    */
-  embedded_expression: ($) =>
+  embedded_expression: $ =>
     seq("{", $.general_expression, repeat($.format_option), "}"),
 
   /**
@@ -30,7 +30,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_STRING_FORMAT_OPTIONS.html
    */
-  format_option: ($) =>
+  format_option: $ =>
     seq(
       field("name", $.identifier),
       "=",

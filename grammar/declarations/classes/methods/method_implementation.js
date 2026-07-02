@@ -6,7 +6,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHOD.html
    */
-  method_implementation: ($) =>
+  method_implementation: $ =>
     seq(
       gen.kw("method"),
       field("name", choice($.identifier, $.component_selection)),
@@ -16,5 +16,5 @@ module.exports = {
       ".",
     ),
 
-  method_body: ($) => repeat1($.simple_statement),
+  method_body: $ => repeat1($.simple_statement),
 };

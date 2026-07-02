@@ -7,7 +7,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
    */
-  if_statement: ($) =>
+  if_statement: $ =>
     seq(
       gen.kw("if"),
       field("condition", $._logical_expression),
@@ -29,7 +29,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
    */
-  elseif_clause: ($) =>
+  elseif_clause: $ =>
     seq(
       gen.kw("elseif"),
       field("condition", $._logical_expression),
@@ -45,7 +45,6 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
    */
-  else_clause: ($) =>
+  else_clause: $ =>
     seq(gen.kw("else"), ".", field("consequence", optional($.statement_block))),
 };
-

@@ -5,15 +5,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR.html
    */
-  iteration_expression: ($) =>
-    choice($.conditional_iteration, $.table_iteration),
+  iteration_expression: $ => choice($.conditional_iteration, $.table_iteration),
 
   /**
    * ... FOR var = rhs [THEN expr] UNTIL|WHILE log_exp [ let_exp ] ...
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_CONDITIONAL.html
    */
-  conditional_iteration: ($) =>
+  conditional_iteration: $ =>
     seq(
       gen.kw("for"),
 
@@ -25,19 +24,12 @@ module.exports = {
     ),
 
   // ... [THEN expr] ...
-  then_clause: ($) => seq(gen.kw("then"), $.general_expression),
+  then_clause: $ => seq(gen.kw("then"), $.general_expression),
 
   // ... UNTIL / WHILE log_exp ...
-  iteration_condition: ($) => choice($.while, $.until),
+  iteration_condition: $ => choice($.while, $.until),
 
-  while: $ => seq(
-    gen.kw("while"),
-    field("condition", $._logical_expression),
-  ),
+  while: $ => seq(gen.kw("while"), field("condition", $._logical_expression)),
 
-  until: $ => seq(
-    gen.kw("until"),
-    field("condition", $._logical_expression),
-  ),
+  until: $ => seq(gen.kw("until"), field("condition", $._logical_expression)),
 };
-

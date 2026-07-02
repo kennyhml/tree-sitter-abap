@@ -7,7 +7,7 @@ module.exports = {
    *
    *  @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_OPERATORS.html
    */
-  string_concatenation: ($) =>
+  string_concatenation: $ =>
     prec.left(
       seq(
         field("left", $.character_like_expression),

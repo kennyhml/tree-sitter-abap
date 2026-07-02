@@ -1,8 +1,8 @@
 module.exports = {
-  methods_declaration: ($) =>
+  methods_declaration: $ =>
     gen.chainable("methods", choice($.method_spec, $.constructor_spec)),
 
-  class_methods_declaration: ($) =>
+  class_methods_declaration: $ =>
     gen.chainable(
       "class-methods",
       choice($.method_spec, $.class_constructor_spec),
@@ -20,17 +20,17 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_GENERAL.html
    */
-  method_spec: ($) =>
+  method_spec: $ =>
     seq(field("name", $.identifier), optional($.__method_signature)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
-  constructor_spec: ($) =>
+  constructor_spec: $ =>
     seq(gen.kw("constructor"), optional($.__method_signature)),
 
-  class_constructor_spec: ($) =>
+  class_constructor_spec: $ =>
     seq(gen.kw("class_constructor"), optional($.__method_signature)),
 
-  __method_signature: ($) =>
+  __method_signature: $ =>
     repeat1(
       choice(
         $.abstract,
@@ -56,10 +56,10 @@ module.exports = {
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_REDEFINITION.html
-  redefinition: (_) => gen.kw("redefinition"),
+  redefinition: _ => gen.kw("redefinition"),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
-  for_event: ($) =>
+  for_event: $ =>
     seq(
       ...gen.kws("for", "event"),
       field("name", $.identifier),
@@ -68,7 +68,7 @@ module.exports = {
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
-  default_ignore: (_) => seq(...gen.kws("default", "ignore")),
+  default_ignore: _ => seq(...gen.kws("default", "ignore")),
 
-  default_fail: (_) => seq(...gen.kws("default", "fail")),
+  default_fail: _ => seq(...gen.kws("default", "fail")),
 };

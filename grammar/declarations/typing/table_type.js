@@ -1,84 +1,78 @@
-
 module.exports = {
-
   /**
    * Specification of an internal table type
-   * 
-   * ...   { {TYPE [STANDARD]|SORTED|HASHED TABLE OF [REF TO] type} 
-   *       / {LIKE [STANDARD]|SORTED|HASHED TABLE OF dobj} } 
-   *       [tabkeys] 
-   *       [INITIAL SIZE n] 
+   *
+   * ...   { {TYPE [STANDARD]|SORTED|HASHED TABLE OF [REF TO] type}
+   *       / {LIKE [STANDARD]|SORTED|HASHED TABLE OF dobj} }
+   *       [tabkeys]
+   *       [INITIAL SIZE n]
    *       [VALUE IS INITIAL]
    *       [READ-ONLY].
    *
    * As for all other type positons where a data object or type
    * name can be specified, they are tagged `object` and `name` respectively.
-   * 
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_ITAB.html
    */
-  table_type: $ => prec.right(seq(
-    choice(
-      $.__generic_table_type,
-      $.__table_like_spec,
-      $.__table_type_spec,
+  table_type: $ =>
+    prec.right(
+      seq(
+        choice(
+          $.__generic_table_type,
+          $.__table_like_spec,
+          $.__table_type_spec,
+        ),
+        repeat($.__table_type_addition),
+      ),
     ),
-    repeat($.__table_type_addition),
-  )),
 
   /**
    * Specification of a table key in the table type.
-   * 
-   * ... [ WITH key ] 
+   *
+   * ... [ WITH key ]
    *     [ WITH secondary_key1 ] [ WITH secondary_key2 ] ...
-   * 
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
    */
-  with_table_key: $ => prec.right(seq(
-    gen.kw("with"),
-    choice(
-      $.empty_key,
-      $.table_key
-    )
-  )),
+  with_table_key: $ =>
+    prec.right(seq(gen.kw("with"), choice($.empty_key, $.table_key))),
 
   /**
    * Specification of a table key. Some differences between primary key
    * and secondary keys exist, but it is simpler to just be permissive.
-   * 
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_KEYDEF.html
    */
-  table_key: $ => seq(
-    optional(field("unique", choice($.unique, $.non_unique))),
-    optional(field("kind", choice($.hashed, $.sorted))),
-    choice(
-      $.default_key,
-      $.__key_body
-    )
-  ),
+  table_key: $ =>
+    seq(
+      optional(field("unique", choice($.unique, $.non_unique))),
+      optional(field("kind", choice($.hashed, $.sorted))),
+      choice($.default_key, $.__key_body),
+    ),
 
   // KEY key_name [ALIAS alias_name] COMPONENTS comp1 comp2
-  __key_body: $ => prec(1, seq(
-    gen.kw("key"),
-    // either unnamed or named with explicit COMPONENTS addition
-    choice(
+  __key_body: $ =>
+    prec(
+      1,
       seq(
-        field("name", $.identifier),
-        optional(alias($.__key_alias, $.alias)),
-        $.key_components
+        gen.kw("key"),
+        // either unnamed or named with explicit COMPONENTS addition
+        choice(
+          seq(
+            field("name", $.identifier),
+            optional(alias($.__key_alias, $.alias)),
+            $.key_components,
+          ),
+          alias($.__unnamed_key_components, $.key_components),
+        ),
       ),
-      alias($.__unnamed_key_components, $.key_components)
-    )
-  )),
+    ),
 
   // [COMPONENTS] comp1 comp2
-  key_components: $ => prec.right(seq(
-    gen.kw("components"),
-    repeat1($.identifier)
-  )),
+  key_components: $ =>
+    prec.right(seq(gen.kw("components"), repeat1($.identifier))),
 
-  __unnamed_key_components: $ => prec.right(
-    repeat1($.identifier)
-  ),
+  __unnamed_key_components: $ => prec.right(repeat1($.identifier)),
 
   empty_key: _ => seq(...gen.kws("empty", "key")),
 
@@ -102,76 +96,81 @@ module.exports = {
 
   index_table: _ => seq(...gen.kws("index", "table")),
 
-  further_secondary_keys: _ => seq(
-    choice(...gen.kws("with", "without")),
-    ...gen.kws("further", "secondary", "keys"),
-  ),
+  further_secondary_keys: _ =>
+    seq(
+      choice(...gen.kws("with", "without")),
+      ...gen.kws("further", "secondary", "keys"),
+    ),
 
   /**
-   * ... { {[STANDARD] TABLE} 
-   *     / {SORTED TABLE} 
-   *     / {HASHED TABLE} 
-   *     / {ANY TABLE} 
+   * ... { {[STANDARD] TABLE}
+   *     / {SORTED TABLE}
+   *     / {HASHED TABLE}
+   *     / {ANY TABLE}
    *     / {INDEX TABLE} } ...
-   * 
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_TABCAT.html
    */
-  __table_category: $ => choice(
-    $.standard_table,
-    $.sorted_table,
-    $.hashed_table,
-    $.any_table,
-    $.index_table
-  ),
+  __table_category: $ =>
+    choice(
+      $.standard_table,
+      $.sorted_table,
+      $.hashed_table,
+      $.any_table,
+      $.index_table,
+    ),
 
-  __table_type_addition: $ => choice(
-    $.with_header_line,
-    $.with_table_key,
-    $.initial_value,
-    $.read_only,
-    $.initial_size,
-    $.further_secondary_keys,
-    $.occurs // technically obsolete
-  ),
+  __table_type_addition: $ =>
+    choice(
+      $.with_header_line,
+      $.with_table_key,
+      $.initial_value,
+      $.read_only,
+      $.initial_size,
+      $.further_secondary_keys,
+      $.occurs, // technically obsolete
+    ),
 
   /**
    * Specification of a generic table
-   * 
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBUILT_IN_TYPES_GENERIC.html
    */
-  __generic_table_type: $ => seq(
-    gen.kw("type"),
-    field("kind", $.__table_category)
-  ),
+  __generic_table_type: $ =>
+    seq(gen.kw("type"), field("kind", $.__table_category)),
 
   // { {TYPE [STANDARD]|SORTED|HASHED TABLE OF [REF TO] type}
-  __table_type_spec: $ => seq(
-    gen.kw("type"),
-    field("kind", $.__table_category),
-    gen.kw("of"),
-    field("name", choice(
-      alias($._ref_to_type, $.ref_to),
-      $.identifier,
-      $.component_selection
-    )),
-  ),
+  __table_type_spec: $ =>
+    seq(
+      gen.kw("type"),
+      field("kind", $.__table_category),
+      gen.kw("of"),
+      field(
+        "name",
+        choice(
+          alias($._ref_to_type, $.ref_to),
+          $.identifier,
+          $.component_selection,
+        ),
+      ),
+    ),
 
   // {LIKE [STANDARD]|SORTED|HASHED TABLE OF dobj} }
-  __table_like_spec: $ => seq(
-    gen.kw("like"),
-    field("kind", $.__table_category),
-    gen.kw("of"),
-    field("object", choice(
-      alias($._ref_to_data, $.ref_to),
-      $.identifier,
-      $.component_selection
-    )),
-  ),
+  __table_like_spec: $ =>
+    seq(
+      gen.kw("like"),
+      field("kind", $.__table_category),
+      gen.kw("of"),
+      field(
+        "object",
+        choice(
+          alias($._ref_to_data, $.ref_to),
+          $.identifier,
+          $.component_selection,
+        ),
+      ),
+    ),
 
   // [ALIAS alias_name]
-  __key_alias: $ => seq(
-    gen.kw("alias"),
-    field("name", $.identifier)
-  )
-
-}
+  __key_alias: $ => seq(gen.kw("alias"), field("name", $.identifier)),
+};

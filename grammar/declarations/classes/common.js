@@ -1,5 +1,4 @@
 module.exports = {
-
   _visibility: _ => choice(...gen.kws("public", "protected", "private")),
 
   abstract: _ => gen.kw("abstract"),
@@ -11,5 +10,4 @@ module.exports = {
   final: _ => gen.kw("final"),
 
   public: _ => gen.kw("public"),
-
-}
+};

@@ -1,53 +1,50 @@
 module.exports = {
-
-  parameters_declaration: $ => gen.chainable(
-    "parameters", $.parameters_spec
-  ),
+  parameters_declaration: $ => gen.chainable("parameters", $.parameters_spec),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html
-  parameters_spec: $ => seq(
-    field("name", $.identifier),
-    repeat(
-      choice(
-        field("typing", $.typing),
-        $.__parameter_screen_option,
-        $.__parameter_value_option,
-      )
-    )
-  ),
+  parameters_spec: $ =>
+    seq(
+      field("name", $.identifier),
+      repeat(
+        choice(
+          field("typing", $.typing),
+          $.__parameter_screen_option,
+          $.__parameter_value_option,
+        ),
+      ),
+    ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_SCREEN.html
-  __parameter_screen_option: $ => choice(
-    field("visible_length", $.visible_length_spec),
-    field("user_command", $.user_command_spec),
+  __parameter_screen_option: $ =>
+    choice(
+      field("visible_length", $.visible_length_spec),
+      field("user_command", $.user_command_spec),
 
-    field("checkbox", $.as_checkbox),
-    field("radiobutton", $.radiobutton_group),
-    field("listbox", $.as_listbox),
+      field("checkbox", $.as_checkbox),
+      field("radiobutton", $.radiobutton_group),
+      field("listbox", $.as_listbox),
 
-    field("obligatory", $.obligatory_spec),
-    field("display", $.no_display_spec),
-    field("modif_id", $.modif_id_spec),
-  ),
+      field("obligatory", $.obligatory_spec),
+      field("display", $.no_display_spec),
+      field("modif_id", $.modif_id_spec),
+    ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_VALUE.html
-  __parameter_value_option: $ => choice(
-    field("default", $.default_value_spec),
-    field("case", $.lower_case_spec),
-    field("search_help", $.search_help_spec),
-    field("memory_id", $.memory_id_spec),
-    field("value_check", $.value_check),
-  ),
+  __parameter_value_option: $ =>
+    choice(
+      field("default", $.default_value_spec),
+      field("case", $.lower_case_spec),
+      field("search_help", $.search_help_spec),
+      field("memory_id", $.memory_id_spec),
+      field("value_check", $.value_check),
+    ),
 
-  radiobutton_group: $ => seq(
-    ...gen.kws("radiobutton", "group"),
-    field("group", $.identifier),
-  ),
+  radiobutton_group: $ =>
+    seq(...gen.kws("radiobutton", "group"), field("group", $.identifier)),
 
   as_checkbox: _ => seq(...gen.kws("as", "checkbox")),
 
   value_check: _ => seq(...gen.kws("value", "check")),
 
   as_listbox: _ => seq(...gen.kws("as", "listbox")),
-
-}
+};

@@ -1,5 +1,4 @@
 module.exports = {
-
   /**
    * Specification of a range table type
    *
@@ -8,39 +7,31 @@ module.exports = {
    *
    * As for all other type positons where a data object or type
    * name can be specified, they are tagged `object` and `name` respectively.
-   * 
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_RANGES.html
    */
-  range_type: $ => prec.right(seq(
-    choice(
-      $.__range_type_spec,
-      $.__range_like_spec
+  range_type: $ =>
+    prec.right(
+      seq(
+        choice($.__range_type_spec, $.__range_like_spec),
+        repeat($.__range_type_addition),
+      ),
     ),
-    repeat($.__range_type_addition)
-  )),
 
   // {TYPE RANGE OF type}
-  __range_type_spec: $ => seq(
-    ...gen.kws("type", "range", "of"),
-    field("name", choice(
-      $.identifier,
-      $.component_selection
-    )),
-  ),
+  __range_type_spec: $ =>
+    seq(
+      ...gen.kws("type", "range", "of"),
+      field("name", choice($.identifier, $.component_selection)),
+    ),
 
   // {LIKE RANGE OF dobj}
-  __range_like_spec: $ => seq(
-    ...gen.kws("like", "range", "of"),
-    field("object", choice(
-      $.identifier,
-      $.component_selection
-    )),
-  ),
+  __range_like_spec: $ =>
+    seq(
+      ...gen.kws("like", "range", "of"),
+      field("object", choice($.identifier, $.component_selection)),
+    ),
 
-  __range_type_addition: $ => choice(
-    $.with_header_line,
-    $.initial_value,
-    $.read_only,
-    $.initial_size,
-  )
-}
+  __range_type_addition: $ =>
+    choice($.with_header_line, $.initial_value, $.read_only, $.initial_size),
+};

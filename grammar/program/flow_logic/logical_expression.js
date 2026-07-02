@@ -1,5 +1,4 @@
 module.exports = {
-
   /**
    *
    *  ... rel_exp |
@@ -7,28 +6,35 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP.html
    */
-  _logical_expression: $ => choice(
-    $.logical_expression,
-    $.relational_expression,
-    alias($._parenthesized_logical_expression, $.parenthesized_expression)
-  ),
+  _logical_expression: $ =>
+    choice(
+      $.logical_expression,
+      $.relational_expression,
+      alias($._parenthesized_logical_expression, $.parenthesized_expression),
+    ),
 
-  logical_expression: ($) => {
+  logical_expression: $ => {
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENBOOLEAN_OPERATOR_GLOSRY.html
     const BOOLEAN_OPERATORS = [
-      [gen.kw("and"), ($) => prec.left(3, $)],
-      [gen.kw("or"), ($) => prec.left(2, $)],
-      [gen.kw("equiv"), ($) => prec.left(1, $)],
+      [gen.kw("and"), $ => prec.left(3, $)],
+      [gen.kw("or"), $ => prec.left(2, $)],
+      [gen.kw("equiv"), $ => prec.left(1, $)],
     ];
 
     return choice(
-      prec.right(4, seq(gen.kw("not"), field("negated", $._logical_expression))),
+      prec.right(
+        4,
+        seq(gen.kw("not"), field("negated", $._logical_expression)),
+      ),
       ...BOOLEAN_OPERATORS.map(([op, p]) =>
-        p(seq(
-          field("left", $._logical_expression),
-          op,
-          field("right", $._logical_expression),
-        )))
+        p(
+          seq(
+            field("left", $._logical_expression),
+            op,
+            field("right", $._logical_expression),
+          ),
+        ),
+      ),
     );
   },
 
@@ -37,7 +43,8 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
    */
-  relational_expression: ($) => choice($.comparison_expression, $.predicate_expression),
+  relational_expression: $ =>
+    choice($.comparison_expression, $.predicate_expression),
 
   /**
    * Comparison of two or more subjects represented as {@link general_expression}.
@@ -53,7 +60,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_COMP.html
    */
-  comparison_expression: ($) =>
+  comparison_expression: $ =>
     seq(
       field("left", $.general_expression),
       choice(
@@ -63,14 +70,14 @@ module.exports = {
       ),
     ),
 
-  in_table: ($) =>
+  in_table: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("in"),
       field("table", $.general_expression),
     ),
 
-  between: ($) =>
+  between: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("between"),
@@ -79,7 +86,7 @@ module.exports = {
       field("high", $.general_expression),
     ),
 
-  predicate_expression: ($) =>
+  predicate_expression: $ =>
     choice(
       $.initial_predicate,
       $.bound_predicate,
@@ -92,19 +99,21 @@ module.exports = {
   // In appropriate positions, this takes precedence over a
   // general expression to wrap the function call in a logical
   // initial predicate, which is what ABAP does implicitly
-  initial_predicate: ($) => prec(1,
-    choice(
-      field("subject", $.function_call),
-      seq(
-        field("subject", $.general_expression),
-        gen.kw("is"),
-        optional(gen.kw("not")),
-        gen.kw("initial"),
+  initial_predicate: $ =>
+    prec(
+      1,
+      choice(
+        field("subject", $.function_call),
+        seq(
+          field("subject", $.general_expression),
+          gen.kw("is"),
+          optional(gen.kw("not")),
+          gen.kw("initial"),
+        ),
       ),
-    )
-  ),
+    ),
 
-  bound_predicate: ($) =>
+  bound_predicate: $ =>
     seq(
       field("subject", $.general_expression),
       gen.kw("is"),
@@ -112,7 +121,7 @@ module.exports = {
       gen.kw("bound"),
     ),
 
-  instance_of_predicate: ($) =>
+  instance_of_predicate: $ =>
     seq(
       field("subject", $.general_expression),
       gen.kw("is"),
@@ -122,7 +131,7 @@ module.exports = {
       field("type", $.general_expression),
     ),
 
-  assigned_predicate: ($) =>
+  assigned_predicate: $ =>
     seq(
       field("subject", $.general_expression),
       gen.kw("is"),
@@ -130,7 +139,7 @@ module.exports = {
       gen.kw("assigned"),
     ),
 
-  supplied_predicate: ($) =>
+  supplied_predicate: $ =>
     seq(
       field("subject", $.general_expression),
       gen.kw("is"),
@@ -138,7 +147,7 @@ module.exports = {
       gen.kw("supplied"),
     ),
 
-  requested_predicate: ($) =>
+  requested_predicate: $ =>
     seq(
       field("subject", $.general_expression),
       gen.kw("is"),
@@ -146,7 +155,7 @@ module.exports = {
       gen.kw("requested"),
     ),
 
-  _comparison_operator: (_) =>
+  _comparison_operator: _ =>
     choice(
       ...gen.kws(
         "eq",
@@ -181,6 +190,6 @@ module.exports = {
       "<=",
     ),
 
-  _parenthesized_logical_expression: ($) =>
+  _parenthesized_logical_expression: $ =>
     prec(5, seq("(", $._logical_expression, ")")),
 };

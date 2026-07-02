@@ -12,7 +12,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_COND.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_COND.html
    */
-  itab_lines: ($) =>
+  itab_lines: $ =>
     prec.right(
       repeat1(
         choice(
@@ -25,7 +25,7 @@ module.exports = {
       ),
     ),
 
-  where_condition: ($) =>
+  where_condition: $ =>
     seq(
       gen.kw("where"),
       field(
@@ -44,7 +44,7 @@ module.exports = {
       ),
     ),
 
-  dynamic_condition_tab: ($) => gen.parenthesized($.dynamic_spec),
+  dynamic_condition_tab: $ => gen.parenthesized($.dynamic_spec),
 
   /**
    *  ... {LINES OF jtab [FROM idx1] [TO idx2] [STEP n] [USING KEY keyname]} ...
@@ -54,7 +54,7 @@ module.exports = {
    * Used in:
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAPPEND_LINESPEC.html
    */
-  lines_of: ($) =>
+  lines_of: $ =>
     seq(
       ...gen.kws("lines", "of"),
       field("subject", $.general_expression),
@@ -69,24 +69,23 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_ITAB_LINESPEC.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAPPEND_LINESPEC.html
    */
-  _line_spec: ($) => choice($.general_expression, $.initial_line, $.lines_of),
+  _line_spec: $ => choice($.general_expression, $.initial_line, $.lines_of),
 
-  lines_from: ($) => seq(gen.kw("from"), field("index", $.numeric_expression)),
+  lines_from: $ => seq(gen.kw("from"), field("index", $.numeric_expression)),
 
-  lines_to: ($) => seq(gen.kw("to"), field("index", $.numeric_expression)),
+  lines_to: $ => seq(gen.kw("to"), field("index", $.numeric_expression)),
 
-  lines_step: ($) => seq(gen.kw("step"), field("size", $.numeric_expression)),
+  lines_step: $ => seq(gen.kw("step"), field("size", $.numeric_expression)),
 
-  using_key: ($) =>
-    seq(...gen.kws("using", "key"), field("name", $.identifier)),
+  using_key: $ => seq(...gen.kws("using", "key"), field("name", $.identifier)),
 
-  into: ($) =>
+  into: $ =>
     seq(
       gen.kw("into"),
       field("work_area", choice($.named_data_object, $.declaration_expression)),
     ),
 
-  reference_into: ($) =>
+  reference_into: $ =>
     seq(
       ...gen.kws("reference", "into"),
       field("work_area", choice($.field_symbol, $.declaration_expression)),
@@ -98,7 +97,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapsort_itab.html
    */
-  sort_order: ($) =>
+  sort_order: $ =>
     seq(
       field("direction", choice($.ascending, $.descending)),
       optional($.as_text),
@@ -113,25 +112,25 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapsort_itab.html
    */
-  sort_component_list: ($) =>
+  sort_component_list: $ =>
     prec.right(seq(gen.kw("by"), repeat1($.sort_component))),
 
   // {comp1 [ASCENDING|DESCENDING] [AS TEXT]}
-  sort_component: ($) =>
+  sort_component: $ =>
     prec.right(seq(field("comp", $.itab_comp), optional($.sort_order))),
 
-  as_text: (_) => seq(...gen.kws("as", "text")),
+  as_text: _ => seq(...gen.kws("as", "text")),
 
-  ascending: (_) => gen.kw("ascending"),
+  ascending: _ => gen.kw("ascending"),
 
-  descending: (_) => gen.kw("descending"),
+  descending: _ => gen.kw("descending"),
 
   /**
    * Specifies an index for various expressions.
    *
    * ... INDEX idx [USING KEY key] ...
    */
-  itab_index_spec: ($) =>
+  itab_index_spec: $ =>
     seq(
       gen.kw("index"),
       field("index", $.numeric_expression),
@@ -146,7 +145,7 @@ module.exports = {
    * Used in, for example:
    * {@link delete_itab_key_spec} @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_KEY.html
    */
-  itab_work_area_spec: ($) =>
+  itab_work_area_spec: $ =>
     seq(
       gen.kw("from"),
       field("work_area", $.general_expression),
@@ -163,7 +162,7 @@ module.exports = {
    *
    * Alternative to {@link itab_work_area_spec}
    */
-  itab_table_key_spec: ($) =>
+  itab_table_key_spec: $ =>
     seq(
       optional(
         seq(
@@ -174,18 +173,18 @@ module.exports = {
       $.search_key_components_spec,
     ),
 
-  initial_line: ($) => seq(...gen.kws("initial", "line")),
+  initial_line: $ => seq(...gen.kws("initial", "line")),
 
-  search_key_components_spec: ($) =>
+  search_key_components_spec: $ =>
     seq(
       optional(gen.kw("components")), // can be omitted
       field("components", $.itab_comp_spec_list),
       optional($.binary_search),
     ),
 
-  itab_comp_spec_list: ($) => prec.right(repeat1($.itab_comp_spec)),
+  itab_comp_spec_list: $ => prec.right(repeat1($.itab_comp_spec)),
 
-  itab_comp_spec: ($) =>
+  itab_comp_spec: $ =>
     seq(field("comp", $.itab_comp), "=", field("value", $.general_expression)),
 
   /**
@@ -195,7 +194,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DUPLICATES.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_TRANSPORT_OPTIONS.html
    */
-  comparing_fields_spec: ($) =>
+  comparing_fields_spec: $ =>
     seq(
       gen.kw("comparing"),
       choice(
@@ -205,28 +204,28 @@ module.exports = {
       ),
     ),
 
-  itab_component_list: ($) => prec.right(repeat1($.itab_comp)),
+  itab_component_list: $ => prec.right(repeat1($.itab_comp)),
 
   /**
    * Specification of the processing mode (byte | character) for various statements.
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_STATEMENTS.html
    */
-  string_processing_spec: (_) =>
+  string_processing_spec: _ =>
     seq(
       gen.kw("in"),
       field("mode", choice(...gen.kws("character", "byte"))),
       gen.kw("mode"),
     ),
 
-  _pattern_spec: ($) =>
+  _pattern_spec: $ =>
     choice(
       $.first_occurrence_of_pattern_spec,
       $.all_occurrences_of_pattern_spec,
       field("pattern", $.__pattern),
     ),
 
-  subject_spec: ($) =>
+  subject_spec: $ =>
     seq(
       gen.kw("in"),
       optional($.section_spec),
@@ -238,7 +237,7 @@ module.exports = {
    *
    * Used in {@link find_statement} and {@link replace_statement}
    */
-  first_occurrence_of_pattern_spec: ($) =>
+  first_occurrence_of_pattern_spec: $ =>
     seq(...gen.kws("first", "occurrence", "of"), field("pattern", $.__pattern)),
 
   /**
@@ -246,7 +245,7 @@ module.exports = {
    *
    * Used in {@link find_statement} and {@link replace_statement}
    */
-  all_occurrences_of_pattern_spec: ($) =>
+  all_occurrences_of_pattern_spec: $ =>
     seq(...gen.kws("all", "occurrences", "of"), field("pattern", $.__pattern)),
 
   /**
@@ -255,7 +254,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND_SECTION_OF.html
    */
-  section_spec: ($) =>
+  section_spec: $ =>
     seq(
       gen.kw("section"),
       repeat(
@@ -267,29 +266,29 @@ module.exports = {
       gen.kw("of"),
     ),
 
-  section_offset_spec: ($) =>
+  section_offset_spec: $ =>
     seq(gen.kw("offset"), field("amount", $.numeric_expression)),
 
-  section_length_spec: ($) =>
+  section_length_spec: $ =>
     seq(gen.kw("length"), field("amount", $.numeric_expression)),
 
   /**
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_PATTERN.html
    */
-  __pattern: ($) => choice($.substring_spec, $.pcre_spec, $.regex_spec),
+  __pattern: $ => choice($.substring_spec, $.pcre_spec, $.regex_spec),
 
-  substring_spec: ($) =>
+  substring_spec: $ =>
     seq(optional(gen.kw("substring")), field("value", $.data_object)),
-  pcre_spec: ($) => seq(gen.kw("pcre"), field("value", $.data_object)),
-  regex_spec: ($) => seq(gen.kw("regex"), field("value", $.data_object)),
+  pcre_spec: $ => seq(gen.kw("pcre"), field("value", $.data_object)),
+  regex_spec: $ => seq(gen.kw("regex"), field("value", $.data_object)),
 
   /**
    * Specification of a case sensitivity in various string operations.
    *
    * `RESPECTING/IGNORING CASE`
    */
-  case_sensitivity_spec: (_) =>
+  case_sensitivity_spec: _ =>
     seq(
       field("case", choice(...gen.kws("respecting", "ignoring"))),
       gen.kw("case"),
@@ -300,12 +299,12 @@ module.exports = {
    *
    * RESULTS result_tab|result_wa
    */
-  statement_results_spec: ($) =>
+  statement_results_spec: $ =>
     seq(gen.kw("results"), field("target", $.receiving_expression)),
 
-  binary_search: (_) => seq(...gen.kws("binary", "search")),
+  binary_search: _ => seq(...gen.kws("binary", "search")),
 
-  all_fields: (_) => seq(...gen.kws("all", "fields")),
+  all_fields: _ => seq(...gen.kws("all", "fields")),
 
-  no_fields: (_) => seq(...gen.kws("no", "fields")),
+  no_fields: _ => seq(...gen.kws("no", "fields")),
 };

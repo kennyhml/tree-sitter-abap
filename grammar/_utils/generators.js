@@ -62,7 +62,7 @@ function visible_kws(...keywords) {
   const rule = seq(...keywords.map(kw));
 
   const nodeName = keywords
-    .map((v) => v.replace("-", "_"))
+    .map(v => v.replace("-", "_"))
     .join("_")
     .toLowerCase();
   rule = alias(rule, state.grammarProxy[nodeName]);
@@ -71,11 +71,11 @@ function visible_kws(...keywords) {
 
 function caseInsensitive(...terms) {
   terms = terms.map(
-    (t) =>
+    t =>
       new RustRegex(
         t
           .split("")
-          .map((l) => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
+          .map(l => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
           .join(""),
       ),
   );
@@ -85,10 +85,10 @@ function caseInsensitive(...terms) {
 
 function caseInsensitiveJoined(...terms) {
   terms = terms
-    .map((t) => {
+    .map(t => {
       const pattern = t
         .split("")
-        .map((l) => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
+        .map(l => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
         .join("");
       return `(${pattern})`;
     })
@@ -130,12 +130,12 @@ function declaration_and_spec(keyword, identifier, prefix) {
   const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
   const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
 
-  rules[spec] = ($) =>
+  rules[spec] = $ =>
     choice(
       seq(field("name", identifier($)), optional(field("typing", $.typing))),
     );
 
-  rules[decl] = ($) =>
+  rules[decl] = $ =>
     chainable(keyword, choice($[spec], $.begin_of_struct, $.end_of_struct));
 
   return rules;
@@ -188,7 +188,7 @@ function kwRules() {
   const files = fs
     .readdirSync(root, { recursive: true, withFileTypes: true })
     .filter(
-      (f) =>
+      f =>
         f.isFile() &&
         f.name.endsWith(".js") &&
         !f.parentPath.includes("node_modules"),
@@ -221,7 +221,7 @@ function kwRules() {
       alias(regexExpression, keyword.toLowerCase()),
     );
 
-    rules[repr] = ($) => rule;
+    rules[repr] = $ => rule;
   }
   return rules;
 }
