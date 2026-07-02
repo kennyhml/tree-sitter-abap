@@ -33,3 +33,10 @@ VALUE t_itab( ( LINES OF jtab FROM start to END STEP 3 using key primary_key ) )
 "                                  ^ variable
 "                                           ^ variable
 "                                                                ^ variable.key
+NEW cl_class( p1 = 1 p2 = col2 ). 
+"   ^ type
+"             ^ variable.parameter
+"                    ^ variable.parameter
+NEW #( ( ) ( foo = 2 ) ( bar-baz = 1 ) ( LINES OF jtab ) )
+"            ^ variable.member
+"                        ^ variable.member

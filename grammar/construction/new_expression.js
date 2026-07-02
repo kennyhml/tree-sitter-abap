@@ -7,7 +7,7 @@ module.exports = {
   new_expression: $ =>
     seq(
       gen.kw("new"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
       gen.parenthesized(
         seq(optional($.let_expression), optional($.__new_expr_inner)),
       ),

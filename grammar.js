@@ -21,7 +21,7 @@ const NUMBER_REGEX = /-?\d+/;
 module.exports = grammar({
   name: "abap",
 
-  externals: ($) => [
+  externals: $ => [
     // A single full-line comment, only external scanner can do column check
     $.line_comment,
 
@@ -42,12 +42,12 @@ module.exports = grammar({
     $._error_sentinel,
   ],
 
-  conflicts: ($) => [
+  conflicts: $ => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
     [$.lines_of],
   ],
 
-  extras: ($) => [
+  extras: $ => [
     $.line_comment,
     $.inline_comment,
     $.pseudo_comment,
@@ -60,7 +60,7 @@ module.exports = grammar({
     /\s/,
   ],
 
-  supertypes: ($) => [
+  supertypes: $ => [
     $.typing,
     $.simple_statement,
     $.reserved_statement,
@@ -85,10 +85,10 @@ module.exports = grammar({
     $.relational_expression,
   ],
 
-  word: ($) => $._name,
+  word: $ => $._name,
 
   rules: {
-    source: ($) => {
+    source: $ => {
       // Required for aliasing rules in the generators.
       gen.state.grammarProxy = $;
 
@@ -109,7 +109,7 @@ module.exports = grammar({
      * which is needed e.g because the start of such an event block may terminate
      * another rather than becoming part of it.
      */
-    simple_statement: ($) =>
+    simple_statement: $ =>
       choice(
         // Fundamental declarations
         $.data_declaration,
@@ -180,7 +180,7 @@ module.exports = grammar({
      * e.g. a method implementation cant technically appear in the top level,
      * but its fine for permissive parsing.
      */
-    reserved_statement: ($) =>
+    reserved_statement: $ =>
       choice(
         // OOP
         $.class_declaration,
@@ -209,7 +209,7 @@ module.exports = grammar({
         $.at_selscreen_statement,
       ),
 
-    typing: ($) =>
+    typing: $ =>
       choice(
         $.builtin_type_spec,
         $.referred_type,
@@ -226,11 +226,11 @@ module.exports = grammar({
       const rules = fs
         .readdirSync(root, { recursive: true, withFileTypes: true })
         .filter(
-          (f) =>
+          f =>
             f.isFile() &&
             f.name.endsWith(".js") &&
             !exclude.find(
-              (v) => (f.parentPath || f.path).includes(v) || f.name == v,
+              v => (f.parentPath || f.path).includes(v) || f.name == v,
             ),
         )
         .reduce((acc, file) => {
@@ -246,9 +246,9 @@ module.exports = grammar({
 
     ...gen.kwRules(),
 
-    ...gen.declaration_and_spec("data", ($) => $.identifier),
-    ...gen.declaration_and_spec("constants", ($) => $.identifier),
-    ...gen.declaration_and_spec("types", ($) => $.identifier),
+    ...gen.declaration_and_spec("data", $ => $.identifier),
+    ...gen.declaration_and_spec("constants", $ => $.identifier),
+    ...gen.declaration_and_spec("types", $ => $.identifier),
 
     /**
      * In ABAP, parentheses cant just arbitrarly be added anywhere like in most modern languages.
@@ -265,11 +265,8 @@ module.exports = grammar({
      *
      * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
      */
-    parenthesized_expression: ($) =>
-      prec(
-        5,
-        seq("(", choice($.arithmetic_expression), ")"),
-      ),
+    parenthesized_expression: $ =>
+      prec(5, seq("(", choice($.arithmetic_expression), ")")),
 
     /**
      * A builtin (keyword) expression resulting in the creation of a certain value.
@@ -278,7 +275,7 @@ module.exports = grammar({
      *
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_OPERATOR_GLOSRY.html
      */
-    constructor_expression: ($) =>
+    constructor_expression: $ =>
       choice(
         $.switch_expression,
         $.cond_expression,
@@ -296,7 +293,7 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDATA_OBJECTS.html
      */
-    data_object: ($) =>
+    data_object: $ =>
       prec(
         100,
         choice(
@@ -307,7 +304,7 @@ module.exports = grammar({
         ),
       ),
 
-    named_data_object: ($) =>
+    named_data_object: $ =>
       choice(
         $.identifier,
         $.field_symbol,
@@ -317,7 +314,7 @@ module.exports = grammar({
       ),
 
     // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
-    general_expression: ($) =>
+    general_expression: $ =>
       choice(
         $.data_object,
         $.constructor_expression,
@@ -330,7 +327,7 @@ module.exports = grammar({
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
-    functional_expression: ($) =>
+    functional_expression: $ =>
       choice(
         $.named_data_object,
         $.constructor_expression,
@@ -339,7 +336,7 @@ module.exports = grammar({
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_EXPRESSION_GLOSRY.html
-    calculation_expression: ($) =>
+    calculation_expression: $ =>
       choice(
         $.arithmetic_expression,
         $.string_expression,
@@ -347,7 +344,7 @@ module.exports = grammar({
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
-    numeric_expression: ($) =>
+    numeric_expression: $ =>
       prec(
         1,
         choice(
@@ -363,11 +360,11 @@ module.exports = grammar({
     // This is made up and not from the keyword documentation. It should be used
     // for positions in which a suitable named data object can be used to receive
     // the result of an operation, but also a declaration expression.
-    receiving_expression: ($) =>
+    receiving_expression: $ =>
       choice($.named_data_object, $.declaration_expression),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_EXPRESSION_POSITIONS.html
-    character_like_expression: ($) =>
+    character_like_expression: $ =>
       choice(
         $.data_object,
         $.constructor_expression,
@@ -381,7 +378,7 @@ module.exports = grammar({
      *
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html
      */
-    writable_expression: ($) =>
+    writable_expression: $ =>
       choice(
         $.new_expression,
         $.cast_expression,
@@ -392,17 +389,17 @@ module.exports = grammar({
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
-    string_expression: ($) => choice($.string_template, $.string_concatenation),
+    string_expression: $ => choice($.string_template, $.string_concatenation),
 
-    read_key_spec: ($) => seq(gen.kw("key"), field("name", $.identifier)),
+    read_key_spec: $ => seq(gen.kw("key"), field("name", $.identifier)),
 
-    _calculation_assignment_operator: ($) =>
+    _calculation_assignment_operator: $ =>
       choice("+=", "-=", "*=", "/=", "&&="),
 
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
      */
-    table_expression: ($) =>
+    table_expression: $ =>
       seq(
         field("subject", choice($.data_object, $.table_expression)),
         token.immediate("["),
@@ -413,12 +410,12 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_ITAB_LINE.html
      */
-    itab_line: ($) => choice($.index_read, $.itab_table_key_spec),
+    itab_line: $ => choice($.index_read, $.itab_table_key_spec),
 
     /**
      * Index read variant of {@link itab_line}
      */
-    index_read: ($) =>
+    index_read: $ =>
       seq(
         // If a key is specified, `INDEX` must also be used.
         optional(seq(field("key", $.read_key_spec), gen.kw("index"))),
@@ -427,20 +424,20 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
     // prec solves  ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???
-    itab_comp: ($) => prec(1, choice($._static_itab_comp, $.dynamic_spec)),
+    itab_comp: $ => prec(1, choice($._static_itab_comp, $.dynamic_spec)),
 
     /**
      * Static variant of {@link itab_comp}: `{ comp_name[-sub_comp][{+off(len)}|{->attr}] }`
      */
-    _static_itab_comp: ($) =>
+    _static_itab_comp: $ =>
       choice($.identifier, $.component_selection, $.substring_access),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
-    local_updates_statement: ($) =>
+    local_updates_statement: $ =>
       seq(...gen.kws("set", "update", "task", "local"), "."),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMMIT.html
-    commit_work_statement: ($) =>
+    commit_work_statement: $ =>
       seq(
         ...gen.kws("commit", "work"),
         optional(seq(...gen.kws("and", "wait"))),
@@ -448,9 +445,9 @@ module.exports = grammar({
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPROLLBACK.html
-    rollback_work_statement: ($) => seq(...gen.kws("rollback", "work"), "."),
+    rollback_work_statement: $ => seq(...gen.kws("rollback", "work"), "."),
 
-    _constructor_result: ($) =>
+    _constructor_result: $ =>
       choice(
         "#", // inferred
         $.identifier, // explicit
@@ -469,7 +466,7 @@ module.exports = grammar({
      *
      * See: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_ASSIGNMENTS.html
      */
-    assignment: ($) =>
+    assignment: $ =>
       prec.right(
         seq(
           field("left", $.writable_expression),
@@ -497,10 +494,10 @@ module.exports = grammar({
         ),
       ),
 
-    transporting_no_fields_spec: ($) =>
+    transporting_no_fields_spec: $ =>
       seq(...gen.kws("transporting", "no", "fields")),
 
-    statement_block: ($) =>
+    statement_block: $ =>
       prec.right(
         repeat1(choice($.simple_statement, $.general_expression, $.docstring)),
       ),
@@ -513,11 +510,11 @@ module.exports = grammar({
 
     // lower precedence than dyn spec due to conflicts in sort ... by (comp or otab ???) ...
 
-    table_body_access: ($) =>
+    table_body_access: $ =>
       seq(field("table", $.identifier), token.immediate("[]")),
 
     // [[/][pos|POS_LOW|POS_HIGH](len)
-    output_position: ($) =>
+    output_position: $ =>
       prec.right(
         repeat1(
           choice(
@@ -551,11 +548,11 @@ module.exports = grammar({
      * ```
      * ... because it violates the 'not being inside a simple statement' rule.
      */
-    _empty_statement: ($) => token("."),
+    _empty_statement: $ => token("."),
 
-    _name: ($) => IDENTIFIER_REGEX,
+    _name: $ => IDENTIFIER_REGEX,
 
-    identifier: ($) => prec(-1, choice($._name, $._contextual_keyword)),
+    identifier: $ => prec(-1, choice($._name, $._contextual_keyword)),
 
     /**
      * ABAP does not reserve keywords whatsoever. Any keyword is valid to be used as an identifier.
@@ -582,7 +579,7 @@ module.exports = grammar({
      *
      * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _contextual_keyword: ($) =>
+    _contextual_keyword: $ =>
       prec(
         -1,
         choice(
@@ -604,17 +601,17 @@ module.exports = grammar({
         ),
       ),
 
-    _immediate_identifier: ($) =>
+    _immediate_identifier: $ =>
       alias(token.immediate(IDENTIFIER_REGEX), $.identifier),
 
-    number: ($) => NUMBER_REGEX,
-    _immediate_number: ($) => alias(token.immediate(NUMBER_REGEX), $.number),
-    _immediate_string_literal: ($) =>
+    number: $ => NUMBER_REGEX,
+    _immediate_number: $ => alias(token.immediate(NUMBER_REGEX), $.number),
+    _immediate_string_literal: $ =>
       alias(
         choice(token.immediate(/'[^']*'/), token.immediate(/`[^`]*`/)),
         $.string_literal,
       ),
 
-    string_literal: ($) => choice(/'[^']*'/, /`[^`]*`/),
+    string_literal: $ => choice(/'[^']*'/, /`[^`]*`/),
   },
 });

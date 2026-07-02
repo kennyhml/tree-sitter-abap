@@ -482,6 +482,8 @@
   )
 )
 
+; In new expressions, they are MOST LIKELY params. 
+; But in value expressions we can be sure its fields.
 (value_expression
   (argument_list
     (named_argument

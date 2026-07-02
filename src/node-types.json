@@ -11189,7 +11189,7 @@
           }
         ]
       },
-      "type": {
+      "result_type": {
         "multiple": false,
         "required": true,
         "types": [

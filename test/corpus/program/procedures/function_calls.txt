@@ -286,7 +286,7 @@ NEW cls( iref )->meth1( ).
 (source
   (function_call
     source: (new_expression
-      type: (identifier)
+      result_type: (identifier)
       (argument_list
         (positional_argument
           value: (identifier))))
