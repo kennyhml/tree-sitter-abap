@@ -3360,106 +3360,6 @@
         }
       ]
     },
-    "append_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_append"
-        },
-        {
-          "type": "FIELD",
-          "name": "lines",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_line_spec"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_to"
-        },
-        {
-          "type": "FIELD",
-          "name": "subject",
-          "content": {
-            "type": "SYMBOL",
-            "name": "general_expression"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "__append_sorted_by"
-              },
-              "named": true,
-              "value": "sorted_by"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "result",
-              "content": {
-                "type": "SYMBOL",
-                "name": "__append_result"
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "__append_sorted_by": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_sorted"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_by"
-        },
-        {
-          "type": "FIELD",
-          "name": "comp",
-          "content": {
-            "type": "SYMBOL",
-            "name": "itab_comp"
-          }
-        }
-      ]
-    },
-    "__append_result": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "assigning"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "reference_into"
-        }
-      ]
-    },
     "clear_statement": {
       "type": "SEQ",
       "members": [
@@ -11756,6 +11656,106 @@
         }
       ]
     },
+    "append_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_append"
+        },
+        {
+          "type": "FIELD",
+          "name": "lines",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_line_spec"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "__append_sorted_by"
+              },
+              "named": true,
+              "value": "sorted_by"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "result",
+              "content": {
+                "type": "SYMBOL",
+                "name": "__append_result"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__append_sorted_by": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_sorted"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_by"
+        },
+        {
+          "type": "FIELD",
+          "name": "comp",
+          "content": {
+            "type": "SYMBOL",
+            "name": "itab_comp"
+          }
+        }
+      ]
+    },
+    "__append_result": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "assigning"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reference_into"
+        }
+      ]
+    },
     "filter_expression": {
       "type": "SEQ",
       "members": [
@@ -20018,45 +20018,6 @@
         "value": "add"
       }
     },
-    "_kw_append": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[aA][pP][pP][eE][nN][dD]"
-        },
-        "named": false,
-        "value": "append"
-      }
-    },
-    "_kw_sorted": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[sS][oO][rR][tT][eE][dD]"
-        },
-        "named": false,
-        "value": "sorted"
-      }
-    },
-    "_kw_by": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[bB][yY]"
-        },
-        "named": false,
-        "value": "by"
-      }
-    },
     "_kw_clear": {
       "type": "FIELD",
       "name": "keyword",
@@ -20133,6 +20094,19 @@
         },
         "named": false,
         "value": "reference"
+      }
+    },
+    "_kw_by": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[bB][yY]"
+        },
+        "named": false,
+        "value": "by"
       }
     },
     "_kw_ascending": {
@@ -21526,6 +21500,19 @@
         "value": "non-unique"
       }
     },
+    "_kw_sorted": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[sS][oO][rR][tT][eE][dD]"
+        },
+        "named": false,
+        "value": "sorted"
+      }
+    },
     "_kw_hashed": {
       "type": "FIELD",
       "name": "keyword",
@@ -21719,6 +21706,19 @@
         },
         "named": false,
         "value": "mod"
+      }
+    },
+    "_kw_append": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[aA][pP][pP][eE][nN][dD]"
+        },
+        "named": false,
+        "value": "append"
       }
     },
     "_kw_groups": {
@@ -24193,7 +24193,15 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_static_itab_comp"
+            "name": "identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "component_selection"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "substring_access"
           },
           {
             "type": "SYMBOL",
@@ -24201,23 +24209,6 @@
           }
         ]
       }
-    },
-    "_static_itab_comp": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "component_selection"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "substring_access"
-        }
-      ]
     },
     "local_updates_statement": {
       "type": "SEQ",

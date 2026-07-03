@@ -1,0 +1,123 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Add expression
+=================================================================================
+APPEND rnd->get_next( ) TO itab.
+---
+
+(source
+  (append_statement
+    lines: (function_call
+      source: (identifier)
+      name: (identifier))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Sorted
+=================================================================================
+APPEND seats TO seats_tab SORTED BY seatsfree.
+---
+
+(source
+  (append_statement
+    lines: (identifier)
+    subject: (identifier)
+    (sorted_by
+      comp: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Sorted by attribute
+=================================================================================
+APPEND seats TO seats_tab SORTED BY foo->bar.
+---
+
+(source
+  (append_statement
+    lines: (identifier)
+    subject: (identifier)
+    (sorted_by
+      comp: (component_selection
+        subject: (identifier)
+        component: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Initial line
+=================================================================================
+APPEND INITIAL LINE TO itab ASSIGNING <line>. 
+---
+
+(source
+  (append_statement
+    lines: (initial_line)
+    subject: (identifier)
+    result: (assigning
+      target: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Initial line reference
+=================================================================================
+APPEND INITIAL LINE TO itab REFERENCE INTO data(line). 
+---
+
+(source
+  (append_statement
+    lines: (initial_line)
+    subject: (identifier)
+    result: (reference_into
+      work_area: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Lines of another table
+=================================================================================
+APPEND LINES OF itab2 TO itab1.
+---
+
+(source
+  (append_statement
+    lines: (lines_of
+      subject: (identifier))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Slice of another table
+=================================================================================
+APPEND LINES OF jtab FROM 1 TO 5 STEP 2 TO itab.
+---
+
+(source
+  (append_statement
+    lines: (lines_of
+      subject: (identifier)
+      (lines_from
+        index: (number))
+      (lines_to
+        index: (number))
+      (lines_step
+        size: (number)))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] With value expression
+=================================================================================
+APPEND VALUE #( comp1 = memberf-comp1 comp2 = memberf-comp2 comp3 = comp3 ) TO itf.
+---
+
+(source
+  (append_statement
+    lines: (value_expression
+      (argument_list
+        (named_argument
+          name: (identifier)
+          value: (component_selection
+            subject: (identifier)
+            component: (identifier)))
+        (named_argument
+          name: (identifier)
+          value: (component_selection
+            subject: (identifier)
+            component: (identifier)))
+        (named_argument
+          name: (identifier)
+          value: (identifier))))
+    subject: (identifier)))

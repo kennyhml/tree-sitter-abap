@@ -7,7 +7,17 @@
 ; tagged with a keyword field. That gives us more control, as some keywords 
 ; can overlap with other tokens. See the table_type capture for instance.
 ; Bonus points for not having to maintain a huge alternation of literals :)
-(_ keyword: _ @keyword)
+(_ keyword:  _ @keyword)
+
+; This is purely for better partial highlighting efforts during invalid
+; state of the code and not to be seen semantically correct.
+(ERROR _ @keyword
+  (#match? @keyword "^[a-zA-Z_][a-zA-Z0-9_]*$"))
+(ERROR (identifier) @variable)
+
+; Prevents the method name highlighting from flickering
+; as the node invalidates during typing.
+; (ERROR . "methods" . (identifier) @function.method )
 
 [
    (inline_comment)
@@ -114,13 +124,6 @@
     ]
   )
 )
-
-
-
-[ 
-  (itab_comp_spec)
-] comp: (identifier) @variable.member 
-
 
 ; The component of a struct access is always a variable.member even in a type context.
 (component_selection
@@ -505,6 +508,13 @@
     )
   )
 )
+
+(itab_comp/identifier) @variable.member
+(itab_comp/component_selection
+  subject: (identifier) @variable.member
+  selector: ["-" "->"]
+  component: (identifier) @variable.member ; for some reason the tests fail without...
+) 
 
 ; Only the top-level declaration is considered a type.
 ; Split by design to support both chained and explicit decls.
