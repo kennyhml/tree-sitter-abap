@@ -41,3 +41,10 @@ DELETE spfli_tab USING KEY skey WHERE cityfrom = 'FRANKFURT' and foo is initial.
 "                                                                ^ variable.member
 DELETE ADJACENT DUPLICATES FROM dokhl_tab COMPARING object. 
 "                                                   ^ variable.member
+INSERT LINES OF itab USING KEY skey INTO itab INDEX 1. 
+"               ^ variable
+"                              ^ constant
+"                                        ^ variable
+INSERT connection INTO TABLE connection_tab. 
+"      ^ variable
+"                            ^ variable

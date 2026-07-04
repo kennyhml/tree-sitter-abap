@@ -7,9 +7,9 @@ module.exports = {
   insert_statement: $ =>
     seq(
       gen.kw("insert"),
-      field("lines", $._line_spec),
+      field("line", $._line_spec),
       gen.kw("into"),
-      field("position", $.__insert_position),
+      $.__insert_position,
       optional(field("result", $.__insert_result)),
       ".",
     ),
@@ -23,11 +23,11 @@ module.exports = {
    */
   __insert_position: $ => choice($.into_table, $.at_index),
 
-  into_table: $ => seq(gen.kw("table"), field("table", $.general_expression)),
+  into_table: $ => seq(gen.kw("table"), field("subject", $.general_expression)),
 
   at_index: $ =>
     seq(
-      field("table", $.general_expression),
+      field("subject", $.general_expression),
       // can be ommitted inside a loop at statement
       optional(seq(gen.kw("index"), field("index", $.general_expression))),
     ),
@@ -40,4 +40,3 @@ module.exports = {
    */
   __insert_result: $ => choice($.assigning, $.reference_into),
 };
-
