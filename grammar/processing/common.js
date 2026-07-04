@@ -103,22 +103,6 @@ module.exports = {
       optional($.as_text),
     ),
 
-  /**
-   * Not sure if this needs to stay here or can be moved to sort statement.
-   *
-   * ... [BY {comp1[ASCENDING|DESCENDING] [AS TEXT]}
-   *         {comp2[ASCENDING|DESCENDING] [AS TEXT]}
-   *         ... ] }
-   *
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapsort_itab.html
-   */
-  sort_component_list: $ =>
-    prec.right(seq(gen.kw("by"), repeat1($.sort_component))),
-
-  // {comp1 [ASCENDING|DESCENDING] [AS TEXT]}
-  sort_component: $ =>
-    prec.right(seq(field("comp", $.itab_comp), optional($.sort_order))),
-
   as_text: _ => seq(...gen.kws("as", "text")),
 
   ascending: _ => gen.kw("ascending"),

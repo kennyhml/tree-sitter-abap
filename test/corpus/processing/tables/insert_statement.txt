@@ -6,9 +6,9 @@ INSERT connection INTO TABLE connection_tab.
 
 (source
   (insert_statement
-    lines: (identifier)
-    position: (into_table
-      table: (identifier))))
+    line: (identifier)
+    (into_table
+      subject: (identifier))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / Insert ] By index
@@ -18,9 +18,9 @@ INSERT `<b>Text</b>` INTO html INDEX idx + 1.
 
 (source
   (insert_statement
-    lines: (string_literal)
-    position: (at_index
-      table: (identifier)
+    line: (string_literal)
+    (at_index
+      subject: (identifier)
       index: (arithmetic_expression
         left: (identifier)
         right: (number)))))
@@ -36,7 +36,7 @@ INSERT VALUE #( carrid   = 'XXX'
 
 (source
   (insert_statement
-    lines: (value_expression
+    line: (value_expression
       (argument_list
         (named_argument
           name: (identifier)
@@ -50,8 +50,8 @@ INSERT VALUE #( carrid   = 'XXX'
         (named_argument
           name: (identifier)
           value: (string_literal))))
-    position: (into_table
-      table: (identifier))))
+    (into_table
+      subject: (identifier))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / Insert ] Initial line
@@ -61,9 +61,9 @@ INSERT INITIAL LINE INTO itab INDEX 1 ASSIGNING <line>.
 
 (source
   (insert_statement
-    lines: (initial_line)
-    position: (at_index
-      table: (identifier)
+    line: (initial_line)
+    (at_index
+      subject: (identifier)
       index: (number))
     result: (assigning
       target: (field_symbol
@@ -77,10 +77,10 @@ INSERT LINES OF itab USING KEY skey INTO itab INDEX 1.
 
 (source
   (insert_statement
-    lines: (lines_of
+    line: (lines_of
       subject: (identifier)
       (using_key
         name: (identifier)))
-    position: (at_index
-      table: (identifier)
+    (at_index
+      subject: (identifier)
       index: (number))))

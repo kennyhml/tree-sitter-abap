@@ -1680,7 +1680,7 @@
           }
         ]
       },
-      "table": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -2339,6 +2339,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "by_sort_component_list",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sort_component",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9137,7 +9163,7 @@
           }
         ]
       },
-      "lines": {
+      "line": {
         "multiple": false,
         "required": true,
         "types": [
@@ -9151,20 +9177,6 @@
           },
           {
             "type": "lines_of",
-            "named": true
-          }
-        ]
-      },
-      "position": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "at_index",
-            "named": true
-          },
-          {
-            "type": "into_table",
             "named": true
           }
         ]
@@ -9183,6 +9195,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "at_index",
+          "named": true
+        },
+        {
+          "type": "into_table",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9458,7 +9484,7 @@
           }
         ]
       },
-      "table": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -14812,32 +14838,6 @@
     }
   },
   {
-    "type": "sort_component_list",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "by",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "sort_component",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "sort_order",
     "named": true,
     "fields": {
@@ -14872,15 +14872,11 @@
     "named": true,
     "fields": {
       "keyword": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
             "type": "sort",
-            "named": false
-          },
-          {
-            "type": "stable",
             "named": false
           }
         ]
@@ -14909,11 +14905,15 @@
           "named": true
         },
         {
-          "type": "sort_component_list",
+          "type": "by_sort_component_list",
           "named": true
         },
         {
           "type": "sort_order",
+          "named": true
+        },
+        {
+          "type": "stable",
           "named": true
         }
       ]
@@ -15146,6 +15146,22 @@
           {
             "type": "receiving_expression",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "stable",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "stable",
+            "named": false
           }
         ]
       }

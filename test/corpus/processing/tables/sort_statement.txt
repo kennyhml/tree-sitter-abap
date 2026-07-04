@@ -1,26 +1,16 @@
-======
-[SORT-STATEMENT] Simple sort by primary key
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] Implicit primary key
+=================================================================================
 SORT carriers.
-SORT carriers ASCENDING.
-SORT carriers DESCENDING.
 ---
 
 (source
   (sort_statement
-    subject: (identifier))
-  (sort_statement
-    subject: (identifier)
-    (sort_order
-      direction: (ascending)))
-  (sort_statement
-    subject: (identifier)
-    (sort_order
-      direction: (descending))))
+    subject: (identifier)))
 
-======
-[SORT-STATEMENT] Sort as text
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] As text
+=================================================================================
 SORT text_tab AS TEXT. 
 ---
 
@@ -29,39 +19,39 @@ SORT text_tab AS TEXT.
     subject: (identifier)
     (as_text)))
 
-======
-[SORT-STATEMENT] Dynamic sort component
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] Dynamic sort component
+=================================================================================
 sort itab by (comp) ascending.
 ---
 
 (source
   (sort_statement
     subject: (identifier)
-    (sort_component_list
+    (by_sort_component_list
       (sort_component
         comp: (dynamic_spec
           value: (identifier))
         (sort_order
           direction: (ascending))))))
 
-======
-[SORT-STATEMENT] With predefined sort table
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] Dynamic sort table
+=================================================================================
 sort itab by (tab).
 ---
 
 (source
   (sort_statement
     subject: (identifier)
-    (sort_component_list
+    (by_sort_component_list
       (sort_component
         comp: (dynamic_spec
           value: (identifier))))))
 
-======
-[SORT-STATEMENT] Multi-level sort
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] Multi-level sort
+=================================================================================
 SORT itab DESCENDING BY land weight ASCENDING. 
 ---
 
@@ -70,7 +60,7 @@ SORT itab DESCENDING BY land weight ASCENDING.
     subject: (identifier)
     (sort_order
       direction: (descending))
-    (sort_component_list
+    (by_sort_component_list
       (sort_component
         comp: (identifier))
       (sort_component
@@ -78,24 +68,25 @@ SORT itab DESCENDING BY land weight ASCENDING.
         (sort_order
           direction: (ascending))))))
 
-======
-[SORT-STATEMENT] Stable sorting
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] Stable sort
+=================================================================================
 SORT flights STABLE BY cityfrom cityto.
 ---
 
 (source
   (sort_statement
     subject: (identifier)
-    (sort_component_list
+    (stable)
+    (by_sort_component_list
       (sort_component
         comp: (identifier))
       (sort_component
         comp: (identifier)))))
 
-======
-[SORT-STATEMENT] Sort by order table expression
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] Order table expression
+=================================================================================
 SORT dref->* BY VALUE #( FOR wa IN column_tab ( name = condense( to_upper( wa ) ) ) ). 
 ---
 
@@ -123,9 +114,9 @@ SORT dref->* BY VALUE #( FOR wa IN column_tab ( name = condense( to_upper( wa ) 
                           exporting: (positional_argument
                             value: (identifier)))))))))))))))
 
-======
-[SORT-STATEMENT] Sort by deep order table
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Sort ] Order table constructor
+=================================================================================
 SORT itab BY VALUE abap_sortorder_tab( 
     ( name       = 'TABLE_LINE' 
         descending = SWITCH #( direction 

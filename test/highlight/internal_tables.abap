@@ -48,3 +48,18 @@ INSERT LINES OF itab USING KEY skey INTO itab INDEX 1.
 INSERT connection INTO TABLE connection_tab. 
 "      ^ variable
 "                            ^ variable
+SORT carriers.
+"    ^ variable
+SORT itab DESCENDING. 
+"         ^ keyword
+SORT itab BY col1 ASCENDING col2 DESCENDING. 
+"            ^ variable.member
+"                           ^ variable.member
+SORT itab BY col1 col2-foo col3 (col4). 
+"            ^ variable.member
+"                 ^ variable.member
+"                          ^ variable.member
+"                                ^ variable
+SORT <itab> BY (order). 
+"     ^ variable
+"               ^ variable
