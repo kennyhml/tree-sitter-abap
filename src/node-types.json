@@ -9497,6 +9497,46 @@
     }
   },
   {
+    "type": "into_work_area",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "into",
+            "named": false
+          }
+        ]
+      },
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comparing",
+          "named": true
+        },
+        {
+          "type": "transporting_components",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "itab_comp_spec",
     "named": true,
     "fields": {
@@ -12917,46 +12957,6 @@
     }
   },
   {
-    "type": "read_into_work_area",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "into",
-            "named": false
-          }
-        ]
-      },
-      "transport_option": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "comparing",
-            "named": true
-          },
-          {
-            "type": "transporting_components",
-            "named": true
-          }
-        ]
-      },
-      "work_area": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "read_key_spec",
     "named": true,
     "fields": {
@@ -13025,7 +13025,7 @@
             "named": true
           },
           {
-            "type": "read_into_work_area",
+            "type": "into_work_area",
             "named": true
           },
           {

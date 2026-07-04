@@ -63,3 +63,21 @@ SORT itab BY col1 col2-foo col3 (col4).
 SORT <itab> BY (order). 
 "     ^ variable
 "               ^ variable
+READ TABLE itab WITH KEY table_line->parent = container into result.
+"                        ^ variable.member
+"                                             ^ variable
+"                                                            ^ variable
+READ TABLE spfli_tab into res WITH TABLE KEY primary_key COMPONENTS carrid = 'LH' connid = '400'.
+"                                            ^ constant
+"                                                                   ^ variable.member
+"                                                                                 ^ variable.member
+READ TABLE spfli_tab FROM spfli_key USING KEY city_key into result.
+"          ^ variable
+"                         ^ variable
+"                                             ^ constant
+READ TABLE itab INTO text_short WHERE table_line = text_long.
+"                                     ^ variable.member
+READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING foo bar baz.
+"                                                        ^ variable.member
+"                                                            ^ variable.member
+"                                                                ^ variable.member

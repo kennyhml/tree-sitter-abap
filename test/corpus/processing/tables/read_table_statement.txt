@@ -1,0 +1,321 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Free key read
+=================================================================================
+READ TABLE itab WITH KEY table_line->parent = container into result.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (component_selection
+            subject: (identifier)
+            component: (identifier))
+          value: (identifier))))
+    result: (into_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Table key read
+=================================================================================
+READ TABLE spfli_tab 
+           WITH TABLE KEY primary_key 
+                COMPONENTS carrid = 'LH' connid = '400' 
+           ASSIGNING FIELD-SYMBOL(<spfli>).
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (with_table_key
+      name: (identifier)
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))))
+    result: (assigning
+      target: (declaration_expression
+        name: (field_symbol
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Assigning field-symbol
+=================================================================================
+READ TABLE itab WITH KEY foo = bar ASSIGNING <fs>.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (identifier))))
+    result: (assigning
+      target: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Reference result
+=================================================================================
+READ TABLE itab WITH KEY foo = bar reference into data(result).
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (identifier))))
+    result: (reference_into
+      work_area: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Transporting no fields
+=================================================================================
+READ TABLE itab WITH KEY foo = bar TRANSPORTING NO FIELDS.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (identifier))))
+    result: (transporting_no_fields_spec)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Secondary key read
+=================================================================================
+READ TABLE itab WITH KEY skey COMPONENTS table_line = 10 into result.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (with_table_key
+      name: (identifier)
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (number))))
+    result: (into_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] From work area
+=================================================================================
+READ TABLE spfli_tab FROM spfli_key into result.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))
+    result: (into_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] From work area with key
+=================================================================================
+READ TABLE spfli_tab FROM spfli_key USING KEY city_key into result.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier)
+      (using_key
+        name: (identifier)))
+    result: (into_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Binary search
+=================================================================================
+READ TABLE sflight_tab 
+     WITH KEY carrid = 'LH' connid = '400' fldate = '20240627' 
+     BINARY SEARCH 
+     INTO result.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))
+        (binary_search)))
+    result: (into_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Where condition
+=================================================================================
+READ TABLE itab INTO text_short WHERE table_line = text_long.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    result: (into_work_area
+      work_area: (identifier))
+    (itab_lines
+      (where_condition
+        condition: (comparison_expression
+          left: (identifier)
+          right: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Dynamic where cond
+=================================================================================
+READ TABLE itab INTO DATA(wa)  WHERE (where_cond). 
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    result: (into_work_area
+      work_area: (declaration_expression
+        name: (identifier)))
+    (itab_lines
+      (where_condition
+        condition: (dynamic_spec
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Where cond with key
+=================================================================================
+READ TABLE itab 
+     ASSIGNING FIELD-SYMBOL(<fs2>) 
+     USING KEY skey 
+     WHERE table_line > 6. 
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    result: (assigning
+      target: (declaration_expression
+        name: (field_symbol
+          name: (identifier))))
+    (itab_lines
+      (using_key
+        name: (identifier))
+      (where_condition
+        condition: (comparison_expression
+          left: (identifier)
+          right: (number))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Transporting specific fields
+=================================================================================
+READ TABLE sflight_tab 
+       INDEX sy-index 
+       INTO sflight_wa TRANSPORTING carrid 
+                                    connid 
+                                    fldate 
+                                    seatsocc. 
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (index
+      index: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    result: (into_work_area
+      work_area: (identifier)
+      (transporting_components
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Transporting all fields
+=================================================================================
+READ TABLE sflight_tab INDEX 1 INTO sflight_wa TRANSPORTING ALL FIELDS. 
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (index
+      index: (number))
+    result: (into_work_area
+      work_area: (identifier)
+      (transporting_components
+        (all_fields)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing selected fields
+=================================================================================
+READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING foo bar baz.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (index
+      index: (number))
+    result: (into_work_area
+      work_area: (identifier)
+      (comparing
+        (identifier)
+        (identifier)
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing all fields
+=================================================================================
+READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING ALL FIELDS.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (index
+      index: (number))
+    result: (into_work_area
+      work_area: (identifier)
+      (comparing
+        (all_fields)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing no fields
+=================================================================================
+READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING NO FIELDS.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (index
+      index: (number))
+    result: (into_work_area
+      work_area: (identifier)
+      (comparing
+        (no_fields)))))
