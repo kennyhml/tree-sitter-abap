@@ -39,12 +39,11 @@ FINAL(dref) = REF #( itab[ guid = my_guid ] default new #( guid = my_guid ) ).
     right: (ref_expression
       subject: (table_expression
         subject: (identifier)
-        (itab_table_key_spec
-          (search_key_components_spec
-            components: (itab_comp_spec_list
-              (itab_comp_spec
-                comp: (identifier)
-                value: (identifier))))))
+        (with_table_key
+          (key_component_list
+            (itab_comp_spec
+              comp: (identifier)
+              value: (identifier)))))
       default: (new_expression
         (argument_list
           (named_argument

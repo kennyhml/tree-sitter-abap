@@ -16,12 +16,11 @@ itab[ field = 'AAA'  ]-value = 10.
     (component_selection
       (table_expression
         (identifier)
-        (itab_table_key_spec
-          (search_key_components_spec
-            (itab_comp_spec_list
-              (itab_comp_spec
-                (identifier)
-                (string_literal))))))
+        (with_table_key
+          (key_component_list
+            (itab_comp_spec
+              (identifier)
+              (string_literal)))))
       (identifier))
     (number)))
 

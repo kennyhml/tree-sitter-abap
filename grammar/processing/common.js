@@ -31,11 +31,11 @@ module.exports = {
       field(
         "condition",
         choice(
-          $._logical_expression,
+          $._member_logical_expression,
 
           // statically specified logical expression log_exp must be placed in parenthese (table iterations)
           // The parantheses here could cause a conflict with logical expressions, so they need a higher precedence.
-          prec(2, gen.parenthesized($._logical_expression)),
+          prec(2, gen.parenthesized($._member_logical_expression)),
 
           // dynamic where clause
           $.dynamic_spec,
@@ -130,11 +130,11 @@ module.exports = {
    *
    * ... INDEX idx [USING KEY key] ...
    */
-  itab_index_spec: $ =>
+  index: $ =>
     seq(
       gen.kw("index"),
       field("index", $.numeric_expression),
-      optional(field("key", $.using_key)),
+      optional($.using_key),
     ),
 
   /**
@@ -145,11 +145,11 @@ module.exports = {
    * Used in, for example:
    * {@link delete_itab_key_spec} @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_KEY.html
    */
-  itab_work_area_spec: $ =>
+  from_work_area: $ =>
     seq(
       gen.kw("from"),
       field("work_area", $.general_expression),
-      optional(field("key", $.using_key)),
+      optional($.using_key),
     ),
 
   /**
@@ -162,27 +162,25 @@ module.exports = {
    *
    * Alternative to {@link itab_work_area_spec}
    */
-  itab_table_key_spec: $ =>
+  with_table_key: $ =>
     seq(
       optional(
         seq(
           ...gen.kws(optional("with"), optional("table"), "key"),
-          optional(field("key_name", choice($.identifier, $.dynamic_spec))),
+          optional(field("name", choice($.identifier, $.dynamic_spec))),
         ),
       ),
-      $.search_key_components_spec,
+      $.key_component_list,
     ),
 
   initial_line: $ => seq(...gen.kws("initial", "line")),
 
-  search_key_components_spec: $ =>
+  key_component_list: $ =>
     seq(
       optional(gen.kw("components")), // can be omitted
-      field("components", $.itab_comp_spec_list),
+      prec.right(repeat1($.itab_comp_spec)),
       optional($.binary_search),
     ),
-
-  itab_comp_spec_list: $ => prec.right(repeat1($.itab_comp_spec)),
 
   itab_comp_spec: $ =>
     seq(field("comp", $.itab_comp), "=", field("value", $.general_expression)),
@@ -194,17 +192,11 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DUPLICATES.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_TRANSPORT_OPTIONS.html
    */
-  comparing_fields_spec: $ =>
+  comparing: $ =>
     seq(
       gen.kw("comparing"),
-      choice(
-        $.all_fields,
-        $.no_fields,
-        field("components", $.itab_component_list),
-      ),
+      choice($.all_fields, $.no_fields, prec.right(repeat1($.itab_comp))),
     ),
-
-  itab_component_list: $ => prec.right(repeat1($.itab_comp)),
 
   /**
    * Specification of the processing mode (byte | character) for various statements.

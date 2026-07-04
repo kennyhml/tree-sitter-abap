@@ -15,10 +15,6 @@
   (#match? @keyword "^[a-zA-Z_][a-zA-Z0-9_]*$"))
 (ERROR (identifier) @variable)
 
-; Prevents the method name highlighting from flickering
-; as the node invalidates during typing.
-; (ERROR . "methods" . (identifier) @function.method )
-
 [
    (inline_comment)
    (line_comment)
@@ -82,6 +78,7 @@
 (field_symbol name: (identifier) @variable )
 (tables_declaration (identifier) @variable )
 
+
 (declaration_expression (identifier) @variable )
 (data_declaration 
   . (data_spec name: (identifier) @variable )
@@ -144,10 +141,24 @@
   selector: "-"
 )
 
+(table_key name: (identifier) @constant )
+(using_key name: (identifier) @constant )
+(using_key name: (identifier) @constant.builtin (#match? @constant.builtin "primary_key") )
+(using_loop_key "loop_key" @constant.builtin )
+(with_table_key name: (identifier) @constant )
+
 (key_components (identifier) @variable.member )
 (mapping (identifier) @variable.member )
 (lookup_mapping (identifier) @variable.member )
 (except_list (identifier) @variable.member )
+
+
+(where_condition
+  (comparison_expression
+    . (identifier) @variable.member
+  )
+)
+
 
 ; Parameter identifiers
 (named_argument name: (identifier) @variable.parameter )
@@ -159,8 +170,6 @@
 (exception_mapping name: (identifier) @variable.parameter )
 (exception_mapping name: (identifier) @variable.parameter.builtin (#eq? @variable.parameter.builtin "others") )
 
-(table_key name: (identifier) @variable.key )
-(using_key name: (identifier) @variable.key )
 
 (exceptions (identifier) @variable.parameter )
 (raising_exception exception: (identifier) @variable.parameter )

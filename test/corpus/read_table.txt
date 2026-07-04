@@ -7,12 +7,11 @@ READ TABLE itab WITH KEY table_line = 10 TRANSPORTING NO FIELDS.
 (source
   (read_table_statement
     (identifier)
-    (itab_table_key_spec
-      (search_key_components_spec
-        (itab_comp_spec_list
-          (itab_comp_spec
-            (identifier)
-            (number)))))
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          (identifier)
+          (number))))
     (transporting_no_fields_spec)))
 
 ======
@@ -25,13 +24,12 @@ READ TABLE itab WITH KEY skey COMPONENTS table_line = 10
 (source
   (read_table_statement
     (identifier)
-    (itab_table_key_spec
+    (with_table_key
       (identifier)
-      (search_key_components_spec
-        (itab_comp_spec_list
-          (itab_comp_spec
-            (identifier)
-            (number)))))
+      (key_component_list
+        (itab_comp_spec
+          (identifier)
+          (number))))
     (transporting_no_fields_spec)))
 
 ======
@@ -44,7 +42,7 @@ READ TABLE spfli_tab FROM spfli_key
 (source
   (read_table_statement
     (identifier)
-    (itab_work_area_spec
+    (from_work_area
       (identifier))
     (assigning
       (declaration_expression
@@ -61,7 +59,7 @@ READ TABLE spfli_tab FROM spfli_key USING KEY city_key
 (source
   (read_table_statement
     (identifier)
-    (itab_work_area_spec
+    (from_work_area
       (identifier)
       (using_key
         (identifier)))
@@ -80,14 +78,13 @@ READ TABLE html_viewer_tab
 (source
   (read_table_statement
     (identifier)
-    (itab_table_key_spec
-      (search_key_components_spec
-        (itab_comp_spec_list
-          (itab_comp_spec
-            (component_selection
-              (identifier)
-              (identifier))
-            (identifier)))))
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          (component_selection
+            (identifier)
+            (identifier))
+          (identifier))))
     (read_into_work_area
       (identifier))))
 
@@ -103,18 +100,17 @@ READ TABLE sflight_tab
 (source
   (read_table_statement
     (identifier)
-    (itab_table_key_spec
-      (search_key_components_spec
-        (itab_comp_spec_list
-          (itab_comp_spec
-            (identifier)
-            (string_literal))
-          (itab_comp_spec
-            (identifier)
-            (string_literal))
-          (itab_comp_spec
-            (identifier)
-            (string_literal)))
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          (identifier)
+          (string_literal))
+        (itab_comp_spec
+          (identifier)
+          (string_literal))
+        (itab_comp_spec
+          (identifier)
+          (string_literal))
         (binary_search)))
     (assigning
       (declaration_expression
@@ -154,18 +150,16 @@ READ TABLE sflight_tab
 (source
   (read_table_statement
     (identifier)
-    (itab_index_spec
+    (index
       (component_selection
         (identifier)
         (identifier)))
     (read_into_work_area
       (identifier)
-      (comparing_fields_spec
-        (itab_component_list
-          (identifier)))
+      (comparing
+        (identifier))
       (transporting_components
-        (itab_component_list
-          (identifier)
-          (identifier)
-          (identifier)
-          (identifier))))))
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)))))

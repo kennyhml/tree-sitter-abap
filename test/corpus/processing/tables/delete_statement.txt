@@ -1,0 +1,191 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] With where clause
+=================================================================================
+DELETE itab WHERE table_line IS INITIAL.
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (itab_lines
+      (where_condition
+        condition: (initial_predicate
+          subject: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] With index key
+=================================================================================
+DELETE itab INDEX 1 USING KEY skey.
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (index
+      index: (number)
+      (using_key
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Implicit loop deletion
+=================================================================================
+DELETE itab.
+---
+
+(source
+  (delete_statement
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Explicit loop key
+=================================================================================
+DELETE itab using key loop_key. 
+
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (using_loop_key)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] From work area
+=================================================================================
+DELETE TABLE scarr_tab FROM wa.
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] With table key
+=================================================================================
+DELETE TABLE scarr_tab WITH TABLE KEY carrid = carrid.
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (with_table_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Specific table key
+=================================================================================
+DELETE TABLE spfli_tab WITH TABLE KEY skey 
+                        COMPONENTS cityfrom = 'FRANKFURT' 
+                                 cityto   = 'NEW YORK'.
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (with_table_key
+      name: (identifier)
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Slice
+=================================================================================
+DELETE itab FROM 1 TO 8 STEP 2. 
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (itab_lines
+      (lines_from
+        index: (number))
+      (lines_to
+        index: (number))
+      (lines_step
+        size: (number)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Where condititon with key
+=================================================================================
+DELETE spfli_tab USING KEY skey WHERE cityfrom = 'FRANKFURT' AND 
+                                      cityto   = 'NEW YORK'.
+---
+
+(source
+  (delete_statement
+    (identifier)
+    (itab_lines
+      (using_key
+        (identifier))
+      (where_condition
+        (logical_expression
+          (comparison_expression
+            (identifier)
+            (string_literal))
+          (comparison_expression
+            (identifier)
+            (string_literal)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Dynamic where clause
+=================================================================================
+DELETE spfli_tab USING KEY skey WHERE (cond).
+---
+
+(source
+  (delete_statement
+    subject: (identifier)
+    (itab_lines
+      (using_key
+        name: (identifier))
+      (where_condition
+        condition: (dynamic_spec
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Adjacent duplicates
+=================================================================================
+DELETE ADJACENT DUPLICATES FROM itab USING KEY skey.
+---
+
+(source
+  (delete_statement
+    (adjacent_duplicates_from)
+    subject: (identifier)
+    (using_key
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Duplicate comparison
+=================================================================================
+DELETE ADJACENT DUPLICATES FROM dokhl_tab COMPARING object. 
+---
+
+(source
+  (delete_statement
+    (adjacent_duplicates_from)
+    subject: (identifier)
+    (comparing
+      (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / DELETE ] Compare all fields
+=================================================================================
+DELETE ADJACENT DUPLICATES FROM dokhl_tab COMPARING ALL FIELDS. 
+---
+
+(source
+  (delete_statement
+    (adjacent_duplicates_from)
+    subject: (identifier)
+    (comparing
+      (all_fields))))

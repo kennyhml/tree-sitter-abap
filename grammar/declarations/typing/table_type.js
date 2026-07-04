@@ -34,7 +34,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
    */
-  with_table_key: $ =>
+  with_key: $ =>
     prec.right(seq(gen.kw("with"), choice($.empty_key, $.table_key))),
 
   /**
@@ -123,7 +123,7 @@ module.exports = {
   __table_type_addition: $ =>
     choice(
       $.with_header_line,
-      $.with_table_key,
+      $.with_key,
       $.initial_value,
       $.read_only,
       $.initial_size,

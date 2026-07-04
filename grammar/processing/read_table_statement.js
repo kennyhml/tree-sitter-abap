@@ -19,12 +19,7 @@ module.exports = {
     ),
 
   __table_read_variant: $ =>
-    choice(
-      $.itab_index_spec,
-      $.itab_lines,
-      $.itab_table_key_spec,
-      $.itab_work_area_spec,
-    ),
+    choice($.index, $.itab_lines, $.with_table_key, $.from_work_area),
 
   /**
    * ... { INTO wa [transport_options] }
@@ -48,7 +43,7 @@ module.exports = {
   transporting_components: $ =>
     seq(
       gen.kw("transporting"),
-      choice($.all_fields, field("components", $.itab_component_list)),
+      choice($.all_fields, prec.right(repeat1($.itab_comp))),
     ),
 
   // { INTO wa [transport_options] }
@@ -60,6 +55,5 @@ module.exports = {
     ),
 
   __transport_options: $ =>
-    repeat1(choice($.comparing_fields_spec, $.transporting_components)),
+    repeat1(choice($.comparing, $.transporting_components)),
 };
-

@@ -19,3 +19,25 @@ APPEND INITIAL LINE TO foo-bar REFERENCE INTO(data).
 "                      ^ variable
 "                          ^ variable.member
 "                                             ^ variable
+DELETE itab WHERE foo IS INITIAL.
+"      ^ variable
+"                 ^ variable.member
+DELETE itab INDEX 1 USING KEY skey.
+"      ^ variable
+"                             ^ constant
+DELETE itab using key loop_key. 
+"                     ^ constant.builtin
+DELETE TABLE scarr_tab FROM wa.
+"            ^ variable
+"                           ^ variable
+DELETE TABLE scarr_tab WITH TABLE KEY carrid = carrid.
+"                                     ^ variable.member
+"                                              ^ variable
+DELETE TABLE spfli_tab WITH TABLE KEY skey COMPONENTS cityfrom = 'FRANKFURT'.
+"                                     ^ constant
+"                                                     ^ variable.member
+DELETE spfli_tab USING KEY skey WHERE cityfrom = 'FRANKFURT' and foo is initial.
+"                                     ^ variable.member
+"                                                                ^ variable.member
+DELETE ADJACENT DUPLICATES FROM dokhl_tab COMPARING object. 
+"                                                   ^ variable.member

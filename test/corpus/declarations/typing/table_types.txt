@@ -90,7 +90,7 @@ types foo type standard table of bar with default key.
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_table_key
+        (with_key
           (table_key
             (default_key)))))))
 
@@ -107,7 +107,7 @@ types foo type standard table of bar with empty key.
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_table_key
+        (with_key
           (empty_key))))))
 
 =================================================================================
@@ -137,7 +137,7 @@ types foo type sorted table of spfli with non-unique key carrid.
       typing: (table_type
         kind: (sorted_table)
         name: (identifier)
-        (with_table_key
+        (with_key
           (table_key
             unique: (non_unique)
             (key_components
@@ -156,7 +156,7 @@ types foo type sorted table of spfli with unique key carrid.
       typing: (table_type
         kind: (sorted_table)
         name: (identifier)
-        (with_table_key
+        (with_key
           (table_key
             unique: (unique)
             (key_components
@@ -190,7 +190,7 @@ types foo type hashed table of spfli with unique key carrid.
       typing: (table_type
         kind: (hashed_table)
         name: (identifier)
-        (with_table_key
+        (with_key
           (table_key
             unique: (unique)
             (key_components
@@ -209,7 +209,7 @@ types foo type standard table of bar with key primary_key components table_line.
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_table_key
+        (with_key
           (table_key
             name: (identifier)
             (key_components
@@ -231,14 +231,14 @@ types foo type table of bar
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_table_key
+        (with_key
           (table_key
             unique: (non_unique)
             name: (identifier)
             (key_components
               (identifier)
               (identifier))))
-        (with_table_key
+        (with_key
           (table_key
             unique: (non_unique)
             kind: (sorted)
@@ -246,7 +246,7 @@ types foo type table of bar
             (key_components
               (identifier)
               (identifier))))
-        (with_table_key
+        (with_key
           (table_key
             unique: (unique)
             kind: (hashed)

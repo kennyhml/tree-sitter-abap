@@ -108,14 +108,14 @@ types gtyt_std_tab1 type standard table of gtys_mystruct with empty key.
 types gtyt_std_tab5 type standard table of gtys_mystruct with key primary_key components table_line.
 "     ^ type                               
 "                                          ^ type                            
-"                                                                 ^ variable.key
+"                                                                 ^ constant
 "                                                                                        ^ variable.member
 types bar type table of foo with non-unique key primary_key components f1 with unique hashed key k2 components f2.
 "     ^ type                               
 "                       ^ type                            
-"                                               ^ variable.key
+"                                               ^ constant
 "                                                                      ^ variable.member
-"                                                                                                ^ variable.key
+"                                                                                                ^ constant
 types foo type any.
 "     ^ type
 "              ^ type.builtin

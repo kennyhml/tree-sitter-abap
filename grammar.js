@@ -7,7 +7,6 @@ const path = require("path");
  * @author Kendrick Hommel <kendrick.hommel@gmail.com>
  * @license MIT
  */
-
 const IDENTIFIER_REGEX = /[a-zA-Z_\/%][a-zA-Z\d_\/]*/;
 
 // ABAP does allow + and - before any number. However, allowing both inside the regex, we run
@@ -71,7 +70,6 @@ module.exports = grammar({
     $.data_object,
 
     $.general_expression,
-    $.predicate_expression,
     $.functional_expression,
     $.iteration_expression,
     $.writable_expression,
@@ -82,7 +80,6 @@ module.exports = grammar({
     $.itab_comp,
     $.numeric_expression,
     $.character_like_expression,
-    $.relational_expression,
   ],
 
   word: $ => $._name,
@@ -410,7 +407,7 @@ module.exports = grammar({
     /**
      * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_ITAB_LINE.html
      */
-    itab_line: $ => choice($.index_read, $.itab_table_key_spec),
+    itab_line: $ => choice($.index_read, $.with_table_key),
 
     /**
      * Index read variant of {@link itab_line}

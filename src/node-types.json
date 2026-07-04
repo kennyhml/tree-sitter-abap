@@ -188,7 +188,7 @@
         "named": true
       },
       {
-        "type": "itab_table_key_spec",
+        "type": "with_table_key",
         "named": true
       }
     ]
@@ -264,36 +264,6 @@
     ]
   },
   {
-    "type": "predicate_expression",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "assigned_predicate",
-        "named": true
-      },
-      {
-        "type": "bound_predicate",
-        "named": true
-      },
-      {
-        "type": "initial_predicate",
-        "named": true
-      },
-      {
-        "type": "instance_of_predicate",
-        "named": true
-      },
-      {
-        "type": "requested_predicate",
-        "named": true
-      },
-      {
-        "type": "supplied_predicate",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "receiving_expression",
     "named": true,
     "subtypes": [
@@ -303,20 +273,6 @@
       },
       {
         "type": "named_data_object",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "relational_expression",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "comparison_expression",
-        "named": true
-      },
-      {
-        "type": "predicate_expression",
         "named": true
       }
     ]
@@ -826,6 +782,30 @@
           {
             "type": "data_object",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "adjacent_duplicates_from",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "adjacent",
+            "named": false
+          },
+          {
+            "type": "duplicates",
+            "named": false
+          },
+          {
+            "type": "from",
+            "named": false
           }
         ]
       }
@@ -2262,6 +2242,10 @@
           {
             "type": "general_expression",
             "named": true
+          },
+          {
+            "type": "itab_comp",
+            "named": true
           }
         ]
       }
@@ -2400,6 +2384,26 @@
             "named": true
           },
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -2412,7 +2416,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -2670,7 +2678,27 @@
         "required": true,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
             "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
             "named": true
           },
           {
@@ -2682,7 +2710,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -3312,6 +3344,26 @@
         "required": true,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -3320,7 +3372,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -4033,19 +4089,9 @@
     }
   },
   {
-    "type": "comparing_fields_spec",
+    "type": "comparing",
     "named": true,
     "fields": {
-      "components": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "itab_component_list",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": false,
         "required": true,
@@ -4058,11 +4104,15 @@
       }
     },
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "all_fields",
+          "named": true
+        },
+        {
+          "type": "itab_comp",
           "named": true
         },
         {
@@ -4180,6 +4230,10 @@
         "types": [
           {
             "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "itab_comp",
             "named": true
           }
         ]
@@ -5710,103 +5764,17 @@
     }
   },
   {
-    "type": "delete_itab_duplicates_spec",
-    "named": true,
-    "fields": {
-      "comparing": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "comparing_fields_spec",
-            "named": true
-          }
-        ]
-      },
-      "key": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "using_key",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "adjacent",
-            "named": false
-          },
-          {
-            "type": "duplicates",
-            "named": false
-          },
-          {
-            "type": "from",
-            "named": false
-          }
-        ]
-      },
-      "subject": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "delete_itab_index_spec",
-    "named": true,
-    "fields": {
-      "key": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "using_loop_key_spec",
-            "named": true
-          }
-        ]
-      },
-      "subject": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "itab_index_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "delete_itab_key_spec",
+    "type": "delete_statement",
     "named": true,
     "fields": {
       "keyword": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "delete",
+            "named": false
+          },
           {
             "type": "table",
             "named": false
@@ -5814,90 +5782,50 @@
         ]
       },
       "subject": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "general_expression",
             "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "itab_table_key_spec",
-          "named": true
-        },
-        {
-          "type": "itab_work_area_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "delete_itab_lines_spec",
-    "named": true,
-    "fields": {
-      "lines": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "itab_lines",
-            "named": true
-          }
-        ]
-      },
-      "subject": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "delete_statement",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "delete",
-            "named": false
           }
         ]
       }
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "delete_itab_duplicates_spec",
+          "type": "adjacent_duplicates_from",
           "named": true
         },
         {
-          "type": "delete_itab_index_spec",
+          "type": "comparing",
           "named": true
         },
         {
-          "type": "delete_itab_key_spec",
+          "type": "from_work_area",
           "named": true
         },
         {
-          "type": "delete_itab_lines_spec",
+          "type": "index",
+          "named": true
+        },
+        {
+          "type": "itab_lines",
+          "named": true
+        },
+        {
+          "type": "using_key",
+          "named": true
+        },
+        {
+          "type": "using_loop_key",
+          "named": true
+        },
+        {
+          "type": "with_table_key",
           "named": true
         }
       ]
@@ -6325,6 +6253,26 @@
         "required": true,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -6333,7 +6281,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -7614,6 +7566,42 @@
     }
   },
   {
+    "type": "from_work_area",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "using_key",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "function_call",
     "named": true,
     "fields": {
@@ -8100,6 +8088,26 @@
         "required": true,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -8108,7 +8116,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -8786,6 +8798,42 @@
     }
   },
   {
+    "type": "index",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "index",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "using_key",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "index_into",
     "named": true,
     "fields": {
@@ -8949,6 +8997,10 @@
         "types": [
           {
             "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "itab_comp",
             "named": true
           }
         ]
@@ -9445,72 +9497,6 @@
     }
   },
   {
-    "type": "itab_comp_spec_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "itab_comp_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "itab_component_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "itab_comp",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "itab_index_spec",
-    "named": true,
-    "fields": {
-      "index": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "numeric_expression",
-            "named": true
-          }
-        ]
-      },
-      "key": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "using_key",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "index",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "itab_lines",
     "named": true,
     "fields": {},
@@ -9542,90 +9528,6 @@
     }
   },
   {
-    "type": "itab_table_key_spec",
-    "named": true,
-    "fields": {
-      "key_name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "dynamic_spec",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "key",
-            "named": false
-          },
-          {
-            "type": "table",
-            "named": false
-          },
-          {
-            "type": "with",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "search_key_components_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "itab_work_area_spec",
-    "named": true,
-    "fields": {
-      "key": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "using_key",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "from",
-            "named": false
-          }
-        ]
-      },
-      "work_area": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "iteration_condition",
     "named": true,
     "fields": {},
@@ -9639,6 +9541,36 @@
         },
         {
           "type": "while",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "key_component_list",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "components",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_search",
+          "named": true
+        },
+        {
+          "type": "itab_comp_spec",
           "named": true
         }
       ]
@@ -10109,6 +10041,26 @@
         "required": false,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -10117,7 +10069,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -10127,6 +10083,26 @@
         "required": false,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -10135,7 +10111,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -10145,6 +10125,26 @@
         "required": false,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -10153,7 +10153,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -12065,6 +12069,26 @@
           "named": true
         },
         {
+          "type": "assigned_predicate",
+          "named": true
+        },
+        {
+          "type": "bound_predicate",
+          "named": true
+        },
+        {
+          "type": "comparison_expression",
+          "named": true
+        },
+        {
+          "type": "initial_predicate",
+          "named": true
+        },
+        {
+          "type": "instance_of_predicate",
+          "named": true
+        },
+        {
           "type": "logical_expression",
           "named": true
         },
@@ -12073,7 +12097,11 @@
           "named": true
         },
         {
-          "type": "relational_expression",
+          "type": "requested_predicate",
+          "named": true
+        },
+        {
+          "type": "supplied_predicate",
           "named": true
         }
       ]
@@ -12881,7 +12909,7 @@
         "required": false,
         "types": [
           {
-            "type": "comparing_fields_spec",
+            "type": "comparing",
             "named": true
           },
           {
@@ -13000,7 +13028,11 @@
       "required": true,
       "types": [
         {
-          "type": "itab_index_spec",
+          "type": "from_work_area",
+          "named": true
+        },
+        {
+          "type": "index",
           "named": true
         },
         {
@@ -13008,11 +13040,7 @@
           "named": true
         },
         {
-          "type": "itab_table_key_spec",
-          "named": true
-        },
-        {
-          "type": "itab_work_area_spec",
+          "type": "with_table_key",
           "named": true
         }
       ]
@@ -14103,42 +14131,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "search_key_components_spec",
-    "named": true,
-    "fields": {
-      "components": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "itab_comp_spec_list",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "components",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "binary_search",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -16313,7 +16305,7 @@
           "named": true
         },
         {
-          "type": "with_table_key",
+          "type": "with_key",
           "named": true
         }
       ]
@@ -16507,16 +16499,6 @@
     "type": "transporting_components",
     "named": true,
     "fields": {
-      "components": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "itab_component_list",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": false,
         "required": true,
@@ -16529,11 +16511,15 @@
       }
     },
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "all_fields",
+          "named": true
+        },
+        {
+          "type": "itab_comp",
           "named": true
         }
       ]
@@ -16851,6 +16837,26 @@
         "required": true,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -16859,7 +16865,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -16933,7 +16943,7 @@
     }
   },
   {
-    "type": "using_loop_key_spec",
+    "type": "using_loop_key",
     "named": true,
     "fields": {
       "keyword": {
@@ -16945,18 +16955,12 @@
             "named": false
           },
           {
+            "type": "loop_key",
+            "named": false
+          },
+          {
             "type": "using",
             "named": false
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
           }
         ]
       }
@@ -17165,6 +17169,14 @@
             "named": false
           },
           {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
             "type": "dynamic_condition_tab",
             "named": true
           },
@@ -17173,15 +17185,15 @@
             "named": true
           },
           {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
           {
             "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "relational_expression",
             "named": true
           }
         ]
@@ -17207,6 +17219,26 @@
         "required": true,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -17215,7 +17247,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -17251,6 +17287,26 @@
         "required": true,
         "types": [
           {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
             "type": "logical_expression",
             "named": true
           },
@@ -17259,7 +17315,11 @@
             "named": true
           },
           {
-            "type": "relational_expression",
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
             "named": true
           }
         ]
@@ -17331,7 +17391,7 @@
     }
   },
   {
-    "type": "with_table_key",
+    "type": "with_key",
     "named": true,
     "fields": {
       "keyword": {
@@ -17355,6 +17415,54 @@
         },
         {
           "type": "table_key",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "with_table_key",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "key",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "key_component_list",
           "named": true
         }
       ]
@@ -18307,6 +18415,10 @@
   },
   {
     "type": "loop",
+    "named": false
+  },
+  {
+    "type": "loop_key",
     "named": false
   },
   {
