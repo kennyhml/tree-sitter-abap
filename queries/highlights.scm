@@ -150,6 +150,7 @@
 (index_key name: (identifier) @constant )
 
 (key_components (identifier) @variable.member )
+(group_key_component field: (identifier) @variable.member )
 (mapping (identifier) @variable.member )
 (lookup_mapping (identifier) @variable.member )
 (except_list (identifier) @variable.member )

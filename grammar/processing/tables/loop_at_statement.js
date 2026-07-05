@@ -139,4 +139,3 @@ module.exports = {
       $.transporting_no_fields_spec,
     ),
 };
-

@@ -130,3 +130,37 @@ VALUE #( FOR GROUPS grp OF wa IN itab GROUP BY wa let foo = grp-carrid in ( foo 
 "                                                     ^ variable
 "                                                           ^ variable
 "                                                               ^ variable.member
+loop at requests into request.
+"       ^ variable
+endloop.
+
+LOOP AT scarr_tab ASSIGNING <scarr_line> WHERE carrname CP name. 
+"       ^ variable
+"                                              ^ variable.member
+"                                                       ^ keyword.operator
+"                                                          ^ variable
+ENDLOOP.
+
+LOOP AT itab INTO FINAL(number2) USING KEY key. 
+"                                          ^ constant
+ENDLOOP. 
+
+LOOP AT itab ASSIGNING FIELD-SYMBOL(<fs>). 
+  AT NEW comp1.
+"        ^ variable.member
+  ENDAT.
+  AT END OF comp1.
+"           ^ variable.member
+  ENDAT.
+ENDLOOP. 
+
+LOOP AT itab ASSIGNING FIELD-SYMBOL(<wa>) 
+             GROUP BY ( key1 = <wa>-key1 key2 = <wa>-key2 ). 
+"                       ^ variable.member
+"                                        ^ variable.member
+ENDLOOP. 
+
+LOOP AT GROUP key ASSIGNING <members> WHERE cityfrom = 'NEW YORK'. 
+"             ^ variable
+"                                           ^ variable.member
+ENDLOOP. 
