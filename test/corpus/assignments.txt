@@ -16,7 +16,7 @@ itab[ field = 'AAA'  ]-value = 10.
     (component_selection
       (table_expression
         (identifier)
-        (with_table_key
+        (free_key
           (key_component_list
             (itab_comp_spec
               (identifier)

@@ -19,7 +19,7 @@ module.exports = {
     ),
 
   __table_read_variant: $ =>
-    choice($.index, $.itab_lines, $.with_table_key, $.from_work_area),
+    choice($.index, $.itab_lines, $.free_key, $.table_key, $.from_work_area),
 
   /**
    * ... { INTO wa [transport_options] }

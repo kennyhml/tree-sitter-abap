@@ -6,7 +6,7 @@ my_string+10.
 
 (source
   (substring_access
-    value: (identifier)
+    subject: (identifier)
     offset: (number)))
 
 ======
@@ -17,7 +17,7 @@ my_string+10.
 
 (source
   (substring_access
-    value: (identifier)
+    subject: (identifier)
     offset: (number)))
 
 ======
@@ -28,7 +28,7 @@ my_string(10).
 
 (source
   (substring_access
-    value: (identifier)
+    subject: (identifier)
     length: (number)))
 
 ======
@@ -39,7 +39,7 @@ my_string(foo).
 
 (source
   (substring_access
-    value: (identifier)
+    subject: (identifier)
     length: (identifier)))
 
 ======
@@ -50,7 +50,7 @@ my_string+off(len).
 
 (source
   (substring_access
-    value: (identifier)
+    subject: (identifier)
     offset: (identifier)
     length: (identifier)))
 
@@ -62,7 +62,7 @@ ref->*+10(length).
 
 (source
   (substring_access
-    value: (dereference_expression
+    subject: (dereference_expression
       subject: (identifier))
     offset: (number)
     length: (identifier)))
@@ -75,7 +75,7 @@ ref->*+10(length).
 
 (source
   (substring_access
-    value: (field_symbol
+    subject: (field_symbol
       name: (identifier))
     offset: (identifier)
     length: (number)))
@@ -88,7 +88,7 @@ test-var1(10)
 
 (source
   (substring_access
-    value: (component_selection
+    subject: (component_selection
       subject: (identifier)
       component: (identifier))
     length: (number)))

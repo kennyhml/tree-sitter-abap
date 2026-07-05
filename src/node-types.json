@@ -180,20 +180,6 @@
     ]
   },
   {
-    "type": "itab_line",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "index_read",
-        "named": true
-      },
-      {
-        "type": "with_table_key",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "iteration_expression",
     "named": true,
     "subtypes": [
@@ -5660,6 +5646,32 @@
     }
   },
   {
+    "type": "default_value",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "default",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "default_value_spec",
     "named": true,
     "fields": {
@@ -5843,15 +5855,15 @@
           "named": true
         },
         {
+          "type": "table_key",
+          "named": true
+        },
+        {
           "type": "using_key",
           "named": true
         },
         {
           "type": "using_loop_key",
-          "named": true
-        },
-        {
-          "type": "with_table_key",
           "named": true
         }
       ]
@@ -7540,6 +7552,50 @@
     }
   },
   {
+    "type": "free_key",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "key",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "key_component_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "free_statement",
     "named": true,
     "fields": {
@@ -8890,6 +8946,36 @@
     }
   },
   {
+    "type": "index_key",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "key",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "index_read",
     "named": true,
     "fields": {
@@ -8899,16 +8985,6 @@
         "types": [
           {
             "type": "numeric_expression",
-            "named": true
-          }
-        ]
-      },
-      "key": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "read_key_spec",
             "named": true
           }
         ]
@@ -8923,6 +8999,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "index_key",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -12957,32 +13043,6 @@
     }
   },
   {
-    "type": "read_key_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "key",
-            "named": false
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "read_only",
     "named": true,
     "fields": {
@@ -13054,6 +13114,10 @@
       "required": true,
       "types": [
         {
+          "type": "free_key",
+          "named": true
+        },
+        {
           "type": "from_work_area",
           "named": true
         },
@@ -13066,7 +13130,7 @@
           "named": true
         },
         {
-          "type": "with_table_key",
+          "type": "table_key",
           "named": true
         }
       ]
@@ -13190,28 +13254,10 @@
     "type": "ref_expression",
     "named": true,
     "fields": {
-      "default": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "default",
-            "named": false
-          },
-          {
-            "type": "optional",
-            "named": false
-          },
           {
             "type": "ref",
             "named": false
@@ -15727,7 +15773,7 @@
           }
         ]
       },
-      "value": {
+      "subject": {
         "multiple": false,
         "required": true,
         "types": [
@@ -16051,11 +16097,27 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "itab_line",
+          "type": "default_value",
+          "named": true
+        },
+        {
+          "type": "free_key",
+          "named": true
+        },
+        {
+          "type": "index_read",
+          "named": true
+        },
+        {
+          "type": "optional",
+          "named": true
+        },
+        {
+          "type": "table_key",
           "named": true
         }
       ]
@@ -16137,6 +16199,54 @@
   },
   {
     "type": "table_key",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "key",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "key_component_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_key_spec",
     "named": true,
     "fields": {
       "keyword": {
@@ -17056,28 +17166,10 @@
     "type": "value_expression",
     "named": true,
     "fields": {
-      "default": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "default",
-            "named": false
-          },
-          {
-            "type": "optional",
-            "named": false
-          },
           {
             "type": "value",
             "named": false
@@ -17117,6 +17209,10 @@
         },
         {
           "type": "table_constructor",
+          "named": true
+        },
+        {
+          "type": "table_expression",
           "named": true
         }
       ]
@@ -17430,55 +17526,7 @@
           "named": true
         },
         {
-          "type": "table_key",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "with_table_key",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "key",
-            "named": false
-          },
-          {
-            "type": "table",
-            "named": false
-          },
-          {
-            "type": "with",
-            "named": false
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "dynamic_spec",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "key_component_list",
+          "type": "table_key_spec",
           "named": true
         }
       ]

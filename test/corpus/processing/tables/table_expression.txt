@@ -1,0 +1,282 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Simple index
+=================================================================================
+itab[ 3 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (index_read
+      index: (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Deep component
+=================================================================================
+itab[ inner-carrid = 'AAA' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (free_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (component_selection
+            subject: (identifier)
+            component: (identifier))
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Object component
+=================================================================================
+itab[ obj->carrid = 'AAA' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (free_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (component_selection
+            subject: (identifier)
+            component: (identifier))
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Substring component
+=================================================================================
+itab[ field1+off(5) = 'AABBC' ].
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (free_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (substring_access
+            subject: (identifier)
+            offset: (identifier)
+            length: (number))
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Explicit index
+=================================================================================
+itab[ key primary_key INDEX 3 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (index_read
+      (index_key
+        name: (identifier))
+      index: (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Free key
+=================================================================================
+itab[ b = 2 country = 'DE' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (free_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (number))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Primary key
+=================================================================================
+itab[ KEY primary_key comp1 = 1 comp4 = 'aaa' ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (free_key
+      name: (identifier)
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (number))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Table key
+=================================================================================
+itab[ TABLE KEY primary_key COMPONENTS a = 1 b = 2 ].
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (table_key
+      name: (identifier)
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (number))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (number))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Table key omitting components
+=================================================================================
+itab[ TABLE KEY primary_key a = 1 b = 2 ].
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (table_key
+      name: (identifier)
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (number))
+        (itab_comp_spec
+          comp: (identifier)
+          value: (number))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Chaining
+=================================================================================
+deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
+---
+
+(source
+  (component_selection
+    subject: (table_expression
+      subject: (table_expression
+        subject: (component_selection
+          subject: (table_expression
+            subject: (identifier)
+            (index_read
+              index: (number)))
+          component: (identifier))
+        (index_read
+          index: (number)))
+      (index_read
+        index: (number)))
+    component: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Dynamic component
+=================================================================================
+itab[ (comp_name) = 1 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (free_key
+      (key_component_list
+        (itab_comp_spec
+          comp: (dynamic_spec
+            value: (identifier))
+          value: (number))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Dynamic key
+=================================================================================
+itab[ key (key_name) (comp_name) = 1 ]
+---
+
+(source
+  (table_expression
+    subject: (identifier)
+    (free_key
+      name: (dynamic_spec
+        value: (identifier))
+      (key_component_list
+        (itab_comp_spec
+          comp: (dynamic_spec
+            value: (identifier))
+          value: (number))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Optional value
+=================================================================================
+value #( itab[ 1 ] OPTIONAL ). 
+---
+
+(source
+  (value_expression
+    (table_expression
+      subject: (identifier)
+      (index_read
+        index: (number))
+      (optional))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Default value
+=================================================================================
+value  #( itab[ 1 ] DEFAULT value #( carrid   = 'XXX' 
+                                     carrname = 'xxx' ) ). 
+---
+
+(source
+  (value_expression
+    (table_expression
+      subject: (identifier)
+      (index_read
+        index: (number))
+      (default_value
+        value: (value_expression
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (string_literal))
+            (named_argument
+              name: (identifier)
+              value: (string_literal))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Optional ref
+=================================================================================
+ref #( itab[ 1 ] OPTIONAL ). 
+---
+
+(source
+  (ref_expression
+    subject: (table_expression
+      subject: (identifier)
+      (index_read
+        index: (number))
+      (optional))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Default ref
+=================================================================================
+ref  #( itab[ 1 ] DEFAULT new #( carrid   = 'XXX' 
+                                 carrname = 'xxx' ) ). 
+---
+
+(source
+  (ref_expression
+    subject: (table_expression
+      subject: (identifier)
+      (index_read
+        index: (number))
+      (default_value
+        value: (new_expression
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (string_literal))
+            (named_argument
+              name: (identifier)
+              value: (string_literal))))))))

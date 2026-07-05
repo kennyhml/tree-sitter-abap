@@ -76,7 +76,6 @@ module.exports = grammar({
     $.calculation_expression,
     $.receiving_expression,
     $.string_expression,
-    $.itab_line,
     $.itab_comp,
     $.numeric_expression,
     $.character_like_expression,
@@ -388,36 +387,8 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
     string_expression: $ => choice($.string_template, $.string_concatenation),
 
-    read_key_spec: $ => seq(gen.kw("key"), field("name", $.identifier)),
-
     _calculation_assignment_operator: $ =>
       choice("+=", "-=", "*=", "/=", "&&="),
-
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html
-     */
-    table_expression: $ =>
-      seq(
-        field("subject", choice($.data_object, $.table_expression)),
-        token.immediate("["),
-        $.itab_line,
-        "]",
-      ),
-
-    /**
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_ITAB_LINE.html
-     */
-    itab_line: $ => choice($.index_read, $.with_table_key),
-
-    /**
-     * Index read variant of {@link itab_line}
-     */
-    index_read: $ =>
-      seq(
-        // If a key is specified, `INDEX` must also be used.
-        optional(seq(field("key", $.read_key_spec), gen.kw("index"))),
-        field("index", $.numeric_expression),
-      ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
     // prec solves  ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???

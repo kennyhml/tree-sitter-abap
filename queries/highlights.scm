@@ -141,11 +141,12 @@
   selector: "-"
 )
 
-(table_key name: (identifier) @constant )
+(table_key_spec name: (identifier) @constant )
 (using_key name: (identifier) @constant )
 (using_key name: (identifier) @constant.builtin (#match? @constant.builtin "primary_key") )
 (using_loop_key "loop_key" @constant.builtin )
-(with_table_key name: (identifier) @constant )
+(table_key name: (identifier) @constant )
+(index_key name: (identifier) @constant )
 
 (key_components (identifier) @variable.member )
 (mapping (identifier) @variable.member )
@@ -523,6 +524,10 @@
   subject: (identifier) @variable.member
   selector: ["-" "->"]
   component: (identifier) @variable.member ; for some reason the tests fail without...
+) 
+
+(itab_comp/substring_access
+  subject: (identifier) @variable.member
 ) 
 
 ; Only the top-level declaration is considered a type.

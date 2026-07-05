@@ -35,7 +35,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
    */
   with_key: $ =>
-    prec.right(seq(gen.kw("with"), choice($.empty_key, $.table_key))),
+    prec.right(seq(gen.kw("with"), choice($.empty_key, $.table_key_spec))),
 
   /**
    * Specification of a table key. Some differences between primary key
@@ -43,7 +43,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_KEYDEF.html
    */
-  table_key: $ =>
+  table_key_spec: $ =>
     seq(
       optional(field("unique", choice($.unique, $.non_unique))),
       optional(field("kind", choice($.hashed, $.sorted))),

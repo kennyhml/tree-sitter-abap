@@ -34,7 +34,7 @@ module.exports = {
     seq(
       gen.kw("table"),
       field("subject", $.general_expression),
-      choice($.from_work_area, $.with_table_key),
+      choice($.from_work_area, $.table_key),
     ),
 
   /**

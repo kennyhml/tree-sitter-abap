@@ -7,7 +7,7 @@ READ TABLE itab WITH KEY table_line->parent = container into result.
 (source
   (read_table_statement
     subject: (identifier)
-    (with_table_key
+    (free_key
       (key_component_list
         (itab_comp_spec
           comp: (component_selection
@@ -29,7 +29,7 @@ READ TABLE spfli_tab
 (source
   (read_table_statement
     subject: (identifier)
-    (with_table_key
+    (table_key
       name: (identifier)
       (key_component_list
         (itab_comp_spec
@@ -52,7 +52,7 @@ READ TABLE itab WITH KEY foo = bar ASSIGNING <fs>.
 (source
   (read_table_statement
     subject: (identifier)
-    (with_table_key
+    (free_key
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
@@ -70,7 +70,7 @@ READ TABLE itab WITH KEY foo = bar reference into data(result).
 (source
   (read_table_statement
     subject: (identifier)
-    (with_table_key
+    (free_key
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
@@ -88,7 +88,7 @@ READ TABLE itab WITH KEY foo = bar TRANSPORTING NO FIELDS.
 (source
   (read_table_statement
     subject: (identifier)
-    (with_table_key
+    (free_key
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
@@ -104,7 +104,7 @@ READ TABLE itab WITH KEY skey COMPONENTS table_line = 10 into result.
 (source
   (read_table_statement
     subject: (identifier)
-    (with_table_key
+    (free_key
       name: (identifier)
       (key_component_list
         (itab_comp_spec
@@ -155,7 +155,7 @@ READ TABLE sflight_tab
 (source
   (read_table_statement
     subject: (identifier)
-    (with_table_key
+    (free_key
       (key_component_list
         (itab_comp_spec
           comp: (identifier)

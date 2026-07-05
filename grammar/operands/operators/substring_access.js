@@ -16,7 +16,7 @@ module.exports = {
       seq(
         // TODO: Unify this choice
         field(
-          "value",
+          "subject",
           choice(
             $.identifier,
             $.component_selection,

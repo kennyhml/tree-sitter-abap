@@ -146,11 +146,31 @@ module.exports = {
    *
    * Alternative to {@link itab_work_area_spec}
    */
-  with_table_key: $ =>
+  table_key: $ =>
+    seq(
+      ...gen.kws(optional("with"), "table", "key"),
+      optional(field("name", choice($.identifier, $.dynamic_spec))),
+      $.key_component_list,
+    ),
+
+  /**
+   * Specifies a free search key, optionally linked to a key
+   *
+   *  {KEY keyname [COMPONENTS]
+   *        {comp_name1|(name1)} = operand1
+   *        {comp_name2|(name2)} = operand2
+   *        ... } ...
+   *
+   * or
+   *
+   * ... WITH KEY { comp1 = operand1 comp2 = operand2 ... [BINARY SEARCH] }
+   *         | { keyname COMPONENTS comp1 = operand1 comp2 = operand2 ... } ...
+   */
+  free_key: $ =>
     seq(
       optional(
         seq(
-          ...gen.kws(optional("with"), optional("table"), "key"),
+          ...gen.kws(optional("with"), "key"),
           optional(field("name", choice($.identifier, $.dynamic_spec))),
         ),
       ),

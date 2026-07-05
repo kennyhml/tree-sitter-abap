@@ -10,9 +10,10 @@ module.exports = {
       field("type", $._constructor_result),
       "(",
       optional($.let_expression),
-      field("subject", choice($.data_object, $.table_expression)),
-      optional($._table_expr_default),
+      field(
+        "subject",
+        choice($.data_object, $._table_expression_with_default_additions),
+      ),
       ")",
     ),
 };
-

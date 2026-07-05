@@ -69,7 +69,7 @@ DELETE TABLE scarr_tab WITH TABLE KEY carrid = carrid.
 (source
   (delete_statement
     subject: (identifier)
-    (with_table_key
+    (table_key
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
@@ -86,7 +86,7 @@ DELETE TABLE spfli_tab WITH TABLE KEY skey
 (source
   (delete_statement
     subject: (identifier)
-    (with_table_key
+    (table_key
       name: (identifier)
       (key_component_list
         (itab_comp_spec

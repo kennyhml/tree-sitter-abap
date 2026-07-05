@@ -9,11 +9,7 @@ module.exports = {
       gen.kw("value"),
       field("result_type", $._constructor_result),
       gen.parenthesized(
-        seq(
-          optional($.let_expression),
-          optional($.__value_expr_inner),
-          optional($._table_expr_default),
-        ),
+        seq(optional($.let_expression), optional($.__value_expr_inner)),
       ),
     ),
 
@@ -26,5 +22,10 @@ module.exports = {
    * arithmetic expression!
    */
   __value_expr_inner: $ =>
-    choice($.argument_list, $.table_constructor, $.table_comprehension),
+    choice(
+      $.argument_list,
+      $.table_constructor,
+      $.table_comprehension,
+      $._table_expression_with_default_additions,
+    ),
 };

@@ -81,3 +81,26 @@ READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING foo bar baz.
 "                                                        ^ variable.member
 "                                                            ^ variable.member
 "                                                                ^ variable.member
+itab[ key primary_key INDEX 3 ]
+"         ^ constant
+itab[ b = 2 country = 'DE' ]
+"     ^ variable.member
+"           ^ variable.member
+itab[ TABLE KEY primary_key COMPONENTS a = 1 b = 2 ].
+"               ^ constant
+"                                      ^ variable.member
+"                                            ^ variable.member
+itab[ key (key_name) (comp_name) = 1 ]
+"          ^ variable
+"                     ^ variable
+value #( itab[ 1 ] DEFAULT default) ). 
+"                          ^ variable
+
+value #( itab[ 1 ] OPTIONAL ). 
+"         ^ variable
+itab[ inner-carrid = 'AAA' ]
+"     ^ variable.member
+itab[ obj->carrid = 'AAA' ]
+"     ^ variable.member
+itab[ field1+off(5) = 'AABBC' ].
+"     ^ variable.member
