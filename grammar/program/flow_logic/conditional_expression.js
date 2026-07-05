@@ -11,7 +11,7 @@ module.exports = {
   cond_expression: $ =>
     seq(
       gen.kw("cond"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
       gen.parenthesized(
         seq(optional($.let_expression), repeat1($.case), optional($.else_case)),
       ),
@@ -29,7 +29,7 @@ module.exports = {
   switch_expression: $ =>
     seq(
       gen.kw("switch"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
       gen.parenthesized(
         seq(
           optional($.let_expression),

@@ -1,0 +1,193 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Conditional Expressions / SWITCH ] Simple switch
+=================================================================================
+SWITCH string( sy-index 
+                WHEN 1 THEN 'one' 
+                WHEN 2 THEN 'two' 
+                WHEN 3 THEN 'three' ).
+---
+
+(source
+  (switch_expression
+    result_type: (identifier)
+    subject: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    (case
+      condition: (number)
+      result: (string_literal))
+    (case
+      condition: (number)
+      result: (string_literal))
+    (case
+      condition: (number)
+      result: (string_literal))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Conditional Expressions / SWITCH ] Switch with throw
+=================================================================================
+SWITCH string( sy-index 
+                WHEN 1 THEN 'one' 
+                ELSE THROW cx_overflow( ) )
+---
+
+(source
+  (switch_expression
+    (identifier)
+    (component_selection
+      (identifier)
+      (identifier))
+    (case
+      (number)
+      (string_literal))
+    (else_case
+      (throw_exception
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Conditional Expressions / SWITCH ] Complex expressions
+=================================================================================
+result = SWITCH #( operator
+                    WHEN add THEN num1->* + num2->*
+                    WHEN subtract THEN num1->* - num2->*
+                    WHEN multiply THEN num1->* * num2->*
+                    WHEN divide THEN SWITCH #( num1->* WHEN 0 THEN SWITCH #( num2->* WHEN 0 THEN THROW cx_sy_zerodivide(  ) ) ELSE num1->* / num2->* ) )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (switch_expression
+      subject: (identifier)
+      (case
+        condition: (identifier)
+        result: (arithmetic_expression
+          left: (dereference_expression
+            subject: (identifier))
+          right: (dereference_expression
+            subject: (identifier))))
+      (case
+        condition: (identifier)
+        result: (arithmetic_expression
+          left: (dereference_expression
+            subject: (identifier))
+          right: (dereference_expression
+            subject: (identifier))))
+      (case
+        condition: (identifier)
+        result: (arithmetic_expression
+          left: (dereference_expression
+            subject: (identifier))
+          right: (dereference_expression
+            subject: (identifier))))
+      (case
+        condition: (identifier)
+        result: (switch_expression
+          subject: (dereference_expression
+            subject: (identifier))
+          (case
+            condition: (number)
+            result: (switch_expression
+              subject: (dereference_expression
+                subject: (identifier))
+              (case
+                condition: (number)
+                result: (throw_exception
+                  name: (identifier)))))
+          (else_case
+            result: (arithmetic_expression
+              left: (dereference_expression
+                subject: (identifier))
+              right: (dereference_expression
+                subject: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Conditional Expressions / COND ] Simple cond
+=================================================================================
+COND #( LET t = '120000' IN 
+        WHEN time < t THEN 
+        |{ time TIME = ISO } AM| 
+        WHEN time > t AND time < '240000' THEN 
+        |{ CONV t( time - 12 * 3600 ) TIME = ISO } PM| 
+        WHEN time = t THEN 
+        `High Noon` )
+---
+
+(source
+  (cond_expression
+    (let_expression
+      (assignment
+        left: (identifier)
+        right: (string_literal)))
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (string_template
+        (embedded_expression
+          (identifier)
+          (format_option
+            name: (identifier)
+            value: (identifier)))))
+    (case
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (identifier))
+        right: (comparison_expression
+          left: (identifier)
+          right: (string_literal)))
+      result: (string_template
+        (embedded_expression
+          (conv_expression
+            type: (identifier)
+            subject: (arithmetic_expression
+              left: (identifier)
+              right: (arithmetic_expression
+                left: (number)
+                right: (number))))
+          (format_option
+            name: (identifier)
+            value: (identifier)))))
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (string_literal))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Conditional Expressions / COND ] Throw from message
+=================================================================================
+COND i( WHEN cflag = abap_true  THEN 1 
+        WHEN cflag = abap_false THEN 0 
+        ELSE THROW cx_demo_dyn_t100( 
+                MESSAGE e888(sabapdemos) 
+                WITH 'Illegal value!' '' '' '' ) )
+---
+
+(source
+  (cond_expression
+    result_type: (identifier)
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (number))
+    (case
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      result: (number))
+    (else_case
+      result: (throw_exception
+        name: (identifier)
+        (inline_message
+          (message_spec
+            type: (message_type)
+            number: (number)
+            id: (identifier)
+            (with_arguments
+              (string_literal)
+              (string_literal)
+              (string_literal)
+              (string_literal))))))))
