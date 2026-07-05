@@ -1,3 +1,7 @@
+> [!WARNING]
+> The grammar is still very much work in progress and still missing a large if not most of the language features as of July 2026.\
+> The structure of the CST is bound to change multiple times over and as such is not to be considered stable by any means.
+
 # tree-sitter-abap
 **ABAP grammar for [Tree-sitter](https://github.com/tree-sitter/tree-sitter)**, based on the [official ABAP keyword documentation](https://help.sap.com/doc/abapdocu_latest_index_htm/latest).
 
@@ -50,15 +54,8 @@ such as the official ABAP Formatter provide the ability to transform such statem
 ## Obsolete Language Elements
 Many obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.
 Some language elements that are still commonly found in On Premise / Private Cloud Systems may be supported despite officially marked as obsolete - 
-for example the addition `IN BACKGROUND TASK` of a function call.
-
-## Design
-### Project Layout
-As ABAP contains an excessively large number of syntax variants to cover, parts of the grammar are split apart into their own sub-directories
-within the `grammar/` folder and later consolidated into the main `grammar.js`. This allows for cohesive grouping of language features, such
-as Dynpro-, ABAP OO-, or ABAP SQL Elements.
+for example the addition `IN BACKGROUND TASK` of a function call and dynpro elements.
 
 ## Why tree-sitter?
 Tree-sitter performs **incremental parsing**, making it ideal for working with large or legacy ABAP codebases that often span thousands of lines in a single report. The resulting 
 parser is compiled to **native C**, enabling significantly better performance than typical regex-based parsers (such as TextMate).
-
