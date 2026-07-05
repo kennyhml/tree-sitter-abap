@@ -1,0 +1,588 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] For loop
+=================================================================================
+VALUE carriers( FOR wa IN scarr_tab ( carrid = wa-carrid ) ). 
+---
+
+(source
+  (value_expression
+    result_type: (identifier)
+    (table_comprehension
+      (table_iteration
+        work_area: (identifier)
+        subject: (identifier))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (component_selection
+              subject: (identifier)
+              component: (identifier))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Enumerate
+=================================================================================
+VALUE carriers( FOR wa IN scarr_tab INDEX INTO i ( carrid = wa-carrid no = i ) ). 
+---
+
+(source
+  (value_expression
+    result_type: (identifier)
+    (table_comprehension
+      (table_iteration
+        work_area: (identifier)
+        subject: (identifier)
+        (index_into
+          enumerator: (identifier)))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (component_selection
+              subject: (identifier)
+              component: (identifier)))
+          (named_argument
+            name: (identifier)
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Nested loop
+=================================================================================
+VALUE itab2( 
+      FOR wa1 IN itab1 
+      	FOR wa2 IN wa1-col 
+          ( col1 = wa1-col1 
+            col2 = wa2-col1 
+            col3 = wa2-col2 ) )
+---
+
+(source
+  (value_expression
+    result_type: (identifier)
+    (table_comprehension
+      (table_iteration
+        work_area: (identifier)
+        subject: (identifier))
+      (table_iteration
+        work_area: (identifier)
+        subject: (component_selection
+          subject: (identifier)
+          component: (identifier)))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (component_selection
+              subject: (identifier)
+              component: (identifier)))
+          (named_argument
+            name: (identifier)
+            value: (component_selection
+              subject: (identifier)
+              component: (identifier)))
+          (named_argument
+            name: (identifier)
+            value: (component_selection
+              subject: (identifier)
+              component: (identifier))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Where condition
+=================================================================================
+VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ). 
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        work_area: (identifier)
+        subject: (identifier)
+        (itab_lines
+          (where_condition
+            condition: (parenthesized_expression
+              (comparison_expression
+                left: (identifier)
+                right: (string_literal))))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Dynamic where condition
+=================================================================================
+VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ). 
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        work_area: (identifier)
+        subject: (identifier)
+        (itab_lines
+          (where_condition
+            condition: (dynamic_spec
+              value: (identifier)))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Dynamic where table
+=================================================================================
+VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ). 
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        work_area: (identifier)
+        subject: (identifier)
+        (itab_lines
+          (where_condition
+            condition: (dynamic_condition_tab
+              (dynamic_spec
+                value: (identifier))))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Slicing
+=================================================================================
+VALUE #( FOR <fs> IN itab INDEX INTO tabix FROM 4 TO 16 
+      	 STEP 2 ( tabix = tabix value = <fs> ) ). 
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        work_area: (field_symbol
+          name: (identifier))
+        subject: (identifier)
+        (index_into
+          enumerator: (identifier))
+        (itab_lines
+          (lines_from
+            index: (number))
+          (lines_to
+            index: (number))
+          (lines_step
+            size: (number))))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (identifier))
+          (named_argument
+            name: (identifier)
+            value: (field_symbol
+              name: (identifier))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Slicing with key
+=================================================================================
+VALUE #( FOR <fs> IN itab INDEX INTO tabix 
+      USING KEY sortkey FROM 16 TO 4 STEP -2 
+            ( tabix = tabix value = <fs> ) )
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        work_area: (field_symbol
+          name: (identifier))
+        subject: (identifier)
+        (index_into
+          enumerator: (identifier))
+        (itab_lines
+          (using_key
+            name: (identifier))
+          (lines_from
+            index: (number))
+          (lines_to
+            index: (number))
+          (lines_step
+            size: (number))))
+      (line_spec
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (identifier))
+          (named_argument
+            name: (identifier)
+            value: (field_symbol
+              name: (identifier))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Lines of
+=================================================================================
+VALUE itab3( 
+      FOR wa IN itab1 INDEX INTO idx WHERE ( col1 = 21 )
+        ( LINES OF itab1 FROM idx ) )
+---
+
+(source
+  (value_expression
+    result_type: (identifier)
+    (table_comprehension
+      (table_iteration
+        work_area: (identifier)
+        subject: (identifier)
+        (index_into
+          enumerator: (identifier))
+        (itab_lines
+          (where_condition
+            condition: (parenthesized_expression
+              (comparison_expression
+                left: (identifier)
+                right: (number))))))
+      (line_spec
+        (lines_of
+          subject: (identifier)
+          (lines_from
+            index: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Group key binding
+=================================================================================
+VALUE group_keys( FOR GROUPS carrier OF wa IN spfli 
+                    GROUP BY wa-carrid ( carrier ) )
+---
+
+(source
+  (value_expression
+    result_type: (identifier)
+    (table_comprehension
+      (table_iteration
+        (group_key_binding
+          name: (identifier))
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (component_selection
+            subject: (identifier)
+            component: (identifier))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Enumerated group key binding
+=================================================================================
+VALUE #( FOR GROUPS <fs> OF wa IN itab 
+                    INDEX INTO i 
+                    GROUP BY wa 
+                    ( i - <fs> ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (group_key_binding
+          name: (field_symbol
+            name: (identifier)))
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (index_into
+          enumerator: (identifier))
+        (group_by
+          key: (identifier)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (identifier)
+              right: (field_symbol
+                name: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Representative binding
+=================================================================================
+VALUE #( FOR GROUPS OF wa IN itab 
+                    GROUP BY wa 
+                    ( i - <fs> ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (representative_binding)
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (identifier)
+              right: (field_symbol
+                name: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Representative binding
+=================================================================================
+VALUE #( FOR GROUPS OF wa IN itab 
+                    GROUP BY wa 
+                    ( i - <fs> ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (representative_binding)
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (identifier)
+              right: (field_symbol
+                name: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Representative binding
+=================================================================================
+VALUE #( FOR GROUPS OF wa IN itab 
+                    GROUP BY wa 
+                    ( i - <fs> ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (representative_binding)
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (identifier)
+              right: (field_symbol
+                name: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Representative binding
+=================================================================================
+VALUE #( FOR GROUPS OF wa IN itab 
+                    GROUP BY wa 
+                    ( i - <fs> ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (representative_binding)
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (identifier)
+              right: (field_symbol
+                name: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Representative binding
+=================================================================================
+VALUE #( FOR GROUPS OF wa IN itab 
+                    GROUP BY wa 
+                    ( i - <fs> ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (representative_binding)
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (arithmetic_expression
+              left: (identifier)
+              right: (field_symbol
+                name: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Group without members
+=================================================================================
+VALUE #( FOR GROUPS grp OF wa IN itab 
+                        GROUP BY wa 
+                        WITHOUT MEMBERS
+                        ( grp ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (group_key_binding
+          name: (identifier))
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)
+          (without_members)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Group without members
+=================================================================================
+VALUE #( FOR GROUPS grp OF wa IN itab 
+                        GROUP BY wa 
+                        WITHOUT MEMBERS
+                        ( grp ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (group_key_binding
+          name: (identifier))
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)
+          (without_members)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Group without members
+=================================================================================
+VALUE #( FOR GROUPS grp OF wa IN itab 
+                        GROUP BY wa 
+                        WITHOUT MEMBERS
+                        ( grp ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (group_key_binding
+          name: (identifier))
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)
+          (without_members)))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Group descending
+=================================================================================
+VALUE #( FOR GROUPS OF wa IN itab 
+                    GROUP BY wa 
+                    DESCENDING
+                    ( grp ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (representative_binding)
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)
+          (sort_order
+            direction: (descending))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Let expression
+=================================================================================
+VALUE #( FOR GROUPS grp OF wa IN itab 
+                    GROUP BY wa 
+                    ASCENDING
+                    let foo = grp-carrid
+                        in ( foo ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (table_iteration
+        (group_key_binding
+          name: (identifier))
+        (grouping_work_area
+          work_area: (identifier))
+        (grouping_subject
+          subject: (identifier))
+        (group_by
+          key: (identifier)
+          (sort_order
+            direction: (ascending)))
+        (let_expression
+          (assignment
+            left: (identifier)
+            right: (component_selection
+              subject: (identifier)
+              component: (identifier)))))
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (identifier)))))))

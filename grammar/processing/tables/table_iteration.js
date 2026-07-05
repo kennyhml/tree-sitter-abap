@@ -38,13 +38,28 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOR_GROUPS_OF.html
    */
   __group_itab_lines: $ =>
-    seq($.for_groups, $.grouping_work_area, $.grouping_subject, $.group_by),
+    seq(
+      choice($.group_key_binding, $.representative_binding),
+      $.grouping_work_area,
+      optional($.index_into),
+      $.grouping_subject,
+      optional($.index_into),
+      $.group_by,
+    ),
 
   index_into: $ =>
     seq(...gen.kws("index", "into"), field("enumerator", $.identifier)),
 
-  for_groups: $ =>
-    seq(...gen.kws("for", "groups"), field("variable", $.named_data_object)),
+  /**
+   * The presence of a group key decides whether the expression is a representative
+   * binding or a group key binding.
+   *
+   * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
+   */
+  group_key_binding: $ =>
+    seq(gen.kw("groups"), field("name", $.named_data_object)),
+
+  representative_binding: _ => seq(gen.kw("groups")),
 
   grouping_work_area: $ =>
     seq(gen.kw("of"), field("work_area", $.named_data_object)),
@@ -53,6 +68,6 @@ module.exports = {
     seq(
       gen.kw("in"),
       field("subject", $.general_expression),
-      repeat(choice($.itab_lines, $.index_into)),
+      optional($.itab_lines),
     ),
 };

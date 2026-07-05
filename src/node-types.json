@@ -7183,36 +7183,6 @@
     }
   },
   {
-    "type": "for_groups",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "for",
-            "named": false
-          },
-          {
-            "type": "groups",
-            "named": false
-          }
-        ]
-      },
-      "variable": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "for_scalar_function",
     "named": true,
     "fields": {
@@ -7922,6 +7892,32 @@
     }
   },
   {
+    "type": "group_key_binding",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "groups",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "group_key_component",
     "named": true,
     "fields": {
@@ -8016,13 +8012,9 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "index_into",
-          "named": true
-        },
         {
           "type": "itab_lines",
           "named": true
@@ -13793,6 +13785,22 @@
     }
   },
   {
+    "type": "representative_binding",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "groups",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "requested_predicate",
     "named": true,
     "fields": {
@@ -16167,11 +16175,11 @@
       "required": false,
       "types": [
         {
-          "type": "for_groups",
+          "type": "group_by",
           "named": true
         },
         {
-          "type": "group_by",
+          "type": "group_key_binding",
           "named": true
         },
         {
@@ -16192,6 +16200,10 @@
         },
         {
           "type": "let_expression",
+          "named": true
+        },
+        {
+          "type": "representative_binding",
           "named": true
         }
       ]

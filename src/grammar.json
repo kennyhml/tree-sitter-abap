@@ -12095,16 +12095,49 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "for_groups"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "group_key_binding"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "representative_binding"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
           "name": "grouping_work_area"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "index_into"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "grouping_subject"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "index_into"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -12133,24 +12166,29 @@
         }
       ]
     },
-    "for_groups": {
+    "group_key_binding": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_for"
-        },
         {
           "type": "SYMBOL",
           "name": "_kw_groups"
         },
         {
           "type": "FIELD",
-          "name": "variable",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "named_data_object"
           }
+        }
+      ]
+    },
+    "representative_binding": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_groups"
         }
       ]
     },
@@ -12187,20 +12225,16 @@
           }
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "itab_lines"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "index_into"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "itab_lines"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

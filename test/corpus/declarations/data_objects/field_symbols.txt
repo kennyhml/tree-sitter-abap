@@ -1,0 +1,33 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Field Symbols ] Single declaration
+=================================================================================
+FIELD-SYMBOLS <number> TYPE i. 
+---
+
+(source
+  (field_symbols_declaration
+    (field_symbols_spec
+      name: (field_symbol
+        name: (identifier))
+      typing: (referred_type
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Field Symbols ] Chained declaration
+=================================================================================
+FIELD-SYMBOLS: <itab> TYPE ANY TABLE, 
+               <wa>   TYPE any. 
+---
+
+(source
+  (field_symbols_declaration
+    (field_symbols_spec
+      name: (field_symbol
+        name: (identifier))
+      typing: (table_type
+        kind: (any_table)))
+    (field_symbols_spec
+      name: (field_symbol
+        name: (identifier))
+      typing: (referred_type
+        name: (identifier)))))
