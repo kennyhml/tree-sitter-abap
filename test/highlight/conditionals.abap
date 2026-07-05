@@ -18,3 +18,29 @@ COND i( WHEN cflag = abap_true  THEN 1
 "                  ^ type
                 MESSAGE e888(sabapdemos) 
                 WITH 'Illegal value!' '' '' '' ) )
+
+REDUCE string( INIT s = 0 FOR i = 1 UNTIL i > 10 NEXT s = i )
+"      ^ type.builtin
+"                   ^ variable
+"                             ^ variable
+"                                         ^ variable
+"                                                     ^ variable
+"                                                         ^ variable
+REDUCE string( INIT <fs> = 0 FOR i = 1 UNTIL i > 10 NEXT s = i )
+"                    ^ variable
+REDUCE string( INIT text type string
+"                   ^ variable
+"                             ^ type.builtin
+                FOR n = 10 THEN n - 1 WHILE n > 0 
+"                   ^ variable
+"                               ^ variable
+"                                           ^ variable
+                NEXT text &&= | { n }| )
+"                    ^ variable
+"                         ^ operator
+REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` ) 
+"                   ^ variable
+                    sep  = `` 
+"                   ^ variable
+                     FOR wa IN itab 
+                       NEXT res-text &&= sep )

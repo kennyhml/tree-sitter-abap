@@ -1,6 +1,6 @@
-======
-[REDUCE-EXPRESSION] Simple reduce
-======
+=================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Simple sum
+=================================================================================
 REDUCE string( INIT s = 0 
                  FOR i = 1 UNTIL i > 10 
                  NEXT s = i )
@@ -8,7 +8,7 @@ REDUCE string( INIT s = 0
 
 (source
   (reduce_expression
-    type: (identifier)
+    result_type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
@@ -27,9 +27,40 @@ REDUCE string( INIT s = 0
         left: (identifier)
         right: (identifier)))))
 
-======
-[REDUCE-EXPRESSION] Reduce with initial init var
-======
+=================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Field symbol accumulator
+=================================================================================
+REDUCE string( INIT <fr> = 0 
+                 FOR i = 1 UNTIL i > 10 
+                 NEXT <fs> = i )
+---
+
+(source
+  (reduce_expression
+    result_type: (identifier)
+    (accumulators
+      (accumulator_spec
+        name: (field_symbol
+          name: (identifier))
+        value: (number)))
+    (conditional_iteration
+      init: (assignment
+        left: (identifier)
+        right: (number))
+      (iteration_condition
+        (until
+          condition: (comparison_expression
+            left: (identifier)
+            right: (number)))))
+    (reduce_next
+      (assignment
+        left: (field_symbol
+          name: (identifier))
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Initial accumulator
+=================================================================================
 REDUCE string( INIT text type string
                 FOR n = 10 THEN n - 1 WHILE n > 0 
                 NEXT text &&= | { n }| )
@@ -37,7 +68,7 @@ REDUCE string( INIT text type string
 
 (source
   (reduce_expression
-    type: (identifier)
+    result_type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
@@ -63,9 +94,44 @@ REDUCE string( INIT text type string
           (embedded_expression
             (identifier)))))))
 
-======
-[REDUCE-EXPRESSION] Reduce with multiple init / next steps
-======
+=================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Default accumulator
+=================================================================================
+REDUCE string( INIT text = `Accumulator`
+                FOR n = 10 THEN n - 1 WHILE n > 0 
+                NEXT text &&= | { n }| )
+---
+
+(source
+  (reduce_expression
+    result_type: (identifier)
+    (accumulators
+      (accumulator_spec
+        name: (identifier)
+        value: (string_literal)))
+    (conditional_iteration
+      init: (assignment
+        left: (identifier)
+        right: (number))
+      next: (then_clause
+        (arithmetic_expression
+          left: (identifier)
+          right: (number)))
+      (iteration_condition
+        (while
+          condition: (comparison_expression
+            left: (identifier)
+            right: (number)))))
+    (reduce_next
+      (assignment
+        left: (identifier)
+        right: (string_template
+          (embedded_expression
+            (identifier)))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Multiple steps in next
+=================================================================================
 REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` ) 
                     sep  = `` 
                      FOR <wa> IN itab 
@@ -78,7 +144,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
 
 (source
   (reduce_expression
-    type: (identifier)
+    result_type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
@@ -140,13 +206,11 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
         left: (identifier)
         right: (string_literal)))))
 
-======
-[REDUCE-EXPRESSION] Reduce with nested constructor expressions
-======
+=================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Nested conditionals
+=================================================================================
 REDUCE string( INIT text = `` sep = `` 
-        "Table reduction 
         FOR word IN VALUE strings( 
-          "Table comprehension 
           FOR word IN words 
            ( SWITCH #( word WHEN `All`        THEN `Some` 
                             WHEN `imperative` THEN `functional` 
@@ -156,7 +220,7 @@ REDUCE string( INIT text = `` sep = ``
 
 (source
   (reduce_expression
-    type: (identifier)
+    result_type: (identifier)
     (accumulators
       (accumulator_spec
         name: (identifier)
@@ -164,12 +228,10 @@ REDUCE string( INIT text = `` sep = ``
       (accumulator_spec
         name: (identifier)
         value: (string_literal)))
-    (inline_comment)
     (table_iteration
       work_area: (identifier)
       subject: (value_expression
         result_type: (identifier)
-        (inline_comment)
         (table_comprehension
           (table_iteration
             work_area: (identifier)

@@ -77,6 +77,7 @@
 (table_body_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
 (tables_declaration (identifier) @variable )
+(accumulator_spec name: (identifier) @variable )
 
 
 (declaration_expression (identifier) @variable )

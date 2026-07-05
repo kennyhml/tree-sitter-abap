@@ -13,12 +13,16 @@ module.exports = {
    *      {x2 =|+=|-=|*=|/=|&&= rhs2}|{<x2> =|+=|-=|*=|/=|&&= wrexpr2}
    *      ... ) ...
    *
+   *
+   * While ABAP does not actually call these 'reduce expression' but 'constructor expression with
+   * the REDUCE operator', I feel like its clearer to just speak of a reduce / reduction expression.
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REDUCE.html
    */
   reduce_expression: $ =>
     seq(
       gen.kw("reduce"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
       "(",
       optional($.let_expression),
       $.accumulators,
@@ -32,12 +36,8 @@ module.exports = {
   reduce_next: $ => seq(gen.kw("next"), repeat1($.assignment)),
 
   /**
-   * Cant use a simple {@link assignment} for this because its
+   * Cant use a simple assignment for this because its
    * possible to declare initial values and specify a type for them.
-   *
-   * TODO: Conflict with {@link assignment} rule if used in a choice,
-   * figure that out, would be nice to reuse that part at least and
-   * just add a choice for the data declaration.
    */
   accumulator_spec: $ =>
     seq(
