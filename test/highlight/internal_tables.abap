@@ -104,3 +104,29 @@ itab[ obj->carrid = 'AAA' ]
 "     ^ variable.member
 itab[ field1+off(5) = 'AABBC' ].
 "     ^ variable.member
+
+VALUE carriers( FOR wa IN scarr_tab ( carrid = wa-carrid ) ). 
+"                   ^ variable
+"                         ^ variable
+"                                     ^ variable.member
+"                                              ^ variable
+"                                                 ^ variable.member
+VALUE carriers( FOR wa IN scarr_tab INDEX INTO i ( carrid = wa-carrid no = i ) ). 
+"                                              ^ variable
+VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ). 
+"                                    ^ variable
+"                                                  ^ variable
+VALUE #( FOR <fs> IN itab INDEX INTO tabix 
+      USING KEY sortkey FROM a TO b STEP -2 
+"               ^ constant
+"                            ^ variable
+            ( tabix = tabix value = <fs> ) )
+VALUE group_keys( FOR GROUPS carrier OF wa IN spfli GROUP BY wa-carrid ( carrier ) )
+"                            ^ variable
+"                                                            ^ variable
+w  "                                                            ^ variable.member
+VALUE #( FOR GROUPS grp OF wa IN itab GROUP BY wa let foo = grp-carrid in ( foo ) ).
+"                                              ^ variable
+"                                                     ^ variable
+"                                                           ^ variable
+"                                                               ^ variable.member

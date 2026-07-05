@@ -48,7 +48,7 @@ module.exports = {
     ),
 
   index_into: $ =>
-    seq(...gen.kws("index", "into"), field("enumerator", $.identifier)),
+    seq(...gen.kws("index", "into"), field("enumerator", $.named_data_object)),
 
   /**
    * The presence of a group key decides whether the expression is a representative

@@ -7812,10 +7812,6 @@
           {
             "type": "general_expression",
             "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
           }
         ]
       },
@@ -8916,7 +8912,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "named_data_object",
             "named": true
           }
         ]

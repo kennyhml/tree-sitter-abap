@@ -27,7 +27,7 @@ module.exports = {
       seq(
         ...gen.kws("group", "by"),
         choice(
-          prec(1, field("key", choice($.identifier, $.general_expression))),
+          prec(1, field("key", $.general_expression)),
           $.group_key_components,
         ),
         repeat(
@@ -45,4 +45,3 @@ module.exports = {
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
   _group_by_result: $ => choice($.into, $.assigning, $.reference_into),
 };
-

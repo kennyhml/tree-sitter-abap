@@ -5543,17 +5543,8 @@
                   "type": "FIELD",
                   "name": "key",
                   "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "identifier"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "general_expression"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "general_expression"
                   }
                 }
               },
@@ -12161,7 +12152,7 @@
           "name": "enumerator",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "named_data_object"
           }
         }
       ]
