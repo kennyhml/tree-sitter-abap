@@ -1,5 +1,5 @@
 > [!WARNING]
-> The grammar is still very much work in progress and still missing a large if not most of the language features as of July 2026.\
+> The grammar is still very much work in progress and still missing a large if not most of the language features as of July 2026.
 > The structure of the CST is bound to change multiple times over and as such is not to be considered stable by any means.
 
 # tree-sitter-abap
