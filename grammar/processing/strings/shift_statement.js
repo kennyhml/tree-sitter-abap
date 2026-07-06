@@ -3,6 +3,12 @@ module.exports = {
    * SHIFT dobj [ {[places][direction]} | deleting]
    *              [IN {CHARACTER|BYTE} MODE].
    *
+   * Expanded:
+   *
+   * SHIFT dobj [ { [ BY num places / UP to subrstring][LEFT / RIGHT [CIRCULAR] ] }
+   *              / [ LEFT DELETING TRAILING / RIGHT DELEATING LEADING ] mask ]
+   *              [IN {CHARACTER|BYTE} MODE].
+   *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT.html
    */
   shift_statement: $ =>
@@ -15,47 +21,44 @@ module.exports = {
 
   __shift_addition: $ =>
     choice(
-      $.shift_direction_spec,
-      $.shift_left_deleting_spec,
-      $.shift_right_deleting_spec,
-      $.shift_by_spec,
-      $.shift_up_to_spec,
+      $.shift_direction,
+      $.shift_left_deleting,
+      $.shift_right_deleting,
+      $.shift_by,
+      $.shift_up_to,
       $._processing_mode_spec,
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
-  shift_by_spec: $ =>
+  shift_by: $ =>
     seq(gen.kw("by"), field("amount", $.numeric_expression), gen.kw("places")),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
-  shift_up_to_spec: $ =>
+  shift_up_to: $ =>
     seq(
       ...gen.kws("up", "to"),
       field("substring", $.character_like_expression),
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DIRECTION.html
-  shift_direction_spec: _ =>
-    prec.right(
-      repeat1(
-        choice(
-          field("direction", choice(...gen.kws("left", "right"))),
-          gen.kw("circular"),
-        ),
-      ),
-    ),
+  shift_direction: $ =>
+    prec.right(repeat1(choice($.left, $.right, $.circular))),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DELETING.html
-  shift_left_deleting_spec: $ =>
+  shift_left_deleting: $ =>
     seq(
       ...gen.kws("left", "deleting", "leading"),
       field("mask", $.character_like_expression),
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DELETING.html
-  shift_right_deleting_spec: $ =>
+  shift_right_deleting: $ =>
     seq(
       ...gen.kws("right", "deleting", "trailing"),
       field("mask", $.character_like_expression),
     ),
+
+  circular: _ => gen.kw("circular"),
+  left: _ => gen.kw("left"),
+  right: _ => gen.kw("right"),
 };

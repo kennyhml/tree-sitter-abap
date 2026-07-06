@@ -56,3 +56,11 @@ REPLACE ALL OCCURRENCES OF 'know' IN text1 WITH 'should know that'
 "                    ^ variable
   REPLACEMENT LENGTH len . 
 "                    ^ variable
+SHIFT str.
+"     ^ variable
+SHIFT text BY off PLACES.
+"     ^ variable
+"             ^ variable
+SHIFT txt RIGHT DELETING TRAILING foo.
+"     ^ variable
+"                                 ^ variable

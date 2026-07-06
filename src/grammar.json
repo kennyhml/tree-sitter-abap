@@ -10433,23 +10433,23 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "shift_direction_spec"
+          "name": "shift_direction"
         },
         {
           "type": "SYMBOL",
-          "name": "shift_left_deleting_spec"
+          "name": "shift_left_deleting"
         },
         {
           "type": "SYMBOL",
-          "name": "shift_right_deleting_spec"
+          "name": "shift_right_deleting"
         },
         {
           "type": "SYMBOL",
-          "name": "shift_by_spec"
+          "name": "shift_by"
         },
         {
           "type": "SYMBOL",
-          "name": "shift_up_to_spec"
+          "name": "shift_up_to"
         },
         {
           "type": "SYMBOL",
@@ -10457,7 +10457,7 @@
         }
       ]
     },
-    "shift_by_spec": {
+    "shift_by": {
       "type": "SEQ",
       "members": [
         {
@@ -10478,7 +10478,7 @@
         }
       ]
     },
-    "shift_up_to_spec": {
+    "shift_up_to": {
       "type": "SEQ",
       "members": [
         {
@@ -10499,7 +10499,7 @@
         }
       ]
     },
-    "shift_direction_spec": {
+    "shift_direction": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -10508,31 +10508,22 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "FIELD",
-              "name": "direction",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_kw_left"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_kw_right"
-                  }
-                ]
-              }
+              "type": "SYMBOL",
+              "name": "left"
             },
             {
               "type": "SYMBOL",
-              "name": "_kw_circular"
+              "name": "right"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "circular"
             }
           ]
         }
       }
     },
-    "shift_left_deleting_spec": {
+    "shift_left_deleting": {
       "type": "SEQ",
       "members": [
         {
@@ -10557,7 +10548,7 @@
         }
       ]
     },
-    "shift_right_deleting_spec": {
+    "shift_right_deleting": {
       "type": "SEQ",
       "members": [
         {
@@ -10581,6 +10572,18 @@
           }
         }
       ]
+    },
+    "circular": {
+      "type": "SYMBOL",
+      "name": "_kw_circular"
+    },
+    "left": {
+      "type": "SYMBOL",
+      "name": "_kw_left"
+    },
+    "right": {
+      "type": "SYMBOL",
+      "name": "_kw_right"
     },
     "split_statement": {
       "type": "SEQ",
@@ -22099,32 +22102,6 @@
         "value": "left"
       }
     },
-    "_kw_right": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[rR][iI][gG][hH][tT]"
-        },
-        "named": false,
-        "value": "right"
-      }
-    },
-    "_kw_circular": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[cC][iI][rR][cC][uU][lL][aA][rR]"
-        },
-        "named": false,
-        "value": "circular"
-      }
-    },
     "_kw_deleting": {
       "type": "FIELD",
       "name": "keyword",
@@ -22151,6 +22128,19 @@
         "value": "leading"
       }
     },
+    "_kw_right": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[rR][iI][gG][hH][tT]"
+        },
+        "named": false,
+        "value": "right"
+      }
+    },
     "_kw_trailing": {
       "type": "FIELD",
       "name": "keyword",
@@ -22162,6 +22152,19 @@
         },
         "named": false,
         "value": "trailing"
+      }
+    },
+    "_kw_circular": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[cC][iI][rR][cC][uU][lL][aA][rR]"
+        },
+        "named": false,
+        "value": "circular"
       }
     },
     "_kw_split": {

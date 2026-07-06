@@ -1,0 +1,130 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Basic form
+=================================================================================
+SHIFT str.
+---
+
+(source
+  (shift_statement
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] In byte mode
+=================================================================================
+SHIFT xstr IN BYTE MODE.
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (in_byte_mode)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] By places
+=================================================================================
+SHIFT text BY off PLACES.
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_by
+      amount: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Up to substring
+=================================================================================
+SHIFT text UP TO 'you'.
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_up_to
+      substring: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Right
+=================================================================================
+SHIFT text RIGHT.
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_direction
+      (right))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Left
+=================================================================================
+SHIFT text LEFT. 
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_direction
+      (left))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Left circular
+=================================================================================
+SHIFT text LEFT CIRCULAR. 
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_direction
+      (left)
+      (circular))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Right circular
+=================================================================================
+SHIFT text RIGHT CIRCULAR. 
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_direction
+      (right)
+      (circular))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Circular
+=================================================================================
+SHIFT text CIRCULAR. 
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_direction
+      (circular))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Left deleting
+=================================================================================
+SHIFT txt LEFT DELETING LEADING ` `.
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_left_deleting
+      mask: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SHIFT ] Right deleting
+=================================================================================
+SHIFT txt RIGHT DELETING TRAILING 'ab cd'.
+---
+
+(source
+  (shift_statement
+    subject: (identifier)
+    (shift_right_deleting
+      mask: (string_literal))))
