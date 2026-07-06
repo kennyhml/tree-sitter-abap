@@ -7,11 +7,10 @@ module.exports = {
   exact_expression: $ =>
     seq(
       gen.kw("exact"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
       "(",
       optional($.let_expression),
       field("subject", $.general_expression),
       ")",
     ),
 };
-

@@ -20,3 +20,13 @@ int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
 "             ^ function.builtin
 "                                ^ type.builtin
 "                                   ^ function.builtin
+p2 = EXACT result( p1 )
+"<- variable
+"     ^ keyword
+"          ^ type
+"                  ^ variable
+res = EXACT #( foo * ( baz / baz ) ). 
+"<- variable
+"              ^ variable
+"                      ^ variable
+"                            ^ variable
