@@ -57,9 +57,6 @@
   ]
 )
 
-(form_definition name: (identifier) @function )
-(subroutine_spec name: (identifier) @function )
-(subroutine_list (identifier) @function )
 
 (constructor_spec "constructor" @constructor )
 (class_constructor_spec "class_constructor" @constructor )
@@ -83,6 +80,21 @@
 (field_symbol name: (identifier) @variable )
 (tables_declaration (identifier) @variable )
 (accumulator_spec name: (identifier) @variable )
+
+
+; Must be below dynamic spec due to module override
+(form_definition name: (identifier) @function )
+(subroutine_list (identifier) @function )
+
+(perform_statement
+  (subroutine_spec 
+    name: (identifier) @function.call 
+    [
+      (in_program name: (identifier) @module )
+      program: (dynamic_spec (identifier) @module )
+    ]?
+  )
+)
 
 
 (declaration_expression (identifier) @variable )

@@ -9,8 +9,8 @@ module.exports = {
       field("routine", $.subroutine_spec),
       repeat(
         choice(
-          $.perform_on_commit_spec,
-          $.perform_on_rollback_spec,
+          $.perform_on_commit,
+          $.perform_on_rollback,
           gen.kw_tagged("tables", $._positional_argument_list),
           gen.kw_tagged("using", $._positional_argument_list),
           gen.kw_tagged("changing", $._positional_argument_list),
@@ -37,20 +37,20 @@ module.exports = {
     ),
 
   // ... ON ROLLBACK  ...
-  perform_on_rollback_spec: _ => seq(...gen.kws("on", "rollback")),
+  perform_on_rollback: _ => seq(...gen.kws("on", "rollback")),
 
   // ... ON {COMMIT [LEVEL idx]} ...
-  perform_on_commit_spec: $ =>
+  perform_on_commit: $ =>
     seq(
       ...gen.kws("on", "commit"),
-      optional(field("commit_level", $.commit_level_spec)),
+      optional(field("commit_level", $.commit_level)),
     ),
 
   // LEVEL idx
-  commit_level_spec: $ => seq(gen.kw("level"), field("level", $.data_object)),
+  commit_level: $ => seq(gen.kw("level"), field("level", $.data_object)),
 
   // IN PROGRAM {prog|(pname)}
-  in_program_spec: $ =>
+  in_program: $ =>
     seq(...gen.kws("in", "program"), field("name", $.__dyn_or_explicit_spec)),
 
   subroutine_list: $ => repeat1($.identifier),
@@ -67,7 +67,7 @@ module.exports = {
   __long_form_subroutine_spec: $ =>
     seq(
       field("name", $.__dyn_or_explicit_spec),
-      $.in_program_spec,
+      $.in_program,
       optional($.if_found),
     ),
 

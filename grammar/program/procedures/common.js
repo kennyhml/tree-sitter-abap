@@ -130,7 +130,12 @@ module.exports = {
   _positional_argument_list: $ =>
     prec.right(
       alias(
-        repeat1(alias($.named_data_object, $.positional_argument)),
+        repeat1(
+          alias(
+            choice($.named_data_object, $.data_object),
+            $.positional_argument,
+          ),
+        ),
         $.argument_list,
       ),
     ),

@@ -4031,7 +4031,7 @@
     }
   },
   {
-    "type": "commit_level_spec",
+    "type": "commit_level",
     "named": true,
     "fields": {
       "keyword": {
@@ -6134,7 +6134,7 @@
     "fields": {
       "value": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "field_symbol",
@@ -6154,28 +6154,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "field_symbol",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -8458,7 +8436,7 @@
     }
   },
   {
-    "type": "in_program_spec",
+    "type": "in_program",
     "named": true,
     "fields": {
       "keyword": {
@@ -12404,7 +12382,7 @@
     }
   },
   {
-    "type": "perform_on_commit_spec",
+    "type": "perform_on_commit",
     "named": true,
     "fields": {
       "commit_level": {
@@ -12412,7 +12390,7 @@
         "required": false,
         "types": [
           {
-            "type": "commit_level_spec",
+            "type": "commit_level",
             "named": true
           }
         ]
@@ -12434,7 +12412,7 @@
     }
   },
   {
-    "type": "perform_on_rollback_spec",
+    "type": "perform_on_rollback",
     "named": true,
     "fields": {
       "keyword": {
@@ -12525,11 +12503,11 @@
       "required": false,
       "types": [
         {
-          "type": "perform_on_commit_spec",
+          "type": "perform_on_commit",
           "named": true
         },
         {
-          "type": "perform_on_rollback_spec",
+          "type": "perform_on_rollback",
           "named": true
         }
       ]
@@ -15615,7 +15593,7 @@
         ]
       },
       "program": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -15633,16 +15611,6 @@
             "named": true
           }
         ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "dynamic_spec",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -15654,7 +15622,7 @@
           "named": true
         },
         {
-          "type": "in_program_spec",
+          "type": "in_program",
           "named": true
         }
       ]

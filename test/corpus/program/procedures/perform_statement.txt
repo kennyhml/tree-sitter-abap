@@ -1,8 +1,18 @@
-======
-Perform subroutine
-======
-PERFORM select_sflight TABLES sflight_tab 
-                       USING  p_carr p_conn. 
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / PERFORM ] Basic form
+=================================================================================
+PERFORM check_authority.
+---
+
+(source
+  (perform_statement
+    (subroutine_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / PERFORM ] Using arguments
+=================================================================================
+PERFORM display_error using foo bar 'baz'.
 ---
 
 (source
@@ -11,6 +21,40 @@ PERFORM select_sflight TABLES sflight_tab
       (identifier))
     (argument_list
       (positional_argument
+        (identifier))
+      (positional_argument
+        (identifier))
+      (positional_argument
+        (string_literal)))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / PERFORM ] Table arguments
+=================================================================================
+PERFORM get_flights TABLES sflight_tab.
+---
+
+(source
+  (perform_statement
+    (subroutine_spec
+      (identifier))
+    (argument_list
+      (positional_argument
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / PERFORM ] Changing arguments
+=================================================================================
+PERFORM test USING a1 a2 CHANGING a3 a4. 
+---
+
+(source
+  (perform_statement
+    (subroutine_spec
+      (identifier))
+    (argument_list
+      (positional_argument
+        (identifier))
+      (positional_argument
         (identifier)))
     (argument_list
       (positional_argument
@@ -18,9 +62,9 @@ PERFORM select_sflight TABLES sflight_tab
       (positional_argument
         (identifier)))))
 
-======
-Perform subroutine in program
-======
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] In another program
+=================================================================================
 PERFORM (subr) IN PROGRAM (prog) IF FOUND. 
 ---
 
@@ -29,14 +73,14 @@ PERFORM (subr) IN PROGRAM (prog) IF FOUND.
     routine: (subroutine_spec
       name: (dynamic_spec
         value: (identifier))
-      (in_program_spec
+      (in_program
         name: (dynamic_spec
           value: (identifier)))
       (if_found))))
 
-======
-Perform subroutine from index
-======
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] By index in pool
+=================================================================================
 PERFORM sy-index OF subr_1 subr_2.
 ---
 
@@ -50,9 +94,9 @@ PERFORM sy-index OF subr_1 subr_2.
         (identifier)
         (identifier)))))
 
-======
-Perform subroutine in other program short form
-======
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] In other program short form
+=================================================================================
 PERFORM foo(bar) IF FOUND. 
 ---
 
@@ -60,15 +104,13 @@ PERFORM foo(bar) IF FOUND.
   (perform_statement
     routine: (subroutine_spec
       name: (identifier)
-      program: (dynamic_spec)
-      value: (dynamic_spec
-        (identifier))
-      program: (dynamic_spec)
+      program: (dynamic_spec
+        value: (identifier))
       (if_found))))
 
-======
-Register subroutines on luw actions
-======
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] On LUW events
+=================================================================================
 PERFORM update_database_logs ON COMMIT level lvl.
 PERFORM cleanup_temp_buffers ON ROLLBACK.
 ---
@@ -77,10 +119,10 @@ PERFORM cleanup_temp_buffers ON ROLLBACK.
   (perform_statement
     routine: (subroutine_spec
       name: (identifier))
-    (perform_on_commit_spec
-      commit_level: (commit_level_spec
+    (perform_on_commit
+      commit_level: (commit_level
         level: (identifier))))
   (perform_statement
     routine: (subroutine_spec
       name: (identifier))
-    (perform_on_rollback_spec)))
+    (perform_on_rollback)))

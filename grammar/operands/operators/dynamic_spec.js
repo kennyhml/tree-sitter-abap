@@ -24,18 +24,18 @@ module.exports = {
 
   // Same rule but enforced immediately for e.g. dynamic component selection
   _immediate_dynamic_spec: $ =>
-    alias(
-      gen.immediateTightParens(
-        field(
-          "value",
-          choice(
-            $._immediate_identifier,
-            $._immediate_string_literal,
-            $._immediate_field_symbol,
-            $._immediate_number,
-          ),
+    alias($.__immediate_dynamic_spec, $.dynamic_spec),
+
+  __immediate_dynamic_spec: $ =>
+    gen.immediateTightParens(
+      field(
+        "value",
+        choice(
+          $._immediate_identifier,
+          $._immediate_string_literal,
+          $._immediate_field_symbol,
+          $._immediate_number,
         ),
       ),
-      $.dynamic_spec,
     ),
 };

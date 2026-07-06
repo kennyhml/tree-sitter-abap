@@ -7697,51 +7697,55 @@
     "_immediate_dynamic_spec": {
       "type": "ALIAS",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "STRING",
-              "value": "("
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "value",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_immediate_identifier"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_immediate_string_literal"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_immediate_field_symbol"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_immediate_number"
-                }
-              ]
-            }
-          },
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "STRING",
-              "value": ")"
-            }
-          }
-        ]
+        "type": "SYMBOL",
+        "name": "__immediate_dynamic_spec"
       },
       "named": true,
       "value": "dynamic_spec"
+    },
+    "__immediate_dynamic_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_string_literal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_field_symbol"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_number"
+              }
+            ]
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          }
+        }
+      ]
     },
     "component_selection": {
       "type": "SEQ",
@@ -14574,8 +14578,17 @@
           "content": {
             "type": "ALIAS",
             "content": {
-              "type": "SYMBOL",
-              "name": "named_data_object"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "named_data_object"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "data_object"
+                }
+              ]
             },
             "named": true,
             "value": "positional_argument"
@@ -14793,11 +14806,11 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "perform_on_commit_spec"
+                "name": "perform_on_commit"
               },
               {
                 "type": "SYMBOL",
-                "name": "perform_on_rollback_spec"
+                "name": "perform_on_rollback"
               },
               {
                 "type": "SEQ",
@@ -14884,7 +14897,7 @@
         }
       ]
     },
-    "perform_on_rollback_spec": {
+    "perform_on_rollback": {
       "type": "SEQ",
       "members": [
         {
@@ -14897,7 +14910,7 @@
         }
       ]
     },
-    "perform_on_commit_spec": {
+    "perform_on_commit": {
       "type": "SEQ",
       "members": [
         {
@@ -14916,7 +14929,7 @@
               "name": "commit_level",
               "content": {
                 "type": "SYMBOL",
-                "name": "commit_level_spec"
+                "name": "commit_level"
               }
             },
             {
@@ -14926,7 +14939,7 @@
         }
       ]
     },
-    "commit_level_spec": {
+    "commit_level": {
       "type": "SEQ",
       "members": [
         {
@@ -14943,7 +14956,7 @@
         }
       ]
     },
-    "in_program_spec": {
+    "in_program": {
       "type": "SEQ",
       "members": [
         {
@@ -15017,7 +15030,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "in_program_spec"
+          "name": "in_program"
         },
         {
           "type": "CHOICE",
