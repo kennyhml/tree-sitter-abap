@@ -22,6 +22,8 @@ module.exports = {
       optional($.using_key),
       optional($.in_filter_table),
 
+      // Technically a special kind of where condition where fields of
+      // both tables are mapped to each other
       $.where_condition,
       ")",
     ),
