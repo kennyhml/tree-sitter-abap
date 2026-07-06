@@ -1,0 +1,124 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Class based exception
+=================================================================================
+RAISE EXCEPTION TYPE cx_demo.
+---
+
+(source
+  (raise_exception_statement
+    exception: (new_exception_spec
+      class_name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Non-Class based exception
+=================================================================================
+RAISE not_found.
+---
+
+(source
+  (raise_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Class based from oref
+=================================================================================
+RAISE EXCEPTION oref. 
+---
+
+(source
+  (raise_exception_statement
+    exception: (identifier)))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Class based resumable
+=================================================================================
+RAISE RESUMABLE EXCEPTION TYPE cx_demo. 
+---
+
+(source
+  (raise_exception_statement
+    (resumable)
+    exception: (new_exception_spec
+      class_name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Class based with params
+=================================================================================
+RAISE EXCEPTION TYPE cx_sy_dynamic_osql_semantics 
+    EXPORTING 
+        textid = cx_sy_dynamic_osql_semantics=>unknown_table_name 
+        token  = 'Test'. 
+---
+
+(source
+  (raise_exception_statement
+    exception: (new_exception_spec
+      class_name: (identifier)
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (component_selection
+            subject: (identifier)
+            component: (identifier)))
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Class based from message and params
+=================================================================================
+RAISE EXCEPTION TYPE /BOBF/CX_CONF
+    message i001 with 'foo' 'bar'
+    EXPORTING 
+        mv_action_name  = 'Test'. 
+---
+
+(source
+  (raise_exception_statement
+    exception: (new_exception_spec
+      class_name: (identifier)
+      (inline_message
+        (message_spec
+          type: (message_type)
+          number: (number)
+          (with_arguments
+            (string_literal)
+            (string_literal))))
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Class based from message
+=================================================================================
+RAISE EXCEPTION TYPE cx_demo_exception
+  MESSAGE ID 'Z_MY_MSG' type 'I'
+  NUMBER '001'
+  WITH 'Param1' 'Param2'
+---
+
+(source
+  (raise_exception_statement
+    exception: (new_exception_spec
+      class_name: (identifier)
+      (inline_message
+        (message_spec
+          id: (string_literal)
+          type: (string_literal)
+          number: (string_literal)
+          (with_arguments
+            (string_literal)
+            (string_literal)))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / RAISE ] Class based from system message
+=================================================================================
+RAISE EXCEPTION TYPE /brx/cx_error USING MESSAGE.
+---
+
+(source
+  (raise_exception_statement
+    exception: (new_exception_spec
+      class_name: (identifier)
+      (using_message))))

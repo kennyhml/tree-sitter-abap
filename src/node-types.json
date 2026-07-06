@@ -1875,7 +1875,7 @@
     }
   },
   {
-    "type": "before_unwind_spec",
+    "type": "before_unwind",
     "named": true,
     "fields": {
       "keyword": {
@@ -3226,11 +3226,11 @@
       "required": false,
       "types": [
         {
-          "type": "before_unwind_spec",
+          "type": "before_unwind",
           "named": true
         },
         {
-          "type": "catch_into_spec",
+          "type": "into_clause",
           "named": true
         }
       ]
@@ -3249,36 +3249,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "catch_into_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "into",
-            "named": false
-          }
-        ]
-      },
-      "target": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "declaration_expression",
-            "named": true
-          },
-          {
-            "type": "named_data_object",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -3864,7 +3834,7 @@
       "required": false,
       "types": [
         {
-          "type": "catch_into_spec",
+          "type": "into_clause",
           "named": true
         }
       ]
@@ -11313,7 +11283,7 @@
           "named": true
         },
         {
-          "type": "using_message_spec",
+          "type": "using_message",
           "named": true
         }
       ]
@@ -12875,7 +12845,7 @@
       "required": false,
       "types": [
         {
-          "type": "resumable_spec",
+          "type": "resumable",
           "named": true
         }
       ]
@@ -13913,22 +13883,6 @@
           {
             "type": "identifier",
             "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "resumable_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "resumable",
-            "named": false
           }
         ]
       }
@@ -17101,7 +17055,7 @@
     }
   },
   {
-    "type": "using_message_spec",
+    "type": "using_message",
     "named": true,
     "fields": {
       "keyword": {

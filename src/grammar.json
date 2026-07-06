@@ -17258,6 +17258,51 @@
         }
       ]
     },
+    "while_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_while"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_logical_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "statement_block"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_endwhile"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "raise_statement": {
       "type": "SEQ",
       "members": [
@@ -17287,7 +17332,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "resumable_spec"
+              "name": "resumable"
             },
             {
               "type": "BLANK"
@@ -17339,8 +17384,17 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "__construct_from_message"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "using_message"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "inline_message"
+                  }
+                ]
               },
               {
                 "type": "BLANK"
@@ -17352,7 +17406,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "__exception_argument_list"
+                "name": "_exporting_args"
               },
               {
                 "type": "BLANK"
@@ -17362,7 +17416,7 @@
         ]
       }
     },
-    "using_message_spec": {
+    "using_message": {
       "type": "SEQ",
       "members": [
         {
@@ -17372,40 +17426,6 @@
         {
           "type": "SYMBOL",
           "name": "_kw_message"
-        }
-      ]
-    },
-    "resumable_spec": {
-      "type": "SYMBOL",
-      "name": "_kw_resumable"
-    },
-    "__construct_from_message": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "using_message_spec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "inline_message"
-        }
-      ]
-    },
-    "__exception_argument_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_exporting"
-        },
-        {
-          "type": "FIELD",
-          "name": "exporting",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_named_argument_list"
-          }
         }
       ]
     },
@@ -17486,7 +17506,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "before_unwind_spec"
+              "name": "before_unwind"
             },
             {
               "type": "BLANK"
@@ -17506,7 +17526,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "catch_into_spec"
+              "name": "into_clause"
             },
             {
               "type": "BLANK"
@@ -17552,7 +17572,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "catch_into_spec"
+              "name": "into_clause"
             },
             {
               "type": "BLANK"
@@ -17586,7 +17606,7 @@
         }
       ]
     },
-    "before_unwind_spec": {
+    "before_unwind": {
       "type": "SEQ",
       "members": [
         {
@@ -17599,83 +17619,12 @@
         }
       ]
     },
-    "catch_into_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_into"
-        },
-        {
-          "type": "FIELD",
-          "name": "target",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "named_data_object"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "declaration_expression"
-              }
-            ]
-          }
-        }
-      ]
-    },
     "catch_exception_list": {
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
         "name": "identifier"
       }
-    },
-    "while_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_while"
-        },
-        {
-          "type": "FIELD",
-          "name": "condition",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_logical_expression"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "SYMBOL",
-                "name": "statement_block"
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_endwhile"
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
     },
     "report_statement": {
       "type": "SEQ",
@@ -23571,6 +23520,19 @@
         "value": "elseif"
       }
     },
+    "_kw_endwhile": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "[eE][nN][dD][wW][hH][iI][lL][eE]"
+        },
+        "named": false,
+        "value": "endwhile"
+      }
+    },
     "_kw_raise": {
       "type": "FIELD",
       "name": "keyword",
@@ -23673,19 +23635,6 @@
         },
         "named": false,
         "value": "unwind"
-      }
-    },
-    "_kw_endwhile": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "[eE][nN][dD][wW][hH][iI][lL][eE]"
-        },
-        "named": false,
-        "value": "endwhile"
       }
     },
     "_kw_report": {

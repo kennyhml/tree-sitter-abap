@@ -719,10 +719,11 @@
 ; I wanna be careful cause these keywords may appear in other context?
 ; Like in a parameters decl, I feel like resumable should not be tagged
 (raise_exception_statement ["raise" "exception" ] @keyword.exception )
-(resumable_spec "resumable" @keyword.exception )
+(raise_statement ["raise" ] @keyword.exception )
+(resumable "resumable" @keyword.exception )
 (try_statement ["try" "endtry" ] @keyword.exception )
 (catch_clause ["catch" ] @keyword.exception )
-(before_unwind_spec ["before" "unwind" ] @keyword.exception )
+(before_unwind ["before" "unwind" ] @keyword.exception )
 (cleanup_clause "cleanup" @keyword.exception )
 
 (if_statement [ "if" "endif" ] @keyword.conditional )
