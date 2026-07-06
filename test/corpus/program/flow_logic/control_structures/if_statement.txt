@@ -1,0 +1,116 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / IF ] Simple condition
+=================================================================================
+IF time < '120000'. 
+    result = abap_true.
+ENDIF. 
+---
+
+(source
+  (if_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (string_literal))
+    consequence: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / IF ] Else clause
+=================================================================================
+IF time < '120000'. 
+    result = abap_true.
+else.
+    result = abap_false.
+ENDIF. 
+---
+
+(source
+  (if_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (string_literal))
+    consequence: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier)))
+    alternative: (else_clause
+      consequence: (statement_block
+        (assignment
+          left: (identifier)
+          right: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / IF ] Else if clause
+=================================================================================
+IF time < '120000'. 
+    result = abap_true.
+elseif time > '600000'.
+    result = abap_undefined.
+elseif time = '0'.
+    result = 'oh no'
+else.
+    result = abap_false.
+ENDIF. 
+---
+
+(source
+  (if_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (string_literal))
+    consequence: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier)))
+    alternative: (elseif_clause
+      condition: (comparison_expression
+        left: (identifier)
+        right: (string_literal))
+      consequence: (statement_block
+        (assignment
+          left: (identifier)
+          right: (identifier))))
+    alternative: (elseif_clause
+      condition: (comparison_expression
+        left: (identifier)
+        right: (string_literal))
+      consequence: (statement_block
+        (assignment
+          left: (identifier)
+          right: (string_literal))))
+    alternative: (else_clause
+      consequence: (statement_block
+        (assignment
+          left: (identifier)
+          right: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / IF ] Nested
+=================================================================================
+IF time < '120000'. 
+    result = abap_true.
+    if result = abap_false.
+        result = abap_true.
+    endif.
+ENDIF. 
+---
+
+(source
+  (if_statement
+    condition: (comparison_expression
+      left: (identifier)
+      right: (string_literal))
+    consequence: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier))
+      (if_statement
+        condition: (comparison_expression
+          left: (identifier)
+          right: (identifier))
+        consequence: (statement_block
+          (assignment
+            left: (identifier)
+            right: (identifier)))))))
