@@ -34,9 +34,19 @@
       (number))))
 
 =================================================================================
-[ ABAP - Procecssing Internal Data / Strings / String Templates ] Escape characters
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Bad Escape characters
+:error
 =================================================================================
 |\\ \\|\|\|\|\ \| \{\} \{    \} \{ \}|.
+---
+
+(source
+  (string_template))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Correct Escape characters
+=================================================================================
+|\\ \|\|\|\|\ \| \{\} \{    \} \{ \}|.
 ---
 
 (source

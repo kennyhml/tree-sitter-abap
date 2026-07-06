@@ -6,8 +6,10 @@
 |{ `UPPER CASE, lower case ` CASE = (<case>) }| 
 "     ^ string
 "                            ^ variable.parameter.builtin
-
-
+|In this the \{ bracket \} are escaped to not cause issues| 
+" ^ string
+"            ^ string.escape
+"                       ^ string.escape
 `ABAP` && `is` && 'a' && 'language'
 " ^ string
 "          ^ string

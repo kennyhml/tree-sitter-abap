@@ -40,6 +40,7 @@
 
 (regex (string_literal) @string.regexp )
 (pcre (string_literal) @string.regexp )
+(string_template "\\" @string.escape )
 
 (method_spec name: (identifier) @function.method ) 
 

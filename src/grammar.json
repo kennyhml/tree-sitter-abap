@@ -10736,8 +10736,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "(?:\\\\.|[^{}|])+"
+                "type": "SYMBOL",
+                "name": "_template_content"
               },
               {
                 "type": "SYMBOL",
@@ -10749,6 +10749,24 @@
         {
           "type": "STRING",
           "value": "|"
+        }
+      ]
+    },
+    "_template_content": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\\\."
+          },
+          "named": false,
+          "value": "\\"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^{}|\\\\]+"
         }
       ]
     },
