@@ -1,6 +1,6 @@
-======
-[REF-EXPRESSION] Simple reference assignment
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / REF ] Simple
+=================================================================================
 dref = REF #( pict )
 ---
 
@@ -10,3 +10,50 @@ dref = REF #( pict )
     right: (ref_expression
       subject: (identifier))))
 
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / REF ] Chained identifier
+=================================================================================
+dref = REF #( foo-bar )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (ref_expression
+      subject: (component_selection
+        subject: (identifier)
+        component: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / REF ] Substring
+=================================================================================
+dref = REF string( foo+off(len) )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (ref_expression
+      result_type: (identifier)
+      subject: (substring_access
+        subject: (identifier)
+        offset: (identifier)
+        length: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / REF ] Let helper
+=================================================================================
+dref = REF string( let foo = get_handler( ) in foo )
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (ref_expression
+      result_type: (identifier)
+      (let_expression
+        (assignment
+          left: (identifier)
+          right: (function_call
+            name: (identifier))))
+      subject: (identifier))))

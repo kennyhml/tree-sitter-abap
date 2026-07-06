@@ -30,3 +30,19 @@ res = EXACT #( foo * ( baz / baz ) ).
 "              ^ variable
 "                      ^ variable
 "                            ^ variable
+dref = REF res( pict )
+"<- variable
+"      ^ keyword
+"          ^ type
+"               ^ variable
+dref = REF string( foo+off(len) )
+"<- variable
+"      ^ keyword
+"          ^ type.builtin
+"                  ^ variable
+"                      ^ variable
+"                          ^ variable
+dref = REF string( let foo = get_handler( ) in foo )
+"                      ^ variable
+"                            ^ function.method
+"                                              ^ variable

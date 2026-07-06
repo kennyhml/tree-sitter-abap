@@ -10404,7 +10404,7 @@
         },
         {
           "type": "FIELD",
-          "name": "type",
+          "name": "result_type",
           "content": {
             "type": "SYMBOL",
             "name": "_constructor_result"
@@ -10434,7 +10434,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "data_object"
+                "name": "general_expression"
               },
               {
                 "type": "SYMBOL",

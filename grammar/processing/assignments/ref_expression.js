@@ -7,12 +7,15 @@ module.exports = {
   ref_expression: $ =>
     seq(
       gen.kw("ref"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
       "(",
       optional($.let_expression),
       field(
         "subject",
-        choice($.data_object, $._table_expression_with_default_additions),
+        choice(
+          $.general_expression,
+          $._table_expression_with_default_additions,
+        ),
       ),
       ")",
     ),
