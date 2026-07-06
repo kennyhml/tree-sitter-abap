@@ -57,9 +57,9 @@
   ]
 )
 
-(form_definition name: (identifier) @function.subroutine )
-(subroutine_spec name: (identifier) @function.subroutine )
-(subroutine_list (identifier) @function.subroutine )
+(form_definition name: (identifier) @function )
+(subroutine_spec name: (identifier) @function )
+(subroutine_list (identifier) @function )
 
 (constructor_spec "constructor" @constructor )
 (class_constructor_spec "class_constructor" @constructor )

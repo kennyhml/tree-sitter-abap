@@ -1,0 +1,116 @@
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] Empty
+=================================================================================
+FORM foo.
+ENDFORM.
+---
+
+(source
+  (form_definition
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] Table parameters
+=================================================================================
+FORM fill_table TABLES t1 TYPE itab_type
+                       t2 LIKE itab
+                       t3 STRUCTURE struc. 
+ENDFORM.
+---
+
+(source
+  (form_definition
+    name: (identifier)
+    tables: (parameter_list
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier)))
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (referred_type
+          object: (identifier)))
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        (structure_parameter
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] Changing parameters
+=================================================================================
+FORM fill_table CHANGING ptab TYPE INDEX TABLE. 
+ENDFORM.
+---
+
+(source
+  (form_definition
+    name: (identifier)
+    changing: (parameter_list
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (table_type
+          kind: (index_table))))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] Using parameters
+=================================================================================
+FORM fill_table USING    wa   TYPE any.
+ENDFORM.
+---
+
+(source
+  (form_definition
+    name: (identifier)
+    using: (parameter_list
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] Structure parameter
+=================================================================================
+FORM legacy_subroutine 
+  TABLES   t_data STRUCTURE kna1.
+ENDFORM.
+---
+
+(source
+  (form_definition
+    name: (identifier)
+    tables: (parameter_list
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        (structure_parameter
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Subroutines / FORM ] Class based exception
+=================================================================================
+FORM process_data
+  USING    value(it_list) TYPE standard table
+  RAISING  cx_abap_invalid_value
+           RESUMABLE(cx_demo_exception).
+ENDFORM.
+---
+
+(source
+  (form_definition
+    name: (identifier)
+    using: (parameter_list
+      (parameter
+        (explicit_value
+          name: (identifier))
+        typing: (table_type
+          kind: (standard_table))))
+    raising: (raising_list
+      (non_resumable_exception
+        name: (identifier))
+      (resumable_exception
+        name: (identifier)))))

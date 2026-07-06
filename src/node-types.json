@@ -12034,7 +12034,7 @@
           "named": true
         },
         {
-          "type": "structure_param_spec",
+          "type": "structure_parameter",
           "named": true
         }
       ]
@@ -15484,7 +15484,7 @@
     }
   },
   {
-    "type": "structure_param_spec",
+    "type": "structure_parameter",
     "named": true,
     "fields": {
       "keyword": {
@@ -15502,7 +15502,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "named_data_object",
             "named": true
           }
         ]
