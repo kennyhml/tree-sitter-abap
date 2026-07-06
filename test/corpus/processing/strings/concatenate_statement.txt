@@ -1,0 +1,65 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONCATENATE ] Various dobjs
+=================================================================================
+CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str). 
+---
+
+(source
+  (concatenate_statement
+    subject: (data_object_list
+      (identifier)
+      (string_literal)
+      (component_selection
+        subject: (identifier)
+        component: (identifier))
+      (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    result: (result
+      target: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONCATENATE ] Table lines
+=================================================================================
+CONCATENATE LINES OF itab INTO FINAL(xstr).
+---
+
+(source
+  (concatenate_statement
+    subject: (lines_of
+      subject: (identifier))
+    result: (result
+      target: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONCATENATE ] Separated by
+=================================================================================
+CONCATENATE t1 t2 t3 INTO result SEPARATED BY space.
+---
+
+(source
+  (concatenate_statement
+    subject: (data_object_list
+      (identifier)
+      (identifier)
+      (identifier))
+    result: (result
+      target: (identifier))
+    (separated_by_spec
+      separator: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONCATENATE ] Respecting blanks
+=================================================================================
+CONCATENATE LINES OF itab INTO result RESPECTING BLANKS.
+---
+
+(source
+  (concatenate_statement
+    (lines_of
+      (identifier))
+    (result
+      (identifier))
+    (respecting_blanks_spec)))
