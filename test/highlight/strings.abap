@@ -73,3 +73,24 @@ SPLIT text1 AT ':' INTO foo bar baz data(rest).
 "                           ^ variable
 "                               ^ variable
 "                                        ^ variable
+FIND 'a' in str.
+"           ^ variable
+FIND ALL OCCURRENCES OF foo IN SECTION OFFSET off LENGTH len OF str.
+"                       ^ variable
+"                                             ^ variable
+"                                                        ^ variable
+"                                                               ^ variable
+FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str IGNORING CASE. 
+"                             ^ string.regexp
+FIND REGEX `(\w+)\W+\1\W+(\w+)\W+\2` 
+"           ^ string.regexp
+     IN text 
+"       ^ variable
+     IGNORING CASE 
+     MATCH OFFSET moff
+"                 ^ variable
+     MATCH LENGTH mlen
+"                 ^ variable
+     SUBMATCHES s1 FINAL(s2).
+"               ^ variable
+"                        ^ variable

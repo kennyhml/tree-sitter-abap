@@ -1,0 +1,184 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] Basic form
+=================================================================================
+FIND 'a' in str.
+---
+
+(source
+  (find_statement
+    pattern: (substring
+      value: (string_literal))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] First Occurrence
+=================================================================================
+FIND FIRST OCCURRENCE OF 'a' in str.
+---
+
+(source
+  (find_statement
+    (first_occurrence_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] All Occurrences
+=================================================================================
+FIND ALL OCCURRENCES OF 'a' in str.
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] Section
+=================================================================================
+FIND ALL OCCURRENCES OF foo 
+    IN SECTION OFFSET 12 LENGTH 5 OF str.
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (identifier)))
+    (section_offset
+      offset: (number))
+    (section_length
+      length: (number))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] In byte mode
+=================================================================================
+FIND ALL OCCURRENCES OF lv_xvar IN xstr IN BYTE MODE. 
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (identifier)))
+    subject: (identifier)
+    (in_byte_mode)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] In character mode
+=================================================================================
+FIND ALL OCCURRENCES OF substr IN str IN CHARACTER MODE. 
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (identifier)))
+    subject: (identifier)
+    (in_character_mode)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] Respecting case
+=================================================================================
+FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str RESPECTING CASE. 
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (pcre
+        value: (string_literal)))
+    subject: (identifier)
+    (respecting_case)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] Ignoring case
+=================================================================================
+FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str IGNORING CASE. 
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (pcre
+        value: (string_literal)))
+    subject: (identifier)
+    (ignoring_case)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] Match information
+=================================================================================
+FIND ALL OCCURRENCES OF 'know' IN text1 
+        MATCH COUNT  DATA(cnt) 
+        MATCH OFFSET DATA(off) 
+        MATCH LENGTH DATA(len). 
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (match_count
+      target: (declaration_expression
+        name: (identifier)))
+    (match_offset
+      target: (declaration_expression
+        name: (identifier)))
+    (match_length
+      target: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] Result variable
+=================================================================================
+FIND ALL OCCURRENCES OF `d` IN str
+        IGNORING CASE 
+        RESULTS FINAL(results). 
+---
+
+(source
+  (find_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (ignoring_case)
+    (results
+      target: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / FIND ] PCRE submatches
+=================================================================================
+FIND PCRE `(\w+)\W+\1\W+(\w+)\W+\2` 
+     IN text 
+     IGNORING CASE 
+     MATCH OFFSET FINAL(moff) 
+     MATCH LENGTH FINAL(mlen) 
+     SUBMATCHES FINAL(s1) FINAL(s2).
+---
+
+(source
+  (find_statement
+    pattern: (pcre
+      value: (string_literal))
+    subject: (identifier)
+    (ignoring_case)
+    (match_offset
+      target: (declaration_expression
+        name: (identifier)))
+    (match_length
+      target: (declaration_expression
+        name: (identifier)))
+    (submatches
+      (declaration_expression
+        name: (identifier))
+      (declaration_expression
+        name: (identifier)))))
