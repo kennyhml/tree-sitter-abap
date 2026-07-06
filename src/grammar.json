@@ -10601,20 +10601,12 @@
           }
         },
         {
-          "type": "FIELD",
-          "name": "split_at",
-          "content": {
-            "type": "SYMBOL",
-            "name": "split_at_spec"
-          }
+          "type": "SYMBOL",
+          "name": "split_at"
         },
         {
-          "type": "FIELD",
-          "name": "result",
-          "content": {
-            "type": "SYMBOL",
-            "name": "split_result"
-          }
+          "type": "SYMBOL",
+          "name": "split_result"
         },
         {
           "type": "CHOICE",
@@ -10634,7 +10626,7 @@
         }
       ]
     },
-    "split_at_spec": {
+    "split_at": {
       "type": "SEQ",
       "members": [
         {

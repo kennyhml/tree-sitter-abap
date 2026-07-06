@@ -4,13 +4,13 @@ module.exports = {
     seq(
       gen.kw("split"),
       field("subject", $.character_like_expression),
-      field("split_at", $.split_at_spec),
-      field("result", $.split_result),
+      $.split_at,
+      $.split_result,
       optional($._processing_mode_spec),
       ".",
     ),
 
-  split_at_spec: $ => seq(gen.kw("at"), field("separator", $.data_object)),
+  split_at: $ => seq(gen.kw("at"), field("separator", $.data_object)),
 
   /**
    * `INTO { {result1 result2 [...]} | {TABLE result_tab} }`

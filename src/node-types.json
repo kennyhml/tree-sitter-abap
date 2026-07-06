@@ -15149,7 +15149,7 @@
     }
   },
   {
-    "type": "split_at_spec",
+    "type": "split_at",
     "named": true,
     "fields": {
       "keyword": {
@@ -15218,26 +15218,6 @@
           }
         ]
       },
-      "result": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "split_result",
-            "named": true
-          }
-        ]
-      },
-      "split_at": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "split_at_spec",
-            "named": true
-          }
-        ]
-      },
       "subject": {
         "multiple": false,
         "required": true,
@@ -15250,8 +15230,8 @@
       }
     },
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "in_byte_mode",
@@ -15259,6 +15239,14 @@
         },
         {
           "type": "in_character_mode",
+          "named": true
+        },
+        {
+          "type": "split_at",
+          "named": true
+        },
+        {
+          "type": "split_result",
           "named": true
         }
       ]

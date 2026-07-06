@@ -64,3 +64,12 @@ SHIFT text BY off PLACES.
 SHIFT txt RIGHT DELETING TRAILING foo.
 "     ^ variable
 "                                 ^ variable
+SPLIT text1 AT ':' INTO TABLE segments. 
+"     ^ variable
+"                             ^ variable
+SPLIT text1 AT ':' INTO foo bar baz data(rest). 
+"     ^ variable
+"                       ^ variable
+"                           ^ variable
+"                               ^ variable
+"                                        ^ variable
