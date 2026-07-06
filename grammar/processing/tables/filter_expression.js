@@ -14,11 +14,10 @@ module.exports = {
   filter_expression: $ =>
     seq(
       gen.kw("filter"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
 
       "(",
       field("subject", $.general_expression),
-
       optional($.except),
       optional($.using_key),
       optional($.in_filter_table),
@@ -36,4 +35,3 @@ module.exports = {
 
   except: _ => gen.kw("except"),
 };
-

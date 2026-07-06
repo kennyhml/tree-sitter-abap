@@ -164,3 +164,19 @@ LOOP AT GROUP key ASSIGNING <members> WHERE cityfrom = 'NEW YORK'.
 "             ^ variable
 "                                           ^ variable.member
 ENDLOOP. 
+
+FILTER res( messages EXCEPT WHERE sprsl = 'D' )
+"<- keyword
+"      ^ type
+"           ^ variable
+"                                 ^ variable.member
+" TODO: Technically this is a mapping between table types and both sides are members
+FILTER #( spfli_tab EXCEPT USING KEY carr_city 
+"         ^ variable
+"                                    ^ constant
+            WHERE carrid = carrid AND 
+"                 ^ variable.member
+"                          ^ variable
+                cityfrom = cityfrom ). 
+"               ^ variable.member
+"                          ^ variable
