@@ -273,7 +273,7 @@ CAST cls( iref )->meth1( ).
 (source
   (function_call
     source: (cast_expression
-      type: (identifier)
+      result_type: (identifier)
       subject: (identifier))
     name: (identifier)))
 

@@ -9775,7 +9775,7 @@
         },
         {
           "type": "FIELD",
-          "name": "type",
+          "name": "result_type",
           "content": {
             "type": "SYMBOL",
             "name": "_constructor_result"

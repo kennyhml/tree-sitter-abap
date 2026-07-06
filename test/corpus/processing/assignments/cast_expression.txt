@@ -1,6 +1,6 @@
-======
-[CAST-EXPRESSION] Simple cast assignment
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References ] Simple
+=================================================================================
 oref2 =  CAST #( oref1 ). 
 ---
 
@@ -10,9 +10,9 @@ oref2 =  CAST #( oref1 ).
     right: (cast_expression
       subject: (identifier))))
 
-======
-[CAST-EXPRESSION] Cast writable expression
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References ] Write to writabe expression
+=================================================================================
 CAST t_struc( dref )->*    = struc. 
 ---
 
@@ -20,13 +20,13 @@ CAST t_struc( dref )->*    = struc.
   (assignment
     left: (dereference_expression
       subject: (cast_expression
-        type: (identifier)
+        result_type: (identifier)
         subject: (identifier)))
     right: (identifier)))
 
-======
-[CAST-EXPRESSION] Cast value in assignment
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Part of RHS expression
+=================================================================================
 struc-col1 = CAST t_struc( dref )->col1. 
 ---
 
@@ -37,6 +37,6 @@ struc-col1 = CAST t_struc( dref )->col1.
       component: (identifier))
     right: (component_selection
       subject: (cast_expression
-        type: (identifier)
+        result_type: (identifier)
         subject: (identifier))
       component: (identifier))))
