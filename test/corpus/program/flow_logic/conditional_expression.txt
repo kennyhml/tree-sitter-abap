@@ -140,7 +140,7 @@ COND #( LET t = '120000' IN
       result: (string_template
         (embedded_expression
           (conv_expression
-            type: (identifier)
+            result_type: (identifier)
             subject: (arithmetic_expression
               left: (identifier)
               right: (arithmetic_expression

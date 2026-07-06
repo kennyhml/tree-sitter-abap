@@ -10,3 +10,13 @@ struc-col1 = CAST t_struc( dref )->col1.
 "                 ^ type
 "                          ^ variable
 "                                  ^ variable.member
+source = CONV string( text )
+"<- variable
+"        ^ keyword
+"             ^ type.builtin
+"                     ^ variable
+int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
+"          ^ type.builtin
+"             ^ function.builtin
+"                                ^ type.builtin
+"                                   ^ function.builtin

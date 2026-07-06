@@ -1,6 +1,6 @@
-======
-[CONV-EXPRESSION] Simple conversion
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / CONV ] Simple
+=================================================================================
 source = CONV string( text )
 ---
 
@@ -8,12 +8,12 @@ source = CONV string( text )
   (assignment
     left: (identifier)
     right: (conv_expression
-      type: (identifier)
+      result_type: (identifier)
       subject: (identifier))))
 
-======
-[CONV-EXPRESSION] Conversion in arithmetic
-======
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / CONV ] Calculation conversions
+=================================================================================
 int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
 ---
 
@@ -22,14 +22,14 @@ int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
     left: (identifier)
     right: (arithmetic_expression
       left: (conv_expression
-        type: (identifier)
+        result_type: (identifier)
         subject: (function_call
           name: (identifier)
           (call_argument_list
             exporting: (positional_argument
               value: (number)))))
       right: (conv_expression
-        type: (identifier)
+        result_type: (identifier)
         subject: (function_call
           name: (identifier)
           (call_argument_list
