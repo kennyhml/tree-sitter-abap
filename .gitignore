@@ -1,3 +1,7 @@
+# Normally this is included for tree-sitter grammars, but ours is just too big.
+src/parser.c
+test/highlight/tmp.abap
+
 # Rust artifacts
 target/
 Cargo.lock
