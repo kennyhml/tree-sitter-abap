@@ -33,7 +33,11 @@ module.exports = {
 
   accumulators: $ => seq(gen.kw("init"), repeat1($.accumulator_spec)),
 
-  reduce_next: $ => seq(gen.kw("next"), repeat1($.assignment)),
+  reduce_next: $ =>
+    seq(
+      gen.kw("next"),
+      repeat1(choice($.assignment, $.calculation_assignment)),
+    ),
 
   /**
    * Cant use a simple assignment for this because its

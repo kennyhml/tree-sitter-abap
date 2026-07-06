@@ -1,0 +1,139 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Simple
+=================================================================================
+foo = 10.
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Multiple destinations
+=================================================================================
+foo = bar = baz = `Hello World`.
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (assignment
+      left: (identifier)
+      right: (assignment
+        left: (identifier)
+        right: (string_literal)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Write to field-symbol
+=================================================================================
+<foo> = 10.
+---
+
+(source
+  (assignment
+    left: (field_symbol
+      name: (identifier))
+    right: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Write to itab expr.
+=================================================================================
+itab[ 0 ] = 'New value'.
+---
+
+(source
+  (assignment
+    left: (table_expression
+      subject: (identifier)
+      (index_read
+        index: (number)))
+    right: (string_literal)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Write to component selection
+=================================================================================
+itab[ 0 ]-baz = 'New value'.
+---
+
+(source
+  (assignment
+    left: (component_selection
+      subject: (table_expression
+        subject: (identifier)
+        (index_read
+          index: (number)))
+      component: (identifier))
+    right: (string_literal)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Write to new expr.
+=================================================================================
+new #( field = 10 )->attr = 'AAA'.
+---
+
+(source
+  (assignment
+    left: (component_selection
+      subject: (new_expression
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number))))
+      component: (identifier))
+    right: (string_literal)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Calculation Assignment ] Increment
+=================================================================================
+foo += bar
+---
+
+(source
+  (calculation_assignment
+    left: (identifier)
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Calculation Assignment ] Decrement
+=================================================================================
+foo -= bar
+---
+
+(source
+  (calculation_assignment
+    left: (identifier)
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Calculation Assignment ] Multiply
+=================================================================================
+foo *= bar
+---
+
+(source
+  (calculation_assignment
+    left: (identifier)
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Calculation Assignment ] Divide
+=================================================================================
+foo /= bar
+---
+
+(source
+  (calculation_assignment
+    left: (identifier)
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Calculation Assignment ] Concatenate
+=================================================================================
+foo &&= bar
+---
+
+(source
+  (calculation_assignment
+    left: (identifier)
+    right: (identifier)))

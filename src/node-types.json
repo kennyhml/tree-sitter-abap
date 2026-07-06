@@ -370,6 +370,10 @@
         "named": true
       },
       {
+        "type": "calculation_assignment",
+        "named": true
+      },
+      {
         "type": "call_function_statement",
         "named": true
       },
@@ -1455,26 +1459,6 @@
         "required": true,
         "types": [
           {
-            "type": "&&=",
-            "named": false
-          },
-          {
-            "type": "*=",
-            "named": false
-          },
-          {
-            "type": "+=",
-            "named": false
-          },
-          {
-            "type": "-=",
-            "named": false
-          },
-          {
-            "type": "/=",
-            "named": false
-          },
-          {
             "type": "=",
             "named": false
           }
@@ -1486,10 +1470,6 @@
         "types": [
           {
             "type": "assignment",
-            "named": true
-          },
-          {
-            "type": "declaration_expression",
             "named": true
           },
           {
@@ -2351,6 +2331,58 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "calculation_assignment",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "&&=",
+            "named": false
+          },
+          {
+            "type": "*=",
+            "named": false
+          },
+          {
+            "type": "+=",
+            "named": false
+          },
+          {
+            "type": "-=",
+            "named": false
+          },
+          {
+            "type": "/=",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -13183,6 +13215,10 @@
       "types": [
         {
           "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "calculation_assignment",
           "named": true
         }
       ]

@@ -88,7 +88,7 @@ REDUCE string( INIT text type string
             left: (identifier)
             right: (number)))))
     (reduce_next
-      (assignment
+      (calculation_assignment
         left: (identifier)
         right: (string_template
           (embedded_expression
@@ -123,7 +123,7 @@ REDUCE string( INIT text = `Accumulator`
             left: (identifier)
             right: (number)))))
     (reduce_next
-      (assignment
+      (calculation_assignment
         left: (identifier)
         right: (string_template
           (embedded_expression
@@ -165,7 +165,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
         name: (identifier))
       subject: (identifier))
     (reduce_next
-      (assignment
+      (calculation_assignment
         left: (component_selection
           subject: (identifier)
           component: (identifier))
@@ -175,7 +175,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
             subject: (field_symbol
               name: (identifier))
             component: (identifier))))
-      (assignment
+      (calculation_assignment
         left: (component_selection
           subject: (identifier)
           component: (identifier))

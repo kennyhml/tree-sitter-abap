@@ -117,6 +117,7 @@ module.exports = grammar({
 
         // ???
         $.assignment,
+        $.calculation_assignment,
         $.message_statement,
 
         // Processing statements
@@ -387,9 +388,6 @@ module.exports = grammar({
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
     string_expression: $ => choice($.string_template, $.string_concatenation),
 
-    _calculation_assignment_operator: $ =>
-      choice("+=", "-=", "*=", "/=", "&&="),
-
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_COMPONENTS.html
     // prec solves  ... SORT itab BY (var) <<< is var a dynamic itab component spec or an order table spec???
     itab_comp: $ =>
@@ -422,47 +420,6 @@ module.exports = grammar({
       choice(
         "#", // inferred
         $.identifier, // explicit
-      ),
-
-    /**
-     * The documentation is lacking as to what an assignment should be considered. In theory, it
-     * can make up a full statement on its own. However, it can also be specified in operand
-     * positions and act as an expression, that is why e.g multiple assignments are possible:
-     * ```
-     * foo = bar = baz.
-     * ```
-     *
-     * The big question is how general to make the rule in order to allow it to work in various
-     * places without fighting over precedence / conflicts.
-     *
-     * See: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVALUE_ASSIGNMENTS.html
-     */
-    assignment: $ =>
-      prec.right(
-        seq(
-          field("left", $.writable_expression),
-          // for a regular assignment '=', the right side could be another
-          // assignment or a declaration expression, this doesnt make sense
-          // for calculation assignments using +=, *=, etc..
-          choice(
-            seq(
-              field("operator", "="),
-              field(
-                "right",
-                choice(
-                  $.general_expression,
-                  $.declaration_expression,
-                  $.assignment,
-                ),
-              ),
-            ),
-            seq(
-              field("operator", $._calculation_assignment_operator),
-              field("right", choice($.general_expression)),
-            ),
-          ),
-          optional("."),
-        ),
       ),
 
     transporting_no_fields_spec: $ =>
