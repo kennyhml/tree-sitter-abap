@@ -1,0 +1,210 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Simple
+=================================================================================
+REPLACE 'a' in str with 'b'.
+---
+
+(source
+  (replace_statement
+    pattern: (substring
+      value: (string_literal))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] First occurrence
+=================================================================================
+REPLACE FIRST OCCURRENCE OF 'a' in str with 'b'.
+---
+
+(source
+  (replace_statement
+    (first_occurrence_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] All occurrences
+=================================================================================
+REPLACE ALL OCCURRENCES OF 'a' in str with 'b'.
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] PCRE
+=================================================================================
+REPLACE PCRE 'u*' IN text WITH 'x'.
+---
+
+(source
+  (replace_statement
+    pattern: (pcre
+      value: (string_literal))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Sections
+=================================================================================
+REPLACE ALL OCCURRENCES OF foo 
+    IN SECTION OFFSET 12 LENGTH 5 OF str 
+    WITH bar. 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (identifier)))
+    (section_offset
+      offset: (number))
+    (section_length
+      length: (number))
+    subject: (identifier)
+    (substitute_with
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Byte Mode
+=================================================================================
+REPLACE ALL OCCURRENCES OF lv_xvar IN xstr 
+                      WITH lv_xvar2 IN BYTE MODE. 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (identifier)))
+    subject: (identifier)
+    (substitute_with
+      value: (identifier))
+    (in_byte_mode)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Character mode
+=================================================================================
+REPLACE ALL OCCURRENCES OF lv_xvar IN xstr 
+                      WITH lv_xvar2 IN CHARACTER MODE. 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (identifier)))
+    subject: (identifier)
+    (substitute_with
+      value: (identifier))
+    (in_character_mode)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Verbatim
+=================================================================================
+REPLACE PCRE regex IN text2 WITH `$1___$3` VERBATIM. 
+---
+
+(source
+  (replace_statement
+    pattern: (pcre
+      value: (identifier))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))
+    (verbatim)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Respecting case
+=================================================================================
+REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`' 
+        RESPECTING CASE. 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (pcre
+        value: (string_literal)))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))
+    (respecting_case)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Ignoring case
+=================================================================================
+REPLACE ALL OCCURRENCES OF REGEX `[A-Z]` IN str WITH '`' 
+        IGNORING CASE. 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (regex
+        value: (string_literal)))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))
+    (ignoring_case)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Additional result info
+=================================================================================
+REPLACE ALL OCCURRENCES OF 'know' IN 
+        text1 WITH 'should know that' 
+              REPLACEMENT COUNT  DATA(cnt) 
+              REPLACEMENT OFFSET DATA(off) 
+              REPLACEMENT LENGTH DATA(len). 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))
+    (replacement_count
+      target: (declaration_expression
+        name: (identifier)))
+    (replacement_offset
+      target: (declaration_expression
+        name: (identifier)))
+    (replacement_length
+      target: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] Result variable
+=================================================================================
+REPLACE ALL OCCURRENCES OF `d` IN str WITH 't' 
+        IGNORING CASE 
+        RESULTS FINAL(results). 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))
+    (ignoring_case)
+    (results
+      target: (declaration_expression
+        name: (identifier)))))

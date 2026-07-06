@@ -6,7 +6,7 @@ module.exports = {
       field("subject", $.character_like_expression),
       field("split_at", $.split_at_spec),
       field("result", $.split_result),
-      optional($.string_processing_spec),
+      optional($._processing_mode_spec),
       ".",
     ),
 
@@ -26,4 +26,3 @@ module.exports = {
   split_table_result: $ =>
     seq(gen.kw("table"), field("target", $.receiving_expression)),
 };
-

@@ -16,7 +16,6 @@ module.exports = {
     seq(
       gen.kw("with"),
       field("value", $.functional_expression),
-      optional(field("mode", $.string_processing_spec)),
+      optional($._processing_mode_spec),
     ),
 };
-

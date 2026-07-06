@@ -33,3 +33,24 @@ CONCATENATE t1 t2 t3 INTO result SEPARATED BY space.
 "                 ^ variable
 "                         ^ variable
 "                                             ^ constant.builtin
+REPLACE foo in bar with baz.
+"       ^ variable
+"              ^ variable
+"                       ^ variable
+REPLACE FIRST OCCURRENCE OF 'a' in str with 'b'.
+"                            ^ string
+"                                  ^ variable
+"                                            ^ string
+REPLACE PCRE 'u*' IN text WITH 'x'.
+"             ^ string.regexp
+"                    ^ variable
+"                               ^ string
+REPLACE ALL OCCURRENCES OF REGEX `[A-Z]` IN str WITH '`' IGNORING CASE. 
+"                                 ^ string.regexp
+REPLACE ALL OCCURRENCES OF 'know' IN text1 WITH 'should know that' 
+  REPLACEMENT COUNT  cnt
+"                    ^ variable
+  REPLACEMENT OFFSET off  
+"                    ^ variable
+  REPLACEMENT LENGTH len . 
+"                    ^ variable

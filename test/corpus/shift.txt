@@ -17,7 +17,7 @@ SHIFT xstr IN BYTE MODE.
 (source
   (shift_statement
     (identifier)
-    (string_processing_spec)))
+    (in_byte_mode)))
 
 ======
 Shift by places

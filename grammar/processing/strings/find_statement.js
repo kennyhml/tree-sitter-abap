@@ -11,7 +11,7 @@ module.exports = {
     seq(
       gen.kw("find"),
       $._pattern_spec,
-      field("subject", $.subject_spec),
+      $._subject_spec,
       repeat($.__find_addition),
       ".",
     ),
@@ -28,15 +28,15 @@ module.exports = {
    */
   __find_addition: $ =>
     choice(
-      $.case_sensitivity_spec,
-      $.string_processing_spec,
+      $._case_sensitivity_spec,
+      $._processing_mode_spec,
 
-      $.match_count_spec,
-      $.match_offset_spec,
-      $.match_length_spec,
-      $.statement_results_spec,
+      $.match_count,
+      $.match_offset,
+      $.match_length,
+      $.results,
 
-      $.submatches_spec,
+      $.submatches,
     ),
 
   /**
@@ -44,19 +44,18 @@ module.exports = {
    *
    * `SUBMATCHES s1 s2 ...`
    */
-  submatches_spec: $ =>
+  submatches: $ =>
     prec.right(seq(gen.kw("submatches"), repeat1($.receiving_expression))),
 
   // `MATCH COUNT cnt`
-  match_count_spec: $ =>
+  match_count: $ =>
     seq(...gen.kws("match", "count"), field("target", $.receiving_expression)),
 
   // MATCH OFFSET off
-  match_offset_spec: $ =>
+  match_offset: $ =>
     seq(...gen.kws("match", "offset"), field("target", $.receiving_expression)),
 
   // MATCH LENGTH len
-  match_length_spec: $ =>
+  match_length: $ =>
     seq(...gen.kws("match", "length"), field("target", $.receiving_expression)),
 };
-

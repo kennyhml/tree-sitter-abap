@@ -20,7 +20,7 @@ module.exports = {
       $.shift_right_deleting_spec,
       $.shift_by_spec,
       $.shift_up_to_spec,
-      $.string_processing_spec,
+      $._processing_mode_spec,
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
@@ -59,4 +59,3 @@ module.exports = {
       field("mask", $.character_like_expression),
     ),
 };
-

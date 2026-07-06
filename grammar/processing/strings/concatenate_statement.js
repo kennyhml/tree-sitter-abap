@@ -28,7 +28,7 @@ module.exports = {
   data_object_list: $ => prec.right(repeat1($.data_object)),
 
   __concat_addition: $ =>
-    choice($.string_processing_spec, $.separated_by, $.respecting_blanks),
+    choice($._processing_mode_spec, $.separated_by, $.respecting_blanks),
 
   __concat_subject_spec: $ => choice($.data_object_list, $.lines_of),
 };
