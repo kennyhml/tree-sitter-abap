@@ -10,7 +10,7 @@
 " ^ string
 "            ^ string.escape
 "                       ^ string.escape
-`ABAP` && `is` && 'a' && 'language'
+`ABAP` && `is` && 'a' && 'language' && 'kindof'
 " ^ string
 "          ^ string
 "                  ^ string
