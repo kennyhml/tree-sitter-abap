@@ -78,3 +78,5 @@ continue = 10.
 "<- variable
 exit = 10.
 "<- variable
+initialization = 10.
+"<- variable

@@ -45,6 +45,9 @@ module.exports = grammar({
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
     [$.lines_of],
     [$.at_selscreen_statement],
+    [$.initialization_event],
+    [$.start_of_selection_event],
+    [$.load_of_program_event],
   ],
 
   extras: $ => [
@@ -550,6 +553,7 @@ module.exports = grammar({
             "filter",
             "reduce",
             "text",
+            "initialization",
 
             "class",
             "method",

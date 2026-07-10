@@ -13,6 +13,17 @@ INITIALIZATION.
         right: (string_literal)))))
 
 =================================================================================
+[ ABAP - Program Structure / Modularization / Event Blocks ] Empty event
+=================================================================================
+LOAD-OF-PROGRAM.
+INITIALIZATION. 
+---
+
+(source
+  (load_of_program_event)
+  (initialization_event))
+
+=================================================================================
 [ ABAP - Program Structure / Modularization / Event Blocks ] Start of selection
 =================================================================================
 START-OF-SELECTION. 

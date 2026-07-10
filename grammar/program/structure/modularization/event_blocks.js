@@ -7,12 +7,10 @@ module.exports = {
    */
 
   load_of_program_event: $ =>
-    prec.right(
-      seq(
-        gen.kw("load-of-program"),
-        ".",
-        optional(field("body", $.statement_block)),
-      ),
+    seq(
+      gen.kw("load-of-program"),
+      ".",
+      optional(prec.dynamic(1, field("body", $.statement_block))),
     ),
 
   /**
@@ -23,12 +21,10 @@ module.exports = {
    */
 
   initialization_event: $ =>
-    prec.right(
-      seq(
-        gen.kw("initialization"),
-        ".",
-        optional(field("body", $.statement_block)),
-      ),
+    seq(
+      gen.kw("initialization"),
+      ".",
+      optional(prec.dynamic(1, field("body", $.statement_block))),
     ),
 
   /**
@@ -39,11 +35,9 @@ module.exports = {
    */
 
   start_of_selection_event: $ =>
-    prec.right(
-      seq(
-        gen.kw("start-of-selection"),
-        ".",
-        optional(field("body", $.statement_block)),
-      ),
+    seq(
+      gen.kw("start-of-selection"),
+      ".",
+      optional(prec.dynamic(1, field("body", $.statement_block))),
     ),
 };

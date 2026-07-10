@@ -9,3 +9,9 @@ line-size 200 line-count 100(500).
 "                            ^ number
 include zbaprog if found.
 "       ^ module
+start-of-selection.
+"<- keyword
+initialization.
+"<- keyword
+load-of-program.
+"<- keyword
