@@ -14561,20 +14561,20 @@
       ]
     },
     "_named_argument_list": {
-      "type": "PREC_RIGHT",
-      "value": 0,
+      "type": "ALIAS",
       "content": {
-        "type": "ALIAS",
+        "type": "REPEAT1",
         "content": {
-          "type": "REPEAT1",
+          "type": "PREC_DYNAMIC",
+          "value": 2,
           "content": {
             "type": "SYMBOL",
             "name": "named_argument"
           }
-        },
-        "named": true,
-        "value": "argument_list"
-      }
+        }
+      },
+      "named": true,
+      "value": "argument_list"
     },
     "_positional_argument_list": {
       "type": "PREC_RIGHT",
@@ -24256,6 +24256,9 @@
     ],
     [
       "load_of_program_event"
+    ],
+    [
+      "_named_argument_list"
     ]
   ],
   "precedences": [],

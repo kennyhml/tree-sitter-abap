@@ -117,9 +117,13 @@ module.exports = {
    * An argument list where only named arguments can occur. This is needed
    * in statements such as {@link raise_exception} because positional args
    * are impossible in that position and cause parser conflicts.
+   *
+   * A conflict and a higher runtime prec. is needed because the tables
+   * keyword is also an ambiguous keyword (in its usage as declaration)
+   * that the parser otherwise wants to consume as identifier.
    */
   _named_argument_list: $ =>
-    prec.right(alias(repeat1($.named_argument), $.argument_list)),
+    alias(repeat1(prec.dynamic(2, $.named_argument)), $.argument_list),
 
   /**
    * An argument list where only positional arguments can occur.

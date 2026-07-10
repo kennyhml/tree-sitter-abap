@@ -103,12 +103,13 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
                 value: (identifier)))))))))
 
 =================================================================================
-[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Remote session
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Mix of args
 =================================================================================
 CALL FUNCTION 'DEMO_RFM_PARAMETERS' 
-    IN REMOTE SESSION stateful_session 
     EXPORTING 
         p_in     = val_in 
+    TABLES 
+        p_tab    = tab_in 
     IMPORTING 
         p_out    = val_out 
     CHANGING 
@@ -118,10 +119,12 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
 (source
   (call_function_statement
     name: (string_literal)
-    (in_remote_session
-      session: (identifier))
     (call_argument_list
       exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      tables: (argument_list
         (named_argument
           name: (identifier)
           value: (identifier)))
