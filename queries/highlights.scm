@@ -71,7 +71,8 @@
 ; This helps a great deal marking basically all identifiers as variables
 ; where they are interchangable with other data-like expressions.
 (named_data_object/identifier) @variable
-((identifier) @variable.builtin ( #any-of? @variable.builtin "me" "super" "sy" ) )
+((named_data_object/identifier) @variable.builtin 
+  ( #match? @variable.builtin "^(([mM][eE])|([sS][uU][pP][eE][rR])|([sS][yY]))$"))
 
 (dynamic_spec (identifier) @variable )
 (dereference_expression subject: (identifier) @variable )
@@ -102,7 +103,6 @@
   . (data_spec name: (identifier) @variable )
   (data_spec name: (identifier) @variable )?
 )
-(default_data_value (identifier) @variable )
 
 ; Similar to how typed structures work, only the outermost elements
 ; are actually variables while all inner specs / structs are properties.
@@ -243,7 +243,7 @@
 )
 
 ; CONSTANTS
-((identifier) @constant.builtin
+((named_data_object/identifier) @constant.builtin
   (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD]))|([sS][pP][aA][cC][eE]))$" )
 )
 (text_symbol

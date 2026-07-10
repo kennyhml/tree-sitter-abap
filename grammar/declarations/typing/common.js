@@ -1,11 +1,7 @@
 module.exports = {
   initial_value: _ => seq(...gen.kws("value", "is", "initial")),
 
-  default_data_value: $ =>
-    seq(
-      gen.kw("value"),
-      field("val", choice($.number, $.string_literal, $.identifier)),
-    ),
+  default_data_value: $ => seq(gen.kw("value"), field("val", $.data_object)),
 
   with_header_line: _ => seq(...gen.kws("with", "header", "line")),
 
