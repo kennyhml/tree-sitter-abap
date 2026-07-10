@@ -9,15 +9,18 @@ module.exports = {
    *   | { ON {HELP-REQUEST|VALUE-REQUEST}
    *       FOR {para|selcrit-low|selcrit-high} }
    *   | { ON EXIT-COMMAND }.
+   *
+   * Because the body has no clear terminator, this rule is very prone to shift / reduce
+   * conflicts. The only way to actually solve it seems to be using dynamic precenden
+   * and adding the rule to conflicts.
+   *
    */
   at_selscreen_statement: $ =>
-    prec.right(
-      seq(
-        ...gen.kws("at", "selection-screen"),
-        optional(field("event", $.__selection_screen_event)),
-        ".",
-        optional(field("body", $.statement_block)),
-      ),
+    seq(
+      ...gen.kws("at", "selection-screen"),
+      optional(field("event", $.__selection_screen_event)),
+      ".",
+      optional(prec.dynamic(1, field("body", $.statement_block))),
     ),
 
   __selection_screen_event: $ =>

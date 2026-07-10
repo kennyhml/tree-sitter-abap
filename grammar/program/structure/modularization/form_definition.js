@@ -32,7 +32,7 @@ module.exports = {
   _form_parameter_list: $ => alias($.__form_parameter_list, $.parameter_list),
 
   __form_parameter_list: $ =>
-    seq(repeat1(alias($.__form_parameter, $.parameter))),
+    prec.right(seq(repeat1(alias($.__form_parameter, $.parameter)))),
 
   /**
    *... { VALUE(p1) | p1 } [typing|structure]

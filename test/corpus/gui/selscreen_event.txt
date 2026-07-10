@@ -8,6 +8,21 @@ at selection-screen.
   (at_selscreen_statement))
 
 =================================================================================
+[ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] Empty events
+=================================================================================
+at selection-screen on p_carrid.
+at selection-screen on end of p_carrid.
+---
+
+(source
+  (at_selscreen_statement
+    event: (on_parameter
+      name: (identifier)))
+  (at_selscreen_statement
+    event: (on_end_of_parameter
+      name: (identifier))))
+
+=================================================================================
 [ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On output event
 =================================================================================
 at selection-screen output.

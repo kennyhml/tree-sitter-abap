@@ -141,7 +141,7 @@ module.exports = {
     ),
 
   _exception_mapping_list: $ =>
-    alias(repeat1($.exception_mapping), $.argument_list),
+    prec.left(alias(repeat1($.exception_mapping), $.argument_list)),
 
   exception_mapping: $ =>
     seq(

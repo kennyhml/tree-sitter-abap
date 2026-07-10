@@ -1,4 +1,3 @@
-/// <reference types="tree-sitter-cli/dsl" />
 const path = require("path");
 const fs = require("fs");
 
@@ -70,30 +69,9 @@ function visible_kws(...keywords) {
 }
 
 function caseInsensitive(...terms) {
-  terms = terms.map(
-    t =>
-      new RustRegex(
-        t
-          .split("")
-          .map(l => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
-          .join(""),
-      ),
-  );
+  terms = terms.map(t => new RustRegex(`(?i)${t}`));
 
   return terms.length == 1 ? terms[0] : terms;
-}
-
-function caseInsensitiveJoined(...terms) {
-  terms = terms
-    .map(t => {
-      const pattern = t
-        .split("")
-        .map(l => (l !== l.toUpperCase() ? `[${l}${l.toUpperCase()}]` : l))
-        .join("");
-      return `(${pattern})`;
-    })
-    .join("|");
-  return new RegExp(`(${terms})`);
 }
 
 /**
@@ -182,7 +160,7 @@ function tightParens(rule) {
   return seq("(", rule, token.immediate(")"));
 }
 
-function kwRules() {
+function extractKeywords() {
   const root = process.cwd();
 
   const files = fs
@@ -211,8 +189,18 @@ function kwRules() {
       }
     }
   }
+  return keywords;
+}
 
+/**
+ * Extracts all keyword usages across the source files in order to pre-create
+ * rules for them. This helps to ensure all occurrences of a keyword use the
+ * same rule and keep the binary size smaller.
+ *
+ */
+function kwRules() {
   const rules = {};
+  const keywords = extractKeywords();
   for (const keyword of keywords) {
     const regexExpression = caseInsensitive(keyword);
     const repr = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
@@ -229,8 +217,8 @@ function kwRules() {
 module.exports = {
   state,
   caseInsensitive,
-  caseInsensitiveJoined,
   kwRules,
+  extractKeywords,
   kw,
   kws,
   visible_kw,

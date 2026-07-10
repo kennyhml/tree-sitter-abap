@@ -450,6 +450,10 @@
         "named": true
       },
       {
+        "type": "function_call",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -2169,10 +2173,6 @@
           "named": true
         },
         {
-          "type": "general_expression",
-          "named": true
-        },
-        {
           "type": "simple_statement",
           "named": true
         }
@@ -3170,10 +3170,6 @@
           "named": true
         },
         {
-          "type": "general_expression",
-          "named": true
-        },
-        {
           "type": "simple_statement",
           "named": true
         }
@@ -3801,10 +3797,6 @@
       "types": [
         {
           "type": "docstring",
-          "named": true
-        },
-        {
-          "type": "general_expression",
           "named": true
         },
         {
@@ -7343,10 +7335,6 @@
           "named": true
         },
         {
-          "type": "general_expression",
-          "named": true
-        },
-        {
           "type": "simple_statement",
           "named": true
         }
@@ -10443,10 +10431,6 @@
         },
         {
           "type": "docstring",
-          "named": true
-        },
-        {
-          "type": "general_expression",
           "named": true
         },
         {
@@ -15405,10 +15389,6 @@
           "named": true
         },
         {
-          "type": "general_expression",
-          "named": true
-        },
-        {
           "type": "simple_statement",
           "named": true
         }
@@ -16646,10 +16626,6 @@
       "types": [
         {
           "type": "docstring",
-          "named": true
-        },
-        {
-          "type": "general_expression",
           "named": true
         },
         {

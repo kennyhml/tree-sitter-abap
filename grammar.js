@@ -7,7 +7,7 @@ const path = require("path");
  * @author Kendrick Hommel <kendrick.hommel@gmail.com>
  * @license MIT
  */
-const IDENTIFIER_REGEX = /[a-zA-Z_\/%][a-zA-Z\d_\/]*/;
+const IDENTIFIER_REGEX = /([a-z_\/%][%a-z\d_\/]*)/i;
 
 // ABAP does allow + and - before any number. However, allowing both inside the regex, we run
 // into an issue where the lexer considers the offset in a substring access like str+10 as
@@ -44,6 +44,7 @@ module.exports = grammar({
   conflicts: $ => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
     [$.lines_of],
+    [$.at_selscreen_statement],
   ],
 
   extras: $ => [
@@ -106,67 +107,71 @@ module.exports = grammar({
      * another rather than becoming part of it.
      */
     simple_statement: $ =>
-      choice(
-        // Fundamental declarations
-        $.data_declaration,
-        $.field_symbols_declaration,
-        $.types_declaration,
-        $.constants_declaration,
-        $.include_structure,
-        $.include_type,
+      prec(
+        1,
+        choice(
+          // Fundamental declarations
+          $.data_declaration,
+          $.field_symbols_declaration,
+          $.types_declaration,
+          $.constants_declaration,
+          $.include_structure,
+          $.include_type,
 
-        // ???
-        $.assignment,
-        $.calculation_assignment,
-        $.message_statement,
+          // ???
+          $.assignment,
+          $.calculation_assignment,
+          $.message_statement,
+          $.function_call,
 
-        // Processing statements
-        $.call_function_statement,
-        $.call_method_statement,
-        $.local_updates_statement,
-        $.commit_work_statement,
-        $.rollback_work_statement,
-        $.concatenate_statement,
-        $.condense_statement,
-        $.find_statement,
-        $.replace_statement,
-        $.shift_statement,
-        $.split_statement,
-        $.clear_statement,
-        $.free_statement,
-        $.delete_statement,
-        $.read_table_statement,
-        $.add_statement,
-        $.append_statement,
-        $.insert_statement,
-        $.sort_statement,
+          // Processing statements
+          $.call_function_statement,
+          $.call_method_statement,
+          $.local_updates_statement,
+          $.commit_work_statement,
+          $.rollback_work_statement,
+          $.concatenate_statement,
+          $.condense_statement,
+          $.find_statement,
+          $.replace_statement,
+          $.shift_statement,
+          $.split_statement,
+          $.clear_statement,
+          $.free_statement,
+          $.delete_statement,
+          $.read_table_statement,
+          $.add_statement,
+          $.append_statement,
+          $.insert_statement,
+          $.sort_statement,
 
-        // Program
-        $.report_statement,
-        $.include_statement,
-        $.perform_statement,
+          // Program
+          $.report_statement,
+          $.include_statement,
+          $.perform_statement,
 
-        // Dynpro
-        $.call_sel_screen_statement,
+          // Dynpro
+          $.call_sel_screen_statement,
 
-        // Control flow
-        $.try_statement,
-        $.loop_at_statement,
-        $.loop_at_group_statement,
-        $.if_statement,
-        $.while_statement,
-        $.case_statement,
-        $.case_type_of_statement,
-        $.do_statement,
-        $.return_statement,
-        $.exit_statement,
-        $.continue_statement,
-        $.check_statement,
-        $.raise_statement,
-        $.raise_exception_statement,
-        $.resume_statement,
+          // Control flow
+          $.try_statement,
+          $.loop_at_statement,
+          $.loop_at_group_statement,
+          $.if_statement,
+          $.while_statement,
+          $.case_statement,
+          $.case_type_of_statement,
+          $.do_statement,
+          $.return_statement,
+          $.exit_statement,
+          $.continue_statement,
+          $.check_statement,
+          $.raise_statement,
+          $.raise_exception_statement,
+          $.resume_statement,
 
-        $._empty_statement,
+          $._empty_statement,
+        ),
       ),
 
     /**
@@ -425,10 +430,13 @@ module.exports = grammar({
     transporting_no_fields_spec: $ =>
       seq(...gen.kws("transporting", "no", "fields")),
 
+    /**
+     * Bad idea to allow general expression here as that boils down to identifiers
+     * which then causes conflicts on statements scopes that dont have a well defined
+     * END<> statement delimeter (such as AT SELECTION SCREEN)
+     */
     statement_block: $ =>
-      prec.right(
-        repeat1(choice($.simple_statement, $.general_expression, $.docstring)),
-      ),
+      prec.left(repeat1(choice($.simple_statement, $.docstring))),
 
     /**
      * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).
@@ -488,46 +496,101 @@ module.exports = grammar({
      * Why dont we just add all keywords to this list then? Because tree-sitter performs context-aware
      * parsing, meaning it will only consider the keywords in a position where they could appear based on
      * the grammars structure. For example, an "endclass" keyword wouldnt cause ambiguity because it can
-     * only appear in a very specific position, unlike keywords that introduce a {@link general_expression}.
+     * only appear in a very specific position, unlike keywords that introduce a `general_expression`.
      *
      * Consider the following code:
      *
      * ceil( value i( 10 )).
      *
-     * The builtin function could receive either a {@link named_argument} or a {@link positional_argument}
-     * so during lexical analysis, the parser considers that the word could either be a `value`
+     * The builtin function could receive either a `named_argument or a `positional_argument`.
+     * So during lexical analysis, the parser considers that the word could either be a `value`
      * keyword or a `value` identifier. The keyword ends up taking higher lexical precendence (as it should)
-     * and as a result, the branch containing the identifier rule is never even considered during parsing.
+     * and as a result, the branch containing the identifier rule is pruned.
      *
      * The only way to resolve this is to make sure that the other branch doesnt get dropped, so both
      * can be explored and the contextually correct one is chosen. For this reason, the keywords must
-     * be added to the {@link identifier} rule as well and aliased to an identifier. Do however make sure
+     * be added to the `identifier` rule as well and aliased to an identifier. Do however make sure
      * that they have a lower precedence to express:
-     * If theres a keyword valid in that context, use that. Else consider the keyword to be an identifier.
      *
-     * Great for testing this once more keywords are added: https://www.abapforum.com/forum/viewtopic.php?p=21654
+     * If theres a keyword valid in that context, use that. Otherwise consider the keyword to be an identifier.
+     *
+     * Things if tried to make this work better:
+     *
+     * - Automatically walk the rules to add affected keywords
+     *   -> Hard to identify the rules where conflicts can occur
+     * - Join the keywords into one regex to reduce parser size
+     *   -> The more concrete rule always wins
+     * - Literally just add all keywords
+     *   -> Tree-sitter kills itself due to running out of memory, tons of parsing conflicts
+     *
+     * WARN: Be cautious what keywords are added, things such as ... IMPORTING importing ...
+     * already work out of the box due to context aware lexing. Each keyword added here
+     * increases parser size a ton!
+     *
+     * TODO: Another thing that would help is actually merge keywords that belong together.
+     * For example instead of _kw_at we have _kw_at_selection_screen, _kw_at_end_of, etc..
+     * We could save keywords that way, but partial highlighting would also suffer mid typing
+     * Would also get rid of READ (table), CALL (function), LOOP (at)..
+     *
+     * Great for testing: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _contextual_keyword: $ =>
-      prec(
+    _contextual_keyword: $ => {
+      return prec(
         -1,
         choice(
           ...gen.caseInsensitive(
-            "text",
             "value",
             "new",
             "cond",
             "switch",
             "cast",
-            "class",
             "conv",
             "ref",
             "any",
             "filter",
+            "reduce",
+            "text",
+
+            "class",
+            "method",
+
             "data",
+            "types",
+            "constants",
+
             "condense",
+            "split",
+            "replace",
+            "call",
+            "if",
+            "case",
+            "include",
+            "perform",
+            "form",
+            "at",
+            "parameters",
+
+            "check",
+            "return",
+            "continue",
+            "exit",
+            "try",
+            "raise",
+            "tables",
+            "corresponding",
+            "loop",
+            "read",
+            "sort",
+            "insert",
+            "delete",
+            "append",
+            "interfaces",
+            "interface",
+            "methods",
           ),
         ),
-      ),
+      );
+    },
 
     _immediate_identifier: $ =>
       alias(token.immediate(IDENTIFIER_REGEX), $.identifier),

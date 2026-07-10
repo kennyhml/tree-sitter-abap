@@ -12,7 +12,9 @@ module.exports = {
   exceptions: $ => repeat1($.identifier),
 
   raising_list: $ =>
-    repeat1(choice($.resumable_exception, $.non_resumable_exception)),
+    prec.left(
+      repeat1(choice($.resumable_exception, $.non_resumable_exception)),
+    ),
 
   parameter: $ =>
     prec.right(

@@ -56,13 +56,15 @@ APPEND INITIAL LINE TO itab ASSIGNING <line>.
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / APPEND ] Initial line reference
 =================================================================================
-APPEND INITIAL LINE TO itab REFERENCE INTO data(line). 
+APPEND INITIAL LINE TO foo-bar REFERENCE INTO data(line). 
 ---
 
 (source
   (append_statement
     lines: (initial_line)
-    subject: (identifier)
+    subject: (component_selection
+      subject: (identifier)
+      component: (identifier))
     result: (reference_into
       work_area: (declaration_expression
         name: (identifier)))))

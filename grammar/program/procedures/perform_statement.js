@@ -53,7 +53,7 @@ module.exports = {
   in_program: $ =>
     seq(...gen.kws("in", "program"), field("name", $.__dyn_or_explicit_spec)),
 
-  subroutine_list: $ => repeat1($.identifier),
+  subroutine_list: $ => prec.right(repeat1($.identifier)),
 
   // PERFORM subr(prog) IF FOUND.
   __dynamic_subroutine_spec: $ =>

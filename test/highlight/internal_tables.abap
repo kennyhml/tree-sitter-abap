@@ -15,10 +15,10 @@ APPEND seats TO seats_tab SORTED BY struct-member.
 "      ^ variable
 "                                   ^ variable.member
 "                                          ^ variable.member
-APPEND INITIAL LINE TO foo-bar REFERENCE INTO(data). 
+APPEND INITIAL LINE TO foo-bar REFERENCE INTO DATA(data)
 "                      ^ variable
 "                          ^ variable.member
-"                                             ^ variable
+"                                                  ^ variable
 DELETE itab WHERE foo IS INITIAL.
 "      ^ variable
 "                 ^ variable.member
