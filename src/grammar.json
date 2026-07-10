@@ -233,89 +233,93 @@
       }
     },
     "reserved_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "class_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "deferred_class_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "local_friends_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "class_implementation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "class_data_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "interface_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "deferred_interface_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "interfaces_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "methods_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "method_implementation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "class_methods_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "tables_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "form_definition"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "initialization_event"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "start_of_selection_event"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "load_of_program_event"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "selection_screen_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "parameters_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "select_options_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "at_selscreen_statement"
-        }
-      ]
+      "type": "PREC_DYNAMIC",
+      "value": 2,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "class_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "deferred_class_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "local_friends_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "class_implementation"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "class_data_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "interface_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "deferred_interface_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "interfaces_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "methods_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "method_implementation"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "class_methods_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "tables_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "form_definition"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "initialization_event"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "start_of_selection_event"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "load_of_program_event"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "selection_screen_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "parameters_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "select_options_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "at_selscreen_statement"
+          }
+        ]
+      }
     },
     "typing": {
       "type": "CHOICE",
@@ -1605,15 +1609,11 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PREC_DYNAMIC",
-              "value": 1,
+              "type": "FIELD",
+              "name": "body",
               "content": {
-                "type": "FIELD",
-                "name": "body",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "statement_block"
-                }
+                "type": "SYMBOL",
+                "name": "statement_block"
               }
             },
             {
@@ -17755,15 +17755,11 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PREC_DYNAMIC",
-              "value": 1,
+              "type": "FIELD",
+              "name": "body",
               "content": {
-                "type": "FIELD",
-                "name": "body",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "statement_block"
-                }
+                "type": "SYMBOL",
+                "name": "statement_block"
               }
             },
             {
@@ -17788,15 +17784,11 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PREC_DYNAMIC",
-              "value": 1,
+              "type": "FIELD",
+              "name": "body",
               "content": {
-                "type": "FIELD",
-                "name": "body",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "statement_block"
-                }
+                "type": "SYMBOL",
+                "name": "statement_block"
               }
             },
             {
@@ -17821,15 +17813,11 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PREC_DYNAMIC",
-              "value": 1,
+              "type": "FIELD",
+              "name": "body",
               "content": {
-                "type": "FIELD",
-                "name": "body",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "statement_block"
-                }
+                "type": "SYMBOL",
+                "name": "statement_block"
               }
             },
             {
@@ -23839,6 +23827,10 @@
             {
               "type": "SYMBOL",
               "name": "docstring"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "general_expression"
             }
           ]
         }

@@ -10,7 +10,7 @@ module.exports = {
     seq(
       gen.kw("load-of-program"),
       ".",
-      optional(prec.dynamic(1, field("body", $.statement_block))),
+      optional(field("body", $.statement_block)),
     ),
 
   /**
@@ -24,7 +24,7 @@ module.exports = {
     seq(
       gen.kw("initialization"),
       ".",
-      optional(prec.dynamic(1, field("body", $.statement_block))),
+      optional(field("body", $.statement_block)),
     ),
 
   /**
@@ -38,6 +38,6 @@ module.exports = {
     seq(
       gen.kw("start-of-selection"),
       ".",
-      optional(prec.dynamic(1, field("body", $.statement_block))),
+      optional(field("body", $.statement_block)),
     ),
 };

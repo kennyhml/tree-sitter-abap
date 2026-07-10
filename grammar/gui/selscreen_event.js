@@ -20,7 +20,7 @@ module.exports = {
       ...gen.kws("at", "selection-screen"),
       optional(field("event", $.__selection_screen_event)),
       ".",
-      optional(prec.dynamic(1, field("body", $.statement_block))),
+      optional(field("body", $.statement_block)),
     ),
 
   __selection_screen_event: $ =>

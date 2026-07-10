@@ -186,32 +186,35 @@ module.exports = grammar({
      * but its fine for permissive parsing.
      */
     reserved_statement: $ =>
-      choice(
-        // OOP
-        $.class_declaration,
-        $.deferred_class_declaration,
-        $.local_friends_declaration,
-        $.class_implementation,
-        $.class_data_declaration,
-        $.interface_declaration,
-        $.deferred_interface_declaration,
-        $.interfaces_declaration,
-        $.methods_declaration,
-        $.method_implementation,
-        $.class_methods_declaration,
+      prec.dynamic(
+        2,
+        choice(
+          // OOP
+          $.class_declaration,
+          $.deferred_class_declaration,
+          $.local_friends_declaration,
+          $.class_implementation,
+          $.class_data_declaration,
+          $.interface_declaration,
+          $.deferred_interface_declaration,
+          $.interfaces_declaration,
+          $.methods_declaration,
+          $.method_implementation,
+          $.class_methods_declaration,
 
-        // Program
-        $.tables_declaration,
-        $.form_definition,
-        $.initialization_event,
-        $.start_of_selection_event,
-        $.load_of_program_event,
+          // Program
+          $.tables_declaration,
+          $.form_definition,
+          $.initialization_event,
+          $.start_of_selection_event,
+          $.load_of_program_event,
 
-        // Dynpro
-        $.selection_screen_statement,
-        $.parameters_declaration,
-        $.select_options_declaration,
-        $.at_selscreen_statement,
+          // Dynpro
+          $.selection_screen_statement,
+          $.parameters_declaration,
+          $.select_options_declaration,
+          $.at_selscreen_statement,
+        ),
       ),
 
     typing: $ =>
@@ -439,7 +442,9 @@ module.exports = grammar({
      * END<> statement delimeter (such as AT SELECTION SCREEN)
      */
     statement_block: $ =>
-      prec.left(repeat1(choice($.simple_statement, $.docstring))),
+      prec.left(
+        repeat1(choice($.simple_statement, $.docstring, $.general_expression)),
+      ),
 
     /**
      * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).
