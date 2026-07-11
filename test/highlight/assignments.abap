@@ -64,3 +64,6 @@ ASSIGN COMPONENT i OF STRUCTURE para TO FIELD-SYMBOL(<comp>).
 ASSIGN struct-col1 INCREMENT inc TO <fs> RANGE struct. 
 "                            ^ variable
 "                                              ^ variable
+UNASSIGN <fs>.
+"<- keyword
+"         ^ variable

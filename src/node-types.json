@@ -554,6 +554,10 @@
         "named": true
       },
       {
+        "type": "unassign_statement",
+        "named": true
+      },
+      {
         "type": "unpack_statement",
         "named": true
       },
@@ -17289,6 +17293,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "unassign_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "unassign",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field_symbol",
+          "named": true
+        }
+      ]
     }
   },
   {

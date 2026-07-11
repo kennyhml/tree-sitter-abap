@@ -275,3 +275,14 @@ ASSIGN struct-col1 INCREMENT 3 TO <fs> RANGE struct.
       name: (identifier))
     (assignment_range
       range: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / UNASSIGN ] Unassign
+=================================================================================
+UNASSIGN <fs>.
+---
+
+(source
+  (unassign_statement
+    (field_symbol
+      name: (identifier))))
