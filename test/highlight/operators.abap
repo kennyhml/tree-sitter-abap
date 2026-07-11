@@ -59,22 +59,6 @@ msg->if_message~text
 "    ^ type
 "              ^ operator
 "               ^ variable.member
-msg->if_message~get_text( )
-" <- variable
-"  ^ operator
-"    ^ type
-"              ^ operator
-"               ^ function.method
-reported-obj-%msg->if_message~get_text( )
-" <- variable
-"       ^ operator
-"        ^ variable.member
-"           ^ operator
-"            ^ variable.member
-"                ^ operator
-"                  ^ type
-"                            ^ operator
-"                             ^ function.method
 foo-('bar')-baz
 " <- variable
 "  ^ operator
@@ -102,11 +86,11 @@ itab-(num)->baz
 cl_class=>foo( )
 "^ type
 "        ^ operator
-"          ^ function.method
+"          ^ function.method.call
 lo_obj->foo( )
 "^ variable
 "     ^ operator
-"       ^ function.method
+"       ^ function.method.call
 (classname)=>attribute
 "^ variable
 "          ^ operator
@@ -118,11 +102,11 @@ lo_obj->foo( )
 (classname)=>foo( )
 "^ variable
 "          ^ operator
-"            ^ function.method
+"            ^ function.method.call
 (classname)=>foo( )
 "^ variable
 "          ^ operator
-"            ^ function.method
+"            ^ function.method.call
 deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2
 "<- variable
 "            ^ operator

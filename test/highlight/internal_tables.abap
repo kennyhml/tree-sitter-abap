@@ -204,7 +204,7 @@ CORRESPONDING itab2( itab MAPPING col1 = default foo )
 "                                                ^ variable
 CORRESPONDING itab2( itab MAPPING col1 = default random=>randint( ) )
 "                                 ^ variable.member
-"                                                        ^ function.method
+"                                                        ^ function.method.call
 CORRESPONDING #( struct1 EXCEPT col2 col3 ).
 "                               ^ variable.member
 "                                    ^ variable.member

@@ -17,9 +17,9 @@ source = CONV string( text )
 "                     ^ variable
 int = CONV i( sqrt( 5 ) ) + CONV i( sqrt( 6 ) ).
 "          ^ type.builtin
-"             ^ function.builtin
+"             ^ function.call
 "                                ^ type.builtin
-"                                   ^ function.builtin
+"                                   ^ function.call
 p2 = EXACT result( p1 )
 "<- variable
 "     ^ keyword
@@ -44,5 +44,5 @@ dref = REF string( foo+off(len) )
 "                          ^ variable
 dref = REF string( let foo = get_handler( ) in foo )
 "                      ^ variable
-"                            ^ function.method
+"                            ^ function.method.call
 "                                              ^ variable

@@ -20,9 +20,9 @@ baz ** -foo
 "         ^ punctuation.bracket
 "           ^ operator
 ( exp( x ) - exp( -1 * x ) ) / 2
-" ^ function.builtin
+" ^ function.call
 "          ^ operator
-"             ^ function.builtin
+"             ^ function.call
 "                 ^ number
 "                    ^ operator
 "                      ^ variable

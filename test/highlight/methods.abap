@@ -117,5 +117,5 @@ lo_object->meth1(
     ).
 new cl_class( )->meth1( p = a )
 "   ^ type
-"                ^ function.method
+"                ^ function.method.call
 "                       ^ variable.parameter
