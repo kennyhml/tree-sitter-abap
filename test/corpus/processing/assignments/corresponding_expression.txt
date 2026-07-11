@@ -1,6 +1,6 @@
-======
-[CORRESPONDING-EXPRESSION] Basic corresponding
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Simple
+=================================================================================
 itab = CORRESPONDING flights( spfli_tab )
 ---
 
@@ -8,12 +8,12 @@ itab = CORRESPONDING flights( spfli_tab )
   (assignment
     left: (identifier)
     right: (corresponding_expression
-      type: (identifier)
+      result_type: (identifier)
       subject: (identifier))))
 
-======
-[CORRESPONDING-EXPRESSION] Exact corresponding
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Exact
+=================================================================================
 target2 = CORRESPONDING #( EXACT src ). 
 ---
 
@@ -24,9 +24,9 @@ target2 = CORRESPONDING #( EXACT src ).
       (exact)
       subject: (identifier))))
 
-======
-[CORRESPONDING-EXPRESSION] Corresponding with base
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Base
+=================================================================================
 itab = CORRESPONDING #( BASE ( itab ) itab3 ).
 ---
 
@@ -38,34 +38,34 @@ itab = CORRESPONDING #( BASE ( itab ) itab3 ).
         base: (identifier))
       subject: (identifier))))
 
-======
-[CORRESPONDING-EXPRESSION] Move deep corresponding
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Deep
+=================================================================================
 CORRESPONDING flights( deep spfli_tab )
 ---
 
 (source
   (corresponding_expression
-    type: (identifier)
+    result_type: (identifier)
     (deep)
     subject: (identifier)))
 
-======
-[CORRESPONDING-EXPRESSION] Move deep exact corresponding
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Exact deep
+=================================================================================
 CORRESPONDING flights( exact deep spfli_tab )
 ---
 
 (source
   (corresponding_expression
-    type: (identifier)
+    result_type: (identifier)
     (exact)
     (deep)
     subject: (identifier)))
 
-======
-[CORRESPONDING-EXPRESSION] Appending base
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Appending
+=================================================================================
 CORRESPONDING #( APPENDING ( struc2 ) struc1 )
 CORRESPONDING #( APPENDING BASE ( struc2 ) struc1 )
 ---
@@ -82,9 +82,9 @@ CORRESPONDING #( APPENDING BASE ( struc2 ) struc1 )
       base: (identifier))
     subject: (identifier)))
 
-======
-[CORRESPONDING-EXPRESSION] Deep appending base
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Deep appending
+=================================================================================
 CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 ). 
 CORRESPONDING #( DEEP APPENDING BASE ( struc2 ) struc1 ).
 ---
@@ -101,9 +101,9 @@ CORRESPONDING #( DEEP APPENDING BASE ( struc2 ) struc1 ).
       base: (identifier))
     subject: (identifier)))
 
-======
-[CORRESPONDING-EXPRESSION] Discard duplicates
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Discard duplicates
+=================================================================================
 CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 discarding duplicates ). 
 ---
 
@@ -115,40 +115,60 @@ CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 discarding duplicates ).
     subject: (identifier)
     (discarding_duplicates)))
 
-======
-[CORRESPONDING-EXPRESSION] Defined mapping
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Mapping
+=================================================================================
 CORRESPONDING itab2( itab MAPPING col1 = table_line )
 ---
 
 (source
   (corresponding_expression
-    (identifier)
-    (identifier)
+    result_type: (identifier)
+    subject: (identifier)
     (mapping_list
       (mapping
-        (identifier)
-        (identifier)))))
+        left: (identifier)
+        right: (identifier)))))
 
-======
-[CORRESPONDING-EXPRESSION] Defined mapping with default
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Default mapping
+=================================================================================
 CORRESPONDING itab2( itab MAPPING col1 = default 10 )
 ---
 
 (source
   (corresponding_expression
-    (identifier)
-    (identifier)
+    result_type: (identifier)
+    subject: (identifier)
     (mapping_list
       (mapping
-        (identifier)
+        left: (identifier)
         (mapping_default
           (number))))))
 
-======
-[CORRESPONDING-EXPRESSION] Defined mapping with exclusions
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Default expression
+=================================================================================
+CORRESPONDING itab2( itab MAPPING col1 = default lines( itab2 ) )
+---
+
+(source
+  (corresponding_expression
+    result_type: (identifier)
+    subject: (identifier)
+    (mapping_list
+      (mapping
+        left: (identifier)
+        (mapping_default
+          (function_call
+            name: (identifier)
+            (call_argument_list
+              exporting: (positional_argument
+                value: (identifier)))))))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Exclusions
+=================================================================================
 CORRESPONDING #( struct1 EXCEPT col2 col3 ).
 CORRESPONDING #( struct1 EXCEPT * ).
 ---
@@ -165,9 +185,9 @@ CORRESPONDING #( struct1 EXCEPT * ).
     (mapping_list
       (except_list))))
 
-======
-[CORRESPONDING-EXPRESSION] Defined mapping with nested mapping
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Deep mapping
+=================================================================================
 CORRESPONDING #( str_deep1 mapping 
                 ( bati = itab discarding duplicates mapping d = c except * ) 
                 ( titi = itab mapping d = c except * ) 
@@ -202,15 +222,15 @@ CORRESPONDING #( str_deep1 mapping
         right: (identifier))
       (except_list))))
 
-======
-[CORRESPONDING-EXPRESSION] From lookup table
-======
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Lookup table
+=================================================================================
 CORRESPONDING itab1( itab1 FROM itab2 USING value = value cmt = cmt ). 
 ---
 
 (source
   (corresponding_expression
-    type: (identifier)
+    result_type: (identifier)
     subject: (identifier)
     lookup_table: (identifier)
     (lookup_mapping_list

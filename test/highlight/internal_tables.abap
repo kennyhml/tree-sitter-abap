@@ -180,3 +180,40 @@ FILTER #( spfli_tab EXCEPT USING KEY carr_city
                 cityfrom = cityfrom ). 
 "               ^ variable.member
 "                          ^ variable
+itab = CORRESPONDING flights( spfli_tab )
+"      ^ keyword
+"                    ^ type
+"                             ^ variable
+target2 = CORRESPONDING #( EXACT src ). 
+"                          ^ keyword
+CORRESPONDING flights( deep spfli_tab )
+"                      ^ keyword
+"                                ^ variable
+itab = CORRESPONDING #( BASE ( itab ) itab3 ).
+"                       ^ keyword
+"                              ^ variable
+"                                     ^ variable
+CORRESPONDING itab2( itab MAPPING col1 = table_line )
+"                                 ^ variable.member
+"                                        ^ variable.member
+CORRESPONDING itab2( itab MAPPING col1 = default foo )
+"                                 ^ variable.member
+"                                                ^ variable
+CORRESPONDING itab2( itab MAPPING col1 = default random=>randint( ) )
+"                                 ^ variable.member
+"                                                        ^ function.method
+CORRESPONDING #( struct1 EXCEPT col2 col3 ).
+"                               ^ variable.member
+"                                    ^ variable.member
+CORRESPONDING #( struct1 EXCEPT * ).
+"                               ^ operator
+CORRESPONDING #( str_deep1 mapping 
+                ( titi = itab mapping d = c except * ) ).
+"                 ^ variable.member
+"                        ^ variable.member
+"                                     ^ variable.member
+"                                         ^ variable.member
+CORRESPONDING itab1( itab1 FROM itab2 USING value = value ). 
+"                               ^ variable
+"                                           ^ variable.member
+"                                                   ^ variable.member

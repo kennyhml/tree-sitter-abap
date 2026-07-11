@@ -4836,17 +4836,7 @@
           }
         ]
       },
-      "subject": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
-      },
-      "type": {
+      "result_type": {
         "multiple": false,
         "required": true,
         "types": [
@@ -4856,6 +4846,16 @@
           },
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -6609,7 +6609,7 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
+          "type": "itab_comp",
           "named": true
         }
       ]
@@ -10381,7 +10381,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "itab_comp",
             "named": true
           }
         ]
@@ -10391,7 +10391,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "itab_comp",
             "named": true
           }
         ]
@@ -10645,7 +10645,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "itab_comp",
             "named": true
           }
         ]
@@ -10655,7 +10655,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "itab_comp",
             "named": true
           }
         ]

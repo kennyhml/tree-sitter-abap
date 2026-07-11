@@ -8190,7 +8190,7 @@
         },
         {
           "type": "FIELD",
-          "name": "type",
+          "name": "result_type",
           "content": {
             "type": "SYMBOL",
             "name": "_constructor_result"
@@ -8435,7 +8435,7 @@
             "name": "left",
             "content": {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "itab_comp"
             }
           },
           {
@@ -8453,7 +8453,7 @@
                     "name": "right",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "identifier"
+                      "name": "itab_comp"
                     }
                   },
                   {
@@ -8506,7 +8506,7 @@
           "name": "left",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "itab_comp"
           }
         },
         {
@@ -8518,7 +8518,7 @@
           "name": "right",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "itab_comp"
           }
         }
       ]
@@ -8541,7 +8541,7 @@
               "type": "REPEAT1",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "itab_comp"
               }
             }
           ]

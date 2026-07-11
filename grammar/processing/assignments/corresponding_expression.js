@@ -11,7 +11,7 @@ module.exports = {
   corresponding_expression: $ =>
     seq(
       gen.kw("corresponding"),
-      field("type", $._constructor_result),
+      field("result_type", $._constructor_result),
       "(",
       choice($._corresponding_basic_form, $._corresponding_lookup_table_form),
       ")",
@@ -89,10 +89,10 @@ module.exports = {
   mapping: $ =>
     prec.right(
       seq(
-        field("left", $.identifier),
+        field("left", $.itab_comp),
         "=",
         choice(
-          seq(field("right", $.identifier), optional($.mapping_default)),
+          seq(field("right", $.itab_comp), optional($.mapping_default)),
           $.mapping_default,
         ),
         optional($.discarding_duplicates),
@@ -107,14 +107,14 @@ module.exports = {
   lookup_mapping_list: $ => repeat1($.lookup_mapping),
 
   lookup_mapping: $ =>
-    seq(field("left", $.identifier), "=", field("right", $.identifier)),
+    seq(field("left", $.itab_comp), "=", field("right", $.itab_comp)),
 
   except_list: $ =>
     seq(
       gen.kw("except"),
       choice(
         "*", // all
-        repeat1($.identifier),
+        repeat1($.itab_comp),
       ),
     ),
 
@@ -145,4 +145,3 @@ module.exports = {
       ")",
     ),
 };
-

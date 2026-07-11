@@ -159,6 +159,14 @@
   selector: "-"
 )
 
+(
+ (component_selection
+  subject: (identifier) @variable.builtin
+  selector: "-" )
+  ( #match? @variable.builtin "^([sS][yY])$" )
+)
+
+
 (table_key_spec name: (identifier) @constant )
 (using_key name: (identifier) @constant )
 (using_key name: (identifier) @constant.builtin (#match? @constant.builtin "primary_key") )
