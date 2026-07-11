@@ -180,6 +180,9 @@ FILTER #( spfli_tab EXCEPT USING KEY carr_city
                 cityfrom = cityfrom ). 
 "               ^ variable.member
 "                          ^ variable
+MOVE-CORRESPONDING itab1 TO itab2. 
+"                  ^ variable
+"                           ^ variable
 itab = CORRESPONDING flights( spfli_tab )
 "      ^ keyword
 "                    ^ type

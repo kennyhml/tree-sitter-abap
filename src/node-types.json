@@ -486,6 +486,10 @@
         "named": true
       },
       {
+        "type": "move_corresponding_statement",
+        "named": true
+      },
+      {
         "type": "perform_statement",
         "named": true
       },
@@ -6715,6 +6719,30 @@
     }
   },
   {
+    "type": "expanding_nested_tables",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "expanding",
+            "named": false
+          },
+          {
+            "type": "nested",
+            "named": false
+          },
+          {
+            "type": "tables",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "explicit_reference",
     "named": true,
     "fields": {
@@ -9761,6 +9789,30 @@
     }
   },
   {
+    "type": "keeping_target_lines",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "keeping",
+            "named": false
+          },
+          {
+            "type": "lines",
+            "named": false
+          },
+          {
+            "type": "target",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "key_component_list",
     "named": true,
     "fields": {
@@ -11257,6 +11309,64 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "move_corresponding_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "move-corresponding",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "exact",
+          "named": true
+        },
+        {
+          "type": "expanding_nested_tables",
+          "named": true
+        },
+        {
+          "type": "keeping_target_lines",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -18172,6 +18282,10 @@
     "named": false
   },
   {
+    "type": "expanding",
+    "named": false
+  },
+  {
     "type": "exporting",
     "named": false
   },
@@ -18384,6 +18498,10 @@
     "named": false
   },
   {
+    "type": "keeping",
+    "named": false
+  },
+  {
     "type": "key",
     "named": false
   },
@@ -18537,6 +18655,10 @@
     "named": false
   },
   {
+    "type": "move-corresponding",
+    "named": false
+  },
+  {
     "type": "multi_line_comment",
     "named": true,
     "extra": true
@@ -18551,6 +18673,10 @@
   },
   {
     "type": "ne",
+    "named": false
+  },
+  {
+    "type": "nested",
     "named": false
   },
   {
@@ -19012,6 +19138,10 @@
   {
     "type": "tag",
     "named": true
+  },
+  {
+    "type": "target",
+    "named": false
   },
   {
     "type": "task",

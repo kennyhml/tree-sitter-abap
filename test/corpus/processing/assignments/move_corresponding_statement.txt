@@ -1,0 +1,50 @@
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / MOVE-CORRESPONDING ] Simple
+=================================================================================
+MOVE-CORRESPONDING itab1 TO itab2. 
+
+---
+
+(source
+  (move_corresponding_statement
+    source: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / MOVE-CORRESPONDING ] Exact
+=================================================================================
+MOVE-CORRESPONDING EXACT itab1 TO itab2. 
+
+---
+
+(source
+  (move_corresponding_statement
+    (exact)
+    source: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / MOVE-CORRESPONDING ] Nested tables
+=================================================================================
+MOVE-CORRESPONDING struc1 TO struc2 EXPANDING NESTED TABLES.
+
+---
+
+(source
+  (move_corresponding_statement
+    source: (identifier)
+    destination: (identifier)
+    (expanding_nested_tables)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / MOVE-CORRESPONDING ] Keeping target lines
+=================================================================================
+MOVE-CORRESPONDING itab1 TO itab2 KEEPING TARGET LINES. 
+
+---
+
+(source
+  (move_corresponding_statement
+    source: (identifier)
+    destination: (identifier)
+    (keeping_target_lines)))

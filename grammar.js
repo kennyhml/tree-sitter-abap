@@ -131,9 +131,6 @@ module.exports = grammar({
           // Processing statements
           $.call_function_statement,
           $.call_method_statement,
-          $.set_update_task_local_statement,
-          $.commit_work_statement,
-          $.rollback_work_statement,
           $.concatenate_statement,
           $.condense_statement,
           $.find_statement,
@@ -148,11 +145,15 @@ module.exports = grammar({
           $.append_statement,
           $.insert_statement,
           $.sort_statement,
+          $.move_corresponding_statement,
 
           // Program
           $.report_statement,
           $.include_statement,
           $.perform_statement,
+          $.set_update_task_local_statement,
+          $.commit_work_statement,
+          $.rollback_work_statement,
 
           // Dynpro
           $.call_sel_screen_statement,

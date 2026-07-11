@@ -83,18 +83,6 @@
           },
           {
             "type": "SYMBOL",
-            "name": "set_update_task_local_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "commit_work_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "rollback_work_statement"
-          },
-          {
-            "type": "SYMBOL",
             "name": "concatenate_statement"
           },
           {
@@ -151,6 +139,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "move_corresponding_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -160,6 +152,18 @@
           {
             "type": "SYMBOL",
             "name": "perform_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "set_update_task_local_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "commit_work_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "rollback_work_statement"
           },
           {
             "type": "SYMBOL",
@@ -8875,6 +8879,105 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "move_corresponding_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_move_corresponding"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "exact"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "expanding_nested_tables"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keeping_target_lines"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "expanding_nested_tables": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_expanding"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_nested"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_tables"
+        }
+      ]
+    },
+    "keeping_target_lines": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_keeping"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_target"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_lines"
         }
       ]
     },
@@ -21074,6 +21177,71 @@
         },
         "named": false,
         "value": "duplicates"
+      }
+    },
+    "_kw_move_corresponding": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)move-corresponding"
+        },
+        "named": false,
+        "value": "move-corresponding"
+      }
+    },
+    "_kw_expanding": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)expanding"
+        },
+        "named": false,
+        "value": "expanding"
+      }
+    },
+    "_kw_nested": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)nested"
+        },
+        "named": false,
+        "value": "nested"
+      }
+    },
+    "_kw_keeping": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)keeping"
+        },
+        "named": false,
+        "value": "keeping"
+      }
+    },
+    "_kw_target": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)target"
+        },
+        "named": false,
+        "value": "target"
       }
     },
     "_kw_div": {
