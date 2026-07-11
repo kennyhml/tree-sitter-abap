@@ -147,6 +147,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "assign_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -6533,8 +6537,17 @@
           "type": "FIELD",
           "name": "count",
           "content": {
-            "type": "SYMBOL",
-            "name": "number"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "named_data_object"
+              }
+            ]
           }
         }
       ]
@@ -8133,6 +8146,266 @@
           "content": {
             "type": "STRING",
             "value": ")"
+          }
+        }
+      ]
+    },
+    "assign_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_assign"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "__assign_source"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "assignment_increment"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "field_symbol"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "declaration_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "assignment_casting"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "assignment_range"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "else_unassign"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__assign_source": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "data_object"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dynamic_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "component_of_structure"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "writable_expression"
+        }
+      ]
+    },
+    "assignment_increment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_increment"
+        },
+        {
+          "type": "FIELD",
+          "name": "amount",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "assignment_range": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_range"
+        },
+        {
+          "type": "FIELD",
+          "name": "range",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        }
+      ]
+    },
+    "assignment_casting": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_casting"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "FIELD",
+                      "name": "typing",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "typing"
+                      }
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "type_handle"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "type_decimals"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "typing"
+        }
+      ]
+    },
+    "component_of_structure": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_component"
+        },
+        {
+          "type": "FIELD",
+          "name": "comp",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "character_like_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "numeric_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_structure"
+        },
+        {
+          "type": "FIELD",
+          "name": "struct",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "type_handle": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_handle"
+        },
+        {
+          "type": "FIELD",
+          "name": "handle",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
           }
         }
       ]
@@ -21127,6 +21400,58 @@
         },
         "named": false,
         "value": "alias"
+      }
+    },
+    "_kw_assign": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)assign"
+        },
+        "named": false,
+        "value": "assign"
+      }
+    },
+    "_kw_increment": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)increment"
+        },
+        "named": false,
+        "value": "increment"
+      }
+    },
+    "_kw_component": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)component"
+        },
+        "named": false,
+        "value": "component"
+      }
+    },
+    "_kw_handle": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)handle"
+        },
+        "named": false,
+        "value": "handle"
       }
     },
     "_kw_mapping": {

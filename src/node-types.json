@@ -366,6 +366,10 @@
         "named": true
       },
       {
+        "type": "assign_statement",
+        "named": true
+      },
+      {
         "type": "assignment",
         "named": true
       },
@@ -1395,6 +1399,84 @@
     }
   },
   {
+    "type": "assign_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "field_symbol",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "assign",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_of_structure",
+            "named": true
+          },
+          {
+            "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment_casting",
+          "named": true
+        },
+        {
+          "type": "assignment_increment",
+          "named": true
+        },
+        {
+          "type": "assignment_range",
+          "named": true
+        },
+        {
+          "type": "else_unassign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assigned_predicate",
     "named": true,
     "fields": {
@@ -1506,6 +1588,102 @@
           },
           {
             "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "assignment_casting",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "casting",
+            "named": false
+          }
+        ]
+      },
+      "typing": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typing",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "type_decimals",
+          "named": true
+        },
+        {
+          "type": "type_handle",
+          "named": true
+        },
+        {
+          "type": "typing",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assignment_increment",
+    "named": true,
+    "fields": {
+      "amount": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "increment",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "assignment_range",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "range",
+            "named": false
+          }
+        ]
+      },
+      "range": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
             "named": true
           }
         ]
@@ -4282,6 +4460,54 @@
           },
           {
             "type": "in_table",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "component_of_structure",
+    "named": true,
+    "fields": {
+      "comp": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          },
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "component",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "structure",
+            "named": false
+          }
+        ]
+      },
+      "struct": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
             "named": true
           }
         ]
@@ -16850,6 +17076,10 @@
         "required": true,
         "types": [
           {
+            "type": "named_data_object",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           }
@@ -16861,6 +17091,36 @@
         "types": [
           {
             "type": "decimals",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_handle",
+    "named": true,
+    "fields": {
+      "handle": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "handle",
+            "named": false
+          },
+          {
+            "type": "type",
             "named": false
           }
         ]
@@ -17882,6 +18142,10 @@
     "named": false
   },
   {
+    "type": "assign",
+    "named": false
+  },
+  {
     "type": "assigned",
     "named": false
   },
@@ -18071,6 +18335,10 @@
   },
   {
     "type": "comparing",
+    "named": false
+  },
+  {
+    "type": "component",
     "named": false
   },
   {
@@ -18430,6 +18698,10 @@
     "named": false
   },
   {
+    "type": "handle",
+    "named": false
+  },
+  {
     "type": "harmless",
     "named": false
   },
@@ -18487,6 +18759,10 @@
   },
   {
     "type": "include",
+    "named": false
+  },
+  {
+    "type": "increment",
     "named": false
   },
   {

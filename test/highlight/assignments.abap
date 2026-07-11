@@ -45,4 +45,22 @@ dref = REF string( foo+off(len) )
 dref = REF string( let foo = get_handler( ) in foo )
 "                      ^ variable
 "                            ^ function.method.call
+ASSIGN datlo TO <year>. 
+"<- keyword
+"      ^ variable
+"                ^ variable
+ASSIGN sy-timlo TO <fs> CASTING TYPE time.
+"      ^ variable.builtin
+"         ^ variable.member
+"                                    ^ type
+ASSIGN time TO <fs> CASTING LIKE sy-timlo. 
+"                                ^ variable.builtin
+"                                   ^ variable.member
+ASSIGN datlo TO <fs> CASTING TYPE HANDLE struct. 
+"                                        ^ variable
+ASSIGN COMPONENT i OF STRUCTURE para TO FIELD-SYMBOL(<comp>). 
+"                ^ variable
+"                               ^ variable
+ASSIGN struct-col1 INCREMENT inc TO <fs> RANGE struct. 
+"                            ^ variable
 "                                              ^ variable

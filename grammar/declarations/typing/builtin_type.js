@@ -45,7 +45,12 @@ module.exports = {
   type_length: $ =>
     seq(gen.kw("length"), field("count", choice($.number, $.string_literal))),
 
-  type_decimals: $ => seq(gen.kw("decimals"), field("count", $.number)),
+  // Yes, decimals can be specified as data object in certain situations..
+  type_decimals: $ =>
+    seq(
+      gen.kw("decimals"),
+      field("count", choice($.number, $.named_data_object)),
+    ),
 
   __abap_type_additions: $ =>
     choice(

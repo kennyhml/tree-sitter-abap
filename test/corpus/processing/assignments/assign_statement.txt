@@ -1,0 +1,277 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Simple
+=================================================================================
+ASSIGN datlo TO <year>. 
+---
+
+(source
+  (assign_statement
+    source: (identifier)
+    destination: (field_symbol
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Else unassign
+=================================================================================
+ASSIGN datlo TO <year> else unassign. 
+---
+
+(source
+  (assign_statement
+    source: (identifier)
+    destination: (field_symbol
+      name: (identifier))
+    (else_unassign)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Casting
+=================================================================================
+ASSIGN 123 TO <fs> CASTING.
+---
+
+(source
+  (assign_statement
+    source: (number)
+    destination: (field_symbol
+      name: (identifier))
+    (assignment_casting)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Casting type
+=================================================================================
+ASSIGN sy-timlo TO <fs> CASTING TYPE time.
+---
+
+(source
+  (assign_statement
+    source: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    destination: (field_symbol
+      name: (identifier))
+    (assignment_casting
+      typing: (referred_type
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Casting like
+=================================================================================
+ASSIGN time TO <fs> CASTING LIKE sy-timlo. 
+---
+
+(source
+  (assign_statement
+    source: (identifier)
+    destination: (field_symbol
+      name: (identifier))
+    (assignment_casting
+      typing: (referred_type
+        object: (component_selection
+          subject: (identifier)
+          component: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Casting decimals without type
+=================================================================================
+ASSIGN pack TO <pack> CASTING DECIMALS sy-index. 
+---
+
+(source
+  (assign_statement
+    source: (identifier)
+    destination: (field_symbol
+      name: (identifier))
+    (assignment_casting
+      (type_decimals
+        count: (component_selection
+          subject: (identifier)
+          component: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Casting decimals
+=================================================================================
+ASSIGN pack TO <pack> CASTING TYPE foo DECIMALS sy-index. 
+---
+
+(source
+  (assign_statement
+    source: (identifier)
+    destination: (field_symbol
+      name: (identifier))
+    (assignment_casting
+      typing: (builtin_type_spec
+        name: (identifier)
+        (type_decimals
+          count: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Type handle
+=================================================================================
+ASSIGN sy-datlo TO  <fs> CASTING TYPE HANDLE struct. 
+---
+
+(source
+  (assign_statement
+    source: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    destination: (field_symbol
+      name: (identifier))
+    (assignment_casting
+      (type_handle
+        handle: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] By component name
+=================================================================================
+ASSIGN COMPONENT <comp_descr>-name OF STRUCTURE para TO FIELD-SYMBOL(<comp>). 
+---
+
+(source
+  (assign_statement
+    source: (component_of_structure
+      comp: (component_selection
+        subject: (field_symbol
+          name: (identifier))
+        component: (identifier))
+      struct: (identifier))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] By component index
+=================================================================================
+ASSIGN COMPONENT sy-index OF STRUCTURE para TO FIELD-SYMBOL(<comp>). 
+---
+
+(source
+  (assign_statement
+    source: (component_of_structure
+      comp: (component_selection
+        subject: (identifier)
+        component: (identifier))
+      struct: (identifier))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Fully dynamic
+=================================================================================
+ASSIGN (clif_name)=>(attr_name) TO FIELD-SYMBOL(<fs1>). 
+---
+
+(source
+  (assign_statement
+    source: (component_selection
+      subject: (dynamic_spec
+        value: (identifier))
+      component: (dynamic_spec
+        value: (identifier)))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Table expression
+=================================================================================
+ASSIGN sflight_tab[ connid = connid ] TO FIELD-SYMBOL(<price>). 
+---
+
+(source
+  (assign_statement
+    source: (table_expression
+      subject: (identifier)
+      (free_key
+        (key_component_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (identifier)))))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Substring lhs
+=================================================================================
+ASSIGN sy-datlo+6(2) TO <day>. 
+---
+
+(source
+  (assign_statement
+    source: (substring_access
+      subject: (component_selection
+        subject: (identifier)
+        component: (identifier))
+      offset: (number)
+      length: (number))
+    destination: (field_symbol
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Dynamic name
+=================================================================================
+ASSIGN (name) TO FIELD-SYMBOL(<syfield>). 
+---
+
+(source
+  (assign_statement
+    source: (dynamic_spec
+      value: (identifier))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Deference
+=================================================================================
+ASSIGN dref->* TO FIELD-SYMBOL(<fs>).
+---
+
+(source
+  (assign_statement
+    source: (dereference_expression
+      subject: (identifier))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Dynamic component
+=================================================================================
+ASSIGN NEW cls( )->attr-(comp2) TO FIELD-SYMBOL(<fs2>). 
+---
+
+(source
+  (assign_statement
+    source: (component_selection
+      subject: (component_selection
+        subject: (new_expression
+          result_type: (identifier))
+        component: (identifier))
+      component: (dynamic_spec
+        value: (identifier)))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Increment
+=================================================================================
+ASSIGN struct-col1 INCREMENT 3 TO <fs> RANGE struct. 
+---
+
+(source
+  (assign_statement
+    source: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    (assignment_increment
+      amount: (number))
+    destination: (field_symbol
+      name: (identifier))
+    (assignment_range
+      range: (identifier))))

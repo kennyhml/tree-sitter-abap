@@ -423,6 +423,7 @@
 ; Must be more specific than the variable rule so it takes precedence. 
 ; No choice but to support up to a certain depth (3)
 (_ typing: (_ 
+  !object
   (component_selection 
     subject: [
       (identifier) @type
