@@ -76,3 +76,6 @@ UNASSIGN: <fs>, <fs2>, <fs3>.
 "          ^ variable
 "                ^ variable
 "                       ^ variable
+GET REFERENCE OF text INTO dref. 
+"                ^ variable
+"                          ^ variable

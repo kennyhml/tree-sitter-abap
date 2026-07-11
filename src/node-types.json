@@ -458,6 +458,10 @@
         "named": true
       },
       {
+        "type": "get_reference_statement",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -8034,6 +8038,58 @@
           {
             "type": "without",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get_reference_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "get",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "reference",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
           }
         ]
       }
@@ -18713,6 +18769,10 @@
   },
   {
     "type": "ge",
+    "named": false
+  },
+  {
+    "type": "get",
     "named": false
   },
   {

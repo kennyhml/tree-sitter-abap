@@ -149,6 +149,7 @@ module.exports = grammar({
           $.unpack_statement,
           $.assign_statement,
           $.unassign_statement,
+          $.get_reference_statement,
 
           // Program
           $.report_statement,

@@ -1,0 +1,38 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / GET REFERENCE ] Simple
+=================================================================================
+GET REFERENCE OF text INTO dref. 
+---
+
+(source
+  (get_reference_statement
+    source: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / GET REFERENCE ] Substring
+=================================================================================
+GET REFERENCE OF text+off(1) INTO dref. 
+---
+
+(source
+  (get_reference_statement
+    source: (substring_access
+      subject: (identifier)
+      offset: (identifier)
+      length: (number))
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / GET REFERENCE ] Inline decl.
+=================================================================================
+GET REFERENCE OF foo-bar INTO DATA(dref).
+---
+
+(source
+  (get_reference_statement
+    source: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    destination: (declaration_expression
+      name: (identifier))))
