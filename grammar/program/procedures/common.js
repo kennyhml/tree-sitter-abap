@@ -50,6 +50,7 @@ module.exports = {
           $.function_call,
           $.table_expression,
           $.arithmetic_expression,
+          $.bit_expression,
           $.string_expression,
           $.dereference_expression,
         ),

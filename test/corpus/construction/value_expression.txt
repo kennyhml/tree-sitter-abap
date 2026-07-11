@@ -426,3 +426,19 @@ value #( ( ( 10 + 10 ) - 20 ) ).
                   left: (number)
                   right: (number)))
               right: (number))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE, Value Operator ] Bit expression
+=================================================================================
+value #( ( hex1 BIT-AND hex2 ) ).
+---
+
+(source
+  (value_expression
+    (table_comprehension
+      (line_spec
+        (argument_list
+          (positional_argument
+            value: (bit_expression
+              left: (identifier)
+              right: (identifier))))))))

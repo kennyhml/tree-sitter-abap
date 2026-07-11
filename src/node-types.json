@@ -13004,6 +13004,10 @@
             "named": true
           },
           {
+            "type": "bit_expression",
+            "named": true
+          },
+          {
             "type": "constructor_expression",
             "named": true
           },

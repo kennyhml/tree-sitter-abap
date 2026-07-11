@@ -16,4 +16,4 @@ BIT-NOT ( p1 BIT-OR p2 )
 "<- keyword.operator
 "         ^ variable
 "                   ^ variable
-o
+
