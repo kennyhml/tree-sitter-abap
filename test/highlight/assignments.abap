@@ -67,3 +67,8 @@ ASSIGN struct-col1 INCREMENT inc TO <fs> RANGE struct.
 UNASSIGN <fs>.
 "<- keyword
 "         ^ variable
+UNASSIGN: <fs>, <fs2>, <fs3>.
+"<- keyword
+"          ^ variable
+"                ^ variable
+"                       ^ variable

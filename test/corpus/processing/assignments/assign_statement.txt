@@ -286,3 +286,18 @@ UNASSIGN <fs>.
   (unassign_statement
     (field_symbol
       name: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assigning References / UNASSIGN ] Chained
+=================================================================================
+UNASSIGN: <fs>, <fs2>, <fs3>.
+---
+
+(source
+  (unassign_statement
+    (field_symbol
+      name: (identifier))
+    (field_symbol
+      name: (identifier))
+    (field_symbol
+      name: (identifier))))
