@@ -506,6 +506,10 @@
         "named": true
       },
       {
+        "type": "overlay_statement",
+        "named": true
+      },
+      {
         "type": "perform_statement",
         "named": true
       },
@@ -12400,6 +12404,32 @@
     }
   },
   {
+    "type": "only",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "only",
+            "named": false
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "optional",
     "named": true,
     "fields": {
@@ -12489,6 +12519,56 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "overlay_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "overlay",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "overlay": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "only",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -19362,6 +19442,10 @@
     "named": false
   },
   {
+    "type": "only",
+    "named": false
+  },
+  {
     "type": "option",
     "named": false
   },
@@ -19383,6 +19467,10 @@
   },
   {
     "type": "output",
+    "named": false
+  },
+  {
+    "type": "overlay",
     "named": false
   },
   {

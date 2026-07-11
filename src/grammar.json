@@ -163,6 +163,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "overlay_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -10585,6 +10589,68 @@
           "content": {
             "type": "SYMBOL",
             "name": "receiving_expression"
+          }
+        }
+      ]
+    },
+    "overlay_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_overlay"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "character_like_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_with"
+        },
+        {
+          "type": "FIELD",
+          "name": "overlay",
+          "content": {
+            "type": "SYMBOL",
+            "name": "character_like_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "only"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "only": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_only"
+        },
+        {
+          "type": "FIELD",
+          "name": "mask",
+          "content": {
+            "type": "SYMBOL",
+            "name": "character_like_expression"
           }
         }
       ]
@@ -22363,6 +22429,32 @@
         },
         "named": false,
         "value": "count"
+      }
+    },
+    "_kw_overlay": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)overlay"
+        },
+        "named": false,
+        "value": "overlay"
+      }
+    },
+    "_kw_only": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)only"
+        },
+        "named": false,
+        "value": "only"
       }
     },
     "_kw_replacement": {

@@ -97,3 +97,7 @@ FIND REGEX `(\w+)\W+\1\W+(\w+)\W+\2`
 CONVERT TEXT text INTO SORTABLE CODE hex.
 "            ^ variable
 "                                    ^ variable
+OVERLAY text1 WITH text2 ONLY mask.
+"       ^ variable
+"                  ^ variable
+"                             ^ variable

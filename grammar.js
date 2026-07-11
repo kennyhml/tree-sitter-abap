@@ -151,6 +151,7 @@ module.exports = grammar({
           $.unassign_statement,
           $.get_reference_statement,
           $.convert_text_statement,
+          $.overlay_statement,
 
           // Program
           $.report_statement,

@@ -1,0 +1,23 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / OVERLAY ] Simple
+=================================================================================
+OVERLAY text1 WITH text2.
+---
+
+(source
+  (overlay_statement
+    subject: (identifier)
+    overlay: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / OVERLAY ] With mask
+=================================================================================
+OVERLAY text1 WITH text2 ONLY mask.
+---
+
+(source
+  (overlay_statement
+    subject: (identifier)
+    overlay: (identifier)
+    (only
+      mask: (identifier))))
