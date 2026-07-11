@@ -1,0 +1,33 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / TRANSLATE ] Upper case
+=================================================================================
+TRANSLATE text TO UPPER CASE.
+---
+
+(source
+  (translate_statement
+    subject: (identifier)
+    (to_upper_case)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / TRANSLATE ] Lower case
+=================================================================================
+TRANSLATE text TO UPPER CASE.
+---
+
+(source
+  (translate_statement
+    subject: (identifier)
+    (to_upper_case)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / TRANSLATE ] Using mask
+=================================================================================
+TRANSLATE text USING 'ABBAabba'.
+---
+
+(source
+  (translate_statement
+    subject: (identifier)
+    (translation_mask
+      mask: (string_literal))))

@@ -152,6 +152,7 @@ module.exports = grammar({
           $.get_reference_statement,
           $.convert_text_statement,
           $.overlay_statement,
+          $.translate_statement,
 
           // Program
           $.report_statement,

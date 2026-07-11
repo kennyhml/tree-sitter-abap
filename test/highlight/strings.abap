@@ -101,3 +101,5 @@ OVERLAY text1 WITH text2 ONLY mask.
 "       ^ variable
 "                  ^ variable
 "                             ^ variable
+TRANSLATE text USING 'ABBAabba'.
+"         ^ variable

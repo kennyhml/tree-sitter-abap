@@ -562,6 +562,10 @@
         "named": true
       },
       {
+        "type": "translate_statement",
+        "named": true
+      },
+      {
         "type": "try_statement",
         "named": true
       },
@@ -17233,6 +17237,124 @@
     }
   },
   {
+    "type": "to_lower_case",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "case",
+            "named": false
+          },
+          {
+            "type": "lower",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "to_upper_case",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "case",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "upper",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "translate_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "translate",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "to_lower_case",
+          "named": true
+        },
+        {
+          "type": "to_upper_case",
+          "named": true
+        },
+        {
+          "type": "translation_mask",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "translation_mask",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "transporting_components",
     "named": true,
     "fields": {
@@ -19862,6 +19984,10 @@
     "named": false
   },
   {
+    "type": "translate",
+    "named": false
+  },
+  {
     "type": "transporting",
     "named": false
   },
@@ -19911,6 +20037,10 @@
   },
   {
     "type": "update",
+    "named": false
+  },
+  {
+    "type": "upper",
     "named": false
   },
   {
