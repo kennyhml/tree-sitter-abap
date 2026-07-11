@@ -36,6 +36,24 @@ module.exports = {
       $.include_block_directive,
     ),
 
+  // [[/][pos|POS_LOW|POS_HIGH](len)
+  output_position: $ =>
+    prec.right(
+      repeat1(
+        choice(
+          "/",
+          field(
+            "position",
+            choice(
+              $.number,
+              alias(choice("POS_LOW", "POS_HIGH"), $.identifier),
+            ),
+          ),
+          gen.immediateTightParens(field("length", $.number)),
+        ),
+      ),
+    ),
+
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_NORMAL.html
   begin_of_screen_element: $ =>
     prec.right(

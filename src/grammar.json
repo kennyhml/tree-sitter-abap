@@ -83,7 +83,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "local_updates_statement"
+            "name": "set_update_task_local_statement"
           },
           {
             "type": "SYMBOL",
@@ -677,6 +677,90 @@
             "type": "SYMBOL",
             "name": "identifier"
           }
+        }
+      ]
+    },
+    "set_update_task_local_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_update"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_task"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_local"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "commit_work_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_commit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_work"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "and_wait"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "rollback_work_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_rollback"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_work"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "and_wait": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_and"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_wait"
         }
       ]
     },
@@ -1961,6 +2045,80 @@
           "name": "include_block_directive"
         }
       ]
+    },
+    "output_position": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "/"
+            },
+            {
+              "type": "FIELD",
+              "name": "position",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "POS_LOW"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "POS_HIGH"
+                        }
+                      ]
+                    },
+                    "named": true,
+                    "value": "identifier"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "STRING",
+                    "value": "("
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "length",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "STRING",
+                    "value": ")"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
     },
     "begin_of_screen_element": {
       "type": "PREC_RIGHT",
@@ -11463,7 +11621,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "transporting_no_fields_spec"
+          "name": "transporting_no_fields"
         }
       ]
     },
@@ -11569,7 +11727,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "transporting_no_fields_spec"
+          "name": "transporting_no_fields"
         },
         {
           "type": "SYMBOL",
@@ -11650,6 +11808,23 @@
           }
         ]
       }
+    },
+    "transporting_no_fields": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_transporting"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_no"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_fields"
+        }
+      ]
     },
     "sort_statement": {
       "type": "SEQ",
@@ -18119,175 +18294,6 @@
         "value": "types"
       }
     },
-    "_kw_set": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)set"
-        },
-        "named": false,
-        "value": "set"
-      }
-    },
-    "_kw_update": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)update"
-        },
-        "named": false,
-        "value": "update"
-      }
-    },
-    "_kw_task": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)task"
-        },
-        "named": false,
-        "value": "task"
-      }
-    },
-    "_kw_local": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)local"
-        },
-        "named": false,
-        "value": "local"
-      }
-    },
-    "_kw_commit": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)commit"
-        },
-        "named": false,
-        "value": "commit"
-      }
-    },
-    "_kw_work": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)work"
-        },
-        "named": false,
-        "value": "work"
-      }
-    },
-    "_kw_and": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)and"
-        },
-        "named": false,
-        "value": "and"
-      }
-    },
-    "_kw_wait": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)wait"
-        },
-        "named": false,
-        "value": "wait"
-      }
-    },
-    "_kw_rollback": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)rollback"
-        },
-        "named": false,
-        "value": "rollback"
-      }
-    },
-    "_kw_transporting": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)transporting"
-        },
-        "named": false,
-        "value": "transporting"
-      }
-    },
-    "_kw_no": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)no"
-        },
-        "named": false,
-        "value": "no"
-      }
-    },
-    "_kw_fields": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)fields"
-        },
-        "named": false,
-        "value": "fields"
-      }
-    },
-    "_kw_length": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)length"
-        },
-        "named": false,
-        "value": "length"
-      }
-    },
     "_kw_value": {
       "type": "FIELD",
       "name": "keyword",
@@ -18951,6 +18957,123 @@
         "value": "suffix"
       }
     },
+    "_kw_set": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)set"
+        },
+        "named": false,
+        "value": "set"
+      }
+    },
+    "_kw_update": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)update"
+        },
+        "named": false,
+        "value": "update"
+      }
+    },
+    "_kw_task": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)task"
+        },
+        "named": false,
+        "value": "task"
+      }
+    },
+    "_kw_local": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)local"
+        },
+        "named": false,
+        "value": "local"
+      }
+    },
+    "_kw_commit": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)commit"
+        },
+        "named": false,
+        "value": "commit"
+      }
+    },
+    "_kw_work": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)work"
+        },
+        "named": false,
+        "value": "work"
+      }
+    },
+    "_kw_rollback": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)rollback"
+        },
+        "named": false,
+        "value": "rollback"
+      }
+    },
+    "_kw_and": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)and"
+        },
+        "named": false,
+        "value": "and"
+      }
+    },
+    "_kw_wait": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)wait"
+        },
+        "named": false,
+        "value": "wait"
+      }
+    },
     "_kw_final": {
       "type": "FIELD",
       "name": "keyword",
@@ -19068,6 +19191,19 @@
         "value": "visible"
       }
     },
+    "_kw_length": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)length"
+        },
+        "named": false,
+        "value": "length"
+      }
+    },
     "_kw_memory": {
       "type": "FIELD",
       "name": "keyword",
@@ -19157,6 +19293,19 @@
         },
         "named": false,
         "value": "off"
+      }
+    },
+    "_kw_no": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)no"
+        },
+        "named": false,
+        "value": "no"
       }
     },
     "_kw_intervals": {
@@ -20015,6 +20164,19 @@
         },
         "named": false,
         "value": "all"
+      }
+    },
+    "_kw_fields": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)fields"
+        },
+        "named": false,
+        "value": "fields"
       }
     },
     "_kw_free": {
@@ -21445,6 +21607,19 @@
         },
         "named": false,
         "value": "last"
+      }
+    },
+    "_kw_transporting": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)transporting"
+        },
+        "named": false,
+        "value": "transporting"
       }
     },
     "_kw_stable": {
@@ -23689,86 +23864,6 @@
         ]
       }
     },
-    "local_updates_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_set"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_update"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_task"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_local"
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "commit_work_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_commit"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_work"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_kw_and"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_kw_wait"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "rollback_work_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_rollback"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_work"
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
     "_constructor_result": {
       "type": "CHOICE",
       "members": [
@@ -23779,23 +23874,6 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
-        }
-      ]
-    },
-    "transporting_no_fields_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_transporting"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_no"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_fields"
         }
       ]
     },
@@ -23842,80 +23920,6 @@
           }
         }
       ]
-    },
-    "output_position": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "/"
-            },
-            {
-              "type": "FIELD",
-              "name": "position",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "number"
-                  },
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "POS_LOW"
-                        },
-                        {
-                          "type": "STRING",
-                          "value": "POS_HIGH"
-                        }
-                      ]
-                    },
-                    "named": true,
-                    "value": "identifier"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "IMMEDIATE_TOKEN",
-                  "content": {
-                    "type": "STRING",
-                    "value": "("
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "length",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "number"
-                  }
-                },
-                {
-                  "type": "IMMEDIATE_TOKEN",
-                  "content": {
-                    "type": "STRING",
-                    "value": ")"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
     },
     "_empty_statement": {
       "type": "TOKEN",

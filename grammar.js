@@ -1,12 +1,12 @@
-global.gen = require("./grammar/_utils/generators.js");
-const fs = require("fs");
-const path = require("path");
-
 /**
  * @file Abap grammar for tree-sitter
  * @author Kendrick Hommel <kendrick.hommel@gmail.com>
  * @license MIT
  */
+global.gen = require("./grammar/_utils/generators.js");
+const fs = require("fs");
+const path = require("path");
+
 const IDENTIFIER_REGEX = /([a-z_\/%][%a-z\d_\/]*)/i;
 
 // ABAP does allow + and - before any number. However, allowing both inside the regex, we run
@@ -131,7 +131,7 @@ module.exports = grammar({
           // Processing statements
           $.call_function_statement,
           $.call_method_statement,
-          $.local_updates_statement,
+          $.set_update_task_local_statement,
           $.commit_work_statement,
           $.rollback_work_statement,
           $.concatenate_statement,
@@ -413,29 +413,11 @@ module.exports = grammar({
         ),
       ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_UPDATE_TASK_LOCAL.html
-    local_updates_statement: $ =>
-      seq(...gen.kws("set", "update", "task", "local"), "."),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMMIT.html
-    commit_work_statement: $ =>
-      seq(
-        ...gen.kws("commit", "work"),
-        optional(seq(...gen.kws("and", "wait"))),
-        ".",
-      ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPROLLBACK.html
-    rollback_work_statement: $ => seq(...gen.kws("rollback", "work"), "."),
-
     _constructor_result: $ =>
       choice(
         "#", // inferred
         $.identifier, // explicit
       ),
-
-    transporting_no_fields_spec: $ =>
-      seq(...gen.kws("transporting", "no", "fields")),
 
     /**
      * Bad idea to allow general expression here as that boils down to identifiers
@@ -457,24 +439,6 @@ module.exports = grammar({
 
     table_body_access: $ =>
       seq(field("table", $.identifier), token.immediate("[]")),
-
-    // [[/][pos|POS_LOW|POS_HIGH](len)
-    output_position: $ =>
-      prec.right(
-        repeat1(
-          choice(
-            "/",
-            field(
-              "position",
-              choice(
-                $.number,
-                alias(choice("POS_LOW", "POS_HIGH"), $.identifier),
-              ),
-            ),
-            gen.immediateTightParens(field("length", $.number)),
-          ),
-        ),
-      ),
 
     /**
      * When not currently inside a statement, ABAP allows spraying `...` all over the place.

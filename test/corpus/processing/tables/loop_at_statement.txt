@@ -223,7 +223,7 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (transporting_no_fields_spec)
+    result: (transporting_no_fields)
     (itab_lines
       (where_condition
         condition: (comparison_expression

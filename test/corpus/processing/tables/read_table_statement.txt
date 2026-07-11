@@ -93,7 +93,7 @@ READ TABLE itab WITH KEY foo = bar TRANSPORTING NO FIELDS.
         (itab_comp_spec
           comp: (identifier)
           value: (identifier))))
-    result: (transporting_no_fields_spec)))
+    result: (transporting_no_fields)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Secondary key read

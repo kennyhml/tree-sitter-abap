@@ -33,7 +33,7 @@ module.exports = {
     choice(
       $.assigning,
       $.reference_into,
-      $.transporting_no_fields_spec,
+      $.transporting_no_fields,
       $.into_work_area,
     ),
 
@@ -56,4 +56,6 @@ module.exports = {
 
   __transport_options: $ =>
     repeat1(choice($.comparing, $.transporting_components)),
+
+  transporting_no_fields: $ => seq(...gen.kws("transporting", "no", "fields")),
 };

@@ -474,10 +474,6 @@
         "named": true
       },
       {
-        "type": "local_updates_statement",
-        "named": true
-      },
-      {
         "type": "loop_at_group_statement",
         "named": true
       },
@@ -523,6 +519,10 @@
       },
       {
         "type": "rollback_work_statement",
+        "named": true
+      },
+      {
+        "type": "set_update_task_local_statement",
         "named": true
       },
       {
@@ -1029,6 +1029,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "and_wait",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "wait",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -4069,15 +4089,7 @@
         "required": true,
         "types": [
           {
-            "type": "and",
-            "named": false
-          },
-          {
             "type": "commit",
-            "named": false
-          },
-          {
-            "type": "wait",
             "named": false
           },
           {
@@ -4086,6 +4098,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "and_wait",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -10191,34 +10213,6 @@
     }
   },
   {
-    "type": "local_updates_statement",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "local",
-            "named": false
-          },
-          {
-            "type": "set",
-            "named": false
-          },
-          {
-            "type": "task",
-            "named": false
-          },
-          {
-            "type": "update",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "logical_expression",
     "named": true,
     "fields": {
@@ -10505,7 +10499,7 @@
             "named": true
           },
           {
-            "type": "transporting_no_fields_spec",
+            "type": "transporting_no_fields",
             "named": true
           }
         ]
@@ -10585,7 +10579,7 @@
             "named": true
           },
           {
-            "type": "transporting_no_fields_spec",
+            "type": "transporting_no_fields",
             "named": true
           }
         ]
@@ -13149,7 +13143,7 @@
             "named": true
           },
           {
-            "type": "transporting_no_fields_spec",
+            "type": "transporting_no_fields",
             "named": true
           }
         ]
@@ -14664,6 +14658,34 @@
           {
             "type": "character_like_expression",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "set_update_task_local_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "local",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          },
+          {
+            "type": "task",
+            "named": false
+          },
+          {
+            "type": "update",
+            "named": false
           }
         ]
       }
@@ -16609,7 +16631,7 @@
     }
   },
   {
-    "type": "transporting_no_fields_spec",
+    "type": "transporting_no_fields",
     "named": true,
     "fields": {
       "keyword": {
