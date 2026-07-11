@@ -18,10 +18,9 @@ Consider the following expression:
 ```abap
 new bar( 'Hello World' )
 ```
-It's impossible to know whether the constructor of the class `bar` is being invoked or if a char-like anonymous data object is being created.
+It's impossible to know whether the constructor of the class `bar` is being invoked or if a char-like data object is being created.
 This could only be determined by having context of the codebase and knowing the concrete type of `bar`. For this reason, the parser outputs a fairly
-generic `argument_list`. If further detail is required, a semantic analysis is needed (with access to things such as the DDIC).
-
+generic `argument_list`.
 ### Keyword chaining
 You're likely aware that you can chain e.g data object declarations:
 ```abap
@@ -50,7 +49,11 @@ Needless to say, this isnt only annoying to parse but practically impossible, as
 As a result, the grammar makes an effort to support chained statements where they often times used. For example, when declaring
 a structure type or defining dynpro parameters. Excessively using this "quirk" has been discouraged for a long time and tools 
 such as the official ABAP Formatter provide the ability to transform such statements into their longform (and proper) variant.
-
+### Locals
+Tree-sitter offers a system to tag nodes in the syntax tree that introduce a scope, declare a variable or reference such a variable.\
+As ABAP usually splits these concerns into completely different scopes (includes in programs, declaration section of a class) its cant
+easily be supported. Its also worth noting that upstream Tree-sitter has moved away from this system anyways as it is a task better
+suited for a language server.
 ## Obsolete Language Elements
 Many obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.
 Some language elements that are still commonly found in On Premise / Private Cloud Systems may be supported despite officially marked as obsolete - 
