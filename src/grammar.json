@@ -8421,36 +8421,44 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "left",
+            "type": "REPEAT1",
             "content": {
-              "type": "SYMBOL",
-              "name": "writable_expression"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "operator",
-            "content": {
-              "type": "STRING",
-              "value": "="
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "left",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "writable_expression"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "="
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "?="
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           },
           {
             "type": "FIELD",
             "name": "right",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "general_expression"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "assignment"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "general_expression"
             }
           },
           {

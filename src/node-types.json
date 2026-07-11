@@ -1563,7 +1563,7 @@
     "named": true,
     "fields": {
       "left": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -1573,11 +1573,15 @@
         ]
       },
       "operator": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "=",
+            "named": false
+          },
+          {
+            "type": "?=",
             "named": false
           }
         ]
@@ -1586,10 +1590,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "assignment",
-            "named": true
-          },
           {
             "type": "general_expression",
             "named": true
@@ -18097,6 +18097,10 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": "?=",
     "named": false
   },
   {

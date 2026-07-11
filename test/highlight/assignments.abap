@@ -45,6 +45,10 @@ dref = REF string( foo+off(len) )
 dref = REF string( let foo = get_handler( ) in foo )
 "                      ^ variable
 "                            ^ function.method.call
+general_type ?= concrete_type.
+"<- variable
+"            ^ operator
+"               ^ variable
 ASSIGN datlo TO <year>. 
 "<- keyword
 "      ^ variable
