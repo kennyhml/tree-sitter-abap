@@ -280,7 +280,7 @@ module.exports = grammar({
      * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
      */
     parenthesized_expression: $ =>
-      prec(5, seq("(", choice($.arithmetic_expression), ")")),
+      prec(5, seq("(", choice($.arithmetic_expression, $.bit_expression), ")")),
 
     /**
      * A builtin (keyword) expression resulting in the creation of a certain value.
@@ -335,6 +335,7 @@ module.exports = grammar({
         $.function_call,
         $.table_expression,
         $.arithmetic_expression,
+        $.bit_expression,
         $.parenthesized_expression,
         $.string_expression,
         $.dereference_expression,
@@ -351,11 +352,7 @@ module.exports = grammar({
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_EXPRESSION_GLOSRY.html
     calculation_expression: $ =>
-      choice(
-        $.arithmetic_expression,
-        $.string_expression,
-        // TOOD: bit expression
-      ),
+      choice($.arithmetic_expression, $.string_expression, $.bit_expression),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
     numeric_expression: $ =>

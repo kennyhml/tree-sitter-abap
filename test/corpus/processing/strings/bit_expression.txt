@@ -1,0 +1,64 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / Bit Expression ] Simple
+=================================================================================
+p1 BIT-AND p2 BIT-AND p3
+---
+
+(source
+  (bit_expression
+    left: (bit_expression
+      left: (identifier)
+      right: (identifier))
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / Bit Expression ] Or lowest prec
+=================================================================================
+p1 BIT-OR p2 BIT-AND p3
+---
+
+(source
+  (bit_expression
+    left: (identifier)
+    right: (bit_expression
+      left: (identifier)
+      right: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / Bit Expression ] XOR higher OR
+=================================================================================
+p1 BIT-XOR p2 BIT-OR p3
+---
+
+(source
+  (bit_expression
+    left: (bit_expression
+      left: (identifier)
+      right: (identifier))
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / Bit Expression ] Paranthesized prec.
+=================================================================================
+( p1 BIT-OR p2 ) BIT-AND p3
+---
+
+(source
+  (bit_expression
+    left: (parenthesized_expression
+      (bit_expression
+        left: (identifier)
+        right: (identifier)))
+    right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / Bit Expression ] NOT highest prec
+=================================================================================
+BIT-NOT op1 BIT-AND op2
+---
+
+(source
+  (bit_expression
+    left: (bit_expression
+      value: (identifier))
+    right: (identifier)))

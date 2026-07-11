@@ -128,6 +128,10 @@
         "named": true
       },
       {
+        "type": "bit_expression",
+        "named": true
+      },
+      {
         "type": "constructor_expression",
         "named": true
       },
@@ -2343,6 +2347,86 @@
           {
             "type": "search",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bit_expression",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bit-and",
+            "named": false
+          },
+          {
+            "type": "bit-not",
+            "named": false
+          },
+          {
+            "type": "bit-or",
+            "named": false
+          },
+          {
+            "type": "bit-xor",
+            "named": false
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bit-and",
+            "named": false
+          },
+          {
+            "type": "bit-not",
+            "named": false
+          },
+          {
+            "type": "bit-or",
+            "named": false
+          },
+          {
+            "type": "bit-xor",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
           }
         ]
       }
@@ -12675,6 +12759,10 @@
           "named": true
         },
         {
+          "type": "bit_expression",
+          "named": true
+        },
+        {
           "type": "bound_predicate",
           "named": true
         },
@@ -18273,6 +18361,22 @@
   },
   {
     "type": "binary",
+    "named": false
+  },
+  {
+    "type": "bit-and",
+    "named": false
+  },
+  {
+    "type": "bit-not",
+    "named": false
+  },
+  {
+    "type": "bit-or",
+    "named": false
+  },
+  {
+    "type": "bit-xor",
     "named": false
   },
   {
