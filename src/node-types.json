@@ -430,6 +430,10 @@
         "named": true
       },
       {
+        "type": "convert_text_statement",
+        "named": true
+      },
+      {
         "type": "data_declaration",
         "named": true
       },
@@ -5150,6 +5154,62 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "convert_text_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "code",
+            "named": false
+          },
+          {
+            "type": "convert",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "sortable",
+            "named": false
+          },
+          {
+            "type": "text",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -18524,6 +18584,10 @@
     "named": false
   },
   {
+    "type": "code",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": false
   },
@@ -18569,6 +18633,10 @@
   },
   {
     "type": "conv",
+    "named": false
+  },
+  {
+    "type": "convert",
     "named": false
   },
   {
@@ -19575,6 +19643,10 @@
   },
   {
     "type": "sort",
+    "named": false
+  },
+  {
+    "type": "sortable",
     "named": false
   },
   {

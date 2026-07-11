@@ -1,0 +1,33 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONVERT TEXT ] Multiple targets
+=================================================================================
+CONVERT TEXT text INTO SORTABLE CODE hex.
+---
+
+(source
+  (convert_text_statement
+    source: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONVERT TEXT ] Literal
+=================================================================================
+CONVERT TEXT 'a' INTO SORTABLE CODE hex.
+---
+
+(source
+  (convert_text_statement
+    source: (string_literal)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONVERT TEXT ] Inline declaration
+=================================================================================
+CONVERT TEXT text INTO SORTABLE CODE DATA(var).
+---
+
+(source
+  (convert_text_statement
+    source: (identifier)
+    destination: (declaration_expression
+      name: (identifier))))

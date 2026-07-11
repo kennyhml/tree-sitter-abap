@@ -150,6 +150,7 @@ module.exports = grammar({
           $.assign_statement,
           $.unassign_statement,
           $.get_reference_statement,
+          $.convert_text_statement,
 
           // Program
           $.report_statement,

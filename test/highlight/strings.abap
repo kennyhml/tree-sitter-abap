@@ -94,3 +94,6 @@ FIND REGEX `(\w+)\W+\1\W+(\w+)\W+\2`
      SUBMATCHES s1 FINAL(s2).
 "               ^ variable
 "                        ^ variable
+CONVERT TEXT text INTO SORTABLE CODE hex.
+"            ^ variable
+"                                    ^ variable

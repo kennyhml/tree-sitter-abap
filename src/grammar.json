@@ -159,6 +159,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "convert_text_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -10386,6 +10390,60 @@
     "no_gaps_spec": {
       "type": "SYMBOL",
       "name": "_kw_no_gaps"
+    },
+    "convert_text_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_convert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_text"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_sortable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_code"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "named_data_object"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "declaration_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
     },
     "find_statement": {
       "type": "SEQ",
@@ -22214,6 +22272,45 @@
         },
         "named": false,
         "value": "no-gaps"
+      }
+    },
+    "_kw_convert": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)convert"
+        },
+        "named": false,
+        "value": "convert"
+      }
+    },
+    "_kw_sortable": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)sortable"
+        },
+        "named": false,
+        "value": "sortable"
+      }
+    },
+    "_kw_code": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)code"
+        },
+        "named": false,
+        "value": "code"
       }
     },
     "_kw_find": {
