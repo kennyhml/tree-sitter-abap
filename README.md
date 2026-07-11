@@ -46,11 +46,11 @@ Needless to say, this isnt only annoying to parse but practically impossible, as
 - You can no longer assign nodes in the resulting CST a meaningful grouping, as context may be split.
 - Due to the unclear grouping of tokens, its not feasible to preprocess the code to make parsing easier.
 
-As a result, the grammar makes an effort to support chained statements where they often times used. For example, when declaring
+As a result, the grammar makes an effort to support chained statements where they are often times used. For example, when declaring
 a structure type or defining dynpro parameters. Excessively using this "quirk" has been discouraged for a long time and tools 
 such as the official ABAP Formatter provide the ability to transform such statements into their longform (and proper) variant.
 ### Locals
-Tree-sitter offers a system to tag nodes in the syntax tree that introduce a scope, declare a variable or reference such a variable.\
+Tree-sitter offers a system to tag nodes in the syntax tree that introduce a scope, declare a variable or reference such a variable.
 As ABAP usually splits these concerns into completely different scopes (includes in programs, declaration section of a class) its cant
 easily be supported. Its also worth noting that upstream Tree-sitter has moved away from this system anyways as it is a task better
 suited for a language server.
