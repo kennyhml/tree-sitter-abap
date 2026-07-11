@@ -143,6 +143,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "unpack_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -8944,6 +8948,10 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -9032,6 +9040,39 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "unpack_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_unpack"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -21242,6 +21283,19 @@
         },
         "named": false,
         "value": "target"
+      }
+    },
+    "_kw_unpack": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)unpack"
+        },
+        "named": false,
+        "value": "unpack"
       }
     },
     "_kw_div": {

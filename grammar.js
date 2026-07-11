@@ -146,6 +146,7 @@ module.exports = grammar({
           $.insert_statement,
           $.sort_statement,
           $.move_corresponding_statement,
+          $.unpack_statement,
 
           // Program
           $.report_statement,

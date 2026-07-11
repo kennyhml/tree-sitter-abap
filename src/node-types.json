@@ -550,6 +550,10 @@
         "named": true
       },
       {
+        "type": "unpack_statement",
+        "named": true
+      },
+      {
         "type": "while_statement",
         "named": true
       }
@@ -17044,6 +17048,46 @@
     }
   },
   {
+    "type": "unpack_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "unpack",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "until",
     "named": true,
     "fields": {
@@ -19209,6 +19253,10 @@
   },
   {
     "type": "unit",
+    "named": false
+  },
+  {
+    "type": "unpack",
     "named": false
   },
   {

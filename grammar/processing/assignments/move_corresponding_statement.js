@@ -8,6 +8,7 @@ module.exports = {
       field("destination", $.general_expression),
       optional($.expanding_nested_tables),
       optional($.keeping_target_lines),
+      ".",
     ),
 
   expanding_nested_tables: _ =>

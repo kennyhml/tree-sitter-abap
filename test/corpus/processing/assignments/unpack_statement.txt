@@ -1,0 +1,10 @@
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / UNPACK ] Simple
+=================================================================================
+UNPACK pack TO char2.
+---
+
+(source
+  (unpack_statement
+    source: (identifier)
+    destination: (identifier)))
