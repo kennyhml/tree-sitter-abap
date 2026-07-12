@@ -430,6 +430,10 @@
         "named": true
       },
       {
+        "type": "convert_into_timestamp_statement",
+        "named": true
+      },
+      {
         "type": "convert_text_statement",
         "named": true
       },
@@ -5189,7 +5193,7 @@
     }
   },
   {
-    "type": "convert_daylight_saving_time",
+    "type": "convert_into_timestamp_statement",
     "named": true,
     "fields": {
       "destination": {
@@ -5207,11 +5211,19 @@
         "required": true,
         "types": [
           {
-            "type": "daylight",
+            "type": "convert",
             "named": false
           },
           {
-            "type": "saving",
+            "type": "date",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "stamp",
             "named": false
           },
           {
@@ -5219,7 +5231,35 @@
             "named": false
           }
         ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "daylight_saving_time_spec",
+          "named": true
+        },
+        {
+          "type": "time_spec",
+          "named": true
+        },
+        {
+          "type": "time_zone_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -5282,26 +5322,12 @@
     "type": "convert_timestamp_statement",
     "named": true,
     "fields": {
-      "date": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
       "keyword": {
         "multiple": true,
         "required": true,
         "types": [
           {
             "type": "convert",
-            "named": false
-          },
-          {
-            "type": "date",
             "named": false
           },
           {
@@ -5315,10 +5341,6 @@
           {
             "type": "time",
             "named": false
-          },
-          {
-            "type": "zone",
-            "named": false
           }
         ]
       },
@@ -5331,34 +5353,26 @@
             "named": true
           }
         ]
-      },
-      "time": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
-      "time_zone": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "general_expression",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
-          "type": "convert_daylight_saving_time",
+          "type": "date_spec",
+          "named": true
+        },
+        {
+          "type": "daylight_saving_time_spec",
+          "named": true
+        },
+        {
+          "type": "time_spec",
+          "named": true
+        },
+        {
+          "type": "time_zone_spec",
           "named": true
         }
       ]
@@ -5651,6 +5665,74 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "date_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "date",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "daylight_saving_time_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "daylight",
+            "named": false
+          },
+          {
+            "type": "saving",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -17922,6 +18004,66 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "time_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "time",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "time_zone_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "time",
+            "named": false
+          },
+          {
+            "type": "zone",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

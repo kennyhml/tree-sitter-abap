@@ -1,0 +1,46 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT INTO TIME STAMP ] Basic
+=================================================================================
+CONVERT DATE dat INTO TIME STAMP time_stamp TIME ZONE tz.
+---
+
+(source
+  (convert_into_timestamp_statement
+    source: (identifier)
+    destination: (identifier)
+    (time_zone_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT INTO TIME STAMP ] Time specification
+=================================================================================
+CONVERT DATE dat TIME tim INTO TIME STAMP time_stamp TIME ZONE tz. 
+---
+
+(source
+  (convert_into_timestamp_statement
+    source: (identifier)
+    (time_spec
+      value: (identifier))
+    destination: (identifier)
+    (time_zone_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT INTO TIME STAMP ] Daylight saving time specification
+=================================================================================
+CONVERT DATE dat TIME tim DAYLIGHT SAVING TIME 'X' 
+        INTO TIME STAMP DATA(time_stamp) TIME ZONE 'EST'. 
+---
+
+(source
+  (convert_into_timestamp_statement
+    source: (identifier)
+    (time_spec
+      value: (identifier))
+    (daylight_saving_time_spec
+      value: (string_literal))
+    destination: (declaration_expression
+      name: (identifier))
+    (time_zone_spec
+      value: (string_literal))))

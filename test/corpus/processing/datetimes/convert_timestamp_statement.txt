@@ -9,8 +9,10 @@ CONVERT TIME STAMP '20191103063000'
 (source
   (convert_timestamp_statement
     source: (string_literal)
-    time_zone: (string_literal)
-    date: (identifier)))
+    (time_zone_spec
+      value: (string_literal))
+    (date_spec
+      value: (identifier))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Dates & Time / CONVERT TIME STAMP ] Into time
@@ -23,8 +25,10 @@ CONVERT TIME STAMP timestamp
 (source
   (convert_timestamp_statement
     source: (identifier)
-    time_zone: (string_literal)
-    time: (identifier)))
+    (time_zone_spec
+      value: (string_literal))
+    (time_spec
+      value: (identifier))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Dates & Time / CONVERT TIME STAMP ] Into date and time
@@ -38,9 +42,12 @@ CONVERT TIME STAMP timestamp
 (source
   (convert_timestamp_statement
     source: (identifier)
-    time_zone: (string_literal)
-    date: (identifier)
-    time: (identifier)))
+    (time_zone_spec
+      value: (string_literal))
+    (date_spec
+      value: (identifier))
+    (time_spec
+      value: (identifier))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Dates & Time / CONVERT TIME STAMP ] Daylight saving time
@@ -58,11 +65,14 @@ CONVERT TIME STAMP CONV timestamp( '20191103' && '053000' )
       subject: (string_concatenation
         left: (string_literal)
         right: (string_literal)))
-    time_zone: (string_literal)
-    date: (declaration_expression
-      name: (identifier))
-    time: (declaration_expression
-      name: (identifier))
-    (convert_daylight_saving_time
-      destination: (declaration_expression
+    (time_zone_spec
+      value: (string_literal))
+    (date_spec
+      value: (declaration_expression
+        name: (identifier)))
+    (time_spec
+      value: (declaration_expression
+        name: (identifier)))
+    (daylight_saving_time_spec
+      value: (declaration_expression
         name: (identifier)))))

@@ -10,22 +10,10 @@ module.exports = {
     seq(
       ...gen.kws("convert", "time", "stamp"),
       field("source", $.general_expression),
-      ...gen.kws("time", "zone"),
-      field("time_zone", $.general_expression),
+      $.time_zone_spec,
       gen.kw("into"),
-      repeat1(
-        choice(
-          seq(gen.kw("date"), field("date", $.writable_expression)),
-          seq(gen.kw("time"), field("time", $.writable_expression)),
-        ),
-      ),
-      optional($.convert_daylight_saving_time),
+      repeat1(choice($.time_spec, $.date_spec)),
+      optional($.daylight_saving_time_spec),
       ".",
-    ),
-
-  convert_daylight_saving_time: $ =>
-    seq(
-      ...gen.kws("daylight", "saving", "time"),
-      field("destination", $.writable_expression),
     ),
 };

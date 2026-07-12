@@ -159,6 +159,7 @@ module.exports = grammar({
           $.get_time_statement,
           $.get_timestamp_statement,
           $.convert_timestamp_statement,
+          $.convert_into_timestamp_statement,
 
           // Program
           $.report_statement,
