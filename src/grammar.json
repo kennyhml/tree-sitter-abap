@@ -187,6 +187,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "get_timestamp_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -4211,48 +4215,6 @@
         {
           "type": "SYMBOL",
           "name": "_kw_fields"
-        }
-      ]
-    },
-    "get_time_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_get"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_time"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_kw_field"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "destination",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "writable_expression"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
         }
       ]
     },
@@ -9965,6 +9927,81 @@
           }
         ]
       }
+    },
+    "get_time_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_field"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "destination",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "writable_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "get_timestamp_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_stamp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_field"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
     },
     "set_bit_statement": {
       "type": "SEQ",
@@ -21607,32 +21644,6 @@
         "value": "fields"
       }
     },
-    "_kw_get": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get"
-        },
-        "named": false,
-        "value": "get"
-      }
-    },
-    "_kw_time": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)time"
-        },
-        "named": false,
-        "value": "time"
-      }
-    },
     "_kw_base": {
       "type": "FIELD",
       "name": "keyword",
@@ -22595,6 +22606,19 @@
         "value": "free"
       }
     },
+    "_kw_get": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)get"
+        },
+        "named": false,
+        "value": "get"
+      }
+    },
     "_kw_move_corresponding": {
       "type": "FIELD",
       "name": "keyword",
@@ -22749,6 +22773,32 @@
         },
         "named": false,
         "value": "bit-not"
+      }
+    },
+    "_kw_time": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)time"
+        },
+        "named": false,
+        "value": "time"
+      }
+    },
+    "_kw_stamp": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)stamp"
+        },
+        "named": false,
+        "value": "stamp"
       }
     },
     "_kw_bit": {

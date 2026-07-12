@@ -1,0 +1,22 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / GET TIME STAMP ] Simple
+=================================================================================
+GET TIME STAMP FIELD time_stamp.
+
+---
+
+(source
+  (get_timestamp_statement
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / GET TIME STAMP ] Inline declaration
+=================================================================================
+GET TIME STAMP FIELD FINAL(time_stamp).
+
+---
+
+(source
+  (get_timestamp_statement
+    destination: (declaration_expression
+      name: (identifier))))
