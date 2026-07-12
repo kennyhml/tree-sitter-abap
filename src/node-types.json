@@ -434,6 +434,10 @@
         "named": true
       },
       {
+        "type": "convert_timestamp_statement",
+        "named": true
+      },
+      {
         "type": "data_declaration",
         "named": true
       },
@@ -5185,6 +5189,40 @@
     }
   },
   {
+    "type": "convert_daylight_saving_time",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "daylight",
+            "named": false
+          },
+          {
+            "type": "saving",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "convert_text_statement",
     "named": true,
     "fields": {
@@ -5238,6 +5276,92 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "convert_timestamp_statement",
+    "named": true,
+    "fields": {
+      "date": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "convert",
+            "named": false
+          },
+          {
+            "type": "date",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "stamp",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
+          },
+          {
+            "type": "zone",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "time": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "time_zone": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "convert_daylight_saving_time",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -19628,6 +19752,14 @@
     "named": false
   },
   {
+    "type": "date",
+    "named": false
+  },
+  {
+    "type": "daylight",
+    "named": false
+  },
+  {
     "type": "dd/mm/yy",
     "named": false
   },
@@ -20583,6 +20715,10 @@
   },
   {
     "type": "round",
+    "named": false
+  },
+  {
+    "type": "saving",
     "named": false
   },
   {

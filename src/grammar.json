@@ -191,6 +191,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "convert_timestamp_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -9927,6 +9931,134 @@
           }
         ]
       }
+    },
+    "convert_timestamp_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_convert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_stamp"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_zone"
+        },
+        {
+          "type": "FIELD",
+          "name": "time_zone",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_kw_date"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "date",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "writable_expression"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_kw_time"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "time",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "writable_expression"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "convert_daylight_saving_time"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "convert_daylight_saving_time": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_daylight"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_saving"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
     },
     "get_time_statement": {
       "type": "SEQ",
@@ -22775,6 +22907,19 @@
         "value": "bit-not"
       }
     },
+    "_kw_convert": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)convert"
+        },
+        "named": false,
+        "value": "convert"
+      }
+    },
     "_kw_time": {
       "type": "FIELD",
       "name": "keyword",
@@ -22799,6 +22944,58 @@
         },
         "named": false,
         "value": "stamp"
+      }
+    },
+    "_kw_zone": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)zone"
+        },
+        "named": false,
+        "value": "zone"
+      }
+    },
+    "_kw_date": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)date"
+        },
+        "named": false,
+        "value": "date"
+      }
+    },
+    "_kw_daylight": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)daylight"
+        },
+        "named": false,
+        "value": "daylight"
+      }
+    },
+    "_kw_saving": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)saving"
+        },
+        "named": false,
+        "value": "saving"
       }
     },
     "_kw_bit": {
@@ -23046,19 +23243,6 @@
         },
         "named": false,
         "value": "no-gaps"
-      }
-    },
-    "_kw_convert": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)convert"
-        },
-        "named": false,
-        "value": "convert"
       }
     },
     "_kw_sortable": {
@@ -23501,19 +23685,6 @@
         },
         "named": false,
         "value": "format"
-      }
-    },
-    "_kw_zone": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)zone"
-        },
-        "named": false,
-        "value": "zone"
       }
     },
     "_kw_style": {
