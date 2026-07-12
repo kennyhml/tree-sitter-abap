@@ -36,7 +36,8 @@ module.exports = {
       ".",
     ),
 
-  substitute_with: $ => seq(gen.kw("with"), field("value", $.data_object)),
+  substitute_with: $ =>
+    seq(gen.kw("with"), field("value", $.character_like_expression)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_OPTIONS.html
   __replace_addition: $ =>

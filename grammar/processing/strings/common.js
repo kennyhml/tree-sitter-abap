@@ -66,9 +66,12 @@ module.exports = {
   __pattern: $ => choice($.substring, $.pcre, $.regex),
 
   substring: $ =>
-    seq(optional(gen.kw("substring")), field("value", $.data_object)),
-  pcre: $ => seq(gen.kw("pcre"), field("value", $.data_object)),
-  regex: $ => seq(gen.kw("regex"), field("value", $.data_object)),
+    seq(
+      optional(gen.kw("substring")),
+      field("value", $.character_like_expression),
+    ),
+  pcre: $ => seq(gen.kw("pcre"), field("value", $.character_like_expression)),
+  regex: $ => seq(gen.kw("regex"), field("value", $.character_like_expression)),
 
   /**
    * Specification of a case sensitivity in various string operations.

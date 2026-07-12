@@ -13062,7 +13062,7 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "character_like_expression",
             "named": true
           }
         ]
@@ -14261,7 +14261,7 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "character_like_expression",
             "named": true
           }
         ]
@@ -16469,7 +16469,7 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "character_like_expression",
             "named": true
           }
         ]
@@ -16495,7 +16495,7 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "character_like_expression",
             "named": true
           }
         ]

@@ -43,6 +43,27 @@ REPLACE ALL OCCURRENCES OF 'a' in str with 'b'.
       value: (string_literal))))
 
 =================================================================================
+[ ABAP - Procecssing Internal Data / Strings / Replace ] All occurrences with expression
+=================================================================================
+REPLACE ALL OCCURRENCES OF CONV xstring( `2D` ) IN xstr 
+                      WITH CONV xstring( `5F` ) IN BYTE MODE. 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (conv_expression
+          result_type: (identifier)
+          subject: (string_literal))))
+    subject: (identifier)
+    (substitute_with
+      value: (conv_expression
+        result_type: (identifier)
+        subject: (string_literal)))
+    (in_byte_mode)))
+
+=================================================================================
 [ ABAP - Procecssing Internal Data / Strings / Replace ] PCRE
 =================================================================================
 REPLACE PCRE 'u*' IN text WITH 'x'.
