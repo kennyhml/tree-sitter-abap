@@ -83,6 +83,7 @@ The following language features are currently implemented:
 - [x] Table comprehensions
 - [x] All string and byte processing statements
 - [x] All date and time processing statements
+      
 Partially completed categories are not mentioned here. For instance, APPEND / INSERT / READ table statements are implemented, while REPLACE IN TABLE is not - thus it is not listed.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
 ### Significant language features the grammar is **missing**:
