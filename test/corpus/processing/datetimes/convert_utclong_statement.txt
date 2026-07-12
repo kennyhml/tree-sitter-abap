@@ -1,0 +1,48 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT UTCLONG ] Into date
+=================================================================================
+CONVERT UTCLONG time_stamp INTO date dat TIME ZONE tz.
+
+---
+
+(source
+  (convert_utclong_statement
+    source: (identifier)
+    (date_spec
+      value: (identifier))
+    (time_zone_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT UTCLONG ] Fractional seconds
+=================================================================================
+CONVERT UTCLONG time_stamp INTO time tim FRACTIONAL SECONDS fs TIME ZONE tz.
+
+---
+
+(source
+  (convert_utclong_statement
+    source: (identifier)
+    (time_spec
+      value: (identifier))
+    (fractional_seconds_spec
+      value: (identifier))
+    (time_zone_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT UTCLONG ] Daylight saving time
+=================================================================================
+CONVERT UTCLONG time_stamp INTO TIME tim DAYLIGHT SAVING TIME dst TIME ZONE tz.
+
+---
+
+(source
+  (convert_utclong_statement
+    source: (identifier)
+    (time_spec
+      value: (identifier))
+    (daylight_saving_time_spec
+      value: (identifier))
+    (time_zone_spec
+      value: (identifier))))

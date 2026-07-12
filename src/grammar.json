@@ -199,6 +199,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "convert_utclong_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -9957,6 +9961,36 @@
         }
       ]
     },
+    "fractional_seconds_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_fractional"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_seconds"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "general_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "declaration_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "daylight_saving_time_spec": {
       "type": "SEQ",
       "members": [
@@ -10174,6 +10208,87 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "convert_utclong_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_convert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_utclong"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "date_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "time_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "fractional_seconds_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "daylight_saving_time_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "time_zone_spec"
         },
         {
           "type": "STRING",
@@ -23054,6 +23169,32 @@
         "value": "zone"
       }
     },
+    "_kw_fractional": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)fractional"
+        },
+        "named": false,
+        "value": "fractional"
+      }
+    },
+    "_kw_seconds": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)seconds"
+        },
+        "named": false,
+        "value": "seconds"
+      }
+    },
     "_kw_daylight": {
       "type": "FIELD",
       "name": "keyword",
@@ -23117,6 +23258,19 @@
         },
         "named": false,
         "value": "stamp"
+      }
+    },
+    "_kw_utclong": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)utclong"
+        },
+        "named": false,
+        "value": "utclong"
       }
     },
     "_kw_bit": {

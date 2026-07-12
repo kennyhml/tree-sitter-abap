@@ -2,6 +2,12 @@ module.exports = {
   time_zone_spec: $ =>
     seq(...gen.kws("time", "zone"), field("value", $.general_expression)),
 
+  fractional_seconds_spec: $ =>
+    seq(
+      ...gen.kws("fractional", "seconds"),
+      field("value", choice($.general_expression, $.declaration_expression)),
+    ),
+
   daylight_saving_time_spec: $ =>
     seq(
       ...gen.kws("daylight", "saving", "time"),

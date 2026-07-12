@@ -442,6 +442,10 @@
         "named": true
       },
       {
+        "type": "convert_utclong_statement",
+        "named": true
+      },
+      {
         "type": "data_declaration",
         "named": true
       },
@@ -5379,6 +5383,66 @@
     }
   },
   {
+    "type": "convert_utclong_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "convert",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "utclong",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "date_spec",
+          "named": true
+        },
+        {
+          "type": "daylight_saving_time_spec",
+          "named": true
+        },
+        {
+          "type": "fractional_seconds_spec",
+          "named": true
+        },
+        {
+          "type": "time_spec",
+          "named": true
+        },
+        {
+          "type": "time_zone_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "corresponding_expression",
     "named": true,
     "fields": {
@@ -8544,6 +8608,40 @@
           {
             "type": "using",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "fractional_seconds_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "fractional",
+            "named": false
+          },
+          {
+            "type": "seconds",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
           }
         ]
       }
@@ -20166,6 +20264,10 @@
     "named": false
   },
   {
+    "type": "fractional",
+    "named": false
+  },
+  {
     "type": "frame",
     "named": false
   },
@@ -20880,6 +20982,10 @@
     "named": false
   },
   {
+    "type": "seconds",
+    "named": false
+  },
+  {
     "type": "section",
     "named": false
   },
@@ -21153,6 +21259,10 @@
   },
   {
     "type": "using",
+    "named": false
+  },
+  {
+    "type": "utclong",
     "named": false
   },
   {
