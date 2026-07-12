@@ -474,6 +474,10 @@
         "named": true
       },
       {
+        "type": "get_time_statement",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -8720,6 +8724,40 @@
           {
             "type": "general_expression",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get_time_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": false
+          },
+          {
+            "type": "get",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
           }
         ]
       }

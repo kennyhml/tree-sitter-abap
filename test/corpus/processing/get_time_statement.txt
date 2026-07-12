@@ -1,0 +1,21 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / GET TIME ] Into system fields
+=================================================================================
+GET TIME.
+
+---
+
+(source
+  (get_time_statement))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / GET TIME ] Into destination
+=================================================================================
+GET TIME FIELD FINAL(time). 
+
+---
+
+(source
+  (get_time_statement
+    destination: (declaration_expression
+      name: (identifier))))
