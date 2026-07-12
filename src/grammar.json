@@ -171,6 +171,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "set_bit_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "get_bit_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -9907,6 +9915,122 @@
           }
         ]
       }
+    },
+    "set_bit_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_bit"
+        },
+        {
+          "type": "FIELD",
+          "name": "position",
+          "content": {
+            "type": "SYMBOL",
+            "name": "numeric_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_to"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "to",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "numeric_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "get_bit_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_bit"
+        },
+        {
+          "type": "FIELD",
+          "name": "position",
+          "content": {
+            "type": "SYMBOL",
+            "name": "numeric_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_into"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "into",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "writable_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "_processing_mode_spec": {
       "type": "CHOICE",
@@ -22197,6 +22321,19 @@
         },
         "named": false,
         "value": "bit-not"
+      }
+    },
+    "_kw_bit": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)bit"
+        },
+        "named": false,
+        "value": "bit"
       }
     },
     "_kw_character": {

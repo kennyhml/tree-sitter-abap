@@ -466,6 +466,10 @@
         "named": true
       },
       {
+        "type": "get_bit_statement",
+        "named": true
+      },
+      {
         "type": "get_reference_statement",
         "named": true
       },
@@ -543,6 +547,10 @@
       },
       {
         "type": "rollback_work_statement",
+        "named": true
+      },
+      {
+        "type": "set_bit_statement",
         "named": true
       },
       {
@@ -8196,6 +8204,64 @@
     }
   },
   {
+    "type": "get_bit_statement",
+    "named": true,
+    "fields": {
+      "into": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "bit",
+            "named": false
+          },
+          {
+            "type": "get",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "get_reference_statement",
     "named": true,
     "fields": {
@@ -15300,6 +15366,64 @@
     }
   },
   {
+    "type": "set_bit_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "bit",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "to": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "numeric_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "set_update_task_local_statement",
     "named": true,
     "fields": {
@@ -18627,6 +18751,10 @@
   },
   {
     "type": "binary",
+    "named": false
+  },
+  {
+    "type": "bit",
     "named": false
   },
   {

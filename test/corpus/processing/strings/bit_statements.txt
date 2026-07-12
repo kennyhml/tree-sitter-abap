@@ -1,0 +1,79 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / GET BIT ] Simple
+=================================================================================
+GET BIT index OF hex_value INTO FINAL(res). 
+---
+
+(source
+  (get_bit_statement
+    position: (identifier)
+    subject: (identifier)
+    into: (declaration_expression
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / GET BIT ] Complex expressions
+=================================================================================
+GET BIT sy-index OF itab[ sy-tabix ]-hex_value INTO FINAL(res). 
+---
+
+(source
+  (get_bit_statement
+    position: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    subject: (component_selection
+      subject: (table_expression
+        subject: (identifier)
+        (index_read
+          index: (component_selection
+            subject: (identifier)
+            component: (identifier))))
+      component: (identifier))
+    into: (declaration_expression
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / SET BIT ] Simple
+=================================================================================
+SET BIT sy-index OF hex. 
+---
+
+(source
+  (set_bit_statement
+    position: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / SET BIT ] Explicit value
+=================================================================================
+SET BIT sy-index OF hex TO 1. 
+---
+
+(source
+  (set_bit_statement
+    position: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    subject: (identifier)
+    to: (number)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings and Bytes / SET BIT ] Complex expressions
+=================================================================================
+SET BIT sy-index OF hex_tab[ sy-index ]. 
+---
+
+(source
+  (set_bit_statement
+    position: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    subject: (table_expression
+      subject: (identifier)
+      (index_read
+        index: (component_selection
+          subject: (identifier)
+          component: (identifier))))))

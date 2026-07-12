@@ -103,3 +103,11 @@ OVERLAY text1 WITH text2 ONLY mask.
 "                             ^ variable
 TRANSLATE text USING 'ABBAabba'.
 "         ^ variable
+SET BIT index OF hex to val.
+"       ^ variable
+"                ^ variable
+"                       ^ variable
+GET BIT index OF hex INTO FINAL(res). 
+"       ^ variable
+"                ^ variable
+"                               ^ variable
