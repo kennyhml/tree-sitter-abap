@@ -155,6 +155,7 @@ module.exports = grammar({
           $.translate_statement,
           $.set_bit_statement,
           $.get_bit_statement,
+          $.write_to_statement,
 
           // Program
           $.report_statement,

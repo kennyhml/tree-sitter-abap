@@ -592,6 +592,10 @@
       {
         "type": "while_statement",
         "named": true
+      },
+      {
+        "type": "write_to_statement",
+        "named": true
       }
     ]
   },
@@ -7894,6 +7898,228 @@
     }
   },
   {
+    "type": "format_centered",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "centered",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_currency",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "currency",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_date",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dd/mm/yy",
+            "named": false
+          },
+          {
+            "type": "dd/mm/yyyy",
+            "named": false
+          },
+          {
+            "type": "ddmmyy",
+            "named": false
+          },
+          {
+            "type": "mm/dd/yy",
+            "named": false
+          },
+          {
+            "type": "mm/dd/yyyy",
+            "named": false
+          },
+          {
+            "type": "mmddyy",
+            "named": false
+          },
+          {
+            "type": "yymmdd",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_decimals",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "decimals",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_environment_time_format",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "environment",
+            "named": false
+          },
+          {
+            "type": "format",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_exponent",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "exponent",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_left_justified",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "left-justified",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_no_grouping",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "no-grouping",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_no_sign",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "no-sign",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_no_zero",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "no-zero",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "format_option",
     "named": true,
     "fields": {
@@ -7918,6 +8144,192 @@
           {
             "type": "general_expression",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_right_justified",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "right-justified",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_round",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "round",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_style",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "style",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_time_zone",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "time",
+            "named": false
+          },
+          {
+            "type": "zone",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_unit",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "unit",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_using_edit_mask",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "edit",
+            "named": false
+          },
+          {
+            "type": "mask",
+            "named": false
+          },
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "format_using_no_edit_mask",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "edit",
+            "named": false
+          },
+          {
+            "type": "mask",
+            "named": false
+          },
+          {
+            "type": "no",
+            "named": false
+          },
+          {
+            "type": "using",
+            "named": false
           }
         ]
       }
@@ -18510,6 +18922,124 @@
     }
   },
   {
+    "type": "write_to_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "write",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "format_centered",
+          "named": true
+        },
+        {
+          "type": "format_currency",
+          "named": true
+        },
+        {
+          "type": "format_date",
+          "named": true
+        },
+        {
+          "type": "format_decimals",
+          "named": true
+        },
+        {
+          "type": "format_environment_time_format",
+          "named": true
+        },
+        {
+          "type": "format_exponent",
+          "named": true
+        },
+        {
+          "type": "format_left_justified",
+          "named": true
+        },
+        {
+          "type": "format_no_grouping",
+          "named": true
+        },
+        {
+          "type": "format_no_sign",
+          "named": true
+        },
+        {
+          "type": "format_no_zero",
+          "named": true
+        },
+        {
+          "type": "format_right_justified",
+          "named": true
+        },
+        {
+          "type": "format_round",
+          "named": true
+        },
+        {
+          "type": "format_style",
+          "named": true
+        },
+        {
+          "type": "format_time_zone",
+          "named": true
+        },
+        {
+          "type": "format_unit",
+          "named": true
+        },
+        {
+          "type": "format_using_edit_mask",
+          "named": true
+        },
+        {
+          "type": "format_using_no_edit_mask",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -18858,6 +19388,10 @@
     "named": false
   },
   {
+    "type": "centered",
+    "named": false
+  },
+  {
     "type": "changing",
     "named": false
   },
@@ -18994,6 +19528,10 @@
     "named": false
   },
   {
+    "type": "currency",
+    "named": false
+  },
+  {
     "type": "current",
     "named": false
   },
@@ -19007,6 +19545,18 @@
   },
   {
     "type": "database",
+    "named": false
+  },
+  {
+    "type": "dd/mm/yy",
+    "named": false
+  },
+  {
+    "type": "dd/mm/yyyy",
+    "named": false
+  },
+  {
+    "type": "ddmmyy",
     "named": false
   },
   {
@@ -19082,6 +19632,10 @@
     "named": false
   },
   {
+    "type": "edit",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -19150,6 +19704,10 @@
     "named": false
   },
   {
+    "type": "environment",
+    "named": false
+  },
+  {
     "type": "eq",
     "named": false
   },
@@ -19191,6 +19749,10 @@
   },
   {
     "type": "expanding",
+    "named": false
+  },
+  {
+    "type": "exponent",
     "named": false
   },
   {
@@ -19239,6 +19801,10 @@
   },
   {
     "type": "form",
+    "named": false
+  },
+  {
+    "type": "format",
     "named": false
   },
   {
@@ -19446,6 +20012,10 @@
     "named": false
   },
   {
+    "type": "left-justified",
+    "named": false
+  },
+  {
     "type": "length",
     "named": false
   },
@@ -19523,6 +20093,10 @@
     "named": false
   },
   {
+    "type": "mask",
+    "named": false
+  },
+  {
     "type": "match",
     "named": false
   },
@@ -19560,6 +20134,18 @@
   },
   {
     "type": "methods",
+    "named": false
+  },
+  {
+    "type": "mm/dd/yy",
+    "named": false
+  },
+  {
+    "type": "mm/dd/yyyy",
+    "named": false
+  },
+  {
+    "type": "mmddyy",
     "named": false
   },
   {
@@ -19625,6 +20211,18 @@
   },
   {
     "type": "no-gaps",
+    "named": false
+  },
+  {
+    "type": "no-grouping",
+    "named": false
+  },
+  {
+    "type": "no-sign",
+    "named": false
+  },
+  {
+    "type": "no-zero",
     "named": false
   },
   {
@@ -19892,11 +20490,19 @@
     "named": false
   },
   {
+    "type": "right-justified",
+    "named": false
+  },
+  {
     "type": "risk",
     "named": false
   },
   {
     "type": "rollback",
+    "named": false
+  },
+  {
+    "type": "round",
     "named": false
   },
   {
@@ -20024,6 +20630,10 @@
     "named": false
   },
   {
+    "type": "style",
+    "named": false
+  },
+  {
     "type": "submatches",
     "named": false
   },
@@ -20093,6 +20703,10 @@
   },
   {
     "type": "throw",
+    "named": false
+  },
+  {
+    "type": "time",
     "named": false
   },
   {
@@ -20232,7 +20846,19 @@
     "named": false
   },
   {
+    "type": "write",
+    "named": false
+  },
+  {
+    "type": "yymmdd",
+    "named": false
+  },
+  {
     "type": "z",
+    "named": false
+  },
+  {
+    "type": "zone",
     "named": false
   },
   {

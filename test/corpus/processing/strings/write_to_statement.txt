@@ -1,0 +1,236 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] No formatting
+=================================================================================
+WRITE source to destination.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] With date mask
+=================================================================================
+WRITE sy-datlo to date_mask DD/MM/YY.
+---
+
+(source
+  (write_to_statement
+    source: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    destination: (identifier)
+    (format_date)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Left justifiend
+=================================================================================
+WRITE 'Left'   TO formatted_text LEFT-JUSTIFIED. 
+---
+
+(source
+  (write_to_statement
+    source: (string_literal)
+    destination: (identifier)
+    (format_left_justified)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Centered
+=================================================================================
+WRITE 'Centered'   TO formatted_text CENTERED. 
+---
+
+(source
+  (write_to_statement
+    source: (string_literal)
+    destination: (identifier)
+    (format_centered)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Right justifiend
+=================================================================================
+WRITE 'Right'   TO formatted_text RIGHT-JUSTIFIED. 
+---
+
+(source
+  (write_to_statement
+    source: (string_literal)
+    destination: (identifier)
+    (format_right_justified)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Exponent
+=================================================================================
+WRITE float TO formatted_text EXPONENT 0. 
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_exponent
+      value: (number))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] No Grouping
+=================================================================================
+WRITE num TO formatted_text NO-GROUPING.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_no_grouping)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] No Sign
+=================================================================================
+WRITE num TO formatted_text NO-SIGN.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_no_sign)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] No Zero
+=================================================================================
+WRITE num TO formatted_text NO-ZERO.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_no_zero)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Currency
+=================================================================================
+WRITE num TO formatted_text CURRENCY 'USD'.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_currency
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Decimals
+=================================================================================
+WRITE num TO formatted_text DECIMALS 2.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_decimals
+      value: (number))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Round
+=================================================================================
+WRITE num TO formatted_text ROUND 3.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_round
+      value: (number))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Unit
+=================================================================================
+WRITE num TO formatted_text UNIT 'PC'.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_unit
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Environment Time Format
+=================================================================================
+WRITE val TO formatted_text ENVIRONMENT TIME FORMAT.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_environment_time_format)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Time Zone
+=================================================================================
+WRITE val TO formatted_text TIME ZONE 'UTC'.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_time_zone
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Style
+=================================================================================
+WRITE num TO formatted_text STYLE stl.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_style
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Using Edit Mask
+=================================================================================
+WRITE val TO formatted_text USING EDIT MASK '==ALPHA'.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_using_edit_mask
+      mask: (string_literal))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Using No Edit Mask
+=================================================================================
+WRITE val TO formatted_text USING NO EDIT MASK.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_using_no_edit_mask)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Strings / WRITE, TO ] Date Mask (DD/MM/YYYY)
+=================================================================================
+WRITE date TO formatted_text DD/MM/YYYY.
+---
+
+(source
+  (write_to_statement
+    source: (identifier)
+    destination: (identifier)
+    (format_date)))

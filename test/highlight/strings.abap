@@ -111,3 +111,12 @@ GET BIT index OF hex INTO FINAL(res).
 "       ^ variable
 "                ^ variable
 "                               ^ variable
+WRITE pack TO formatted_text NO-GROUPING UNIT unit. 
+"     ^ variable
+"             ^ variable
+"                                             ^ variable
+WRITE CONV decfloat34( '123456' ) TO text STYLE cl_abap_format=>o_engineering. 
+"          ^ type.builtin
+"                                    ^ variable
+"                                               ^ type
+"                                                               ^ variable.member
