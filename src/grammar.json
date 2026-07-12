@@ -203,6 +203,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "convert_into_utclong_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -10086,15 +10090,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_kw_date"
-        },
-        {
-          "type": "FIELD",
-          "name": "source",
-          "content": {
-            "type": "SYMBOL",
-            "name": "general_expression"
-          }
+          "name": "date_spec"
         },
         {
           "type": "CHOICE",
@@ -10143,6 +10139,71 @@
         {
           "type": "SYMBOL",
           "name": "time_zone_spec"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "convert_into_utclong_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_convert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "date_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "time_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "fractional_seconds_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "daylight_saving_time_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "time_zone_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_utclong"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
         },
         {
           "type": "STRING",

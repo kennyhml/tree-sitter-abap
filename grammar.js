@@ -161,6 +161,7 @@ module.exports = grammar({
           $.convert_timestamp_statement,
           $.convert_into_timestamp_statement,
           $.convert_utclong_statement,
+          $.convert_into_utclong_statement,
 
           // Program
           $.report_statement,

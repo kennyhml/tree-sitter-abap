@@ -6,7 +6,8 @@ CONVERT DATE dat INTO TIME STAMP time_stamp TIME ZONE tz.
 
 (source
   (convert_into_timestamp_statement
-    source: (identifier)
+    (date_spec
+      value: (identifier))
     destination: (identifier)
     (time_zone_spec
       value: (identifier))))
@@ -19,7 +20,8 @@ CONVERT DATE dat TIME tim INTO TIME STAMP time_stamp TIME ZONE tz.
 
 (source
   (convert_into_timestamp_statement
-    source: (identifier)
+    (date_spec
+      value: (identifier))
     (time_spec
       value: (identifier))
     destination: (identifier)
@@ -35,7 +37,8 @@ CONVERT DATE dat TIME tim DAYLIGHT SAVING TIME 'X'
 
 (source
   (convert_into_timestamp_statement
-    source: (identifier)
+    (date_spec
+      value: (identifier))
     (time_spec
       value: (identifier))
     (daylight_saving_time_spec

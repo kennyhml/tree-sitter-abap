@@ -1,0 +1,42 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT INTO UTCLONG ] Basic
+=================================================================================
+CONVERT DATE dat TIME tim TIME ZONE 'EST' INTO UTCLONG time_stamp. 
+---
+
+(source
+  (convert_into_utclong_statement
+    (date_spec
+      value: (identifier))
+    (time_spec
+      value: (identifier))
+    (time_zone_spec
+      value: (string_literal))
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT INTO UTCLONG ] Complex
+=================================================================================
+CONVERT DATE CONV d( '20191105' ) 
+        TIME CONV t( invalid_time2 ) 
+        DAYLIGHT SAVING TIME ' ' 
+        TIME ZONE 'UTC' 
+        INTO UTCLONG FINAL(time_stamp2). 
+---
+
+(source
+  (convert_into_utclong_statement
+    (date_spec
+      value: (conv_expression
+        result_type: (identifier)
+        subject: (string_literal)))
+    (time_spec
+      value: (conv_expression
+        result_type: (identifier)
+        subject: (identifier)))
+    (daylight_saving_time_spec
+      value: (string_literal))
+    (time_zone_spec
+      value: (string_literal))
+    destination: (declaration_expression
+      name: (identifier))))

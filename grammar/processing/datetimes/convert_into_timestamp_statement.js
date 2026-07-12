@@ -8,9 +8,9 @@ module.exports = {
    */
   convert_into_timestamp_statement: $ =>
     seq(
-      ...gen.kws("convert", "date"),
-      field("source", $.general_expression),
+      ...gen.kws("convert"),
 
+      $.date_spec,
       optional($.time_spec),
       optional($.daylight_saving_time_spec),
 

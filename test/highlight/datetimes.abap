@@ -16,3 +16,11 @@ CONVERT DATE dat TIME tim DAYLIGHT SAVING TIME abap_true
 "                                              ^ constant.builtin
         INTO TIME STAMP time_stamp TIME ZONE 'EST'.
 "                       ^ variable
+CONVERT DATE dat TIME tim
+"            ^ variable
+"                     ^ variable
+        DAYLIGHT SAVING TIME abap_false
+"                            ^ constant.builtin
+        TIME ZONE 'EST' 
+        INTO UTCLONG time_stamp. 
+"                    ^ variable
