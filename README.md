@@ -2,6 +2,8 @@
 > The grammar is still very much work in progress and still missing a large if not most of the language features as of July 2026.
 > The structure of the CST is bound to change multiple times over and as such is not to be considered stable by any means.
 >
+> You can check the current state of the parser at the bottom of this introduction.
+>
 > **Heads up: AI generated contributions are not welcome. Its simply not good at this stuff.**
 
 # tree-sitter-abap
@@ -59,8 +61,32 @@ suited for a language server.
 ## Obsolete Language Elements
 Many obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.
 Some language elements that are still commonly found in On Premise / Private Cloud Systems may be supported despite officially marked as obsolete - 
-for example the addition `IN BACKGROUND TASK` of a function call and dynpro elements.
+for example the addition `IN BACKGROUND TASK` of a function call, or selection-screen statements.
 
-## Why tree-sitter?
-Tree-sitter performs **incremental parsing**, making it ideal for working with large or legacy ABAP codebases that often span thousands of lines in a single report. The resulting 
-parser is compiled to **native C**, enabling significantly better performance than typical regex-based parsers (such as TextMate).
+## Completion rate
+The following language features are currently implemented:
+- [x] Declaration of data objects
+- [x] Declarations of types including table types
+- [x] Selection screens statements
+- [x] Declaring and using form routines
+- [x] Control Flow (if, case, loop at..)
+- [x] Defining classes, interfaces and method (except RAP and AMDP behavior) 
+- [x] Calling of functions, methods and function modules
+- [x] Arithmetic expressions
+- [x] String expressions (including string templates)
+- [x] Calculation expressions
+- [x] Bitwise expressions
+- [x] All constructor expressions (value, new, cond, switch, ref, reduce...)
+- [x] Table expressions
+- [x] Component selections
+- [x] Iteration expressions (for ... in / while / until )
+- [x] Table comprehensions
+- [x] All string and byte processing statements
+- [x] All date and time processing statements
+Partially completed categories are not mentioned here. For instance, APPEND / INSERT / READ table statements are implemented, while REPLACE IN TABLE is not - thus it is not listed.
+For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
+### Significant language features the grammar is **missing**:
+- [ ] **ABAP SQL**
+- [ ] RAP behavior implementation related statements in classes
+- [ ] EML statements
+- [ ] Dynpro modules
