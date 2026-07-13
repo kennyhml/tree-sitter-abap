@@ -1,0 +1,53 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE TABLE ] Lines
+=================================================================================
+DESCRIBE TABLE scarr_tab LINES FINAL(lines). 
+---
+
+(source
+  (describe_table_statement
+    subject: (identifier)
+    (describe_lines_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE TABLE ] Kind
+=================================================================================
+DESCRIBE TABLE scarr_tab KIND FINAL(knd). 
+---
+
+(source
+  (describe_table_statement
+    subject: (identifier)
+    (describe_kind_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE TABLE ] Occurs
+=================================================================================
+DESCRIBE TABLE scarr_tab OCCURS n. 
+---
+
+(source
+  (describe_table_statement
+    subject: (identifier)
+    (describe_occurs_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE TABLE ] All additions
+=================================================================================
+DESCRIBE TABLE scarr_tab OCCURS n LINES lin KIND knd. 
+---
+
+(source
+  (describe_table_statement
+    subject: (identifier)
+    (describe_occurs_spec
+      destination: (identifier))
+    (describe_lines_spec
+      destination: (identifier))
+    (describe_kind_spec
+      destination: (identifier))))

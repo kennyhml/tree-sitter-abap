@@ -215,6 +215,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "describe_table_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -10463,7 +10467,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "__describe_addition"
+            "name": "__describe_field_addition"
           }
         },
         {
@@ -10472,7 +10476,7 @@
         }
       ]
     },
-    "__describe_addition": {
+    "__describe_field_addition": {
       "type": "CHOICE",
       "members": [
         {
@@ -10625,6 +10629,106 @@
         {
           "type": "SYMBOL",
           "name": "_kw_mask"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "describe_table_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_describe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_table"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__describe_table_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__describe_table_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "describe_kind_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "describe_lines_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "describe_occurs_spec"
+        }
+      ]
+    },
+    "describe_kind_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_kind"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "describe_lines_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_lines"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "describe_occurs_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_occurs"
         },
         {
           "type": "FIELD",
@@ -23782,6 +23886,19 @@
         },
         "named": false,
         "value": "mask"
+      }
+    },
+    "_kw_kind": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)kind"
+        },
+        "named": false,
+        "value": "kind"
       }
     },
     "_kw_bit": {

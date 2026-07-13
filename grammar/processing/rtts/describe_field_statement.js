@@ -15,11 +15,11 @@ module.exports = {
       ...gen.kws("describe", "field"),
       // data objects (including literals) are possible
       field("subject", $.data_object),
-      repeat($.__describe_addition),
+      repeat($.__describe_field_addition),
       ".",
     ),
 
-  __describe_addition: $ =>
+  __describe_field_addition: $ =>
     choice(
       $.describe_type_spec,
       $.describe_length_spec,

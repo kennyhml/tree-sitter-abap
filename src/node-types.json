@@ -466,6 +466,10 @@
         "named": true
       },
       {
+        "type": "describe_table_statement",
+        "named": true
+      },
+      {
         "type": "do_statement",
         "named": true
       },
@@ -6854,6 +6858,32 @@
     }
   },
   {
+    "type": "describe_kind_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "kind",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "describe_length_spec",
     "named": true,
     "fields": {
@@ -6894,6 +6924,58 @@
     }
   },
   {
+    "type": "describe_lines_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "lines",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "describe_occurs_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "occurs",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "describe_output_length_spec",
     "named": true,
     "fields": {
@@ -6917,6 +6999,54 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "describe_table_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "describe",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "describe_kind_spec",
+          "named": true
+        },
+        {
+          "type": "describe_lines_spec",
+          "named": true
+        },
+        {
+          "type": "describe_occurs_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -20945,6 +21075,10 @@
   },
   {
     "type": "keys",
+    "named": false
+  },
+  {
+    "type": "kind",
     "named": false
   },
   {
