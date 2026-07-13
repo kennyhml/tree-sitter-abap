@@ -220,3 +220,7 @@ CORRESPONDING itab1( itab1 FROM itab2 USING value = value ).
 "                               ^ variable
 "                                           ^ variable.member
 "                                                   ^ variable.member
+COLLECT wa into itab reference into foo.
+"       ^ variable
+"               ^ variable
+"                                   ^ variable

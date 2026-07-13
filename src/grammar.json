@@ -207,6 +207,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "collect_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -3843,11 +3847,11 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "field_symbol"
+                "name": "declaration_expression"
               },
               {
                 "type": "SYMBOL",
-                "name": "declaration_expression"
+                "name": "named_data_object"
               }
             ]
           }
@@ -12468,6 +12472,52 @@
         {
           "type": "SYMBOL",
           "name": "reference_into"
+        }
+      ]
+    },
+    "collect_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_collect"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "into"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "reference_into"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "assigning"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -24151,6 +24201,19 @@
         },
         "named": false,
         "value": "yymmdd"
+      }
+    },
+    "_kw_collect": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)collect"
+        },
+        "named": false,
+        "value": "collect"
       }
     },
     "_kw_members": {

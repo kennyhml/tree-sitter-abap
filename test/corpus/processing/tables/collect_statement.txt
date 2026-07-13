@@ -1,0 +1,92 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / COLLECT ] Basic form
+=================================================================================
+COLLECT wa into itab.
+---
+
+(source
+  (collect_statement
+    source: (identifier)
+    (into
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / COLLECT ] Assign row
+=================================================================================
+COLLECT wa into itab assigning <fs> casting.
+---
+
+(source
+  (collect_statement
+    source: (identifier)
+    (into
+      work_area: (identifier))
+    (assigning
+      target: (field_symbol
+        name: (identifier))
+      (casting))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / COLLECT ] Referenc row
+=================================================================================
+COLLECT wa into itab reference into data(foo).
+---
+
+(source
+  (collect_statement
+    source: (identifier)
+    (into
+      work_area: (identifier))
+    (reference_into
+      work_area: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / COLLECT ] Inline expression
+=================================================================================
+COLLECT VALUE line( key = COND #( LET r = rnd->get_next( ) IN 
+                                WHEN r = 1 THEN 'X' 
+                                WHEN r = 2 THEN 'Y' 
+                                WHEN r = 3 THEN 'Z' ) 
+                  num = 1 ) INTO itab 
+      ASSIGNING FIELD-SYMBOL(<fs>).
+---
+
+(source
+  (collect_statement
+    source: (value_expression
+      result_type: (identifier)
+      (argument_list
+        (named_argument
+          name: (identifier)
+          value: (cond_expression
+            (let_expression
+              (assignment
+                left: (identifier)
+                right: (function_call
+                  source: (identifier)
+                  name: (identifier))))
+            (case
+              condition: (comparison_expression
+                left: (identifier)
+                right: (number))
+              result: (string_literal))
+            (case
+              condition: (comparison_expression
+                left: (identifier)
+                right: (number))
+              result: (string_literal))
+            (case
+              condition: (comparison_expression
+                left: (identifier)
+                right: (number))
+              result: (string_literal))))
+        (named_argument
+          name: (identifier)
+          value: (number))))
+    (into
+      work_area: (identifier))
+    (assigning
+      target: (declaration_expression
+        name: (field_symbol
+          name: (identifier))))))

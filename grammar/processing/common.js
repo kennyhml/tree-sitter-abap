@@ -89,7 +89,7 @@ module.exports = {
   reference_into: $ =>
     seq(
       ...gen.kws("reference", "into"),
-      field("work_area", choice($.field_symbol, $.declaration_expression)),
+      field("work_area", choice($.declaration_expression, $.named_data_object)),
     ),
 
   /**

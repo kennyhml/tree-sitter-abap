@@ -410,6 +410,10 @@
         "named": true
       },
       {
+        "type": "collect_statement",
+        "named": true
+      },
+      {
         "type": "commit_work_statement",
         "named": true
       },
@@ -4310,6 +4314,50 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "collect_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "collect",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assigning",
+          "named": true
+        },
+        {
+          "type": "into",
+          "named": true
+        },
+        {
+          "type": "reference_into",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -14981,7 +15029,7 @@
             "named": true
           },
           {
-            "type": "field_symbol",
+            "type": "named_data_object",
             "named": true
           }
         ]
@@ -19947,6 +19995,10 @@
   },
   {
     "type": "code",
+    "named": false
+  },
+  {
+    "type": "collect",
     "named": false
   },
   {
