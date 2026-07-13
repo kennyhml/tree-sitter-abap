@@ -1,0 +1,68 @@
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Simple PROGRAM statement
+=================================================================================
+PROGRAM ZMYTESTPROGRAM.
+---
+
+(source
+  (program_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Using message class
+=================================================================================
+PROGRAM ZMYTESTPROGRAM message-id ZMESSAGE_CLASS.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (default_message_class
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Reduced functionality
+=================================================================================
+PROGRAM ZMYTESTPROGRAM reduced functionality.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (reduced_functionality)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] No standard heading
+=================================================================================
+PROGRAM ZMYTESTPROGRAM no standard page heading.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (no_standard_page_heading)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Line size
+=================================================================================
+PROGRAM ZMYTESTPROGRAM line-size 200.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (line_size
+      size: (number))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Line count
+=================================================================================
+PROGRAM ZMYTESTPROGRAM line-count 100(500).
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (line_count
+      page_lines: (number)
+      footer_lines: (number))))

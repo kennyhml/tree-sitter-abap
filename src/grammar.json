@@ -227,6 +227,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "program_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "include_statement"
           },
           {
@@ -20244,6 +20248,59 @@
         "type": "SYMBOL",
         "name": "identifier"
       }
+    },
+    "program_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_program"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__program_statement_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__program_statement_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "reduced_functionality"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "no_standard_page_heading"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_size"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_count"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "default_message_class"
+        }
+      ]
     },
     "report_statement": {
       "type": "SEQ",

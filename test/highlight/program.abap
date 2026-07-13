@@ -7,6 +7,9 @@ line-size 200 line-count 100(500).
 "         ^ number
 "                        ^ number
 "                            ^ number
+report ZMYTESTREPORT message-id /WWE/MSGCLASS.
+"      ^ module
+"                               ^ type
 include zbaprog if found.
 "       ^ module
 start-of-selection.

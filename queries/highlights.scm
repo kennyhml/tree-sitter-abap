@@ -588,6 +588,11 @@
   (defining_database name: (identifier) @type )?
 )
 
+(program_statement
+  name: (identifier) @module
+  (default_message_class name: (identifier) @type )?
+)
+
 
 
 ; ------------------------------------------

@@ -558,6 +558,10 @@
         "named": true
       },
       {
+        "type": "program_statement",
+        "named": true
+      },
+      {
         "type": "raise_exception_statement",
         "named": true
       },
@@ -14769,6 +14773,58 @@
         },
         {
           "type": "types_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "program_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "program",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "default_message_class",
+          "named": true
+        },
+        {
+          "type": "line_count",
+          "named": true
+        },
+        {
+          "type": "line_size",
+          "named": true
+        },
+        {
+          "type": "no_standard_page_heading",
+          "named": true
+        },
+        {
+          "type": "reduced_functionality",
           "named": true
         }
       ]
