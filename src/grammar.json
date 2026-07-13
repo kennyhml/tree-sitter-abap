@@ -10631,21 +10631,106 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_table"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "subject",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "general_expression"
+                  }
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "table_range_from"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "table_range_to"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_section_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "FIELD",
+                  "name": "subject",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "general_expression"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "table_range_from": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "lines_from"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
-              "name": "_section_spec"
+              "name": "section_offset"
             },
             {
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "table_range_to": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "lines_to"
         },
         {
-          "type": "FIELD",
-          "name": "subject",
-          "content": {
-            "type": "SYMBOL",
-            "name": "data_object"
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "section_offset"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -11142,6 +11227,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "match_line"
+        },
+        {
+          "type": "SYMBOL",
           "name": "match_offset"
         },
         {
@@ -11188,6 +11277,27 @@
         {
           "type": "SYMBOL",
           "name": "_kw_count"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "receiving_expression"
+          }
+        }
+      ]
+    },
+    "match_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_match"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_line"
         },
         {
           "type": "FIELD",
@@ -11419,6 +11529,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "replacement_line"
+        },
+        {
+          "type": "SYMBOL",
           "name": "replacement_offset"
         },
         {
@@ -11441,6 +11555,27 @@
         {
           "type": "SYMBOL",
           "name": "_kw_count"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "receiving_expression"
+          }
+        }
+      ]
+    },
+    "replacement_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_replacement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_line"
         },
         {
           "type": "FIELD",

@@ -7787,6 +7787,10 @@
           {
             "type": "section",
             "named": false
+          },
+          {
+            "type": "table",
+            "named": false
           }
         ]
       },
@@ -7813,7 +7817,7 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -7852,6 +7856,10 @@
           "named": true
         },
         {
+          "type": "match_line",
+          "named": true
+        },
+        {
           "type": "match_offset",
           "named": true
         },
@@ -7873,6 +7881,14 @@
         },
         {
           "type": "submatches",
+          "named": true
+        },
+        {
+          "type": "table_range_from",
+          "named": true
+        },
+        {
+          "type": "table_range_to",
           "named": true
         }
       ]
@@ -12249,6 +12265,36 @@
     }
   },
   {
+    "type": "match_line",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "line",
+            "named": false
+          },
+          {
+            "type": "match",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "match_offset",
     "named": true,
     "fields": {
@@ -15223,6 +15269,10 @@
           {
             "type": "section",
             "named": false
+          },
+          {
+            "type": "table",
+            "named": false
           }
         ]
       },
@@ -15249,7 +15299,7 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -15288,6 +15338,10 @@
           "named": true
         },
         {
+          "type": "replacement_line",
+          "named": true
+        },
+        {
           "type": "replacement_offset",
           "named": true
         },
@@ -15309,6 +15363,14 @@
         },
         {
           "type": "substitute_with",
+          "named": true
+        },
+        {
+          "type": "table_range_from",
+          "named": true
+        },
+        {
+          "type": "table_range_to",
           "named": true
         },
         {
@@ -15358,6 +15420,36 @@
         "types": [
           {
             "type": "length",
+            "named": false
+          },
+          {
+            "type": "replacement",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "replacement_line",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "line",
             "named": false
           },
           {
@@ -17949,6 +18041,44 @@
         },
         {
           "type": "key_components",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_range_from",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lines_from",
+          "named": true
+        },
+        {
+          "type": "section_offset",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_range_to",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lines_to",
+          "named": true
+        },
+        {
+          "type": "section_offset",
           "named": true
         }
       ]

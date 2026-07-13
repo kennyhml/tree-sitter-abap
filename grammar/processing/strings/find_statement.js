@@ -32,6 +32,7 @@ module.exports = {
       $._processing_mode_spec,
 
       $.match_count,
+      $.match_line,
       $.match_offset,
       $.match_length,
       $.results,
@@ -50,6 +51,9 @@ module.exports = {
   // `MATCH COUNT cnt`
   match_count: $ =>
     seq(...gen.kws("match", "count"), field("target", $.receiving_expression)),
+
+  match_line: $ =>
+    seq(...gen.kws("match", "line"), field("target", $.receiving_expression)),
 
   // MATCH OFFSET off
   match_offset: $ =>

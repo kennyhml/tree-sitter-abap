@@ -1,0 +1,96 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / REPLACE, IN TABLE ] Basic form
+=================================================================================
+REPLACE ALL OCCURRENCES OF PCRE `DM` IN TABLE menu WITH 'EUR'.
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (pcre
+        value: (string_literal)))
+    subject: (identifier)
+    (substitute_with
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / REPLACE, IN TABLE ] Table range
+=================================================================================
+REPLACE ALL OCCURRENCES OF `cd` 
+        IN TABLE itab 
+        FROM 5 OFFSET foo
+        TO lines( itab ) OFFSET 5
+        WITH 'XX'. 
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (table_range_from
+      (lines_from
+        index: (number))
+      (section_offset
+        offset: (identifier)))
+    (table_range_to
+      (lines_to
+        index: (function_call
+          name: (identifier)
+          (call_argument_list
+            exporting: (positional_argument
+              value: (identifier)))))
+      (section_offset
+        offset: (number)))
+    (substitute_with
+      value: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / REPLACE, IN TABLE ] Into result
+=================================================================================
+REPLACE FIRST OCCURRENCE OF |My string { template } |
+        IN TABLE itab
+        WITH |My new string { template }|
+        RESULTS FINAL(result).
+---
+
+(source
+  (replace_statement
+    (first_occurrence_of_pattern
+      pattern: (substring
+        value: (string_template
+          (embedded_expression
+            (identifier)))))
+    subject: (identifier)
+    (substitute_with
+      value: (string_template
+        (embedded_expression
+          (identifier))))
+    (results
+      target: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / REPLACE, IN TABLE ] Extract matches
+=================================================================================
+REPLACE FIRST OCCURRENCE OF |My string { template } |
+        IN TABLE itab
+        WITH |My new string { template }|
+        REPLACEMENT LINE line.
+---
+
+(source
+  (replace_statement
+    (first_occurrence_of_pattern
+      pattern: (substring
+        value: (string_template
+          (embedded_expression
+            (identifier)))))
+    subject: (identifier)
+    (substitute_with
+      value: (string_template
+        (embedded_expression
+          (identifier))))
+    (replacement_line
+      target: (identifier))))

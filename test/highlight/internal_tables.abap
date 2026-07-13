@@ -224,3 +224,10 @@ COLLECT wa into itab reference into foo.
 "       ^ variable
 "               ^ variable
 "                                   ^ variable
+REPLACE ALL OCCURRENCES OF foo IN TABLE bar WITH baz.
+"                          ^ variable
+"                                        ^ variable
+"                                                ^ variable
+FIND FIRST OCCURRENCE OF PCRE '[fF][oO][bB]' IN TABLE bar.
+"                              ^ string.regexp
+"                                                     ^ variable

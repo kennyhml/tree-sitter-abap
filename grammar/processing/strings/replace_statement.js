@@ -47,6 +47,7 @@ module.exports = {
       $._case_sensitivity_spec,
 
       $.replacement_count,
+      $.replacement_line,
       $.replacement_offset,
       $.replacement_length,
 
@@ -57,6 +58,13 @@ module.exports = {
   replacement_count: $ =>
     seq(
       ...gen.kws("replacement", "count"),
+      field("target", $.receiving_expression),
+    ),
+
+  // replacement line lin
+  replacement_line: $ =>
+    seq(
+      ...gen.kws("replacement", "line"),
       field("target", $.receiving_expression),
     ),
 

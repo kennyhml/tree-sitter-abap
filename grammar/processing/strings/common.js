@@ -20,9 +20,18 @@ module.exports = {
   _subject_spec: $ =>
     seq(
       gen.kw("in"),
-      optional($._section_spec),
-      field("subject", $.data_object),
+      choice(
+        seq(
+          gen.kw("table"),
+          field("subject", $.general_expression),
+          repeat(choice($.table_range_from, $.table_range_to)),
+        ),
+        seq(optional($._section_spec), field("subject", $.general_expression)),
+      ),
     ),
+
+  table_range_from: $ => seq($.lines_from, optional($.section_offset)),
+  table_range_to: $ => seq($.lines_to, optional($.section_offset)),
 
   /**
    *

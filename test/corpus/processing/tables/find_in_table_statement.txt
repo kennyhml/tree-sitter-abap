@@ -1,0 +1,68 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / FIND, IN TABLE ] Basic form
+=================================================================================
+FIND FIRST OCCURRENCE OF PCRE 'ABAP|XML' IN TABLE itf_tab RESULTS FINAL(res).
+---
+
+(source
+  (find_statement
+    (first_occurrence_of_pattern
+      pattern: (pcre
+        value: (string_literal)))
+    subject: (identifier)
+    (results
+      target: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / FIND, IN TABLE ] Table range
+=================================================================================
+FIND FIRST OCCURRENCE OF SUBSTRING 'as' 
+   IN TABLE itf_tab 
+   FROM idx1 OFFSET 2 TO idx2 - 1.
+---
+
+(source
+  (find_statement
+    (first_occurrence_of_pattern
+      pattern: (substring
+        value: (string_literal)))
+    subject: (identifier)
+    (table_range_from
+      (lines_from
+        index: (identifier))
+      (section_offset
+        offset: (number)))
+    (table_range_to
+      (lines_to
+        index: (arithmetic_expression
+          left: (identifier)
+          right: (number))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / FIND, IN TABLE ] Extract matches
+=================================================================================
+FIND FIRST OCCURRENCE OF PCRE 'ABAP|XML' 
+   IN TABLE itf_tab 
+   RESPECTING CASE 
+   MATCH LINE FINAL(mline)
+   MATCH OFFSET FINAL(moff) 
+   MATCH LENGTH FINAL(mlen). 
+---
+
+(source
+  (find_statement
+    (first_occurrence_of_pattern
+      pattern: (pcre
+        value: (string_literal)))
+    subject: (identifier)
+    (respecting_case)
+    (match_line
+      target: (declaration_expression
+        name: (identifier)))
+    (match_offset
+      target: (declaration_expression
+        name: (identifier)))
+    (match_length
+      target: (declaration_expression
+        name: (identifier)))))
