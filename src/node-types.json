@@ -462,6 +462,10 @@
         "named": true
       },
       {
+        "type": "describe_distance_statement",
+        "named": true
+      },
+      {
         "type": "describe_field_statement",
         "named": true
       },
@@ -6739,6 +6743,82 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "describe_distance_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "from": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "between",
+            "named": false
+          },
+          {
+            "type": "describe",
+            "named": false
+          },
+          {
+            "type": "distance",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          }
+        ]
+      },
+      "to": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "in_byte_mode",
+          "named": true
+        },
+        {
+          "type": "in_character_mode",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -20683,6 +20763,10 @@
   },
   {
     "type": "display",
+    "named": false
+  },
+  {
+    "type": "distance",
     "named": false
   },
   {

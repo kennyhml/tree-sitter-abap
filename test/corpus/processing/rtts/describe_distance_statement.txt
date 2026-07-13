@@ -1,0 +1,40 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE DISTANCE ] Basic form
+=================================================================================
+DESCRIBE DISTANCE BETWEEN struct-col3 AND struct-col1 
+                          INTO FINAL(dist) IN BYTE MODE.
+---
+
+(source
+  (describe_distance_statement
+    from: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    to: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    destination: (declaration_expression
+      name: (identifier))
+    (in_byte_mode)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE DISTANCE ] Substrings
+=================================================================================
+DESCRIBE DISTANCE BETWEEN text+2(1) AND text+7(1) 
+         INTO FINAL(cdist) 
+         IN CHARACTER MODE. 
+---
+
+(source
+  (describe_distance_statement
+    from: (substring_access
+      subject: (identifier)
+      offset: (number)
+      length: (number))
+    to: (substring_access
+      subject: (identifier)
+      offset: (number)
+      length: (number))
+    destination: (declaration_expression
+      name: (identifier))
+    (in_character_mode)))

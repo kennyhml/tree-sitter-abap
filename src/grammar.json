@@ -219,6 +219,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "describe_distance_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -10437,6 +10441,63 @@
             "type": "SYMBOL",
             "name": "writable_expression"
           }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "describe_distance_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_describe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_distance"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_between"
+        },
+        {
+          "type": "FIELD",
+          "name": "from",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_and"
+        },
+        {
+          "type": "FIELD",
+          "name": "to",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_processing_mode_spec"
         },
         {
           "type": "STRING",
@@ -23836,6 +23897,32 @@
         "value": "describe"
       }
     },
+    "_kw_distance": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)distance"
+        },
+        "named": false,
+        "value": "distance"
+      }
+    },
+    "_kw_between": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)between"
+        },
+        "named": false,
+        "value": "between"
+      }
+    },
     "_kw_output_length": {
       "type": "FIELD",
       "name": "keyword",
@@ -24952,19 +25039,6 @@
         },
         "named": false,
         "value": "not"
-      }
-    },
-    "_kw_between": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)between"
-        },
-        "named": false,
-        "value": "between"
       }
     },
     "_kw_bound": {
