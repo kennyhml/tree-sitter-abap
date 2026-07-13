@@ -81,10 +81,11 @@ The following language features are currently implemented:
 - [x] Component selections
 - [x] Iteration expressions (for ... in / while / until )
 - [x] Table comprehensions
-- [x] All string and byte processing statements
-- [x] All date and time processing statements
+- [x] All string and byte processing statements (split, concatenate, find..)
+- [x] All date and time processing statements (get time stamp, convert time stamp..)
+- [x] All table processing statements (insert, read, delete, append...) 
       
-Partially completed categories are not mentioned here. For instance, APPEND / INSERT / READ table statements are implemented, while REPLACE IN TABLE is not - thus it is not listed.
+Partially completed categories are not mentioned here.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
 ### Significant language features the grammar is **missing**:
 - [ ] **ABAP SQL**
