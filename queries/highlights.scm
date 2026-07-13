@@ -678,38 +678,50 @@
 ] @operator
 
 
-[     
-  "eq"
-  "ne"
-  "and"
-  "or"
-  "equiv"
-  "gt"
-  "lt"
-  "ge"
-  "le"
-  "co"
-  "cn"
-  "ca"
-  "na"
-  "cs"
-  "ns"
-  "cp"
-  "np"
-  "byte-co"
-  "byte-cn"
-  "byte-ca"
-  "byte-na"
-  "byte-cs"
-  "byte-ns"
-  "bit-not"
-  "bit-and"
-  "bit-xor"
-  "bit-or"
-  "o"
-  "z"
-  "m"
-] @keyword.operator
+(logical_expression
+  [     
+    "and"
+    "or"
+    "equiv"
+    "not"
+  ] @keyword.operator
+)
+
+(comparison_expression
+  [
+    "eq"
+    "ne"
+    "gt"
+    "lt"
+    "ge"
+    "le"
+    "co"
+    "cn"
+    "ca"
+    "na"
+    "cs"
+    "ns"
+    "cp"
+    "np"
+    "byte-co"
+    "byte-cn"
+    "byte-ca"
+    "byte-na"
+    "byte-cs"
+    "byte-ns"
+    "o"
+    "z"
+    "m"
+] @keyword.operator )
+
+(bit_expression
+  [
+    "bit-not"
+    "bit-and"
+    "bit-xor"
+    "bit-or"
+  ] @keyword.operator
+)
 
 [
 	  "return"
