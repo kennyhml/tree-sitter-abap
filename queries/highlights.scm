@@ -593,6 +593,11 @@
   (default_message_class name: (identifier) @type )?
 )
 
+(function_pool_statement
+  name: (identifier) @module
+  (default_message_class name: (identifier) @type )?
+)
+
 
 
 ; ------------------------------------------

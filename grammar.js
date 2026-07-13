@@ -171,6 +171,10 @@ module.exports = grammar({
           // Program
           $.report_statement,
           $.program_statement,
+          $.function_pool_statement,
+          $.class_pool_statement,
+          $.interface_pool_statement,
+          $.type_pool_statement,
           $.include_statement,
           $.perform_statement,
           $.set_update_task_local_statement,

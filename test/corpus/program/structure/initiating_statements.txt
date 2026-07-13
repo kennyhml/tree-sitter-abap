@@ -1,0 +1,211 @@
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Simple PROGRAM statement
+=================================================================================
+PROGRAM ZMYTESTPROGRAM.
+---
+
+(source
+  (program_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Using message class
+=================================================================================
+PROGRAM ZMYTESTPROGRAM message-id ZMESSAGE_CLASS.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (default_message_class
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Reduced functionality
+=================================================================================
+PROGRAM ZMYTESTPROGRAM reduced functionality.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (reduced_functionality)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] No standard heading
+=================================================================================
+PROGRAM ZMYTESTPROGRAM no standard page heading.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (no_standard_page_heading)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Line size
+=================================================================================
+PROGRAM ZMYTESTPROGRAM line-size 200.
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (line_size
+      size: (number))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Program ] Line count
+=================================================================================
+PROGRAM ZMYTESTPROGRAM line-count 100(500).
+---
+
+(source
+  (program_statement
+    name: (identifier)
+    (line_count
+      page_lines: (number)
+      footer_lines: (number))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Simple report statement
+=================================================================================
+report ZMYTESTREPORT.
+---
+
+(source
+  (report_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Using message class
+=================================================================================
+report ZMYTESTREPORT message-id ZMESSAGE_CLASS.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (default_message_class
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Reduced functionality
+=================================================================================
+report ZMYTESTREPORT reduced functionality.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (reduced_functionality)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Defining database
+=================================================================================
+report ZMYTESTREPORT defining database mydb.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (defining_database
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] No standard heading
+=================================================================================
+report ZMYTESTREPORT no standard page heading.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (no_standard_page_heading)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Line size
+=================================================================================
+report ZMYTESTREPORT line-size 200.
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (line_size
+      size: (number))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / Report ] Line count
+=================================================================================
+report ZMYTESTREPORT line-count 100(500).
+---
+
+(source
+  (report_statement
+    name: (identifier)
+    (line_count
+      page_lines: (number)
+      footer_lines: (number))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / FUNCTION-POOL ] Basic form
+=================================================================================
+FUNCTION-POOL fpool.
+---
+
+(source
+  (function_pool_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / FUNCTION-POOL ] Message class
+=================================================================================
+FUNCTION-POOL fpool MESSAGE-ID mid.
+---
+
+(source
+  (function_pool_statement
+    name: (identifier)
+    (default_message_class
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / CLASS-POOL ] Basic form
+=================================================================================
+CLASS-POOL fpool.
+---
+
+(source
+  (class_pool_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / CLASS-POOL ] Message class
+=================================================================================
+CLASS-POOL fpool MESSAGE-ID mid.
+---
+
+(source
+  (class_pool_statement
+    name: (identifier)
+    (default_message_class
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / INTERFACE-POOL ] Basic form
+=================================================================================
+INTERFACE-POOL.
+---
+
+(source
+  (interface_pool_statement))
+
+=================================================================================
+[ ABAP - Program Structure / Initiatig Statements / TYPE-POOL ] Basic form
+=================================================================================
+TYPE-POOL.
+---
+
+(source
+  (type_pool_statement))

@@ -10,6 +10,9 @@ line-size 200 line-count 100(500).
 report ZMYTESTREPORT message-id /WWE/MSGCLASS.
 "      ^ module
 "                               ^ type
+FUNCTION-POOL abap_docu message-id mid.
+"             ^ module
+"                                  ^ type
 include zbaprog if found.
 "       ^ module
 start-of-selection.

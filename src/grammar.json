@@ -231,6 +231,22 @@
           },
           {
             "type": "SYMBOL",
+            "name": "function_pool_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "class_pool_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "interface_pool_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "type_pool_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "include_statement"
           },
           {
@@ -17764,6 +17780,352 @@
         }
       ]
     },
+    "program_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_program"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__program_statement_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__program_statement_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "reduced_functionality"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "no_standard_page_heading"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_size"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_count"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "default_message_class"
+        }
+      ]
+    },
+    "function_pool_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_function_pool"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__function_pool_statement_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__function_pool_statement_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "no_standard_page_heading"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_size"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_count"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "default_message_class"
+        }
+      ]
+    },
+    "report_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_report"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__report_statement_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__report_statement_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "reduced_functionality"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "no_standard_page_heading"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "defining_database"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_size"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_count"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "default_message_class"
+        }
+      ]
+    },
+    "class_pool_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_class_pool"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "default_message_class"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "interface_pool_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_interface_pool"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "type_pool_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type_pool"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "reduced_functionality": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_reduced"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_functionality"
+        }
+      ]
+    },
+    "no_standard_page_heading": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_no"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_standard"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_page"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_heading"
+        }
+      ]
+    },
+    "defining_database": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_defining"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_database"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "line_size": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_line_size"
+        },
+        {
+          "type": "FIELD",
+          "name": "size",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "line_count": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_line_count"
+        },
+        {
+          "type": "FIELD",
+          "name": "page_lines",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "footer_lines",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_number"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          }
+        }
+      ]
+    },
+    "default_message_class": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_message_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "for_table_function": {
       "type": "SEQ",
       "members": [
@@ -20248,244 +20610,6 @@
         "type": "SYMBOL",
         "name": "identifier"
       }
-    },
-    "program_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_program"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "__program_statement_addition"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "__program_statement_addition": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "reduced_functionality"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "no_standard_page_heading"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "line_size"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "line_count"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "default_message_class"
-        }
-      ]
-    },
-    "report_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_report"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "__report_statement_addition"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        }
-      ]
-    },
-    "__report_statement_addition": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "reduced_functionality"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "no_standard_page_heading"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "defining_database"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "line_size"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "line_count"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "default_message_class"
-        }
-      ]
-    },
-    "reduced_functionality": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_reduced"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_functionality"
-        }
-      ]
-    },
-    "no_standard_page_heading": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_no"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_standard"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_page"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_heading"
-        }
-      ]
-    },
-    "defining_database": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_defining"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_database"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        }
-      ]
-    },
-    "line_size": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_line_size"
-        },
-        {
-          "type": "FIELD",
-          "name": "size",
-          "content": {
-            "type": "SYMBOL",
-            "name": "number"
-          }
-        }
-      ]
-    },
-    "line_count": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_line_count"
-        },
-        {
-          "type": "FIELD",
-          "name": "page_lines",
-          "content": {
-            "type": "SYMBOL",
-            "name": "number"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "("
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "footer_lines",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_immediate_number"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": ")"
-          }
-        }
-      ]
-    },
-    "default_message_class": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_message_id"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        }
-      ]
     },
     "load_of_program_event": {
       "type": "SEQ",
@@ -25741,6 +25865,188 @@
         "value": "exception-table"
       }
     },
+    "_kw_function_pool": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)function-pool"
+        },
+        "named": false,
+        "value": "function-pool"
+      }
+    },
+    "_kw_report": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)report"
+        },
+        "named": false,
+        "value": "report"
+      }
+    },
+    "_kw_class_pool": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)class-pool"
+        },
+        "named": false,
+        "value": "class-pool"
+      }
+    },
+    "_kw_interface_pool": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)interface-pool"
+        },
+        "named": false,
+        "value": "interface-pool"
+      }
+    },
+    "_kw_type_pool": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)type-pool"
+        },
+        "named": false,
+        "value": "type-pool"
+      }
+    },
+    "_kw_reduced": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)reduced"
+        },
+        "named": false,
+        "value": "reduced"
+      }
+    },
+    "_kw_functionality": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)functionality"
+        },
+        "named": false,
+        "value": "functionality"
+      }
+    },
+    "_kw_page": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)page"
+        },
+        "named": false,
+        "value": "page"
+      }
+    },
+    "_kw_heading": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)heading"
+        },
+        "named": false,
+        "value": "heading"
+      }
+    },
+    "_kw_defining": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)defining"
+        },
+        "named": false,
+        "value": "defining"
+      }
+    },
+    "_kw_database": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)database"
+        },
+        "named": false,
+        "value": "database"
+      }
+    },
+    "_kw_line_size": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)line-size"
+        },
+        "named": false,
+        "value": "line-size"
+      }
+    },
+    "_kw_line_count": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)line-count"
+        },
+        "named": false,
+        "value": "line-count"
+      }
+    },
+    "_kw_message_id": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)message-id"
+        },
+        "named": false,
+        "value": "message-id"
+      }
+    },
     "_kw_scalar": {
       "type": "FIELD",
       "name": "keyword",
@@ -26324,136 +26630,6 @@
         },
         "named": false,
         "value": "unwind"
-      }
-    },
-    "_kw_report": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)report"
-        },
-        "named": false,
-        "value": "report"
-      }
-    },
-    "_kw_reduced": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)reduced"
-        },
-        "named": false,
-        "value": "reduced"
-      }
-    },
-    "_kw_functionality": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)functionality"
-        },
-        "named": false,
-        "value": "functionality"
-      }
-    },
-    "_kw_page": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)page"
-        },
-        "named": false,
-        "value": "page"
-      }
-    },
-    "_kw_heading": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)heading"
-        },
-        "named": false,
-        "value": "heading"
-      }
-    },
-    "_kw_defining": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)defining"
-        },
-        "named": false,
-        "value": "defining"
-      }
-    },
-    "_kw_database": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)database"
-        },
-        "named": false,
-        "value": "database"
-      }
-    },
-    "_kw_line_size": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)line-size"
-        },
-        "named": false,
-        "value": "line-size"
-      }
-    },
-    "_kw_line_count": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)line-count"
-        },
-        "named": false,
-        "value": "line-count"
-      }
-    },
-    "_kw_message_id": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)message-id"
-        },
-        "named": false,
-        "value": "message-id"
       }
     },
     "_kw_load_of-program": {
