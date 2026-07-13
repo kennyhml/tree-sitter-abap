@@ -634,6 +634,10 @@
         "named": true
       },
       {
+        "type": "wait_up_to_statement",
+        "named": true
+      },
+      {
         "type": "while_statement",
         "named": true
       },
@@ -19803,6 +19807,44 @@
         "types": [
           {
             "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "wait_up_to_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "seconds",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "up",
+            "named": false
+          },
+          {
+            "type": "wait",
+            "named": false
+          }
+        ]
+      },
+      "seconds": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_expression",
             "named": true
           }
         ]

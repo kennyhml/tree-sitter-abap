@@ -1,0 +1,23 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Program Interruption / WAIT UP TO ] Basic form
+=================================================================================
+WAIT UP TO 1 SECONDS.
+---
+
+(source
+  (wait_up_to_statement
+    seconds: (number)))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Program Interruption / WAIT UP TO ] Seconds as expression
+=================================================================================
+WAIT UP TO lines( itab ) SECONDS.
+---
+
+(source
+  (wait_up_to_statement
+    seconds: (function_call
+      name: (identifier)
+      (call_argument_list
+        exporting: (positional_argument
+          value: (identifier))))))

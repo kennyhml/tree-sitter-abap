@@ -196,6 +196,7 @@ module.exports = grammar({
           $.raise_shortdump_statement,
           $.raise_exception_statement,
           $.resume_statement,
+          $.wait_up_to_statement,
 
           $._empty_statement,
         ),
