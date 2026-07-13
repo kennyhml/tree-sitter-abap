@@ -211,6 +211,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "describe_field_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "report_statement"
           },
           {
@@ -10433,6 +10437,202 @@
         {
           "type": "STRING",
           "value": "."
+        }
+      ]
+    },
+    "describe_field_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_describe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_field"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__describe_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__describe_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "describe_type_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "describe_length_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "describe_decimals_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "describe_output_length_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "describe_help_id_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "describe_edit_mask_spec"
+        }
+      ]
+    },
+    "describe_type_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_components"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "components",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "writable_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "describe_length_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_length"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_processing_mode_spec"
+        }
+      ]
+    },
+    "describe_decimals_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_decimals"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "describe_output_length_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_output_length"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "describe_help_id_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_help_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "describe_edit_mask_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_edit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mask"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
         }
       ]
     },
@@ -23519,6 +23719,71 @@
         "value": "utclong"
       }
     },
+    "_kw_describe": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)describe"
+        },
+        "named": false,
+        "value": "describe"
+      }
+    },
+    "_kw_output_length": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)output-length"
+        },
+        "named": false,
+        "value": "output-length"
+      }
+    },
+    "_kw_help_id": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)help-id"
+        },
+        "named": false,
+        "value": "help-id"
+      }
+    },
+    "_kw_edit": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)edit"
+        },
+        "named": false,
+        "value": "edit"
+      }
+    },
+    "_kw_mask": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)mask"
+        },
+        "named": false,
+        "value": "mask"
+      }
+    },
     "_kw_bit": {
       "type": "FIELD",
       "name": "keyword",
@@ -24219,32 +24484,6 @@
         },
         "named": false,
         "value": "style"
-      }
-    },
-    "_kw_edit": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)edit"
-        },
-        "named": false,
-        "value": "edit"
-      }
-    },
-    "_kw_mask": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)mask"
-        },
-        "named": false,
-        "value": "mask"
       }
     },
     "_kw_dd/mm/yy": {

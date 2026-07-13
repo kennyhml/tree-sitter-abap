@@ -1,0 +1,80 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE FIELD ] Basic form
+=================================================================================
+DESCRIBE FIELD struc1 TYPE FINAL(typ1) COMPONENTS FINAL(comp1).
+---
+
+(source
+  (describe_field_statement
+    subject: (identifier)
+    (describe_type_spec
+      destination: (declaration_expression
+        name: (identifier))
+      components: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE FIELD ] Describe length
+=================================================================================
+DESCRIBE FIELD text LENGTH FINAL(clen) IN CHARACTER MODE. 
+---
+
+(source
+  (describe_field_statement
+    subject: (identifier)
+    (describe_length_spec
+      destination: (declaration_expression
+        name: (identifier))
+      (in_character_mode))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE FIELD ] Describe decimals
+=================================================================================
+DESCRIBE FIELD text DECIMALS FINAL(dec). 
+---
+
+(source
+  (describe_field_statement
+    subject: (identifier)
+    (describe_decimals_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE FIELD ] Output length
+=================================================================================
+DESCRIBE FIELD date2 OUTPUT-LENGTH FINAL(olen2).
+---
+
+(source
+  (describe_field_statement
+    subject: (identifier)
+    (describe_output_length_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE FIELD ] Help ID
+=================================================================================
+DESCRIBE FIELD carrid HELP-ID FINAL(hlp). 
+---
+
+(source
+  (describe_field_statement
+    subject: (identifier)
+    (describe_help_id_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE FIELD ] Edit mask
+=================================================================================
+DESCRIBE FIELD time EDIT MASK FINAL(msk). 
+---
+
+(source
+  (describe_field_statement
+    subject: (identifier)
+    (describe_edit_mask_spec
+      destination: (declaration_expression
+        name: (identifier)))))
