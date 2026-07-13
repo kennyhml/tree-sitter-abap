@@ -43,3 +43,10 @@ RAISE EXCEPTION TYPE cx_dyn_t100 MESSAGE e104(sabapdemos) WITH 'I' 'am' 'an' 'Ex
 "                                        ^ constant.builtin
 "                                         ^ number
 "                                             ^ variable
+RAISE SHORTDUMP TYPE cx_demo_t100 
+"^ keyword.exception
+"     ^ keyword.exception
+"                    ^ type
+     EXPORTING 
+       textid = cx_demo_t100=>demo.
+"      ^ variable.parameter

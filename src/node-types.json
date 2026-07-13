@@ -562,6 +562,10 @@
         "named": true
       },
       {
+        "type": "raise_shortdump_statement",
+        "named": true
+      },
+      {
         "type": "raise_statement",
         "named": true
       },
@@ -15049,6 +15053,40 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "raise_shortdump_statement",
+    "named": true,
+    "fields": {
+      "exception": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          },
+          {
+            "type": "new_exception_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "raise",
+            "named": false
+          },
+          {
+            "type": "shortdump",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {

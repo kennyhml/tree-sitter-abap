@@ -763,6 +763,7 @@
 ; I wanna be careful cause these keywords may appear in other context?
 ; Like in a parameters decl, I feel like resumable should not be tagged
 (raise_exception_statement ["raise" "exception" ] @keyword.exception )
+(raise_shortdump_statement ["raise" "shortdump" ] @keyword.exception )
 (raise_statement ["raise" ] @keyword.exception )
 (resumable "resumable" @keyword.exception )
 (try_statement ["try" "endtry" ] @keyword.exception )

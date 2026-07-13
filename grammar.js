@@ -193,6 +193,7 @@ module.exports = grammar({
           $.continue_statement,
           $.check_statement,
           $.raise_statement,
+          $.raise_shortdump_statement,
           $.raise_exception_statement,
           $.resume_statement,
 

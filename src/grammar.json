@@ -303,6 +303,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "raise_shortdump_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "raise_exception_statement"
           },
           {
@@ -19848,6 +19852,36 @@
         {
           "type": "STRING",
           "value": "."
+        }
+      ]
+    },
+    "raise_shortdump_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_raise"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shortdump"
+        },
+        {
+          "type": "FIELD",
+          "name": "exception",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "general_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "new_exception_spec"
+              }
+            ]
+          }
         }
       ]
     },
