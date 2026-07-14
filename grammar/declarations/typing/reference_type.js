@@ -31,7 +31,10 @@ module.exports = {
   _ref_to_type: $ =>
     seq(
       ...gen.kws("ref", "to"),
-      field("subject", choice($.identifier, $.component_selection)),
+      field(
+        "subject",
+        choice($.identifier, $.component_selection, $.dynamic_spec),
+      ),
     ),
 
   _ref_to_data: $ =>

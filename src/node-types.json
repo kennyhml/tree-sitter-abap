@@ -470,6 +470,10 @@
         "named": true
       },
       {
+        "type": "create_data_statement",
+        "named": true
+      },
+      {
         "type": "create_object_statement",
         "named": true
       },
@@ -2649,6 +2653,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -5772,6 +5780,56 @@
         },
         {
           "type": "using_key",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_data_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "create",
+            "named": false
+          },
+          {
+            "type": "data",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "typing": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "typing",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "object_area_handle_spec",
           "named": true
         }
       ]
@@ -16335,6 +16393,10 @@
             "named": true
           },
           {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -16438,6 +16500,10 @@
         "types": [
           {
             "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
             "named": true
           },
           {
@@ -19460,6 +19526,10 @@
             "named": true
           },
           {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -20134,6 +20204,10 @@
         "types": [
           {
             "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
             "named": true
           },
           {

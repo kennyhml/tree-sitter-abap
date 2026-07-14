@@ -150,6 +150,7 @@ module.exports = {
         choice(
           alias($._ref_to_type, $.ref_to),
           $.identifier,
+          $.dynamic_spec,
           $.component_selection,
         ),
       ),

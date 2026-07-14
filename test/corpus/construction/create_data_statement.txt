@@ -1,0 +1,143 @@
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Implicit basic form
+=================================================================================
+CREATE DATA dref. 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Implicit with area handle
+=================================================================================
+CREATE OBJECT root AREA HANDLE handle. 
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)
+    (object_area_handle_spec
+      handle: (identifier))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Builtin type
+=================================================================================
+CREATE DATA dref TYPE p LENGTH 8 DECIMALS 3. 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (builtin_type_spec
+      name: (identifier)
+      (type_length
+        count: (number))
+      (type_decimals
+        count: (number)))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Dynamic type
+=================================================================================
+CREATE DATA dref TYPE (dbtab). 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (referred_type
+      name: (dynamic_spec
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Like other dobj
+=================================================================================
+CREATE DATA dref LIKE struct-('NUM'). 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (referred_type
+      object: (component_selection
+        subject: (identifier)
+        component: (dynamic_spec
+          value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Line of dynamic
+=================================================================================
+CREATE DATA dref TYPE LINE OF (type). 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (type_line_of
+      name: (dynamic_spec
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Reference type
+=================================================================================
+CREATE DATA dref TYPE REF TO cls. 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (reference_type
+      (ref_to
+        subject: (identifier)))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Reference type dynamic
+=================================================================================
+CREATE DATA dref TYPE REF TO (cls). 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (reference_type
+      (ref_to
+        subject: (dynamic_spec
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / CREATE DATA ] Table type
+=================================================================================
+CREATE DATA dref TYPE HASHED TABLE OF scarr 
+                 WITH UNIQUE KEY carrid. 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (table_type
+      kind: (hashed_table)
+      name: (identifier)
+      (with_key
+        (table_key_spec
+          unique: (unique)
+          (key_components
+            (identifier)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE DATA ] Dynamic table type
+=================================================================================
+CREATE DATA dref TYPE STANDARD TABLE OF (dbtab) 
+                      WITH NON-UNIQUE DEFAULT KEY. 
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (table_type
+      kind: (standard_table)
+      name: (dynamic_spec
+        value: (identifier))
+      (with_key
+        (table_key_spec
+          unique: (non_unique)
+          (default_key))))))

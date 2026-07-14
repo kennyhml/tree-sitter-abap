@@ -47,7 +47,10 @@ module.exports = {
   __referred_type_type_spec: $ =>
     seq(
       gen.kw("type"),
-      field("name", choice($.identifier, $.component_selection)),
+      field(
+        "name",
+        choice($.identifier, $.component_selection, $.dynamic_spec),
+      ),
     ),
 
   __referred_type_like_spec: $ =>
@@ -60,7 +63,10 @@ module.exports = {
     seq(
       gen.kw("type"),
       ...gen.kws("line", "of"),
-      field("name", choice($.identifier, $.component_selection)),
+      field(
+        "name",
+        choice($.identifier, $.component_selection, $.dynamic_spec),
+      ),
     ),
 
   // {LIKE [LINE OF] dobj}

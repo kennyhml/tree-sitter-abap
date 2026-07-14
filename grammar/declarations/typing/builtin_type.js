@@ -31,7 +31,7 @@ module.exports = {
           seq(
             optional($.parenthesized_length),
             gen.kw("type"),
-            field("name", $.identifier),
+            field("name", choice($.identifier, $.dynamic_spec)),
           ),
           $.parenthesized_length,
         ),
