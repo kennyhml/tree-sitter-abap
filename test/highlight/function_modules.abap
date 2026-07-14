@@ -40,3 +40,18 @@ CALL FUNCTION co_fb_name
 CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
     in background unit l_unit.
 "                       ^ variable
+FUNCTION CHECK_SOMETHING
+"        ^ module
+  IMPORTING
+    VALUE(IW_USER) TYPE UNAME OPTIONAL
+"         ^ variable.parameter
+"                       ^ type
+  EXPORTING
+    VALUE(EI_RETURN) TYPE BAPIRET2_T
+"         ^ variable.parameter
+"                          ^ type
+  CHANGING
+    VALUE(CI_TRKORR) TYPE TRKORRS.
+"         ^ variable.parameter
+"                         ^ type
+ENDFUNCTION.

@@ -598,6 +598,8 @@
   (default_message_class name: (identifier) @type )?
 )
 
+(function_definition name: (identifier) @module )
+
 
 
 ; ------------------------------------------

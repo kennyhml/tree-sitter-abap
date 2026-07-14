@@ -49,6 +49,8 @@ module.exports = grammar({
     [$.start_of_selection_event],
     [$.load_of_program_event],
     [$._named_argument_list],
+    [$.parameters],
+    [$.exceptions],
   ],
 
   extras: $ => [
@@ -235,6 +237,7 @@ module.exports = grammar({
           // Program
           $.tables_declaration,
           $.form_definition,
+          $.function_definition,
           $.initialization_event,
           $.start_of_selection_event,
           $.load_of_program_event,

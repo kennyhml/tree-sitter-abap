@@ -1,0 +1,125 @@
+=================================================================================
+[ ABAP - Program Structure / Modularization / Procedures / FUNCTION ] Empty
+=================================================================================
+FUNCTION func.
+ENDFUNCTION.
+---
+
+(source
+  (function_definition
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Procedures / FUNCTION ] Generated parameter interface
+=================================================================================
+FUNCTION func.
+*"--------------------------------------------------------- 
+*" Local Interface: 
+*" IMPORTING iv_param type i
+*"--------------------------------------------------------- 
+ENDFUNCTION.
+---
+
+(source
+  (function_definition
+    name: (identifier)
+    (multi_line_comment)))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Procedures / FUNCTION ] Explicit importing parameters
+=================================================================================
+FUNCTION func
+    IMPORTING iv_param type i.
+ENDFUNCTION.
+---
+
+(source
+  (function_definition
+    name: (identifier)
+    importing: (parameters
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Procedures / FUNCTION ] Explicit importing parameters
+=================================================================================
+FUNCTION /wss/get_document_info
+    IMPORTING
+        VALUE(IV_GUID) TYPE CRMT_OBJECT_GUID OPTIONAL
+        VALUE(IV_LANGUAGE) TYPE LANGU DEFAULT 'EN'
+    EXPORTING
+        VALUE(EV_DESCRIPTION) TYPE STRING
+        VALUE(EV_TOTAL_EFFORT) TYPE /WSS/EFFORT_DAYS
+  EXCEPTIONS
+    DOCUMENT_NOT_FOUND
+    MISSING_ARGUMENT.
+ENDFUNCTION.
+---
+
+(source
+  (function_definition
+    name: (identifier)
+    importing: (parameters
+      (parameter
+        (explicit_value
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))
+        (optional))
+      (parameter
+        (explicit_value
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))
+        (parameter_default
+          value: (string_literal))))
+    exporting: (parameters
+      (parameter
+        (explicit_value
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier)))
+      (parameter
+        (explicit_value
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))))
+    exceptions: (exceptions
+      (identifier)
+      (identifier))))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Procedures / FUNCTION ] Tables parameters
+=================================================================================
+FUNCTION func
+    IMPORTING 
+        iv_param type i
+    TABLES
+        tables type spfli
+        tab2 type scarr.
+ENDFUNCTION.
+---
+
+(source
+  (function_definition
+    name: (identifier)
+    importing: (parameters
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))))
+    tables: (parameters
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier)))
+      (parameter
+        (implicit_reference
+          name: (identifier))
+        typing: (referred_type
+          name: (identifier))))))
