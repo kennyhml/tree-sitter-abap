@@ -1,43 +1,53 @@
 =================================================================================
-[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Basic decl
+[ ABAP - Program Structure / Modularization / Macros / DEFINE ] Empty
 =================================================================================
-INTERFACE i1. 
-ENDINTERFACE.
+DEFINE macro.
+END-OF-DEFINITION.
 ---
 
 (source
-  (interface_declaration
+  (macro_definition
     name: (identifier)))
 
 =================================================================================
-[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Public
+[ ABAP - Program Structure / Modularization / Macros / DEFINE ] Using placeholders
 =================================================================================
-INTERFACE i1 PUBLIC. 
-ENDINTERFACE.
+DEFINE concat.
+    &1 = &2 && &3
+END-OF-DEFINITION.
 ---
 
 (source
-  (interface_declaration
+  (macro_definition
     name: (identifier)
-    (public)))
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (string_concatenation
+          left: (identifier)
+          right: (identifier))))))
 
 =================================================================================
-[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Deferred
+[ ABAP - Program Structure / Modularization / Macros / DEFINE ] Calling without params
 =================================================================================
-INTERFACE i1 DEFERRED. 
+foo.
 ---
 
 (source
-  (deferred_interface_declaration
+  (macro_include
     name: (identifier)))
 
 =================================================================================
-[ ABAP - Declarations / Declaration Statements / Classes / INTERFACE ] Public deferred
+[ ABAP - Program Structure / Modularization / Macros / DEFINE ] Calling with params
 =================================================================================
-INTERFACE i1 DEFERRED PUBLIC. 
+foo 'This' 'is' 'a' test.
 ---
 
 (source
-  (deferred_interface_declaration
+  (macro_include
     name: (identifier)
-    (public)))
+    (macro_argument_list
+      (string_literal)
+      (string_literal)
+      (string_literal)
+      (identifier))))

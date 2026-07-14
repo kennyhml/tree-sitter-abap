@@ -106,7 +106,7 @@ at first.
 "  ^ keyword.repeat
 endat.
 "<- keyword.repeat
-at new.
+at new comp.
 "<- keyword.repeat
 "  ^ keyword.repeat
 endat.

@@ -7,7 +7,7 @@ global.gen = require("./grammar/_utils/generators.js");
 const fs = require("fs");
 const path = require("path");
 
-const IDENTIFIER_REGEX = /([a-z_\/%][%a-z\d_\/]*)/i;
+const IDENTIFIER_REGEX = /([a-z_\/%][%a-z\d_\/]*)|(&[1-9])/i;
 
 // ABAP does allow + and - before any number. However, allowing both inside the regex, we run
 // into an issue where the lexer considers the offset in a substring access like str+10 as
@@ -116,6 +116,8 @@ module.exports = grammar({
       prec(
         1,
         choice(
+          $.macro_include,
+
           // Fundamental declarations
           $.data_declaration,
           $.field_symbols_declaration,
@@ -239,6 +241,7 @@ module.exports = grammar({
           $.form_definition,
           $.function_definition,
           $.module_definition,
+          $.macro_definition,
           $.initialization_event,
           $.start_of_selection_event,
           $.load_of_program_event,

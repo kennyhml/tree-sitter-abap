@@ -75,6 +75,12 @@
 ((named_data_object/identifier) @variable.builtin 
   ( #match? @variable.builtin "^(([mM][eE])|([sS][uU][pP][eE][rR])|([sS][yY]))$"))
 
+; Macro parameters
+(
+ (named_data_object/identifier) @variable.parameter
+   (#match? @variable.parameter "&[1-9]")
+)
+
 (dynamic_spec (identifier) @variable )
 (dereference_expression subject: (identifier) @variable )
 (substring_access (identifier) @variable )
@@ -600,6 +606,8 @@
 
 (function_definition name: (identifier) @module )
 (module_definition name: (identifier) @module )
+(macro_definition name: (identifier) @function.macro )
+(macro_include name: (identifier) @function.macro )
 
 
 

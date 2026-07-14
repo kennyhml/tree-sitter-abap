@@ -35,6 +35,10 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "macro_include"
+          },
+          {
+            "type": "SYMBOL",
             "name": "data_declaration"
           },
           {
@@ -409,6 +413,10 @@
           {
             "type": "SYMBOL",
             "name": "module_definition"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "macro_definition"
           },
           {
             "type": "SYMBOL",
@@ -21128,6 +21136,95 @@
         }
       ]
     },
+    "macro_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_define"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "statement_block"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_end_of-definition"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "macro_include": {
+      "type": "PREC_RIGHT",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "macro_argument_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "."
+          }
+        ]
+      }
+    },
+    "macro_argument_list": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "data_object"
+        }
+      }
+    },
     "module_definition": {
       "type": "SEQ",
       "members": [
@@ -26939,6 +27036,32 @@
         "value": "found"
       }
     },
+    "_kw_define": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)define"
+        },
+        "named": false,
+        "value": "define"
+      }
+    },
+    "_kw_end_of-definition": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)end-of-definition"
+        },
+        "named": false,
+        "value": "end-of-definition"
+      }
+    },
     "_kw_module": {
       "type": "FIELD",
       "name": "keyword",
@@ -27777,7 +27900,7 @@
     },
     "_name": {
       "type": "PATTERN",
-      "value": "([a-z_\\/%][%a-z\\d_\\/]*)",
+      "value": "([a-z_\\/%][%a-z\\d_\\/]*)|(&[1-9])",
       "flags": "i"
     },
     "identifier": {
@@ -27992,7 +28115,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "([a-z_\\/%][%a-z\\d_\\/]*)",
+          "value": "([a-z_\\/%][%a-z\\d_\\/]*)|(&[1-9])",
           "flags": "i"
         }
       },
