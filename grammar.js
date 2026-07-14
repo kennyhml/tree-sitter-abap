@@ -171,6 +171,7 @@ module.exports = grammar({
           $.describe_field_statement,
           $.describe_table_statement,
           $.describe_distance_statement,
+          $.create_object_statement,
 
           // Program
           $.report_statement,

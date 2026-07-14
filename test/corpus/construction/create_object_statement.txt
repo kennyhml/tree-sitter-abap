@@ -1,0 +1,90 @@
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE OBJECT ] Implicit basic form
+=================================================================================
+CREATE OBJECT oref.
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE OBJECT ] Area handle
+=================================================================================
+CREATE OBJECT root AREA HANDLE handle. 
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)
+    (object_area_handle_spec
+      handle: (identifier))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE OBJECT ] Implicit type with parameters
+=================================================================================
+CREATE OBJECT dialog_box 
+       EXPORTING parent = cl_gui_container=>desktop 
+                 width  = 1000 
+                 height = 350.
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)
+    exporting: (argument_list
+      (named_argument
+        name: (identifier)
+        value: (component_selection
+          subject: (identifier)
+          component: (identifier)))
+      (named_argument
+        name: (identifier)
+        value: (number))
+      (named_argument
+        name: (identifier)
+        value: (number)))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE OBJECT ] Explicit type
+=================================================================================
+CREATE OBJECT oref TYPE cls. 
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)
+    typing: (referred_type
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE OBJECT ] Explicit type with parameters
+=================================================================================
+CREATE OBJECT dialog_box 
+       TYPE cl_class
+       EXPORTING parameter = 'foo'.
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)
+    typing: (referred_type
+      name: (identifier))
+    exporting: (argument_list
+      (named_argument
+        name: (identifier)
+        value: (string_literal)))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE OBJECT ] Dynamic with parameter table
+=================================================================================
+CREATE OBJECT container TYPE (class) 
+    PARAMETER-TABLE ptab.
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)
+    type: (dynamic_spec
+      value: (identifier))
+    parameter_table: (identifier)))

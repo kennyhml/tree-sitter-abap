@@ -470,6 +470,10 @@
         "named": true
       },
       {
+        "type": "create_object_statement",
+        "named": true
+      },
+      {
         "type": "data_declaration",
         "named": true
       },
@@ -5768,6 +5772,112 @@
         },
         {
           "type": "using_key",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_object_statement",
+    "named": true,
+    "fields": {
+      "exceptions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "exporting": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "create",
+            "named": false
+          },
+          {
+            "type": "exceptions",
+            "named": false
+          },
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "object",
+            "named": false
+          },
+          {
+            "type": "parameter-table",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      },
+      "parameter_table": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
+      },
+      "typing": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "referred_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "object_area_handle_spec",
           "named": true
         }
       ]
@@ -14211,6 +14321,36 @@
     }
   },
   {
+    "type": "object_area_handle_spec",
+    "named": true,
+    "fields": {
+      "handle": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "area",
+            "named": false
+          },
+          {
+            "type": "handle",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "obligatory_spec",
     "named": true,
     "fields": {
@@ -21158,6 +21298,10 @@
   },
   {
     "type": "appending",
+    "named": false
+  },
+  {
+    "type": "area",
     "named": false
   },
   {

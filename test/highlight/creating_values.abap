@@ -40,3 +40,16 @@ NEW cl_class( p1 = 1 p2 = col2 ).
 NEW #( ( ) ( foo = 2 ) ( bar-baz = 1 ) ( LINES OF jtab ) )
 "            ^ variable.member
 "                        ^ variable.member
+CREATE OBJECT oref.
+"             ^ variable
+CREATE OBJECT root AREA HANDLE handle. 
+"             ^ variable
+"                              ^ variable
+CREATE OBJECT oref TYPE cls. 
+"             ^ variable
+"                       ^ type
+CREATE OBJECT container->* TYPE (class) 
+"             ^ variable
+"                                ^ variable
+    PARAMETER-TABLE ptab.
+"                   ^ variable
