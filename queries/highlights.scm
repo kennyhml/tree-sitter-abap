@@ -343,6 +343,7 @@
 (non_resumable_exception name: (identifier) @type )
 (resumable_exception name: (identifier) @type )
 (new_exception_spec class_name: (identifier) @type )
+(create_object_statement type: (identifier) @type )
 (throw_exception name: (identifier) @type )
 (catch_exception_list (identifier) @type )
 

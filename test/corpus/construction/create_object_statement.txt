@@ -54,8 +54,7 @@ CREATE OBJECT oref TYPE cls.
 (source
   (create_object_statement
     subject: (identifier)
-    typing: (referred_type
-      name: (identifier))))
+    type: (identifier)))
 
 =================================================================================
 [ ABAP - Creating Objects and news / CREATE OBJECT ] Explicit type with parameters
@@ -68,8 +67,7 @@ CREATE OBJECT dialog_box
 (source
   (create_object_statement
     subject: (identifier)
-    typing: (referred_type
-      name: (identifier))
+    type: (identifier)
     exporting: (argument_list
       (named_argument
         name: (identifier)

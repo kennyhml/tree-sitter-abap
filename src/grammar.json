@@ -517,32 +517,28 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "CHOICE",
+              "type": "SEQ",
               "members": [
                 {
-                  "type": "FIELD",
-                  "name": "typing",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "referred_type"
-                  }
+                  "type": "SYMBOL",
+                  "name": "_kw_type"
                 },
                 {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_kw_type"
-                    },
-                    {
-                      "type": "FIELD",
-                      "name": "type",
-                      "content": {
+                  "type": "FIELD",
+                  "name": "type",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      },
+                      {
                         "type": "SYMBOL",
                         "name": "dynamic_spec"
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               ]
             },

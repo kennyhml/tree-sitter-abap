@@ -8,6 +8,9 @@ module.exports = {
    *        TYPE { class [parameter_list] }
    *        / { (name) [parameter_list|parameter_tables] }.
    *
+   * Only a class type can be specified, other types are created using CREATE
+   * OBJECT, so there is no need to use a $.typing here.
+   *
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCREATE_OBJECT.html
    */
@@ -17,9 +20,9 @@ module.exports = {
       field("subject", $.writable_expression),
       optional($.object_area_handle_spec),
       optional(
-        choice(
-          field("typing", $.referred_type),
-          seq(gen.kw("type"), field("type", $.dynamic_spec)),
+        seq(
+          gen.kw("type"),
+          field("type", choice($.identifier, $.dynamic_spec)),
         ),
       ),
       optional($._exporting_args),

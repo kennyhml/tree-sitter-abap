@@ -5858,15 +5858,9 @@
           {
             "type": "dynamic_spec",
             "named": true
-          }
-        ]
-      },
-      "typing": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
-            "type": "referred_type",
+            "type": "identifier",
             "named": true
           }
         ]
