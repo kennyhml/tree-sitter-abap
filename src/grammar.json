@@ -524,8 +524,17 @@
               "type": "FIELD",
               "name": "typing",
               "content": {
-                "type": "SYMBOL",
-                "name": "typing"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "typing"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "handle_type"
+                  }
+                ]
               }
             },
             {
@@ -6806,6 +6815,27 @@
           "content": {
             "type": "SYMBOL",
             "name": "number"
+          }
+        }
+      ]
+    },
+    "handle_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_handle"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
           }
         }
       ]

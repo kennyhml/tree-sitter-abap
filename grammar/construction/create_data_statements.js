@@ -7,6 +7,8 @@ module.exports = {
    * typing of a regular data declaration, except that a dynamic
    * type can be named, which is easier to just add to the typing.
    *
+   * TODO: Bdef derived types
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCREATE_DATA.html
    */
   create_data_statement: $ =>
@@ -14,7 +16,7 @@ module.exports = {
       ...gen.kws("create", "data"),
       field("subject", $.writable_expression),
       optional($.object_area_handle_spec),
-      optional(field("typing", $.typing)),
+      optional(field("typing", choice($.typing, $.handle_type))),
       ".",
     ),
 };

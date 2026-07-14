@@ -141,3 +141,15 @@ CREATE DATA dref TYPE STANDARD TABLE OF (dbtab)
         (table_key_spec
           unique: (non_unique)
           (default_key))))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE DATA ] Handle type
+=================================================================================
+CREATE DATA dref TYPE HANDLE type.
+---
+
+(source
+  (create_data_statement
+    subject: (identifier)
+    typing: (handle_type
+      name: (identifier))))
