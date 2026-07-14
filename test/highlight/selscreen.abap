@@ -117,3 +117,6 @@ CALL SELECTION-SCREEN '0500' STARTING AT 10 10
                              ending at 20 10 
                              USING SELECTION-SET variant.
 "                                                ^ variable
+MODULE mod OUTPUT.
+"      ^ module
+ENDMODULE.

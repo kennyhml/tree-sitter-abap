@@ -599,6 +599,7 @@
 )
 
 (function_definition name: (identifier) @module )
+(module_definition name: (identifier) @module )
 
 
 

@@ -1,0 +1,51 @@
+=================================================================================
+[ ABAP - Program Structure / Modularization / Dialog Modules / MODULE ] Empty
+=================================================================================
+MODULE mod.
+ENDMODULE.
+---
+
+(source
+  (module_definition
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Dialog Modules / MODULE ] INPUT
+=================================================================================
+MODULE mod OUTPUT.
+ENDMODULE.
+---
+
+(source
+  (module_definition
+    name: (identifier)
+    kind: (output)))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Dialog Modules / MODULE ] OUTPUT
+=================================================================================
+MODULE mod OUTPUT.
+ENDMODULE.
+---
+
+(source
+  (module_definition
+    name: (identifier)
+    kind: (output)))
+
+=================================================================================
+[ ABAP - Program Structure / Modularization / Dialog Modules / MODULE ] With body
+=================================================================================
+MODULE user_command_0100 INPUT. 
+  screen_handler->user_command( ). 
+ENDMODULE.
+---
+
+(source
+  (module_definition
+    name: (identifier)
+    kind: (input)
+    body: (statement_block
+      (function_call
+        source: (identifier)
+        name: (identifier)))))

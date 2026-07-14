@@ -336,6 +336,10 @@
         "named": true
       },
       {
+        "type": "module_definition",
+        "named": true
+      },
+      {
         "type": "parameters_declaration",
         "named": true
       },
@@ -11469,6 +11473,22 @@
     }
   },
   {
+    "type": "input",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "input",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "insert_statement",
     "named": true,
     "fields": {
@@ -13499,6 +13519,60 @@
           {
             "type": "modif",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "module_definition",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "endmodule",
+            "named": false
+          },
+          {
+            "type": "module",
+            "named": false
+          }
+        ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "input",
+            "named": true
+          },
+          {
+            "type": "output",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -21281,6 +21355,10 @@
     "named": false
   },
   {
+    "type": "endmodule",
+    "named": false
+  },
+  {
     "type": "endtry",
     "named": false
   },
@@ -21553,6 +21631,10 @@
     "named": false
   },
   {
+    "type": "input",
+    "named": false
+  },
+  {
     "type": "insert",
     "named": false
   },
@@ -21763,6 +21845,10 @@
   },
   {
     "type": "modif",
+    "named": false
+  },
+  {
+    "type": "module",
     "named": false
   },
   {

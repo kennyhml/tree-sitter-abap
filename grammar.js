@@ -238,6 +238,7 @@ module.exports = grammar({
           $.tables_declaration,
           $.form_definition,
           $.function_definition,
+          $.module_definition,
           $.initialization_event,
           $.start_of_selection_event,
           $.load_of_program_event,
