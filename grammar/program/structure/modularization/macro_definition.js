@@ -20,7 +20,9 @@ module.exports = {
    *  macro [p1 p2 ... ].
    *
    * WARN: Only limited usage is supported. In theory, even punctuation
-   * and operators can be provided as macro arguments.
+   * and operators can be provided as macro arguments. We will limit the usage
+   * to identifiers as placeholders at most, since that is still parseable
+   * and probably the most commen use case.
    */
   macro_include: $ =>
     prec.right(

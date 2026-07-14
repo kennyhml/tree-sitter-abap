@@ -23,51 +23,13 @@ function kw(keyword) {
   return opt ? optional(rule) : rule;
 }
 
-/**
- * Same as the {@link kw} rule, except that the result is represented as
- * a node in the ruleset.
- *
- * This is useful for certain additions, such as 'OBLIGATORY' which
- * consts entirely of keyword in itself.
- *
- * <<< ... OBLIGATORY ...
- * >>> ... (obligatory) ...
- */
-function visible_kw(keyword) {
-  if (state.grammarProxy === null) {
-    throw Error("Grammar proxy not passed.");
-  }
-  const repr = keyword.replace("-", "_").toLowerCase();
-
-  const regexExpression = caseInsensitive(keyword);
-  return alias(regexExpression, state.grammarProxy[repr]);
-}
-
 function kws(...keywords) {
   return keywords.map(kw);
 }
 
 /**
- * Same as the {@link kws} rule, except that the result is represented as
- * a node in the ruleset.
- *
- * This is useful for certain additions, such as 'TRANSPORTING NO FIELDS'
- * which consts entirely of keywords.
- *
- * <<< ... TRANSPORTING NO FIELDS ...
- * >>> ... (transporting_no_fields) ...
+ * Main rule used to turn tokens (mainly keywords) into a case insensitive regexp
  */
-function visible_kws(...keywords) {
-  const rule = seq(...keywords.map(kw));
-
-  const nodeName = keywords
-    .map(v => v.replace("-", "_"))
-    .join("_")
-    .toLowerCase();
-  rule = alias(rule, state.grammarProxy[nodeName]);
-  return rule;
-}
-
 function caseInsensitive(...terms) {
   terms = terms.map(t => new RustRegex(`(?i)${t}`));
 
@@ -200,16 +162,41 @@ function extractKeywords() {
  */
 function kwRules() {
   const rules = {};
+
   const keywords = extractKeywords();
   for (const keyword of keywords) {
-    const regexExpression = caseInsensitive(keyword);
+    // Since our word rule itself doesnt include a "-", it being
+    // part of a token can severely blow up the parser size for
+    // some reason. In the case of END-OF-DEFINITION, it caused
+    // an increase of 7MB!
     const repr = `_kw_${keyword.toLowerCase().replace("-", "_")}`;
-    const rule = field(
-      "keyword",
-      alias(regexExpression, keyword.toLowerCase()),
-    );
 
-    rules[repr] = $ => rule;
+    // Some of these cause conflicts, not worth the hassle
+    if (
+      keyword.includes("-") &&
+      !keyword.includes("bit") &&
+      !keyword.includes("type")
+    ) {
+      const parts = keyword.split("-").map(part => caseInsensitive(part));
+
+      rules[`_${repr}`] = $ => {
+        const seqParts = [];
+        parts.forEach((part, i) => {
+          if (i > 0) {
+            seqParts.push(alias(token.immediate("-"), ""));
+            seqParts.push(token.immediate(part));
+          } else {
+            seqParts.push(part);
+          }
+        });
+        return seq(...seqParts);
+      };
+      rules[repr] = $ =>
+        field("keyword", alias($[`_${repr}`], keyword.toLowerCase()));
+    } else {
+      const regex = caseInsensitive(keyword);
+      rules[repr] = _ => field("keyword", alias(regex, keyword.toLowerCase()));
+    }
   }
   return rules;
 }
@@ -221,8 +208,6 @@ module.exports = {
   extractKeywords,
   kw,
   kws,
-  visible_kw,
-  visible_kws,
   chainable_immediate,
   chainable,
   declaration_and_spec,

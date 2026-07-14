@@ -2744,6 +2744,36 @@
     }
   },
   {
+    "type": "byte-ca",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "byte-cn",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "byte-co",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "byte-cs",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "byte-na",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "byte-ns",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "calculation_assignment",
     "named": true,
     "fields": {
@@ -3794,6 +3824,21 @@
         ]
       }
     }
+  },
+  {
+    "type": "class-data",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "class-methods",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "class-pool",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "class_body",
@@ -7696,6 +7741,11 @@
     }
   },
   {
+    "type": "end-of-definition",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "end_of_block_element",
     "named": true,
     "fields": {
@@ -7966,6 +8016,11 @@
     }
   },
   {
+    "type": "exception-table",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "exception_mapping",
     "named": true,
     "fields": {
@@ -8025,6 +8080,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "exit-command",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "exit_statement",
@@ -8117,6 +8177,16 @@
         ]
       }
     }
+  },
+  {
+    "type": "field-symbol",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "field-symbols",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "field_symbol",
@@ -9470,6 +9540,11 @@
     }
   },
   {
+    "type": "function-pool",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "function_body",
     "named": true,
     "fields": {},
@@ -10272,6 +10347,16 @@
         ]
       }
     }
+  },
+  {
+    "type": "help-id",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "help-request",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "horizontal_line_element",
@@ -11611,6 +11696,11 @@
     }
   },
   {
+    "type": "interface-pool",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "interface_body",
     "named": true,
     "fields": {},
@@ -12076,6 +12166,11 @@
     }
   },
   {
+    "type": "left-justified",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "let_expression",
     "named": true,
     "fields": {
@@ -12104,6 +12199,16 @@
         }
       ]
     }
+  },
+  {
+    "type": "line-count",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "line-size",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "line_count",
@@ -12380,6 +12485,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "load-of-program",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "load_of_program_event",
@@ -13205,6 +13315,11 @@
     }
   },
   {
+    "type": "message-id",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "message_spec",
     "named": true,
     "fields": {
@@ -13668,6 +13783,11 @@
     }
   },
   {
+    "type": "move-corresponding",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "move_corresponding_statement",
     "named": true,
     "fields": {
@@ -13900,6 +14020,36 @@
     }
   },
   {
+    "type": "no-display",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "no-extension",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "no-gaps",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "no-grouping",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "no-sign",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "no-zero",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "no_display_spec",
     "named": true,
     "fields": {
@@ -14022,6 +14172,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "non-unique",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "non_resumable_exception",
@@ -14410,6 +14565,11 @@
     }
   },
   {
+    "type": "output-length",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "output_position",
     "named": true,
     "fields": {
@@ -14549,6 +14709,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "parameter-table",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "parameter_default",
@@ -15729,6 +15894,11 @@
     }
   },
   {
+    "type": "read-only",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "read_only",
     "named": true,
     "fields": {
@@ -16835,6 +17005,11 @@
     }
   },
   {
+    "type": "right-justified",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "risk_level",
     "named": true,
     "fields": {
@@ -17048,6 +17223,11 @@
     }
   },
   {
+    "type": "select-options",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "select_options_declaration",
     "named": true,
     "fields": {
@@ -17216,6 +17396,16 @@
         ]
       }
     }
+  },
+  {
+    "type": "selection-screen",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "selection-set",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "selection_screen_statement",
@@ -18049,6 +18239,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "start-of-selection",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "start_of_selection_event",
@@ -20064,6 +20259,11 @@
     }
   },
   {
+    "type": "user-command",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "user_command_spec",
     "named": true,
     "fields": {
@@ -20192,6 +20392,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "value-request",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "value_check",
@@ -20760,6 +20965,10 @@
     }
   },
   {
+    "type": "",
+    "named": false
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -21052,30 +21261,6 @@
     "named": false
   },
   {
-    "type": "byte-ca",
-    "named": false
-  },
-  {
-    "type": "byte-cn",
-    "named": false
-  },
-  {
-    "type": "byte-co",
-    "named": false
-  },
-  {
-    "type": "byte-cs",
-    "named": false
-  },
-  {
-    "type": "byte-na",
-    "named": false
-  },
-  {
-    "type": "byte-ns",
-    "named": false
-  },
-  {
     "type": "ca",
     "named": false
   },
@@ -21133,18 +21318,6 @@
   },
   {
     "type": "class",
-    "named": false
-  },
-  {
-    "type": "class-data",
-    "named": false
-  },
-  {
-    "type": "class-methods",
-    "named": false
-  },
-  {
-    "type": "class-pool",
     "named": false
   },
   {
@@ -21404,10 +21577,6 @@
     "named": false
   },
   {
-    "type": "end-of-definition",
-    "named": false
-  },
-  {
     "type": "endat",
     "named": false
   },
@@ -21492,19 +21661,11 @@
     "named": false
   },
   {
-    "type": "exception-table",
-    "named": false
-  },
-  {
     "type": "exceptions",
     "named": false
   },
   {
     "type": "exit",
-    "named": false
-  },
-  {
-    "type": "exit-command",
     "named": false
   },
   {
@@ -21525,14 +21686,6 @@
   },
   {
     "type": "field",
-    "named": false
-  },
-  {
-    "type": "field-symbol",
-    "named": false
-  },
-  {
-    "type": "field-symbols",
     "named": false
   },
   {
@@ -21596,10 +21749,6 @@
     "named": false
   },
   {
-    "type": "function-pool",
-    "named": false
-  },
-  {
     "type": "functionality",
     "named": false
   },
@@ -21649,14 +21798,6 @@
   },
   {
     "type": "heading",
-    "named": false
-  },
-  {
-    "type": "help-id",
-    "named": false
-  },
-  {
-    "type": "help-request",
     "named": false
   },
   {
@@ -21744,10 +21885,6 @@
     "named": false
   },
   {
-    "type": "interface-pool",
-    "named": false
-  },
-  {
     "type": "interfaces",
     "named": false
   },
@@ -21796,10 +21933,6 @@
     "named": false
   },
   {
-    "type": "left-justified",
-    "named": false
-  },
-  {
     "type": "length",
     "named": false
   },
@@ -21820,14 +21953,6 @@
     "named": false
   },
   {
-    "type": "line-count",
-    "named": false
-  },
-  {
-    "type": "line-size",
-    "named": false
-  },
-  {
     "type": "line_comment",
     "named": true,
     "extra": true
@@ -21838,10 +21963,6 @@
   },
   {
     "type": "listbox",
-    "named": false
-  },
-  {
-    "type": "load-of-program",
     "named": false
   },
   {
@@ -21905,10 +22026,6 @@
     "named": false
   },
   {
-    "type": "message-id",
-    "named": false
-  },
-  {
     "type": "message_type",
     "named": true
   },
@@ -21949,10 +22066,6 @@
     "named": false
   },
   {
-    "type": "move-corresponding",
-    "named": false
-  },
-  {
     "type": "multi_line_comment",
     "named": true,
     "extra": true
@@ -21987,34 +22100,6 @@
   },
   {
     "type": "no",
-    "named": false
-  },
-  {
-    "type": "no-display",
-    "named": false
-  },
-  {
-    "type": "no-extension",
-    "named": false
-  },
-  {
-    "type": "no-gaps",
-    "named": false
-  },
-  {
-    "type": "no-grouping",
-    "named": false
-  },
-  {
-    "type": "no-sign",
-    "named": false
-  },
-  {
-    "type": "no-zero",
-    "named": false
-  },
-  {
-    "type": "non-unique",
     "named": false
   },
   {
@@ -22106,10 +22191,6 @@
     "named": false
   },
   {
-    "type": "output-length",
-    "named": false
-  },
-  {
     "type": "overlay",
     "named": false
   },
@@ -22119,10 +22200,6 @@
   },
   {
     "type": "parameter",
-    "named": false
-  },
-  {
-    "type": "parameter-table",
     "named": false
   },
   {
@@ -22195,10 +22272,6 @@
   },
   {
     "type": "read",
-    "named": false
-  },
-  {
-    "type": "read-only",
     "named": false
   },
   {
@@ -22282,10 +22355,6 @@
     "named": false
   },
   {
-    "type": "right-justified",
-    "named": false
-  },
-  {
     "type": "risk",
     "named": false
   },
@@ -22323,18 +22392,6 @@
   },
   {
     "type": "section",
-    "named": false
-  },
-  {
-    "type": "select-options",
-    "named": false
-  },
-  {
-    "type": "selection-screen",
-    "named": false
-  },
-  {
-    "type": "selection-set",
     "named": false
   },
   {
@@ -22415,10 +22472,6 @@
   },
   {
     "type": "standard",
-    "named": false
-  },
-  {
-    "type": "start-of-selection",
     "named": false
   },
   {
@@ -22594,10 +22647,6 @@
     "named": false
   },
   {
-    "type": "user-command",
-    "named": false
-  },
-  {
     "type": "using",
     "named": false
   },
@@ -22607,10 +22656,6 @@
   },
   {
     "type": "value",
-    "named": false
-  },
-  {
-    "type": "value-request",
     "named": false
   },
   {
