@@ -461,6 +461,10 @@
           {
             "type": "SYMBOL",
             "name": "at_selscreen_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "assert_statement"
           }
         ]
       }
@@ -18618,6 +18622,134 @@
         }
       ]
     },
+    "assert_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_assert"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "checkpoint_id_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "checkpoint_fields_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assert_condition_spec"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "assert_condition_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_condition"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "conditon",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_logical_expression"
+          }
+        }
+      ]
+    },
+    "checkpoint_id_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "group",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_subkey"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "subkey",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "character_like_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "checkpoint_fields_spec": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_kw_fields"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "general_expression"
+            }
+          }
+        ]
+      }
+    },
     "for_table_function": {
       "type": "SEQ",
       "members": [
@@ -27935,6 +28067,45 @@
         },
         "named": false,
         "value": "message-id"
+      }
+    },
+    "_kw_assert": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)assert"
+        },
+        "named": false,
+        "value": "assert"
+      }
+    },
+    "_kw_condition": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)condition"
+        },
+        "named": false,
+        "value": "condition"
+      }
+    },
+    "_kw_subkey": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)subkey"
+        },
+        "named": false,
+        "value": "subkey"
       }
     },
     "_kw_scalar": {

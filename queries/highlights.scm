@@ -180,6 +180,7 @@
 (using_loop_key "loop_key" @constant.builtin )
 (table_key name: (identifier) @constant )
 (index_key name: (identifier) @constant )
+(checkpoint_id_spec group: (identifier) @constant )
 
 (key_components (identifier) @variable.member )
 (group_key_component field: (identifier) @variable.member )
@@ -798,6 +799,8 @@
 (catch_clause ["catch" ] @keyword.exception )
 (before_unwind ["before" "unwind" ] @keyword.exception )
 (cleanup_clause "cleanup" @keyword.exception )
+
+(assert_statement "assert" @keyword.debug )
 
 (if_statement [ "if" "endif" ] @keyword.conditional )
 (elseif_clause "elseif" @keyword.conditional)

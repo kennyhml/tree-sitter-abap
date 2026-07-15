@@ -255,6 +255,9 @@ module.exports = grammar({
           $.parameters_declaration,
           $.select_options_declaration,
           $.at_selscreen_statement,
+
+          // testing
+          $.assert_statement,
         ),
       ),
 

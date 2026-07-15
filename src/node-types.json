@@ -272,6 +272,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "assert_statement",
+        "named": true
+      },
+      {
         "type": "at_selscreen_statement",
         "named": true
       },
@@ -1532,6 +1536,98 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "assert_condition_spec",
+    "named": true,
+    "fields": {
+      "conditon": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "condition",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "assert_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assert",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assert_condition_spec",
+          "named": true
+        },
+        {
+          "type": "checkpoint_fields_spec",
+          "named": true
+        },
+        {
+          "type": "checkpoint_id_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3872,6 +3968,72 @@
           {
             "type": "check",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "checkpoint_fields_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fields",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "general_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "checkpoint_id_spec",
+    "named": true,
+    "fields": {
+      "group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "id",
+            "named": false
+          },
+          {
+            "type": "subkey",
+            "named": false
+          }
+        ]
+      },
+      "subkey": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
           }
         ]
       }
@@ -21709,6 +21871,10 @@
     "named": false
   },
   {
+    "type": "assert",
+    "named": false
+  },
+  {
     "type": "assign",
     "named": false
   },
@@ -21922,6 +22088,10 @@
   },
   {
     "type": "condense",
+    "named": false
+  },
+  {
+    "type": "condition",
     "named": false
   },
   {
@@ -23032,6 +23202,10 @@
   },
   {
     "type": "style",
+    "named": false
+  },
+  {
+    "type": "subkey",
     "named": false
   },
   {

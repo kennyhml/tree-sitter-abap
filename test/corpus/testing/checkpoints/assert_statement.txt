@@ -1,0 +1,86 @@
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / ASSERT ] Basic form
+=================================================================================
+ASSERT foo = abap_true.
+---
+
+(source
+  (assert_statement
+    (assert_condition_spec
+      conditon: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / ASSERT ] Explicit condition
+=================================================================================
+ASSERT CONDITION gui_flag = abap_true. 
+---
+
+(source
+  (assert_statement
+    (assert_condition_spec
+      conditon: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / ASSERT ] Group ID
+=================================================================================
+ASSERT ID demo_checkpoint_group gui_flag = abap_true. 
+---
+
+(source
+  (assert_statement
+    (checkpoint_id_spec
+      group: (identifier))
+    (assert_condition_spec
+      conditon: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / ASSERT ] Subkey
+=================================================================================
+ASSERT ID demo_checkpoint_group 
+          SUBKEY sy-uname 
+          CONDITION gui_flag = abap_true. 
+---
+
+(source
+  (assert_statement
+    (checkpoint_id_spec
+      group: (identifier)
+      subkey: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (assert_condition_spec
+      conditon: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / ASSERT ] Log fields
+=================================================================================
+ASSERT ID demo_checkpoint_group 
+          SUBKEY sy-uname 
+          FIELDS 'Missing GUI'  sy-binpt 
+          CONDITION gui_flag = abap_true. 
+---
+
+(source
+  (assert_statement
+    (checkpoint_id_spec
+      group: (identifier)
+      subkey: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (checkpoint_fields_spec
+      (string_literal)
+      (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (assert_condition_spec
+      conditon: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
