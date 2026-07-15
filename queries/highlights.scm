@@ -421,8 +421,8 @@
 ))
 
 ; Constructor results
-(_ result_type: (identifier) @type )
-(_ result_type: (identifier) @type.builtin
+(_ [ result_type: (identifier) base_type: (identifier) ] @type )
+(_ [ result_type: (identifier) base_type: (identifier) ] @type.builtin
   (#match? @type.builtin "^([bBcCdDfFiInNpPsStTxX]|[dD][eE][cC][fF][lL][oO][aA][tT]16|[dD][eE][cC][fF][lL][oO][aA][tT]34|[iI][nN][tT]8|[sS][tT][rR][iI][nN][gG]|[uU][tT][cC][lL][oO][nN][gG]|[xX][sS][tT][rR][iI][nN][gG]|[aA][nN][yY])$")
 )
 
@@ -502,6 +502,7 @@
   (end_of_struct)
 )
 
+
 ; Tables / structs are always field assignments, not parameters.
 ; Up to 3 levels of nesting supported for deep component assignments.
 (table_comprehension
@@ -575,6 +576,11 @@
 (types_declaration
   (end_of_struct name: (identifier) @type) .
 )
+
+(begin_of_enum name: (identifier) @type.definition )
+(enum_value_spec name: (identifier) @constant )
+(end_of_enum name: (identifier) @type.definition )
+(enum_structure_spec name: (identifier) @constant )
 
 ; In this context, table kind keywords specify a generic type.
 (typing/table_type

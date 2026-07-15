@@ -2269,6 +2269,54 @@
     }
   },
   {
+    "type": "begin_of_enum",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "begin",
+            "named": false
+          },
+          {
+            "type": "enum",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "enum_base_type_spec",
+          "named": true
+        },
+        {
+          "type": "enum_structure_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "begin_of_line_directive",
     "named": true,
     "fields": {
@@ -4083,7 +4131,7 @@
       },
       "typing": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "typing",
@@ -5179,7 +5227,7 @@
       },
       "typing": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "typing",
@@ -6074,7 +6122,7 @@
       },
       "typing": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "typing",
@@ -7954,6 +8002,50 @@
     }
   },
   {
+    "type": "end_of_enum",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "end",
+            "named": false
+          },
+          {
+            "type": "enum",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "enum_structure_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "end_of_line_directive",
     "named": true,
     "fields": {
@@ -8079,6 +8171,92 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "enum_base_type_spec",
+    "named": true,
+    "fields": {
+      "base_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "base",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "enum_structure_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "structure",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "enum_value_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "default_data_value",
+          "named": true
+        },
+        {
+          "type": "initial_value",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8428,7 +8606,7 @@
       },
       "typing": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "typing",
@@ -20424,11 +20602,23 @@
       "required": true,
       "types": [
         {
+          "type": "begin_of_enum",
+          "named": true
+        },
+        {
           "type": "begin_of_struct",
           "named": true
         },
         {
+          "type": "end_of_enum",
+          "named": true
+        },
+        {
           "type": "end_of_struct",
+          "named": true
+        },
+        {
+          "type": "enum_value_spec",
           "named": true
         },
         {
@@ -20454,7 +20644,7 @@
       },
       "typing": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "typing",
@@ -21980,6 +22170,10 @@
   },
   {
     "type": "endwhile",
+    "named": false
+  },
+  {
+    "type": "enum",
     "named": false
   },
   {

@@ -66,17 +66,22 @@ function chainable_immediate(spec) {
  */
 function declaration_and_spec(keyword, identifier, prefix) {
   prefix ??= "";
-  rules = {};
+  let rules = {};
   const decl = `${prefix}${keyword.replace("-", "_")}_declaration`;
   const spec = `${prefix}${keyword.replace("-", "_")}_spec`;
 
+  // in theory typing additino is optional and defaults to c1 but that
+  // causes ambiguity with enum values and is, realistically, never used.
   rules[spec] = $ =>
-    choice(
-      seq(field("name", identifier($)), optional(field("typing", $.typing))),
-    );
+    choice(seq(field("name", identifier($)), field("typing", $.typing)));
 
-  rules[decl] = $ =>
-    chainable(keyword, choice($[spec], $.begin_of_struct, $.end_of_struct));
+  rules[decl] = $ => {
+    let opt = [$.begin_of_struct, $.end_of_struct, $[spec]];
+    if (keyword === "types") {
+      opt.push($.begin_of_enum, $.end_of_enum, $.enum_value_spec);
+    }
+    return chainable(keyword, choice(...opt));
+  };
 
   return rules;
 }

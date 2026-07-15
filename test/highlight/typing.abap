@@ -142,3 +142,38 @@ types foo type standard table.
 "     ^ type
 "              ^ type.builtin
 "                       ^ type.builtin
+
+TYPES: 
+  BEGIN OF ENUM planet, 
+"               ^ type.definition
+    mercury, 
+"   ^ constant
+    venus, 
+"   ^ constant
+    earth, 
+"   ^ constant
+    mars, 
+"   ^ constant
+  END OF ENUM planet.
+"             ^ type.definition
+
+TYPES: 
+  BEGIN OF ENUM bool STRUCTURE b BASE TYPE abap_boolean,
+"               ^ type.definition
+"                              ^ constant
+"                                          ^ type
+    false VALUE IS INITIAL, 
+"   ^ constant
+    true  VALUE abap_true, 
+"               ^ constant.builtin
+  END OF ENUM bool STRUCTURE b. 
+"                            ^ constant
+
+TYPES BEGIN OF ENUM planet.
+"                   ^ type.definition
+TYPES foo.
+"     ^ constant
+TYPES bar.
+"     ^ constant
+TYPES END OF ENUM planet.
+"                 ^ type.definition

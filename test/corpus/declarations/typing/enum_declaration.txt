@@ -1,0 +1,138 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / BEGIN OF ENUM ] Basic enum
+=================================================================================
+TYPES: 
+  BEGIN OF ENUM planet, 
+    mercury, 
+    venus, 
+    earth, 
+    mars, 
+    jupiter, 
+    saturn, 
+    uranus, 
+    neptune, 
+  END OF ENUM planet.
+---
+
+(source
+  (types_declaration
+    (begin_of_enum
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (end_of_enum
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / BEGIN OF ENUM ] Without chaining
+=================================================================================
+TYPES BEGIN OF ENUM planet.
+TYPES mercury.
+TYPES saturn.
+TYPES uranus.
+TYPES neptune.
+TYPES END OF ENUM planet.
+---
+
+(source
+  (types_declaration
+    (begin_of_enum
+      name: (identifier)))
+  (types_declaration
+    (enum_value_spec
+      name: (identifier)))
+  (types_declaration
+    (enum_value_spec
+      name: (identifier)))
+  (types_declaration
+    (enum_value_spec
+      name: (identifier)))
+  (types_declaration
+    (enum_value_spec
+      name: (identifier)))
+  (types_declaration
+    (end_of_enum
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / BEGIN OF ENUM ] With base type
+=================================================================================
+TYPES: 
+  BEGIN OF ENUM bool BASE TYPE abap_boolean, 
+    false VALUE IS INITIAL, 
+    true  VALUE abap_true, 
+  END OF ENUM bool. 
+---
+
+(source
+  (types_declaration
+    (begin_of_enum
+      name: (identifier)
+      (enum_base_type_spec
+        base_type: (identifier)))
+    (enum_value_spec
+      name: (identifier)
+      (initial_value))
+    (enum_value_spec
+      name: (identifier)
+      (default_data_value
+        val: (identifier)))
+    (end_of_enum
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / BEGIN OF ENUM ] With structure
+=================================================================================
+TYPES: 
+  BEGIN OF ENUM planet STRUCTURE p, 
+    mercury, 
+    venus, 
+    earth, 
+    mars, 
+    jupiter, 
+    saturn, 
+    uranus, 
+    neptune, 
+  END OF ENUM planet STRUCTURE p. 
+---
+
+(source
+  (types_declaration
+    (begin_of_enum
+      name: (identifier)
+      (enum_structure_spec
+        name: (identifier)))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (enum_value_spec
+      name: (identifier))
+    (end_of_enum
+      name: (identifier)
+      (enum_structure_spec
+        name: (identifier)))))
