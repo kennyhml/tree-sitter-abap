@@ -1,0 +1,62 @@
+=================================================================================
+[ ABAP - Creating Objects and Values / SPA/GPA Parameters / GET PARAMETER ] Basic form
+=================================================================================
+GET PARAMETER ID para FIELD prog. 
+---
+
+(source
+  (get_parameter_statement
+    name: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / SPA/GPA Parameters / GET PARAMETER ] Inline
+=================================================================================
+GET PARAMETER ID para FIELD final(res). 
+---
+
+(source
+  (get_parameter_statement
+    name: (identifier)
+    destination: (declaration_expression
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / SPA/GPA Parameters / GET PARAMETER ] Literal id
+=================================================================================
+GET PARAMETER ID 'MAT' FIELD globals-mat. 
+---
+
+(source
+  (get_parameter_statement
+    name: (string_literal)
+    destination: (component_selection
+      subject: (identifier)
+      component: (identifier))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / SPA/GPA Parameters / SET PARAMETER ] Basic form
+=================================================================================
+GET PARAMETER ID 'CAR' FIELD carrid. 
+---
+
+(source
+  (get_parameter_statement
+    name: (string_literal)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / SPA/GPA Parameters / SET PARAMETER ] Expressions
+=================================================================================
+GET PARAMETER ID cl_constants=>gc_param FIELD new foo( )->attr. 
+---
+
+(source
+  (get_parameter_statement
+    name: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    destination: (component_selection
+      subject: (new_expression
+        result_type: (identifier))
+      component: (identifier))))

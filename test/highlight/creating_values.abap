@@ -53,3 +53,9 @@ CREATE OBJECT container->* TYPE (class)
 "                                ^ variable
     PARAMETER-TABLE ptab.
 "                   ^ variable
+SET PARAMETER ID param FIELD val.
+"                ^ variable
+"                            ^ variable
+GET PARAMETER ID param FIELD val.
+"                ^ variable
+"                            ^ variable

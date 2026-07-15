@@ -173,6 +173,8 @@ module.exports = grammar({
           $.describe_distance_statement,
           $.create_object_statement,
           $.create_data_statement,
+          $.set_parameter_statement,
+          $.get_parameter_statement,
 
           // Program
           $.report_statement,
