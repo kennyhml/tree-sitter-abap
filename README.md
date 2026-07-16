@@ -53,11 +53,9 @@ Needless to say, this isnt only annoying to parse but practically impossible, as
 As a result, the grammar makes an effort to support chained statements where they are often times used. For example, when declaring
 a structure type or defining dynpro parameters. Excessively using this "quirk" has been discouraged for a long time and tools 
 such as the official ABAP Formatter provide the ability to transform such statements into their longform (and proper) variant.
-### Locals
-Tree-sitter offers a system to tag nodes in the syntax tree that introduce a scope, declare a variable or reference such a variable.
-As ABAP usually splits these concerns into completely different scopes (includes in programs, declaration section of a class) its cant
-easily be supported. Its also worth noting that upstream Tree-sitter has moved away from this system anyways as it is a task better
-suited for a language server.
+### Macros
+The grammar is unable to parse macros that pass operators, punctuation or expressions into macros. When using simple operands, both in
+their definition and their inclusions, they can be parsed correctly - which is usually the case.
 ## Obsolete Language Elements
 Many obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.
 Some language elements that are still commonly found in On Premise / Private Cloud Systems may be supported despite officially marked as obsolete - 
@@ -65,8 +63,8 @@ for example the addition `IN BACKGROUND TASK` of a function call, or selection-s
 
 ## Completion rate
 The following language features are currently implemented:
-- [x] Declaration of data objects
-- [x] Declarations of types including table types
+- [x] Declaration of data objects (data, final, constants, class-data..)
+- [x] Declarations of types (tables, enums, builtins, references..)
 - [x] Selection screens statements
 - [x] Declaring and using form routines
 - [x] Control Flow (if, case, loop at..)
