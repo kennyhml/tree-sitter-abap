@@ -216,6 +216,10 @@ module.exports = grammar({
           $.breakpoint_statement,
           $.logpoint_statement,
 
+          $.get_run_time_statement,
+          $.set_run_time_clock_resolution_statement,
+          $.set_run_time_analyzer_statement,
+
           $._empty_statement,
         ),
       ),

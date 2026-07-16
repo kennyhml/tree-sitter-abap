@@ -1,0 +1,60 @@
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Measurements / GET RUN TIME ] Basic form
+=================================================================================
+GET RUN TIME FIELD t1.
+---
+
+(source
+  (get_run_time_statement
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Measurements / GET RUN TIME ] Inline
+=================================================================================
+GET RUN TIME FIELD final(t1).
+---
+
+(source
+  (get_run_time_statement
+    destination: (declaration_expression
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Measurements / SET RUN TIME CLOCK RESOLUTION ] Low
+=================================================================================
+SET RUN TIME CLOCK RESOLUTION LOW. 
+---
+
+(source
+  (set_run_time_clock_resolution_statement
+    value: (low)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Measurements / SET RUN TIME CLOCK RESOLUTION ] High
+=================================================================================
+SET RUN TIME CLOCK RESOLUTION HIGH. 
+---
+
+(source
+  (set_run_time_clock_resolution_statement
+    value: (high)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Measurements / SET RUN TIME ANALYZER ] Off
+=================================================================================
+SET RUN TIME ANALYZER OFF.
+---
+
+(source
+  (set_run_time_analyzer_statement
+    value: (off)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Measurements / SET RUN TIME ANALYZER ] On
+=================================================================================
+SET RUN TIME ANALYZER ON.
+---
+
+(source
+  (set_run_time_analyzer_statement
+    value: (on)))

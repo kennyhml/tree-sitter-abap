@@ -546,6 +546,10 @@
         "named": true
       },
       {
+        "type": "get_run_time_statement",
+        "named": true
+      },
+      {
         "type": "get_time_statement",
         "named": true
       },
@@ -655,6 +659,14 @@
       },
       {
         "type": "set_parameter_statement",
+        "named": true
+      },
+      {
+        "type": "set_run_time_analyzer_statement",
+        "named": true
+      },
+      {
+        "type": "set_run_time_clock_resolution_statement",
         "named": true
       },
       {
@@ -10579,6 +10591,44 @@
     }
   },
   {
+    "type": "get_run_time_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": false
+          },
+          {
+            "type": "get",
+            "named": false
+          },
+          {
+            "type": "run",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "get_time_statement",
     "named": true,
     "fields": {
@@ -10998,6 +11048,22 @@
     "type": "help-request",
     "named": false,
     "fields": {}
+  },
+  {
+    "type": "high",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "high",
+            "named": false
+          }
+        ]
+      }
+    }
   },
   {
     "type": "horizontal_line_element",
@@ -13640,6 +13706,22 @@
     }
   },
   {
+    "type": "low",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "low",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "lower_case_spec",
     "named": true,
     "fields": {
@@ -14957,6 +15039,38 @@
           {
             "type": "number",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "off",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "off",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "on",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "on",
+            "named": false
           }
         ]
       }
@@ -18349,6 +18463,94 @@
         "types": [
           {
             "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "set_run_time_analyzer_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "analyzer",
+            "named": false
+          },
+          {
+            "type": "run",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "off",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "set_run_time_clock_resolution_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "clock",
+            "named": false
+          },
+          {
+            "type": "resolution",
+            "named": false
+          },
+          {
+            "type": "run",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          },
+          {
+            "type": "time",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "high",
+            "named": true
+          },
+          {
+            "type": "low",
             "named": true
           }
         ]
@@ -21927,6 +22129,10 @@
     "named": false
   },
   {
+    "type": "analyzer",
+    "named": false
+  },
+  {
     "type": "and",
     "named": false
   },
@@ -22124,6 +22330,10 @@
   },
   {
     "type": "client",
+    "named": false
+  },
+  {
+    "type": "clock",
     "named": false
   },
   {
@@ -22599,6 +22809,10 @@
     "named": false
   },
   {
+    "type": "high",
+    "named": false
+  },
+  {
     "type": "i",
     "named": false
   },
@@ -22777,6 +22991,10 @@
   },
   {
     "type": "loop_key",
+    "named": false
+  },
+  {
+    "type": "low",
     "named": false
   },
   {
@@ -23125,6 +23343,10 @@
     "named": false
   },
   {
+    "type": "resolution",
+    "named": false
+  },
+  {
     "type": "respecting",
     "named": false
   },
@@ -23162,6 +23384,10 @@
   },
   {
     "type": "round",
+    "named": false
+  },
+  {
+    "type": "run",
     "named": false
   },
   {

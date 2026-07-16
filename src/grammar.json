@@ -371,6 +371,18 @@
           },
           {
             "type": "SYMBOL",
+            "name": "get_run_time_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "set_run_time_clock_resolution_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "set_run_time_analyzer_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -4523,6 +4535,139 @@
           "content": {
             "type": "SYMBOL",
             "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "get_run_time_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_run"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_field"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "set_run_time_analyzer_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_run"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_analyzer"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_kw_on"
+                },
+                "named": true,
+                "value": "on"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_kw_off"
+                },
+                "named": true,
+                "value": "off"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "set_run_time_clock_resolution_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_run"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_clock"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_resolution"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_kw_high"
+                },
+                "named": true,
+                "value": "high"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_kw_low"
+                },
+                "named": true,
+                "value": "low"
+              }
+            ]
           }
         }
       ]
@@ -24219,6 +24364,97 @@
         "value": "base"
       }
     },
+    "_kw_run": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)run"
+        },
+        "named": false,
+        "value": "run"
+      }
+    },
+    "_kw_time": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)time"
+        },
+        "named": false,
+        "value": "time"
+      }
+    },
+    "_kw_analyzer": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)analyzer"
+        },
+        "named": false,
+        "value": "analyzer"
+      }
+    },
+    "_kw_clock": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)clock"
+        },
+        "named": false,
+        "value": "clock"
+      }
+    },
+    "_kw_resolution": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)resolution"
+        },
+        "named": false,
+        "value": "resolution"
+      }
+    },
+    "_kw_high": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)high"
+        },
+        "named": false,
+        "value": "high"
+      }
+    },
+    "_kw_low": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)low"
+        },
+        "named": false,
+        "value": "low"
+      }
+    },
     "_kw_message": {
       "type": "FIELD",
       "name": "keyword",
@@ -25488,19 +25724,6 @@
         },
         "named": false,
         "value": "bit-not"
-      }
-    },
-    "_kw_time": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)time"
-        },
-        "named": false,
-        "value": "time"
       }
     },
     "_kw_zone": {
