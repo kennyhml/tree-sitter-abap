@@ -78,7 +78,7 @@
 ; Macro parameters
 (
  (named_data_object/identifier) @variable.parameter
-   (#match? @variable.parameter "&[1-9]")
+   (#any-of? @variable.parameter "&1" "&2" "&3" "&4" "&5" "&6" "&7" "&8" "&9" )
 )
 
 (dynamic_spec (identifier) @variable )

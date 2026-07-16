@@ -359,6 +359,18 @@
           },
           {
             "type": "SYMBOL",
+            "name": "assert_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "breakpoint_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "logpoint_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -461,18 +473,6 @@
           {
             "type": "SYMBOL",
             "name": "at_selscreen_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "assert_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "breakpoint_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "logpoint_statement"
           }
         ]
       }

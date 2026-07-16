@@ -211,6 +211,11 @@ module.exports = grammar({
           $.resume_statement,
           $.wait_up_to_statement,
 
+          // testing
+          $.assert_statement,
+          $.breakpoint_statement,
+          $.logpoint_statement,
+
           $._empty_statement,
         ),
       ),
@@ -255,11 +260,6 @@ module.exports = grammar({
           $.parameters_declaration,
           $.select_options_declaration,
           $.at_selscreen_statement,
-
-          // testing
-          $.assert_statement,
-          $.breakpoint_statement,
-          $.logpoint_statement,
         ),
       ),
 

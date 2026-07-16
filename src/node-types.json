@@ -272,15 +272,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "assert_statement",
-        "named": true
-      },
-      {
         "type": "at_selscreen_statement",
-        "named": true
-      },
-      {
-        "type": "breakpoint_statement",
         "named": true
       },
       {
@@ -333,10 +325,6 @@
       },
       {
         "type": "local_friends_declaration",
-        "named": true
-      },
-      {
-        "type": "logpoint_statement",
         "named": true
       },
       {
@@ -394,11 +382,19 @@
         "named": true
       },
       {
+        "type": "assert_statement",
+        "named": true
+      },
+      {
         "type": "assign_statement",
         "named": true
       },
       {
         "type": "assignment",
+        "named": true
+      },
+      {
+        "type": "breakpoint_statement",
         "named": true
       },
       {
@@ -579,6 +575,10 @@
       },
       {
         "type": "interface_pool_statement",
+        "named": true
+      },
+      {
+        "type": "logpoint_statement",
         "named": true
       },
       {
