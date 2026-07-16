@@ -43,6 +43,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "statics_declaration"
+          },
+          {
+            "type": "SYMBOL",
             "name": "field_symbols_declaration"
           },
           {
@@ -22258,6 +22262,19 @@
         "value": "constants"
       }
     },
+    "_kw_statics": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)statics"
+        },
+        "named": false,
+        "value": "statics"
+      }
+    },
     "_kw_types": {
       "type": "FIELD",
       "name": "keyword",
@@ -29906,6 +29923,127 @@
                 {
                   "type": "SYMBOL",
                   "name": "constants_spec"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "statics_spec": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "typing",
+              "content": {
+                "type": "SYMBOL",
+                "name": "typing"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "statics_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_statics"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "begin_of_struct"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "end_of_struct"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "statics_spec"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "begin_of_struct"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "end_of_struct"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "statics_spec"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "begin_of_struct"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "end_of_struct"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "statics_spec"
                 }
               ]
             }

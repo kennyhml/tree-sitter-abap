@@ -120,6 +120,7 @@ module.exports = grammar({
 
           // Fundamental declarations
           $.data_declaration,
+          $.statics_declaration,
           $.field_symbols_declaration,
           $.types_declaration,
           $.constants_declaration,
@@ -308,6 +309,7 @@ module.exports = grammar({
 
     ...gen.declaration_and_spec("data", $ => $.identifier),
     ...gen.declaration_and_spec("constants", $ => $.identifier),
+    ...gen.declaration_and_spec("statics", $ => $.identifier),
     ...gen.declaration_and_spec("types", $ => $.identifier),
 
     /**

@@ -1,0 +1,64 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Statics ] Basic form
+=================================================================================
+STATICS static TYPE i VALUE 10. 
+---
+
+(source
+  (statics_declaration
+    (statics_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier)
+        (default_data_value
+          val: (number))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Statics ] Chained
+=================================================================================
+STATICS: num TYPE i VALUE 10, str type string. 
+---
+
+(source
+  (statics_declaration
+    (statics_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier)
+        (default_data_value
+          val: (number))))
+    (statics_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / Statics ] Structure
+=================================================================================
+STATICS: begin of struct,
+         field1 type i value 999,
+         field2 type c length 10 value 'Hello',
+         end of struct.
+
+---
+
+(source
+  (statics_declaration
+    (begin_of_struct
+      name: (identifier))
+    (statics_spec
+      name: (identifier)
+      typing: (referred_type
+        name: (identifier)
+        (default_data_value
+          val: (number))))
+    (statics_spec
+      name: (identifier)
+      typing: (builtin_type_spec
+        name: (identifier)
+        (type_length
+          count: (number))
+        (default_data_value
+          val: (string_literal))))
+    (end_of_struct
+      name: (identifier))))

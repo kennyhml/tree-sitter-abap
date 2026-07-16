@@ -104,8 +104,9 @@
   )
 )
 
-
 (declaration_expression (identifier) @variable )
+
+
 (data_declaration 
   . (data_spec name: (identifier) @variable )
   (data_spec name: (identifier) @variable )?
@@ -124,6 +125,30 @@
   (begin_of_struct)
   [
     (data_spec name: (identifier) @variable.member)
+    (begin_of_struct name: (identifier) @variable.member)
+    (end_of_struct name: (identifier) @variable.member)
+  ]
+  (end_of_struct)
+)
+
+(statics_declaration 
+  . (statics_spec name: (identifier) @variable )
+  (statics_spec name: (identifier) @variable )?
+)
+
+; Similar to how typed structures work, only the outermost elements
+; are actually variables while all inner specs / structs are properties.
+(statics_declaration 
+  (end_of_struct name: (identifier) @variable ) . 
+)
+(statics_declaration 
+  . (begin_of_struct name: (identifier) @variable ) 
+)
+
+(statics_declaration
+  (begin_of_struct)
+  [
+    (statics_spec name: (identifier) @variable.member)
     (begin_of_struct name: (identifier) @variable.member)
     (end_of_struct name: (identifier) @variable.member)
   ]

@@ -53,3 +53,15 @@ CONSTANTS: BEGIN OF s1, c1 TYPE c, begin of s2, c2 TYPE c, end of s2, END OF s1.
 TABLES: table_wa, table_wa2.
 "       ^ variable
 "                 ^ variable
+
+STATICS static TYPE i VALUE 10. 
+"       ^ variable
+"                   ^ type.builtin
+STATICS: begin of struct,
+"                 ^ variable
+         field1 type i value 999,
+"        ^ variable.member
+         field2 type c length 10 value 'Hello',
+"        ^ variable.member
+         end of struct.
+"               ^ variable

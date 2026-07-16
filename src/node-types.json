@@ -686,6 +686,10 @@
         "named": true
       },
       {
+        "type": "statics_declaration",
+        "named": true
+      },
+      {
         "type": "test_injection_statement",
         "named": true
       },
@@ -19351,6 +19355,66 @@
     }
   },
   {
+    "type": "statics_declaration",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "statics",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "begin_of_struct",
+          "named": true
+        },
+        {
+          "type": "end_of_struct",
+          "named": true
+        },
+        {
+          "type": "statics_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statics_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "typing": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "typing",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "string_concatenation",
     "named": true,
     "fields": {
@@ -23608,6 +23672,10 @@
   },
   {
     "type": "starting",
+    "named": false
+  },
+  {
+    "type": "statics",
     "named": false
   },
   {
