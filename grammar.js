@@ -258,6 +258,7 @@ module.exports = grammar({
 
           // testing
           $.assert_statement,
+          $.breakpoint_statement,
         ),
       ),
 

@@ -801,6 +801,7 @@
 (cleanup_clause "cleanup" @keyword.exception )
 
 (assert_statement "assert" @keyword.debug )
+(breakpoint_statement "break-point" @keyword.debug )
 
 (if_statement [ "if" "endif" ] @keyword.conditional )
 (elseif_clause "elseif" @keyword.conditional)

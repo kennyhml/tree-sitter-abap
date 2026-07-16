@@ -280,6 +280,10 @@
         "named": true
       },
       {
+        "type": "breakpoint_statement",
+        "named": true
+      },
+      {
         "type": "class_data_declaration",
         "named": true
       },
@@ -2785,6 +2789,47 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "break-point",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "breakpoint_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "break-point",
+            "named": false
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "checkpoint_id_spec",
+          "named": true
+        }
+      ]
     }
   },
   {

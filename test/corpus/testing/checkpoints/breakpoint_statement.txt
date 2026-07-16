@@ -1,0 +1,41 @@
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / BREAK-POINT ] Basic form
+=================================================================================
+BREAK-POINT. 
+---
+
+(source
+  (breakpoint_statement))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / BREAK-POINT ] Group id
+=================================================================================
+BREAK-POINT ID demo_checkpoint_group.
+---
+
+(source
+  (breakpoint_statement
+    (checkpoint_id_spec
+      group: (identifier))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / BREAK-POINT ] Log text
+=================================================================================
+BREAK-POINT log_text.
+---
+
+(source
+  (breakpoint_statement
+    text: (identifier)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / BREAK-POINT ] Group and log text
+=================================================================================
+BREAK-POINT ID demo_group 'This is the log text'. 
+---
+
+(source
+  (breakpoint_statement
+    (checkpoint_id_spec
+      group: (identifier))
+    text: (string_literal)))

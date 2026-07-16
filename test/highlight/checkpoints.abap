@@ -11,3 +11,7 @@ ASSERT ID demo_checkpoint_group
 "         ^ keyword
 "                   ^ variable
 "                              ^ constant.builtin
+BREAK-POINT ID my_group foo.
+"<- keyword.debug
+"              ^ constant
+"                       ^ variable

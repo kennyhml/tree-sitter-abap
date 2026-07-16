@@ -465,6 +465,10 @@
           {
             "type": "SYMBOL",
             "name": "assert_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "breakpoint_statement"
           }
         ]
       }
@@ -18688,6 +18692,47 @@
         }
       ]
     },
+    "breakpoint_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_break_point"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "checkpoint_id_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "text",
+              "content": {
+                "type": "SYMBOL",
+                "name": "character_like_expression"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "checkpoint_id_spec": {
       "type": "SEQ",
       "members": [
@@ -28093,6 +28138,47 @@
         },
         "named": false,
         "value": "condition"
+      }
+    },
+    "__kw_break_point": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)break"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "-"
+            }
+          },
+          "named": false,
+          "value": ""
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)point"
+          }
+        }
+      ]
+    },
+    "_kw_break_point": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_break_point"
+        },
+        "named": false,
+        "value": "break-point"
       }
     },
     "_kw_subkey": {
