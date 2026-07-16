@@ -17,6 +17,25 @@ ENDCLASS.
             name: (identifier)))))))
 
 =================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] Partial
+=================================================================================
+CLASS foo DEFINITION. 
+  PUBLIC SECTION.
+    INTERFACES intf PARTIALLY IMPLEMENTED. 
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (interfaces_declaration
+          (interfaces_spec
+            name: (identifier)
+            (partially_implemented)))))))
+
+=================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / INTERFACES ] Abstract methods
 =================================================================================
 CLASS foo DEFINITION. 
