@@ -1,0 +1,59 @@
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Test Seams / TEST-SEAM] Empty
+=================================================================================
+TEST-SEAM seam.
+END-TEST-SEAM.
+---
+
+(source
+  (test_seam_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Test Seams / TEST-SEAM] With body
+=================================================================================
+TEST-SEAM seam.
+foo = cl_pricing=>get_price_for_customer( ).
+END-TEST-SEAM.
+---
+
+(source
+  (test_seam_statement
+    name: (identifier)
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (function_call
+          source: (identifier)
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Test Seams / TEST-INJECTION ] Empty
+=================================================================================
+TEST-INJECTION seam.
+END-TEST-INJECTION.
+---
+
+(source
+  (test_injection_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Test Seams / TEST-INJECTION ] With body
+=================================================================================
+TEST-INJECTION seam.
+foo = test-price-customer.
+END-TEST-INJECTION.
+---
+
+(source
+  (test_injection_statement
+    name: (identifier)
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (component_selection
+          subject: (component_selection
+            subject: (identifier)
+            component: (identifier))
+          component: (identifier))))))

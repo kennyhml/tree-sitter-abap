@@ -219,6 +219,8 @@ module.exports = grammar({
           $.get_run_time_statement,
           $.set_run_time_clock_resolution_statement,
           $.set_run_time_analyzer_statement,
+          $.test_seam_statement,
+          $.test_injection_statement,
 
           $._empty_statement,
         ),
@@ -577,6 +579,7 @@ module.exports = grammar({
             "data",
             "types",
             "constants",
+            "test", // due to test-seam
 
             "condense",
             "split",

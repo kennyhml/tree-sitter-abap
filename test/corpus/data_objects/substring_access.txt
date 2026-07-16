@@ -83,7 +83,7 @@ ref->*+10(length).
 ======
 [SUBSTRING-ACCESS] From component expression
 ======
-test-var1(10)
+foo-var1(10)
 ---
 
 (source
