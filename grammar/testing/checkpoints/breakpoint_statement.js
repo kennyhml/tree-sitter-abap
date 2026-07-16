@@ -1,8 +1,7 @@
 module.exports = {
   /**
-   * ASSERT [ [ID group [SUBKEY sub]]
-   * [FIELDS val1 val2 ...]
-   *  CONDITION ] log_exp.
+   * BREAK-POINT { [ID group]
+   *             / [log_text] }.
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPBREAK-POINT.html
    */

@@ -15,3 +15,9 @@ BREAK-POINT ID my_group foo.
 "<- keyword.debug
 "              ^ constant
 "                       ^ variable
+LOG-POINT ID demo_checkpoint_group SUBKEY name FIELDS foo bar.
+"<- keyword.debug
+"            ^ constant
+"                                         ^ variable
+"                                                     ^ variable
+"                                                         ^ variable

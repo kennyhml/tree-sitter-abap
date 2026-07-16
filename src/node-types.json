@@ -336,6 +336,10 @@
         "named": true
       },
       {
+        "type": "logpoint_statement",
+        "named": true
+      },
+      {
         "type": "macro_definition",
         "named": true
       },
@@ -13203,6 +13207,11 @@
     }
   },
   {
+    "type": "log-point",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "logical_expression",
     "named": true,
     "fields": {
@@ -13354,6 +13363,36 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "logpoint_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "log-point",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "checkpoint_fields_spec",
+          "named": true
+        },
+        {
+          "type": "checkpoint_id_spec",
+          "named": true
+        }
+      ]
     }
   },
   {

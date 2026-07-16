@@ -1,0 +1,47 @@
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / LOG-POINT ] Basic form
+=================================================================================
+BREAK-POINT ID group. 
+---
+
+(source
+  (breakpoint_statement
+    (checkpoint_id_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / LOG-POINT ] Subkey
+=================================================================================
+LOG-POINT ID demo_checkpoint_group SUBKEY sy-uname.
+---
+
+(source
+  (logpoint_statement
+    (checkpoint_id_spec
+      group: (identifier)
+      subkey: (component_selection
+        subject: (identifier)
+        component: (identifier)))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Testing / Checkpoints / LOG-POINT ] Fields
+=================================================================================
+LOG-POINT ID demo_checkpoint_group 
+             SUBKEY sy-uname 
+             FIELDS sy-batch sy-cprog.
+---
+
+(source
+  (logpoint_statement
+    (checkpoint_id_spec
+      group: (identifier)
+      subkey: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (checkpoint_fields_spec
+      (component_selection
+        subject: (identifier)
+        component: (identifier))
+      (component_selection
+        subject: (identifier)
+        component: (identifier)))))

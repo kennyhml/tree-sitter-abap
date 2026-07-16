@@ -469,6 +469,10 @@
           {
             "type": "SYMBOL",
             "name": "breakpoint_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "logpoint_statement"
           }
         ]
       }
@@ -18795,6 +18799,35 @@
         ]
       }
     },
+    "logpoint_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_log_point"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "checkpoint_id_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "checkpoint_fields_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "for_table_function": {
       "type": "SEQ",
       "members": [
@@ -28192,6 +28225,47 @@
         },
         "named": false,
         "value": "subkey"
+      }
+    },
+    "__kw_log_point": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)log"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "-"
+            }
+          },
+          "named": false,
+          "value": ""
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)point"
+          }
+        }
+      ]
+    },
+    "_kw_log_point": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_log_point"
+        },
+        "named": false,
+        "value": "log-point"
       }
     },
     "_kw_scalar": {
