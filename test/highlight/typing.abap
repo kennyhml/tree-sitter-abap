@@ -116,6 +116,11 @@ types bar type table of foo with non-unique key primary_key components f1 with u
 "                                               ^ constant
 "                                                                      ^ variable.member
 "                                                                                                ^ constant
+types bar type table of foo with non-unique key primary_key alias pk components f1.
+"     ^ type.definition
+"                       ^ type                            
+"                                               ^ constant
+"                                                                 ^ constant
 TYPES: BEGIN OF st_h,
 "               ^ type.definition
          a TYPE i,
