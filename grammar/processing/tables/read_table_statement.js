@@ -5,6 +5,10 @@ module.exports = {
    *                         / where_cond
    *                         / index }
    *
+   * WARN: Parts of the statment can be split and the official specification does
+   * not suggest that. For example, the read key spec does not necessarily appear
+   * in front of the WHERE clause and may have the result in between.
+   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE.html
    */
   read_table_statement: $ =>
@@ -12,8 +16,20 @@ module.exports = {
       ...gen.kws("read", "table"),
       field("subject", $.functional_expression),
       choice(
-        seq(field("result", $.__table_read_result), $.__table_read_variant),
-        seq($.__table_read_variant, field("result", $.__table_read_result)),
+        seq(
+          field("result", $.__table_read_result),
+          $.__table_read_variant,
+          optional($.__transport_options),
+        ),
+        seq(
+          choice($.index, $.free_key, $.table_key, $.from_work_area),
+          field("result", $.__table_read_result),
+        ),
+        seq(
+          $.itab_lines,
+          field("result", $.__table_read_result),
+          optional(seq($.itab_lines, optional($.__transport_options))),
+        ),
       ),
       ".",
     ),

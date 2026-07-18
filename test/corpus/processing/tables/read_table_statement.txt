@@ -229,6 +229,65 @@ READ TABLE itab
           right: (number))))))
 
 =================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Result between key and condition
+=================================================================================
+READ TABLE itab USING KEY primary_key INTO wa WHERE comp2 CS 't'.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (itab_lines
+      (using_key
+        name: (identifier)))
+    result: (into_work_area
+      work_area: (identifier))
+    (itab_lines
+      (where_condition
+        condition: (comparison_expression
+          left: (identifier)
+          right: (string_literal))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing with index
+=================================================================================
+READ TABLE it_compare INTO line_compare INDEX sy-index COMPARING comp1.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    result: (into_work_area
+      work_area: (identifier))
+    (index
+      index: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (comparing
+      (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing and transporting
+=================================================================================
+READ TABLE it_compare INTO line_compare INDEX sy-index COMPARING comp3 TRANSPORTING comp2 comp3.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    result: (into_work_area
+      work_area: (identifier))
+    (index
+      index: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (comparing
+      (identifier))
+    (transporting_components
+      (identifier)
+      (identifier))))
+
+=================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Transporting specific fields
 =================================================================================
 READ TABLE sflight_tab 

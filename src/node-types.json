@@ -16808,9 +16808,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "comparing",
+          "named": true
+        },
         {
           "type": "free_key",
           "named": true
@@ -16829,6 +16833,10 @@
         },
         {
           "type": "table_key",
+          "named": true
+        },
+        {
+          "type": "transporting_components",
           "named": true
         }
       ]
