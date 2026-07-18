@@ -108,19 +108,17 @@
 
 
 (data_declaration 
-  . (data_spec name: (identifier) @variable )
-  (data_spec name: (identifier) @variable )?
+  (data_spec name: (identifier) @variable )
 )
 
-; Similar to how typed structures work, only the outermost elements
-; are actually variables while all inner specs / structs are properties.
 (data_declaration 
-  (end_of_struct name: (identifier) @variable ) . 
+  (begin_of_struct name: (identifier) @variable )
 )
 (data_declaration 
-  . (begin_of_struct name: (identifier) @variable ) 
+  (end_of_struct name: (identifier) @variable )
 )
 
+; Only outer declarations are variables; the enclosed declarations are members.
 (data_declaration
   (begin_of_struct)
   [
@@ -132,19 +130,17 @@
 )
 
 (statics_declaration 
-  . (statics_spec name: (identifier) @variable )
-  (statics_spec name: (identifier) @variable )?
+  (statics_spec name: (identifier) @variable )
 )
 
-; Similar to how typed structures work, only the outermost elements
-; are actually variables while all inner specs / structs are properties.
 (statics_declaration 
-  (end_of_struct name: (identifier) @variable ) . 
+  (begin_of_struct name: (identifier) @variable )
 )
 (statics_declaration 
-  . (begin_of_struct name: (identifier) @variable ) 
+  (end_of_struct name: (identifier) @variable )
 )
 
+; Only outer declarations are variables; the enclosed declarations are members.
 (statics_declaration
   (begin_of_struct)
   [
@@ -511,14 +507,21 @@
   ]
 )
 
-; Only applies to immediate decls due to anchor tag (not structs)
-; TODO: This will wrongly tag long-form struct properties, can that be avoided?
+; Chained declarations can contain structures alongside other type declarations.
+; Capture declarations as definitions first; the structure rule below overrides members.
 (types_declaration
-  . (types_spec name: (identifier) @type ) )
+  (types_spec name: (identifier) @type.definition ) )
+
+(types_declaration
+  (begin_of_struct name: (identifier) @type.definition )
+)
+(types_declaration
+  (end_of_struct name: (identifier) @type.definition )
+)
 
 
-; NOTE: Do not try to integrate the below anchor tags. While that
-; works in the playground and neovim, the CLI highlighter seems
+; NOTE: Do not try to integrate anchor tags.
+; Works in the playground and neovim, but the CLI highlighter seems
 ; to have some issue with it making it fail the tests.
 (types_declaration
   (begin_of_struct)
@@ -595,15 +598,6 @@
 (itab_comp/substring_access
   subject: (identifier) @variable.member
 ) 
-
-; Only the top-level declaration is considered a type.
-; Split by design to support both chained and explicit decls.
-(types_declaration
-  . (begin_of_struct name: (identifier) @type )
-)
-(types_declaration
-  (end_of_struct name: (identifier) @type) .
-)
 
 (begin_of_enum name: (identifier) @type.definition )
 (enum_value_spec name: (identifier) @constant )

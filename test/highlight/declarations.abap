@@ -29,7 +29,7 @@ DATA: one TYPE abap_bool VALUE abap_true, two TYPE abap_bool VALUE abap_false.
 "                                         ^ variable
 "                                                  ^ type
 "                                                                  ^ constant.builtin
-DATA: BEGIN OF s1, c1 TYPE c VALUE '1', c2 TYPE c VALUE '2', END OF s1.
+DATA: BEGIN OF s1, c1 TYPE c VALUE '1', c2 TYPE c VALUE '2', END OF s1, foo type bar.
 "              ^ variable
 "                          ^ type.builtin
 "                                               ^ type.builtin
@@ -63,5 +63,7 @@ STATICS: begin of struct,
 "        ^ variable.member
          field2 type c length 10 value 'Hello',
 "        ^ variable.member
-         end of struct.
+         end of struct,
 "               ^ variable
+         foo type bar.
+"        ^ variable

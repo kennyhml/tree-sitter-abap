@@ -30,8 +30,10 @@ CLASS cl_demo_spfli DEFINITION
 "                        ^ variable.member
                f1 type x,
                f2 type c,
-               end of gc_constants.
+               end of gc_constants,
 "                     ^ variable.member
+               var type string.
+"              ^ variable.member
   PROTECTED SECTION.
 " ^ keyword.modifier
   PRIVATE SECTION.
