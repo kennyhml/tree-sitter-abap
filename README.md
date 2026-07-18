@@ -3,8 +3,6 @@
 > The structure of the CST is bound to change multiple times over and as such is not to be considered stable by any means.
 >
 > You can check the current state of the parser at the bottom of this introduction.
->
-> **Heads up: AI generated contributions are not welcome. Its simply not good at this stuff.**
 
 # tree-sitter-abap
 **ABAP grammar for [Tree-sitter](https://github.com/tree-sitter/tree-sitter)**, based on the [official ABAP keyword documentation](https://help.sap.com/doc/abapdocu_latest_index_htm/latest).
