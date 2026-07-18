@@ -9,7 +9,7 @@ module.exports = {
    */
   table_expression: $ =>
     seq(
-      field("subject", choice($.data_object, $.table_expression)),
+      field("subject", $._table_expression_subject),
       token.immediate("["),
       $._itab_line,
       "]",
@@ -29,11 +29,18 @@ module.exports = {
 
   __table_expression_with_default_additions: $ =>
     seq(
-      field("subject", choice($.data_object, $.table_expression)),
+      field("subject", $._table_expression_subject),
       token.immediate("["),
       $._itab_line,
       "]",
       choice($.optional, alias($._table_expr_default, $.default_value)),
+    ),
+
+  _table_expression_subject: $ =>
+    choice(
+      $.named_data_object,
+      $.dereference_expression,
+      $.table_expression,
     ),
 
   /**

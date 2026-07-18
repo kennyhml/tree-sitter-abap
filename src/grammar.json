@@ -15236,17 +15236,8 @@
           "type": "FIELD",
           "name": "subject",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "data_object"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "table_expression"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_table_expression_subject"
           }
         },
         {
@@ -15282,17 +15273,8 @@
           "type": "FIELD",
           "name": "subject",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "data_object"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "table_expression"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_table_expression_subject"
           }
         },
         {
@@ -15327,6 +15309,23 @@
               "value": "default_value"
             }
           ]
+        }
+      ]
+    },
+    "_table_expression_subject": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "named_data_object"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dereference_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_expression"
         }
       ]
     },

@@ -20042,7 +20042,11 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "named_data_object",
             "named": true
           },
           {

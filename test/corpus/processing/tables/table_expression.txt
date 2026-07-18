@@ -11,6 +11,22 @@ itab[ 3 ]
       index: (number))))
 
 =================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Dereferenced table
+=================================================================================
+DATA(read_line) = dref_tab->*[ 2 ].
+---
+
+(source
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (table_expression
+      subject: (dereference_expression
+        subject: (identifier))
+      (index_read
+        index: (number)))))
+
+=================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Deep component
 =================================================================================
 itab[ inner-carrid = 'AAA' ]
