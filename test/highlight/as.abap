@@ -66,3 +66,10 @@ DELETE DATASET file.
 
 CLOSE DATASET file.
 "             ^ variable
+
+CALL system_function
+"    ^ variable
+  ID parameter_id
+"    ^ variable
+  FIELD value.
+"       ^ variable

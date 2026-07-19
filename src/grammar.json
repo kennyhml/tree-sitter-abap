@@ -451,6 +451,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "call_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -583,6 +587,73 @@
         {
           "type": "SYMBOL",
           "name": "range_type"
+        }
+      ]
+    },
+    "call_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_call"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "id_field_spec"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "id_field_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_id"
+            },
+            {
+              "type": "FIELD",
+              "name": "id",
+              "content": {
+                "type": "SYMBOL",
+                "name": "data_object"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_field"
+            },
+            {
+              "type": "FIELD",
+              "name": "field",
+              "content": {
+                "type": "SYMBOL",
+                "name": "data_object"
+              }
+            }
+          ]
         }
       ]
     },
@@ -24814,6 +24885,32 @@
         "value": "methods"
       }
     },
+    "_kw_id": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)id"
+        },
+        "named": false,
+        "value": "id"
+      }
+    },
+    "_kw_field": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)field"
+        },
+        "named": false,
+        "value": "field"
+      }
+    },
     "_kw_create": {
       "type": "FIELD",
       "name": "keyword",
@@ -24903,32 +25000,6 @@
         },
         "named": false,
         "value": "parameter"
-      }
-    },
-    "_kw_id": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)id"
-        },
-        "named": false,
-        "value": "id"
-      }
-    },
-    "_kw_field": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)field"
-        },
-        "named": false,
-        "value": "field"
       }
     },
     "_kw_get": {

@@ -236,6 +236,7 @@ module.exports = grammar({
           $.truncate_dataset_statement,
           $.close_dataset_statement,
           $.delete_dataset_statement,
+          $.call_statement,
 
           $._empty_statement,
         ),

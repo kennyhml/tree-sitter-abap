@@ -414,6 +414,10 @@
         "named": true
       },
       {
+        "type": "call_statement",
+        "named": true
+      },
+      {
         "type": "case_statement",
         "named": true
       },
@@ -3470,6 +3474,42 @@
         },
         {
           "type": "using_selection_set",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "call_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "call",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "id_field_spec",
           "named": true
         }
       ]
@@ -12087,6 +12127,46 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "id_field_spec",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": false
+          },
+          {
+            "type": "id",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {

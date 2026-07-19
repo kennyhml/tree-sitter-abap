@@ -1,0 +1,64 @@
+=================================================================================
+[ ABAP - Application Server / System Function Call ] Basic form
+=================================================================================
+CALL 'C_SAPGPARAM'.
+---
+
+(source
+  (call_statement
+    name: (string_literal)))
+
+=================================================================================
+[ ABAP - Application Server / System Function Call ] Dynamic function
+=================================================================================
+CALL system_function.
+---
+
+(source
+  (call_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Application Server / System Function Call ] Parameter
+=================================================================================
+CALL 'C_SAPGPARAM' ID 'NAME' FIELD name.
+---
+
+(source
+  (call_statement
+    name: (string_literal)
+    (id_field_spec
+      id: (string_literal)
+      field: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / System Function Call ] Multiple parameters
+=================================================================================
+CALL 'C_SAPGPARAM'
+  ID 'NAME' FIELD 'SAPDBHOST'
+  ID 'VALUE' FIELD dbserver.
+---
+
+(source
+  (call_statement
+    name: (string_literal)
+    (id_field_spec
+      id: (string_literal)
+      field: (string_literal))
+    (id_field_spec
+      id: (string_literal)
+      field: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / System Function Call ] Internal table parameter
+=================================================================================
+CALL system_function ID parameter_id FIELD table[].
+---
+
+(source
+  (call_statement
+    name: (identifier)
+    (id_field_spec
+      id: (identifier)
+      field: (table_body_access
+        table: (identifier)))))
