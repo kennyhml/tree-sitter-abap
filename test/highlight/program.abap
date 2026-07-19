@@ -21,3 +21,23 @@ initialization.
 "<- keyword
 load-of-program.
 "<- keyword
+
+generate subroutine pool itab name prog
+"<- keyword
+"        ^ keyword
+"                   ^ keyword
+"                             ^ keyword
+  message mess
+" ^ keyword
+  include incl
+" ^ keyword
+  line lin
+" ^ keyword
+  word wrd
+" ^ keyword
+  offset off
+" ^ keyword
+  message-id mid
+" ^ keyword
+  shortdump-id sid.
+" ^ keyword

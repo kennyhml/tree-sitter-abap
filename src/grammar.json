@@ -395,6 +395,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "generate_subroutine_pool_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -19176,6 +19180,206 @@
         }
       ]
     },
+    "generate_subroutine_pool_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_generate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_subroutine"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_pool"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_name"
+        },
+        {
+          "type": "FIELD",
+          "name": "program",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__generate_subroutine_pool_addition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__generate_subroutine_pool_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "generate_message_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generate_include_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generate_line_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generate_word_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generate_offset_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generate_message_id_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generate_shortdump_id_spec"
+        }
+      ]
+    },
+    "generate_message_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_message"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "generate_include_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_include"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "generate_line_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_line"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "generate_word_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_word"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "generate_offset_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_offset"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "generate_message_id_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_message_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
+    "generate_shortdump_id_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shortdump_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
     "for_table_function": {
       "type": "SEQ",
       "members": [
@@ -28380,6 +28584,87 @@
         },
         "named": false,
         "value": "log-point"
+      }
+    },
+    "_kw_generate": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)generate"
+        },
+        "named": false,
+        "value": "generate"
+      }
+    },
+    "_kw_subroutine": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)subroutine"
+        },
+        "named": false,
+        "value": "subroutine"
+      }
+    },
+    "_kw_pool": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)pool"
+        },
+        "named": false,
+        "value": "pool"
+      }
+    },
+    "_kw_word": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)word"
+        },
+        "named": false,
+        "value": "word"
+      }
+    },
+    "__kw_shortdump_id": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)shortdump"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-id"
+          }
+        }
+      ]
+    },
+    "_kw_shortdump_id": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_shortdump_id"
+        },
+        "named": false,
+        "value": "shortdump-id"
       }
     },
     "_kw_scalar": {

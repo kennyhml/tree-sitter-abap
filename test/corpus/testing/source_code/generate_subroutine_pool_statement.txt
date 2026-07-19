@@ -1,0 +1,82 @@
+=================================================================================
+[ ABAP - Program Maintenance / Dynamic Program Development / ABAP Source Code / GENERATE SUBROUTINE POOL ] Basic form
+=================================================================================
+GENERATE SUBROUTINE POOL itab NAME prog.
+---
+
+(source
+  (generate_subroutine_pool_statement
+    source: (identifier)
+    program: (identifier)))
+
+=================================================================================
+[ ABAP - Program Maintenance / Dynamic Program Development / ABAP Source Code / GENERATE SUBROUTINE POOL ] Error handling
+=================================================================================
+GENERATE SUBROUTINE POOL itab NAME prog
+  MESSAGE mess
+  INCLUDE incl
+  LINE lin
+  WORD wrd
+  OFFSET off
+  MESSAGE-ID mid
+  SHORTDUMP-ID sid.
+---
+
+(source
+  (generate_subroutine_pool_statement
+    source: (identifier)
+    program: (identifier)
+    (generate_message_spec
+      destination: (identifier))
+    (generate_include_spec
+      destination: (identifier))
+    (generate_line_spec
+      destination: (identifier))
+    (generate_word_spec
+      destination: (identifier))
+    (generate_offset_spec
+      destination: (identifier))
+    (generate_message_id_spec
+      destination: (identifier))
+    (generate_shortdump_id_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Dynamic Program Development / ABAP Source Code / GENERATE SUBROUTINE POOL ] Inline declarations
+=================================================================================
+GENERATE SUBROUTINE POOL tab NAME FINAL(prog)
+  MESSAGE FINAL(mess)
+  INCLUDE FINAL(incl)
+  LINE FINAL(lin)
+  WORD FINAL(wrd)
+  OFFSET FINAL(off)
+  MESSAGE-ID FINAL(mid)
+  SHORTDUMP-ID FINAL(sid).
+---
+
+(source
+  (generate_subroutine_pool_statement
+    source: (identifier)
+    program: (declaration_expression
+      name: (identifier))
+    (generate_message_spec
+      destination: (declaration_expression
+        name: (identifier)))
+    (generate_include_spec
+      destination: (declaration_expression
+        name: (identifier)))
+    (generate_line_spec
+      destination: (declaration_expression
+        name: (identifier)))
+    (generate_word_spec
+      destination: (declaration_expression
+        name: (identifier)))
+    (generate_offset_spec
+      destination: (declaration_expression
+        name: (identifier)))
+    (generate_message_id_spec
+      destination: (declaration_expression
+        name: (identifier)))
+    (generate_shortdump_id_spec
+      destination: (declaration_expression
+        name: (identifier)))))

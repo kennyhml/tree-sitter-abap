@@ -222,6 +222,7 @@ module.exports = grammar({
           $.set_run_time_analyzer_statement,
           $.test_seam_statement,
           $.test_injection_statement,
+          $.generate_subroutine_pool_statement,
 
           $._empty_statement,
         ),
