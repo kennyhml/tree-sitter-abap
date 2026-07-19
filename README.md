@@ -79,8 +79,9 @@ The following language features are currently implemented:
 - [x] Table comprehensions
 - [x] All string and byte processing statements (split, concatenate, find..)
 - [x] All date and time processing statements (get time stamp, convert time stamp..)
-- [x] All table processing statements (insert, read, delete, append...) 
-      
+- [x] All table processing statements (insert, read, delete, append...)
+- [x] All statements used to access datasets on the application server
+           
 Partially completed categories are not mentioned here.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
 ### Significant language features the grammar is **missing**:
