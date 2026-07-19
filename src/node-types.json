@@ -828,6 +828,10 @@
         "named": true
       },
       {
+        "type": "substring_access",
+        "named": true
+      },
+      {
         "type": "table_expression",
         "named": true
       }

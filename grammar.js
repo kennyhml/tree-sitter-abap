@@ -462,6 +462,7 @@ module.exports = grammar({
         $.declaration_expression,
         $.named_data_object,
         $.dereference_expression,
+        $.substring_access,
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html

@@ -30949,6 +30949,10 @@
         {
           "type": "SYMBOL",
           "name": "dereference_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "substring_access"
         }
       ]
     },

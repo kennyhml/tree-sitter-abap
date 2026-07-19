@@ -160,3 +160,16 @@ foo &&= bar
   (calculation_assignment
     left: (identifier)
     right: (identifier)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Calculation Assignment ] Destination is substring access
+=================================================================================
+foo(2) = bar.
+---
+
+(source
+  (assignment
+    left: (substring_access
+      subject: (identifier)
+      length: (number))
+    right: (identifier)))
