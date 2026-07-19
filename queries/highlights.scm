@@ -43,6 +43,9 @@
 (regex (string_literal) @string.regexp )
 (pcre (string_literal) @string.regexp )
 
+(authority_check_statement auth_object: (string_literal) @string.special.symbol )
+(id_field_spec id: (string_literal) @string.special.symbol )
+
 
 (method_spec name: (identifier) @function.method ) 
 
@@ -223,6 +226,7 @@
 
 ; Parameter identifiers
 (named_argument name: (identifier) @variable.parameter )
+
 ; Keep this after the generic capture so the CLI retains the match for its value capture.
 (named_argument
   name: (identifier) @variable.parameter
