@@ -1,0 +1,85 @@
+=================================================================================
+[ ABAP - Application Server / Files / TRANSFER ] Basic form
+=================================================================================
+TRANSFER data TO file.
+---
+
+(source
+  (transfer_statement
+    source: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Application Server / Files / TRANSFER ] Literal source
+=================================================================================
+TRANSFER 'text' TO file.
+---
+
+(source
+  (transfer_statement
+    source: (string_literal)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Application Server / Files / TRANSFER ] Field symbol source
+=================================================================================
+TRANSFER <buffer> TO file.
+---
+
+(source
+  (transfer_statement
+    source: (field_symbol
+      name: (identifier))
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Application Server / Files / TRANSFER ] Length variable
+=================================================================================
+TRANSFER data TO file LENGTH len.
+---
+
+(source
+  (transfer_statement
+    source: (identifier)
+    destination: (identifier)
+    (transfer_length_spec
+      length: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / TRANSFER ] Numeric length
+=================================================================================
+TRANSFER data TO file LENGTH 4.
+---
+
+(source
+  (transfer_statement
+    source: (identifier)
+    destination: (identifier)
+    (transfer_length_spec
+      length: (number))))
+
+=================================================================================
+[ ABAP - Application Server / Files / TRANSFER ] No end of line
+=================================================================================
+TRANSFER data TO file NO END OF LINE.
+---
+
+(source
+  (transfer_statement
+    source: (identifier)
+    destination: (identifier)
+    (no_end_of_line)))
+
+=================================================================================
+[ ABAP - Application Server / Files / TRANSFER ] All additions
+=================================================================================
+TRANSFER data TO file LENGTH len NO END OF LINE.
+---
+
+(source
+  (transfer_statement
+    source: (identifier)
+    destination: (identifier)
+    (transfer_length_spec
+      length: (identifier))
+    (no_end_of_line)))

@@ -91,6 +91,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "transfer_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "function_call"
           },
           {
@@ -5891,6 +5895,101 @@
     "utf8": {
       "type": "SYMBOL",
       "name": "_kw_utf_8"
+    },
+    "transfer_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_transfer"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "transfer_length_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "no_end_of_line"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "transfer_length_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_length"
+        },
+        {
+          "type": "FIELD",
+          "name": "length",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "no_end_of_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_no"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_end"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_line"
+        }
+      ]
     },
     "aliases_declaration": {
       "type": "SEQ",
@@ -26495,6 +26594,19 @@
         },
         "named": false,
         "value": "utf-8"
+      }
+    },
+    "_kw_transfer": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)transfer"
+        },
+        "named": false,
+        "value": "transfer"
       }
     },
     "_kw_aliases": {

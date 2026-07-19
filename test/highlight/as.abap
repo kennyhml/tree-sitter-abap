@@ -24,3 +24,11 @@ OPEN DATASET file FOR UPDATE IN LEGACY TEXT MODE
 OPEN DATASET file FOR OUTPUT IN BINARY MODE FILTER command.
 "            ^ variable
 "                                                   ^ variable
+
+TRANSFER payload
+"        ^ variable
+  TO file
+"    ^ variable
+  LENGTH transfer_length
+"        ^ variable
+  NO END OF LINE.
