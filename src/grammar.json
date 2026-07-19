@@ -30660,6 +30660,10 @@
               {
                 "type": "SYMBOL",
                 "name": "bit_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "named_data_object"
               }
             ]
           },

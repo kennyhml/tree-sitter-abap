@@ -16223,6 +16223,10 @@
           "named": true
         },
         {
+          "type": "named_data_object",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },

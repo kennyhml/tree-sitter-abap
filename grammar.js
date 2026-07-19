@@ -334,7 +334,18 @@ module.exports = grammar({
      * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_BRACKETS.html
      */
     parenthesized_expression: $ =>
-      prec(5, seq("(", choice($.arithmetic_expression, $.bit_expression), ")")),
+      prec(
+        5,
+        seq(
+          "(",
+          choice(
+            $.arithmetic_expression,
+            $.bit_expression,
+            $.named_data_object,
+          ),
+          ")",
+        ),
+      ),
 
     /**
      * A builtin (keyword) expression resulting in the creation of a certain value.

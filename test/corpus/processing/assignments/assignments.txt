@@ -10,6 +10,20 @@ foo = 10.
     right: (number)))
 
 =================================================================================
+[ ABAP - Procecssing Internal Data / Assignments / Assignment Operator ] Parenthesized operator
+=================================================================================
+a = a + ( b ).
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (arithmetic_expression
+      left: (identifier)
+      right: (parenthesized_expression
+        (identifier)))))
+
+=================================================================================
 [ ABAP - Procecssing Internal Data / Assignments / Assigning References ] Downcast
 =================================================================================
 oref3 ?= oref2. 
