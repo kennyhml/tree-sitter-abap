@@ -32,7 +32,7 @@ VALUE t_itab( ( ) ( 1 ) ( 2 ) ( LINES OF jtab ) )
 VALUE t_itab( ( LINES OF jtab FROM start to END STEP 3 using key primary_key ) )
 "                                  ^ variable
 "                                           ^ variable
-"                                                                ^ constant.builtin
+"                                                                ^ constant
 NEW cl_class( p1 = 1 p2 = col2 ). 
 "   ^ type
 "             ^ variable.parameter

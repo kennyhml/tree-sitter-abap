@@ -98,6 +98,9 @@ value #( itab[ 1 ] DEFAULT default) ).
 
 value #( itab[ 1 ] OPTIONAL ). 
 "         ^ variable
+struc_i = it_k[ KEY primary_key COMPONENTS num = 1 ].
+"                   ^ constant
+"                                          ^ variable.member
 itab[ inner-carrid = 'AAA' ]
 "     ^ variable.member
 itab[ obj->carrid = 'AAA' ]

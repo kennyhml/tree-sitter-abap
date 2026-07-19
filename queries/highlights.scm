@@ -196,9 +196,9 @@
 
 
 (table_key_spec name: (identifier) @constant )
+(free_key name: (identifier) @constant )
 (table_key_spec ( alias name: (identifier) @constant ) )
 (using_key name: (identifier) @constant )
-(using_key name: (identifier) @constant.builtin (#match? @constant.builtin "primary_key") )
 (using_loop_key "loop_key" @constant.builtin )
 (table_key name: (identifier) @constant )
 (index_key name: (identifier) @constant )
