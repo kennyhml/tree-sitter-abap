@@ -746,6 +746,10 @@
         "named": true
       },
       {
+        "type": "truncate_dataset_statement",
+        "named": true
+      },
+      {
         "type": "try_statement",
         "named": true
       },
@@ -6359,6 +6363,26 @@
         "types": [
           {
             "type": "current",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "current_position",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "current",
+            "named": false
+          },
+          {
+            "type": "position",
             "named": false
           }
         ]
@@ -22939,6 +22963,86 @@
     }
   },
   {
+    "type": "truncate_at_position_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "at",
+            "named": false
+          },
+          {
+            "type": "position",
+            "named": false
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "current_position",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "truncate_dataset_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "dataset",
+            "named": false
+          },
+          {
+            "type": "truncate",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "truncate_at_position_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "try_block",
     "named": true,
     "fields": {},
@@ -25966,6 +26070,10 @@
   },
   {
     "type": "transporting",
+    "named": false
+  },
+  {
+    "type": "truncate",
     "named": false
   },
   {

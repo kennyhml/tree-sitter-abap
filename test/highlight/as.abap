@@ -55,3 +55,8 @@ SET DATASET file
 "          ^ variable
   ATTRIBUTES attributes.
 "            ^ variable
+
+TRUNCATE DATASET file
+"                ^ variable
+  AT POSITION position.
+"             ^ variable

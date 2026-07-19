@@ -439,6 +439,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "truncate_dataset_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -6307,6 +6311,79 @@
         {
           "type": "SYMBOL",
           "name": "_kw_line"
+        }
+      ]
+    },
+    "truncate_dataset_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_truncate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_dataset"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "truncate_at_position_spec"
+        }
+      ]
+    },
+    "truncate_at_position_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_at"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "current_position"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_position"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "position",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "data_object"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "current_position": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_current"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_position"
         }
       ]
     },
@@ -26980,6 +27057,32 @@
         "value": "transfer"
       }
     },
+    "_kw_truncate": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)truncate"
+        },
+        "named": false,
+        "value": "truncate"
+      }
+    },
+    "_kw_current": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)current"
+        },
+        "named": false,
+        "value": "current"
+      }
+    },
     "_kw_aliases": {
       "type": "FIELD",
       "name": "keyword",
@@ -28165,19 +28268,6 @@
         },
         "named": false,
         "value": "syntax-check"
-      }
-    },
-    "_kw_current": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)current"
-        },
-        "named": false,
-        "value": "current"
       }
     },
     "_kw_switchstates": {

@@ -233,6 +233,7 @@ module.exports = grammar({
           $.read_report_statement,
           $.syntax_check_statement,
           $.insert_report_statement,
+          $.truncate_dataset_statement,
 
           $._empty_statement,
         ),
