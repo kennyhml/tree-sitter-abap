@@ -54,7 +54,7 @@ such as the official ABAP Formatter provide the ability to transform such statem
 ### Macros
 The grammar is unable to parse macros that pass operators, punctuation or expressions into macros. When using simple operands, both in
 their definition and their inclusions, they can be parsed correctly - which is usually the case.
-## Obsolete Language Elements
+### Obsolete Language Elements
 Many obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.
 Some language elements that are still commonly found in On Premise / Private Cloud Systems may be supported despite officially marked as obsolete - 
 for example the addition `IN BACKGROUND TASK` of a function call, or selection-screen statements.
