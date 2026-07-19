@@ -16,32 +16,14 @@ module.exports = {
 
   __generate_subroutine_pool_addition: $ =>
     choice(
-      $.generate_message_spec,
-      $.generate_include_spec,
-      $.generate_line_spec,
-      $.generate_word_spec,
-      $.generate_offset_spec,
-      $.generate_message_id_spec,
+      $.source_error_message_spec,
+      $.source_error_include_spec,
+      $.source_error_line_spec,
+      $.source_error_word_spec,
+      $.source_error_offset_spec,
+      $.source_error_message_id_spec,
       $.generate_shortdump_id_spec,
     ),
-
-  generate_message_spec: $ =>
-    seq(gen.kw("message"), field("destination", $.writable_expression)),
-
-  generate_include_spec: $ =>
-    seq(gen.kw("include"), field("destination", $.writable_expression)),
-
-  generate_line_spec: $ =>
-    seq(gen.kw("line"), field("destination", $.writable_expression)),
-
-  generate_word_spec: $ =>
-    seq(gen.kw("word"), field("destination", $.writable_expression)),
-
-  generate_offset_spec: $ =>
-    seq(gen.kw("offset"), field("destination", $.writable_expression)),
-
-  generate_message_id_spec: $ =>
-    seq(gen.kw("message-id"), field("destination", $.writable_expression)),
 
   generate_shortdump_id_spec: $ =>
     seq(gen.kw("shortdump-id"), field("destination", $.writable_expression)),

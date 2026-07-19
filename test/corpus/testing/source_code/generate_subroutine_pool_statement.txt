@@ -26,17 +26,17 @@ GENERATE SUBROUTINE POOL itab NAME prog
   (generate_subroutine_pool_statement
     source: (identifier)
     program: (identifier)
-    (generate_message_spec
+    (source_error_message_spec
       destination: (identifier))
-    (generate_include_spec
+    (source_error_include_spec
       destination: (identifier))
-    (generate_line_spec
+    (source_error_line_spec
       destination: (identifier))
-    (generate_word_spec
+    (source_error_word_spec
       destination: (identifier))
-    (generate_offset_spec
+    (source_error_offset_spec
       destination: (identifier))
-    (generate_message_id_spec
+    (source_error_message_id_spec
       destination: (identifier))
     (generate_shortdump_id_spec
       destination: (identifier))))
@@ -59,22 +59,22 @@ GENERATE SUBROUTINE POOL tab NAME FINAL(prog)
     source: (identifier)
     program: (declaration_expression
       name: (identifier))
-    (generate_message_spec
+    (source_error_message_spec
       destination: (declaration_expression
         name: (identifier)))
-    (generate_include_spec
+    (source_error_include_spec
       destination: (declaration_expression
         name: (identifier)))
-    (generate_line_spec
+    (source_error_line_spec
       destination: (declaration_expression
         name: (identifier)))
-    (generate_word_spec
+    (source_error_word_spec
       destination: (declaration_expression
         name: (identifier)))
-    (generate_offset_spec
+    (source_error_offset_spec
       destination: (declaration_expression
         name: (identifier)))
-    (generate_message_id_spec
+    (source_error_message_id_spec
       destination: (declaration_expression
         name: (identifier)))
     (generate_shortdump_id_spec

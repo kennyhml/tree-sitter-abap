@@ -578,6 +578,10 @@
         "named": true
       },
       {
+        "type": "insert_report_statement",
+        "named": true
+      },
+      {
         "type": "insert_statement",
         "named": true
       },
@@ -631,6 +635,10 @@
       },
       {
         "type": "raise_statement",
+        "named": true
+      },
+      {
+        "type": "read_report_statement",
         "named": true
       },
       {
@@ -691,6 +699,10 @@
       },
       {
         "type": "statics_declaration",
+        "named": true
+      },
+      {
+        "type": "syntax_check_statement",
         "named": true
       },
       {
@@ -9150,6 +9162,11 @@
     }
   },
   {
+    "type": "fixed-point",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "for_behavior_of",
     "named": true,
     "fields": {
@@ -10459,136 +10476,6 @@
     }
   },
   {
-    "type": "generate_include_spec",
-    "named": true,
-    "fields": {
-      "destination": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "include",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "generate_line_spec",
-    "named": true,
-    "fields": {
-      "destination": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "line",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "generate_message_id_spec",
-    "named": true,
-    "fields": {
-      "destination": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "message-id",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "generate_message_spec",
-    "named": true,
-    "fields": {
-      "destination": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "message",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "generate_offset_spec",
-    "named": true,
-    "fields": {
-      "destination": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "offset",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "generate_shortdump_id_spec",
     "named": true,
     "fields": {
@@ -10666,60 +10553,34 @@
       "required": false,
       "types": [
         {
-          "type": "generate_include_spec",
-          "named": true
-        },
-        {
-          "type": "generate_line_spec",
-          "named": true
-        },
-        {
-          "type": "generate_message_id_spec",
-          "named": true
-        },
-        {
-          "type": "generate_message_spec",
-          "named": true
-        },
-        {
-          "type": "generate_offset_spec",
-          "named": true
-        },
-        {
           "type": "generate_shortdump_id_spec",
           "named": true
         },
         {
-          "type": "generate_word_spec",
+          "type": "source_error_include_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_line_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_message_id_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_message_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_offset_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_word_spec",
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "generate_word_spec",
-    "named": true,
-    "fields": {
-      "destination": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "writable_expression",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": false
-          }
-        ]
-      }
     }
   },
   {
@@ -12579,6 +12440,166 @@
     }
   },
   {
+    "type": "insert_report_arithmetic_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic",
+            "named": false
+          },
+          {
+            "type": "fixed-point",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "insert_report_program_type_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "program",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "insert_report_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "insert",
+            "named": false
+          },
+          {
+            "type": "report",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "insert_report_arithmetic_spec",
+          "named": true
+        },
+        {
+          "type": "insert_report_program_type_spec",
+          "named": true
+        },
+        {
+          "type": "insert_report_version_spec",
+          "named": true
+        },
+        {
+          "type": "keeping_directory_entry",
+          "named": true
+        },
+        {
+          "type": "program_directory_entry_spec",
+          "named": true
+        },
+        {
+          "type": "report_maximum_width_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "insert_report_version_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "version",
+            "named": false
+          }
+        ]
+      },
+      "version": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "insert_statement",
     "named": true,
     "fields": {
@@ -13064,6 +13085,30 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "keeping_directory_entry",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "directory",
+            "named": false
+          },
+          {
+            "type": "entry",
+            "named": false
+          },
+          {
+            "type": "keeping",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -16484,6 +16529,36 @@
     }
   },
   {
+    "type": "program_directory_entry_spec",
+    "named": true,
+    "fields": {
+      "entry": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "directory",
+            "named": false
+          },
+          {
+            "type": "entry",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "program_statement",
     "named": true,
     "fields": {
@@ -17022,6 +17097,60 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "read_report_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          },
+          {
+            "type": "report",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "report_maximum_width_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -17781,6 +17910,40 @@
           {
             "type": "receiving_expression",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "report_maximum_width_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "maximum",
+            "named": false
+          },
+          {
+            "type": "width",
+            "named": false
           }
         ]
       }
@@ -19342,6 +19505,162 @@
     }
   },
   {
+    "type": "source_error_include_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "include",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "source_error_line_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "line",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "source_error_message_id_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "message-id",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "source_error_message_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "message",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "source_error_offset_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "offset",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "source_error_word_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "split_at",
     "named": true,
     "fields": {
@@ -20147,6 +20466,109 @@
         },
         {
           "type": "let_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "syntax-check",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "syntax_check_program_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "program",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "syntax_check_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "syntax-check",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "program_directory_entry_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_include_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_line_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_message_id_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_message_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_offset_spec",
+          "named": true
+        },
+        {
+          "type": "source_error_word_spec",
+          "named": true
+        },
+        {
+          "type": "syntax_check_program_spec",
+          "named": true
+        },
+        {
+          "type": "with_current_switchstates",
           "named": true
         }
       ]
@@ -22214,6 +22636,30 @@
     }
   },
   {
+    "type": "with_current_switchstates",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "current",
+            "named": false
+          },
+          {
+            "type": "switchstates",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "with_header_line",
     "named": true,
     "fields": {
@@ -22606,6 +23052,10 @@
     "named": false
   },
   {
+    "type": "arithmetic",
+    "named": false
+  },
+  {
     "type": "as",
     "named": false
   },
@@ -22978,6 +23428,10 @@
     "named": false
   },
   {
+    "type": "directory",
+    "named": false
+  },
+  {
     "type": "discarding",
     "named": false
   },
@@ -23087,6 +23541,10 @@
   },
   {
     "type": "endwhile",
+    "named": false
+  },
+  {
+    "type": "entry",
     "named": false
   },
   {
@@ -23480,6 +23938,10 @@
   },
   {
     "type": "matchcode",
+    "named": false
+  },
+  {
+    "type": "maximum",
     "named": false
   },
   {
@@ -24016,6 +24478,10 @@
     "named": false
   },
   {
+    "type": "switchstates",
+    "named": false
+  },
+  {
     "type": "symbol_id",
     "named": true
   },
@@ -24168,6 +24634,10 @@
     "named": false
   },
   {
+    "type": "version",
+    "named": false
+  },
+  {
     "type": "visible",
     "named": false
   },
@@ -24185,6 +24655,10 @@
   },
   {
     "type": "while",
+    "named": false
+  },
+  {
+    "type": "width",
     "named": false
   },
   {

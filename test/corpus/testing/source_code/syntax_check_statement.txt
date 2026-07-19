@@ -1,0 +1,48 @@
+=================================================================================
+[ ABAP - Program Maintenance / Dynamic Program Development / ABAP Source Code / SYNTAX-CHECK ] Basic form
+=================================================================================
+SYNTAX-CHECK FOR source MESSAGE mess LINE lin WORD wrd.
+---
+
+(source
+  (syntax_check_statement
+    source: (identifier)
+    (source_error_message_spec
+      destination: (identifier))
+    (source_error_line_spec
+      destination: (identifier))
+    (source_error_word_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Dynamic Program Development / ABAP Source Code / SYNTAX-CHECK ] All public additions
+=================================================================================
+SYNTAX-CHECK FOR source MESSAGE mess LINE lin WORD wrd
+  PROGRAM template
+  DIRECTORY ENTRY dir
+  WITH CURRENT SWITCHSTATES
+  INCLUDE incl
+  OFFSET off
+  MESSAGE-ID mid.
+---
+
+(source
+  (syntax_check_statement
+    source: (identifier)
+    (source_error_message_spec
+      destination: (identifier))
+    (source_error_line_spec
+      destination: (identifier))
+    (source_error_word_spec
+      destination: (identifier))
+    (syntax_check_program_spec
+      program: (identifier))
+    (program_directory_entry_spec
+      entry: (identifier))
+    (with_current_switchstates)
+    (source_error_include_spec
+      destination: (identifier))
+    (source_error_offset_spec
+      destination: (identifier))
+    (source_error_message_id_spec
+      destination: (identifier))))
