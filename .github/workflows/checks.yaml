@@ -25,7 +25,7 @@ jobs:
 
       - name: Measure parser size
         run: |
-          ./scripts/measure-parser-size.sh --json > parser-size.json
+          ./scripts/measure-parser-size.sh --force-generate --json > parser-size.json
           node <<'NODE'
           const fs = require('node:fs');
           const sizes = JSON.parse(fs.readFileSync('parser-size.json', 'utf8'));
@@ -47,3 +47,6 @@ jobs:
           name: parser-size-${{ github.sha }}
           path: parser-size.json
           retention-days: 90
+
+      - name: Run tests
+        run: tree-sitter test

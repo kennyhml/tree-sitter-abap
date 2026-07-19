@@ -8,13 +8,17 @@ compiled_parser=$(mktemp "${TMPDIR:-/tmp}/tree-sitter-abap-parser.XXXXXX")
 trap 'rm -f "$compiled_parser"' EXIT HUP INT TERM
 
 cd "$root"
-"$tree_sitter" generate >&2
+if [ "${1:-}" = "--force-generate" ] ||
+  [ ! -f src/parser.c ] ||
+  [ -n "$(find grammar grammar.js -type f -newer src/parser.c -print -quit)" ]; then
+  "$tree_sitter" generate >&2
+fi
 "$tree_sitter" build --output "$compiled_parser" . >&2
 
 generated_bytes=$(wc -c < src/parser.c | tr -d ' ')
 compiled_bytes=$(wc -c < "$compiled_parser" | tr -d ' ')
 
-if [ "${1:-}" = "--json" ]; then
+if [ "${1:-}" = "--json" ] || [ "${2:-}" = "--json" ]; then
   printf '{"generated_parser_bytes":%s,"compiled_parser_bytes":%s}\n' \
     "$generated_bytes" "$compiled_bytes"
 else
