@@ -434,6 +434,10 @@
         "named": true
       },
       {
+        "type": "close_dataset_statement",
+        "named": true
+      },
+      {
         "type": "collect_statement",
         "named": true
       },
@@ -487,6 +491,10 @@
       },
       {
         "type": "data_declaration",
+        "named": true
+      },
+      {
+        "type": "delete_dataset_statement",
         "named": true
       },
       {
@@ -4834,6 +4842,36 @@
     }
   },
   {
+    "type": "close_dataset_statement",
+    "named": true,
+    "fields": {
+      "dataset": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "close",
+            "named": false
+          },
+          {
+            "type": "dataset",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "collect_statement",
     "named": true,
     "fields": {
@@ -7819,6 +7857,36 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "delete_dataset_statement",
+    "named": true,
+    "fields": {
+      "dataset": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "dataset",
+            "named": false
+          },
+          {
+            "type": "delete",
+            "named": false
           }
         ]
       }
@@ -24684,6 +24752,10 @@
   },
   {
     "type": "clock",
+    "named": false
+  },
+  {
+    "type": "close",
     "named": false
   },
   {

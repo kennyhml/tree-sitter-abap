@@ -443,6 +443,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "close_dataset_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "delete_dataset_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -5420,6 +5428,56 @@
                 "name": "_dataset_addition"
               }
             ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "delete_dataset_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_delete"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_dataset"
+        },
+        {
+          "type": "FIELD",
+          "name": "dataset",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "close_dataset_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_close"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_dataset"
+        },
+        {
+          "type": "FIELD",
+          "name": "dataset",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
           }
         },
         {
@@ -26630,6 +26688,19 @@
         },
         "named": false,
         "value": "open"
+      }
+    },
+    "_kw_close": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)close"
+        },
+        "named": false,
+        "value": "close"
       }
     },
     "_kw_input": {

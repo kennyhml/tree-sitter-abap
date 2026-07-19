@@ -24,6 +24,22 @@ module.exports = {
       ".",
     ),
 
+  /**
+   * DELETE DATASET dset.
+   *
+   * @see http://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DATASET.html
+   */
+  delete_dataset_statement: $ =>
+    seq(...gen.kws("delete", "dataset"), field("dataset", $.data_object), "."),
+
+  /**
+   * CLOSE DATASET dset.
+   *
+   * @see http://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLOSE_DATASET.html
+   */
+  close_dataset_statement: $ =>
+    seq(...gen.kws("close", "dataset"), field("dataset", $.data_object), "."),
+
   // ... FOR INPUP / OUTPUT / APPENDING / UPDATE ..
   _dataset_access_kind: $ =>
     choice($.for_input, $.for_output, $.for_appending, $.for_update),

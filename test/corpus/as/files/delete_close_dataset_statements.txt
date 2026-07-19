@@ -1,0 +1,19 @@
+=================================================================================
+[ ABAP - Application Server / Files ] DELETE DATASET
+=================================================================================
+DELETE DATASET file.
+---
+
+(source
+  (delete_dataset_statement
+    dataset: (identifier)))
+
+=================================================================================
+[ ABAP - Application Server / Files ] CLOSE DATASET
+=================================================================================
+CLOSE DATASET file.
+---
+
+(source
+  (close_dataset_statement
+    dataset: (identifier)))

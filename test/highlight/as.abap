@@ -60,3 +60,9 @@ TRUNCATE DATASET file
 "                ^ variable
   AT POSITION position.
 "             ^ variable
+
+DELETE DATASET file.
+"              ^ variable
+
+CLOSE DATASET file.
+"             ^ variable
