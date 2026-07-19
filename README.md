@@ -58,7 +58,9 @@ their definition and their inclusions, they can be parsed correctly - which is u
 Many obsolete language elements, as specified in the official ABAP documentation, are currently out of scope and will not be supported.
 Some language elements that are still commonly found in On Premise / Private Cloud Systems may be supported despite officially marked as obsolete - 
 for example the addition `IN BACKGROUND TASK` of a function call, or selection-screen statements.
-
+### Internal Statements
+Some statements marked for internal usage, such as `SYNTAX-CHECK FOR PROGRAM` are not in scope for initial releases. These statements typically also have
+a huge number of additions, which increases parser size for very little return.
 ## Completion rate
 The following language features are currently implemented:
 - [x] Declaration of data objects (data, final, constants, class-data..)
