@@ -4,9 +4,6 @@ module.exports = {
    *   [statement_block]
    * END-TEST-SEAM.
    *
-   * TODO: This breaks using test-<comp> component access in certain
-   * positions.
-   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTEST-SEAM.html
    */
   test_seam_statement: $ =>

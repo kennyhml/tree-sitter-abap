@@ -92,3 +92,16 @@ foo-var1(10)
       subject: (identifier)
       component: (identifier))
     length: (number)))
+
+======
+[SUBSTRING-ACCESS] From component expression starting with TEST
+======
+test-var1(10)
+---
+
+(source
+  (substring_access
+    subject: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    length: (number)))

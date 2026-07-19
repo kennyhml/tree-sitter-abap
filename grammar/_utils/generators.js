@@ -182,16 +182,15 @@ function kwRules() {
       !keyword.includes("bit") &&
       !keyword.includes("type")
     ) {
-      const parts = keyword.split("-").map(part => caseInsensitive(part));
+      const parts = keyword.split("-");
 
       rules[`_${repr}`] = $ => {
         const seqParts = [];
         parts.forEach((part, i) => {
           if (i > 0) {
-            seqParts.push(alias(token.immediate("-"), ""));
-            seqParts.push(token.immediate(part));
+            seqParts.push(token.immediate(caseInsensitive(`-${part}`)));
           } else {
-            seqParts.push(part);
+            seqParts.push(caseInsensitive(part));
           }
         });
         return seq(...seqParts);
