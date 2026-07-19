@@ -1,0 +1,105 @@
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] Basic form
+=================================================================================
+READ DATASET file INTO data.
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (identifier)))
+
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] Field symbol destination
+=================================================================================
+READ DATASET file INTO <buffer>.
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (field_symbol
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] Maximum length
+=================================================================================
+READ DATASET file INTO data MAXIMUM LENGTH max_length.
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (identifier)
+    (dataset_maximum_length_spec
+      length: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] Numeric maximum length
+=================================================================================
+READ DATASET file INTO data MAXIMUM LENGTH 4.
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (identifier)
+    (dataset_maximum_length_spec
+      length: (number))))
+
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] Actual length
+=================================================================================
+READ DATASET file INTO data ACTUAL LENGTH actual_length.
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (identifier)
+    (dataset_actual_length_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] Length without actual
+=================================================================================
+READ DATASET file INTO data LENGTH actual_length.
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (identifier)
+    (dataset_actual_length_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] Inline actual length
+=================================================================================
+READ DATASET file INTO data ACTUAL LENGTH FINAL(actual_length).
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (identifier)
+    (dataset_actual_length_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Application Server / Files / READ DATASET ] All additions
+=================================================================================
+READ DATASET file INTO data
+  MAXIMUM LENGTH max_length
+  ACTUAL LENGTH actual_length.
+---
+
+(source
+  (read_dataset_statement
+    source: (identifier)
+    destination: (identifier)
+    (dataset_maximum_length_spec
+      length: (identifier))
+    (dataset_actual_length_spec
+      destination: (identifier))))

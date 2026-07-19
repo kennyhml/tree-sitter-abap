@@ -646,6 +646,10 @@
         "named": true
       },
       {
+        "type": "read_dataset_statement",
+        "named": true
+      },
+      {
         "type": "read_report_statement",
         "named": true
       },
@@ -6489,6 +6493,36 @@
     }
   },
   {
+    "type": "dataset_actual_length_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "actual",
+            "named": false
+          },
+          {
+            "type": "length",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "dataset_code_page_spec",
     "named": true,
     "fields": {
@@ -6757,6 +6791,36 @@
           {
             "type": "windows",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_maximum_length_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "length",
+            "named": false
+          },
+          {
+            "type": "maximum",
+            "named": false
+          }
+        ]
+      },
+      "length": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
           }
         ]
       }
@@ -17894,6 +17958,64 @@
     "fields": {}
   },
   {
+    "type": "read_dataset_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "dataset",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dataset_actual_length_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_maximum_length_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "read_only",
     "named": true,
     "fields": {
@@ -24040,6 +24162,10 @@
   },
   {
     "type": "abstract",
+    "named": false
+  },
+  {
+    "type": "actual",
     "named": false
   },
   {

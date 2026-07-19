@@ -32,3 +32,12 @@ TRANSFER payload
   LENGTH transfer_length
 "        ^ variable
   NO END OF LINE.
+
+READ DATASET file
+"            ^ variable
+  INTO buffer
+"      ^ variable
+  MAXIMUM LENGTH maximum_length
+"                 ^ variable
+  ACTUAL LENGTH actual_length.
+"               ^ variable

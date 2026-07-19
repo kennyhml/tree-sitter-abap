@@ -95,6 +95,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "read_dataset_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "function_call"
           },
           {
@@ -5895,6 +5899,117 @@
     "utf8": {
       "type": "SYMBOL",
       "name": "_kw_utf_8"
+    },
+    "read_dataset_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_dataset"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_maximum_length_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_actual_length_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "dataset_maximum_length_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_maximum"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_length"
+        },
+        {
+          "type": "FIELD",
+          "name": "length",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "dataset_actual_length_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_actual"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_length"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "receiving_expression"
+          }
+        }
+      ]
     },
     "transfer_statement": {
       "type": "SEQ",
@@ -26596,6 +26711,32 @@
         "value": "utf-8"
       }
     },
+    "_kw_maximum": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)maximum"
+        },
+        "named": false,
+        "value": "maximum"
+      }
+    },
+    "_kw_actual": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)actual"
+        },
+        "named": false,
+        "value": "actual"
+      }
+    },
     "_kw_transfer": {
       "type": "FIELD",
       "name": "keyword",
@@ -27522,19 +27663,6 @@
         },
         "named": false,
         "value": "log-point"
-      }
-    },
-    "_kw_maximum": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)maximum"
-        },
-        "named": false,
-        "value": "maximum"
       }
     },
     "_kw_width": {
