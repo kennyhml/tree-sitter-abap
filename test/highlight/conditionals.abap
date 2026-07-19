@@ -58,3 +58,9 @@ ENDIF.
 IF matches( val = <fs> regex = `\D` ).
 "                              ^ string.regexp
 ENDIF.
+
+CASE TYPE OF type_description.
+"            ^ variable
+  WHEN TYPE cl_abap_elemdescr.
+"           ^ type
+ENDCASE.

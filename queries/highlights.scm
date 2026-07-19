@@ -380,6 +380,7 @@
 (create_object_statement type: (identifier) @type )
 (throw_exception name: (identifier) @type )
 (catch_exception_list (identifier) @type )
+(case_type_clause type: (identifier) @type )
 
 (interfaces_spec 
   [
