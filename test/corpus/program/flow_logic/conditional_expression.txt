@@ -14,13 +14,16 @@ SWITCH string( sy-index
       subject: (identifier)
       component: (identifier))
     (case
-      condition: (number)
+      condition: (case_operand_list
+        (number))
       result: (string_literal))
     (case
-      condition: (number)
+      condition: (case_operand_list
+        (number))
       result: (string_literal))
     (case
-      condition: (number)
+      condition: (case_operand_list
+        (number))
       result: (string_literal))))
 
 =================================================================================
@@ -38,7 +41,8 @@ SWITCH string( sy-index
       (identifier)
       (identifier))
     (case
-      (number)
+      (case_operand_list
+        (number))
       (string_literal))
     (else_case
       (throw_exception
@@ -60,38 +64,44 @@ result = SWITCH #( operator
     right: (switch_expression
       subject: (identifier)
       (case
-        condition: (identifier)
+        condition: (case_operand_list
+          (identifier))
         result: (arithmetic_expression
           left: (dereference_expression
             subject: (identifier))
           right: (dereference_expression
             subject: (identifier))))
       (case
-        condition: (identifier)
+        condition: (case_operand_list
+          (identifier))
         result: (arithmetic_expression
           left: (dereference_expression
             subject: (identifier))
           right: (dereference_expression
             subject: (identifier))))
       (case
-        condition: (identifier)
+        condition: (case_operand_list
+          (identifier))
         result: (arithmetic_expression
           left: (dereference_expression
             subject: (identifier))
           right: (dereference_expression
             subject: (identifier))))
       (case
-        condition: (identifier)
+        condition: (case_operand_list
+          (identifier))
         result: (switch_expression
           subject: (dereference_expression
             subject: (identifier))
           (case
-            condition: (number)
+            condition: (case_operand_list
+              (number))
             result: (switch_expression
               subject: (dereference_expression
                 subject: (identifier))
               (case
-                condition: (number)
+                condition: (case_operand_list
+                  (number))
                 result: (throw_exception
                   name: (identifier)))))
           (else_case
@@ -191,3 +201,35 @@ COND i( WHEN cflag = abap_true  THEN 1
               (string_literal)
               (string_literal)
               (string_literal))))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Conditional Expressions / SWITCH ] OR chainings
+=================================================================================
+DATA(num_switch) = SWITCH #( random_num_switch
+                             WHEN 1 THEN `The number is 1.`
+                             WHEN 2 THEN `The number is 2.`
+                             WHEN 3 OR 4 THEN `The number is either 3 or 4.`
+                             ELSE `The number is not between 1 and 4.` ).
+---
+
+(source
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (switch_expression
+      subject: (identifier)
+      (case
+        condition: (case_operand_list
+          (number))
+        result: (string_literal))
+      (case
+        condition: (case_operand_list
+          (number))
+        result: (string_literal))
+      (case
+        condition: (case_operand_list
+          (number)
+          (number))
+        result: (string_literal))
+      (else_case
+        result: (string_literal)))))

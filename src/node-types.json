@@ -3431,11 +3431,11 @@
             "named": true
           },
           {
-            "type": "comparison_expression",
+            "type": "case_operand_list",
             "named": true
           },
           {
-            "type": "data_object",
+            "type": "comparison_expression",
             "named": true
           },
           {

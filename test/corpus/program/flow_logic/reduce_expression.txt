@@ -242,10 +242,12 @@ REDUCE string( INIT text = `` sep = ``
                 value: (switch_expression
                   subject: (identifier)
                   (case
-                    condition: (string_literal)
+                    condition: (case_operand_list
+                      (string_literal))
                     result: (string_literal))
                   (case
-                    condition: (string_literal)
+                    condition: (case_operand_list
+                      (string_literal))
                     result: (string_literal))
                   (else_case
                     result: (identifier)))))))))
