@@ -6,7 +6,8 @@ module.exports = {
    * [AND c2 op {op f2}|{IS [NOT] INITIAL} [...]] ) ...
    *
    * 2. Filter Table:
-   * ... FILTER type( itab [EXCEPT] IN ftab [USING KEY keyname]
+   * ... FILTER type( itab { [EXCEPT] IN ftab [USING KEY keyname]
+   *                       | [USING KEY keyname] [EXCEPT] IN ftab }
    * WHERE c1 op f1 [AND c2 op f2 [...]] ) ...
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_FILTER.html
@@ -18,9 +19,14 @@ module.exports = {
 
       "(",
       field("subject", $.general_expression),
-      optional($.except),
-      optional($.using_key),
-      optional($.in_filter_table),
+      choice(
+        seq(
+          optional($.except),
+          optional($.using_key),
+          optional($.in_filter_table),
+        ),
+        seq($.using_key, $.except, $.in_filter_table),
+      ),
 
       // Technically a special kind of where condition where fields of
       // both tables are mapped to each other
