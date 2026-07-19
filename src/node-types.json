@@ -586,6 +586,10 @@
         "named": true
       },
       {
+        "type": "insert_textpool_statement",
+        "named": true
+      },
+      {
         "type": "interface_pool_statement",
         "named": true
       },
@@ -643,6 +647,10 @@
       },
       {
         "type": "read_table_statement",
+        "named": true
+      },
+      {
+        "type": "read_textpool_statement",
         "named": true
       },
       {
@@ -12666,6 +12674,60 @@
     }
   },
   {
+    "type": "insert_textpool_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "insert",
+            "named": false
+          },
+          {
+            "type": "textpool",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "textpool_language_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "instance_of_predicate",
     "named": true,
     "fields": {
@@ -17240,6 +17302,60 @@
     }
   },
   {
+    "type": "read_textpool_statement",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          },
+          {
+            "type": "textpool",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "textpool_language_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "redefinition",
     "named": true,
     "fields": {
@@ -21299,6 +21415,32 @@
     }
   },
   {
+    "type": "textpool_language_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "language",
+            "named": false
+          }
+        ]
+      },
+      "language": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "then_clause",
     "named": true,
     "fields": {
@@ -23844,6 +23986,10 @@
     "named": false
   },
   {
+    "type": "language",
+    "named": false
+  },
+  {
     "type": "last",
     "named": false
   },
@@ -24519,6 +24665,10 @@
   },
   {
     "type": "text",
+    "named": false
+  },
+  {
+    "type": "textpool",
     "named": false
   },
   {

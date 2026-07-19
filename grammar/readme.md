@@ -12,3 +12,4 @@ The grammar structure follows the official [ABAP Programming Language](https://h
 - Alias only when the same grammar implementation intentionally needs a different public CST node type in a particular context.
 - Use hidden aggregator rules for choices and repetitions that only organize the grammar and should not appear in the CST.
 - Fields such as `source`, `destination`, `program`, and `entry` or `subject` identify the semantic role of operands.
+- Support chained statements only in explicitly designated grammar locations. Do not add chaining merely because ABAP permits it generally or the keyword documentation contains a chained example.

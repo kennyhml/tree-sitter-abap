@@ -79,6 +79,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "read_textpool_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "insert_textpool_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "function_call"
           },
           {
@@ -4790,6 +4798,23 @@
         }
       ]
     },
+    "textpool_language_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_language"
+        },
+        {
+          "type": "FIELD",
+          "name": "language",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        }
+      ]
+    },
     "message_statement": {
       "type": "SEQ",
       "members": [
@@ -5164,6 +5189,88 @@
             "type": "SYMBOL",
             "name": "data_object"
           }
+        }
+      ]
+    },
+    "read_textpool_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_textpool"
+        },
+        {
+          "type": "FIELD",
+          "name": "program",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "textpool_language_spec"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "insert_textpool_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_insert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_textpool"
+        },
+        {
+          "type": "FIELD",
+          "name": "program",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_data_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "textpool_language_spec"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -25282,6 +25389,19 @@
         "value": "end-test-injection"
       }
     },
+    "_kw_language": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)language"
+        },
+        "named": false,
+        "value": "language"
+      }
+    },
     "_kw_message": {
       "type": "FIELD",
       "name": "keyword",
@@ -25345,6 +25465,19 @@
         },
         "named": false,
         "value": "number"
+      }
+    },
+    "_kw_textpool": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)textpool"
+        },
+        "named": false,
+        "value": "textpool"
       }
     },
     "_kw_aliases": {

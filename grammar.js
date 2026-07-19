@@ -131,6 +131,8 @@ module.exports = grammar({
           $.assignment,
           $.calculation_assignment,
           $.message_statement,
+          $.read_textpool_statement,
+          $.insert_textpool_statement,
           $.function_call,
 
           // Processing statements

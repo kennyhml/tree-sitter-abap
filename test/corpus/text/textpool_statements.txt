@@ -1,0 +1,25 @@
+=================================================================================
+[ ABAP - Program Maintenance / Dynamic Program Development / Text Elements / READ TEXTPOOL ] Basic form
+=================================================================================
+READ TEXTPOOL prog INTO textpool LANGUAGE lang.
+---
+
+(source
+  (read_textpool_statement
+    program: (identifier)
+    destination: (identifier)
+    (textpool_language_spec
+      language: (identifier))))
+
+=================================================================================
+[ ABAP - Program Maintenance / Dynamic Program Development / Text Elements / INSERT TEXTPOOL ] Basic form
+=================================================================================
+INSERT TEXTPOOL prog FROM textpool LANGUAGE lang.
+---
+
+(source
+  (insert_textpool_statement
+    program: (identifier)
+    source: (identifier)
+    (textpool_language_spec
+      language: (identifier))))
