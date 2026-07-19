@@ -43,6 +43,15 @@
 (regex (string_literal) @string.regexp )
 (pcre (string_literal) @string.regexp )
 
+(open_dataset_statement file: (string_literal) @string.special.path )
+(transfer_statement destination: (string_literal) @string.special.path )
+(read_dataset_statement source: (string_literal) @string.special.path )
+(get_dataset_statement file: (string_literal) @string.special.path )
+(set_dataset_statement file: (string_literal) @string.special.path )
+(truncate_dataset_statement subject: (string_literal) @string.special.path )
+(delete_dataset_statement dataset: (string_literal) @string.special.path )
+(close_dataset_statement dataset: (string_literal) @string.special.path )
+
 (authority_check_statement auth_object: (string_literal) @string.special.symbol )
 (id_field_spec id: (string_literal) @string.special.symbol )
 

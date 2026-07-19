@@ -3,6 +3,7 @@ OPEN DATASET file FOR INPUT IN BINARY MODE MESSAGE msg.
 "                                                   ^ variable
 
 OPEN DATASET 'test.dat' TYPE attrs FOR OUTPUT
+"             ^ string.special.path
 "                            ^ variable
   IN TEXT MODE ENCODING UTF-8 WITH BYTE-ORDER MARK
   MESSAGE FINAL(message).
@@ -33,6 +34,9 @@ TRANSFER payload
 "        ^ variable
   NO END OF LINE.
 
+TRANSFER payload TO 'test.dat'.
+"                    ^ string.special.path
+
 READ DATASET file
 "            ^ variable
   INTO buffer
@@ -42,12 +46,18 @@ READ DATASET file
   ACTUAL LENGTH actual_length.
 "               ^ variable
 
+READ DATASET 'test.dat' INTO buffer.
+"             ^ string.special.path
+
 GET DATASET file
 "           ^ variable
   POSITION FINAL(position)
 "                ^ variable
   ATTRIBUTES attributes.
 "            ^ variable
+
+GET DATASET 'test.dat'.
+"            ^ string.special.path
 
 SET DATASET file
 "           ^ variable
@@ -56,16 +66,35 @@ SET DATASET file
   ATTRIBUTES attributes.
 "            ^ variable
 
+SET DATASET 'test.dat'.
+"            ^ string.special.path
+
 TRUNCATE DATASET file
 "                ^ variable
   AT POSITION position.
 "             ^ variable
 
+TRUNCATE DATASET 'test.dat' AT CURRENT POSITION.
+"                 ^ string.special.path
+
 DELETE DATASET file.
 "              ^ variable
 
+DELETE DATASET 'test.dat'.
+"               ^ string.special.path
+
 CLOSE DATASET file.
 "             ^ variable
+
+CLOSE DATASET 'test.dat'.
+"              ^ string.special.path
+
+CALL system_function
+"    ^ variable
+  ID 'FOO'
+"    ^ string.special.symbol
+  FIELD value.
+"       ^ variable
 
 CALL system_function
 "    ^ variable
