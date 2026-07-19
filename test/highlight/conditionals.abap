@@ -40,7 +40,21 @@ REDUCE string( INIT text type string
 "                         ^ operator
 REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` ) 
 "                   ^ variable
+"                                       ^ variable.member
+"                                               ^ variable.member
                     sep  = `` 
 "                   ^ variable
                      FOR wa IN itab 
                        NEXT res-text &&= sep )
+
+IF oref IS INSTANCE OF if_oo_adt_classrun
+"  ^ variable
+"                      ^ type
+AND contains( val = <fs> pcre = `\D` ).
+"                    ^ variable
+"                               ^ string.regexp
+ENDIF.
+
+IF matches( val = <fs> regex = `\D` ).
+"                              ^ string.regexp
+ENDIF.

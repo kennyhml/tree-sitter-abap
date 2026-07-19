@@ -39,9 +39,10 @@
 
 
 
+(string_template "\\" @string.escape )
 (regex (string_literal) @string.regexp )
 (pcre (string_literal) @string.regexp )
-(string_template "\\" @string.escape )
+
 
 (method_spec name: (identifier) @function.method ) 
 
@@ -222,6 +223,12 @@
 
 ; Parameter identifiers
 (named_argument name: (identifier) @variable.parameter )
+; Keep this after the generic capture so the CLI retains the match for its value capture.
+(named_argument
+  name: (identifier) @variable.parameter
+  value: (string_literal) @string.regexp
+  (#match? @variable.parameter "^([pP][cC][rR][eE]|[rR][eE][gG][eE][xX])$")
+)
 
 (implicit_reference name: (identifier) @variable.parameter )
 (explicit_value name: (identifier) @variable.parameter )
@@ -257,7 +264,9 @@
 (modif_id_spec (identifier) @constant )
 (radiobutton_group (identifier) @constant )
 (default_value_spec (identifier) @constant )
+
 (search_help_spec (identifier) @type )
+(instance_of_predicate type: (identifier) @type )
 
 ; Regular block is technically a constant, but its difficult
 ; to disambiguate from an end of tabbed block
