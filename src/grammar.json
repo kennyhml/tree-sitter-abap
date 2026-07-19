@@ -87,6 +87,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "open_dataset_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "function_call"
           },
           {
@@ -5273,6 +5277,620 @@
           }
         }
       ]
+    },
+    "open_dataset_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_open"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_dataset"
+        },
+        {
+          "type": "FIELD",
+          "name": "file",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_dataset_access_kind"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "in_dataset_mode_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_dataset_addition"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "_dataset_access_kind": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "for_input"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_output"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_appending"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_update"
+        }
+      ]
+    },
+    "for_input": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_input"
+        }
+      ]
+    },
+    "for_output": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_output"
+        }
+      ]
+    },
+    "for_appending": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_appending"
+        }
+      ]
+    },
+    "for_update": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_update"
+        }
+      ]
+    },
+    "in_dataset_mode_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_in"
+        },
+        {
+          "type": "FIELD",
+          "name": "mode",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "binary_mode"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dataset_text_mode_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dataset_legacy_binary_mode"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dataset_legacy_text_mode"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "binary_mode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_binary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mode"
+        }
+      ]
+    },
+    "dataset_text_mode_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mode"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dataset_encoding_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_linefeed_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "dataset_legacy_binary_mode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_legacy"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_binary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mode"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_endian_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_code_page_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "dataset_legacy_text_mode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_legacy"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mode"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_endian_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_code_page_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "dataset_linefeed_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "dataset_encoding_spec": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_kw_encoding"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "default"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "non_unicode"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "utf8"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "skipping_byte_order_mark"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "with_byte_order_mark"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "skipping_byte_order_mark": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_skipping"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_byte_order"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mark"
+        }
+      ]
+    },
+    "with_byte_order_mark": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_with"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_byte_order"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mark"
+        }
+      ]
+    },
+    "dataset_linefeed_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_with"
+        },
+        {
+          "type": "FIELD",
+          "name": "kind",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_kw_native"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_kw_smart"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_kw_unix"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_kw_windows"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_linefeed"
+        }
+      ]
+    },
+    "dataset_endian_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "kind",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_kw_big"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_kw_little"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_endian"
+        }
+      ]
+    },
+    "dataset_code_page_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_code"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_page"
+        },
+        {
+          "type": "FIELD",
+          "name": "code_page",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "_dataset_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "dataset_position_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dataset_type_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dataset_filter_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dataset_message_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ignoring_conversion_errors"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dataset_replacement_character_spec"
+        }
+      ]
+    },
+    "dataset_position_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_at"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_position"
+        },
+        {
+          "type": "FIELD",
+          "name": "position",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "dataset_type_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "FIELD",
+          "name": "attributes",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "dataset_filter_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_filter"
+        },
+        {
+          "type": "FIELD",
+          "name": "command",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "dataset_message_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_message"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "receiving_expression"
+          }
+        }
+      ]
+    },
+    "ignoring_conversion_errors": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ignoring"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_conversion"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_errors"
+        }
+      ]
+    },
+    "dataset_replacement_character_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_replacement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_character"
+        },
+        {
+          "type": "FIELD",
+          "name": "character",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "non_unicode": {
+      "type": "SYMBOL",
+      "name": "_kw_non_unicode"
+    },
+    "default": {
+      "type": "SYMBOL",
+      "name": "_kw_default"
+    },
+    "utf8": {
+      "type": "SYMBOL",
+      "name": "_kw_utf_8"
     },
     "aliases_declaration": {
       "type": "SEQ",
@@ -25480,6 +26098,405 @@
         "value": "language"
       }
     },
+    "_kw_open": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)open"
+        },
+        "named": false,
+        "value": "open"
+      }
+    },
+    "_kw_dataset": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)dataset"
+        },
+        "named": false,
+        "value": "dataset"
+      }
+    },
+    "_kw_input": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)input"
+        },
+        "named": false,
+        "value": "input"
+      }
+    },
+    "_kw_appending": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)appending"
+        },
+        "named": false,
+        "value": "appending"
+      }
+    },
+    "_kw_mode": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)mode"
+        },
+        "named": false,
+        "value": "mode"
+      }
+    },
+    "_kw_legacy": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)legacy"
+        },
+        "named": false,
+        "value": "legacy"
+      }
+    },
+    "_kw_encoding": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)encoding"
+        },
+        "named": false,
+        "value": "encoding"
+      }
+    },
+    "_kw_skipping": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)skipping"
+        },
+        "named": false,
+        "value": "skipping"
+      }
+    },
+    "__kw_byte_order": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)byte"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-order"
+          }
+        }
+      ]
+    },
+    "_kw_byte_order": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_byte_order"
+        },
+        "named": false,
+        "value": "byte-order"
+      }
+    },
+    "_kw_mark": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)mark"
+        },
+        "named": false,
+        "value": "mark"
+      }
+    },
+    "_kw_native": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)native"
+        },
+        "named": false,
+        "value": "native"
+      }
+    },
+    "_kw_smart": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)smart"
+        },
+        "named": false,
+        "value": "smart"
+      }
+    },
+    "_kw_unix": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)unix"
+        },
+        "named": false,
+        "value": "unix"
+      }
+    },
+    "_kw_windows": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)windows"
+        },
+        "named": false,
+        "value": "windows"
+      }
+    },
+    "_kw_linefeed": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)linefeed"
+        },
+        "named": false,
+        "value": "linefeed"
+      }
+    },
+    "_kw_big": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)big"
+        },
+        "named": false,
+        "value": "big"
+      }
+    },
+    "_kw_little": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)little"
+        },
+        "named": false,
+        "value": "little"
+      }
+    },
+    "_kw_endian": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)endian"
+        },
+        "named": false,
+        "value": "endian"
+      }
+    },
+    "_kw_code": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)code"
+        },
+        "named": false,
+        "value": "code"
+      }
+    },
+    "_kw_page": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)page"
+        },
+        "named": false,
+        "value": "page"
+      }
+    },
+    "_kw_ignoring": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)ignoring"
+        },
+        "named": false,
+        "value": "ignoring"
+      }
+    },
+    "_kw_conversion": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)conversion"
+        },
+        "named": false,
+        "value": "conversion"
+      }
+    },
+    "_kw_errors": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)errors"
+        },
+        "named": false,
+        "value": "errors"
+      }
+    },
+    "_kw_replacement": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)replacement"
+        },
+        "named": false,
+        "value": "replacement"
+      }
+    },
+    "_kw_character": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)character"
+        },
+        "named": false,
+        "value": "character"
+      }
+    },
+    "__kw_non_unicode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)non"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-unicode"
+          }
+        }
+      ]
+    },
+    "_kw_non_unicode": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_non_unicode"
+        },
+        "named": false,
+        "value": "non-unicode"
+      }
+    },
+    "__kw_utf_8": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)utf"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-8"
+          }
+        }
+      ]
+    },
+    "_kw_utf_8": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_utf_8"
+        },
+        "named": false,
+        "value": "utf-8"
+      }
+    },
     "_kw_aliases": {
       "type": "FIELD",
       "name": "keyword",
@@ -26810,19 +27827,6 @@
         "value": "deep"
       }
     },
-    "_kw_appending": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)appending"
-        },
-        "named": false,
-        "value": "appending"
-      }
-    },
     "_kw_discarding": {
       "type": "FIELD",
       "name": "keyword",
@@ -27287,32 +28291,6 @@
         "value": "bit"
       }
     },
-    "_kw_character": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)character"
-        },
-        "named": false,
-        "value": "character"
-      }
-    },
-    "_kw_mode": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)mode"
-        },
-        "named": false,
-        "value": "mode"
-      }
-    },
     "_kw_byte": {
       "type": "FIELD",
       "name": "keyword",
@@ -27415,19 +28393,6 @@
         },
         "named": false,
         "value": "respecting"
-      }
-    },
-    "_kw_ignoring": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)ignoring"
-        },
-        "named": false,
-        "value": "ignoring"
       }
     },
     "_kw_results": {
@@ -27537,19 +28502,6 @@
         "value": "sortable"
       }
     },
-    "_kw_code": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)code"
-        },
-        "named": false,
-        "value": "code"
-      }
-    },
     "_kw_find": {
       "type": "FIELD",
       "name": "keyword",
@@ -27626,19 +28578,6 @@
         },
         "named": false,
         "value": "only"
-      }
-    },
-    "_kw_replacement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)replacement"
-        },
-        "named": false,
-        "value": "replacement"
       }
     },
     "_kw_verbatim": {
@@ -29236,19 +30175,6 @@
         "value": "functionality"
       }
     },
-    "_kw_page": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)page"
-        },
-        "named": false,
-        "value": "page"
-      }
-    },
     "_kw_heading": {
       "type": "FIELD",
       "name": "keyword",
@@ -30105,19 +31031,6 @@
         },
         "named": false,
         "value": "endmodule"
-      }
-    },
-    "_kw_input": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)input"
-        },
-        "named": false,
-        "value": "input"
       }
     },
     "data_spec": {

@@ -618,6 +618,10 @@
         "named": true
       },
       {
+        "type": "open_dataset_statement",
+        "named": true
+      },
+      {
         "type": "overlay_statement",
         "named": true
       },
@@ -2661,6 +2665,26 @@
     }
   },
   {
+    "type": "binary_mode",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": false
+          },
+          {
+            "type": "mode",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "binary_search",
     "named": true,
     "fields": {
@@ -3035,6 +3059,11 @@
   },
   {
     "type": "byte-ns",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "byte-order",
     "named": false,
     "fields": {}
   },
@@ -6456,6 +6485,426 @@
     }
   },
   {
+    "type": "dataset_code_page_spec",
+    "named": true,
+    "fields": {
+      "code_page": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "code",
+            "named": false
+          },
+          {
+            "type": "page",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_encoding_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "encoding",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "default",
+          "named": true
+        },
+        {
+          "type": "non_unicode",
+          "named": true
+        },
+        {
+          "type": "skipping_byte_order_mark",
+          "named": true
+        },
+        {
+          "type": "utf8",
+          "named": true
+        },
+        {
+          "type": "with_byte_order_mark",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dataset_endian_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "big",
+            "named": false
+          },
+          {
+            "type": "endian",
+            "named": false
+          },
+          {
+            "type": "little",
+            "named": false
+          }
+        ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "big",
+            "named": false
+          },
+          {
+            "type": "little",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_filter_spec",
+    "named": true,
+    "fields": {
+      "command": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_legacy_binary_mode",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": false
+          },
+          {
+            "type": "legacy",
+            "named": false
+          },
+          {
+            "type": "mode",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dataset_code_page_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_endian_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dataset_legacy_text_mode",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "legacy",
+            "named": false
+          },
+          {
+            "type": "mode",
+            "named": false
+          },
+          {
+            "type": "text",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dataset_code_page_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_endian_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_linefeed_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dataset_linefeed_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "linefeed",
+            "named": false
+          },
+          {
+            "type": "native",
+            "named": false
+          },
+          {
+            "type": "smart",
+            "named": false
+          },
+          {
+            "type": "unix",
+            "named": false
+          },
+          {
+            "type": "windows",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "native",
+            "named": false
+          },
+          {
+            "type": "smart",
+            "named": false
+          },
+          {
+            "type": "unix",
+            "named": false
+          },
+          {
+            "type": "windows",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_message_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "message",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_position_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "at",
+            "named": false
+          },
+          {
+            "type": "position",
+            "named": false
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_replacement_character_spec",
+    "named": true,
+    "fields": {
+      "character": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "character",
+            "named": false
+          },
+          {
+            "type": "replacement",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dataset_text_mode_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "mode",
+            "named": false
+          },
+          {
+            "type": "text",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dataset_encoding_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_linefeed_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dataset_type_spec",
+    "named": true,
+    "fields": {
+      "attributes": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "date_spec",
     "named": true,
     "fields": {
@@ -6591,6 +7040,22 @@
           },
           {
             "type": "deep",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "default",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "default",
             "named": false
           }
         ]
@@ -9179,6 +9644,26 @@
     "fields": {}
   },
   {
+    "type": "for_appending",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "appending",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "for_behavior_of",
     "named": true,
     "fields": {
@@ -9251,6 +9736,46 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "for_input",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "input",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "for_output",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "output",
+            "named": false
           }
         ]
       }
@@ -9414,6 +9939,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "for_update",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "update",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -11390,6 +11935,30 @@
     }
   },
   {
+    "type": "ignoring_conversion_errors",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "conversion",
+            "named": false
+          },
+          {
+            "type": "errors",
+            "named": false
+          },
+          {
+            "type": "ignoring",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "implicit_reference",
     "named": true,
     "fields": {
@@ -11516,6 +12085,44 @@
           {
             "type": "mode",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "in_dataset_mode_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "in",
+            "named": false
+          }
+        ]
+      },
+      "mode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_mode",
+            "named": true
+          },
+          {
+            "type": "dataset_legacy_binary_mode",
+            "named": true
+          },
+          {
+            "type": "dataset_legacy_text_mode",
+            "named": true
+          },
+          {
+            "type": "dataset_text_mode_spec",
+            "named": true
           }
         ]
       }
@@ -15333,6 +15940,11 @@
     }
   },
   {
+    "type": "non-unicode",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "non-unique",
     "named": false,
     "fields": {}
@@ -15348,6 +15960,22 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "non_unicode",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "non-unicode",
+            "named": false
           }
         ]
       }
@@ -15721,6 +16349,86 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "open_dataset_statement",
+    "named": true,
+    "fields": {
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "dataset",
+            "named": false
+          },
+          {
+            "type": "open",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dataset_filter_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_message_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_position_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_replacement_character_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_type_spec",
+          "named": true
+        },
+        {
+          "type": "for_appending",
+          "named": true
+        },
+        {
+          "type": "for_input",
+          "named": true
+        },
+        {
+          "type": "for_output",
+          "named": true
+        },
+        {
+          "type": "for_update",
+          "named": true
+        },
+        {
+          "type": "ignoring_conversion_errors",
+          "named": true
+        },
+        {
+          "type": "in_dataset_mode_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -19427,6 +20135,30 @@
     "fields": {}
   },
   {
+    "type": "skipping_byte_order_mark",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "byte-order",
+            "named": false
+          },
+          {
+            "type": "mark",
+            "named": false
+          },
+          {
+            "type": "skipping",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sort_component",
     "named": true,
     "fields": {
@@ -22407,6 +23139,27 @@
     }
   },
   {
+    "type": "utf-8",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "utf8",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "utf-8",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "value-request",
     "named": false,
     "fields": {}
@@ -22783,6 +23536,30 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "with_byte_order_mark",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "byte-order",
+            "named": false
+          },
+          {
+            "type": "mark",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -23258,6 +24035,10 @@
     "named": false
   },
   {
+    "type": "big",
+    "named": false
+  },
+  {
     "type": "binary",
     "named": false
   },
@@ -23458,6 +24239,10 @@
     "named": false
   },
   {
+    "type": "conversion",
+    "named": false
+  },
+  {
     "type": "convert",
     "named": false
   },
@@ -23503,6 +24288,10 @@
   },
   {
     "type": "database",
+    "named": false
+  },
+  {
+    "type": "dataset",
     "named": false
   },
   {
@@ -23634,6 +24423,10 @@
     "named": false
   },
   {
+    "type": "encoding",
+    "named": false
+  },
+  {
     "type": "end",
     "named": false
   },
@@ -23659,6 +24452,10 @@
   },
   {
     "type": "endfunction",
+    "named": false
+  },
+  {
+    "type": "endian",
     "named": false
   },
   {
@@ -23711,6 +24508,10 @@
   },
   {
     "type": "equiv",
+    "named": false
+  },
+  {
+    "type": "errors",
     "named": false
   },
   {
@@ -24014,6 +24815,10 @@
     "named": false
   },
   {
+    "type": "legacy",
+    "named": false
+  },
+  {
     "type": "length",
     "named": false
   },
@@ -24039,11 +24844,19 @@
     "extra": true
   },
   {
+    "type": "linefeed",
+    "named": false
+  },
+  {
     "type": "lines",
     "named": false
   },
   {
     "type": "listbox",
+    "named": false
+  },
+  {
+    "type": "little",
     "named": false
   },
   {
@@ -24080,6 +24893,10 @@
   },
   {
     "type": "mapping",
+    "named": false
+  },
+  {
+    "type": "mark",
     "named": false
   },
   {
@@ -24165,6 +24982,10 @@
   },
   {
     "type": "name",
+    "named": false
+  },
+  {
+    "type": "native",
     "named": false
   },
   {
@@ -24257,6 +25078,10 @@
   },
   {
     "type": "only",
+    "named": false
+  },
+  {
+    "type": "open",
     "named": false
   },
   {
@@ -24548,6 +25373,14 @@
     "named": false
   },
   {
+    "type": "skipping",
+    "named": false
+  },
+  {
+    "type": "smart",
+    "named": false
+  },
+  {
     "type": "sort",
     "named": false
   },
@@ -24748,6 +25581,10 @@
     "named": false
   },
   {
+    "type": "unix",
+    "named": false
+  },
+  {
     "type": "unpack",
     "named": false
   },
@@ -24821,6 +25658,10 @@
   },
   {
     "type": "window",
+    "named": false
+  },
+  {
+    "type": "windows",
     "named": false
   },
   {

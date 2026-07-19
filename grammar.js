@@ -133,6 +133,7 @@ module.exports = grammar({
           $.message_statement,
           $.read_textpool_statement,
           $.insert_textpool_statement,
+          $.open_dataset_statement,
           $.function_call,
 
           // Processing statements
