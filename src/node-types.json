@@ -394,6 +394,10 @@
         "named": true
       },
       {
+        "type": "authority_check_statement",
+        "named": true
+      },
+      {
         "type": "breakpoint_statement",
         "named": true
       },
@@ -2340,6 +2344,85 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "authority-check",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "authority_check_for_user_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "user",
+            "named": false
+          }
+        ]
+      },
+      "user": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "authority_check_statement",
+    "named": true,
+    "fields": {
+      "auth_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authority-check",
+            "named": false
+          },
+          {
+            "type": "object",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "authority_check_for_user_spec",
+          "named": true
+        },
+        {
+          "type": "id_field_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8667,6 +8750,22 @@
     }
   },
   {
+    "type": "dummy",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dummy",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "duration",
     "named": true,
     "fields": {
@@ -12135,7 +12234,7 @@
     "fields": {
       "field": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "data_object",
@@ -12167,6 +12266,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "dummy",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -25059,6 +25168,10 @@
     "named": false
   },
   {
+    "type": "dummy",
+    "named": false
+  },
+  {
     "type": "duplicates",
     "named": false
   },
@@ -26286,6 +26399,10 @@
   },
   {
     "type": "upper",
+    "named": false
+  },
+  {
+    "type": "user",
     "named": false
   },
   {

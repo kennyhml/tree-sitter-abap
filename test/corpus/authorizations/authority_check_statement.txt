@@ -1,0 +1,73 @@
+=================================================================================
+[ ABAP - Authorizations / AUTHORITY-CHECK ] Basic form
+=================================================================================
+AUTHORITY-CHECK OBJECT 'S_CARRID' ID 'CARRID' FIELD carr.
+---
+
+(source
+  (authority_check_statement
+    auth_object: (string_literal)
+    (id_field_spec
+      id: (string_literal)
+      field: (identifier))))
+
+=================================================================================
+[ ABAP - Authorizations / AUTHORITY-CHECK ] Dynamic operands
+=================================================================================
+AUTHORITY-CHECK OBJECT auth_object ID auth_field FIELD value.
+---
+
+(source
+  (authority_check_statement
+    auth_object: (identifier)
+    (id_field_spec
+      id: (identifier)
+      field: (identifier))))
+
+=================================================================================
+[ ABAP - Authorizations / AUTHORITY-CHECK ] Multiple fields
+=================================================================================
+AUTHORITY-CHECK OBJECT 'S_CARRID'
+  ID 'CARRID' FIELD carr
+  ID 'ACTVT' FIELD '03'.
+---
+
+(source
+  (authority_check_statement
+    auth_object: (string_literal)
+    (id_field_spec
+      id: (string_literal)
+      field: (identifier))
+    (id_field_spec
+      id: (string_literal)
+      field: (string_literal))))
+
+=================================================================================
+[ ABAP - Authorizations / AUTHORITY-CHECK ] Dummy field
+=================================================================================
+AUTHORITY-CHECK OBJECT 'S_CARRID' ID 'CARRID' DUMMY.
+---
+
+(source
+  (authority_check_statement
+    auth_object: (string_literal)
+    (id_field_spec
+      id: (string_literal)
+      (dummy))))
+
+=================================================================================
+[ ABAP - Authorizations / AUTHORITY-CHECK ] User
+=================================================================================
+AUTHORITY-CHECK OBJECT auth_object
+  FOR USER user
+  ID auth_field FIELD value.
+---
+
+(source
+  (authority_check_statement
+    auth_object: (identifier)
+    (authority_check_for_user_spec
+      user: (identifier))
+    (id_field_spec
+      id: (identifier)
+      field: (identifier))))

@@ -1,0 +1,49 @@
+name: Parser size
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Tree-sitter CLI
+        run: npm install --global tree-sitter-cli@0.26.9
+
+      - name: Measure parser size
+        run: |
+          ./scripts/measure-parser-size.sh --json > parser-size.json
+          node <<'NODE'
+          const fs = require('node:fs');
+          const sizes = JSON.parse(fs.readFileSync('parser-size.json', 'utf8'));
+          const summary = [
+            '## Parser size',
+            '',
+            '| Artifact | Bytes |',
+            '| --- | ---: |',
+            `| Generated \`src/parser.c\` | ${sizes.generated_parser_bytes} |`,
+            `| Compiled parser | ${sizes.compiled_parser_bytes} |`,
+            '',
+          ].join('\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+          NODE
+
+      - name: Upload measurement
+        uses: actions/upload-artifact@v4
+        with:
+          name: parser-size-${{ github.sha }}
+          path: parser-size.json
+          retention-days: 90

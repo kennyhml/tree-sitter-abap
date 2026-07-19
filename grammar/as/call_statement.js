@@ -13,10 +13,4 @@ module.exports = {
       repeat($.id_field_spec),
       ".",
     ),
-
-  id_field_spec: $ =>
-    seq(
-      gen.kw_tagged("id", $.data_object),
-      gen.kw_tagged("field", $.data_object),
-    ),
 };

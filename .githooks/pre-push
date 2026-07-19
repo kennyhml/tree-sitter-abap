@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -eu
+
+root=$(git rev-parse --show-toplevel)
+
+printf 'Measuring ABAP parser size before push...\n'
+"$root/scripts/measure-parser-size.sh"
