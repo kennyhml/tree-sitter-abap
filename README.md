@@ -87,7 +87,15 @@ The following language features are currently implemented:
 Partially completed categories are not mentioned here.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
 ### Significant language features the grammar is **missing**:
-- [ ] **ABAP SQL**
+- [ ] **ABAP SQL**, including cursor statements and Native SQL
 - [ ] RAP behavior implementation related statements in classes
 - [ ] EML statements
-- [ ] Dynpro modules
+- [ ] Enhancement framework statements and BAdI calls
+- [ ] Dynpro interaction statements
+- [ ] Classical list processing and spool statements
+- [ ] Internal session and program call statements
+- [ ] Transformations
+- [ ] Data cluster and memory import/export statements
+- [ ] AMDP method implementations
+- [ ] Asynchronous task results and wait statements
+- [ ] AMC and APC wait statements
