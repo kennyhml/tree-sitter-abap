@@ -1,0 +1,61 @@
+=================================================================================
+[ ABAP - Application Server / Files / SET DATASET ] Position
+=================================================================================
+SET DATASET file POSITION position.
+---
+
+(source
+  (set_dataset_statement
+    file: (identifier)
+    (dataset_position_spec
+      position: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / SET DATASET ] Numeric position
+=================================================================================
+SET DATASET file POSITION 0.
+---
+
+(source
+  (set_dataset_statement
+    file: (identifier)
+    (dataset_position_spec
+      position: (number))))
+
+=================================================================================
+[ ABAP - Application Server / Files / SET DATASET ] End of file
+=================================================================================
+SET DATASET file POSITION END OF FILE.
+---
+
+(source
+  (set_dataset_statement
+    file: (identifier)
+    (dataset_position_spec
+      position: (end_of_file))))
+
+=================================================================================
+[ ABAP - Application Server / Files / SET DATASET ] Attributes
+=================================================================================
+SET DATASET file ATTRIBUTES attributes.
+---
+
+(source
+  (set_dataset_statement
+    file: (identifier)
+    (dataset_attributes_spec
+      attributes: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / SET DATASET ] All additions
+=================================================================================
+SET DATASET file POSITION position ATTRIBUTES attributes.
+---
+
+(source
+  (set_dataset_statement
+    file: (identifier)
+    (dataset_position_spec
+      position: (identifier))
+    (dataset_attributes_spec
+      attributes: (identifier))))

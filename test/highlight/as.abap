@@ -41,3 +41,17 @@ READ DATASET file
 "                 ^ variable
   ACTUAL LENGTH actual_length.
 "               ^ variable
+
+GET DATASET file
+"           ^ variable
+  POSITION FINAL(position)
+"                ^ variable
+  ATTRIBUTES attributes.
+"            ^ variable
+
+SET DATASET file
+"           ^ variable
+  POSITION position
+"          ^ variable
+  ATTRIBUTES attributes.
+"            ^ variable

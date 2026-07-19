@@ -1,0 +1,73 @@
+=================================================================================
+[ ABAP - Application Server / Files / GET DATASET ] Basic form
+=================================================================================
+GET DATASET file.
+---
+
+(source
+  (get_dataset_statement
+    file: (identifier)))
+
+=================================================================================
+[ ABAP - Application Server / Files / GET DATASET ] Position
+=================================================================================
+GET DATASET file POSITION position.
+---
+
+(source
+  (get_dataset_statement
+    file: (identifier)
+    (dataset_position_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / GET DATASET ] Inline position
+=================================================================================
+GET DATASET file POSITION FINAL(position).
+---
+
+(source
+  (get_dataset_statement
+    file: (identifier)
+    (dataset_position_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Application Server / Files / GET DATASET ] Attributes
+=================================================================================
+GET DATASET file ATTRIBUTES attributes.
+---
+
+(source
+  (get_dataset_statement
+    file: (identifier)
+    (dataset_attributes_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Application Server / Files / GET DATASET ] Inline attributes
+=================================================================================
+GET DATASET file ATTRIBUTES DATA(attributes).
+---
+
+(source
+  (get_dataset_statement
+    file: (identifier)
+    (dataset_attributes_spec
+      destination: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Application Server / Files / GET DATASET ] All additions
+=================================================================================
+GET DATASET file POSITION position ATTRIBUTES attributes.
+---
+
+(source
+  (get_dataset_statement
+    file: (identifier)
+    (dataset_position_spec
+      destination: (identifier))
+    (dataset_attributes_spec
+      destination: (identifier))))

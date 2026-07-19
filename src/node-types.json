@@ -542,6 +542,10 @@
         "named": true
       },
       {
+        "type": "get_dataset_statement",
+        "named": true
+      },
+      {
         "type": "get_parameter_statement",
         "named": true
       },
@@ -683,6 +687,10 @@
       },
       {
         "type": "set_bit_statement",
+        "named": true
+      },
+      {
+        "type": "set_dataset_statement",
         "named": true
       },
       {
@@ -6523,6 +6531,42 @@
     }
   },
   {
+    "type": "dataset_attributes_spec",
+    "named": true,
+    "fields": {
+      "attributes": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "destination": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "attributes",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "dataset_code_page_spec",
     "named": true,
     "fields": {
@@ -6856,6 +6900,16 @@
     "type": "dataset_position_spec",
     "named": true,
     "fields": {
+      "destination": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "receiving_expression",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -6872,10 +6926,14 @@
       },
       "position": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "data_object",
+            "named": true
+          },
+          {
+            "type": "end_of_file",
             "named": true
           }
         ]
@@ -8849,6 +8907,30 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "end_of_file",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "end",
+            "named": false
+          },
+          {
+            "type": "file",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -11264,6 +11346,50 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "get_dataset_statement",
+    "named": true,
+    "fields": {
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "dataset",
+            "named": false
+          },
+          {
+            "type": "get",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dataset_attributes_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_position_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -19869,6 +19995,50 @@
     }
   },
   {
+    "type": "set_dataset_statement",
+    "named": true,
+    "fields": {
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "dataset",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dataset_attributes_spec",
+          "named": true
+        },
+        {
+          "type": "dataset_position_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "set_parameter_statement",
     "named": true,
     "fields": {
@@ -24249,6 +24419,10 @@
     "named": false
   },
   {
+    "type": "attributes",
+    "named": false
+  },
+  {
     "type": "background",
     "named": false
   },
@@ -24798,6 +24972,10 @@
   },
   {
     "type": "fields",
+    "named": false
+  },
+  {
+    "type": "file",
     "named": false
   },
   {
