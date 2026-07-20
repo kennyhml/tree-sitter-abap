@@ -4,7 +4,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE_TYPE.html
    */
-  case_type_of_statement: $ =>
+  ...gen.periodTerminated("case_type_of_statement", $ =>
     seq(
       ...gen.kws("case", "type", "of"),
       field("subject", $.general_expression),
@@ -12,8 +12,8 @@ module.exports = {
       repeat(field("alternative", $.case_type_clause)),
       optional(field("others", $.case_others_type_clause)),
       gen.kw("endcase"),
-      ".",
     ),
+  ),
 
   /**
    * [WHEN TYPE class|intf [INTO target2].
@@ -46,4 +46,3 @@ module.exports = {
       field("target", choice($.named_data_object, $.declaration_expression)),
     ),
 };
-

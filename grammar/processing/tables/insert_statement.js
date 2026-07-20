@@ -4,15 +4,15 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_ITAB.html
    */
-  insert_statement: $ =>
+  ...gen.periodTerminated("insert_statement", $ =>
     seq(
       gen.kw("insert"),
       field("line", $._line_spec),
       gen.kw("into"),
       $.__insert_position,
       optional(field("result", $.__insert_result)),
-      ".",
     ),
+  ),
 
   /**
    * ... {TABLE itab}

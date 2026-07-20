@@ -7,7 +7,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB.html
    */
-  delete_statement: $ => gen.chainable("delete", $.__delete_itab_variants),
+  ...gen.periodTerminated("delete_statement", $ =>
+    gen.chainable("delete", $.__delete_itab_variants),
+  ),
 
   // Different variants to perform the deletion - all specified in this module.
   __delete_itab_variants: $ =>

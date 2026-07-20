@@ -6,7 +6,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_REPORT.html
    */
-  insert_report_statement: $ =>
+  ...gen.periodTerminated("insert_report_statement", $ =>
     seq(
       ...gen.kws("insert", "report"),
       field("program", $.named_data_object),
@@ -14,8 +14,8 @@ module.exports = {
       field("source", $.named_data_object),
       optional($.report_maximum_width_spec),
       optional($.__insert_report_properties),
-      ".",
     ),
+  ),
 
   __insert_report_properties: $ =>
     choice(

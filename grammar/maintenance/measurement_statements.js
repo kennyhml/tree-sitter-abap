@@ -4,12 +4,12 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPGET_RUN_TIME.html
    */
-  get_run_time_statement: $ =>
+  ...gen.periodTerminated("get_run_time_statement", $ =>
     seq(
       ...gen.kws("get", "run", "time", "field"),
       field("destination", $.writable_expression),
-      ".",
     ),
+  ),
 
   /**
    * SET RUN TIME ANALYZER {ON|OFF}.

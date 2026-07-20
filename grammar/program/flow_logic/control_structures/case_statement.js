@@ -13,7 +13,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE.html
    */
-  case_statement: $ =>
+  ...gen.periodTerminated("case_statement", $ =>
     seq(
       gen.kw("case"),
       field("subject", $.general_expression),
@@ -21,8 +21,8 @@ module.exports = {
       repeat(field("alternative", $.case_clause)),
       optional(field("others", $.others_case_clause)),
       gen.kw("endcase"),
-      ".",
     ),
+  ),
 
   case_clause: $ =>
     seq(

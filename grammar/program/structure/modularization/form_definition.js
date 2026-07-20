@@ -11,7 +11,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFORM.html
    */
-  form_definition: $ =>
+  ...gen.periodTerminated("form_definition", $ =>
     seq(
       gen.kw("form"),
       field("name", $.identifier),
@@ -26,8 +26,8 @@ module.exports = {
       ".",
       optional(field("body", alias($.statement_block, $.form_body))),
       gen.kw("endform"),
-      ".",
     ),
+  ),
 
   _form_parameter_list: $ => alias($.__form_parameter_list, $.parameter_list),
 

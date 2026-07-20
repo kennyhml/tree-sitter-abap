@@ -4,7 +4,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapappend.html
    */
-  append_statement: $ =>
+  ...gen.periodTerminated("append_statement", $ =>
     seq(
       gen.kw("append"),
       field("lines", $._line_spec),
@@ -12,8 +12,8 @@ module.exports = {
       field("subject", $.general_expression),
       optional(alias($.__append_sorted_by, $.sorted_by)),
       optional(field("result", $.__append_result)),
-      ".",
     ),
+  ),
 
   /**
    * [SORTED BY comp]

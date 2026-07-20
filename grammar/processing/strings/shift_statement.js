@@ -11,13 +11,13 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT.html
    */
-  shift_statement: $ =>
+  ...gen.periodTerminated("shift_statement", $ =>
     seq(
       gen.kw("shift"),
       field("subject", $.data_object),
       repeat($.__shift_addition),
-      ".",
     ),
+  ),
 
   __shift_addition: $ =>
     choice(

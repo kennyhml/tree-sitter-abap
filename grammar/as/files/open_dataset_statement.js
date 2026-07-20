@@ -9,7 +9,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATASET.html
    */
-  open_dataset_statement: $ =>
+  ...gen.periodTerminated("open_dataset_statement", $ =>
     seq(
       ...gen.kws("open", "dataset"),
       field("file", $.data_object),
@@ -21,24 +21,26 @@ module.exports = {
           $._dataset_addition,
         ),
       ),
-      ".",
     ),
+  ),
 
   /**
    * DELETE DATASET dset.
    *
    * @see http://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DATASET.html
    */
-  delete_dataset_statement: $ =>
-    seq(...gen.kws("delete", "dataset"), field("dataset", $.data_object), "."),
+  ...gen.periodTerminated("delete_dataset_statement", $ =>
+    seq(...gen.kws("delete", "dataset"), field("dataset", $.data_object)),
+  ),
 
   /**
    * CLOSE DATASET dset.
    *
    * @see http://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLOSE_DATASET.html
    */
-  close_dataset_statement: $ =>
-    seq(...gen.kws("close", "dataset"), field("dataset", $.data_object), "."),
+  ...gen.periodTerminated("close_dataset_statement", $ =>
+    seq(...gen.kws("close", "dataset"), field("dataset", $.data_object)),
+  ),
 
   // ... FOR INPUP / OUTPUT / APPENDING / UPDATE ..
   _dataset_access_kind: $ =>

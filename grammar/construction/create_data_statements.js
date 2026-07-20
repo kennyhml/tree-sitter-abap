@@ -11,12 +11,12 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCREATE_DATA.html
    */
-  create_data_statement: $ =>
+  ...gen.periodTerminated("create_data_statement", $ =>
     seq(
       ...gen.kws("create", "data"),
       field("subject", $.writable_expression),
       optional($.object_area_handle_spec),
       optional(field("typing", choice($.typing, $.handle_type))),
-      ".",
     ),
+  ),
 };

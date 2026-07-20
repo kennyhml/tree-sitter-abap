@@ -1,12 +1,14 @@
 module.exports = {
-  methods_declaration: $ =>
+  ...gen.periodTerminated("methods_declaration", $ =>
     gen.chainable("methods", choice($.method_spec, $.constructor_spec)),
+  ),
 
-  class_methods_declaration: $ =>
+  ...gen.periodTerminated("class_methods_declaration", $ =>
     gen.chainable(
       "class-methods",
       choice($.method_spec, $.class_constructor_spec),
     ),
+  ),
 
   /**
    *

@@ -6,11 +6,11 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOG-POINT.html
    */
-  logpoint_statement: $ =>
+  ...gen.periodTerminated("logpoint_statement", $ =>
     seq(
       gen.kw("log-point"),
       $.checkpoint_id_spec,
       optional($.checkpoint_fields_spec),
-      ".",
     ),
+  ),
 };

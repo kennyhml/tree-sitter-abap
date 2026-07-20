@@ -8,14 +8,14 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html
    */
-  concatenate_statement: $ =>
+  ...gen.periodTerminated("concatenate_statement", $ =>
     seq(
       gen.kw("concatenate"),
       field("subject", $.__concat_subject_spec),
       $.into,
       repeat(choice($.__concat_addition)),
-      ".",
     ),
+  ),
 
   respecting_blanks: _ => seq(...gen.kws("respecting", "blanks")),
 

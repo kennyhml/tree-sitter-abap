@@ -4,7 +4,9 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLEAR.html
    */
-  clear_statement: $ => gen.chainable("clear", $.clear_spec),
+  ...gen.periodTerminated("clear_statement", $ =>
+    gen.chainable("clear", $.clear_spec),
+  ),
 
   clear_spec: $ =>
     seq(

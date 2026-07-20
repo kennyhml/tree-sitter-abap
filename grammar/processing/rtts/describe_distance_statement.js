@@ -1,5 +1,5 @@
 module.exports = {
-  describe_distance_statement: $ =>
+  ...gen.periodTerminated("describe_distance_statement", $ =>
     seq(
       ...gen.kws("describe", "distance", "between"),
       field("from", $.data_object),
@@ -8,6 +8,6 @@ module.exports = {
       gen.kw("into"),
       field("destination", $.writable_expression),
       $._processing_mode_spec,
-      ".",
     ),
+  ),
 };

@@ -13,7 +13,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_VARIANTS.html
    */
-  loop_at_statement: $ =>
+  ...gen.periodTerminated("loop_at_statement", $ =>
     seq(
       ...gen.kws("loop", "at"),
       field("subject", $.functional_expression),
@@ -22,8 +22,8 @@ module.exports = {
       ".",
       optional(field("body", $.loop_at_body)),
       gen.kw("endloop"),
-      ".",
     ),
+  ),
 
   /**
    *
@@ -33,7 +33,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_GROUP.html
    */
-  loop_at_group_statement: $ =>
+  ...gen.periodTerminated("loop_at_group_statement", $ =>
     seq(
       ...gen.kws("loop", "at", "group"),
       field("subject", $.named_data_object),
@@ -42,8 +42,8 @@ module.exports = {
       ".",
       optional(field("body", alias($.statement_block, $.loop_at_body))),
       gen.kw("endloop"),
-      ".",
     ),
+  ),
 
   loop_at_body: $ =>
     repeat1(
@@ -65,14 +65,14 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
    */
-  at_first_statement: $ =>
+  ...gen.periodTerminated("at_first_statement", $ =>
     seq(
       ...gen.kws("at", "first"),
       ".",
       optional(field("body", alias($.statement_block, $.body))),
       gen.kw("endat"),
-      ".",
     ),
+  ),
 
   /**
    * Group processing statement block in a {@link loop_at_statement}.
@@ -83,15 +83,15 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
    */
-  at_new_statement: $ =>
+  ...gen.periodTerminated("at_new_statement", $ =>
     seq(
       ...gen.kws("at", "new"),
       field("component", $.itab_comp),
       ".",
       optional(field("body", alias($.statement_block, $.body))),
       gen.kw("endat"),
-      ".",
     ),
+  ),
 
   /**
    * Group processing statement block in a {@link loop_at_statement}.
@@ -102,15 +102,15 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
    */
-  at_end_of_statement: $ =>
+  ...gen.periodTerminated("at_end_of_statement", $ =>
     seq(
       ...gen.kws("at", "end", "of"),
       field("component", $.itab_comp),
       ".",
       optional(field("body", alias($.statement_block, $.body))),
       gen.kw("endat"),
-      ".",
     ),
+  ),
 
   /**
    * Group processing statement block in a {@link loop_at_statement}.
@@ -121,14 +121,14 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_ITAB.html
    */
-  at_last_statement: $ =>
+  ...gen.periodTerminated("at_last_statement", $ =>
     seq(
       ...gen.kws("at", "last"),
       ".",
       optional(field("body", alias($.statement_block, $.body))),
       gen.kw("endat"),
-      ".",
     ),
+  ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
   __loop_at_result: $ =>

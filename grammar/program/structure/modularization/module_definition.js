@@ -6,7 +6,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODULE.html
    */
-  module_definition: $ =>
+  ...gen.periodTerminated("module_definition", $ =>
     seq(
       gen.kw("module"),
       field("name", $.identifier),
@@ -14,8 +14,8 @@ module.exports = {
       ".",
       optional(field("body", $.statement_block)),
       gen.kw("endmodule"),
-      ".",
     ),
+  ),
 
   __module_kind: $ => choice($.output, $.input),
 

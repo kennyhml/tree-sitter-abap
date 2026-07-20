@@ -7,7 +7,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSYNTAX-CHECK_FOR_ITAB.html
    */
-  syntax_check_statement: $ =>
+  ...gen.periodTerminated("syntax_check_statement", $ =>
     seq(
       ...gen.kws("syntax-check", "for"),
       field("source", $.named_data_object),
@@ -15,8 +15,8 @@ module.exports = {
       $.source_error_line_spec,
       $.source_error_word_spec,
       repeat($.__syntax_check_addition),
-      ".",
     ),
+  ),
 
   __syntax_check_addition: $ =>
     choice(

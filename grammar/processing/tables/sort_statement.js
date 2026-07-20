@@ -14,13 +14,13 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapsort_itab.html
    */
-  sort_statement: $ =>
+  ...gen.periodTerminated("sort_statement", $ =>
     seq(
       gen.kw("sort"),
       field("subject", $.general_expression),
       optional($.__sort_additions),
-      ".",
     ),
+  ),
 
   __sort_additions: $ =>
     seq(

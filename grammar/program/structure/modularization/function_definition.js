@@ -14,7 +14,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPFUNCTION.html
    *
    */
-  function_definition: $ =>
+  ...gen.periodTerminated("function_definition", $ =>
     seq(
       gen.kw("function"),
       field("name", $.identifier),
@@ -31,6 +31,6 @@ module.exports = {
       ".",
       optional(alias($.statement_block, $.function_body)),
       gen.kw("endfunction"),
-      ".",
     ),
+  ),
 };

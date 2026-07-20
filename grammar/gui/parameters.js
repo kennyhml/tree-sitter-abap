@@ -1,5 +1,7 @@
 module.exports = {
-  parameters_declaration: $ => gen.chainable("parameters", $.parameters_spec),
+  ...gen.periodTerminated("parameters_declaration", $ =>
+    gen.chainable("parameters", $.parameters_spec),
+  ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html
   parameters_spec: $ =>

@@ -1,7 +1,8 @@
 module.exports = {
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE.html
-  replace_statement: $ =>
+  ...gen.periodTerminated("replace_statement", $ =>
     choice($.__pattern_based_replacement, $.__position_based_replacement),
+  ),
 
   /**
    * REPLACE [{FIRST OCCURRENCE}| {ALL OCCURRENCES} OF] pattern
@@ -18,7 +19,6 @@ module.exports = {
       $._subject_spec,
       $.substitute_with,
       repeat($.__replace_addition),
-      ".",
     ),
 
   /**
@@ -33,7 +33,6 @@ module.exports = {
       $._subject_spec,
       $.substitute_with,
       optional($._processing_mode_spec),
-      ".",
     ),
 
   substitute_with: $ =>

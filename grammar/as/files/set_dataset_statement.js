@@ -4,7 +4,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_DATASET.html
    */
-  set_dataset_statement: $ =>
+  ...gen.periodTerminated("set_dataset_statement", $ =>
     seq(
       ...gen.kws("set", "dataset"),
       field("file", $.data_object),
@@ -14,8 +14,8 @@ module.exports = {
           alias($._set_dataset_attributes_spec, $.dataset_attributes_spec),
         ),
       ),
-      ".",
     ),
+  ),
 
   _set_dataset_position_spec: $ =>
     seq(

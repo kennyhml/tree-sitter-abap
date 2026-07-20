@@ -37,7 +37,8 @@ function caseInsensitive(...terms) {
 }
 
 /**
- * Generates a declaration node for the given keyword and specification.
+ * Generates the period-free prefix of a chainable statement for the given
+ * keyword and specification.
  */
 function chainable(keyword, spec) {
   return seq(
@@ -45,8 +46,14 @@ function chainable(keyword, spec) {
     // If the declaration is followed by a `:` it means multiple
     // specifications are likely to follow.
     choice(seq(":", commaSep1(spec)), spec),
-    ".",
   );
+}
+
+function periodTerminated(name, prefixRule) {
+  return {
+    [name]: $ => seq($["__" + name + "_prefix"], "."),
+    ["__" + name + "_prefix"]: prefixRule,
+  };
 }
 
 /**
@@ -75,15 +82,16 @@ function declaration_and_spec(keyword, identifier, prefix) {
   rules[spec] = $ =>
     choice(seq(field("name", identifier($)), field("typing", $.typing)));
 
-  rules[decl] = $ => {
-    let opt = [$.begin_of_struct, $.end_of_struct, $[spec]];
-    if (keyword === "types") {
-      opt.push($.begin_of_enum, $.end_of_enum, $.enum_value_spec);
-    }
-    return chainable(keyword, choice(...opt));
+  return {
+    ...rules,
+    ...periodTerminated(decl, $ => {
+      let opt = [$.begin_of_struct, $.end_of_struct, $[spec]];
+      if (keyword === "types") {
+        opt.push($.begin_of_enum, $.end_of_enum, $.enum_value_spec);
+      }
+      return chainable(keyword, choice(...opt));
+    }),
   };
-
-  return rules;
 }
 
 function commaSep1(rule) {
@@ -214,6 +222,7 @@ module.exports = {
   kws,
   chainable_immediate,
   chainable,
+  periodTerminated,
   declaration_and_spec,
   commaSep1,
   kw_tagged,

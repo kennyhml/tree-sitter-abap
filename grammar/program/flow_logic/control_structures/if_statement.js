@@ -7,7 +7,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIF.html
    */
-  if_statement: $ =>
+  ...gen.periodTerminated("if_statement", $ =>
     seq(
       gen.kw("if"),
       field("condition", $._logical_expression),
@@ -18,8 +18,8 @@ module.exports = {
       optional(field("alternative", $.else_clause)),
 
       gen.kw("endif"),
-      ".",
     ),
+  ),
 
   /**
    * ...

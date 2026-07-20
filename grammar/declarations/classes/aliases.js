@@ -1,5 +1,7 @@
 module.exports = {
-  aliases_declaration: $ => gen.chainable("aliases", $.alias_spec),
+  ...gen.periodTerminated("aliases_declaration", $ =>
+    gen.chainable("aliases", $.alias_spec),
+  ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPALIASES.html
   alias_spec: $ =>

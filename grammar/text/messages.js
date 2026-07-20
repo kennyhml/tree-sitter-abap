@@ -11,7 +11,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
    */
-  message_statement: $ => gen.chainable("message", $.message_spec),
+  ...gen.periodTerminated("message_statement", $ =>
+    gen.chainable("message", $.message_spec),
+  ),
 
   /**
    * A message specification that is inlined into another statement, e.g
@@ -101,4 +103,3 @@ module.exports = {
 
   __message_type_spec: $ => seq(gen.kw("type"), field("type", $.data_object)),
 };
-

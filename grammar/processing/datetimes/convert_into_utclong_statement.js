@@ -8,7 +8,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONVERT_DATE_UTCLONG.html
    */
-  convert_into_utclong_statement: $ =>
+  ...gen.periodTerminated("convert_into_utclong_statement", $ =>
     seq(
       ...gen.kws("convert"),
       $.date_spec,
@@ -18,6 +18,6 @@ module.exports = {
       $.time_zone_spec,
       ...gen.kws("into", "utclong"),
       field("destination", $.writable_expression),
-      ".",
     ),
+  ),
 };

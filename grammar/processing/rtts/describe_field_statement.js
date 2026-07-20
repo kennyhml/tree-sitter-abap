@@ -10,14 +10,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDESCRIBE_FIELD.html
    */
-  describe_field_statement: $ =>
+  ...gen.periodTerminated("describe_field_statement", $ =>
     seq(
       ...gen.kws("describe", "field"),
       // data objects (including literals) are possible
       field("subject", $.data_object),
       repeat($.__describe_field_addition),
-      ".",
     ),
+  ),
 
   __describe_field_addition: $ =>
     choice(
