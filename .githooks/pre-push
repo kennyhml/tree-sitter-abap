@@ -5,7 +5,7 @@ set -eu
 root=$(git rev-parse --show-toplevel)
 
 printf 'Running corpus / highlighting tests...\n'
-(cd "$root" tree-sitter test)
+(cd "$root" && tree-sitter test)
 
 printf 'Measuring ABAP parser size before push...\n'
 "$root/scripts/measure-parser-size.sh"
