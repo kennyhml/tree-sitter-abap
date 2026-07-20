@@ -45,3 +45,11 @@ CALL BADI lo_badi->(lv_method)
 "                 ^ variable
   EXCEPTION-TABLE lt_exceptions.
 "                 ^ variable
+
+ENHANCEMENT 1 z_source_plugin.
+"           ^ number
+"             ^ constant
+  result = source.
+" ^ variable
+"          ^ variable
+ENDENHANCEMENT.

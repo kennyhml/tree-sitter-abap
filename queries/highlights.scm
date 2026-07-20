@@ -218,6 +218,7 @@
 (checkpoint_id_spec group: (identifier) @constant )
 (test_injection_statement name: (identifier) @constant )
 (test_seam_statement name: (identifier) @constant )
+(enhancement_statement name: (identifier) @constant )
 
 (key_components (identifier) @variable.member )
 (group_key_component field: (identifier) @variable.member )

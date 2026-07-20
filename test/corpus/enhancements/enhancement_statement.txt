@@ -1,0 +1,96 @@
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT ] Empty plug-in
+=================================================================================
+ENHANCEMENT 1 z_empty_enhancement.
+ENDENHANCEMENT.
+---
+
+(source
+  (enhancement_statement
+    number: (number)
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT ] Statement body
+=================================================================================
+ENHANCEMENT 2 z_assignment_enhancement.
+  result = source.
+  changed = abap_true.
+ENDENHANCEMENT.
+---
+
+(source
+  (enhancement_statement
+    number: (number)
+    name: (identifier)
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier))
+      (assignment
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT ] Complete control structure
+=================================================================================
+ENHANCEMENT 3 z_control_enhancement.
+  IF enabled = abap_true.
+    result = source.
+  ENDIF.
+ENDENHANCEMENT.
+---
+
+(source
+  (enhancement_statement
+    number: (number)
+    name: (identifier)
+    body: (statement_block
+      (if_statement
+        condition: (comparison_expression
+          left: (identifier)
+          right: (identifier))
+        consequence: (statement_block
+          (assignment
+            left: (identifier)
+            right: (identifier)))))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT ] Namespaced implementation
+=================================================================================
+ENHANCEMENT 4 /example/source_plugin.
+  result = source.
+ENDENHANCEMENT.
+---
+
+(source
+  (enhancement_statement
+    number: (number)
+    name: (identifier)
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT ] Nested plug-in
+=================================================================================
+ENHANCEMENT 5 z_outer_enhancement.
+  ENHANCEMENT 1 z_inner_enhancement.
+    result = source.
+  ENDENHANCEMENT.
+ENDENHANCEMENT.
+---
+
+(source
+  (enhancement_statement
+    number: (number)
+    name: (identifier)
+    body: (statement_block
+      (enhancement_statement
+        number: (number)
+        name: (identifier)
+        body: (statement_block
+          (assignment
+            left: (identifier)
+            right: (identifier)))))))

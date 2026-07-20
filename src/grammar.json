@@ -467,6 +467,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "enhancement_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -1493,6 +1497,68 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "enhancement_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__enhancement_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__enhancement_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_enhancement"
+        },
+        {
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "statement_block"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_endenhancement"
         }
       ]
     },
@@ -26657,19 +26723,6 @@
         "value": "in"
       }
     },
-    "_kw_get_badi_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_badi_statement"
-        },
-        "named": false,
-        "value": "get_badi_statement"
-      }
-    },
     "_kw_badi": {
       "type": "FIELD",
       "name": "keyword",
@@ -26681,6 +26734,45 @@
         },
         "named": false,
         "value": "badi"
+      }
+    },
+    "_kw_enhancement": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)enhancement"
+        },
+        "named": false,
+        "value": "enhancement"
+      }
+    },
+    "_kw_endenhancement": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)endenhancement"
+        },
+        "named": false,
+        "value": "endenhancement"
+      }
+    },
+    "_kw_get_badi_statement": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)get_badi_statement"
+        },
+        "named": false,
+        "value": "get_badi_statement"
       }
     },
     "_kw_filters": {
