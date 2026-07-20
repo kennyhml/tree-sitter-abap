@@ -61,6 +61,16 @@ for example the addition `IN BACKGROUND TASK` of a function call, or selection-s
 ### Internal Statements
 Some statements marked for internal usage, such as `SYNTAX-CHECK FOR PROGRAM` are not in scope for initial releases. These statements typically also have
 a huge number of additions, which increases parser size for very little return.
+
+## AI usage
+Prior to the frontier models that appeared around halfway through 2026, LLMs did not work well for tree-sitter grammars. Thus most of the
+existing grammar and test suite was written manually. As the models get better, I find AI to be very helpful in
+- generating the test cases for a given statement using the official specs
+- large scale deterministic refactoring
+- semi randomly shifting / restructuring grammar rules to reduce state count and parser size
+  
+The rules and documentation are still written manually - with actual thought put into them.
+
 ## Completion rate
 The following language features are currently implemented:
 - [x] Declaration of data objects (data, final, constants, class-data..)
