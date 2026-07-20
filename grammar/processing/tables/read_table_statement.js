@@ -11,7 +11,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE.html
    */
-  read_table_statement: $ =>
+  read_table_statement: $ => seq($.__read_table_statement_prefix, "."),
+
+  __read_table_statement_prefix: $ =>
     seq(
       ...gen.kws("read", "table"),
       field("subject", $.functional_expression),
@@ -31,7 +33,6 @@ module.exports = {
           optional(seq($.itab_lines, optional($.__transport_options))),
         ),
       ),
-      ".",
     ),
 
   __table_read_variant: $ =>

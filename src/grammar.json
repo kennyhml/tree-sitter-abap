@@ -17251,6 +17251,19 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "__read_table_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__read_table_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
           "name": "_kw_read"
         },
         {
@@ -17378,10 +17391,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "STRING",
-          "value": "."
         }
       ]
     },
