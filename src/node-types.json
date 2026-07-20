@@ -554,6 +554,10 @@
         "named": true
       },
       {
+        "type": "get_badi_statement",
+        "named": true
+      },
+      {
         "type": "get_bit_statement",
         "named": true
       },
@@ -2423,6 +2427,136 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "badi_context_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "context",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "badi_filter",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "badi_filter_table_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter-table",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "badi_filters_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filters",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "badi_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "badi_type_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -9736,6 +9870,11 @@
     }
   },
   {
+    "type": "filter-table",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "filter_expression",
     "named": true,
     "fields": {
@@ -11516,6 +11655,58 @@
         },
         {
           "type": "source_error_word_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "get_badi_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "badi",
+            "named": false
+          },
+          {
+            "type": "get",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "named_data_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "badi_context_spec",
+          "named": true
+        },
+        {
+          "type": "badi_filter_table_spec",
+          "named": true
+        },
+        {
+          "type": "badi_filters_spec",
+          "named": true
+        },
+        {
+          "type": "badi_type_spec",
           "named": true
         }
       ]
@@ -24788,6 +24979,10 @@
     "named": false
   },
   {
+    "type": "badi",
+    "named": false
+  },
+  {
     "type": "base",
     "named": false
   },
@@ -25005,6 +25200,10 @@
   },
   {
     "type": "constructor",
+    "named": false
+  },
+  {
+    "type": "context",
     "named": false
   },
   {
@@ -25349,6 +25548,10 @@
   },
   {
     "type": "filter",
+    "named": false
+  },
+  {
+    "type": "filters",
     "named": false
   },
   {

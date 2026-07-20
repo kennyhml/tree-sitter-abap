@@ -239,6 +239,8 @@ module.exports = grammar({
           $.call_statement,
           $.authority_check_statement,
 
+          $.get_badi_statement,
+
           $._empty_statement,
         ),
       ),

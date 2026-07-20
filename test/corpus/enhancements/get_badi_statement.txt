@@ -1,0 +1,106 @@
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / GET BADI ] Basic form
+=================================================================================
+GET BADI lo_badi.
+---
+
+(source
+  (get_badi_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / GET BADI ] Static filters
+=================================================================================
+GET BADI lo_badi
+  FILTERS country = lv_country
+          airline = 'LH'.
+---
+
+(source
+  (get_badi_statement
+    name: (identifier)
+    (badi_filters_spec
+      (badi_filter
+        field: (identifier)
+        value: (identifier))
+      (badi_filter
+        field: (identifier)
+        value: (string_literal)))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / GET BADI ] Dynamic type
+=================================================================================
+GET BADI lo_badi TYPE (lv_badi_name).
+---
+
+(source
+  (get_badi_statement
+    name: (identifier)
+    (badi_type_spec
+      type: (dynamic_spec
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / GET BADI ] Dynamic filters
+=================================================================================
+GET BADI lo_badi TYPE (lv_badi_name)
+  FILTERS country = lv_country.
+---
+
+(source
+  (get_badi_statement
+    name: (identifier)
+    (badi_type_spec
+      type: (dynamic_spec
+        value: (identifier)))
+    (badi_filters_spec
+      (badi_filter
+        field: (identifier)
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / GET BADI ] Dynamic filter table
+=================================================================================
+GET BADI lo_badi TYPE (lv_badi_name)
+  FILTER-TABLE lt_filters.
+---
+
+(source
+  (get_badi_statement
+    name: (identifier)
+    (badi_type_spec
+      type: (dynamic_spec
+        value: (identifier)))
+    (badi_filter_table_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / GET BADI ] Context
+=================================================================================
+GET BADI lo_badi CONTEXT lo_context.
+---
+
+(source
+  (get_badi_statement
+    name: (identifier)
+    (badi_context_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / GET BADI ] Dynamic filter table and context
+=================================================================================
+GET BADI lo_badi TYPE (lv_badi_name)
+  FILTER-TABLE lt_filters
+  CONTEXT lo_context.
+---
+
+(source
+  (get_badi_statement
+    name: (identifier)
+    (badi_type_spec
+      type: (dynamic_spec
+        value: (identifier)))
+    (badi_filter_table_spec
+      value: (identifier))
+    (badi_context_spec
+      value: (identifier))))

@@ -235,6 +235,7 @@
 
 ; Parameter identifiers
 (named_argument name: (identifier) @variable.parameter )
+(badi_filter name: (identifier) @variable.parameter )
 
 ; Keep this after the generic capture so the CLI retains the match for its value capture.
 (named_argument
