@@ -2459,7 +2459,7 @@
     "type": "badi_filter",
     "named": true,
     "fields": {
-      "field": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

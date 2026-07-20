@@ -21,10 +21,10 @@ GET BADI lo_badi
     name: (identifier)
     (badi_filters_spec
       (badi_filter
-        field: (identifier)
+        name: (identifier)
         value: (identifier))
       (badi_filter
-        field: (identifier)
+        name: (identifier)
         value: (string_literal)))))
 
 =================================================================================
@@ -55,7 +55,7 @@ GET BADI lo_badi TYPE (lv_badi_name)
         value: (identifier)))
     (badi_filters_spec
       (badi_filter
-        field: (identifier)
+        name: (identifier)
         value: (identifier)))))
 
 =================================================================================
