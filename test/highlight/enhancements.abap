@@ -21,3 +21,27 @@ GET BADI lo_badi TYPE (lv_badi_name)
 "              ^ variable
   CONTEXT lo_context.
 "         ^ variable
+
+CALL BADI lo_badi->execute.
+"         ^ variable
+"                  ^ function.method
+
+CALL BADI lo_badi->calculate
+"         ^ variable
+"                  ^ function.method
+  EXPORTING
+    iv_input = lv_input
+"   ^ variable.parameter
+"              ^ variable
+  IMPORTING
+    ev_output = lv_output.
+"   ^ variable.parameter
+"               ^ variable
+
+CALL BADI lo_badi->(lv_method)
+"         ^ variable
+"                   ^ variable
+  PARAMETER-TABLE lt_parameters
+"                 ^ variable
+  EXCEPTION-TABLE lt_exceptions.
+"                 ^ variable

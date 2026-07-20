@@ -1,0 +1,124 @@
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / CALL BADI ] Static method
+=================================================================================
+CALL BADI lo_badi->execute.
+---
+
+(source
+  (call_badi_statement
+    name: (component_selection
+      subject: (identifier)
+      component: (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / CALL BADI ] Static parameters
+=================================================================================
+CALL BADI lo_badi->calculate
+  EXPORTING
+    iv_input = lv_input
+  IMPORTING
+    ev_output = lv_output
+  CHANGING
+    cv_state = lv_state
+  RECEIVING
+    rv_result = lv_result
+  EXCEPTIONS
+    failed = 1
+    OTHERS = 2.
+---
+
+(source
+  (call_badi_statement
+    name: (component_selection
+      subject: (identifier)
+      component: (identifier))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      importing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      changing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      receiving: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      exceptions: (argument_list
+        (exception_mapping
+          name: (identifier)
+          value: (number))
+        (exception_mapping
+          name: (identifier)
+          value: (number))))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / CALL BADI ] Component interface method
+=================================================================================
+CALL BADI lo_badi->if_component~execute.
+---
+
+(source
+  (call_badi_statement
+    name: (component_selection
+      subject: (component_selection
+        subject: (identifier)
+        component: (identifier))
+      component: (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / CALL BADI ] Dynamic method
+=================================================================================
+CALL BADI lo_badi->(lv_method).
+---
+
+(source
+  (call_badi_statement
+    name: (component_selection
+      subject: (identifier)
+      component: (dynamic_spec
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / CALL BADI ] Dynamic parameters
+=================================================================================
+CALL BADI lo_badi->(lv_method)
+  EXPORTING
+    (lv_parameter) = lv_value.
+---
+
+(source
+  (call_badi_statement
+    name: (component_selection
+      subject: (identifier)
+      component: (dynamic_spec
+        value: (identifier)))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (dynamic_spec
+            value: (identifier))
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Enhancements / Enhancements Using BAdIs / CALL BADI ] Parameter tables
+=================================================================================
+CALL BADI lo_badi->(lv_method)
+  PARAMETER-TABLE lt_parameters
+  EXCEPTION-TABLE lt_exceptions.
+---
+
+(source
+  (call_badi_statement
+    name: (component_selection
+      subject: (identifier)
+      component: (dynamic_spec
+        value: (identifier)))
+    (call_argument_list
+      parameter_table: (identifier)
+      exception_table: (identifier))))

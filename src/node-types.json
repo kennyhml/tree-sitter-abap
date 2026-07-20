@@ -406,6 +406,10 @@
         "named": true
       },
       {
+        "type": "call_badi_statement",
+        "named": true
+      },
+      {
         "type": "call_function_statement",
         "named": true
       },
@@ -3530,6 +3534,46 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "call_badi_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "badi",
+            "named": false
+          },
+          {
+            "type": "call",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "call_argument_list",
+          "named": true
+        }
+      ]
     }
   },
   {
