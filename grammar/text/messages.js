@@ -11,9 +11,10 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapmessage.html
    */
-  ...gen.periodTerminated("message_statement", $ =>
+  message_statement: $ => seq($.__message_statement_prefix, "."),
+
+  __message_statement_prefix: $ =>
     gen.chainable("message", $.message_spec),
-  ),
 
   /**
    * A message specification that is inlined into another statement, e.g

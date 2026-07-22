@@ -14,7 +14,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCREATE_OBJECT.html
    */
-  ...gen.periodTerminated("create_object_statement", $ =>
+  create_object_statement: $ => seq($.__create_object_statement_prefix, "."),
+
+  __create_object_statement_prefix: $ =>
     seq(
       ...gen.kws("create", "object"),
       field("subject", $.writable_expression),
@@ -29,7 +31,6 @@ module.exports = {
       optional($._exceptions_args),
       optional($._parameter_table_args),
     ),
-  ),
 
   /**
    * CREATE OBJECT oref AREA HANDLE handle ...

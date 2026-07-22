@@ -6,7 +6,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONVERT_DATE_TIME-STAMP.html
    */
-  ...gen.periodTerminated("convert_into_timestamp_statement", $ =>
+  convert_into_timestamp_statement: $ => seq($.__convert_into_timestamp_statement_prefix, "."),
+
+  __convert_into_timestamp_statement_prefix: $ =>
     seq(
       ...gen.kws("convert"),
 
@@ -18,5 +20,4 @@ module.exports = {
       field("destination", $.writable_expression),
       $.time_zone_spec,
     ),
-  ),
 };

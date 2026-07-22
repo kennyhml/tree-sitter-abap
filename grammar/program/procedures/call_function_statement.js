@@ -13,7 +13,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION.html
    */
-  ...gen.periodTerminated("call_function_statement", $ =>
+  call_function_statement: $ => seq($.__call_function_statement_prefix, "."),
+
+  __call_function_statement_prefix: $ =>
     seq(
       ...gen.kws("call", "function"),
       field("name", $.character_like_expression),
@@ -30,7 +32,6 @@ module.exports = {
       ),
       optional($.call_argument_list),
     ),
-  ),
 
   // ... [DESTINATION {dest|{IN GROUP {group|DEFAULT}}}] ...
   rfc_destination: $ =>

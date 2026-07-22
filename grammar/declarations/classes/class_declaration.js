@@ -13,7 +13,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS.html
    */
-  ...gen.periodTerminated("class_declaration", $ =>
+  class_declaration: $ => seq($.__class_declaration_prefix, "."),
+
+  __class_declaration_prefix: $ =>
     seq(
       gen.kw("class"),
       field("name", $.identifier),
@@ -23,20 +25,20 @@ module.exports = {
       optional($.class_body),
       gen.kw("endclass"),
     ),
-  ),
 
   /**
    * CLASS class DEFINITION DEFERRED [PUBLIC].
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
    */
-  ...gen.periodTerminated("deferred_class_declaration", $ =>
+  deferred_class_declaration: $ => seq($.__deferred_class_declaration_prefix, "."),
+
+  __deferred_class_declaration_prefix: $ =>
     seq(
       gen.kw("class"),
       field("name", $.identifier),
       ...gen.kws("definition", "deferred"),
     ),
-  ),
 
   class_body: $ =>
     repeat1(choice($.public_section, $.protected_section, $.private_section)),
@@ -64,7 +66,9 @@ module.exports = {
     seq(...gen.kws("private", "section"), ".", repeat($._class_component)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_IMPLEMENTATION.html
-  ...gen.periodTerminated("class_implementation", $ =>
+  class_implementation: $ => seq($.__class_implementation_prefix, "."),
+
+  __class_implementation_prefix: $ =>
     seq(
       gen.kw("class"),
       field("name", $.identifier),
@@ -73,7 +77,6 @@ module.exports = {
       repeat($.method_implementation),
       gen.kw("endclass"),
     ),
-  ),
 
   /**
    * CLASS class DEFINITION
@@ -82,14 +85,15 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_LOCAL_FRIENDS.html
    */
-  ...gen.periodTerminated("local_friends_declaration", $ =>
+  local_friends_declaration: $ => seq($.__local_friends_declaration_prefix, "."),
+
+  __local_friends_declaration_prefix: $ =>
     seq(
       gen.kw("class"),
       field("name", $.identifier),
       ...gen.kws("definition", "local", "friends"),
       repeat1($.identifier),
     ),
-  ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_OPTIONS.html
   class_options: $ => repeat1($.__class_option),

@@ -1,7 +1,8 @@
 module.exports = {
-  ...gen.periodTerminated("interfaces_declaration", $ =>
+  interfaces_declaration: $ => seq($.__interfaces_declaration_prefix, "."),
+
+  __interfaces_declaration_prefix: $ =>
     gen.chainable("interfaces", $.interfaces_spec),
-  ),
 
   /**
    * INTERFACES intf
@@ -75,7 +76,9 @@ module.exports = {
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE.html
-  ...gen.periodTerminated("interface_declaration", $ =>
+  interface_declaration: $ => seq($.__interface_declaration_prefix, "."),
+
+  __interface_declaration_prefix: $ =>
     seq(
       gen.kw("interface"),
       field("name", $.identifier),
@@ -84,18 +87,18 @@ module.exports = {
       optional($.interface_body),
       gen.kw("endinterface"),
     ),
-  ),
 
   // no public / protected / private sections in interfaces, all public.
   interface_body: $ => repeat1($._class_component),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
-  ...gen.periodTerminated("deferred_interface_declaration", $ =>
+  deferred_interface_declaration: $ => seq($.__deferred_interface_declaration_prefix, "."),
+
+  __deferred_interface_declaration_prefix: $ =>
     seq(
       gen.kw("interface"),
       field("name", $.identifier),
       gen.kw("deferred"),
       optional($.public),
     ),
-  ),
 };

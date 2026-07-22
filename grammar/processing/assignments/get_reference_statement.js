@@ -4,7 +4,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPGET_REFERENCE.html
    */
-  ...gen.periodTerminated("get_reference_statement", $ =>
+  get_reference_statement: $ => seq($.__get_reference_statement_prefix, "."),
+
+  __get_reference_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "reference", "of"),
       field("source", $.general_expression),
@@ -14,5 +16,4 @@ module.exports = {
         choice($.named_data_object, $.declaration_expression),
       ),
     ),
-  ),
 };

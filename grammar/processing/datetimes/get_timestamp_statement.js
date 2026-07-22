@@ -4,10 +4,11 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPGET_TIME-STAMP.html
    */
-  ...gen.periodTerminated("get_timestamp_statement", $ =>
+  get_timestamp_statement: $ => seq($.__get_timestamp_statement_prefix, "."),
+
+  __get_timestamp_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "time", "stamp", "field"),
       field("destination", $.writable_expression),
     ),
-  ),
 };

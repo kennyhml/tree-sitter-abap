@@ -1,7 +1,8 @@
 module.exports = {
-  ...gen.periodTerminated("select_options_declaration", $ =>
+  select_options_declaration: $ => seq($.__select_options_declaration_prefix, "."),
+
+  __select_options_declaration_prefix: $ =>
     gen.chainable("select-options", $.select_options_spec),
-  ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT-OPTIONS.html
   select_options_spec: $ =>

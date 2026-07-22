@@ -4,7 +4,8 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTABLES.html
    */
-  ...gen.periodTerminated("tables_declaration", $ =>
+  tables_declaration: $ => seq($.__tables_declaration_prefix, "."),
+
+  __tables_declaration_prefix: $ =>
     gen.chainable("tables", $.identifier),
-  ),
 };

@@ -3,7 +3,9 @@ module.exports = {
    * PERFORM subr(prog) [IF FOUND] [parameter_list].
    */
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM_OBSOLETE.html
-  ...gen.periodTerminated("perform_statement", $ =>
+  perform_statement: $ => seq($.__perform_statement_prefix, "."),
+
+  __perform_statement_prefix: $ =>
     seq(
       gen.kw("perform"),
       field("routine", $.subroutine_spec),
@@ -17,7 +19,6 @@ module.exports = {
         ),
       ),
     ),
-  ),
 
   /**
    * Specification of a subroutine (FORM)

@@ -5,22 +5,30 @@
  */
 module.exports = {
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRETURN.html
-  ...gen.periodTerminated("return_statement", $ =>
+  return_statement: $ => seq($.__return_statement_prefix, "."),
+
+  __return_statement_prefix: $ =>
     seq(gen.kw("return"), optional(field("expr", $.general_expression))),
-  ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEXIT_PROCESSING_BLOCKS.html
-  ...gen.periodTerminated("exit_statement", $ => seq(gen.kw("exit"))),
+  exit_statement: $ => seq($.__exit_statement_prefix, "."),
+
+  __exit_statement_prefix: $ => seq(gen.kw("exit")),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_PROCESSING_BLOCKS.html
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCHECK_LOOP.html
-  ...gen.periodTerminated("check_statement", $ =>
+  check_statement: $ => seq($.__check_statement_prefix, "."),
+
+  __check_statement_prefix: $ =>
     seq(gen.kw("check"), field("condition", $._logical_expression)),
-  ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONTINUE.html
-  ...gen.periodTerminated("continue_statement", $ => seq(gen.kw("continue"))),
+  continue_statement: $ => seq($.__continue_statement_prefix, "."),
+
+  __continue_statement_prefix: $ => seq(gen.kw("continue")),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRESUME.html
-  ...gen.periodTerminated("resume_statement", $ => seq(gen.kw("resume"))),
+  resume_statement: $ => seq($.__resume_statement_prefix, "."),
+
+  __resume_statement_prefix: $ => seq(gen.kw("resume")),
 };

@@ -4,13 +4,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDESCRIBE_TABLE.html
    */
-  ...gen.periodTerminated("describe_table_statement", $ =>
+  describe_table_statement: $ => seq($.__describe_table_statement_prefix, "."),
+
+  __describe_table_statement_prefix: $ =>
     seq(
       ...gen.kws("describe", "table"),
       field("subject", $.named_data_object),
       repeat($.__describe_table_addition),
     ),
-  ),
 
   __describe_table_addition: $ =>
     choice($.describe_kind_spec, $.describe_lines_spec, $.describe_occurs_spec),

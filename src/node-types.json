@@ -674,6 +674,10 @@
         "named": true
       },
       {
+        "type": "raise_event_statement",
+        "named": true
+      },
+      {
         "type": "raise_exception_statement",
         "named": true
       },
@@ -18790,6 +18794,54 @@
           {
             "type": "radiobutton",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "raise_event_statement",
+    "named": true,
+    "fields": {
+      "exporting": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "event",
+            "named": false
+          },
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "raise",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }

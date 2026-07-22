@@ -35,7 +35,7 @@ statement: $ => seq($.__statement_prefix, "."),
 __statement_prefix: $ => seq(/* statement without its final period */),
 ```
 
-Use `gen.periodTerminated` for this pattern. Move only the final required period into the visible wrapper. Keep opening and internal periods inside block prefixes, and do not apply this to optional periods or periods followed by a body.
+Write this pattern explicitly. Move only the final required period into the visible wrapper. Keep opening and internal periods inside block prefixes, and do not apply this to optional periods or periods followed by a body.
 
 The initial `read_table_statement` experiment reduced its reported contextual states from 108 to 8. Applied to all 116 qualifying statements and declarations, the measured totals changed as follows:
 

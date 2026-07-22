@@ -487,6 +487,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "raise_event_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -19152,6 +19156,61 @@
         }
       ]
     },
+    "raise_event_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__raise_event_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__raise_event_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_raise"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_event"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "component_selection"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_exporting_args"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "cond_expression": {
       "type": "SEQ",
       "members": [
@@ -26739,19 +26798,6 @@
         "value": "methods"
       }
     },
-    "_kw_call_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)call_statement"
-        },
-        "named": false,
-        "value": "call_statement"
-      }
-    },
     "__kw_authority_check": {
       "type": "SEQ",
       "members": [
@@ -26859,19 +26905,6 @@
         "value": "dummy"
       }
     },
-    "_kw_create_data_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)create_data_statement"
-        },
-        "named": false,
-        "value": "create_data_statement"
-      }
-    },
     "_kw_create": {
       "type": "FIELD",
       "name": "keyword",
@@ -26883,19 +26916,6 @@
         },
         "named": false,
         "value": "create"
-      }
-    },
-    "_kw_create_object_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)create_object_statement"
-        },
-        "named": false,
-        "value": "create_object_statement"
       }
     },
     "_kw_type": {
@@ -26937,19 +26957,6 @@
         "value": "handle"
       }
     },
-    "_kw_set_parameter_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)set_parameter_statement"
-        },
-        "named": false,
-        "value": "set_parameter_statement"
-      }
-    },
     "_kw_set": {
       "type": "FIELD",
       "name": "keyword",
@@ -26976,19 +26983,6 @@
         "value": "parameter"
       }
     },
-    "_kw_get_parameter_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_parameter_statement"
-        },
-        "named": false,
-        "value": "get_parameter_statement"
-      }
-    },
     "_kw_get": {
       "type": "FIELD",
       "name": "keyword",
@@ -27000,19 +26994,6 @@
         },
         "named": false,
         "value": "get"
-      }
-    },
-    "_kw_set_update_task_local_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)set_update_task_local_statement"
-        },
-        "named": false,
-        "value": "set_update_task_local_statement"
       }
     },
     "_kw_update": {
@@ -27054,19 +27035,6 @@
         "value": "local"
       }
     },
-    "_kw_commit_work_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)commit_work_statement"
-        },
-        "named": false,
-        "value": "commit_work_statement"
-      }
-    },
     "_kw_commit": {
       "type": "FIELD",
       "name": "keyword",
@@ -27091,19 +27059,6 @@
         },
         "named": false,
         "value": "work"
-      }
-    },
-    "_kw_rollback_work_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)rollback_work_statement"
-        },
-        "named": false,
-        "value": "rollback_work_statement"
       }
     },
     "_kw_rollback": {
@@ -27398,19 +27353,6 @@
         "value": "endenhancement"
       }
     },
-    "_kw_get_badi_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_badi_statement"
-        },
-        "named": false,
-        "value": "get_badi_statement"
-      }
-    },
     "_kw_filters": {
       "type": "FIELD",
       "name": "keyword",
@@ -27696,19 +27638,6 @@
         "value": "no-display"
       }
     },
-    "_kw_parameters_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)parameters_declaration"
-        },
-        "named": false,
-        "value": "parameters_declaration"
-      }
-    },
     "_kw_radiobutton": {
       "type": "FIELD",
       "name": "keyword",
@@ -27772,19 +27701,6 @@
         },
         "named": false,
         "value": "listbox"
-      }
-    },
-    "_kw_select_options_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)select_options_declaration"
-        },
-        "named": false,
-        "value": "select_options_declaration"
       }
     },
     "__kw_select_options": {
@@ -28086,19 +28002,6 @@
         },
         "named": false,
         "value": "help-request"
-      }
-    },
-    "_kw_selection_screen_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)selection_screen_statement"
-        },
-        "named": false,
-        "value": "selection_screen_statement"
       }
     },
     "_kw_begin": {
@@ -28481,19 +28384,6 @@
         "value": "selection-set"
       }
     },
-    "_kw_get_run_time_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_run_time_statement"
-        },
-        "named": false,
-        "value": "get_run_time_statement"
-      }
-    },
     "_kw_run": {
       "type": "FIELD",
       "name": "keyword",
@@ -28585,19 +28475,6 @@
         "value": "low"
       }
     },
-    "_kw_test_seam_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)test_seam_statement"
-        },
-        "named": false,
-        "value": "test_seam_statement"
-      }
-    },
     "__kw_test_seam": {
       "type": "SEQ",
       "members": [
@@ -28663,19 +28540,6 @@
         "value": "end-test-seam"
       }
     },
-    "_kw_test_injection_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)test_injection_statement"
-        },
-        "named": false,
-        "value": "test_injection_statement"
-      }
-    },
     "__kw_test_injection": {
       "type": "SEQ",
       "members": [
@@ -28739,19 +28603,6 @@
         },
         "named": false,
         "value": "end-test-injection"
-      }
-    },
-    "_kw_add_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)add_statement"
-        },
-        "named": false,
-        "value": "add_statement"
       }
     },
     "_kw_add": {
@@ -28975,19 +28826,6 @@
         "value": "base"
       }
     },
-    "_kw_message_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)message_statement"
-        },
-        "named": false,
-        "value": "message_statement"
-      }
-    },
     "_kw_message": {
       "type": "FIELD",
       "name": "keyword",
@@ -29053,19 +28891,6 @@
         "value": "number"
       }
     },
-    "_kw_read_textpool_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)read_textpool_statement"
-        },
-        "named": false,
-        "value": "read_textpool_statement"
-      }
-    },
     "_kw_textpool": {
       "type": "FIELD",
       "name": "keyword",
@@ -29079,19 +28904,6 @@
         "value": "textpool"
       }
     },
-    "_kw_insert_textpool_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)insert_textpool_statement"
-        },
-        "named": false,
-        "value": "insert_textpool_statement"
-      }
-    },
     "_kw_language": {
       "type": "FIELD",
       "name": "keyword",
@@ -29103,19 +28915,6 @@
         },
         "named": false,
         "value": "language"
-      }
-    },
-    "_kw_get_dataset_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_dataset_statement"
-        },
-        "named": false,
-        "value": "get_dataset_statement"
       }
     },
     "_kw_dataset": {
@@ -29144,19 +28943,6 @@
         "value": "attributes"
       }
     },
-    "_kw_open_dataset_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)open_dataset_statement"
-        },
-        "named": false,
-        "value": "open_dataset_statement"
-      }
-    },
     "_kw_open": {
       "type": "FIELD",
       "name": "keyword",
@@ -29168,32 +28954,6 @@
         },
         "named": false,
         "value": "open"
-      }
-    },
-    "_kw_delete_dataset_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)delete_dataset_statement"
-        },
-        "named": false,
-        "value": "delete_dataset_statement"
-      }
-    },
-    "_kw_close_dataset_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)close_dataset_statement"
-        },
-        "named": false,
-        "value": "close_dataset_statement"
       }
     },
     "_kw_close": {
@@ -29582,19 +29342,6 @@
         "value": "utf-8"
       }
     },
-    "_kw_read_dataset_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)read_dataset_statement"
-        },
-        "named": false,
-        "value": "read_dataset_statement"
-      }
-    },
     "_kw_maximum": {
       "type": "FIELD",
       "name": "keyword",
@@ -29621,19 +29368,6 @@
         "value": "actual"
       }
     },
-    "_kw_set_dataset_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)set_dataset_statement"
-        },
-        "named": false,
-        "value": "set_dataset_statement"
-      }
-    },
     "_kw_file": {
       "type": "FIELD",
       "name": "keyword",
@@ -29645,19 +29379,6 @@
         },
         "named": false,
         "value": "file"
-      }
-    },
-    "_kw_transfer_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)transfer_statement"
-        },
-        "named": false,
-        "value": "transfer_statement"
       }
     },
     "_kw_transfer": {
@@ -29697,19 +29418,6 @@
         },
         "named": false,
         "value": "current"
-      }
-    },
-    "_kw_aliases_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)aliases_declaration"
-        },
-        "named": false,
-        "value": "aliases_declaration"
       }
     },
     "_kw_aliases": {
@@ -29754,19 +29462,6 @@
         "value": "class-data"
       }
     },
-    "_kw_class_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)class_declaration"
-        },
-        "named": false,
-        "value": "class_declaration"
-      }
-    },
     "_kw_definition": {
       "type": "FIELD",
       "name": "keyword",
@@ -29791,19 +29486,6 @@
         },
         "named": false,
         "value": "endclass"
-      }
-    },
-    "_kw_deferred_class_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)deferred_class_declaration"
-        },
-        "named": false,
-        "value": "deferred_class_declaration"
       }
     },
     "_kw_deferred": {
@@ -29871,19 +29553,6 @@
         "value": "private"
       }
     },
-    "_kw_class_implementation": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)class_implementation"
-        },
-        "named": false,
-        "value": "class_implementation"
-      }
-    },
     "_kw_implementation": {
       "type": "FIELD",
       "name": "keyword",
@@ -29895,19 +29564,6 @@
         },
         "named": false,
         "value": "implementation"
-      }
-    },
-    "_kw_local_friends_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)local_friends_declaration"
-        },
-        "named": false,
-        "value": "local_friends_declaration"
       }
     },
     "_kw_friends": {
@@ -30147,19 +29803,6 @@
         "value": "testing"
       }
     },
-    "_kw_interfaces_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)interfaces_declaration"
-        },
-        "named": false,
-        "value": "interfaces_declaration"
-      }
-    },
     "_kw_partially": {
       "type": "FIELD",
       "name": "keyword",
@@ -30199,19 +29842,6 @@
         "value": "values"
       }
     },
-    "_kw_interface_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)interface_declaration"
-        },
-        "named": false,
-        "value": "interface_declaration"
-      }
-    },
     "_kw_endinterface": {
       "type": "FIELD",
       "name": "keyword",
@@ -30223,19 +29853,6 @@
         },
         "named": false,
         "value": "endinterface"
-      }
-    },
-    "_kw_deferred_interface_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)deferred_interface_declaration"
-        },
-        "named": false,
-        "value": "deferred_interface_declaration"
       }
     },
     "__kw_field_symbols": {
@@ -30317,19 +29934,6 @@
         },
         "named": false,
         "value": "casting"
-      }
-    },
-    "_kw_tables_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)tables_declaration"
-        },
-        "named": false,
-        "value": "tables_declaration"
       }
     },
     "_kw_decimals": {
@@ -30634,19 +30238,6 @@
         "value": "suffix"
       }
     },
-    "_kw_assert_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)assert_statement"
-        },
-        "named": false,
-        "value": "assert_statement"
-      }
-    },
     "_kw_assert": {
       "type": "FIELD",
       "name": "keyword",
@@ -30671,19 +30262,6 @@
         },
         "named": false,
         "value": "condition"
-      }
-    },
-    "_kw_breakpoint_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)breakpoint_statement"
-        },
-        "named": false,
-        "value": "breakpoint_statement"
       }
     },
     "__kw_break_point": {
@@ -30726,19 +30304,6 @@
         },
         "named": false,
         "value": "subkey"
-      }
-    },
-    "_kw_logpoint_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)logpoint_statement"
-        },
-        "named": false,
-        "value": "logpoint_statement"
       }
     },
     "__kw_log_point": {
@@ -30864,19 +30429,6 @@
         "value": "message-id"
       }
     },
-    "_kw_generate_subroutine_pool_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)generate_subroutine_pool_statement"
-        },
-        "named": false,
-        "value": "generate_subroutine_pool_statement"
-      }
-    },
     "_kw_generate": {
       "type": "FIELD",
       "name": "keyword",
@@ -30943,19 +30495,6 @@
         },
         "named": false,
         "value": "shortdump-id"
-      }
-    },
-    "_kw_insert_report_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)insert_report_statement"
-        },
-        "named": false,
-        "value": "insert_report_statement"
       }
     },
     "_kw_report": {
@@ -31039,32 +30578,6 @@
         "value": "version"
       }
     },
-    "_kw_read_report_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)read_report_statement"
-        },
-        "named": false,
-        "value": "read_report_statement"
-      }
-    },
-    "_kw_syntax_check_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)syntax_check_statement"
-        },
-        "named": false,
-        "value": "syntax_check_statement"
-      }
-    },
     "__kw_syntax_check": {
       "type": "SEQ",
       "members": [
@@ -31107,19 +30620,6 @@
         "value": "switchstates"
       }
     },
-    "_kw_assign_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)assign_statement"
-        },
-        "named": false,
-        "value": "assign_statement"
-      }
-    },
     "_kw_assign": {
       "type": "FIELD",
       "name": "keyword",
@@ -31157,19 +30657,6 @@
         },
         "named": false,
         "value": "component"
-      }
-    },
-    "_kw_clear_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)clear_statement"
-        },
-        "named": false,
-        "value": "clear_statement"
       }
     },
     "_kw_clear": {
@@ -31263,19 +30750,6 @@
         "value": "duplicates"
       }
     },
-    "_kw_free_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)free_statement"
-        },
-        "named": false,
-        "value": "free_statement"
-      }
-    },
     "_kw_free": {
       "type": "FIELD",
       "name": "keyword",
@@ -31287,32 +30761,6 @@
         },
         "named": false,
         "value": "free"
-      }
-    },
-    "_kw_get_reference_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_reference_statement"
-        },
-        "named": false,
-        "value": "get_reference_statement"
-      }
-    },
-    "_kw_move_corresponding_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)move_corresponding_statement"
-        },
-        "named": false,
-        "value": "move_corresponding_statement"
       }
     },
     "__kw_move_corresponding": {
@@ -31381,32 +30829,6 @@
         },
         "named": false,
         "value": "target"
-      }
-    },
-    "_kw_unassign_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)unassign_statement"
-        },
-        "named": false,
-        "value": "unassign_statement"
-      }
-    },
-    "_kw_unpack_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)unpack_statement"
-        },
-        "named": false,
-        "value": "unpack_statement"
       }
     },
     "_kw_unpack": {
@@ -31578,19 +31000,6 @@
         "value": "date"
       }
     },
-    "_kw_convert_into_timestamp_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)convert_into_timestamp_statement"
-        },
-        "named": false,
-        "value": "convert_into_timestamp_statement"
-      }
-    },
     "_kw_convert": {
       "type": "FIELD",
       "name": "keyword",
@@ -31617,19 +31026,6 @@
         "value": "stamp"
       }
     },
-    "_kw_convert_into_utclong_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)convert_into_utclong_statement"
-        },
-        "named": false,
-        "value": "convert_into_utclong_statement"
-      }
-    },
     "_kw_utclong": {
       "type": "FIELD",
       "name": "keyword",
@@ -31641,71 +31037,6 @@
         },
         "named": false,
         "value": "utclong"
-      }
-    },
-    "_kw_convert_timestamp_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)convert_timestamp_statement"
-        },
-        "named": false,
-        "value": "convert_timestamp_statement"
-      }
-    },
-    "_kw_convert_utclong_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)convert_utclong_statement"
-        },
-        "named": false,
-        "value": "convert_utclong_statement"
-      }
-    },
-    "_kw_get_time_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_time_statement"
-        },
-        "named": false,
-        "value": "get_time_statement"
-      }
-    },
-    "_kw_get_timestamp_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)get_timestamp_statement"
-        },
-        "named": false,
-        "value": "get_timestamp_statement"
-      }
-    },
-    "_kw_describe_distance_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)describe_distance_statement"
-        },
-        "named": false,
-        "value": "describe_distance_statement"
       }
     },
     "_kw_describe": {
@@ -31745,19 +31076,6 @@
         },
         "named": false,
         "value": "between"
-      }
-    },
-    "_kw_describe_field_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)describe_field_statement"
-        },
-        "named": false,
-        "value": "describe_field_statement"
       }
     },
     "__kw_output_length": {
@@ -31842,19 +31160,6 @@
         },
         "named": false,
         "value": "mask"
-      }
-    },
-    "_kw_describe_table_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)describe_table_statement"
-        },
-        "named": false,
-        "value": "describe_table_statement"
       }
     },
     "_kw_kind": {
@@ -32000,19 +31305,6 @@
         "value": "results"
       }
     },
-    "_kw_concatenate_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)concatenate_statement"
-        },
-        "named": false,
-        "value": "concatenate_statement"
-      }
-    },
     "_kw_concatenate": {
       "type": "FIELD",
       "name": "keyword",
@@ -32065,19 +31357,6 @@
         "value": "by"
       }
     },
-    "_kw_condense_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)condense_statement"
-        },
-        "named": false,
-        "value": "condense_statement"
-      }
-    },
     "__kw_no_gaps": {
       "type": "SEQ",
       "members": [
@@ -32107,19 +31386,6 @@
         "value": "no-gaps"
       }
     },
-    "_kw_convert_text_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)convert_text_statement"
-        },
-        "named": false,
-        "value": "convert_text_statement"
-      }
-    },
     "_kw_sortable": {
       "type": "FIELD",
       "name": "keyword",
@@ -32131,19 +31397,6 @@
         },
         "named": false,
         "value": "sortable"
-      }
-    },
-    "_kw_find_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)find_statement"
-        },
-        "named": false,
-        "value": "find_statement"
       }
     },
     "_kw_find": {
@@ -32198,19 +31451,6 @@
         "value": "count"
       }
     },
-    "_kw_overlay_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)overlay_statement"
-        },
-        "named": false,
-        "value": "overlay_statement"
-      }
-    },
     "_kw_overlay": {
       "type": "FIELD",
       "name": "keyword",
@@ -32237,19 +31477,6 @@
         "value": "only"
       }
     },
-    "_kw_replace_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)replace_statement"
-        },
-        "named": false,
-        "value": "replace_statement"
-      }
-    },
     "_kw_verbatim": {
       "type": "FIELD",
       "name": "keyword",
@@ -32261,19 +31488,6 @@
         },
         "named": false,
         "value": "verbatim"
-      }
-    },
-    "_kw_shift_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)shift_statement"
-        },
-        "named": false,
-        "value": "shift_statement"
       }
     },
     "_kw_shift": {
@@ -32393,32 +31607,6 @@
         "value": "circular"
       }
     },
-    "_kw_split_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)split_statement"
-        },
-        "named": false,
-        "value": "split_statement"
-      }
-    },
-    "_kw_translate_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)translate_statement"
-        },
-        "named": false,
-        "value": "translate_statement"
-      }
-    },
     "_kw_translate": {
       "type": "FIELD",
       "name": "keyword",
@@ -32443,19 +31631,6 @@
         },
         "named": false,
         "value": "upper"
-      }
-    },
-    "_kw_write_to_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)write_to_statement"
-        },
-        "named": false,
-        "value": "write_to_statement"
       }
     },
     "_kw_write": {
@@ -32811,32 +31986,6 @@
         "value": "yymmdd"
       }
     },
-    "_kw_append_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)append_statement"
-        },
-        "named": false,
-        "value": "append_statement"
-      }
-    },
-    "_kw_collect_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)collect_statement"
-        },
-        "named": false,
-        "value": "collect_statement"
-      }
-    },
     "_kw_collect": {
       "type": "FIELD",
       "name": "keyword",
@@ -32861,19 +32010,6 @@
         },
         "named": false,
         "value": "members"
-      }
-    },
-    "_kw_delete_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)delete_statement"
-        },
-        "named": false,
-        "value": "delete_statement"
       }
     },
     "_kw_loop_key": {
@@ -32902,32 +32038,6 @@
         "value": "adjacent"
       }
     },
-    "_kw_insert_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)insert_statement"
-        },
-        "named": false,
-        "value": "insert_statement"
-      }
-    },
-    "_kw_loop_at_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)loop_at_statement"
-        },
-        "named": false,
-        "value": "loop_at_statement"
-      }
-    },
     "_kw_endloop": {
       "type": "FIELD",
       "name": "keyword",
@@ -32941,32 +32051,6 @@
         "value": "endloop"
       }
     },
-    "_kw_loop_at_group_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)loop_at_group_statement"
-        },
-        "named": false,
-        "value": "loop_at_group_statement"
-      }
-    },
-    "_kw_at_first_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)at_first_statement"
-        },
-        "named": false,
-        "value": "at_first_statement"
-      }
-    },
     "_kw_endat": {
       "type": "FIELD",
       "name": "keyword",
@@ -32978,45 +32062,6 @@
         },
         "named": false,
         "value": "endat"
-      }
-    },
-    "_kw_at_new_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)at_new_statement"
-        },
-        "named": false,
-        "value": "at_new_statement"
-      }
-    },
-    "_kw_at_end_of_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)at_end_of_statement"
-        },
-        "named": false,
-        "value": "at_end_of_statement"
-      }
-    },
-    "_kw_at_last_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)at_last_statement"
-        },
-        "named": false,
-        "value": "at_last_statement"
       }
     },
     "_kw_last": {
@@ -33045,19 +32090,6 @@
         "value": "transporting"
       }
     },
-    "_kw_sort_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)sort_statement"
-        },
-        "named": false,
-        "value": "sort_statement"
-      }
-    },
     "_kw_stable": {
       "type": "FIELD",
       "name": "keyword",
@@ -33082,6 +32114,19 @@
         },
         "named": false,
         "value": "groups"
+      }
+    },
+    "_kw_event": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)event"
+        },
+        "named": false,
+        "value": "event"
       }
     },
     "_kw_resumable": {
@@ -33687,32 +32732,6 @@
         "value": "next"
       }
     },
-    "_kw_wait_up_to_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)wait_up_to_statement"
-        },
-        "named": false,
-        "value": "wait_up_to_statement"
-      }
-    },
-    "_kw_call_function_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)call_function_statement"
-        },
-        "named": false,
-        "value": "call_function_statement"
-      }
-    },
     "_kw_destination": {
       "type": "FIELD",
       "name": "keyword",
@@ -33802,19 +32821,6 @@
         },
         "named": false,
         "value": "separate"
-      }
-    },
-    "_kw_call_method_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)call_method_statement"
-        },
-        "named": false,
-        "value": "call_method_statement"
       }
     },
     "_kw_importing": {
@@ -33940,19 +32946,6 @@
         "value": "exception-table"
       }
     },
-    "_kw_perform_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)perform_statement"
-        },
-        "named": false,
-        "value": "perform_statement"
-      }
-    },
     "_kw_receive": {
       "type": "FIELD",
       "name": "keyword",
@@ -34031,32 +33024,6 @@
         "value": "push"
       }
     },
-    "_kw_program_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)program_statement"
-        },
-        "named": false,
-        "value": "program_statement"
-      }
-    },
-    "_kw_function_pool_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)function_pool_statement"
-        },
-        "named": false,
-        "value": "function_pool_statement"
-      }
-    },
     "__kw_function_pool": {
       "type": "SEQ",
       "members": [
@@ -34084,32 +33051,6 @@
         },
         "named": false,
         "value": "function-pool"
-      }
-    },
-    "_kw_report_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)report_statement"
-        },
-        "named": false,
-        "value": "report_statement"
-      }
-    },
-    "_kw_class_pool_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)class_pool_statement"
-        },
-        "named": false,
-        "value": "class_pool_statement"
       }
     },
     "__kw_class_pool": {
@@ -34141,19 +33082,6 @@
         "value": "class-pool"
       }
     },
-    "_kw_interface_pool_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)interface_pool_statement"
-        },
-        "named": false,
-        "value": "interface_pool_statement"
-      }
-    },
     "__kw_interface_pool": {
       "type": "SEQ",
       "members": [
@@ -34181,19 +33109,6 @@
         },
         "named": false,
         "value": "interface-pool"
-      }
-    },
-    "_kw_type_pool_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)type_pool_statement"
-        },
-        "named": false,
-        "value": "type_pool_statement"
       }
     },
     "_kw_type_pool": {
@@ -34449,19 +33364,6 @@
         "value": "independent"
       }
     },
-    "_kw_method_implementation": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)method_implementation"
-        },
-        "named": false,
-        "value": "method_implementation"
-      }
-    },
     "_kw_endmethod": {
       "type": "FIELD",
       "name": "keyword",
@@ -34473,32 +33375,6 @@
         },
         "named": false,
         "value": "endmethod"
-      }
-    },
-    "_kw_methods_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)methods_declaration"
-        },
-        "named": false,
-        "value": "methods_declaration"
-      }
-    },
-    "_kw_class_methods_declaration": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)class_methods_declaration"
-        },
-        "named": false,
-        "value": "class_methods_declaration"
       }
     },
     "__kw_class_methods": {
@@ -34580,19 +33456,6 @@
         },
         "named": false,
         "value": "redefinition"
-      }
-    },
-    "_kw_event": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)event"
-        },
-        "named": false,
-        "value": "event"
       }
     },
     "_kw_ignore": {
@@ -34764,19 +33627,6 @@
         "value": "xslt"
       }
     },
-    "_kw_case_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)case_statement"
-        },
-        "named": false,
-        "value": "case_statement"
-      }
-    },
     "_kw_endcase": {
       "type": "FIELD",
       "name": "keyword",
@@ -34801,32 +33651,6 @@
         },
         "named": false,
         "value": "others"
-      }
-    },
-    "_kw_case_type_of_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)case_type_of_statement"
-        },
-        "named": false,
-        "value": "case_type_of_statement"
-      }
-    },
-    "_kw_do_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)do_statement"
-        },
-        "named": false,
-        "value": "do_statement"
       }
     },
     "_kw_do": {
@@ -34855,71 +33679,6 @@
         "value": "enddo"
       }
     },
-    "_kw_return_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)return_statement"
-        },
-        "named": false,
-        "value": "return_statement"
-      }
-    },
-    "_kw_exit_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)exit_statement"
-        },
-        "named": false,
-        "value": "exit_statement"
-      }
-    },
-    "_kw_check_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)check_statement"
-        },
-        "named": false,
-        "value": "check_statement"
-      }
-    },
-    "_kw_continue_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)continue_statement"
-        },
-        "named": false,
-        "value": "continue_statement"
-      }
-    },
-    "_kw_resume_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)resume_statement"
-        },
-        "named": false,
-        "value": "resume_statement"
-      }
-    },
     "_kw_resume": {
       "type": "FIELD",
       "name": "keyword",
@@ -34931,19 +33690,6 @@
         },
         "named": false,
         "value": "resume"
-      }
-    },
-    "_kw_if_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)if_statement"
-        },
-        "named": false,
-        "value": "if_statement"
       }
     },
     "_kw_endif": {
@@ -34972,19 +33718,6 @@
         "value": "elseif"
       }
     },
-    "_kw_while_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)while_statement"
-        },
-        "named": false,
-        "value": "while_statement"
-      }
-    },
     "_kw_endwhile": {
       "type": "FIELD",
       "name": "keyword",
@@ -35009,19 +33742,6 @@
         },
         "named": false,
         "value": "exception"
-      }
-    },
-    "_kw_try_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)try_statement"
-        },
-        "named": false,
-        "value": "try_statement"
       }
     },
     "_kw_endtry": {
@@ -35161,19 +33881,6 @@
         "value": "start-of-selection"
       }
     },
-    "_kw_form_definition": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)form_definition"
-        },
-        "named": false,
-        "value": "form_definition"
-      }
-    },
     "_kw_endform": {
       "type": "FIELD",
       "name": "keyword",
@@ -35185,19 +33892,6 @@
         },
         "named": false,
         "value": "endform"
-      }
-    },
-    "_kw_function_definition": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)function_definition"
-        },
-        "named": false,
-        "value": "function_definition"
       }
     },
     "_kw_endfunction": {
@@ -35224,32 +33918,6 @@
         },
         "named": false,
         "value": "found"
-      }
-    },
-    "_kw_include_statement": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)include_statement"
-        },
-        "named": false,
-        "value": "include_statement"
-      }
-    },
-    "_kw_macro_definition": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)macro_definition"
-        },
-        "named": false,
-        "value": "macro_definition"
       }
     },
     "_kw_define": {
@@ -35299,19 +33967,6 @@
         },
         "named": false,
         "value": "end-of-definition"
-      }
-    },
-    "_kw_module_definition": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)module_definition"
-        },
-        "named": false,
-        "value": "module_definition"
       }
     },
     "_kw_module": {

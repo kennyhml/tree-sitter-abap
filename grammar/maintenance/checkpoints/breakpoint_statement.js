@@ -5,11 +5,12 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPBREAK-POINT.html
    */
-  ...gen.periodTerminated("breakpoint_statement", $ =>
+  breakpoint_statement: $ => seq($.__breakpoint_statement_prefix, "."),
+
+  __breakpoint_statement_prefix: $ =>
     seq(
       gen.kw("break-point"),
       optional($.checkpoint_id_spec),
       optional(field("text", $.character_like_expression)),
     ),
-  ),
 };

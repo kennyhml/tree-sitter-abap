@@ -4,7 +4,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TEXTPOOL.html
    */
-  ...gen.periodTerminated("read_textpool_statement", $ =>
+  read_textpool_statement: $ => seq($.__read_textpool_statement_prefix, "."),
+
+  __read_textpool_statement_prefix: $ =>
     seq(
       ...gen.kws("read", "textpool"),
       field("program", $.named_data_object),
@@ -12,14 +14,15 @@ module.exports = {
       field("destination", $.writable_expression),
       $.textpool_language_spec,
     ),
-  ),
 
   /**
    * INSERT TEXTPOOL prog FROM itab LANGUAGE lang.
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_TEXTPOOL.html
    */
-  ...gen.periodTerminated("insert_textpool_statement", $ =>
+  insert_textpool_statement: $ => seq($.__insert_textpool_statement_prefix, "."),
+
+  __insert_textpool_statement_prefix: $ =>
     seq(
       ...gen.kws("insert", "textpool"),
       field("program", $.named_data_object),
@@ -27,7 +30,6 @@ module.exports = {
       field("source", $.named_data_object),
       $.textpool_language_spec,
     ),
-  ),
 
   textpool_language_spec: $ =>
     seq(gen.kw("language"), field("language", $.named_data_object)),

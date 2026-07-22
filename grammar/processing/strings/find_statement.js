@@ -7,14 +7,15 @@ module.exports = {
    *
    *  https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html
    */
-  ...gen.periodTerminated("find_statement", $ =>
+  find_statement: $ => seq($.__find_statement_prefix, "."),
+
+  __find_statement_prefix: $ =>
     seq(
       gen.kw("find"),
       $._pattern_spec,
       $._subject_spec,
       repeat($.__find_addition),
     ),
-  ),
 
   /**
    * ...  [{RESPECTING|IGNORING} CASE]

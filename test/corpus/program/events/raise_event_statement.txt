@@ -1,0 +1,41 @@
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / RAISE EVENT ] Basic form
+=================================================================================
+RAISE EVENT completed.
+---
+
+(source
+  (raise_event_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / RAISE EVENT ] Exporting parameters
+=================================================================================
+RAISE EVENT progress
+  EXPORTING
+    percentage = lv_percentage
+    message = lv_message.
+---
+
+(source
+  (raise_event_statement
+    name: (identifier)
+    exporting: (argument_list
+      (named_argument
+        name: (identifier)
+        value: (identifier))
+      (named_argument
+        name: (identifier)
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / RAISE EVENT ] Interface event
+=================================================================================
+RAISE EVENT if_events~completed.
+---
+
+(source
+  (raise_event_statement
+    name: (component_selection
+      subject: (identifier)
+      component: (identifier))))

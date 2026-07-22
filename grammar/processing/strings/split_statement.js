@@ -1,6 +1,8 @@
 module.exports = {
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSPLIT.html
-  ...gen.periodTerminated("split_statement", $ =>
+  split_statement: $ => seq($.__split_statement_prefix, "."),
+
+  __split_statement_prefix: $ =>
     seq(
       gen.kw("split"),
       field("subject", $.character_like_expression),
@@ -8,7 +10,6 @@ module.exports = {
       $.split_result,
       optional($._processing_mode_spec),
     ),
-  ),
 
   split_at: $ => seq(gen.kw("at"), field("separator", $.data_object)),
 

@@ -4,7 +4,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPOVERLAY.html
    */
-  ...gen.periodTerminated("overlay_statement", $ =>
+  overlay_statement: $ => seq($.__overlay_statement_prefix, "."),
+
+  __overlay_statement_prefix: $ =>
     seq(
       gen.kw("overlay"),
       field("subject", $.character_like_expression),
@@ -12,7 +14,6 @@ module.exports = {
       field("overlay", $.character_like_expression),
       optional($.only),
     ),
-  ),
 
   only: $ => seq(gen.kw("only"), field("mask", $.character_like_expression)),
 };

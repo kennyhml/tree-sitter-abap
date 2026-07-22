@@ -4,7 +4,8 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLEAR.html
    */
-  ...gen.periodTerminated("free_statement", $ =>
+  free_statement: $ => seq($.__free_statement_prefix, "."),
+
+  __free_statement_prefix: $ =>
     gen.chainable("free", $.named_data_object),
-  ),
 };

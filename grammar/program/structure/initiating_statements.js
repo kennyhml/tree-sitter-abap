@@ -6,13 +6,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPROGRAM.html
    */
-  ...gen.periodTerminated("program_statement", $ =>
+  program_statement: $ => seq($.__program_statement_prefix, "."),
+
+  __program_statement_prefix: $ =>
     seq(
       gen.kw("program"),
       field("name", $.identifier),
       repeat($.__program_statement_addition),
     ),
-  ),
 
   __program_statement_addition: $ =>
     choice(
@@ -29,13 +30,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFUNCTION-POOL.html
    */
-  ...gen.periodTerminated("function_pool_statement", $ =>
+  function_pool_statement: $ => seq($.__function_pool_statement_prefix, "."),
+
+  __function_pool_statement_prefix: $ =>
     seq(
       gen.kw("function-pool"),
       field("name", $.identifier),
       repeat($.__function_pool_statement_addition),
     ),
-  ),
 
   __function_pool_statement_addition: $ =>
     choice(
@@ -53,13 +55,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html
    */
-  ...gen.periodTerminated("report_statement", $ =>
+  report_statement: $ => seq($.__report_statement_prefix, "."),
+
+  __report_statement_prefix: $ =>
     seq(
       gen.kw("report"),
       field("name", $.identifier),
       repeat($.__report_statement_addition),
     ),
-  ),
 
   __report_statement_addition: $ =>
     choice(
@@ -76,31 +79,34 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-POOL.html
    */
-  ...gen.periodTerminated("class_pool_statement", $ =>
+  class_pool_statement: $ => seq($.__class_pool_statement_prefix, "."),
+
+  __class_pool_statement_prefix: $ =>
     seq(
       gen.kw("class-pool"),
       field("name", $.identifier),
       optional($.default_message_class),
     ),
-  ),
 
   /**
    * INTERFACE-POOL.
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE-POOL.html
    */
-  ...gen.periodTerminated("interface_pool_statement", $ =>
+  interface_pool_statement: $ => seq($.__interface_pool_statement_prefix, "."),
+
+  __interface_pool_statement_prefix: $ =>
     seq(gen.kw("interface-pool")),
-  ),
 
   /**
    * TYPE-POOL.
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPE-POOL.html
    */
-  ...gen.periodTerminated("type_pool_statement", $ =>
+  type_pool_statement: $ => seq($.__type_pool_statement_prefix, "."),
+
+  __type_pool_statement_prefix: $ =>
     seq(gen.kw("type-pool")),
-  ),
 
   reduced_functionality: _ => seq(...gen.kws("reduced", "functionality")),
 

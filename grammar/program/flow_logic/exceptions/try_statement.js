@@ -11,7 +11,9 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTRY.html
    */
-  ...gen.periodTerminated("try_statement", $ =>
+  try_statement: $ => seq($.__try_statement_prefix, "."),
+
+  __try_statement_prefix: $ =>
     seq(
       gen.kw("try"),
       ".",
@@ -20,7 +22,6 @@ module.exports = {
       optional(field("cleanup", $.cleanup_clause)),
       gen.kw("endtry"),
     ),
-  ),
 
   /**
    * CATCH [BEFORE UNWIND] cx_class1 cx_class2 ... [INTO oref].

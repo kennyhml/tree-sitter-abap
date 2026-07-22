@@ -4,7 +4,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPGENERATE_SUBROUTINE_POOL.html
    */
-  ...gen.periodTerminated("generate_subroutine_pool_statement", $ =>
+  generate_subroutine_pool_statement: $ => seq($.__generate_subroutine_pool_statement_prefix, "."),
+
+  __generate_subroutine_pool_statement_prefix: $ =>
     seq(
       ...gen.kws("generate", "subroutine", "pool"),
       field("source", $.named_data_object),
@@ -12,7 +14,6 @@ module.exports = {
       field("program", $.writable_expression),
       repeat($.__generate_subroutine_pool_addition),
     ),
-  ),
 
   __generate_subroutine_pool_addition: $ =>
     choice(

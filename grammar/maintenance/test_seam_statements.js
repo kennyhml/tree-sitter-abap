@@ -6,7 +6,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTEST-SEAM.html
    */
-  ...gen.periodTerminated("test_seam_statement", $ =>
+  test_seam_statement: $ => seq($.__test_seam_statement_prefix, "."),
+
+  __test_seam_statement_prefix: $ =>
     seq(
       gen.kw("test-seam"),
       field("name", $.identifier),
@@ -14,7 +16,6 @@ module.exports = {
       optional(field("body", $.statement_block)),
       gen.kw("end-test-seam"),
     ),
-  ),
 
   /**
    * TEST-INJECTION seam.
@@ -23,7 +24,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTEST-INJECTION.html
    */
-  ...gen.periodTerminated("test_injection_statement", $ =>
+  test_injection_statement: $ => seq($.__test_injection_statement_prefix, "."),
+
+  __test_injection_statement_prefix: $ =>
     seq(
       gen.kw("test-injection"),
       field("name", $.identifier),
@@ -31,5 +34,4 @@ module.exports = {
       optional(field("body", $.statement_block)),
       gen.kw("end-test-injection"),
     ),
-  ),
 };

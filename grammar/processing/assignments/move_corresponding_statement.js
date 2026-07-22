@@ -1,5 +1,7 @@
 module.exports = {
-  ...gen.periodTerminated("move_corresponding_statement", $ =>
+  move_corresponding_statement: $ => seq($.__move_corresponding_statement_prefix, "."),
+
+  __move_corresponding_statement_prefix: $ =>
     seq(
       gen.kw("move-corresponding"),
       optional($.exact),
@@ -9,7 +11,6 @@ module.exports = {
       optional($.expanding_nested_tables),
       optional($.keeping_target_lines),
     ),
-  ),
 
   expanding_nested_tables: _ =>
     seq(...gen.kws("expanding", "nested", "tables")),

@@ -5,7 +5,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWRITE_TO.html
    */
-  ...gen.periodTerminated("write_to_statement", $ =>
+  write_to_statement: $ => seq($.__write_to_statement_prefix, "."),
+
+  __write_to_statement_prefix: $ =>
     seq(
       gen.kw("write"),
       field("source", choice($.general_expression, $.dynamic_spec)),
@@ -13,7 +15,6 @@ module.exports = {
       field("destination", $.general_expression),
       repeat($.__format_option),
     ),
-  ),
 
   /**
    *... [LEFT-JUSTIFIED|CENTERED|RIGHT-JUSTIFIED]

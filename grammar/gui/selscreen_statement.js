@@ -1,8 +1,9 @@
 // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselection-screen.html
 module.exports = {
-  ...gen.periodTerminated("selection_screen_statement", $ =>
+  selection_screen_statement: $ => seq($.__selection_screen_statement_prefix, "."),
+
+  __selection_screen_statement_prefix: $ =>
     gen.chainable("selection-screen", $.__selection_screen_element),
-  ),
 
   /**
    * Any element that is preceded by a `SELECTION_SCREEN` or `SELECTION_SCREEN:`.

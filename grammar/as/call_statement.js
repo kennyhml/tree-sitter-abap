@@ -6,11 +6,12 @@ module.exports = {
    *
    * @see http://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL-.html
    */
-  ...gen.periodTerminated("call_statement", $ =>
+  call_statement: $ => seq($.__call_statement_prefix, "."),
+
+  __call_statement_prefix: $ =>
     seq(
       gen.kw("call"),
       field("name", $.data_object),
       repeat($.id_field_spec),
     ),
-  ),
 };

@@ -11,7 +11,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSIGN.html
    */
-  ...gen.periodTerminated("assign_statement", $ =>
+  assign_statement: $ => seq($.__assign_statement_prefix, "."),
+
+  __assign_statement_prefix: $ =>
     seq(
       gen.kw("assign"),
       field("source", choice($.__assign_source)),
@@ -23,7 +25,6 @@ module.exports = {
       optional($.assignment_range),
       optional($.else_unassign),
     ),
-  ),
 
   /**
    * ... static_dobj

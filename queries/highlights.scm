@@ -430,7 +430,14 @@
 (for_event
   [
 	source: (identifier) @type
-    name: (identifier) @variable.event
+    name: (identifier) @constant
+  ]
+)
+
+(raise_event_statement
+  name: [
+    (identifier) @constant
+    (component_selection component: (identifier) @constant)
   ]
 )
 

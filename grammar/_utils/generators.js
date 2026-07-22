@@ -49,13 +49,6 @@ function chainable(keyword, spec) {
   );
 }
 
-function periodTerminated(name, prefixRule) {
-  return {
-    [name]: $ => seq($["__" + name + "_prefix"], "."),
-    ["__" + name + "_prefix"]: prefixRule,
-  };
-}
-
 /**
  * Lightweight variant of {@link chainable} useful when the statement is not
  * a declaration initiated by a single keyword or no statement terminator is
@@ -84,13 +77,14 @@ function declaration_and_spec(keyword, identifier, prefix) {
 
   return {
     ...rules,
-    ...periodTerminated(decl, $ => {
+    [decl]: $ => seq($[`__${decl}_prefix`], "."),
+    [`__${decl}_prefix`]: $ => {
       let opt = [$.begin_of_struct, $.end_of_struct, $[spec]];
       if (keyword === "types") {
         opt.push($.begin_of_enum, $.end_of_enum, $.enum_value_spec);
       }
       return chainable(keyword, choice(...opt));
-    }),
+    },
   };
 }
 
@@ -222,7 +216,6 @@ module.exports = {
   kws,
   chainable_immediate,
   chainable,
-  periodTerminated,
   declaration_and_spec,
   commaSep1,
   kw_tagged,

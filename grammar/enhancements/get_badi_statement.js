@@ -10,7 +10,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPGET_BADI.html
    */
-  ...gen.periodTerminated("get_badi_statement", $ =>
+  get_badi_statement: $ => seq($.__get_badi_statement_prefix, "."),
+
+  __get_badi_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "badi"),
       field("name", $.named_data_object),
@@ -23,7 +25,6 @@ module.exports = {
         ),
       ),
     ),
-  ),
 
   // f1 = x1 f2 = x2 ...
   badi_filters_spec: $ =>

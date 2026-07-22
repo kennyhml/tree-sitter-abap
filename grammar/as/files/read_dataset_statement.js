@@ -5,7 +5,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_DATASET.html
    */
-  ...gen.periodTerminated("read_dataset_statement", $ =>
+  read_dataset_statement: $ => seq($.__read_dataset_statement_prefix, "."),
+
+  __read_dataset_statement_prefix: $ =>
     seq(
       ...gen.kws("read", "dataset"),
       field("source", $.data_object),
@@ -14,7 +16,6 @@ module.exports = {
       optional($.dataset_maximum_length_spec),
       optional($.dataset_actual_length_spec),
     ),
-  ),
 
   dataset_maximum_length_spec: $ =>
     seq(...gen.kws("maximum", "length"), field("length", $.data_object)),

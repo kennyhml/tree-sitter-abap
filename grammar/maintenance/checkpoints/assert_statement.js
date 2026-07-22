@@ -6,14 +6,15 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSERT.html
    */
-  ...gen.periodTerminated("assert_statement", $ =>
+  assert_statement: $ => seq($.__assert_statement_prefix, "."),
+
+  __assert_statement_prefix: $ =>
     seq(
       gen.kw("assert"),
       optional($.checkpoint_id_spec),
       optional($.checkpoint_fields_spec),
       $.assert_condition_spec,
     ),
-  ),
 
   assert_condition_spec: $ =>
     seq(

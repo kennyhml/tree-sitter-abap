@@ -4,9 +4,10 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLEAR.html
    */
-  ...gen.periodTerminated("clear_statement", $ =>
+  clear_statement: $ => seq($.__clear_statement_prefix, "."),
+
+  __clear_statement_prefix: $ =>
     gen.chainable("clear", $.clear_spec),
-  ),
 
   clear_spec: $ =>
     seq(

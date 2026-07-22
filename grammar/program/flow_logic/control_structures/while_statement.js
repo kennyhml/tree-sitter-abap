@@ -8,7 +8,9 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWHILE.html
    */
-  ...gen.periodTerminated("while_statement", $ =>
+  while_statement: $ => seq($.__while_statement_prefix, "."),
+
+  __while_statement_prefix: $ =>
     seq(
       gen.kw("while"),
       field("condition", $._logical_expression),
@@ -16,5 +18,4 @@ module.exports = {
       optional(field("body", $.statement_block)),
       gen.kw("endwhile"),
     ),
-  ),
 };

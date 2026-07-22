@@ -6,11 +6,12 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINCLUDE_PROG.html
    */
-  ...gen.periodTerminated("include_statement", $ =>
+  include_statement: $ => seq($.__include_statement_prefix, "."),
+
+  __include_statement_prefix: $ =>
     seq(
       gen.kw("include"),
       field("name", $.identifier),
       optional($.if_found),
     ),
-  ),
 };

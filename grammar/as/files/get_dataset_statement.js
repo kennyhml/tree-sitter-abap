@@ -4,7 +4,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPGET_DATASET.html
    */
-  ...gen.periodTerminated("get_dataset_statement", $ =>
+  get_dataset_statement: $ => seq($.__get_dataset_statement_prefix, "."),
+
+  __get_dataset_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "dataset"),
       field("file", $.data_object),
@@ -15,7 +17,6 @@ module.exports = {
         ),
       ),
     ),
-  ),
 
   _get_dataset_position_spec: $ =>
     seq(gen.kw("position"), field("destination", $.receiving_expression)),

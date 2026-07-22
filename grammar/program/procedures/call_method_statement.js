@@ -5,7 +5,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_METH_IDENT_DYNA.html
    */
-  ...gen.periodTerminated("call_method_statement", $ =>
+  call_method_statement: $ => seq($.__call_method_statement_prefix, "."),
+
+  __call_method_statement_prefix: $ =>
     seq(
       ...gen.kws("call", "method"),
       field(
@@ -14,5 +16,4 @@ module.exports = {
       ),
       optional($.call_argument_list),
     ),
-  ),
 };

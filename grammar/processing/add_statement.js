@@ -6,12 +6,13 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPADD.html
    */
-  ...gen.periodTerminated("add_statement", $ =>
+  add_statement: $ => seq($.__add_statement_prefix, "."),
+
+  __add_statement_prefix: $ =>
     seq(
       gen.kw("add"),
       field("value", $.data_object),
       gen.kw("to"),
       field("subject", $.data_object),
     ),
-  ),
 };

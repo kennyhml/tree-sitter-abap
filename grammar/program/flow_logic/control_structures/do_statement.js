@@ -8,7 +8,9 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDO.html
    */
-  ...gen.periodTerminated("do_statement", $ =>
+  do_statement: $ => seq($.__do_statement_prefix, "."),
+
+  __do_statement_prefix: $ =>
     seq(
       gen.kw("do"),
       optional(field("times", $.times_spec)),
@@ -16,7 +18,6 @@ module.exports = {
       optional(field("body", $.statement_block)),
       gen.kw("enddo"),
     ),
-  ),
 
   times_spec: $ =>
     seq(field("repetitions", $.numeric_expression), gen.kw("times")),

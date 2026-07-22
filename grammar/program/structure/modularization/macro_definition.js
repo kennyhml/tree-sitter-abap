@@ -6,7 +6,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDEFINE.html
    */
-  ...gen.periodTerminated("macro_definition", $ =>
+  macro_definition: $ => seq($.__macro_definition_prefix, "."),
+
+  __macro_definition_prefix: $ =>
     seq(
       gen.kw("define"),
       field("name", $.identifier),
@@ -14,7 +16,6 @@ module.exports = {
       optional(field("body", $.statement_block)),
       gen.kw("end-of-definition"),
     ),
-  ),
 
   /**
    *  macro [p1 p2 ... ].

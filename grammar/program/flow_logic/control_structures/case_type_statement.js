@@ -4,7 +4,9 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE_TYPE.html
    */
-  ...gen.periodTerminated("case_type_of_statement", $ =>
+  case_type_of_statement: $ => seq($.__case_type_of_statement_prefix, "."),
+
+  __case_type_of_statement_prefix: $ =>
     seq(
       ...gen.kws("case", "type", "of"),
       field("subject", $.general_expression),
@@ -13,7 +15,6 @@ module.exports = {
       optional(field("others", $.case_others_type_clause)),
       gen.kw("endcase"),
     ),
-  ),
 
   /**
    * [WHEN TYPE class|intf [INTO target2].

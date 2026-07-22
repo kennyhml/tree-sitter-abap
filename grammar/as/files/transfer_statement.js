@@ -4,7 +4,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTRANSFER.html
    */
-  ...gen.periodTerminated("transfer_statement", $ =>
+  transfer_statement: $ => seq($.__transfer_statement_prefix, "."),
+
+  __transfer_statement_prefix: $ =>
     seq(
       gen.kw("transfer"),
       field("source", $.data_object),
@@ -13,7 +15,6 @@ module.exports = {
       optional($.transfer_length_spec),
       optional($.no_end_of_line),
     ),
-  ),
 
   transfer_length_spec: $ =>
     seq(gen.kw("length"), field("length", $.data_object)),

@@ -6,7 +6,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHOD.html
    */
-  ...gen.periodTerminated("method_implementation", $ =>
+  method_implementation: $ => seq($.__method_implementation_prefix, "."),
+
+  __method_implementation_prefix: $ =>
     seq(
       gen.kw("method"),
       field("name", choice($.identifier, $.component_selection)),
@@ -14,7 +16,6 @@ module.exports = {
       optional($.method_body),
       gen.kw("endmethod"),
     ),
-  ),
 
   method_body: $ => repeat1($.simple_statement),
 };
