@@ -245,6 +245,7 @@ module.exports = grammar({
           $.enhancement_point_statement,
           $.enhancement_section_statement,
           $.wait_for_statement,
+          $.receive_results_statement,
 
           $._empty_statement,
         ),

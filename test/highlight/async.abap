@@ -23,6 +23,29 @@ CALL FUNCTION co_fb_name
   DESTINATION IN GROUP lv_group.
 "                      ^ variable
 
+RECEIVE RESULTS FROM FUNCTION
+  'Z_ASYNC_PROCESS'
+"  ^ string.special.symbol
+  KEEPING TASK
+  IMPORTING
+    ev_result = lv_result
+"   ^ variable.parameter
+"               ^ variable
+  TABLES
+    et_messages = lt_messages
+"   ^ variable.parameter
+"                 ^ variable
+  CHANGING
+    cv_state = lv_state.
+"   ^ variable.parameter
+"              ^ variable
+
+RECEIVE RESULTS FROM FUNCTION lv_function.
+"                             ^ variable
+
+RECEIVE RESULTS FROM FUNCTION 'MY_FUNCTION_MODULE'.
+"                              ^ string.special.symbol
+
 WAIT FOR ASYNCHRONOUS TASKS
   UNTIL tasks_done = abap_true.
 "       ^ variable

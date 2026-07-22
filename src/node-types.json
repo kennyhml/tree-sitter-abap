@@ -702,6 +702,10 @@
         "named": true
       },
       {
+        "type": "receive_results_statement",
+        "named": true
+      },
+      {
         "type": "replace_statement",
         "named": true
       },
@@ -803,6 +807,10 @@
       },
       {
         "type": "unpack_statement",
+        "named": true
+      },
+      {
+        "type": "wait_for_statement",
         "named": true
       },
       {
@@ -2103,6 +2111,26 @@
     }
   },
   {
+    "type": "asynchronous_tasks",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "asynchronous",
+            "named": false
+          },
+          {
+            "type": "tasks",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "at_end_of_statement",
     "named": true,
     "fields": {
@@ -2443,6 +2471,121 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "await_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "asynchronous_tasks",
+          "named": true
+        },
+        {
+          "type": "messaging_channels",
+          "named": true
+        },
+        {
+          "type": "push_channels",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "await_until_spec",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "until",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "await_up_to_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "seconds",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "up",
+            "named": false
+          }
+        ]
+      },
+      "seconds": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -14744,6 +14887,26 @@
     }
   },
   {
+    "type": "keeping_task",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "keeping",
+            "named": false
+          },
+          {
+            "type": "task",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "key_component_list",
     "named": true,
     "fields": {
@@ -16152,6 +16315,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "messaging_channels",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "channels",
+            "named": false
+          },
+          {
+            "type": "messaging",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -18511,6 +18694,26 @@
     }
   },
   {
+    "type": "push_channels",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "channels",
+            "named": false
+          },
+          {
+            "type": "push",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "pushbutton_element",
     "named": true,
     "fields": {
@@ -19087,6 +19290,58 @@
       "types": [
         {
           "type": "textpool_language_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "receive_results_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "function",
+            "named": false
+          },
+          {
+            "type": "receive",
+            "named": false
+          },
+          {
+            "type": "results",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "call_argument_list",
+          "named": true
+        },
+        {
+          "type": "keeping_task",
           "named": true
         }
       ]
@@ -24528,6 +24783,44 @@
     }
   },
   {
+    "type": "wait_for_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "wait",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "await_list",
+          "named": true
+        },
+        {
+          "type": "await_until_spec",
+          "named": true
+        },
+        {
+          "type": "await_up_to_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "wait_up_to_statement",
     "named": true,
     "fields": {
@@ -25252,6 +25545,10 @@
     "named": false
   },
   {
+    "type": "asynchronous",
+    "named": false
+  },
+  {
     "type": "at",
     "named": false
   },
@@ -25381,6 +25678,10 @@
   },
   {
     "type": "changing",
+    "named": false
+  },
+  {
+    "type": "channels",
     "named": false
   },
   {
@@ -26217,6 +26518,10 @@
     "named": true
   },
   {
+    "type": "messaging",
+    "named": false
+  },
+  {
     "type": "method",
     "named": false
   },
@@ -26454,6 +26759,10 @@
     "named": false
   },
   {
+    "type": "push",
+    "named": false
+  },
+  {
     "type": "pushbutton",
     "named": false
   },
@@ -26475,6 +26784,10 @@
   },
   {
     "type": "read",
+    "named": false
+  },
+  {
+    "type": "receive",
     "named": false
   },
   {
@@ -26787,6 +27100,10 @@
   },
   {
     "type": "task",
+    "named": false
+  },
+  {
+    "type": "tasks",
     "named": false
   },
   {

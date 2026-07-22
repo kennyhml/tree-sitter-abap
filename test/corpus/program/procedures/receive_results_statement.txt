@@ -1,0 +1,65 @@
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / RECEIVE ] Static function
+=================================================================================
+RECEIVE RESULTS FROM FUNCTION 'Z_ASYNC_PROCESS'.
+---
+
+(source
+  (receive_results_statement
+    name: (string_literal)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / RECEIVE ] Dynamic function
+=================================================================================
+RECEIVE RESULTS FROM FUNCTION lv_function.
+---
+
+(source
+  (receive_results_statement
+    name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / RECEIVE ] Parameters and retained task
+=================================================================================
+RECEIVE RESULTS FROM FUNCTION 'Z_ASYNC_PROCESS'
+  KEEPING TASK
+  IMPORTING
+    ev_result = lv_result
+  TABLES
+    et_messages = lt_messages
+  CHANGING
+    cv_state = lv_state
+  EXCEPTIONS
+    system_failure = 1 MESSAGE lv_message
+    communication_failure = 2
+    OTHERS = 3.
+---
+
+(source
+  (receive_results_statement
+    name: (string_literal)
+    (keeping_task)
+    (call_argument_list
+      importing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      tables: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      changing: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier)))
+      exceptions: (argument_list
+        (exception_mapping
+          name: (identifier)
+          value: (number)
+          message: (identifier))
+        (exception_mapping
+          name: (identifier)
+          value: (number))
+        (exception_mapping
+          name: (identifier)
+          value: (number))))))
