@@ -1,0 +1,71 @@
+=================================================================================
+[ ABAP - Calling Procedures / WAIT FOR ] Asynchronous tasks
+=================================================================================
+WAIT FOR ASYNCHRONOUS TASKS UNTIL tasks_done = abap_true.
+---
+
+(source
+  (wait_for_statement
+    (await_list
+      (asynchronous_tasks))
+    (await_until_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Calling Procedures / WAIT FOR ] Messaging channels
+=================================================================================
+WAIT FOR MESSAGING CHANNELS
+  UNTIL message_received = abap_true
+  UP TO timeout SECONDS.
+---
+
+(source
+  (wait_for_statement
+    (await_list
+      (messaging_channels))
+    (await_until_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))
+    (await_up_to_spec
+      seconds: (identifier))))
+
+=================================================================================
+[ ABAP - Calling Procedures / WAIT FOR ] Push channels
+=================================================================================
+WAIT FOR PUSH CHANNELS UNTIL message_received = abap_true.
+---
+
+(source
+  (wait_for_statement
+    (await_list
+      (push_channels))
+    (await_until_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Calling Procedures / WAIT FOR ] Combined variants
+=================================================================================
+WAIT FOR ASYNCHRONOUS TASKS
+  MESSAGING CHANNELS
+  PUSH CHANNELS
+  UNTIL all_done = abap_true
+  UP TO timeout SECONDS.
+---
+
+(source
+  (wait_for_statement
+    (await_list
+      (asynchronous_tasks)
+      (messaging_channels)
+      (push_channels))
+    (await_until_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))
+    (await_up_to_spec
+      seconds: (identifier))))

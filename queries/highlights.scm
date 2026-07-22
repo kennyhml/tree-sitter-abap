@@ -53,6 +53,7 @@
 (close_dataset_statement dataset: (string_literal) @string.special.path )
 
 (authority_check_statement auth_object: (string_literal) @string.special.symbol )
+(call_function_statement name: (string_literal) @string.special.symbol )
 (id_field_spec id: (string_literal) @string.special.symbol )
 
 
@@ -60,16 +61,6 @@
 
 ; Could also be a data object but who on earth would do that..
 (alias_spec alias: (identifier) @function.method )
-
-(asynchronous_callback 
-  [
-    method: [
-      (component_selection component: (identifier) @function.method)
-      (identifier) @function.method
-    ]
-  routine: (identifier) @function.subroutine
-  ]
-)
 
 
 (constructor_spec "constructor" @constructor )
@@ -881,3 +872,14 @@
 
 
 (format_option name: (identifier) @variable.parameter.builtin )
+
+(asynchronous_callback 
+  [
+    method: [
+      (component_selection component: (identifier) @function.method)
+      (identifier) @function.method
+    ]
+  routine: (identifier) @function.subroutine
+  ]
+)
+

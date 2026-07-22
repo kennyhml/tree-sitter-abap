@@ -172,6 +172,47 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
       task_id: (identifier))))
 
 =================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Asynchronous method callback
+=================================================================================
+CALL FUNCTION 'Z_ASYNC_PROCESS'
+    STARTING NEW TASK lv_task_id
+    CALLING lo_handler->on_end_of_task ON END OF TASK
+    EXPORTING
+      iv_request = lv_request.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (starting_new_task
+      task_id: (identifier))
+    (asynchronous_callback
+      method: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Asynchronous routine callback
+=================================================================================
+CALL FUNCTION 'Z_ASYNC_PROCESS'
+    STARTING NEW TASK lv_task_id
+    PERFORMING on_end_of_task ON END OF TASK.
+---
+
+(source
+  (call_function_statement
+    name: (string_literal)
+    (starting_new_task
+      task_id: (identifier))
+    (asynchronous_callback
+      routine: (identifier))))
+
+=================================================================================
 [ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL FUNCTION ] Remote group
 =================================================================================
 CALL FUNCTION co_fb_name
