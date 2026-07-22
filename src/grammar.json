@@ -548,6 +548,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "events_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "class_events_declaration"
+          },
+          {
+            "type": "SYMBOL",
             "name": "tables_declaration"
           },
           {
@@ -7643,6 +7651,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "events_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "class_events_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "constants_declaration"
         },
         {
@@ -8156,6 +8172,174 @@
     "public": {
       "type": "SYMBOL",
       "name": "_kw_public"
+    },
+    "events_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__events_declaration_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__events_declaration_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_events"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "event_spec"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "event_spec"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "event_spec"
+            }
+          ]
+        }
+      ]
+    },
+    "class_events_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__class_events_declaration_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__class_events_declaration_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_class_events"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "event_spec"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "event_spec"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "event_spec"
+            }
+          ]
+        }
+      ]
+    },
+    "event_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_exporting"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "exporting",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "parameters"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "interfaces_declaration": {
       "type": "SEQ",
@@ -29803,6 +29987,61 @@
         "value": "testing"
       }
     },
+    "_kw_events": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)events"
+        },
+        "named": false,
+        "value": "events"
+      }
+    },
+    "__kw_class_events": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)class"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-events"
+          }
+        }
+      ]
+    },
+    "_kw_class_events": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_class_events"
+        },
+        "named": false,
+        "value": "class-events"
+      }
+    },
+    "_kw_exporting": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)exporting"
+        },
+        "named": false,
+        "value": "exporting"
+      }
+    },
     "_kw_partially": {
       "type": "FIELD",
       "name": "keyword",
@@ -32834,19 +33073,6 @@
         },
         "named": false,
         "value": "importing"
-      }
-    },
-    "_kw_exporting": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)exporting"
-        },
-        "named": false,
-        "value": "exporting"
       }
     },
     "_kw_changing": {

@@ -276,6 +276,8 @@ module.exports = grammar({
           $.methods_declaration,
           $.method_implementation,
           $.class_methods_declaration,
+          $.events_declaration,
+          $.class_events_declaration,
 
           // Program
           $.tables_declaration,

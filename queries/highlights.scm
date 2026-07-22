@@ -434,6 +434,20 @@
   ]
 )
 
+(method_spec
+  (for_event)
+  importing: (parameters 
+    (parameter
+      (implicit_reference 
+        name: (identifier) @variable.parameter.builtin
+        ( #match? @variable.parameter.builtin "^[sS][eE][nN][dD][eE][rR]$" )
+      )
+    )
+  )
+)
+
+(event_spec name: (identifier) @constant)
+
 (raise_event_statement
   name: [
     (identifier) @constant

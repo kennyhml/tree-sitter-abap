@@ -31,7 +31,8 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_DEFERRED.html
    */
-  deferred_class_declaration: $ => seq($.__deferred_class_declaration_prefix, "."),
+  deferred_class_declaration: $ =>
+    seq($.__deferred_class_declaration_prefix, "."),
 
   __deferred_class_declaration_prefix: $ =>
     seq(
@@ -47,6 +48,8 @@ module.exports = {
     choice(
       $.data_declaration,
       $.class_data_declaration,
+      $.events_declaration,
+      $.class_events_declaration,
       $.constants_declaration,
       $.types_declaration,
       $.aliases_declaration,
@@ -85,7 +88,8 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_LOCAL_FRIENDS.html
    */
-  local_friends_declaration: $ => seq($.__local_friends_declaration_prefix, "."),
+  local_friends_declaration: $ =>
+    seq($.__local_friends_declaration_prefix, "."),
 
   __local_friends_declaration_prefix: $ =>
     seq(

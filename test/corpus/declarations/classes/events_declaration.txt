@@ -1,0 +1,73 @@
+=================================================================================
+[ ABAP - Declarations / Classes / Events / EVENTS ] Instance event
+=================================================================================
+EVENTS changed.
+---
+
+(source
+  (events_declaration
+    (event_spec
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Classes / Events / CLASS-EVENTS ] Parameters
+=================================================================================
+CLASS-EVENTS completed
+  EXPORTING
+    VALUE(result) TYPE string
+    VALUE(message) TYPE string OPTIONAL.
+---
+
+(source
+  (class_events_declaration
+    (event_spec
+      name: (identifier)
+      exporting: (parameters
+        (parameter
+          (explicit_value
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (explicit_value
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier))
+          (optional))))))
+
+=================================================================================
+[ ABAP - Declarations / Classes / Events / EVENTS ] Chained events
+=================================================================================
+EVENTS:
+  minimized,
+  maximized.
+---
+
+(source
+  (events_declaration
+    (event_spec
+      name: (identifier))
+    (event_spec
+      name: (identifier))))
+
+=================================================================================
+[ ABAP - Declarations / Classes / Events ] Class components
+=================================================================================
+CLASS cl_event_source DEFINITION.
+  PUBLIC SECTION.
+    EVENTS changed.
+    CLASS-EVENTS shutdown.
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    name: (identifier)
+    (class_body
+      (public_section
+        (events_declaration
+          (event_spec
+            name: (identifier)))
+        (class_events_declaration
+          (event_spec
+            name: (identifier)))))))

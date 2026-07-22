@@ -284,6 +284,10 @@
         "named": true
       },
       {
+        "type": "class_events_declaration",
+        "named": true
+      },
+      {
         "type": "class_implementation",
         "named": true
       },
@@ -297,6 +301,10 @@
       },
       {
         "type": "deferred_interface_declaration",
+        "named": true
+      },
+      {
+        "type": "events_declaration",
         "named": true
       },
       {
@@ -4679,6 +4687,11 @@
     "fields": {}
   },
   {
+    "type": "class-events",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "class-methods",
     "named": false,
     "fields": {}
@@ -4964,6 +4977,32 @@
         },
         {
           "type": "class_options",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_events_declaration",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class-events",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "event_spec",
           "named": true
         }
       ]
@@ -9909,6 +9948,68 @@
     }
   },
   {
+    "type": "event_spec",
+    "named": true,
+    "fields": {
+      "exporting": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "parameters",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "exporting",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "events_declaration",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "events",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "event_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exact",
     "named": true,
     "fields": {
@@ -14490,6 +14591,10 @@
           "named": true
         },
         {
+          "type": "class_events_declaration",
+          "named": true
+        },
+        {
           "type": "class_methods_declaration",
           "named": true
         },
@@ -14499,6 +14604,10 @@
         },
         {
           "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "events_declaration",
           "named": true
         },
         {
@@ -18430,6 +18539,10 @@
           "named": true
         },
         {
+          "type": "class_events_declaration",
+          "named": true
+        },
+        {
           "type": "class_methods_declaration",
           "named": true
         },
@@ -18439,6 +18552,10 @@
         },
         {
           "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "events_declaration",
           "named": true
         },
         {
@@ -18570,6 +18687,10 @@
           "named": true
         },
         {
+          "type": "class_events_declaration",
+          "named": true
+        },
+        {
           "type": "class_methods_declaration",
           "named": true
         },
@@ -18579,6 +18700,10 @@
         },
         {
           "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "events_declaration",
           "named": true
         },
         {
@@ -18671,6 +18796,10 @@
           "named": true
         },
         {
+          "type": "class_events_declaration",
+          "named": true
+        },
+        {
           "type": "class_methods_declaration",
           "named": true
         },
@@ -18680,6 +18809,10 @@
         },
         {
           "type": "data_declaration",
+          "named": true
+        },
+        {
+          "type": "events_declaration",
           "named": true
         },
         {
@@ -26142,6 +26275,10 @@
   },
   {
     "type": "event",
+    "named": false
+  },
+  {
+    "type": "events",
     "named": false
   },
   {
