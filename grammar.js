@@ -243,6 +243,7 @@ module.exports = grammar({
           $.call_badi_statement,
           $.enhancement_statement,
           $.enhancement_point_statement,
+          $.enhancement_section_statement,
 
           $._empty_statement,
         ),

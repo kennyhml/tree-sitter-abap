@@ -220,6 +220,7 @@
 (test_seam_statement name: (identifier) @constant )
 (enhancement_statement name: (identifier) @constant )
 (enhancement_point_statement name: (identifier) @constant )
+(enhancement_section_statement name: (identifier) @constant )
 (enhancement_spots_spec (identifier) @constant )
 
 (key_components (identifier) @variable.member )

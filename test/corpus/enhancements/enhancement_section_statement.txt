@@ -1,0 +1,101 @@
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-SECTION ] Empty section
+=================================================================================
+ENHANCEMENT-SECTION z_empty_section SPOTS z_primary_spot.
+END-ENHANCEMENT-SECTION.
+---
+
+(source
+  (enhancement_section_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-SECTION ] Statement body
+=================================================================================
+ENHANCEMENT-SECTION z_assignment_section SPOTS z_primary_spot.
+  result = source.
+  changed = abap_true.
+END-ENHANCEMENT-SECTION.
+---
+
+(source
+  (enhancement_section_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier))
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier))
+      (assignment
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-SECTION ] Multiple spots
+=================================================================================
+ENHANCEMENT-SECTION /example/multi_section
+  SPOTS z_primary_spot /example/secondary_spot.
+END-ENHANCEMENT-SECTION.
+---
+
+(source
+  (enhancement_section_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier)
+      (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-SECTION ] Static section
+=================================================================================
+ENHANCEMENT-SECTION z_static_section SPOTS z_declaration_spot STATIC.
+END-ENHANCEMENT-SECTION.
+---
+
+(source
+  (enhancement_section_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier))
+    (static)))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-SECTION ] Include-bound section
+=================================================================================
+ENHANCEMENT-SECTION z_include_section SPOTS z_include_spot INCLUDE BOUND.
+END-ENHANCEMENT-SECTION.
+---
+
+(source
+  (enhancement_section_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier)
+      (identifier)
+      (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-SECTION ] All additions
+=================================================================================
+ENHANCEMENT-SECTION z_static_include_section
+  SPOTS z_include_spot
+  STATIC
+  INCLUDE BOUND.
+  result = source.
+END-ENHANCEMENT-SECTION.
+---
+
+(source
+  (enhancement_section_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier))
+    (static)
+    (include_bound)
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier)))))

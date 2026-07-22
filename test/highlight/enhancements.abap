@@ -63,3 +63,16 @@ ENHANCEMENT-POINT /example/multi_point
   SPOTS z_primary_spot /example/secondary_spot STATIC INCLUDE BOUND.
 "       ^ constant
 "                      ^ constant
+
+
+ENHANCEMENT-SECTION z_dynamic_section SPOTS z_primary_spot.
+"                   ^ constant
+"                                           ^ constant
+END-ENHANCEMENT-SECTION.
+
+ENHANCEMENT-SECTION /example/multi_section
+"                   ^ constant
+  SPOTS z_primary_spot /example/secondary_spot STATIC INCLUDE BOUND.
+"       ^ constant
+"                      ^ constant
+END-ENHANCEMENT-SECTION.
