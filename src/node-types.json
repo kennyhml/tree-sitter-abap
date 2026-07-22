@@ -746,6 +746,10 @@
         "named": true
       },
       {
+        "type": "set_handler_statement",
+        "named": true
+      },
+      {
         "type": "set_parameter_statement",
         "named": true
       },
@@ -1199,6 +1203,26 @@
           },
           {
             "type": "fields",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "all_instances",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "all",
+            "named": false
+          },
+          {
+            "type": "instances",
             "named": false
           }
         ]
@@ -9942,6 +9966,81 @@
         },
         {
           "type": "initial_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "event_handler_activation_spec",
+    "named": true,
+    "fields": {
+      "activate": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "activation",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "event_handler_for_spec",
+    "named": true,
+    "fields": {
+      "instance": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "all_instances",
+            "named": true
+          },
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "event_handler_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "component_selection",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -21220,6 +21319,44 @@
     }
   },
   {
+    "type": "set_handler_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "handler",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "event_handler_activation_spec",
+          "named": true
+        },
+        {
+          "type": "event_handler_for_spec",
+          "named": true
+        },
+        {
+          "type": "event_handler_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "set_parameter_statement",
     "named": true,
     "fields": {
@@ -25650,6 +25787,10 @@
     "named": false
   },
   {
+    "type": "activation",
+    "named": false
+  },
+  {
     "type": "actual",
     "named": false
   },
@@ -26430,6 +26571,10 @@
     "named": false
   },
   {
+    "type": "handler",
+    "named": false
+  },
+  {
     "type": "harmless",
     "named": false
   },
@@ -26527,6 +26672,10 @@
   },
   {
     "type": "instance",
+    "named": false
+  },
+  {
+    "type": "instances",
     "named": false
   },
   {

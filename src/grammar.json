@@ -491,6 +491,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "set_handler_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -19395,6 +19399,128 @@
         }
       ]
     },
+    "set_handler_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__set_handler_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__set_handler_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_handler"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "event_handler_list"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__set_handler_addition"
+          }
+        }
+      ]
+    },
+    "event_handler_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "component_selection"
+          }
+        ]
+      }
+    },
+    "__set_handler_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "event_handler_activation_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "event_handler_for_spec"
+        }
+      ]
+    },
+    "event_handler_activation_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_activation"
+        },
+        {
+          "type": "FIELD",
+          "name": "activate",
+          "content": {
+            "type": "SYMBOL",
+            "name": "data_object"
+          }
+        }
+      ]
+    },
+    "event_handler_for_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "FIELD",
+          "name": "instance",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "general_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "all_instances"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "all_instances": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_all"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_instances"
+        }
+      ]
+    },
     "cond_expression": {
       "type": "SEQ",
       "members": [
@@ -32366,6 +32492,45 @@
         },
         "named": false,
         "value": "event"
+      }
+    },
+    "_kw_handler": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)handler"
+        },
+        "named": false,
+        "value": "handler"
+      }
+    },
+    "_kw_activation": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)activation"
+        },
+        "named": false,
+        "value": "activation"
+      }
+    },
+    "_kw_instances": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)instances"
+        },
+        "named": false,
+        "value": "instances"
       }
     },
     "_kw_resumable": {

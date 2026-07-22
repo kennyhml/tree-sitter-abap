@@ -248,6 +248,8 @@ module.exports = grammar({
           $.receive_results_statement,
           $.raise_event_statement,
 
+          $.set_handler_statement,
+
           $._empty_statement,
         ),
       ),

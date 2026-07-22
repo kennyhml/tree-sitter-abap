@@ -49,3 +49,20 @@ RAISE EVENT
   if_events~completed.
 " ^ type
 "           ^ constant
+
+SET HANDLER handle_changed FOR lo_source.
+"           ^ function.method
+"                              ^ variable
+
+SET HANDLER cl_handler=>on_changed lo_handler->on_saved FOR lo_source.
+"           ^ type
+"                       ^ function.method
+"                                  ^ variable
+"                                              ^ function.method
+"                                                            ^ variable
+
+SET HANDLER lo_handler->on_changed
+"           ^ variable
+"                       ^ function.method
+  FOR ALL INSTANCES ACTIVATION lv_active.
+"                              ^ variable

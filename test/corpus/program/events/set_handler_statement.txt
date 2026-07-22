@@ -1,0 +1,75 @@
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / SET HANDLER ] Static event
+=================================================================================
+SET HANDLER handle_completed.
+---
+
+(source
+  (set_handler_statement
+    (event_handler_list
+      (identifier))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / SET HANDLER ] Instance event
+=================================================================================
+SET HANDLER cl_handler=>on_changed lo_handler->on_saved FOR lo_source.
+---
+
+(source
+  (set_handler_statement
+    (event_handler_list
+      (component_selection
+        subject: (identifier)
+        component: (identifier))
+      (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (event_handler_for_spec
+      instance: (identifier))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / SET HANDLER ] All instances and activation
+=================================================================================
+SET HANDLER lo_handler->on_changed FOR ALL INSTANCES ACTIVATION lv_active.
+---
+
+(source
+  (set_handler_statement
+    (event_handler_list
+      (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (event_handler_for_spec
+      instance: (all_instances))
+    (event_handler_activation_spec
+      activate: (identifier))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / SET HANDLER ] Functional raiser
+=================================================================================
+SET HANDLER handle_double_click FOR alv->get_event( ).
+---
+
+(source
+  (set_handler_statement
+    (event_handler_list
+      (identifier))
+    (event_handler_for_spec
+      instance: (function_call
+        source: (identifier)
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Events / SET HANDLER ] Static activation
+=================================================================================
+SET HANDLER cl_handler=>on_completed ACTIVATION ' '.
+---
+
+(source
+  (set_handler_statement
+    (event_handler_list
+      (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (event_handler_activation_spec
+      activate: (string_literal))))

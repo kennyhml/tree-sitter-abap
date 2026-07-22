@@ -455,6 +455,13 @@
   ]
 )
 
+(event_handler_list
+  [
+    (identifier) @function.method
+    (component_selection component: (identifier) @function.method)
+  ]
+)
+
 
 (function_call
   source: [
