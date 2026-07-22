@@ -219,6 +219,8 @@
 (test_injection_statement name: (identifier) @constant )
 (test_seam_statement name: (identifier) @constant )
 (enhancement_statement name: (identifier) @constant )
+(enhancement_point_statement name: (identifier) @constant )
+(enhancement_spots_spec (identifier) @constant )
 
 (key_components (identifier) @variable.member )
 (group_key_component field: (identifier) @variable.member )

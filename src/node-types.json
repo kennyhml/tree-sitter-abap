@@ -530,6 +530,10 @@
         "named": true
       },
       {
+        "type": "enhancement_point_statement",
+        "named": true
+      },
+      {
         "type": "enhancement_statement",
         "named": true
       },
@@ -9475,6 +9479,81 @@
     }
   },
   {
+    "type": "enhancement-point",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "enhancement_point_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "enhancement-point",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "enhancement_spots_spec",
+          "named": true
+        },
+        {
+          "type": "include_bound",
+          "named": true
+        },
+        {
+          "type": "static",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enhancement_spots_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "spots",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enhancement_statement",
     "named": true,
     "fields": {
@@ -13139,6 +13218,26 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_bound",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "bound",
+            "named": false
+          },
+          {
+            "type": "include",
+            "named": false
           }
         ]
       }
@@ -21705,6 +21804,22 @@
     }
   },
   {
+    "type": "static",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "static",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "statics_declaration",
     "named": true,
     "fields": {
@@ -26491,6 +26606,10 @@
     "named": false
   },
   {
+    "type": "spots",
+    "named": false
+  },
+  {
     "type": "sql",
     "named": false
   },
@@ -26508,6 +26627,10 @@
   },
   {
     "type": "starting",
+    "named": false
+  },
+  {
+    "type": "static",
     "named": false
   },
   {

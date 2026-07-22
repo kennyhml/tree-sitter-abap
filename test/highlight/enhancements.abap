@@ -53,3 +53,13 @@ ENHANCEMENT 1 z_source_plugin.
 " ^ variable
 "          ^ variable
 ENDENHANCEMENT.
+
+ENHANCEMENT-POINT z_dynamic_point SPOTS z_primary_spot.
+"                 ^ constant
+"                                       ^ constant
+
+ENHANCEMENT-POINT /example/multi_point
+"                 ^ constant
+  SPOTS z_primary_spot /example/secondary_spot STATIC INCLUDE BOUND.
+"       ^ constant
+"                      ^ constant

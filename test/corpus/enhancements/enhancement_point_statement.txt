@@ -1,0 +1,69 @@
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-POINT ] Basic form
+=================================================================================
+ENHANCEMENT-POINT z_dynamic_point SPOTS z_primary_spot.
+---
+
+(source
+  (enhancement_point_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-POINT ] Multiple spots
+=================================================================================
+ENHANCEMENT-POINT /example/multi_point
+  SPOTS z_primary_spot /example/secondary_spot.
+---
+
+(source
+  (enhancement_point_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier)
+      (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-POINT ] Static point
+=================================================================================
+ENHANCEMENT-POINT z_static_point SPOTS z_declaration_spot STATIC.
+---
+
+(source
+  (enhancement_point_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier))
+    (static)))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-POINT ] Include-bound point
+=================================================================================
+ENHANCEMENT-POINT z_include_point SPOTS z_include_spot INCLUDE BOUND.
+---
+
+(source
+  (enhancement_point_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier)
+      (identifier)
+      (identifier))))
+
+=================================================================================
+[ ABAP - Enhancements / Source Code Enhancements / ENHANCEMENT-POINT ] All additions
+=================================================================================
+ENHANCEMENT-POINT z_static_include_point
+  SPOTS z_include_spot
+  STATIC
+  INCLUDE BOUND.
+---
+
+(source
+  (enhancement_point_statement
+    name: (identifier)
+    (enhancement_spots_spec
+      (identifier))
+    (static)
+    (include_bound)))

@@ -471,6 +471,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "enhancement_point_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -1497,6 +1501,101 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "enhancement_point_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__enhancement_point_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__enhancement_point_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_enhancement_point"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enhancement_spots_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "static"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "include_bound"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "enhancement_spots_spec": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_kw_spots"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          }
+        ]
+      }
+    },
+    "static": {
+      "type": "SYMBOL",
+      "name": "_kw_static"
+    },
+    "include_bound": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_bound"
         }
       ]
     },
@@ -26736,6 +26835,74 @@
         "value": "badi"
       }
     },
+    "__kw_enhancement_point": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)enhancement"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-point"
+          }
+        }
+      ]
+    },
+    "_kw_enhancement_point": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_enhancement_point"
+        },
+        "named": false,
+        "value": "enhancement-point"
+      }
+    },
+    "_kw_spots": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)spots"
+        },
+        "named": false,
+        "value": "spots"
+      }
+    },
+    "_kw_static": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)static"
+        },
+        "named": false,
+        "value": "static"
+      }
+    },
+    "_kw_bound": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)bound"
+        },
+        "named": false,
+        "value": "bound"
+      }
+    },
     "_kw_enhancement": {
       "type": "FIELD",
       "name": "keyword",
@@ -32576,19 +32743,6 @@
         },
         "named": false,
         "value": "not"
-      }
-    },
-    "_kw_bound": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)bound"
-        },
-        "named": false,
-        "value": "bound"
       }
     },
     "_kw_instance": {
