@@ -462,6 +462,17 @@
   ]
 )
 
+(transformation_name_spec name: (identifier) @function.call)
+
+[
+  (transformation_parameter_binding_spec
+    name: (identifier) @variable.parameter)
+  (transformation_source_binding_spec
+    name: (identifier) @variable.parameter)
+  (transformation_result_binding_spec
+    name: (identifier) @variable.parameter)
+]
+
 
 (function_call
   source: [

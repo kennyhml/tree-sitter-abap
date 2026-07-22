@@ -1,0 +1,136 @@
+=================================================================================
+[ ABAP - Data Interchange Formats / CALL TRANSFORMATION ] Identity transformation
+=================================================================================
+CALL TRANSFORMATION id
+  SOURCE root = ls_data
+  RESULT XML DATA(lv_xml).
+---
+
+(source
+  (call_transformation_statement
+    (transformation_name_spec
+      name: (id))
+    (transformation_source_bindings_spec
+      (transformation_source_binding_spec
+        name: (identifier)
+        value: (identifier)))
+    (transformation_result_xml_spec
+      xml: (declaration_expression
+        name: (identifier)))))
+
+=================================================================================
+[ ABAP - Data Interchange Formats / CALL TRANSFORMATION ] Parameters and options
+=================================================================================
+CALL TRANSFORMATION z_demo
+  PARAMETERS pretty = abap_true
+  OPTIONS clear = 'all' xml_header = 'no'
+  SOURCE XML lv_xml
+  RESULT root = ls_data.
+---
+
+(source
+  (call_transformation_statement
+    (transformation_name_spec
+      name: (identifier))
+    (transformation_parameters_spec
+      (transformation_parameter_binding_spec
+        name: (identifier)
+        value: (identifier)))
+    (transformation_options_spec
+      (transformation_option_spec
+        value: (string_literal))
+      (transformation_option_spec
+        value: (string_literal)))
+    (transformation_source_xml_spec
+      xml: (identifier))
+    (transformation_result_bindings_spec
+      (transformation_result_binding_spec
+        name: (identifier)
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Data Interchange Formats / CALL TRANSFORMATION ] Dynamic specifications
+=================================================================================
+CALL TRANSFORMATION (lv_transformation)
+  PARAMETERS (lt_parameters)
+  SOURCE (lt_source)
+  RESULT (lt_result).
+---
+
+(source
+  (call_transformation_statement
+    (transformation_name_spec
+      name: (dynamic_spec
+        value: (identifier)))
+    (transformation_parameters_spec
+      binding_table: (dynamic_spec
+        value: (identifier)))
+    (transformation_source_bindings_spec
+      binding_table: (dynamic_spec
+        value: (identifier)))
+    (transformation_result_bindings_spec
+      binding_table: (dynamic_spec
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Data Interchange Formats / CALL TRANSFORMATION ] Source expressions
+=================================================================================
+CALL TRANSFORMATION z_calculation
+  SOURCE total = lv_left + lv_right
+  RESULT total = lv_total.
+---
+
+(source
+  (call_transformation_statement
+    (transformation_name_spec
+      name: (identifier))
+    (transformation_source_bindings_spec
+      (transformation_source_binding_spec
+        name: (identifier)
+        value: (arithmetic_expression
+          left: (identifier)
+          right: (identifier))))
+    (transformation_result_bindings_spec
+      (transformation_result_binding_spec
+        name: (identifier)
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Data Interchange Formats / CALL TRANSFORMATION ] All options
+=================================================================================
+CALL TRANSFORMATION id
+  OPTIONS
+    clear = 'all'
+    data_refs = 'heap'
+    initial_components = 'include'
+    technical_types = 'ignore'
+    value_handling = 'default'
+    exceptions = 'resumable'
+    xml_header = 'full'
+  SOURCE XML lv_source
+  RESULT XML lv_result.
+---
+
+(source
+  (call_transformation_statement
+    (transformation_name_spec
+      name: (id))
+    (transformation_options_spec
+      (transformation_option_spec
+        value: (string_literal))
+      (transformation_option_spec
+        value: (string_literal))
+      (transformation_option_spec
+        value: (string_literal))
+      (transformation_option_spec
+        value: (string_literal))
+      (transformation_option_spec
+        value: (string_literal))
+      (transformation_option_spec
+        value: (string_literal))
+      (transformation_option_spec
+        value: (string_literal)))
+    (transformation_source_xml_spec
+      xml: (identifier))
+    (transformation_result_xml_spec
+      xml: (identifier))))
