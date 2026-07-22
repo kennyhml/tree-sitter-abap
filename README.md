@@ -93,14 +93,14 @@ The following language features are currently implemented:
 - [x] All date and time processing statements (get time stamp, convert time stamp..)
 - [x] All table processing statements (insert, read, delete, append...)
 - [x] All statements used to access datasets on the application server
-           
+- [x] Enhancement framework statements and BAdI calls
+      
 Partially completed categories are not mentioned here.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
 ### Significant language features the grammar is **missing**:
 - [ ] **ABAP SQL**, including cursor statements and Native SQL
 - [ ] RAP behavior implementation related statements in classes
 - [ ] EML statements
-- [ ] Enhancement framework statements and BAdI calls
 - [ ] Dynpro interaction statements
 - [ ] Classical list processing and spool statements
 - [ ] Internal session and program call statements
