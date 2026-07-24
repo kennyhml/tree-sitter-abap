@@ -1,0 +1,179 @@
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] By primary table key
+=================================================================================
+MODIFY TABLE scarr_tab FROM wa.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] By secondary table key
+=================================================================================
+MODIFY TABLE scarr_tab USING KEY skey FROM wa TRANSPORTING carrname currcode.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (using_key
+      name: (identifier))
+    (from_work_area
+      work_area: (identifier))
+    (transporting_components
+      (identifier)
+      (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Index before work area
+=================================================================================
+MODIFY itab INDEX idx USING KEY skey FROM wa TRANSPORTING comp1 comp2.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (index
+      index: (identifier)
+      (using_key
+        name: (identifier)))
+    (from_work_area
+      work_area: (identifier))
+    (transporting_components
+      (identifier)
+      (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Index after work area
+=================================================================================
+MODIFY itab FROM wa INDEX idx TRANSPORTING comp.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))
+    (index
+      index: (identifier))
+    (transporting_components
+      (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Implicit loop index
+=================================================================================
+MODIFY itab FROM wa.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Explicit loop key
+=================================================================================
+MODIFY itab USING KEY loop_key FROM wa TRANSPORTING comp.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (using_loop_key)
+    (from_work_area
+      work_area: (identifier))
+    (transporting_components
+      (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Static condition
+=================================================================================
+MODIFY itab FROM wa TRANSPORTING status WHERE status IS INITIAL.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))
+    (transporting_components
+      (identifier))
+    (where_condition
+      condition: (initial_predicate
+        subject: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Static condition using key
+=================================================================================
+MODIFY itab FROM wa USING KEY skey TRANSPORTING status WHERE status = value.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier)
+      (using_key
+        name: (identifier)))
+    (transporting_components
+      (identifier))
+    (where_condition
+      condition: (comparison_expression
+        left: (identifier)
+        right: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Dynamic condition
+=================================================================================
+MODIFY itab FROM wa TRANSPORTING status WHERE (condition).
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))
+    (transporting_components
+      (identifier))
+    (where_condition
+      condition: (dynamic_spec
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Assign modified line
+=================================================================================
+MODIFY TABLE itab FROM wa ASSIGNING FIELD-SYMBOL(<line>) CASTING ELSE UNASSIGN.
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))
+    result: (assigning
+      target: (declaration_expression
+        name: (field_symbol
+          name: (identifier)))
+      (casting)
+      (else_unassign))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Reference modified line
+=================================================================================
+MODIFY TABLE itab FROM wa TRANSPORTING smoker REFERENCE INTO FINAL(dref).
+---
+
+(source
+  (modify_statement
+    subject: (identifier)
+    (from_work_area
+      work_area: (identifier))
+    (transporting_components
+      (identifier))
+    result: (reference_into
+      work_area: (declaration_expression
+        name: (identifier)))))

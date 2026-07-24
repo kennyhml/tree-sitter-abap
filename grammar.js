@@ -176,6 +176,7 @@ module.exports = grammar({
           $.convert_utclong_statement,
           $.convert_into_utclong_statement,
           $.collect_statement,
+          $.modify_statement,
 
           $.describe_field_statement,
           $.describe_table_statement,

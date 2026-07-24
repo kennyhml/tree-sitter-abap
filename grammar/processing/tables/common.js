@@ -42,6 +42,26 @@ module.exports = {
 
   without_members: $ => seq(...gen.kws("without", "members")),
 
+  /**
+   * ... USING KEY loop_key ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_INDEX.html
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_INDEX.html
+   */
+  using_loop_key: _ => seq(...gen.kws("using", "key", "loop_key")),
+
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
   _group_by_result: $ => choice($.into, $.assigning, $.reference_into),
+
+  /**
+   * ... { itab INDEX idx [USING KEY keyname] }
+   *   | { itab [USING KEY loop_key] } ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_INDEX.html
+   */
+  _itab_index_spec: $ =>
+    seq(
+      field("subject", $.general_expression),
+      optional(choice($.using_loop_key, $.index)),
+    ),
 };

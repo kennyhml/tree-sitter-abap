@@ -16,7 +16,7 @@ module.exports = {
   __delete_itab_variants: $ =>
     choice(
       $._delete_itab_key_spec,
-      $._delete_itab_index_spec,
+      $._itab_index_spec,
       $._delete_itab_lines_spec,
       $._delete_itab_duplicates_spec,
     ),
@@ -38,21 +38,6 @@ module.exports = {
       gen.kw("table"),
       field("subject", $.general_expression),
       choice($.from_work_area, $.table_key),
-    ),
-
-  /**
-   * Delete from internal table by index. This is what happens implicitly
-   * if only `DELETE itab` is specified in a loop.
-   *
-   * ...   { itab INDEX idx [USING KEY keyname] }
-   *       / { itab [USING KEY loop_key]} ...
-   *
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_INDEX.html
-   */
-  _delete_itab_index_spec: $ =>
-    seq(
-      field("subject", $.general_expression),
-      optional(choice($.using_loop_key, $.index)),
     ),
 
   /**
@@ -80,8 +65,6 @@ module.exports = {
       field("subject", $.general_expression),
       repeat(choice($.using_key, $.comparing)),
     ),
-
-  using_loop_key: _ => seq(...gen.kws("using", "key", "loop_key")),
 
   adjacent_duplicates_from: _ =>
     seq(...gen.kws("adjacent", "duplicates", "from")),

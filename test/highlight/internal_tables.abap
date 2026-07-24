@@ -48,6 +48,26 @@ INSERT LINES OF itab USING KEY skey INTO itab INDEX 1.
 INSERT connection INTO TABLE connection_tab. 
 "      ^ variable
 "                            ^ variable
+MODIFY TABLE itab USING KEY skey FROM wa.
+"            ^ variable
+"                           ^ constant
+"                                     ^ variable
+MODIFY itab USING KEY loop_key FROM wa.
+"                     ^ constant.builtin
+MODIFY itab FROM wa INDEX idx TRANSPORTING comp.
+"      ^ variable
+"                ^ variable
+"                         ^ variable
+"                                          ^ variable.member
+MODIFY itab FROM wa USING KEY skey TRANSPORTING status WHERE status = value.
+"                             ^ constant
+"                                               ^ variable.member
+"                                                            ^ variable.member
+"                                                                     ^ variable
+MODIFY TABLE itab FROM wa REFERENCE INTO DATA(line).
+"            ^ variable
+"                      ^ variable
+"                                             ^ variable
 SORT carriers.
 "    ^ variable
 SORT itab DESCENDING. 

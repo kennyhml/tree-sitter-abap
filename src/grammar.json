@@ -251,6 +251,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "modify_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "describe_field_statement"
           },
           {
@@ -17849,6 +17853,23 @@
         }
       ]
     },
+    "using_loop_key": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_using"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_loop_key"
+        }
+      ]
+    },
     "_group_by_result": {
       "type": "CHOICE",
       "members": [
@@ -17863,6 +17884,40 @@
         {
           "type": "SYMBOL",
           "name": "reference_into"
+        }
+      ]
+    },
+    "_itab_index_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "using_loop_key"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -17940,7 +17995,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_delete_itab_index_spec"
+          "name": "_itab_index_spec"
         },
         {
           "type": "SYMBOL",
@@ -17977,40 +18032,6 @@
             {
               "type": "SYMBOL",
               "name": "table_key"
-            }
-          ]
-        }
-      ]
-    },
-    "_delete_itab_index_spec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "subject",
-          "content": {
-            "type": "SYMBOL",
-            "name": "general_expression"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "using_loop_key"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "index"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
             }
           ]
         }
@@ -18063,23 +18084,6 @@
               }
             ]
           }
-        }
-      ]
-    },
-    "using_loop_key": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_using"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_loop_key"
         }
       ]
     },
@@ -18845,6 +18849,268 @@
           "name": "transporting_no_fields"
         }
       ]
+    },
+    "modify_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__modify_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__modify_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_modify"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_modify_itab_key_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_modify_single_line_additions"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_modify_itab_index_or_lines_spec"
+            }
+          ]
+        }
+      ]
+    },
+    "_modify_itab_key_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_table"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "using_key"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_modify_itab_index_or_lines_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "index"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "using_loop_key"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_modify_single_line_additions"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "from_work_area"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_modify_after_work_area"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_modify_single_line_additions": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "from_work_area"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_modify_single_line_tail"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_modify_single_line_tail": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "transporting_components"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_modify_result"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_modify_result"
+        }
+      ]
+    },
+    "_modify_after_work_area": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "index"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_modify_single_line_tail"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "transporting_components"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "where_condition"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_modify_result"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_modify_result"
+        }
+      ]
+    },
+    "_modify_result": {
+      "type": "FIELD",
+      "name": "result",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "assigning"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "reference_into"
+          }
+        ]
+      }
     },
     "read_table_statement": {
       "type": "SEQ",
@@ -32966,6 +33232,19 @@
         },
         "named": false,
         "value": "last"
+      }
+    },
+    "_kw_modify": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)modify"
+        },
+        "named": false,
+        "value": "modify"
       }
     },
     "_kw_transporting": {

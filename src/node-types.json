@@ -666,6 +666,10 @@
         "named": true
       },
       {
+        "type": "modify_statement",
+        "named": true
+      },
+      {
         "type": "move_corresponding_statement",
         "named": true
       },
@@ -16899,6 +16903,80 @@
     }
   },
   {
+    "type": "modify_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "modify",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          }
+        ]
+      },
+      "result": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "assigning",
+            "named": true
+          },
+          {
+            "type": "reference_into",
+            "named": true
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "from_work_area",
+          "named": true
+        },
+        {
+          "type": "index",
+          "named": true
+        },
+        {
+          "type": "transporting_components",
+          "named": true
+        },
+        {
+          "type": "using_key",
+          "named": true
+        },
+        {
+          "type": "using_loop_key",
+          "named": true
+        },
+        {
+          "type": "where_condition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "module_definition",
     "named": true,
     "fields": {
@@ -27351,6 +27429,10 @@
   },
   {
     "type": "modif",
+    "named": false
+  },
+  {
+    "type": "modify",
     "named": false
   },
   {
