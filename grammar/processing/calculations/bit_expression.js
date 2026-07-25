@@ -8,9 +8,9 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_BIT.html
    */
   bit_expression: $ =>
-    choice($._bitwise_binary_operation, $._bitwise_unary_operation),
+    choice($.__bitwise_binary_operation, $.__bitwise_unary_operation),
 
-  _bitwise_binary_operation: $ => {
+  __bitwise_binary_operation: $ => {
     // @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBIT_OPERATORS.html
     const BITWISE_OPERATORS = [
       [gen.kw("bit-and"), $ => prec.left(3, $)],
@@ -31,7 +31,7 @@ module.exports = {
     );
   },
 
-  _bitwise_unary_operation: $ =>
+  __bitwise_unary_operation: $ =>
     prec(
       4,
       seq(

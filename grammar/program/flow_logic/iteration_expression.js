@@ -17,19 +17,18 @@ module.exports = {
       gen.kw("for"),
 
       field("init", $.assignment),
-      optional(field("next", $.then_clause)),
+      optional(field("next", $.then_spec)),
       $.iteration_condition,
 
       optional($.let_expression),
     ),
 
   // ... [THEN expr] ...
-  then_clause: $ => seq(gen.kw("then"), $.general_expression),
+  then_spec: $ => seq(gen.kw("then"), $.general_expression),
 
   // ... UNTIL / WHILE log_exp ...
-  iteration_condition: $ => choice($.while, $.until),
+  iteration_condition: $ => choice($.while_spec, $.until_spec),
 
-  while: $ => seq(gen.kw("while"), field("condition", $._logical_expression)),
-
-  until: $ => seq(gen.kw("until"), field("condition", $._logical_expression)),
+  while_spec: $ =>
+    seq(gen.kw("while"), field("condition", $._logical_expression)),
 };

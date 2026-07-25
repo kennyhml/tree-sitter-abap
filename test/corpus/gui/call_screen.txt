@@ -9,11 +9,11 @@ CALL SELECTION-SCREEN '0500' STARTING AT 10 10
 (source
   (call_sel_screen_statement
     dynnr: (string_literal)
-    (starting_at
+    (starting_at_spec
       column: (number)
       line: (number))
-    (ending_at
+    (ending_at_spec
       column: (number)
       line: (number))
-    (using_selection_set
+    (using_selection_set_spec
       name: (identifier))))

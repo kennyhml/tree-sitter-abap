@@ -15,7 +15,7 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
       (component_selection
         subject: (identifier)
         component: (identifier)))
-    (into
+    (into_spec
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -27,9 +27,9 @@ CONCATENATE LINES OF itab INTO FINAL(xstr).
 
 (source
   (concatenate_statement
-    subject: (lines_of
+    subject: (lines_of_spec
       subject: (identifier))
-    (into
+    (into_spec
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -45,9 +45,9 @@ CONCATENATE t1 t2 t3 INTO result SEPARATED BY space.
       (identifier)
       (identifier)
       (identifier))
-    (into
+    (into_spec
       work_area: (identifier))
-    (separated_by
+    (separated_by_spec
       separator: (identifier))))
 
 =================================================================================
@@ -58,8 +58,8 @@ CONCATENATE LINES OF itab INTO result RESPECTING BLANKS.
 
 (source
   (concatenate_statement
-    (lines_of
+    (lines_of_spec
       (identifier))
-    (into
+    (into_spec
       (identifier))
     (respecting_blanks)))

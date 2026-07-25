@@ -12,8 +12,9 @@ module.exports = {
       field("subject", $.character_like_expression),
       gen.kw("with"),
       field("overlay", $.character_like_expression),
-      optional($.only),
+      optional($.only_spec),
     ),
 
-  only: $ => seq(gen.kw("only"), field("mask", $.character_like_expression)),
+  only_spec: $ =>
+    seq(gen.kw("only"), field("mask", $.character_like_expression)),
 };

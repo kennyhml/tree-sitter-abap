@@ -4,7 +4,7 @@ module.exports = {
    *
    * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_TABFUNC.html}
    */
-  for_table_function: $ =>
+  for_table_function_spec: $ =>
     seq(...gen.kws("for", "table", "function"), field("name", $.identifier)),
 
   /**
@@ -12,7 +12,7 @@ module.exports = {
    *
    * @see {@link https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_SCALFUNC.html}
    */
-  for_scalar_function: $ =>
+  for_scalar_function_spec: $ =>
     seq(...gen.kws("for", "scalar", "function"), field("name", $.identifier)),
 
   /**
@@ -20,7 +20,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS-METHODS_FOR_SQL_SERVICE.html
    */
-  for_sql_service: _ => seq(...gen.kws("for", "sql", "service")),
+  for_sql_service_spec: _ => seq(...gen.kws("for", "sql", "service")),
 
   /**
    * AMDP OPTIONS [READ-ONLY]
@@ -28,7 +28,7 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_AMDP_OPTIONS.html
    */
-  amdp_options: $ =>
+  amdp_options_spec: $ =>
     seq(
       ...gen.kws("amdp", "options"),
       repeat1(choice($.read_only, $.__amdp_client_handling_spec)),

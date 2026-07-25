@@ -6,11 +6,11 @@ FIND FIRST OCCURRENCE OF PCRE 'ABAP|XML' IN TABLE itf_tab RESULTS FINAL(res).
 
 (source
   (find_statement
-    (first_occurrence_of_pattern
-      pattern: (pcre
+    (first_occurrence_of_pattern_spec
+      pattern: (pcre_spec
         value: (string_literal)))
     subject: (identifier)
-    (results
+    (results_spec
       target: (declaration_expression
         name: (identifier)))))
 
@@ -24,17 +24,17 @@ FIND FIRST OCCURRENCE OF SUBSTRING 'as'
 
 (source
   (find_statement
-    (first_occurrence_of_pattern
-      pattern: (substring
+    (first_occurrence_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
-    (table_range_from
-      (lines_from
+    (table_range_from_spec
+      (lines_from_spec
         index: (identifier))
-      (section_offset
+      (section_offset_spec
         offset: (number)))
-    (table_range_to
-      (lines_to
+    (table_range_to_spec
+      (lines_to_spec
         index: (arithmetic_expression
           left: (identifier)
           right: (number))))))
@@ -52,17 +52,17 @@ FIND FIRST OCCURRENCE OF PCRE 'ABAP|XML'
 
 (source
   (find_statement
-    (first_occurrence_of_pattern
-      pattern: (pcre
+    (first_occurrence_of_pattern_spec
+      pattern: (pcre_spec
         value: (string_literal)))
     subject: (identifier)
     (respecting_case)
-    (match_line
+    (match_line_spec
       target: (declaration_expression
         name: (identifier)))
-    (match_offset
+    (match_offset_spec
       target: (declaration_expression
         name: (identifier)))
-    (match_length
+    (match_length_spec
       target: (declaration_expression
         name: (identifier)))))

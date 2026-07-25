@@ -13,10 +13,10 @@ module.exports = {
       gen.kw("assert"),
       optional($.checkpoint_id_spec),
       optional($.checkpoint_fields_spec),
-      $.assert_condition_spec,
+      $.condition_spec,
     ),
 
-  assert_condition_spec: $ =>
+  condition_spec: $ =>
     seq(
       optional(gen.kw("condition")),
       field("conditon", $._logical_expression),

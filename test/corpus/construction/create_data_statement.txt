@@ -17,7 +17,7 @@ CREATE OBJECT root AREA HANDLE handle.
 (source
   (create_object_statement
     subject: (identifier)
-    (object_area_handle_spec
+    (area_handle_spec
       handle: (identifier))))
 
 =================================================================================
@@ -31,9 +31,9 @@ CREATE DATA dref TYPE p LENGTH 8 DECIMALS 3.
     subject: (identifier)
     typing: (builtin_type_spec
       name: (identifier)
-      (type_length
+      (type_length_spec
         count: (number))
-      (type_decimals
+      (type_decimals_spec
         count: (number)))))
 
 =================================================================================
@@ -117,10 +117,10 @@ CREATE DATA dref TYPE HASHED TABLE OF scarr
     typing: (table_type
       kind: (hashed_table)
       name: (identifier)
-      (with_key
-        (table_key_spec
+      (with_key_spec
+        (table_key_definition_spec
           unique: (unique)
-          (key_components
+          (key_components_spec
             (identifier)))))))
 
 =================================================================================
@@ -137,8 +137,8 @@ CREATE DATA dref TYPE STANDARD TABLE OF (dbtab)
       kind: (standard_table)
       name: (dynamic_spec
         value: (identifier))
-      (with_key
-        (table_key_spec
+      (with_key_spec
+        (table_key_definition_spec
           unique: (non_unique)
           (default_key))))))
 

@@ -15,5 +15,6 @@ module.exports = {
   expanding_nested_tables: _ =>
     seq(...gen.kws("expanding", "nested", "tables")),
 
-  keeping_target_lines: _ => seq(...gen.kws("keeping", "target", "lines")),
+  keeping_target_lines: _ =>
+    seq(...gen.kws("keeping", "target", "lines")),
 };

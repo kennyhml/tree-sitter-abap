@@ -6,7 +6,7 @@ FIND 'a' in str.
 
 (source
   (find_statement
-    pattern: (substring
+    pattern: (substring_spec
       value: (string_literal))
     subject: (identifier)))
 
@@ -18,8 +18,8 @@ FIND FIRST OCCURRENCE OF 'a' in str.
 
 (source
   (find_statement
-    (first_occurrence_of_pattern
-      pattern: (substring
+    (first_occurrence_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)))
 
@@ -31,8 +31,8 @@ FIND ALL OCCURRENCES OF 'a' in str.
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)))
 
@@ -45,12 +45,12 @@ FIND ALL OCCURRENCES OF foo
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (identifier)))
-    (section_offset
+    (section_offset_spec
       offset: (number))
-    (section_length
+    (section_length_spec
       length: (number))
     subject: (identifier)))
 
@@ -62,11 +62,11 @@ FIND ALL OCCURRENCES OF lv_xvar IN xstr IN BYTE MODE.
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (identifier)))
     subject: (identifier)
-    (in_byte_mode)))
+    (in_byte_mode_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / FIND ] In character mode
@@ -76,11 +76,11 @@ FIND ALL OCCURRENCES OF substr IN str IN CHARACTER MODE.
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (identifier)))
     subject: (identifier)
-    (in_character_mode)))
+    (in_character_mode_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / FIND ] Respecting case
@@ -90,8 +90,8 @@ FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str RESPECTING CASE.
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (pcre
+    (all_occurrences_of_pattern_spec
+      pattern: (pcre_spec
         value: (string_literal)))
     subject: (identifier)
     (respecting_case)))
@@ -104,8 +104,8 @@ FIND ALL OCCURRENCES OF PCRE `[A-Z]` IN str IGNORING CASE.
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (pcre
+    (all_occurrences_of_pattern_spec
+      pattern: (pcre_spec
         value: (string_literal)))
     subject: (identifier)
     (ignoring_case)))
@@ -121,17 +121,17 @@ FIND ALL OCCURRENCES OF 'know' IN text1
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
-    (match_count
+    (match_count_spec
       target: (declaration_expression
         name: (identifier)))
-    (match_offset
+    (match_offset_spec
       target: (declaration_expression
         name: (identifier)))
-    (match_length
+    (match_length_spec
       target: (declaration_expression
         name: (identifier)))))
 
@@ -145,12 +145,12 @@ FIND ALL OCCURRENCES OF `d` IN str
 
 (source
   (find_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
     (ignoring_case)
-    (results
+    (results_spec
       target: (declaration_expression
         name: (identifier)))))
 
@@ -167,17 +167,17 @@ FIND PCRE `(\w+)\W+\1\W+(\w+)\W+\2`
 
 (source
   (find_statement
-    pattern: (pcre
+    pattern: (pcre_spec
       value: (string_literal))
     subject: (identifier)
     (ignoring_case)
-    (match_offset
+    (match_offset_spec
       target: (declaration_expression
         name: (identifier)))
-    (match_length
+    (match_length_spec
       target: (declaration_expression
         name: (identifier)))
-    (submatches
+    (submatches_spec
       (declaration_expression
         name: (identifier))
       (declaration_expression

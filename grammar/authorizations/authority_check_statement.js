@@ -11,11 +11,11 @@ module.exports = {
     seq(
       ...gen.kws("authority-check", "object"),
       field("auth_object", $.data_object),
-      optional($.authority_check_for_user_spec),
+      optional($.for_user_spec),
       repeat1($.id_field_spec),
     ),
 
-  authority_check_for_user_spec: $ =>
+  for_user_spec: $ =>
     seq(...gen.kws("for", "user"), field("user", $.data_object)),
 
   id_field_spec: $ =>

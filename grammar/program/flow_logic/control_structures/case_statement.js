@@ -33,13 +33,6 @@ module.exports = {
       field("consequence", optional($.statement_block)),
     ),
 
-  others_case_clause: $ =>
-    seq(
-      ...gen.kws("when", "others"),
-      ".",
-      field("consequence", optional($.statement_block)),
-    ),
-
   case_operand_list: $ =>
     seq($.__case_operand, repeat(seq(gen.kw("or"), $.__case_operand))),
 

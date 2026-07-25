@@ -34,16 +34,18 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_PRIMARY_KEY.html
    */
-  with_key: $ =>
-    prec.right(seq(gen.kw("with"), choice($.empty_key, $.table_key_spec))),
+  with_key_spec: $ =>
+    prec.right(
+      seq(gen.kw("with"), choice($.empty_key, $.table_key_definition_spec)),
+    ),
 
   /**
-   * Specification of a table key. Some differences between primary key
+   * Definition of a table key. Some differences between primary key
    * and secondary keys exist, but it is simpler to just be permissive.
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_KEYDEF.html
    */
-  table_key_spec: $ =>
+  table_key_definition_spec: $ =>
     seq(
       optional(field("unique", choice($.unique, $.non_unique))),
       optional(field("kind", choice($.hashed, $.sorted))),
@@ -60,16 +62,16 @@ module.exports = {
         choice(
           seq(
             field("name", $.identifier),
-            optional(alias($.__key_alias, $.alias)),
-            $.key_components,
+            optional($.key_alias_spec),
+            $.key_components_spec,
           ),
-          alias($.__unnamed_key_components, $.key_components),
+          alias($.__unnamed_key_components, $.key_components_spec),
         ),
       ),
     ),
 
   // [COMPONENTS] comp1 comp2
-  key_components: $ =>
+  key_components_spec: $ =>
     prec.right(seq(gen.kw("components"), repeat1($.identifier))),
 
   __unnamed_key_components: $ => prec.right(repeat1($.identifier)),
@@ -96,11 +98,14 @@ module.exports = {
 
   index_table: _ => seq(...gen.kws("index", "table")),
 
-  further_secondary_keys: _ =>
+  further_secondary_keys_spec: _ =>
     seq(
       choice(...gen.kws("with", "without")),
       ...gen.kws("further", "secondary", "keys"),
     ),
+
+  occurs_spec: $ =>
+    seq(gen.kw("occurs"), field("memory_requirement", $.number)),
 
   /**
    * ... { {[STANDARD] TABLE}
@@ -123,12 +128,12 @@ module.exports = {
   __table_type_addition: $ =>
     choice(
       $.with_header_line,
-      $.with_key,
-      $.initial_value,
+      $.with_key_spec,
+      $.initial_value_spec,
       $.read_only,
-      $.initial_size,
-      $.further_secondary_keys,
-      $.occurs, // technically obsolete
+      $.initial_size_spec,
+      $.further_secondary_keys_spec,
+      $.occurs_spec, // technically obsolete
     ),
 
   /**
@@ -173,5 +178,5 @@ module.exports = {
     ),
 
   // [ALIAS alias_name]
-  __key_alias: $ => seq(gen.kw("alias"), field("name", $.identifier)),
+  key_alias_spec: $ => seq(gen.kw("alias"), field("name", $.identifier)),
 };

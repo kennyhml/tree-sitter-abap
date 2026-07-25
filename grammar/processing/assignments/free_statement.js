@@ -7,5 +7,7 @@ module.exports = {
   free_statement: $ => seq($.__free_statement_prefix, "."),
 
   __free_statement_prefix: $ =>
-    gen.chainable("free", $.named_data_object),
+    gen.chainable("free", $.free_spec),
+
+  free_spec: $ => field("subject", $.named_data_object),
 };

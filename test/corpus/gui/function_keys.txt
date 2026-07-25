@@ -6,7 +6,7 @@ SELECTION-SCREEN FUNCTION KEY 1.
 
 (source
   (selection_screen_statement
-    (function_key_directive
+    (function_key_directive_spec
       key: (number))))
 
 =================================================================================
@@ -17,6 +17,6 @@ selection-screen function key: 1, 2.
 
 (source
   (selection_screen_statement
-    (function_key_directive
+    (function_key_directive_spec
       key: (number)
       key: (number))))

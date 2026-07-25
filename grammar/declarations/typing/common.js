@@ -1,14 +1,26 @@
 module.exports = {
-  initial_value: _ => seq(...gen.kws("value", "is", "initial")),
+  _ref_to_type: $ =>
+    seq(
+      ...gen.kws("ref", "to"),
+      field(
+        "subject",
+        choice($.identifier, $.component_selection, $.dynamic_spec),
+      ),
+    ),
 
-  default_data_value: $ => seq(gen.kw("value"), field("val", $.data_object)),
+  _ref_to_data: $ =>
+    seq(
+      ...gen.kws("ref", "to"),
+      field("object", choice($.identifier, $.component_selection)),
+    ),
+
+  initial_value_spec: _ => seq(...gen.kws("value", "is", "initial")),
+
+  default_data_value_spec: $ =>
+    seq(gen.kw("value"), field("val", $.data_object)),
 
   with_header_line: _ => seq(...gen.kws("with", "header", "line")),
 
-  read_only: _ => gen.kw("read-only"),
-
-  occurs: $ => seq(gen.kw("occurs"), field("memory_requirement", $.number)),
-
-  initial_size: $ =>
+  initial_size_spec: $ =>
     seq(...gen.kws("initial", "size"), field("size", $.number)),
 };

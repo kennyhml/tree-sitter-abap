@@ -25,7 +25,7 @@ DESCRIBE FIELD text LENGTH FINAL(clen) IN CHARACTER MODE.
     (describe_length_spec
       destination: (declaration_expression
         name: (identifier))
-      (in_character_mode))))
+      (in_character_mode_spec))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE FIELD ] Describe decimals
@@ -49,7 +49,7 @@ DESCRIBE FIELD date2 OUTPUT-LENGTH FINAL(olen2).
 (source
   (describe_field_statement
     subject: (identifier)
-    (describe_output_length_spec
+    (output_length_spec
       destination: (declaration_expression
         name: (identifier)))))
 
@@ -62,7 +62,7 @@ DESCRIBE FIELD carrid HELP-ID FINAL(hlp).
 (source
   (describe_field_statement
     subject: (identifier)
-    (describe_help_id_spec
+    (help_id_spec
       destination: (declaration_expression
         name: (identifier)))))
 
@@ -75,6 +75,6 @@ DESCRIBE FIELD time EDIT MASK FINAL(msk).
 (source
   (describe_field_statement
     subject: (identifier)
-    (describe_edit_mask_spec
+    (edit_mask_spec
       destination: (declaration_expression
         name: (identifier)))))

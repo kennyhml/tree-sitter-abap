@@ -7,14 +7,14 @@ READ TABLE itab WITH KEY table_line->parent = container into result.
 (source
   (read_table_statement
     subject: (identifier)
-    (free_key
+    (free_key_spec
       (key_component_list
         (itab_comp_spec
           comp: (component_selection
             subject: (identifier)
             component: (identifier))
           value: (identifier))))
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -29,7 +29,7 @@ READ TABLE spfli_tab
 (source
   (read_table_statement
     subject: (identifier)
-    (table_key
+    (table_key_spec
       name: (identifier)
       (key_component_list
         (itab_comp_spec
@@ -38,7 +38,7 @@ READ TABLE spfli_tab
         (itab_comp_spec
           comp: (identifier)
           value: (string_literal))))
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))))
@@ -52,12 +52,12 @@ READ TABLE itab WITH KEY foo = bar ASSIGNING <fs>.
 (source
   (read_table_statement
     subject: (identifier)
-    (free_key
+    (free_key_spec
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
           value: (identifier))))
-    result: (assigning
+    result: (assigning_spec
       target: (field_symbol
         name: (identifier)))))
 
@@ -70,12 +70,12 @@ READ TABLE itab WITH KEY foo = bar reference into data(result).
 (source
   (read_table_statement
     subject: (identifier)
-    (free_key
+    (free_key_spec
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
           value: (identifier))))
-    result: (reference_into
+    result: (reference_into_spec
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -88,12 +88,13 @@ READ TABLE itab WITH KEY foo = bar TRANSPORTING NO FIELDS.
 (source
   (read_table_statement
     subject: (identifier)
-    (free_key
+    (free_key_spec
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
           value: (identifier))))
-    result: (transporting_no_fields)))
+    result: (transporting_spec
+      (no_fields))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Secondary key read
@@ -104,13 +105,13 @@ READ TABLE itab WITH KEY skey COMPONENTS table_line = 10 into result.
 (source
   (read_table_statement
     subject: (identifier)
-    (free_key
+    (free_key_spec
       name: (identifier)
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
           value: (number))))
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -122,9 +123,9 @@ READ TABLE spfli_tab FROM spfli_key into result.
 (source
   (read_table_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -136,11 +137,11 @@ READ TABLE spfli_tab FROM spfli_key USING KEY city_key into result.
 (source
   (read_table_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier)
-      (using_key
+      (using_key_spec
         name: (identifier)))
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -155,7 +156,7 @@ READ TABLE sflight_tab
 (source
   (read_table_statement
     subject: (identifier)
-    (free_key
+    (free_key_spec
       (key_component_list
         (itab_comp_spec
           comp: (identifier)
@@ -167,7 +168,7 @@ READ TABLE sflight_tab
           comp: (identifier)
           value: (string_literal))
         (binary_search)))
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -179,10 +180,10 @@ READ TABLE itab INTO text_short WHERE table_line = text_long.
 (source
   (read_table_statement
     subject: (identifier)
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))
-    (itab_lines
-      (where_condition
+    (itab_lines_spec
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (identifier))))))
@@ -196,11 +197,11 @@ READ TABLE itab INTO DATA(wa)  WHERE (where_cond).
 (source
   (read_table_statement
     subject: (identifier)
-    result: (into_work_area
+    result: (into_spec
       work_area: (declaration_expression
         name: (identifier)))
-    (itab_lines
-      (where_condition
+    (itab_lines_spec
+      (where_condition_spec
         condition: (dynamic_spec
           value: (identifier))))))
 
@@ -216,14 +217,14 @@ READ TABLE itab
 (source
   (read_table_statement
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))
-    (itab_lines
-      (using_key
+    (itab_lines_spec
+      (using_key_spec
         name: (identifier))
-      (where_condition
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (number))))))
@@ -237,13 +238,13 @@ READ TABLE itab USING KEY primary_key INTO wa WHERE comp2 CS 't'.
 (source
   (read_table_statement
     subject: (identifier)
-    (itab_lines
-      (using_key
+    (itab_lines_spec
+      (using_key_spec
         name: (identifier)))
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))
-    (itab_lines
-      (where_condition
+    (itab_lines_spec
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (string_literal))))))
@@ -257,14 +258,15 @@ READ TABLE it_compare INTO line_compare INDEX sy-index COMPARING comp1.
 (source
   (read_table_statement
     subject: (identifier)
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))
-    (index
+    (index_spec
       index: (component_selection
         subject: (identifier)
         component: (identifier)))
-    (comparing
-      (identifier))))
+    (comparing_spec
+      (component_list
+        (identifier)))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing and transporting
@@ -275,17 +277,19 @@ READ TABLE it_compare INTO line_compare INDEX sy-index COMPARING comp3 TRANSPORT
 (source
   (read_table_statement
     subject: (identifier)
-    result: (into_work_area
+    result: (into_spec
       work_area: (identifier))
-    (index
+    (index_spec
       index: (component_selection
         subject: (identifier)
         component: (identifier)))
-    (comparing
-      (identifier))
-    (transporting_components
-      (identifier)
-      (identifier))))
+    (comparing_spec
+      (component_list
+        (identifier)))
+    (transporting_spec
+      (component_list
+        (identifier)
+        (identifier)))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Transporting specific fields
@@ -301,13 +305,14 @@ READ TABLE sflight_tab
 (source
   (read_table_statement
     subject: (identifier)
-    (index
+    (index_spec
       index: (component_selection
         subject: (identifier)
         component: (identifier)))
-    result: (into_work_area
-      work_area: (identifier)
-      (transporting_components
+    result: (into_spec
+      work_area: (identifier))
+    (transporting_spec
+      (component_list
         (identifier)
         (identifier)
         (identifier)
@@ -322,12 +327,12 @@ READ TABLE sflight_tab INDEX 1 INTO sflight_wa TRANSPORTING ALL FIELDS.
 (source
   (read_table_statement
     subject: (identifier)
-    (index
+    (index_spec
       index: (number))
-    result: (into_work_area
-      work_area: (identifier)
-      (transporting_components
-        (all_fields)))))
+    result: (into_spec
+      work_area: (identifier))
+    (transporting_spec
+      (all_fields))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing selected fields
@@ -338,11 +343,12 @@ READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING foo bar baz.
 (source
   (read_table_statement
     subject: (identifier)
-    (index
+    (index_spec
       index: (number))
-    result: (into_work_area
-      work_area: (identifier)
-      (comparing
+    result: (into_spec
+      work_area: (identifier))
+    (comparing_spec
+      (component_list
         (identifier)
         (identifier)
         (identifier)))))
@@ -356,12 +362,12 @@ READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING ALL FIELDS.
 (source
   (read_table_statement
     subject: (identifier)
-    (index
+    (index_spec
       index: (number))
-    result: (into_work_area
-      work_area: (identifier)
-      (comparing
-        (all_fields)))))
+    result: (into_spec
+      work_area: (identifier))
+    (comparing_spec
+      (all_fields))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing no fields
@@ -372,9 +378,42 @@ READ TABLE sflight_tab INDEX 1 INTO sflight_wa COMPARING NO FIELDS.
 (source
   (read_table_statement
     subject: (identifier)
-    (index
+    (index_spec
       index: (number))
-    result: (into_work_area
-      work_area: (identifier)
-      (comparing
-        (no_fields)))))
+    result: (into_spec
+      work_area: (identifier))
+    (comparing_spec
+      (no_fields))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing before index
+=================================================================================
+READ TABLE itab INTO wa COMPARING ALL FIELDS INDEX 1.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    (comparing_spec
+      (all_fields))
+    (index_spec
+      index: (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / READ TABLE ] Comparing after leading key
+=================================================================================
+READ TABLE itab USING KEY key INTO wa COMPARING ALL FIELDS.
+---
+
+(source
+  (read_table_statement
+    subject: (identifier)
+    (itab_lines_spec
+      (using_key_spec
+        name: (identifier)))
+    result: (into_spec
+      work_area: (identifier))
+    (comparing_spec
+      (all_fields))))

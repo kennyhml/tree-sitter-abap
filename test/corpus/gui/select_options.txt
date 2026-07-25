@@ -64,7 +64,7 @@ SELECT-OPTIONS s_vbeln FOR gv_vbeln DEFAULT '1000' TO '2000' OPTION BT SIGN I.
     (select_options_spec
       name: (identifier)
       for: (identifier)
-      default: (default_range
+      default: (default_range_spec
         low: (string_literal)
         high: (string_literal)))))
 
@@ -123,7 +123,7 @@ SELECT-OPTIONS s_id FOR gv_id VISIBLE LENGTH 10 NO-DISPLAY MODIF ID gr1.
       for: (identifier)
       visible_length: (visible_length_spec
         length: (number))
-      display: (no_display_spec)
+      display: (no_display)
       modif_id: (modif_id_spec
         id: (identifier)))))
 
@@ -157,6 +157,6 @@ SELECT-OPTIONS s_path FOR gv_path LOWER CASE MATCHCODE OBJECT zfile.
     (select_options_spec
       name: (identifier)
       for: (identifier)
-      case: (lower_case_spec)
+      case: (lower_case)
       search_help: (search_help_spec
         name: (identifier)))))

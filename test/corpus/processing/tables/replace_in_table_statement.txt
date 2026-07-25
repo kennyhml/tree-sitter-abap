@@ -6,11 +6,11 @@ REPLACE ALL OCCURRENCES OF PCRE `DM` IN TABLE menu WITH 'EUR'.
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (pcre
+    (all_occurrences_of_pattern_spec
+      pattern: (pcre_spec
         value: (string_literal)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))))
 
 =================================================================================
@@ -25,25 +25,25 @@ REPLACE ALL OCCURRENCES OF `cd`
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
-    (table_range_from
-      (lines_from
+    (table_range_from_spec
+      (lines_from_spec
         index: (number))
-      (section_offset
+      (section_offset_spec
         offset: (identifier)))
-    (table_range_to
-      (lines_to
+    (table_range_to_spec
+      (lines_to_spec
         index: (function_call
           name: (identifier)
           (call_argument_list
             exporting: (positional_argument
               value: (identifier)))))
-      (section_offset
+      (section_offset_spec
         offset: (number)))
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))))
 
 =================================================================================
@@ -57,17 +57,17 @@ REPLACE FIRST OCCURRENCE OF |My string { template } |
 
 (source
   (replace_statement
-    (first_occurrence_of_pattern
-      pattern: (substring
+    (first_occurrence_of_pattern_spec
+      pattern: (substring_spec
         value: (string_template
           (embedded_expression
             (identifier)))))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_template
         (embedded_expression
           (identifier))))
-    (results
+    (results_spec
       target: (declaration_expression
         name: (identifier)))))
 
@@ -82,15 +82,15 @@ REPLACE FIRST OCCURRENCE OF |My string { template } |
 
 (source
   (replace_statement
-    (first_occurrence_of_pattern
-      pattern: (substring
+    (first_occurrence_of_pattern_spec
+      pattern: (substring_spec
         value: (string_template
           (embedded_expression
             (identifier)))))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_template
         (embedded_expression
           (identifier))))
-    (replacement_line
+    (replacement_line_spec
       target: (identifier))))

@@ -7,5 +7,7 @@ module.exports = {
   unassign_statement: $ => seq($.__unassign_statement_prefix, "."),
 
   __unassign_statement_prefix: $ =>
-    gen.chainable("unassign", $.field_symbol),
+    gen.chainable("unassign", $.unassign_spec),
+
+  unassign_spec: $ => field("subject", $.field_symbol),
 };

@@ -90,7 +90,7 @@ CALL FUNCTION 'READ_SPFLI_INTO_TABLE'
 (source
   (call_function_statement
     name: (string_literal)
-    (rfc_destination
+    (destination_spec
       (string_literal))
     (call_argument_list
       exporting: (argument_list
@@ -149,7 +149,7 @@ CALL FUNCTION 'DEMO_RFM_PARAMETERS'
 (source
   (call_function_statement
     name: (string_literal)
-    (rfc_destination
+    (destination_spec
       (identifier))
     (call_argument_list
       exceptions: (argument_list
@@ -168,7 +168,7 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TRANSPORT'
 (source
   (call_function_statement
     name: (string_literal)
-    (starting_new_task
+    (starting_new_task_spec
       task_id: (identifier))))
 
 =================================================================================
@@ -184,9 +184,9 @@ CALL FUNCTION 'Z_ASYNC_PROCESS'
 (source
   (call_function_statement
     name: (string_literal)
-    (starting_new_task
+    (starting_new_task_spec
       task_id: (identifier))
-    (asynchronous_callback
+    (asynchronous_callback_spec
       method: (component_selection
         subject: (identifier)
         component: (identifier)))
@@ -207,9 +207,9 @@ CALL FUNCTION 'Z_ASYNC_PROCESS'
 (source
   (call_function_statement
     name: (string_literal)
-    (starting_new_task
+    (starting_new_task_spec
       task_id: (identifier))
-    (asynchronous_callback
+    (asynchronous_callback_spec
       routine: (identifier))))
 
 =================================================================================
@@ -223,10 +223,10 @@ CALL FUNCTION co_fb_name
 (source
   (call_function_statement
     name: (identifier)
-    (starting_new_task
+    (starting_new_task_spec
       task_id: (identifier))
-    (rfc_destination
-      (in_group
+    (destination_spec
+      (in_group_spec
         group: (identifier)))))
 
 =================================================================================
@@ -239,7 +239,7 @@ CALL FUNCTION 'TMS_MGR_FORWARD_TR_REQUEST'
 (source
   (call_function_statement
     name: (string_literal)
-    (in_background_unit
+    (in_background_unit_spec
       name: (identifier))))
 
 =================================================================================
@@ -253,7 +253,7 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT' IN UPDATE TASK
 (source
   (call_function_statement
     name: (string_literal)
-    (in_update_task)
+    (in_update_task_spec)
     (call_argument_list
       exporting: (argument_list
         (named_argument
@@ -274,9 +274,9 @@ CALL FUNCTION 'DEMO_UPDATE_INSERT'
 (source
   (call_function_statement
     name: (string_literal)
-    (in_background_task
-      (as_seperate_unit))
-    (rfc_destination
+    (in_background_task_spec
+      (as_separate_unit))
+    (destination_spec
       (string_literal))
     (call_argument_list
       exporting: (argument_list

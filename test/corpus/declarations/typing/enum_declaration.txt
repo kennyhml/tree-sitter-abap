@@ -16,7 +16,7 @@ TYPES:
 
 (source
   (types_declaration
-    (begin_of_enum
+    (begin_of_enum_spec
       name: (identifier))
     (enum_value_spec
       name: (identifier))
@@ -34,7 +34,7 @@ TYPES:
       name: (identifier))
     (enum_value_spec
       name: (identifier))
-    (end_of_enum
+    (end_of_enum_spec
       name: (identifier))))
 
 =================================================================================
@@ -50,7 +50,7 @@ TYPES END OF ENUM planet.
 
 (source
   (types_declaration
-    (begin_of_enum
+    (begin_of_enum_spec
       name: (identifier)))
   (types_declaration
     (enum_value_spec
@@ -65,7 +65,7 @@ TYPES END OF ENUM planet.
     (enum_value_spec
       name: (identifier)))
   (types_declaration
-    (end_of_enum
+    (end_of_enum_spec
       name: (identifier))))
 
 =================================================================================
@@ -80,18 +80,18 @@ TYPES:
 
 (source
   (types_declaration
-    (begin_of_enum
+    (begin_of_enum_spec
       name: (identifier)
       (enum_base_type_spec
         base_type: (identifier)))
     (enum_value_spec
       name: (identifier)
-      (initial_value))
+      (initial_value_spec))
     (enum_value_spec
       name: (identifier)
-      (default_data_value
+      (default_data_value_spec
         val: (identifier)))
-    (end_of_enum
+    (end_of_enum_spec
       name: (identifier))))
 
 =================================================================================
@@ -112,7 +112,7 @@ TYPES:
 
 (source
   (types_declaration
-    (begin_of_enum
+    (begin_of_enum_spec
       name: (identifier)
       (enum_structure_spec
         name: (identifier)))
@@ -132,7 +132,7 @@ TYPES:
       name: (identifier))
     (enum_value_spec
       name: (identifier))
-    (end_of_enum
+    (end_of_enum_spec
       name: (identifier)
       (enum_structure_spec
         name: (identifier)))))

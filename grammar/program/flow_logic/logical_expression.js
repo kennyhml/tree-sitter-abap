@@ -28,8 +28,8 @@ const makeComparisonExpr = ($, rule) =>
     field("left", rule),
     choice(
       seq($._comparison_operator, field("right", $.general_expression)),
-      field("right", $.between),
-      field("right", $.in_table),
+      field("right", $.between_spec),
+      field("right", $.in_table_spec),
     ),
   );
 
@@ -44,17 +44,17 @@ module.exports = {
   _logical_expression: $ =>
     choice(
       $.logical_expression,
-      $._relational_expression,
-      alias($._parenthesized_logical_expression, $.parenthesized_expression),
+      $.__relational_expression,
+      alias($.__parenthesized_logical_expression, $.parenthesized_expression),
     ),
 
   // A mirror of the logical expression chain for member expressions
   _member_logical_expression: $ =>
     choice(
       alias($.__member_logical_expr, $.logical_expression),
-      $._member_relational_expression,
+      $.__member_relational_expression,
       alias(
-        $._member_parenthesized_logical_expression,
+        $.__member_parenthesized_logical_expression,
         $.parenthesized_expression,
       ),
     ),
@@ -68,18 +68,18 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
    */
-  _relational_expression: $ =>
-    choice($.comparison_expression, $._predicate_expression),
+  __relational_expression: $ =>
+    choice($.comparison_expression, $.__predicate_expression),
 
   /**
    * Basic building block of a logical expression.
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRELATIONAL_EXPRESSION_GLOSRY.html
    */
-  _member_relational_expression: $ =>
+  __member_relational_expression: $ =>
     choice(
-      alias($._member_comparison_expression, $.comparison_expression),
-      $._member_predicate_expression,
+      alias($.__member_comparison_expression, $.comparison_expression),
+      $.__member_predicate_expression,
     ),
 
   /**
@@ -97,16 +97,16 @@ module.exports = {
    * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_COMP.html
    */
   comparison_expression: $ => makeComparisonExpr($, $.general_expression),
-  _member_comparison_expression: $ => makeComparisonExpr($, $.itab_comp),
+  __member_comparison_expression: $ => makeComparisonExpr($, $.itab_comp),
 
-  in_table: $ =>
+  in_table_spec: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("in"),
       field("table", $.general_expression),
     ),
 
-  between: $ =>
+  between_spec: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("between"),
@@ -115,7 +115,7 @@ module.exports = {
       field("high", $.general_expression),
     ),
 
-  _predicate_expression: $ =>
+  __predicate_expression: $ =>
     choice(
       $.initial_predicate,
       $.bound_predicate,
@@ -126,10 +126,10 @@ module.exports = {
     ),
 
   // Only a small set is possible here
-  _member_predicate_expression: $ =>
+  __member_predicate_expression: $ =>
     choice(
-      alias($._member_initial_predicate, $.initial_predicate),
-      alias($._member_bound_predicate, $.bound_predicate),
+      alias($.__member_initial_predicate, $.initial_predicate),
+      alias($.__member_bound_predicate, $.bound_predicate),
     ),
 
   // In appropriate positions, this takes precedence over a
@@ -149,7 +149,7 @@ module.exports = {
       ),
     ),
 
-  _member_initial_predicate: $ =>
+  __member_initial_predicate: $ =>
     seq(
       field("subject", $.itab_comp),
       gen.kw("is"),
@@ -165,7 +165,7 @@ module.exports = {
       gen.kw("bound"),
     ),
 
-  _member_bound_predicate: $ =>
+  __member_bound_predicate: $ =>
     seq(
       field("subject", $.itab_comp),
       gen.kw("is"),
@@ -242,9 +242,9 @@ module.exports = {
       "<=",
     ),
 
-  _parenthesized_logical_expression: $ =>
+  __parenthesized_logical_expression: $ =>
     prec(5, seq("(", $._logical_expression, ")")),
 
-  _member_parenthesized_logical_expression: $ =>
+  __member_parenthesized_logical_expression: $ =>
     prec(5, seq("(", $._member_logical_expression, ")")),
 };

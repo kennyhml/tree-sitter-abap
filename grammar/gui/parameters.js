@@ -23,12 +23,12 @@ module.exports = {
       field("visible_length", $.visible_length_spec),
       field("user_command", $.user_command_spec),
 
-      field("checkbox", $.as_checkbox),
-      field("radiobutton", $.radiobutton_group),
-      field("listbox", $.as_listbox),
+      field("checkbox", $.as_checkbox_spec),
+      field("radiobutton", $.radiobutton_group_spec),
+      field("listbox", $.as_listbox_spec),
 
       field("obligatory", $.obligatory_spec),
-      field("display", $.no_display_spec),
+      field("display", $.no_display),
       field("modif_id", $.modif_id_spec),
     ),
 
@@ -36,18 +36,18 @@ module.exports = {
   __parameter_value_option: $ =>
     choice(
       field("default", $.default_value_spec),
-      field("case", $.lower_case_spec),
+      field("case", $.lower_case),
       field("search_help", $.search_help_spec),
       field("memory_id", $.memory_id_spec),
       field("value_check", $.value_check),
     ),
 
-  radiobutton_group: $ =>
+  radiobutton_group_spec: $ =>
     seq(...gen.kws("radiobutton", "group"), field("group", $.identifier)),
 
-  as_checkbox: _ => seq(...gen.kws("as", "checkbox")),
+  as_checkbox_spec: _ => seq(...gen.kws("as", "checkbox")),
 
   value_check: _ => seq(...gen.kws("value", "check")),
 
-  as_listbox: _ => seq(...gen.kws("as", "listbox")),
+  as_listbox_spec: _ => seq(...gen.kws("as", "listbox")),
 };

@@ -34,7 +34,7 @@ ASSIGN 123 TO <fs> CASTING.
     source: (number)
     destination: (field_symbol
       name: (identifier))
-    (assignment_casting)))
+    (assignment_casting_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Assignments / Assigning References / ASSIGN ] Casting type
@@ -49,7 +49,7 @@ ASSIGN sy-timlo TO <fs> CASTING TYPE time.
       component: (identifier))
     destination: (field_symbol
       name: (identifier))
-    (assignment_casting
+    (assignment_casting_spec
       typing: (referred_type
         name: (identifier)))))
 
@@ -64,7 +64,7 @@ ASSIGN time TO <fs> CASTING LIKE sy-timlo.
     source: (identifier)
     destination: (field_symbol
       name: (identifier))
-    (assignment_casting
+    (assignment_casting_spec
       typing: (referred_type
         object: (component_selection
           subject: (identifier)
@@ -81,8 +81,8 @@ ASSIGN pack TO <pack> CASTING DECIMALS sy-index.
     source: (identifier)
     destination: (field_symbol
       name: (identifier))
-    (assignment_casting
-      (type_decimals
+    (assignment_casting_spec
+      (type_decimals_spec
         count: (component_selection
           subject: (identifier)
           component: (identifier))))))
@@ -98,10 +98,10 @@ ASSIGN pack TO <pack> CASTING TYPE foo DECIMALS sy-index.
     source: (identifier)
     destination: (field_symbol
       name: (identifier))
-    (assignment_casting
+    (assignment_casting_spec
       typing: (builtin_type_spec
         name: (identifier)
-        (type_decimals
+        (type_decimals_spec
           count: (component_selection
             subject: (identifier)
             component: (identifier)))))))
@@ -119,8 +119,8 @@ ASSIGN sy-datlo TO  <fs> CASTING TYPE HANDLE struct.
       component: (identifier))
     destination: (field_symbol
       name: (identifier))
-    (assignment_casting
-      (type_handle
+    (assignment_casting_spec
+      (type_handle_spec
         handle: (identifier)))))
 
 =================================================================================
@@ -185,7 +185,7 @@ ASSIGN sflight_tab[ connid = connid ] TO FIELD-SYMBOL(<price>).
   (assign_statement
     source: (table_expression
       subject: (identifier)
-      (free_key
+      (free_key_spec
         (key_component_list
           (itab_comp_spec
             comp: (identifier)
@@ -269,11 +269,11 @@ ASSIGN struct-col1 INCREMENT 3 TO <fs> RANGE struct.
     source: (component_selection
       subject: (identifier)
       component: (identifier))
-    (assignment_increment
+    (assignment_increment_spec
       amount: (number))
     destination: (field_symbol
       name: (identifier))
-    (assignment_range
+    (assignment_range_spec
       range: (identifier))))
 
 =================================================================================
@@ -284,8 +284,9 @@ UNASSIGN <fs>.
 
 (source
   (unassign_statement
-    (field_symbol
-      name: (identifier))))
+    (unassign_spec
+      subject: (field_symbol
+        name: (identifier)))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Assignments / Assigning References / UNASSIGN ] Chained
@@ -295,9 +296,12 @@ UNASSIGN: <fs>, <fs2>, <fs3>.
 
 (source
   (unassign_statement
-    (field_symbol
-      name: (identifier))
-    (field_symbol
-      name: (identifier))
-    (field_symbol
-      name: (identifier))))
+    (unassign_spec
+      subject: (field_symbol
+        name: (identifier)))
+    (unassign_spec
+      subject: (field_symbol
+        name: (identifier)))
+    (unassign_spec
+      subject: (field_symbol
+        name: (identifier)))))

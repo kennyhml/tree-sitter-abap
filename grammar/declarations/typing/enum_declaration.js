@@ -1,6 +1,6 @@
 module.exports = {
   // BEGIN OF ENUM enum_type [STRUCTURE struc] [BASE TYPE dtype]
-  begin_of_enum: $ =>
+  begin_of_enum_spec: $ =>
     seq(
       ...gen.kws("begin", "of", "enum"),
       field("name", $.identifier),
@@ -9,7 +9,7 @@ module.exports = {
     ),
 
   // END OF ENUM enum_type [STRUCTURE struc]
-  end_of_enum: $ =>
+  end_of_enum_spec: $ =>
     seq(
       ...gen.kws("end", "of", "enum"),
       field("name", $.identifier),
@@ -20,7 +20,7 @@ module.exports = {
   enum_value_spec: $ =>
     seq(
       field("name", $.identifier),
-      optional(choice($.initial_value, $.default_data_value)),
+      optional(choice($.initial_value_spec, $.default_data_value_spec)),
     ),
 
   // BASE TYPE dtype

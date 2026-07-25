@@ -31,7 +31,7 @@ module.exports = {
       seq(
         gen.kw("type"),
         field("class_name", $.identifier),
-        optional(choice($.using_message, $.inline_message)),
+        optional(choice($.using_message_spec, $.inline_message)),
         optional($._exporting_args),
       ),
     ),
@@ -39,7 +39,5 @@ module.exports = {
   // For some reason 'using message' went missing from the docs, but it
   // just uses the system message fields (sy-msgid, etc..)
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_MESSAGE.html
-  using_message: _ => seq(...gen.kws("using", "message")),
-
-  resumable: _ => gen.kw("resumable"),
+  using_message_spec: _ => seq(...gen.kws("using", "message")),
 };

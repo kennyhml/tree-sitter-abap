@@ -28,20 +28,6 @@ module.exports = {
   __reference_type_like_spec: $ =>
     seq(gen.kw("like"), alias($._ref_to_data, $.ref_to)),
 
-  _ref_to_type: $ =>
-    seq(
-      ...gen.kws("ref", "to"),
-      field(
-        "subject",
-        choice($.identifier, $.component_selection, $.dynamic_spec),
-      ),
-    ),
-
-  _ref_to_data: $ =>
-    seq(
-      ...gen.kws("ref", "to"),
-      field("object", choice($.identifier, $.component_selection)),
-    ),
-
-  __reference_type_addition: $ => choice($.read_only, $.initial_value),
+  __reference_type_addition: $ =>
+    choice($.read_only, $.initial_value_spec),
 };

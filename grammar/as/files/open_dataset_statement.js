@@ -18,9 +18,9 @@ module.exports = {
       // all the additions can seemingly just be intermixed.
       repeat(
         choice(
-          $._dataset_access_kind,
+          $.dataset_access_spec,
           $.in_dataset_mode_spec,
-          $._dataset_addition,
+          $.__dataset_addition,
         ),
       ),
     ),
@@ -45,14 +45,11 @@ module.exports = {
   __close_dataset_statement_prefix: $ =>
     seq(...gen.kws("close", "dataset"), field("dataset", $.data_object)),
 
-  // ... FOR INPUP / OUTPUT / APPENDING / UPDATE ..
-  _dataset_access_kind: $ =>
-    choice($.for_input, $.for_output, $.for_appending, $.for_update),
+  // ... FOR INPUT / OUTPUT / APPENDING / UPDATE ...
+  dataset_access_spec: $ =>
+    seq(gen.kw("for"), choice($.input, $.output, $.appending, $.update)),
 
-  for_input: _ => seq(...gen.kws("for", "input")),
-  for_output: _ => seq(...gen.kws("for", "output")),
-  for_appending: _ => seq(...gen.kws("for", "appending")),
-  for_update: _ => seq(...gen.kws("for", "update")),
+  update: _ => gen.kw("update"),
 
   /**
    * ... {BINARY MODE}
@@ -69,9 +66,9 @@ module.exports = {
         "mode",
         choice(
           $.binary_mode,
-          $.dataset_text_mode_spec,
-          $.dataset_legacy_binary_mode,
-          $.dataset_legacy_text_mode,
+          $.text_mode,
+          $.legacy_binary_mode,
+          $.legacy_text_mode,
         ),
       ),
     ),
@@ -80,28 +77,28 @@ module.exports = {
   binary_mode: _ => seq(...gen.kws("binary", "mode")),
 
   // TEXT MODE encoding [linefeed]
-  dataset_text_mode_spec: $ =>
+  text_mode: $ =>
     seq(
       ...gen.kws("text", "mode"),
-      $.dataset_encoding_spec,
-      optional($.dataset_linefeed_spec),
+      $.encoding_spec,
+      optional($.linefeed_spec),
     ),
 
   // LEGACY BINARY MODE [endian] [CODE PAGE cp]
-  dataset_legacy_binary_mode: $ =>
+  legacy_binary_mode: $ =>
     seq(
       ...gen.kws("legacy", "binary", "mode"),
-      optional($.dataset_endian_spec),
-      optional($.dataset_code_page_spec),
+      optional($.endian_spec),
+      optional($.code_page_spec),
     ),
 
   // LEGACY TEXT MODE [endian] [CODE PAGE cp] [linefeed]
-  dataset_legacy_text_mode: $ =>
+  legacy_text_mode: $ =>
     seq(
       ...gen.kws("legacy", "text", "mode"),
-      optional($.dataset_endian_spec),
-      optional($.dataset_code_page_spec),
-      optional($.dataset_linefeed_spec),
+      optional($.endian_spec),
+      optional($.code_page_spec),
+      optional($.linefeed_spec),
     ),
 
   /**
@@ -109,7 +106,7 @@ module.exports = {
    *            | {UTF-8 [SKIPPING|WITH BYTE-ORDER MARK]}
    *            | NON-UNICODE } ...
    */
-  dataset_encoding_spec: $ =>
+  encoding_spec: $ =>
     prec.right(
       seq(
         gen.kw("encoding"),
@@ -119,7 +116,10 @@ module.exports = {
           seq(
             $.utf8,
             optional(
-              choice($.skipping_byte_order_mark, $.with_byte_order_mark),
+              choice(
+                $.skipping_byte_order_mark,
+                $.with_byte_order_mark,
+              ),
             ),
           ),
         ),
@@ -129,33 +129,40 @@ module.exports = {
   skipping_byte_order_mark: _ =>
     seq(...gen.kws("skipping", "byte-order", "mark")),
 
-  with_byte_order_mark: _ => seq(...gen.kws("with", "byte-order", "mark")),
+  with_byte_order_mark: _ =>
+    seq(...gen.kws("with", "byte-order", "mark")),
 
-  dataset_linefeed_spec: _ =>
+  linefeed_spec: _ =>
     seq(
       gen.kw("with"),
       field("kind", choice(...gen.kws("native", "smart", "unix", "windows"))),
       gen.kw("linefeed"),
     ),
 
-  dataset_endian_spec: _ =>
+  endian_spec: _ =>
     seq(field("kind", choice(...gen.kws("big", "little"))), gen.kw("endian")),
 
-  dataset_code_page_spec: $ =>
+  code_page_spec: $ =>
     seq(...gen.kws("code", "page"), field("code_page", $.data_object)),
 
-  _dataset_addition: $ =>
+  non_unicode: _ => gen.kw("non-unicode"),
+
+  default: _ => gen.kw("default"),
+
+  utf8: _ => gen.kw("utf-8"),
+
+  __dataset_addition: $ =>
     choice(
-      $.dataset_position_spec,
+      alias($.__open_at_position_spec, $.at_position_spec),
       $.dataset_type_spec,
       $.dataset_filter_spec,
       $.dataset_message_spec,
       $.ignoring_conversion_errors,
-      $.dataset_replacement_character_spec,
+      $.replacement_character_spec,
     ),
 
   // ... AT POSITION pos ...
-  dataset_position_spec: $ =>
+  __open_at_position_spec: $ =>
     seq(...gen.kws("at", "position"), field("position", $.data_object)),
 
   dataset_type_spec: $ =>
@@ -170,15 +177,10 @@ module.exports = {
   ignoring_conversion_errors: _ =>
     seq(...gen.kws("ignoring", "conversion", "errors")),
 
-  dataset_replacement_character_spec: $ =>
+  replacement_character_spec: $ =>
     seq(
       ...gen.kws("replacement", "character"),
       field("character", $.data_object),
     ),
 
-  non_unicode: _ => gen.kw("non-unicode"),
-
-  default: _ => gen.kw("default"),
-
-  utf8: _ => gen.kw("utf-8"),
 };

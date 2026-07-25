@@ -8,11 +8,11 @@ module.exports = {
     seq(
       // Must allow " and # directly after the pipe, otherwise the inline comment rule strikes..
       /[|](["#]*)/,
-      repeat(choice($._template_content, $.embedded_expression)),
+      repeat(choice($.__template_content, $.embedded_expression)),
       "|",
     ),
 
-  _template_content: _ => choice(alias(/\\./, "\\"), /[^{}|\\]+/),
+  __template_content: _ => choice(alias(/\\./, "\\"), /[^{}|\\]+/),
 
   /**
    * { embd_exp [format_options] }

@@ -12,15 +12,15 @@ module.exports = {
       field("file", $.data_object),
       repeat(
         choice(
-          alias($._get_dataset_position_spec, $.dataset_position_spec),
-          alias($._get_dataset_attributes_spec, $.dataset_attributes_spec),
+          alias($.__get_dataset_position_spec, $.dataset_position_spec),
+          alias($.__get_dataset_attributes_spec, $.dataset_attributes_spec),
         ),
       ),
     ),
 
-  _get_dataset_position_spec: $ =>
+  __get_dataset_position_spec: $ =>
     seq(gen.kw("position"), field("destination", $.receiving_expression)),
 
-  _get_dataset_attributes_spec: $ =>
+  __get_dataset_attributes_spec: $ =>
     seq(gen.kw("attributes"), field("destination", $.receiving_expression)),
 };

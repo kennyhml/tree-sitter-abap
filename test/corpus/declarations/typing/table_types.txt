@@ -90,8 +90,8 @@ types foo type standard table of bar with default key.
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             (default_key)))))))
 
 =================================================================================
@@ -107,7 +107,7 @@ types foo type standard table of bar with empty key.
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_key
+        (with_key_spec
           (empty_key))))))
 
 =================================================================================
@@ -137,10 +137,10 @@ types foo type sorted table of spfli with non-unique key carrid.
       typing: (table_type
         kind: (sorted_table)
         name: (identifier)
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             unique: (non_unique)
-            (key_components
+            (key_components_spec
               (identifier))))))))
 
 =================================================================================
@@ -156,10 +156,10 @@ types foo type sorted table of spfli with unique key carrid.
       typing: (table_type
         kind: (sorted_table)
         name: (identifier)
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             unique: (unique)
-            (key_components
+            (key_components_spec
               (identifier))))))))
 
 =================================================================================
@@ -190,10 +190,10 @@ types foo type hashed table of spfli with unique key carrid.
       typing: (table_type
         kind: (hashed_table)
         name: (identifier)
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             unique: (unique)
-            (key_components
+            (key_components_spec
               (identifier))))))))
 
 =================================================================================
@@ -209,10 +209,10 @@ types foo type standard table of bar with key primary_key components table_line.
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             name: (identifier)
-            (key_components
+            (key_components_spec
               (identifier))))))))
 
 =================================================================================
@@ -231,26 +231,26 @@ types foo type table of bar
       typing: (table_type
         kind: (standard_table)
         name: (identifier)
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             unique: (non_unique)
             name: (identifier)
-            (key_components
+            (key_components_spec
               (identifier)
               (identifier))))
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             unique: (non_unique)
             kind: (sorted)
             name: (identifier)
-            (key_components
+            (key_components_spec
               (identifier)
               (identifier))))
-        (with_key
-          (table_key_spec
+        (with_key_spec
+          (table_key_definition_spec
             unique: (unique)
             kind: (hashed)
             name: (identifier)
-            (key_components
+            (key_components_spec
               (identifier)
               (identifier))))))))

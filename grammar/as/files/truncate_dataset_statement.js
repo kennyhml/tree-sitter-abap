@@ -8,10 +8,10 @@ module.exports = {
     seq(
       ...gen.kws("truncate", "dataset"),
       field("subject", $.data_object),
-      $.truncate_at_position_spec,
+      alias($.__truncate_at_position_spec, $.at_position_spec),
     ),
 
-  truncate_at_position_spec: $ =>
+  __truncate_at_position_spec: $ =>
     seq(
       gen.kw("at"),
       choice(

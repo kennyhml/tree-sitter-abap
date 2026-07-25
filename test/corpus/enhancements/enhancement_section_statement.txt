@@ -8,7 +8,7 @@ END-ENHANCEMENT-SECTION.
 (source
   (enhancement_section_statement
     name: (identifier)
-    (enhancement_spots_spec
+    (spots_spec
       (identifier))))
 
 =================================================================================
@@ -23,7 +23,7 @@ END-ENHANCEMENT-SECTION.
 (source
   (enhancement_section_statement
     name: (identifier)
-    (enhancement_spots_spec
+    (spots_spec
       (identifier))
     body: (statement_block
       (assignment
@@ -44,7 +44,7 @@ END-ENHANCEMENT-SECTION.
 (source
   (enhancement_section_statement
     name: (identifier)
-    (enhancement_spots_spec
+    (spots_spec
       (identifier)
       (identifier))))
 
@@ -58,7 +58,7 @@ END-ENHANCEMENT-SECTION.
 (source
   (enhancement_section_statement
     name: (identifier)
-    (enhancement_spots_spec
+    (spots_spec
       (identifier))
     (static)))
 
@@ -72,7 +72,7 @@ END-ENHANCEMENT-SECTION.
 (source
   (enhancement_section_statement
     name: (identifier)
-    (enhancement_spots_spec
+    (spots_spec
       (identifier)
       (identifier)
       (identifier))))
@@ -91,7 +91,7 @@ END-ENHANCEMENT-SECTION.
 (source
   (enhancement_section_statement
     name: (identifier)
-    (enhancement_spots_spec
+    (spots_spec
       (identifier))
     (static)
     (include_bound)

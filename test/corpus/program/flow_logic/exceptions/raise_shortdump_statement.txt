@@ -59,7 +59,7 @@ RAISE SHORTDUMP  TYPE /BOBF/CX_CONF
         (message_spec
           type: (message_type)
           number: (number)
-          (with_arguments
+          (with_arguments_spec
             (string_literal)
             (string_literal))))
       exporting: (argument_list
@@ -85,7 +85,7 @@ RAISE SHORTDUMP  TYPE cx_demo_exception
           id: (string_literal)
           type: (string_literal)
           number: (string_literal)
-          (with_arguments
+          (with_arguments_spec
             (string_literal)
             (string_literal)))))))
 
@@ -99,4 +99,4 @@ RAISE SHORTDUMP  TYPE /brx/cx_error USING MESSAGE.
   (raise_shortdump_statement
     exception: (new_exception_spec
       class_name: (identifier)
-      (using_message))))
+      (using_message_spec))))

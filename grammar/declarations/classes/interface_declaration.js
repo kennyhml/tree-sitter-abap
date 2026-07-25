@@ -20,15 +20,16 @@ module.exports = {
   __interfaces_addition: $ =>
     choice(
       $.partially_implemented,
-      $.abstract_methods,
-      $.final_methods,
-      $.all_methods,
-      $.data_values,
+      $.abstract_methods_spec,
+      $.final_methods_spec,
+      $.all_methods_spec,
+      $.data_values_spec,
     ),
 
-  partially_implemented: _ => seq(...gen.kws("partially", "implemented")),
+  partially_implemented: _ =>
+    seq(...gen.kws("partially", "implemented")),
 
-  abstract_methods: $ =>
+  abstract_methods_spec: $ =>
     prec.right(
       seq(
         ...gen.kws("abstract", "methods"),
@@ -41,7 +42,7 @@ module.exports = {
       ),
     ),
 
-  final_methods: $ =>
+  final_methods_spec: $ =>
     prec.right(
       seq(
         ...gen.kws("final", "methods"),
@@ -54,10 +55,13 @@ module.exports = {
       ),
     ),
 
-  all_methods: $ =>
-    seq(...gen.kws("all", "methods"), choice($.final, $.abstract)),
+  all_methods_spec: $ =>
+    seq(
+      ...gen.kws("all", "methods"),
+      choice($.final, $.abstract),
+    ),
 
-  data_values: $ =>
+  data_values_spec: $ =>
     prec.right(
       seq(...gen.kws("data", "values"), repeat1($.data_value_assignment)),
     ),

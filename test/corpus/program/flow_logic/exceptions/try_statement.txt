@@ -19,7 +19,7 @@ ENDTRY.
     (catch_clause
       exceptions: (catch_exception_list
         (identifier))
-      (into_clause
+      (into_spec
         result: (declaration_expression
           name: (identifier)))
       body: (catch_block
@@ -49,7 +49,7 @@ ENDTRY.
       exceptions: (catch_exception_list
         (identifier)
         (identifier))
-      (into_clause
+      (into_spec
         result: (declaration_expression
           name: (identifier)))
       body: (catch_block
@@ -78,7 +78,7 @@ ENDTRY.
     (catch_clause
       exceptions: (catch_exception_list
         (identifier))
-      (into_clause
+      (into_spec
         result: (declaration_expression
           name: (identifier)))
       body: (catch_block
@@ -88,7 +88,7 @@ ENDTRY.
     (catch_clause
       exceptions: (catch_exception_list
         (identifier))
-      (into_clause
+      (into_spec
         result: (declaration_expression
           name: (identifier)))
       body: (catch_block
@@ -116,7 +116,7 @@ ENDTRY.
       (before_unwind)
       exceptions: (catch_exception_list
         (identifier))
-      (into_clause
+      (into_spec
         result: (declaration_expression
           name: (identifier)))
       body: (catch_block

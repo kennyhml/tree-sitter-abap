@@ -1,11 +1,11 @@
 module.exports = {
-  report_maximum_width_spec: $ =>
+  maximum_width_spec: $ =>
     seq(
       ...gen.kws("maximum", "width", "into"),
       field("destination", $.writable_expression),
     ),
 
-  program_directory_entry_spec: $ =>
+  directory_entry_spec: $ =>
     seq(...gen.kws("directory", "entry"), field("entry", $.named_data_object)),
 
   source_error_message_spec: $ =>

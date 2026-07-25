@@ -33,5 +33,10 @@ module.exports = {
     ),
 
   __range_type_addition: $ =>
-    choice($.with_header_line, $.initial_value, $.read_only, $.initial_size),
+    choice(
+      $.with_header_line,
+      $.initial_value_spec,
+      $.read_only,
+      $.initial_size_spec,
+    ),
 };

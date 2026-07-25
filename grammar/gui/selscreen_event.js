@@ -26,43 +26,42 @@ module.exports = {
   __selection_screen_event: $ =>
     choice(
       $.output,
-      $.on_exit_command,
-      $.on_radiobutton_group,
-      $.on_block,
-      $.on_value_request,
-      $.on_help_request,
-      $.on_parameter,
-      $.on_end_of_parameter,
+      $.on_exit_command_spec,
+      $.on_radiobutton_group_spec,
+      $.on_block_spec,
+      $.on_value_request_spec,
+      $.on_help_request_spec,
+      $.on_parameter_spec,
+      $.on_end_of_parameter_spec,
     ),
 
-  // { OUTPUT }
-  output: _ => gen.kw("output"),
-
   // { ON EXIT-COMMAND }
-  on_exit_command: _ => seq(...gen.kws("on", "exit-command")),
+  on_exit_command_spec: _ => seq(...gen.kws("on", "exit-command")),
 
   // { ON RADIOBUTTON GROUP group }
-  on_radiobutton_group: $ =>
+  on_radiobutton_group_spec: $ =>
     seq(...gen.kws("on", "radiobutton", "group"), field("name", $.identifier)),
 
   // { ON BLOCK block }
-  on_block: $ => seq(...gen.kws("on", "block"), field("name", $.identifier)),
+  on_block_spec: $ =>
+    seq(...gen.kws("on", "block"), field("name", $.identifier)),
 
   // { ON BLOCK block }
-  on_parameter: $ => seq(...gen.kws("on"), field("name", $.identifier)),
+  on_parameter_spec: $ =>
+    seq(...gen.kws("on"), field("name", $.identifier)),
 
   // { ON END OF selcrit }
-  on_end_of_parameter: $ =>
+  on_end_of_parameter_spec: $ =>
     seq(...gen.kws("on", "end", "of"), field("name", $.identifier)),
 
   // { ON VALUE-REQUEST }
   //   FOR {para|selcrit-low|selcrit-high} }
-  on_value_request: $ =>
+  on_value_request_spec: $ =>
     seq(...gen.kws("on", "value-request"), $.__help_or_value_request_target),
 
   // { ON HELP-REQUEST }
   //   FOR {para|selcrit-low|selcrit-high} }
-  on_help_request: $ =>
+  on_help_request_spec: $ =>
     seq(...gen.kws("on", "help-request"), $.__help_or_value_request_target),
 
   // FOR {para|selcrit-low|selcrit-high}

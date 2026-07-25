@@ -74,7 +74,7 @@ ENDFUNCTION.
           name: (identifier))
         typing: (referred_type
           name: (identifier))
-        (parameter_default
+        (parameter_default_spec
           value: (string_literal))))
     exporting: (parameters
       (parameter

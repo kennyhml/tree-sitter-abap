@@ -15,10 +15,10 @@ module.exports = {
   // Different variants to perform the deletion - all specified in this module.
   __delete_itab_variants: $ =>
     choice(
-      $._delete_itab_key_spec,
-      $._itab_index_spec,
-      $._delete_itab_lines_spec,
-      $._delete_itab_duplicates_spec,
+      $.delete_itab_key_spec,
+      alias($._itab_index_spec, $.delete_itab_index_spec),
+      $.delete_itab_lines_spec,
+      $.delete_itab_duplicates_spec,
     ),
 
   /**
@@ -33,11 +33,11 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_KEY.html
    */
-  _delete_itab_key_spec: $ =>
+  delete_itab_key_spec: $ =>
     seq(
       gen.kw("table"),
       field("subject", $.general_expression),
-      choice($.from_work_area, $.table_key),
+      choice($.from_work_area_spec, $.table_key_spec),
     ),
 
   /**
@@ -48,8 +48,8 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_LINES.html
    */
-  _delete_itab_lines_spec: $ =>
-    seq(field("subject", $.general_expression), $.itab_lines),
+  delete_itab_lines_spec: $ =>
+    seq(field("subject", $.general_expression), $.itab_lines_spec),
 
   /**
    * Delete duplicates from internal table comparing certain fields.
@@ -59,13 +59,13 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DUPLICATES.html
    */
-  _delete_itab_duplicates_spec: $ =>
+  delete_itab_duplicates_spec: $ =>
     seq(
-      $.adjacent_duplicates_from,
+      $.__adjacent_duplicates_from,
       field("subject", $.general_expression),
-      repeat(choice($.using_key, $.comparing)),
+      repeat(choice($.using_key_spec, $.comparing_spec)),
     ),
 
-  adjacent_duplicates_from: _ =>
+  __adjacent_duplicates_from: _ =>
     seq(...gen.kws("adjacent", "duplicates", "from")),
 };

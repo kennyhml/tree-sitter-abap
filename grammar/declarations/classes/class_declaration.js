@@ -44,21 +44,6 @@ module.exports = {
   class_body: $ =>
     repeat1(choice($.public_section, $.protected_section, $.private_section)),
 
-  _class_component: $ =>
-    choice(
-      $.data_declaration,
-      $.class_data_declaration,
-      $.events_declaration,
-      $.class_events_declaration,
-      $.constants_declaration,
-      $.types_declaration,
-      $.aliases_declaration,
-      $.interfaces_declaration,
-      $.methods_declaration,
-      $.class_methods_declaration,
-      $._empty_statement,
-    ),
-
   public_section: $ =>
     seq(...gen.kws("public", "section"), ".", repeat($._class_component)),
 
@@ -121,39 +106,46 @@ module.exports = {
       $.abstract,
       $.final,
       $.shared_memory_enabled,
-      $.for_behavior_of,
-      $.friends,
-      $.global_friends,
-      $.create_visibility,
-      $.inheriting_from,
-      alias($.__for_testing_spec, $.for_testing),
+      $.for_behavior_of_spec,
+      $.friends_spec,
+      $.global_friends_spec,
+      $.create_visibility_spec,
+      $.inheriting_from_spec,
+      alias($.__class_for_testing_spec, $.for_testing),
     ),
 
-  inheriting_from: $ =>
+  inheriting_from_spec: $ =>
     seq(...gen.kws("inheriting", "from"), field("name", $.identifier)),
 
-  create_visibility: $ =>
-    seq(gen.kw("create"), field("visibility", $._visibility)),
+  create_visibility_spec: $ =>
+    seq(gen.kw("create"), field("visibility", $.__visibility)),
 
-  friends: $ => seq(gen.kw("friends"), repeat1($.identifier)),
+  __visibility: _ => choice(...gen.kws("public", "protected", "private")),
 
-  global_friends: $ =>
+  friends_spec: $ => seq(gen.kw("friends"), repeat1($.identifier)),
+
+  global_friends_spec: $ =>
     seq(...gen.kws("global", "friends"), repeat1($.identifier)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_BEHAVIOR_OF.html
-  for_behavior_of: $ =>
+  for_behavior_of_spec: $ =>
     seq(...gen.kws("for", "behavior", "of"), field("name", $.identifier)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_TESTING.html
-  __for_testing_spec: $ =>
-    seq($.for_testing, repeat(choice($.duration, $.risk_level))),
+  __class_for_testing_spec: $ =>
+    seq(
+      ...gen.kws("for", "testing"),
+      repeat(choice($.duration_spec, $.risk_level_spec)),
+    ),
 
-  shared_memory_enabled: _ => seq(...gen.kws("shared", "memory", "enabled")),
+  shared_memory_enabled: _ =>
+    seq(...gen.kws("shared", "memory", "enabled")),
 
-  risk_level: $ =>
+  risk_level_spec: $ =>
     seq(...gen.kws("risk", "level"), field("level", $.__test_risk_level)),
 
-  duration: $ => seq(gen.kw("duration"), field("duration", $.__test_duration)),
+  duration_spec: $ =>
+    seq(gen.kw("duration"), field("duration", $.__test_duration)),
 
   __test_risk_level: _ =>
     choice(...gen.kws("critical", "dangerous", "harmless")),

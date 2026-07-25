@@ -16,7 +16,7 @@ module.exports = {
   user_command_spec: $ =>
     seq(gen.kw("user-command"), field("command", $.identifier)),
 
-  lower_case_spec: _ => seq(...gen.kws("lower", "case")),
+  lower_case: _ => seq(...gen.kws("lower", "case")),
 
   obligatory_spec: _ => seq(gen.kw("obligatory"), optional(gen.kw("off"))),
 
@@ -25,6 +25,5 @@ module.exports = {
 
   no_extension_spec: _ => seq(gen.kw("no-extension"), optional(gen.kw("off"))),
 
-  no_display_spec: _ => gen.kw("no-display"),
+  no_display: _ => gen.kw("no-display"),
 };
-

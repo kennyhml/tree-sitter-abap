@@ -10,7 +10,7 @@ module.exports = {
     seq(
       gen.kw("collect"),
       field("source", $.general_expression),
-      $.into,
-      optional(choice($.reference_into, $.assigning)),
+      $.into_spec,
+      optional($._itab_mutation_result),
     ),
 };

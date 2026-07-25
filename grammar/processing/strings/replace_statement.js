@@ -18,7 +18,7 @@ module.exports = {
       gen.kw("replace"),
       $._pattern_spec,
       $._subject_spec,
-      $.substitute_with,
+      $.substitute_with_spec,
       repeat($.__replace_addition),
     ),
 
@@ -32,11 +32,11 @@ module.exports = {
     seq(
       gen.kw("replace"),
       $._subject_spec,
-      $.substitute_with,
+      $.substitute_with_spec,
       optional($._processing_mode_spec),
     ),
 
-  substitute_with: $ =>
+  substitute_with_spec: $ =>
     seq(gen.kw("with"), field("value", $.character_like_expression)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_OPTIONS.html
@@ -46,37 +46,37 @@ module.exports = {
       $._processing_mode_spec,
       $._case_sensitivity_spec,
 
-      $.replacement_count,
-      $.replacement_line,
-      $.replacement_offset,
-      $.replacement_length,
+      $.replacement_count_spec,
+      $.replacement_line_spec,
+      $.replacement_offset_spec,
+      $.replacement_length_spec,
 
-      $.results,
+      $.results_spec,
     ),
 
   // `replacement COUNT cnt`
-  replacement_count: $ =>
+  replacement_count_spec: $ =>
     seq(
       ...gen.kws("replacement", "count"),
       field("target", $.receiving_expression),
     ),
 
   // replacement line lin
-  replacement_line: $ =>
+  replacement_line_spec: $ =>
     seq(
       ...gen.kws("replacement", "line"),
       field("target", $.receiving_expression),
     ),
 
   // replacement OFFSET off
-  replacement_offset: $ =>
+  replacement_offset_spec: $ =>
     seq(
       ...gen.kws("replacement", "offset"),
       field("target", $.receiving_expression),
     ),
 
   // replacement LENGTH len
-  replacement_length: $ =>
+  replacement_length_spec: $ =>
     seq(
       ...gen.kws("replacement", "length"),
       field("target", $.receiving_expression),

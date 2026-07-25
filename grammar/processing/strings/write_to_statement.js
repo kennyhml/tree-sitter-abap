@@ -39,68 +39,68 @@ module.exports = {
    */
   __format_option: $ =>
     choice(
-      $.format_left_justified,
-      $.format_centered,
-      $.format_right_justified,
-      $.format_exponent,
-      $.format_no_grouping,
-      $.format_no_sign,
-      $.format_no_zero,
-      $.format_currency,
-      $.format_decimals,
-      $.format_round,
-      $.format_unit,
-      $.format_environment_time_format,
-      $.format_time_zone,
-      $.format_style,
-      $.format_using_no_edit_mask,
-      $.format_using_edit_mask,
-      $.format_date,
+      $.left_justified,
+      $.centered,
+      $.right_justified,
+      $.format_exponent_spec,
+      $.no_grouping,
+      $.no_sign,
+      $.no_zero,
+      $.format_currency_spec,
+      $.format_decimals_spec,
+      $.format_round_spec,
+      $.format_unit_spec,
+      $.environment_time_format,
+      $.time_zone_spec,
+      $.format_style_spec,
+      $.format_using_no_edit_mask_spec,
+      $.format_using_edit_mask_spec,
+      $.format_date_spec,
     ),
 
-  format_left_justified: _ => gen.kw("left-justified"),
+  left_justified: _ => gen.kw("left-justified"),
 
-  format_centered: _ => gen.kw("centered"),
+  centered: _ => gen.kw("centered"),
 
-  format_right_justified: _ => gen.kw("right-justified"),
+  right_justified: _ => gen.kw("right-justified"),
 
-  format_exponent: $ =>
+  format_exponent_spec: $ =>
     seq(gen.kw("exponent"), field("value", $.general_expression)),
 
-  format_no_grouping: _ => gen.kw("no-grouping"),
+  no_grouping: _ => gen.kw("no-grouping"),
 
-  format_no_sign: _ => gen.kw("no-sign"),
+  no_sign: _ => gen.kw("no-sign"),
 
-  format_no_zero: _ => gen.kw("no-zero"),
+  no_zero: _ => gen.kw("no-zero"),
 
-  format_currency: $ =>
+  format_currency_spec: $ =>
     seq(gen.kw("currency"), field("value", $.general_expression)),
 
-  format_decimals: $ =>
+  format_decimals_spec: $ =>
     seq(gen.kw("decimals"), field("value", $.general_expression)),
 
-  format_round: $ => seq(gen.kw("round"), field("value", $.general_expression)),
+  format_round_spec: $ =>
+    seq(gen.kw("round"), field("value", $.general_expression)),
 
-  format_unit: $ => seq(gen.kw("unit"), field("value", $.general_expression)),
+  format_unit_spec: $ =>
+    seq(gen.kw("unit"), field("value", $.general_expression)),
 
-  format_environment_time_format: _ =>
+  environment_time_format: _ =>
     seq(...gen.kws("environment", "time", "format")),
 
-  format_time_zone: $ =>
-    seq(...gen.kws("time", "zone"), field("value", $.general_expression)),
+  format_style_spec: $ =>
+    seq(gen.kw("style"), field("value", $.general_expression)),
 
-  format_style: $ => seq(gen.kw("style"), field("value", $.general_expression)),
-
-  format_using_edit_mask: $ =>
+  format_using_edit_mask_spec: $ =>
     seq(
       ...gen.kws("using", "edit", "mask"),
       field("mask", $.general_expression),
     ),
 
-  format_using_no_edit_mask: _ =>
+  format_using_no_edit_mask_spec: _ =>
     seq(...gen.kws("using", "no", "edit", "mask")),
 
-  format_date: _ =>
+  format_date_spec: _ =>
     choice(
       gen.kw("dd/mm/yy"),
       gen.kw("mm/dd/yy"),

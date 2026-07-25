@@ -7,13 +7,16 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html
    */
-  parameters: $ => seq(repeat1($.parameter), optional($.preferred_parameter)),
+  parameters: $ =>
+    seq(repeat1($.parameter), optional($.preferred_parameter_spec)),
 
   exceptions: $ => repeat1($.identifier),
 
   raising_list: $ =>
     prec.left(
-      repeat1(choice($.resumable_exception, $.non_resumable_exception)),
+      repeat1(
+        choice($.resumable_exception_spec, $.non_resumable_exception_spec),
+      ),
     ),
 
   parameter: $ =>
@@ -21,16 +24,16 @@ module.exports = {
       seq(
         choice($.implicit_reference, $.explicit_value, $.explicit_reference),
         optional(field("typing", $.typing)),
-        optional(choice($.optional, $.parameter_default)),
+        optional(choice($.optional, $.parameter_default_spec)),
       ),
     ),
 
-  preferred_parameter: $ =>
+  preferred_parameter_spec: $ =>
     seq(...gen.kws("preferred", "parameter"), field("name", $.identifier)),
 
   optional: _ => gen.kw("optional"),
 
-  parameter_default: $ =>
+  parameter_default_spec: $ =>
     seq(
       gen.kw("default"),
       field(
@@ -61,7 +64,7 @@ module.exports = {
       token.immediate(")"),
     ),
 
-  resumable_exception: $ =>
+  resumable_exception_spec: $ =>
     seq(
       gen.kw("resumable"),
       token.immediate("("),
@@ -69,5 +72,5 @@ module.exports = {
       token.immediate(")"),
     ),
 
-  non_resumable_exception: $ => field("name", $.identifier),
+  non_resumable_exception_spec: $ => field("name", $.identifier),
 };

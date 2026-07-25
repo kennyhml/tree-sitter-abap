@@ -21,15 +21,15 @@ module.exports = {
 
   __syntax_check_addition: $ =>
     choice(
-      $.syntax_check_program_spec,
-      $.program_directory_entry_spec,
+      $.program_spec,
+      $.directory_entry_spec,
       $.with_current_switchstates,
       $.source_error_include_spec,
       $.source_error_offset_spec,
       $.source_error_message_id_spec,
     ),
 
-  syntax_check_program_spec: $ =>
+  program_spec: $ =>
     seq(gen.kw("program"), field("program", $.named_data_object)),
 
   with_current_switchstates: _ =>

@@ -40,8 +40,8 @@
 
 
 (string_template "\\" @string.escape )
-(regex (string_literal) @string.regexp )
-(pcre (string_literal) @string.regexp )
+(regex_spec (string_literal) @string.regexp )
+(pcre_spec (string_literal) @string.regexp )
 
 (open_dataset_statement file: (string_literal) @string.special.path )
 (transfer_statement destination: (string_literal) @string.special.path )
@@ -91,7 +91,7 @@
 (substring_access (identifier) @variable )
 (table_body_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
-(tables_declaration (identifier) @variable )
+(tables_declaration (tables_spec name: (identifier) @variable ))
 (accumulator_spec name: (identifier) @variable )
 
 
@@ -103,7 +103,7 @@
   (subroutine_spec 
     name: (identifier) @function.call 
     [
-      (in_program name: (identifier) @module )
+      (in_program_spec name: (identifier) @module )
       program: (dynamic_spec (identifier) @module )
     ]?
   )
@@ -117,21 +117,21 @@
 )
 
 (data_declaration 
-  (begin_of_struct name: (identifier) @variable )
+  (begin_of_struct_spec name: (identifier) @variable )
 )
 (data_declaration 
-  (end_of_struct name: (identifier) @variable )
+  (end_of_struct_spec name: (identifier) @variable )
 )
 
 ; Only outer declarations are variables; the enclosed declarations are members.
 (data_declaration
-  (begin_of_struct)
+  (begin_of_struct_spec)
   [
     (data_spec name: (identifier) @variable.member)
-    (begin_of_struct name: (identifier) @variable.member)
-    (end_of_struct name: (identifier) @variable.member)
+    (begin_of_struct_spec name: (identifier) @variable.member)
+    (end_of_struct_spec name: (identifier) @variable.member)
   ]
-  (end_of_struct)
+  (end_of_struct_spec)
 )
 
 (statics_declaration 
@@ -139,21 +139,21 @@
 )
 
 (statics_declaration 
-  (begin_of_struct name: (identifier) @variable )
+  (begin_of_struct_spec name: (identifier) @variable )
 )
 (statics_declaration 
-  (end_of_struct name: (identifier) @variable )
+  (end_of_struct_spec name: (identifier) @variable )
 )
 
 ; Only outer declarations are variables; the enclosed declarations are members.
 (statics_declaration
-  (begin_of_struct)
+  (begin_of_struct_spec)
   [
     (statics_spec name: (identifier) @variable.member)
-    (begin_of_struct name: (identifier) @variable.member)
-    (end_of_struct name: (identifier) @variable.member)
+    (begin_of_struct_spec name: (identifier) @variable.member)
+    (end_of_struct_spec name: (identifier) @variable.member)
   ]
-  (end_of_struct)
+  (end_of_struct_spec)
 )
 
 (class_body
@@ -161,13 +161,13 @@
     [
       (data_declaration
         (data_spec name: (identifier) @variable.member )?
-        (begin_of_struct name: (identifier) @variable.member )?
-        (end_of_struct name: (identifier) @variable.member )?
+        (begin_of_struct_spec name: (identifier) @variable.member )?
+        (end_of_struct_spec name: (identifier) @variable.member )?
       )
       (class_data_declaration
         (class_data_spec name: (identifier) @variable.member )?
-        (begin_of_struct name: (identifier) @variable.member )?
-        (end_of_struct name: (identifier) @variable.member )?
+        (begin_of_struct_spec name: (identifier) @variable.member )?
+        (end_of_struct_spec name: (identifier) @variable.member )?
       )
     ]
   )
@@ -200,29 +200,29 @@
 )
 
 
+(table_key_definition_spec name: (identifier) @constant )
+(free_key_spec name: (identifier) @constant )
+(table_key_definition_spec ( key_alias_spec name: (identifier) @constant ) )
+(using_key_spec name: (identifier) @constant )
+(using_loop_key_spec "loop_key" @constant.builtin )
 (table_key_spec name: (identifier) @constant )
-(free_key name: (identifier) @constant )
-(table_key_spec ( alias name: (identifier) @constant ) )
-(using_key name: (identifier) @constant )
-(using_loop_key "loop_key" @constant.builtin )
-(table_key name: (identifier) @constant )
-(index_key name: (identifier) @constant )
+(index_key_spec name: (identifier) @constant )
 (checkpoint_id_spec group: (identifier) @constant )
 (test_injection_statement name: (identifier) @constant )
 (test_seam_statement name: (identifier) @constant )
 (enhancement_statement name: (identifier) @constant )
 (enhancement_point_statement name: (identifier) @constant )
 (enhancement_section_statement name: (identifier) @constant )
-(enhancement_spots_spec (identifier) @constant )
+(spots_spec (identifier) @constant )
 
-(key_components (identifier) @variable.member )
+(key_components_spec (identifier) @variable.member )
 (group_key_component field: (identifier) @variable.member )
 (mapping (identifier) @variable.member )
 (lookup_mapping (identifier) @variable.member )
-(except_list (identifier) @variable.member )
+(except_list_spec (identifier) @variable.member )
 
 
-(where_condition
+(where_condition_spec
   (comparison_expression
     . (identifier) @variable.member
   )
@@ -231,7 +231,7 @@
 
 ; Parameter identifiers
 (named_argument name: (identifier) @variable.parameter )
-(badi_filter name: (identifier) @variable.parameter )
+(filter_binding name: (identifier) @variable.parameter )
 
 ; Keep this after the generic capture so the CLI retains the match for its value capture.
 (named_argument
@@ -243,36 +243,36 @@
 (implicit_reference name: (identifier) @variable.parameter )
 (explicit_value name: (identifier) @variable.parameter )
 (explicit_reference name: (identifier) @variable.parameter )
-(preferred_parameter name: (identifier) @variable.parameter )
+(preferred_parameter_spec name: (identifier) @variable.parameter )
 (exception_mapping name: (identifier) @variable.parameter )
 (exception_mapping name: (identifier) @variable.parameter.builtin (#eq? @variable.parameter.builtin "others") )
 
 
 (exceptions (identifier) @variable.parameter )
-(raising_exception exception: (identifier) @variable.parameter )
+(raising_exception_spec exception: (identifier) @variable.parameter )
 (raise_statement name: (identifier) @variable.parameter )
 
 (at_selscreen_statement
   event: [
-    (on_help_request (identifier) @variable.parameter )
-    (on_parameter (identifier) @variable.parameter )
-    (on_value_request (identifier) @variable.parameter )
-    (on_end_of_parameter (identifier) @variable.parameter )
-    (on_radiobutton_group (identifier) @constant )
-    (on_block (identifier) @constant )
+    (on_help_request_spec (identifier) @variable.parameter )
+    (on_parameter_spec (identifier) @variable.parameter )
+    (on_value_request_spec (identifier) @variable.parameter )
+    (on_end_of_parameter_spec (identifier) @variable.parameter )
+    (on_radiobutton_group_spec (identifier) @constant )
+    (on_block_spec (identifier) @constant )
   ]
 )
 
 (parameters_spec name: (identifier) @variable.parameter )
-(include_parameter_directive name: (identifier) @variable.parameter )
+(include_parameter_directive_spec name: (identifier) @variable.parameter )
 (select_options_spec name: (identifier) @variable.parameter )
-(include_select_option_directive name: (identifier) @variable.parameter )
-(pushbutton_element name: (identifier) @variable )
-(include_pushbutton_directive name: (identifier) @variable )
+(include_select_option_directive_spec name: (identifier) @variable.parameter )
+(pushbutton_element_spec name: (identifier) @variable )
+(include_pushbutton_directive_spec name: (identifier) @variable )
 (user_command_spec (identifier) @constant )
 (memory_id_spec (identifier) @constant )
 (modif_id_spec (identifier) @constant )
-(radiobutton_group (identifier) @constant )
+(radiobutton_group_spec (identifier) @constant )
 (default_value_spec (identifier) @constant )
 
 (search_help_spec (identifier) @type )
@@ -280,19 +280,20 @@
 
 ; Regular block is technically a constant, but its difficult
 ; to disambiguate from an end of tabbed block
-(begin_of_block_element (identifier) @variable )
-(include_block_directive (identifier) @variable )
+(begin_of_block_element_spec (identifier) @variable )
+(include_block_directive_spec (identifier) @variable )
 (tab_spec name: (identifier) @variable )
-(begin_of_tabbed_block_element (identifier) @variable )
-(end_of_block_element (identifier) @variable )
+(begin_of_tabbed_block_element_spec (identifier) @variable )
+(end_of_block_element_spec
+  (end_of_block_spec name: (identifier) @variable ))
 
 (comment_spec 
   [
     name: (identifier) @variable
-    (for_screen_field name: (identifier) @variable.parameter )
+    (for_screen_field_spec name: (identifier) @variable.parameter )
   ]
 ) 
-(output_position
+(output_position_spec
   position: (identifier) @constant.builtin
 )
 
@@ -323,20 +324,20 @@
 )
 
 (constants_declaration 
-  (end_of_struct name: (identifier) @constant ) . 
+  (end_of_struct_spec name: (identifier) @constant ) .
 )
 (constants_declaration 
-  . (begin_of_struct name: (identifier) @constant ) 
+  . (begin_of_struct_spec name: (identifier) @constant )
 )
 
 (constants_declaration
-  (begin_of_struct)
+  (begin_of_struct_spec)
   [
     (constants_spec name: (identifier) @variable.member)
-    (begin_of_struct name: (identifier) @variable.member)
-    (end_of_struct name: (identifier) @variable.member)
+    (begin_of_struct_spec name: (identifier) @variable.member)
+    (end_of_struct_spec name: (identifier) @variable.member)
   ]
-  (end_of_struct)
+  (end_of_struct_spec)
 )
 
 (component_selection 
@@ -384,8 +385,8 @@
 (deferred_interface_declaration name: (identifier) @type )
 (class_implementation name: (identifier) @type )
 
-(non_resumable_exception name: (identifier) @type )
-(resumable_exception name: (identifier) @type )
+(non_resumable_exception_spec name: (identifier) @type )
+(resumable_exception_spec name: (identifier) @type )
 (new_exception_spec class_name: (identifier) @type )
 (create_object_statement type: (identifier) @type )
 (throw_exception name: (identifier) @type )
@@ -395,7 +396,7 @@
 (interfaces_spec 
   [
     name: (identifier) @type 
-    (abstract_methods 
+    (abstract_methods_spec
       [
         (identifier) @function.method
         (component_selection
@@ -404,7 +405,7 @@
         )
       ]
     )
-    (final_methods 
+    (final_methods_spec
       [
         (identifier) @function.method
         (component_selection
@@ -413,7 +414,7 @@
         )
       ]
     )
-    (data_values 
+    (data_values_spec
       (data_value_assignment
         member: (identifier) @variable.member
       )
@@ -427,7 +428,7 @@
   selector: "=>"
 )
 
-(for_event
+(for_event_spec
   [
 	source: (identifier) @type
     name: (identifier) @constant
@@ -435,7 +436,7 @@
 )
 
 (method_spec
-  (for_event)
+  (for_event_spec)
   importing: (parameters 
     (parameter
       (implicit_reference 
@@ -467,9 +468,9 @@
 [
   (transformation_parameter_binding_spec
     name: (identifier) @variable.parameter)
-  (transformation_source_binding_spec
+  (source_binding_spec
     name: (identifier) @variable.parameter)
-  (transformation_result_binding_spec
+  (result_binding_spec
     name: (identifier) @variable.parameter)
 ]
 
@@ -577,10 +578,10 @@
   (types_spec name: (identifier) @type.definition ) )
 
 (types_declaration
-  (begin_of_struct name: (identifier) @type.definition )
+  (begin_of_struct_spec name: (identifier) @type.definition )
 )
 (types_declaration
-  (end_of_struct name: (identifier) @type.definition )
+  (end_of_struct_spec name: (identifier) @type.definition )
 )
 
 
@@ -588,13 +589,13 @@
 ; Works in the playground and neovim, but the CLI highlighter seems
 ; to have some issue with it making it fail the tests.
 (types_declaration
-  (begin_of_struct)
+  (begin_of_struct_spec)
   [
     (types_spec name: (identifier) @variable.member)
-    (begin_of_struct name: (identifier) @variable.member)
-    (end_of_struct name: (identifier) @variable.member)
+    (begin_of_struct_spec name: (identifier) @variable.member)
+    (end_of_struct_spec name: (identifier) @variable.member)
   ]
-  (end_of_struct)
+  (end_of_struct_spec)
 )
 
 
@@ -663,9 +664,9 @@
   subject: (identifier) @variable.member
 ) 
 
-(begin_of_enum name: (identifier) @type.definition )
+(begin_of_enum_spec name: (identifier) @type.definition )
 (enum_value_spec name: (identifier) @constant )
-(end_of_enum name: (identifier) @type.definition )
+(end_of_enum_spec name: (identifier) @type.definition )
 (enum_structure_spec name: (identifier) @constant )
 
 ; In this context, table kind keywords specify a generic type.
@@ -683,18 +684,18 @@
 
 (report_statement
   name: (identifier) @module
-  (default_message_class name: (identifier) @type )?
-  (defining_database name: (identifier) @type )?
+  (default_message_class_spec name: (identifier) @type )?
+  (defining_database_spec name: (identifier) @type )?
 )
 
 (program_statement
   name: (identifier) @module
-  (default_message_class name: (identifier) @type )?
+  (default_message_class_spec name: (identifier) @type )?
 )
 
 (function_pool_statement
   name: (identifier) @module
-  (default_message_class name: (identifier) @type )?
+  (default_message_class_spec name: (identifier) @type )?
 )
 
 (function_definition name: (identifier) @module )
@@ -861,7 +862,7 @@
 (parameter (optional) @keyword.modifier )
 (explicit_value "value" @keyword.modifier )
 (explicit_reference "reference" @keyword.modifier )
-(resumable_exception "resumable" @keyword.modifier )
+(resumable_exception_spec "resumable" @keyword.modifier )
 
 (public_section keyword: _ @keyword.modifier )
 (protected_section keyword: _ @keyword.modifier )
@@ -899,7 +900,6 @@
 
 (case_type_of_statement ["case" "type" "of" "endcase" ] @keyword.conditional )
 (case_type_clause [ "when" "type" ] @keyword.conditional )
-(case_others_type_clause [ "when" "others" ] @keyword.conditional )
 
 (do_statement ["do" "times" "enddo"  ] @keyword.repeat )
 (while_statement ["while" "endwhile" ] @keyword.repeat )
@@ -913,7 +913,7 @@
 
 (format_option name: (identifier) @variable.parameter.builtin )
 
-(asynchronous_callback 
+(asynchronous_callback_spec
   [
     method: [
       (component_selection component: (identifier) @function.method)

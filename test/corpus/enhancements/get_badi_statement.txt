@@ -19,11 +19,11 @@ GET BADI lo_badi
 (source
   (get_badi_statement
     name: (identifier)
-    (badi_filters_spec
-      (badi_filter
+    (filters_spec
+      (filter_binding
         name: (identifier)
         value: (identifier))
-      (badi_filter
+      (filter_binding
         name: (identifier)
         value: (string_literal)))))
 
@@ -36,7 +36,7 @@ GET BADI lo_badi TYPE (lv_badi_name).
 (source
   (get_badi_statement
     name: (identifier)
-    (badi_type_spec
+    (dynamic_type_spec
       type: (dynamic_spec
         value: (identifier)))))
 
@@ -50,11 +50,11 @@ GET BADI lo_badi TYPE (lv_badi_name)
 (source
   (get_badi_statement
     name: (identifier)
-    (badi_type_spec
+    (dynamic_type_spec
       type: (dynamic_spec
         value: (identifier)))
-    (badi_filters_spec
-      (badi_filter
+    (filters_spec
+      (filter_binding
         name: (identifier)
         value: (identifier)))))
 
@@ -68,10 +68,10 @@ GET BADI lo_badi TYPE (lv_badi_name)
 (source
   (get_badi_statement
     name: (identifier)
-    (badi_type_spec
+    (dynamic_type_spec
       type: (dynamic_spec
         value: (identifier)))
-    (badi_filter_table_spec
+    (filter_table_spec
       value: (identifier))))
 
 =================================================================================
@@ -83,7 +83,7 @@ GET BADI lo_badi CONTEXT lo_context.
 (source
   (get_badi_statement
     name: (identifier)
-    (badi_context_spec
+    (context_spec
       value: (identifier))))
 
 =================================================================================
@@ -97,10 +97,10 @@ GET BADI lo_badi TYPE (lv_badi_name)
 (source
   (get_badi_statement
     name: (identifier)
-    (badi_type_spec
+    (dynamic_type_spec
       type: (dynamic_spec
         value: (identifier)))
-    (badi_filter_table_spec
+    (filter_table_spec
       value: (identifier))
-    (badi_context_spec
+    (context_spec
       value: (identifier))))

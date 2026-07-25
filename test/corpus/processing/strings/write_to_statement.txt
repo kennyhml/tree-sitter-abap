@@ -21,7 +21,7 @@ WRITE sy-datlo to date_mask DD/MM/YY.
       subject: (identifier)
       component: (identifier))
     destination: (identifier)
-    (format_date)))
+    (format_date_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Left justifiend
@@ -33,7 +33,7 @@ WRITE 'Left'   TO formatted_text LEFT-JUSTIFIED.
   (write_to_statement
     source: (string_literal)
     destination: (identifier)
-    (format_left_justified)))
+    (left_justified)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Centered
@@ -45,7 +45,7 @@ WRITE 'Centered'   TO formatted_text CENTERED.
   (write_to_statement
     source: (string_literal)
     destination: (identifier)
-    (format_centered)))
+    (centered)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Right justifiend
@@ -57,7 +57,7 @@ WRITE 'Right'   TO formatted_text RIGHT-JUSTIFIED.
   (write_to_statement
     source: (string_literal)
     destination: (identifier)
-    (format_right_justified)))
+    (right_justified)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / WRITE, TO ] Exponent
@@ -69,7 +69,7 @@ WRITE float TO formatted_text EXPONENT 0.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_exponent
+    (format_exponent_spec
       value: (number))))
 
 =================================================================================
@@ -82,7 +82,7 @@ WRITE num TO formatted_text NO-GROUPING.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_no_grouping)))
+    (no_grouping)))
 
 =================================================================================
 [ ABAP - Processing Internal Data / Strings / WRITE, TO ] No Sign
@@ -94,7 +94,7 @@ WRITE num TO formatted_text NO-SIGN.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_no_sign)))
+    (no_sign)))
 
 =================================================================================
 [ ABAP - Processing Internal Data / Strings / WRITE, TO ] No Zero
@@ -106,7 +106,7 @@ WRITE num TO formatted_text NO-ZERO.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_no_zero)))
+    (no_zero)))
 
 =================================================================================
 [ ABAP - Processing Internal Data / Strings / WRITE, TO ] Currency
@@ -118,7 +118,7 @@ WRITE num TO formatted_text CURRENCY 'USD'.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_currency
+    (format_currency_spec
       value: (string_literal))))
 
 =================================================================================
@@ -131,7 +131,7 @@ WRITE num TO formatted_text DECIMALS 2.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_decimals
+    (format_decimals_spec
       value: (number))))
 
 =================================================================================
@@ -144,7 +144,7 @@ WRITE num TO formatted_text ROUND 3.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_round
+    (format_round_spec
       value: (number))))
 
 =================================================================================
@@ -157,7 +157,7 @@ WRITE num TO formatted_text UNIT 'PC'.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_unit
+    (format_unit_spec
       value: (string_literal))))
 
 =================================================================================
@@ -170,7 +170,7 @@ WRITE val TO formatted_text ENVIRONMENT TIME FORMAT.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_environment_time_format)))
+    (environment_time_format)))
 
 =================================================================================
 [ ABAP - Processing Internal Data / Strings / WRITE, TO ] Time Zone
@@ -182,7 +182,7 @@ WRITE val TO formatted_text TIME ZONE 'UTC'.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_time_zone
+    (time_zone_spec
       value: (string_literal))))
 
 =================================================================================
@@ -195,7 +195,7 @@ WRITE num TO formatted_text STYLE stl.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_style
+    (format_style_spec
       value: (identifier))))
 
 =================================================================================
@@ -208,7 +208,7 @@ WRITE val TO formatted_text USING EDIT MASK '==ALPHA'.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_using_edit_mask
+    (format_using_edit_mask_spec
       mask: (string_literal))))
 
 =================================================================================
@@ -221,7 +221,7 @@ WRITE val TO formatted_text USING NO EDIT MASK.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_using_no_edit_mask)))
+    (format_using_no_edit_mask_spec)))
 
 =================================================================================
 [ ABAP - Processing Internal Data / Strings / WRITE, TO ] Date Mask (DD/MM/YYYY)
@@ -233,4 +233,4 @@ WRITE date TO formatted_text DD/MM/YYYY.
   (write_to_statement
     source: (identifier)
     destination: (identifier)
-    (format_date)))
+    (format_date_spec)))

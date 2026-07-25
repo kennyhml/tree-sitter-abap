@@ -2,7 +2,7 @@ module.exports = {
   /**
    * This statement assigns the memory area specified using mem_area to the field symbol <fs>
    *
-   * ASSIGN mem_area TO <fs> casting_spec
+   * ASSIGN mem_area TO <fs> casting
    *                         range_spec
    *                         [ELSE UNASSIGN].
    *
@@ -18,11 +18,11 @@ module.exports = {
       gen.kw("assign"),
       field("source", choice($.__assign_source)),
       // technically only possible when using a static dobj for source
-      optional($.assignment_increment),
+      optional($.assignment_increment_spec),
       gen.kw("to"),
       field("destination", choice($.field_symbol, $.declaration_expression)),
-      optional($.assignment_casting),
-      optional($.assignment_range),
+      optional($.assignment_casting_spec),
+      optional($.assignment_range_spec),
       optional($.else_unassign),
     ),
 
@@ -48,7 +48,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSIGN_MEM_AREA_DYNAMIC_DOBJ.html
    */
-  assignment_increment: $ =>
+  assignment_increment_spec: $ =>
     seq(gen.kw("increment"), field("amount", $.data_object)),
 
   /**
@@ -56,7 +56,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSIGN_RANGE.html
    */
-  assignment_range: $ =>
+  assignment_range_spec: $ =>
     seq(gen.kw("range"), field("range", $.named_data_object)),
 
   /**
@@ -70,12 +70,16 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSIGN_CASTING.html
    */
-  assignment_casting: $ =>
+  assignment_casting_spec: $ =>
     choice(
       seq(
         gen.kw("casting"),
         optional(
-          choice(field("typing", $.typing), $.type_handle, $.type_decimals),
+          choice(
+            field("typing", $.typing),
+            $.type_handle_spec,
+            $.type_decimals_spec,
+          ),
         ),
       ),
       $.typing, // obsolete spec
@@ -98,13 +102,4 @@ module.exports = {
       field("struct", $.writable_expression),
     ),
 
-  /**
-   * ... ELSE UNASSIGN ...
-   *
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSIGN_ELSE_UNASSIGN.html
-   */
-  else_unassign: _ => seq(...gen.kws("else", "unassign")),
-
-  type_handle: $ =>
-    seq(...gen.kws("type", "handle"), field("handle", $.named_data_object)),
 };

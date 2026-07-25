@@ -19,24 +19,67 @@ module.exports = {
       field("subject", $.functional_expression),
       choice(
         seq(
-          field("result", $.__table_read_result),
+          field("result", $.__table_read_non_into_result),
+          $.__table_read_variant,
+        ),
+        seq(
+          field(
+            "result",
+            alias($.__read_table_into_spec, $.into_spec),
+          ),
+          optional($.__transport_options),
           $.__table_read_variant,
           optional($.__transport_options),
         ),
         seq(
-          choice($.index, $.free_key, $.table_key, $.from_work_area),
-          field("result", $.__table_read_result),
+          $.__table_read_key_variant,
+          choice(
+            field("result", $.__table_read_non_into_result),
+            seq(
+              field(
+                "result",
+                alias($.__read_table_into_spec, $.into_spec),
+              ),
+              optional($.__transport_options),
+            ),
+          ),
         ),
         seq(
-          $.itab_lines,
-          field("result", $.__table_read_result),
-          optional(seq($.itab_lines, optional($.__transport_options))),
+          $.itab_lines_spec,
+          choice(
+            seq(
+              field("result", $.__table_read_non_into_result),
+              optional($.itab_lines_spec),
+            ),
+            seq(
+              field(
+                "result",
+                alias($.__read_table_into_spec, $.into_spec),
+              ),
+              optional($.__transport_options),
+              optional(seq($.itab_lines_spec, optional($.__transport_options))),
+            ),
+          ),
         ),
       ),
     ),
 
   __table_read_variant: $ =>
-    choice($.index, $.itab_lines, $.free_key, $.table_key, $.from_work_area),
+    choice(
+      $.index_spec,
+      $.itab_lines_spec,
+      $.free_key_spec,
+      $.table_key_spec,
+      $.from_work_area_spec,
+    ),
+
+  __table_read_key_variant: $ =>
+    choice(
+      $.index_spec,
+      $.free_key_spec,
+      $.table_key_spec,
+      $.from_work_area_spec,
+    ),
 
   /**
    * ... { INTO wa [transport_options] }
@@ -46,33 +89,25 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_OUTDESC.html
    */
-  __table_read_result: $ =>
+  __table_read_non_into_result: $ =>
     choice(
-      $.assigning,
-      $.reference_into,
-      $.transporting_no_fields,
-      $.into_work_area,
+      $.assigning_spec,
+      $.reference_into_spec,
+      alias($._transporting_no_fields_spec, $.transporting_spec),
     ),
 
-  /**
-   *  ... [TRANSPORTING { {comp1 comp2 ...}|{ALL FIELDS} }] ...
-   */
-  transporting_components: $ =>
-    seq(
-      gen.kw("transporting"),
-      choice($.all_fields, prec.right(repeat1($.itab_comp))),
-    ),
-
-  // { INTO wa [transport_options] }
-  into_work_area: $ =>
+  // { INTO wa }
+  __read_table_into_spec: $ =>
     seq(
       gen.kw("into"),
       field("work_area", $.writable_expression),
-      optional($.__transport_options),
     ),
 
   __transport_options: $ =>
-    repeat1(choice($.comparing, $.transporting_components)),
-
-  transporting_no_fields: $ => seq(...gen.kws("transporting", "no", "fields")),
+    repeat1(
+      choice(
+        $.comparing_spec,
+        alias($._transporting_components_spec, $.transporting_spec),
+      ),
+    ),
 };

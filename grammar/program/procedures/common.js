@@ -12,14 +12,13 @@ module.exports = {
   call_argument_list: $ =>
     repeat1(
       choice(
-        $._importing_args,
+        $.__importing_args,
         $._exporting_args,
-        $._changing_args,
-        $._receiving_args,
-        $._tables_args,
+        $.__changing_args,
+        $.__receiving_args,
+        $.__tables_args,
         $._parameter_table_args,
-        $._exception_table_args,
-        $._tables_args,
+        $.__exception_table_args,
         $._exceptions_args,
       ),
     ),
@@ -27,7 +26,7 @@ module.exports = {
   // Needs to be a separate choice for builtin functio calls
   // or method calls where the EXPORTING parameter can be omitted
   // unlike the CALL FUNCTION statement.
-  _implicit_exporting_arguments: $ =>
+  __implicit_exporting_arguments: $ =>
     field(
       "exporting",
       choice(
@@ -81,7 +80,7 @@ module.exports = {
       optional(
         choice(
           $.call_argument_list,
-          alias($._implicit_exporting_arguments, $.call_argument_list),
+          alias($.__implicit_exporting_arguments, $.call_argument_list),
         ),
       ),
       ")",
@@ -103,15 +102,15 @@ module.exports = {
   argument_list: $ =>
     seq(choice(repeat1($.named_argument), $.positional_argument)),
 
-  _importing_args: $ => gen.kw_tagged("importing", $._named_argument_list),
+  __importing_args: $ => gen.kw_tagged("importing", $._named_argument_list),
   _exporting_args: $ => gen.kw_tagged("exporting", $._named_argument_list),
-  _changing_args: $ => gen.kw_tagged("changing", $._named_argument_list),
-  _receiving_args: $ => gen.kw_tagged("receiving", $._named_argument_list),
-  _tables_args: $ => gen.kw_tagged("tables", $._named_argument_list),
-  _exceptions_args: $ => gen.kw_tagged("exceptions", $._exception_mapping_list),
+  __changing_args: $ => gen.kw_tagged("changing", $._named_argument_list),
+  __receiving_args: $ => gen.kw_tagged("receiving", $._named_argument_list),
+  __tables_args: $ => gen.kw_tagged("tables", $._named_argument_list),
+  _exceptions_args: $ => gen.kw_tagged("exceptions", $.__exception_mapping_list),
   _parameter_table_args: $ =>
     gen.kw_tagged("parameter-table", $.named_data_object),
-  _exception_table_args: $ =>
+  __exception_table_args: $ =>
     gen.kw_tagged("exception-table", $.named_data_object),
 
   /**
@@ -145,7 +144,7 @@ module.exports = {
       ),
     ),
 
-  _exception_mapping_list: $ =>
+  __exception_mapping_list: $ =>
     prec.left(alias(repeat1($.exception_mapping), $.argument_list)),
 
   exception_mapping: $ =>

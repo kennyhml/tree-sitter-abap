@@ -17,7 +17,7 @@ module.exports = {
     seq(
       ...gen.kws("create", "data"),
       field("subject", $.writable_expression),
-      optional($.object_area_handle_spec),
+      optional($.area_handle_spec),
       optional(field("typing", choice($.typing, $.handle_type))),
     ),
 };

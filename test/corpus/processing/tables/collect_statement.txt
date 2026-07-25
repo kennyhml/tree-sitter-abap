@@ -7,7 +7,7 @@ COLLECT wa into itab.
 (source
   (collect_statement
     source: (identifier)
-    (into
+    (into_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -19,9 +19,9 @@ COLLECT wa into itab assigning <fs> casting.
 (source
   (collect_statement
     source: (identifier)
-    (into
+    (into_spec
       work_area: (identifier))
-    (assigning
+    (assigning_spec
       target: (field_symbol
         name: (identifier))
       (casting))))
@@ -35,9 +35,9 @@ COLLECT wa into itab reference into data(foo).
 (source
   (collect_statement
     source: (identifier)
-    (into
+    (into_spec
       work_area: (identifier))
-    (reference_into
+    (reference_into_spec
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -84,9 +84,9 @@ COLLECT VALUE line( key = COND #( LET r = rnd->get_next( ) IN
         (named_argument
           name: (identifier)
           value: (number))))
-    (into
+    (into_spec
       work_area: (identifier))
-    (assigning
+    (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))))

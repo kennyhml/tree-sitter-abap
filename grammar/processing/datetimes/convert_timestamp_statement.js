@@ -14,7 +14,17 @@ module.exports = {
       field("source", $.general_expression),
       $.time_zone_spec,
       gen.kw("into"),
-      repeat1(choice($.time_spec, $.date_spec)),
-      optional($.daylight_saving_time_spec),
+      repeat1(
+        choice(
+          alias($._result_time_spec, $.time_spec),
+          alias($._result_date_spec, $.date_spec),
+        ),
+      ),
+      optional(
+        alias(
+          $._result_daylight_saving_time_spec,
+          $.daylight_saving_time_spec,
+        ),
+      ),
     ),
 };

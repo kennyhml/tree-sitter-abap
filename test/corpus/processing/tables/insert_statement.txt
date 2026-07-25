@@ -7,7 +7,7 @@ INSERT connection INTO TABLE connection_tab.
 (source
   (insert_statement
     line: (identifier)
-    (into_table
+    (into_table_spec
       subject: (identifier))))
 
 =================================================================================
@@ -50,7 +50,7 @@ INSERT VALUE #( carrid   = 'XXX'
         (named_argument
           name: (identifier)
           value: (string_literal))))
-    (into_table
+    (into_table_spec
       subject: (identifier))))
 
 =================================================================================
@@ -61,11 +61,11 @@ INSERT INITIAL LINE INTO itab INDEX 1 ASSIGNING <line>.
 
 (source
   (insert_statement
-    line: (initial_line)
+    line: (initial_line_spec)
     (at_index
       subject: (identifier)
       index: (number))
-    result: (assigning
+    result: (assigning_spec
       target: (field_symbol
         name: (identifier)))))
 
@@ -77,9 +77,9 @@ INSERT LINES OF itab USING KEY skey INTO itab INDEX 1.
 
 (source
   (insert_statement
-    line: (lines_of
+    line: (lines_of_spec
       subject: (identifier)
-      (using_key
+      (using_key_spec
         name: (identifier)))
     (at_index
       subject: (identifier)

@@ -6,17 +6,17 @@ module.exports = {
     seq(
       gen.kw("split"),
       field("subject", $.character_like_expression),
-      $.split_at,
-      $.split_result,
+      $.split_at_spec,
+      alias($.__split_result, $.into_spec),
       optional($._processing_mode_spec),
     ),
 
-  split_at: $ => seq(gen.kw("at"), field("separator", $.data_object)),
+  split_at_spec: $ => seq(gen.kw("at"), field("separator", $.data_object)),
 
   /**
    * `INTO { {result1 result2 [...]} | {TABLE result_tab} }`
    */
-  split_result: $ =>
+  __split_result: $ =>
     prec.right(
       seq(
         gen.kw("into"),

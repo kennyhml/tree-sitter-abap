@@ -13,12 +13,25 @@ module.exports = {
   __convert_into_utclong_statement_prefix: $ =>
     seq(
       ...gen.kws("convert"),
-      $.date_spec,
-      $.time_spec,
-      optional($.fractional_seconds_spec),
-      optional($.daylight_saving_time_spec),
+      alias($._source_date_spec, $.date_spec),
+      alias($._source_time_spec, $.time_spec),
+      optional(
+        alias($.__source_fractional_seconds_spec, $.fractional_seconds_spec),
+      ),
+      optional(
+        alias(
+          $._source_daylight_saving_time_spec,
+          $.daylight_saving_time_spec,
+        ),
+      ),
       $.time_zone_spec,
       ...gen.kws("into", "utclong"),
       field("destination", $.writable_expression),
+    ),
+
+  __source_fractional_seconds_spec: $ =>
+    seq(
+      ...gen.kws("fractional", "seconds"),
+      field("value", $.general_expression),
     ),
 };

@@ -17,7 +17,7 @@ PROGRAM ZMYTESTPROGRAM message-id ZMESSAGE_CLASS.
 (source
   (program_statement
     name: (identifier)
-    (default_message_class
+    (default_message_class_spec
       name: (identifier))))
 
 =================================================================================
@@ -51,7 +51,7 @@ PROGRAM ZMYTESTPROGRAM line-size 200.
 (source
   (program_statement
     name: (identifier)
-    (line_size
+    (line_size_spec
       size: (number))))
 
 =================================================================================
@@ -63,7 +63,7 @@ PROGRAM ZMYTESTPROGRAM line-count 100(500).
 (source
   (program_statement
     name: (identifier)
-    (line_count
+    (line_count_spec
       page_lines: (number)
       footer_lines: (number))))
 
@@ -86,7 +86,7 @@ report ZMYTESTREPORT message-id ZMESSAGE_CLASS.
 (source
   (report_statement
     name: (identifier)
-    (default_message_class
+    (default_message_class_spec
       name: (identifier))))
 
 =================================================================================
@@ -109,7 +109,7 @@ report ZMYTESTREPORT defining database mydb.
 (source
   (report_statement
     name: (identifier)
-    (defining_database
+    (defining_database_spec
       name: (identifier))))
 
 =================================================================================
@@ -132,7 +132,7 @@ report ZMYTESTREPORT line-size 200.
 (source
   (report_statement
     name: (identifier)
-    (line_size
+    (line_size_spec
       size: (number))))
 
 =================================================================================
@@ -144,7 +144,7 @@ report ZMYTESTREPORT line-count 100(500).
 (source
   (report_statement
     name: (identifier)
-    (line_count
+    (line_count_spec
       page_lines: (number)
       footer_lines: (number))))
 
@@ -167,7 +167,7 @@ FUNCTION-POOL fpool MESSAGE-ID mid.
 (source
   (function_pool_statement
     name: (identifier)
-    (default_message_class
+    (default_message_class_spec
       name: (identifier))))
 
 =================================================================================
@@ -189,7 +189,7 @@ CLASS-POOL fpool MESSAGE-ID mid.
 (source
   (class_pool_statement
     name: (identifier)
-    (default_message_class
+    (default_message_class_spec
       name: (identifier))))
 
 =================================================================================

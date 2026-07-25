@@ -6,10 +6,10 @@ REPLACE 'a' in str with 'b'.
 
 (source
   (replace_statement
-    pattern: (substring
+    pattern: (substring_spec
       value: (string_literal))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))))
 
 =================================================================================
@@ -20,11 +20,11 @@ REPLACE FIRST OCCURRENCE OF 'a' in str with 'b'.
 
 (source
   (replace_statement
-    (first_occurrence_of_pattern
-      pattern: (substring
+    (first_occurrence_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))))
 
 =================================================================================
@@ -35,11 +35,11 @@ REPLACE ALL OCCURRENCES OF 'a' in str with 'b'.
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))))
 
 =================================================================================
@@ -51,17 +51,17 @@ REPLACE ALL OCCURRENCES OF CONV xstring( `2D` ) IN xstr
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (conv_expression
           result_type: (identifier)
           subject: (string_literal))))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (conv_expression
         result_type: (identifier)
         subject: (string_literal)))
-    (in_byte_mode)))
+    (in_byte_mode_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / Replace ] PCRE
@@ -71,10 +71,10 @@ REPLACE PCRE 'u*' IN text WITH 'x'.
 
 (source
   (replace_statement
-    pattern: (pcre
+    pattern: (pcre_spec
       value: (string_literal))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))))
 
 =================================================================================
@@ -87,15 +87,15 @@ REPLACE ALL OCCURRENCES OF foo
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (identifier)))
-    (section_offset
+    (section_offset_spec
       offset: (number))
-    (section_length
+    (section_length_spec
       length: (number))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (identifier))))
 
 =================================================================================
@@ -107,13 +107,13 @@ REPLACE ALL OCCURRENCES OF lv_xvar IN xstr
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (identifier)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (identifier))
-    (in_byte_mode)))
+    (in_byte_mode_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / Replace ] Character mode
@@ -124,13 +124,13 @@ REPLACE ALL OCCURRENCES OF lv_xvar IN xstr
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (identifier)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (identifier))
-    (in_character_mode)))
+    (in_character_mode_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / Replace ] Verbatim
@@ -140,10 +140,10 @@ REPLACE PCRE regex IN text2 WITH `$1___$3` VERBATIM.
 
 (source
   (replace_statement
-    pattern: (pcre
+    pattern: (pcre_spec
       value: (identifier))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))
     (verbatim)))
 
@@ -156,11 +156,11 @@ REPLACE ALL OCCURRENCES OF PCRE `[A-Z]` IN str WITH '`'
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (pcre
+    (all_occurrences_of_pattern_spec
+      pattern: (pcre_spec
         value: (string_literal)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))
     (respecting_case)))
 
@@ -173,11 +173,11 @@ REPLACE ALL OCCURRENCES OF REGEX `[A-Z]` IN str WITH '`'
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (regex
+    (all_occurrences_of_pattern_spec
+      pattern: (regex_spec
         value: (string_literal)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))
     (ignoring_case)))
 
@@ -193,19 +193,19 @@ REPLACE ALL OCCURRENCES OF 'know' IN
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))
-    (replacement_count
+    (replacement_count_spec
       target: (declaration_expression
         name: (identifier)))
-    (replacement_offset
+    (replacement_offset_spec
       target: (declaration_expression
         name: (identifier)))
-    (replacement_length
+    (replacement_length_spec
       target: (declaration_expression
         name: (identifier)))))
 
@@ -219,13 +219,13 @@ REPLACE ALL OCCURRENCES OF `d` IN str WITH 't'
 
 (source
   (replace_statement
-    (all_occurrences_of_pattern
-      pattern: (substring
+    (all_occurrences_of_pattern_spec
+      pattern: (substring_spec
         value: (string_literal)))
     subject: (identifier)
-    (substitute_with
+    (substitute_with_spec
       value: (string_literal))
     (ignoring_case)
-    (results
+    (results_spec
       target: (declaration_expression
         name: (identifier)))))

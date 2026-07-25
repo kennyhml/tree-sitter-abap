@@ -2,8 +2,8 @@ module.exports = {
   /**
    * Branches into multiple "forms".
    *
-   * 1. {@link _corresponding_basic_form}
-   * 2. {@link _corresponding_lookup_table_form}
+   * 1. {@link __corresponding_basic_form}
+   * 2. {@link __corresponding_lookup_table_form}
    * 3. TODO: RAP form
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPR_CORRESPONDING.html
@@ -13,7 +13,7 @@ module.exports = {
       gen.kw("corresponding"),
       field("result_type", $._constructor_result),
       "(",
-      choice($._corresponding_basic_form, $._corresponding_lookup_table_form),
+      choice($.__corresponding_basic_form, $.__corresponding_lookup_table_form),
       ")",
     ),
 
@@ -22,16 +22,16 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_ARG_TYPE.html
    */
-  _corresponding_basic_form: $ =>
+  __corresponding_basic_form: $ =>
     seq(
       optional($.exact),
       // only one of these can occur
       optional(
-        choice(alias($.__corresponding_base_table, $.base_table), $.deep),
+        choice(alias($.__corresponding_base_spec, $.base_spec), $.deep),
       ),
       field("subject", $.general_expression),
       optional($.discarding_duplicates),
-      optional($.mapping_list),
+      optional($.mapping_list_spec),
     ),
 
   /**
@@ -40,17 +40,17 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_USING.html
    */
-  _corresponding_lookup_table_form: $ =>
+  __corresponding_lookup_table_form: $ =>
     seq(
       field("subject", $.general_expression),
       gen.kw("from"),
       field("lookup_table", $.general_expression),
       choice(
-        $.using_key,
+        $.using_key_spec,
         gen.kw("using"), // primary key
       ),
       $.lookup_mapping_list,
-      optional($.mapping_list),
+      optional($.mapping_list_spec),
     ),
 
   /**
@@ -59,14 +59,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_MAPPING.html
    */
-  mapping_list: $ =>
+  mapping_list_spec: $ =>
     choice(
       seq(
         gen.kw("mapping"),
         repeat1(choice($.submapping, $.mapping)),
-        optional($.except_list),
+        optional($.except_list_spec),
       ),
-      $.except_list,
+      $.except_list_spec,
     ),
 
   /**
@@ -84,7 +84,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRESPONDING_CONSTR_MAPPING.html
    */
   submapping: $ =>
-    gen.parenthesized(seq(field("level", $.mapping), $.mapping_list)),
+    gen.parenthesized(seq(field("level", $.mapping), $.mapping_list_spec)),
 
   mapping: $ =>
     prec.right(
@@ -92,8 +92,8 @@ module.exports = {
         field("left", $.itab_comp),
         "=",
         choice(
-          seq(field("right", $.itab_comp), optional($.mapping_default)),
-          $.mapping_default,
+          seq(field("right", $.itab_comp), optional($.mapping_default_spec)),
+          $.mapping_default_spec,
         ),
         optional($.discarding_duplicates),
       ),
@@ -109,7 +109,7 @@ module.exports = {
   lookup_mapping: $ =>
     seq(field("left", $.itab_comp), "=", field("right", $.itab_comp)),
 
-  except_list: $ =>
+  except_list_spec: $ =>
     seq(
       gen.kw("except"),
       choice(
@@ -118,9 +118,7 @@ module.exports = {
       ),
     ),
 
-  mapping_default: $ => seq(gen.kw("default"), $.general_expression),
-
-  exact: _ => prec.left(gen.kw("exact")),
+  mapping_default_spec: $ => seq(gen.kw("default"), $.general_expression),
 
   deep: _ => gen.kw("deep"),
 
@@ -128,9 +126,10 @@ module.exports = {
 
   deep_appending: _ => seq(...gen.kws("deep", "appending")),
 
-  discarding_duplicates: _ => seq(...gen.kws("discarding", "duplicates")),
+  discarding_duplicates: _ =>
+    seq(...gen.kws("discarding", "duplicates")),
 
-  __corresponding_base_table: $ =>
+  __corresponding_base_spec: $ =>
     seq(
       choice(
         // just the addition base, default..

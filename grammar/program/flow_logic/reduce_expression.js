@@ -25,15 +25,15 @@ module.exports = {
       field("result_type", $._constructor_result),
       "(",
       optional($.let_expression),
-      $.accumulators,
+      $.accumulators_spec,
       repeat1($.iteration_expression),
-      $.reduce_next,
+      $.next_spec,
       ")",
     ),
 
-  accumulators: $ => seq(gen.kw("init"), repeat1($.accumulator_spec)),
+  accumulators_spec: $ => seq(gen.kw("init"), repeat1($.accumulator_spec)),
 
-  reduce_next: $ =>
+  next_spec: $ =>
     seq(
       gen.kw("next"),
       repeat1(choice($.assignment, $.calculation_assignment)),

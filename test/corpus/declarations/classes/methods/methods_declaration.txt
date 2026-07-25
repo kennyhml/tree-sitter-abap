@@ -102,11 +102,11 @@ CLASS-METHODS m1 DEFAULT IGNORE.
   (class_methods_declaration
     (method_spec
       (identifier)
-      (default_fail)))
+      (default_fail_spec)))
   (class_methods_declaration
     (method_spec
       (identifier)
-      (default_ignore))))
+      (default_ignore_spec))))
 
 =================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Event handler
@@ -120,7 +120,7 @@ METHODS handle_double_click
   (methods_declaration
     (method_spec
       name: (identifier)
-      (for_event
+      (for_event_spec
         name: (identifier)
         source: (identifier))
       importing: (parameters

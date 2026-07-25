@@ -16,8 +16,8 @@ module.exports = {
       optional($.no_end_of_line),
     ),
 
+  no_end_of_line: _ => seq(...gen.kws("no", "end", "of", "line")),
+
   transfer_length_spec: $ =>
     seq(gen.kw("length"), field("length", $.data_object)),
-
-  no_end_of_line: _ => seq(...gen.kws("no", "end", "of", "line")),
 };

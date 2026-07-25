@@ -8,15 +8,15 @@ SELECTION-SCREEN:
 
 (source
   (selection_screen_statement
-    (pushbutton_element
-      (output_position
+    (pushbutton_element_spec
+      (output_position_spec
         position: (number)
         length: (number))
       name: (identifier)
       (user_command_spec
         command: (identifier)))
-    (pushbutton_element
-      (output_position
+    (pushbutton_element_spec
+      (output_position_spec
         position: (number)
         length: (number))
       name: (identifier)

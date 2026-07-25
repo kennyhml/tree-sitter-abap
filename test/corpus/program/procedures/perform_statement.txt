@@ -73,7 +73,7 @@ PERFORM (subr) IN PROGRAM (prog) IF FOUND.
     routine: (subroutine_spec
       name: (dynamic_spec
         value: (identifier))
-      (in_program
+      (in_program_spec
         name: (dynamic_spec
           value: (identifier)))
       (if_found))))
@@ -119,10 +119,10 @@ PERFORM cleanup_temp_buffers ON ROLLBACK.
   (perform_statement
     routine: (subroutine_spec
       name: (identifier))
-    (perform_on_commit
-      commit_level: (commit_level
+    (on_commit_spec
+      commit_level: (level_spec
         level: (identifier))))
   (perform_statement
     routine: (subroutine_spec
       name: (identifier))
-    (perform_on_rollback)))
+    (on_rollback_spec)))

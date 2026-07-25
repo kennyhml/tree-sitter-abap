@@ -32,7 +32,7 @@ VALUE carriers( FOR wa IN scarr_tab INDEX INTO i ( carrid = wa-carrid no = i ) )
       (table_iteration
         work_area: (identifier)
         subject: (identifier)
-        (index_into
+        (index_into_spec
           enumerator: (identifier)))
       (line_spec
         (argument_list
@@ -98,8 +98,8 @@ VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ).
       (table_iteration
         work_area: (identifier)
         subject: (identifier)
-        (itab_lines
-          (where_condition
+        (itab_lines_spec
+          (where_condition_spec
             condition: (parenthesized_expression
               (comparison_expression
                 left: (identifier)
@@ -121,8 +121,8 @@ VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ).
       (table_iteration
         work_area: (identifier)
         subject: (identifier)
-        (itab_lines
-          (where_condition
+        (itab_lines_spec
+          (where_condition_spec
             condition: (dynamic_spec
               value: (identifier)))))
       (line_spec
@@ -142,8 +142,8 @@ VALUE #( FOR wa IN messages WHERE ( (cond_tab) ) ( wa ) ).
       (table_iteration
         work_area: (identifier)
         subject: (identifier)
-        (itab_lines
-          (where_condition
+        (itab_lines_spec
+          (where_condition_spec
             condition: (dynamic_condition_tab
               (dynamic_spec
                 value: (identifier))))))
@@ -166,14 +166,14 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix FROM 4 TO 16
         work_area: (field_symbol
           name: (identifier))
         subject: (identifier)
-        (index_into
+        (index_into_spec
           enumerator: (identifier))
-        (itab_lines
-          (lines_from
+        (itab_lines_spec
+          (lines_from_spec
             index: (number))
-          (lines_to
+          (lines_to_spec
             index: (number))
-          (lines_step
+          (lines_step_spec
             size: (number))))
       (line_spec
         (argument_list
@@ -200,16 +200,16 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix
         work_area: (field_symbol
           name: (identifier))
         subject: (identifier)
-        (index_into
+        (index_into_spec
           enumerator: (identifier))
-        (itab_lines
-          (using_key
+        (itab_lines_spec
+          (using_key_spec
             name: (identifier))
-          (lines_from
+          (lines_from_spec
             index: (number))
-          (lines_to
+          (lines_to_spec
             index: (number))
-          (lines_step
+          (lines_step_spec
             size: (number))))
       (line_spec
         (argument_list
@@ -236,18 +236,18 @@ VALUE itab3(
       (table_iteration
         work_area: (identifier)
         subject: (identifier)
-        (index_into
+        (index_into_spec
           enumerator: (identifier))
-        (itab_lines
-          (where_condition
+        (itab_lines_spec
+          (where_condition_spec
             condition: (parenthesized_expression
               (comparison_expression
                 left: (identifier)
                 right: (number))))))
       (line_spec
-        (lines_of
+        (lines_of_spec
           subject: (identifier)
-          (lines_from
+          (lines_from_spec
             index: (identifier)))))))
 
 =================================================================================
@@ -268,7 +268,7 @@ VALUE group_keys( FOR GROUPS carrier OF wa IN spfli
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (component_selection
             subject: (identifier)
             component: (identifier))))
@@ -297,9 +297,9 @@ VALUE #( FOR GROUPS <fs> OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (index_into
+        (index_into_spec
           enumerator: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)))
       (line_spec
         (argument_list
@@ -326,7 +326,7 @@ VALUE #( FOR GROUPS OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)))
       (line_spec
         (argument_list
@@ -353,7 +353,7 @@ VALUE #( FOR GROUPS OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)))
       (line_spec
         (argument_list
@@ -380,7 +380,7 @@ VALUE #( FOR GROUPS OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)))
       (line_spec
         (argument_list
@@ -407,7 +407,7 @@ VALUE #( FOR GROUPS OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)))
       (line_spec
         (argument_list
@@ -434,7 +434,7 @@ VALUE #( FOR GROUPS OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)))
       (line_spec
         (argument_list
@@ -463,7 +463,7 @@ VALUE #( FOR GROUPS grp OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)
           (without_members)))
       (line_spec
@@ -490,7 +490,7 @@ VALUE #( FOR GROUPS grp OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)
           (without_members)))
       (line_spec
@@ -517,7 +517,7 @@ VALUE #( FOR GROUPS grp OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)
           (without_members)))
       (line_spec
@@ -543,9 +543,9 @@ VALUE #( FOR GROUPS OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)
-          (sort_order
+          (sort_order_spec
             direction: (descending))))
       (line_spec
         (argument_list
@@ -572,9 +572,9 @@ VALUE #( FOR GROUPS grp OF wa IN itab
           work_area: (identifier))
         (grouping_subject
           subject: (identifier))
-        (group_by
+        (group_by_spec
           key: (identifier)
-          (sort_order
+          (sort_order_spec
             direction: (ascending)))
         (let_expression
           (assignment

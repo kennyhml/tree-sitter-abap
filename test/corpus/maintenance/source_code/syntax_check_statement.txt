@@ -35,9 +35,9 @@ SYNTAX-CHECK FOR source MESSAGE mess LINE lin WORD wrd
       destination: (identifier))
     (source_error_word_spec
       destination: (identifier))
-    (syntax_check_program_spec
+    (program_spec
       program: (identifier))
-    (program_directory_entry_spec
+    (directory_entry_spec
       entry: (identifier))
     (with_current_switchstates)
     (source_error_include_spec

@@ -6,8 +6,8 @@ SELECTION-SCREEN ULINE /10(20).
 
 (source
   (selection_screen_statement
-    (horizontal_line_element
-      (output_position
+    (horizontal_line_element_spec
+      (output_position_spec
         position: (number)
         length: (number)))))
 
@@ -20,13 +20,13 @@ SELECTION-SCREEN ULINE POS_LOW(10).
 
 (source
   (selection_screen_statement
-    (horizontal_line_element
-      (output_position
+    (horizontal_line_element_spec
+      (output_position_spec
         position: (identifier)
         length: (number))))
   (selection_screen_statement
-    (horizontal_line_element
-      (output_position
+    (horizontal_line_element_spec
+      (output_position_spec
         position: (identifier)
         length: (number)))))
 
@@ -38,7 +38,7 @@ SELECTION-SCREEN ULINE MODIF ID lin.
 
 (source
   (selection_screen_statement
-    (horizontal_line_element
+    (horizontal_line_element_spec
       (modif_id_spec
         id: (identifier)))))
 
@@ -52,15 +52,19 @@ selection-screen skip: 5, 3, 1.
 
 (source
   (selection_screen_statement
-    (blank_line_directive))
+    (blank_line_directive_spec))
   (selection_screen_statement
-    (blank_line_directive
-      times: (number)))
+    (blank_line_directive_spec
+      (blank_line_spec
+        times: (number))))
   (selection_screen_statement
-    (blank_line_directive
-      times: (number)
-      times: (number)
-      times: (number))))
+    (blank_line_directive_spec
+      (blank_line_spec
+        times: (number))
+      (blank_line_spec
+        times: (number))
+      (blank_line_spec
+        times: (number)))))
 
 =================================================================================
 [ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Lines ] Directives
@@ -72,8 +76,8 @@ SELECTION-SCREEN: BEGIN OF LINE,
 
 (source
   (selection_screen_statement
-    (begin_of_line_directive)
-    (screen_position_directive
-      (output_position
+    (begin_of_line_directive_spec)
+    (screen_position_directive_spec
+      (output_position_spec
         position: (number)))
-    (end_of_line_directive)))
+    (end_of_line_directive_spec)))

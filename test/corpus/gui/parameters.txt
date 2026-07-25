@@ -22,7 +22,7 @@ parameters p_impsip as checkbox default abap_true modif id imp.
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      checkbox: (as_checkbox)
+      checkbox: (as_checkbox_spec)
       default: (default_value_spec
         value: (identifier))
       modif_id: (modif_id_spec
@@ -43,7 +43,7 @@ PARAMETERS p_carrid TYPE carrid
       name: (identifier)
       typing: (referred_type
         name: (identifier))
-      listbox: (as_listbox)
+      listbox: (as_listbox_spec)
       visible_length: (visible_length_spec
         length: (number))
       user_command: (user_command_spec
@@ -63,13 +63,13 @@ parameters:
   (parameters_declaration
     (parameters_spec
       name: (identifier)
-      radiobutton: (radiobutton_group
+      radiobutton: (radiobutton_group_spec
         group: (identifier))
       default: (default_value_spec
         value: (string_literal)))
     (parameters_spec
       name: (identifier)
-      radiobutton: (radiobutton_group
+      radiobutton: (radiobutton_group_spec
         group: (identifier))
       modif_id: (modif_id_spec
         id: (identifier)))))
@@ -87,7 +87,7 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
       name: (identifier)
       typing: (referred_type
         name: (identifier))
-      case: (lower_case_spec)
+      case: (lower_case)
       visible_length: (visible_length_spec
         length: (number))))
   (parameters_declaration
@@ -95,7 +95,7 @@ PARAMETERS p_pass  TYPE char10 NO-DISPLAY.
       name: (identifier)
       typing: (referred_type
         name: (identifier))
-      display: (no_display_spec))))
+      display: (no_display))))
 
 =================================================================================
 [ ABAP - SAP GUI User Dialogs / Selection Screens / Parameters ] Search help

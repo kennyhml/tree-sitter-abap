@@ -18,8 +18,8 @@ module.exports = {
     seq(
       ...gen.kws("wait", "for"),
       $.await_list,
-      $.await_until_spec,
-      optional($.await_up_to_spec),
+      $.until_spec,
+      optional($.up_to_spec),
     ),
 
   await_list: $ =>
@@ -47,12 +47,8 @@ module.exports = {
 
   push_channels: _ => seq(...gen.kws("push", "channels")),
 
-  // ... UNTIL log_exp
-  await_until_spec: $ =>
-    seq(gen.kw("until"), field("condition", $._logical_expression)),
-
   // UP TO sec SECONDS
-  await_up_to_spec: $ =>
+  up_to_spec: $ =>
     seq(
       ...gen.kws("up", "to"),
       field("seconds", $.data_object),

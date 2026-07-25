@@ -25,7 +25,7 @@ module.exports = {
       field("work_area", $.named_data_object),
       gen.kw("in"),
       field("subject", $.general_expression),
-      repeat(choice($.itab_lines, $.index_into)),
+      repeat(choice($.itab_lines_spec, $.index_into_spec)),
     ),
 
   /**
@@ -41,13 +41,13 @@ module.exports = {
     seq(
       choice($.group_key_binding, $.representative_binding),
       $.grouping_work_area,
-      optional($.index_into),
+      optional($.index_into_spec),
       $.grouping_subject,
-      optional($.index_into),
-      $.group_by,
+      optional($.index_into_spec),
+      $.group_by_spec,
     ),
 
-  index_into: $ =>
+  index_into_spec: $ =>
     seq(...gen.kws("index", "into"), field("enumerator", $.named_data_object)),
 
   /**
@@ -68,6 +68,6 @@ module.exports = {
     seq(
       gen.kw("in"),
       field("subject", $.general_expression),
-      optional($.itab_lines),
+      optional($.itab_lines_spec),
     ),
 };

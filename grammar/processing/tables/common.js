@@ -21,7 +21,7 @@ module.exports = {
 
   group_size: _ => seq(...gen.kws("group", "size")),
 
-  group_by: $ =>
+  group_by_spec: $ =>
     prec(
       1,
       seq(
@@ -32,9 +32,9 @@ module.exports = {
         ),
         repeat(
           choice(
-            $.sort_order,
+            $.sort_order_spec,
             $.without_members,
-            field("result", $._group_by_result),
+            field("result", $.__group_by_result),
           ),
         ),
       ),
@@ -48,10 +48,11 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_INDEX.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_INDEX.html
    */
-  using_loop_key: _ => seq(...gen.kws("using", "key", "loop_key")),
+  using_loop_key_spec: _ => seq(...gen.kws("using", "key", "loop_key")),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
-  _group_by_result: $ => choice($.into, $.assigning, $.reference_into),
+  __group_by_result: $ =>
+    choice($.into_spec, $.assigning_spec, $.reference_into_spec),
 
   /**
    * ... { itab INDEX idx [USING KEY keyname] }
@@ -62,6 +63,55 @@ module.exports = {
   _itab_index_spec: $ =>
     seq(
       field("subject", $.general_expression),
-      optional(choice($.using_loop_key, $.index)),
+      optional(choice($.using_loop_key_spec, $.index_spec)),
     ),
+
+  // ... ASSIGNING <fs> / field-symbol(<fs>) [CASTING] [ELSE UNASSIGN] ...
+  assigning_spec: $ =>
+    seq(
+      gen.kw("assigning"),
+      field("target", choice($.field_symbol, $.declaration_expression)),
+      optional($.casting),
+      optional($.else_unassign),
+    ),
+
+  casting: _ => gen.kw("casting"),
+
+  reference_into_spec: $ =>
+    seq(
+      ...gen.kws("reference", "into"),
+      field("work_area", choice($.declaration_expression, $.named_data_object)),
+    ),
+
+  /**
+   * ... COMPARING {comp1 comp2 ...}|{ALL FIELDS}/{NO FIELDS}]
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_DUPLICATES.html
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE_TRANSPORT_OPTIONS.html
+   */
+  comparing_spec: $ =>
+    seq(
+      gen.kw("comparing"),
+      choice(
+        $.all_fields,
+        $.no_fields,
+        $.component_list,
+      ),
+    ),
+
+  component_list: $ => prec.right(repeat1($.itab_comp)),
+
+  /**
+   * ... TRANSPORTING { {comp1 comp2 ...}|{ALL FIELDS} } ...
+   */
+  _transporting_components_spec: $ =>
+    seq(
+      gen.kw("transporting"),
+      choice($.all_fields, $.component_list),
+    ),
+
+  _transporting_no_fields_spec: $ =>
+    seq(gen.kw("transporting"), $.no_fields),
+
+  _itab_mutation_result: $ => choice($.assigning_spec, $.reference_into_spec),
 };

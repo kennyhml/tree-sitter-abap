@@ -34,7 +34,7 @@ itab = CORRESPONDING #( BASE ( itab ) itab3 ).
   (assignment
     left: (identifier)
     right: (corresponding_expression
-      (base_table
+      (base_spec
         base: (identifier))
       subject: (identifier))))
 
@@ -72,12 +72,12 @@ CORRESPONDING #( APPENDING BASE ( struc2 ) struc1 )
 
 (source
   (corresponding_expression
-    (base_table
+    (base_spec
       (appending)
       base: (identifier))
     subject: (identifier))
   (corresponding_expression
-    (base_table
+    (base_spec
       (appending)
       base: (identifier))
     subject: (identifier)))
@@ -91,12 +91,12 @@ CORRESPONDING #( DEEP APPENDING BASE ( struc2 ) struc1 ).
 
 (source
   (corresponding_expression
-    (base_table
+    (base_spec
       (deep_appending)
       base: (identifier))
     subject: (identifier))
   (corresponding_expression
-    (base_table
+    (base_spec
       (deep_appending)
       base: (identifier))
     subject: (identifier)))
@@ -109,7 +109,7 @@ CORRESPONDING #( DEEP APPENDING ( struc2 ) struc1 discarding duplicates ).
 
 (source
   (corresponding_expression
-    (base_table
+    (base_spec
       (deep_appending)
       base: (identifier))
     subject: (identifier)
@@ -125,7 +125,7 @@ CORRESPONDING itab2( itab MAPPING col1 = table_line )
   (corresponding_expression
     result_type: (identifier)
     subject: (identifier)
-    (mapping_list
+    (mapping_list_spec
       (mapping
         left: (identifier)
         right: (identifier)))))
@@ -140,10 +140,10 @@ CORRESPONDING itab2( itab MAPPING col1 = default 10 )
   (corresponding_expression
     result_type: (identifier)
     subject: (identifier)
-    (mapping_list
+    (mapping_list_spec
       (mapping
         left: (identifier)
-        (mapping_default
+        (mapping_default_spec
           (number))))))
 
 =================================================================================
@@ -156,10 +156,10 @@ CORRESPONDING itab2( itab MAPPING col1 = default lines( itab2 ) )
   (corresponding_expression
     result_type: (identifier)
     subject: (identifier)
-    (mapping_list
+    (mapping_list_spec
       (mapping
         left: (identifier)
-        (mapping_default
+        (mapping_default_spec
           (function_call
             name: (identifier)
             (call_argument_list
@@ -176,14 +176,14 @@ CORRESPONDING #( struct1 EXCEPT * ).
 (source
   (corresponding_expression
     subject: (identifier)
-    (mapping_list
-      (except_list
+    (mapping_list_spec
+      (except_list_spec
         (identifier)
         (identifier))))
   (corresponding_expression
     subject: (identifier)
-    (mapping_list
-      (except_list))))
+    (mapping_list_spec
+      (except_list_spec))))
 
 =================================================================================
 [ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Deep mapping
@@ -197,30 +197,30 @@ CORRESPONDING #( str_deep1 mapping
 (source
   (corresponding_expression
     subject: (identifier)
-    (mapping_list
+    (mapping_list_spec
       (submapping
         level: (mapping
           left: (identifier)
           right: (identifier)
           (discarding_duplicates))
-        (mapping_list
+        (mapping_list_spec
           (mapping
             left: (identifier)
             right: (identifier))
-          (except_list)))
+          (except_list_spec)))
       (submapping
         level: (mapping
           left: (identifier)
           right: (identifier))
-        (mapping_list
+        (mapping_list_spec
           (mapping
             left: (identifier)
             right: (identifier))
-          (except_list)))
+          (except_list_spec)))
       (mapping
         left: (identifier)
         right: (identifier))
-      (except_list))))
+      (except_list_spec))))
 
 =================================================================================
 [ ABAP - Processing Internal Data / Assignments / Structures / CORRESPONDING ] Lookup table

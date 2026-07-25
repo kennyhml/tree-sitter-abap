@@ -7,5 +7,7 @@ module.exports = {
   tables_declaration: $ => seq($.__tables_declaration_prefix, "."),
 
   __tables_declaration_prefix: $ =>
-    gen.chainable("tables", $.identifier),
+    gen.chainable("tables", $.tables_spec),
+
+  tables_spec: $ => field("name", $.identifier),
 };

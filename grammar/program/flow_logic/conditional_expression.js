@@ -40,8 +40,6 @@ module.exports = {
       ),
     ),
 
-  resumable: _ => gen.kw("resumable"),
-
   shortdump: _ => gen.kw("shortdump"),
 
   case: $ =>

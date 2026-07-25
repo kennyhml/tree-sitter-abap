@@ -27,15 +27,15 @@ module.exports = {
     seq(
       optional($.stable),
       choice(
-        $.by_order_table,
-        $.by_sort_component_list,
-        seq($.sort_order, optional($.by_sort_component_list)),
+        $.by_order_table_spec,
+        $.by_sort_component_list_spec,
+        seq($.sort_order_spec, optional($.by_sort_component_list_spec)),
         $.as_text,
       ),
     ),
 
   // { [BY (otab)] }
-  by_order_table: $ =>
+  by_order_table_spec: $ =>
     seq(
       gen.kw("by"),
       field(
@@ -53,10 +53,10 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapsort_itab.html
    */
-  by_sort_component_list: $ =>
-    prec.right(seq(gen.kw("by"), repeat1($.sort_component))),
+  by_sort_component_list_spec: $ =>
+    prec.right(seq(gen.kw("by"), repeat1($.sort_component_spec))),
 
   // {comp1 [ASCENDING|DESCENDING] [AS TEXT]}
-  sort_component: $ =>
-    prec.right(seq(field("comp", $.itab_comp), optional($.sort_order))),
+  sort_component_spec: $ =>
+    prec.right(seq(field("comp", $.itab_comp), optional($.sort_order_spec))),
 };

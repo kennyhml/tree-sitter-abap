@@ -12,7 +12,7 @@ module.exports = {
       field("program", $.named_data_object),
       gen.kw("into"),
       field("destination", $.writable_expression),
-      $.textpool_language_spec,
+      $.language_spec,
     ),
 
   /**
@@ -28,9 +28,6 @@ module.exports = {
       field("program", $.named_data_object),
       gen.kw("from"),
       field("source", $.named_data_object),
-      $.textpool_language_spec,
+      $.language_spec,
     ),
-
-  textpool_language_spec: $ =>
-    seq(gen.kw("language"), field("language", $.named_data_object)),
 };

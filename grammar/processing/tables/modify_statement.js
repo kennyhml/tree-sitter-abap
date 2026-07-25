@@ -10,8 +10,8 @@ module.exports = {
     seq(
       gen.kw("modify"),
       choice(
-        seq($._modify_itab_key_spec, $._modify_single_line_additions),
-        $._modify_itab_index_or_lines_spec,
+        seq($.__modify_itab_key_spec, $.__modify_single_line_additions),
+        $.__modify_itab_index_or_lines_spec,
       ),
     ),
 
@@ -20,13 +20,12 @@ module.exports = {
    *                [TRANSPORTING comp1 comp2 ...] [result] ...
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_TABLE_KEY.html
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_SINGLE.html
    */
-  _modify_itab_key_spec: $ =>
+  __modify_itab_key_spec: $ =>
     seq(
       gen.kw("table"),
       field("subject", $.general_expression),
-      optional($.using_key),
+      optional($.using_key_spec),
     ),
 
   /**
@@ -39,15 +38,15 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_INDEX.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_MULTIPLE.html
    */
-  _modify_itab_index_or_lines_spec: $ =>
+  __modify_itab_index_or_lines_spec: $ =>
     seq(
       field("subject", $.general_expression),
       choice(
         seq(
-          choice($.index, $.using_loop_key),
-          $._modify_single_line_additions,
+          choice($.index_spec, $.using_loop_key_spec),
+          $.__modify_single_line_additions,
         ),
-        seq($.from_work_area, optional($._modify_after_work_area)),
+        seq($.from_work_area_spec, optional($.__modify_after_work_area)),
       ),
     ),
 
@@ -56,8 +55,8 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_SINGLE.html
    */
-  _modify_single_line_additions: $ =>
-    seq($.from_work_area, optional($._modify_single_line_tail)),
+  __modify_single_line_additions: $ =>
+    seq($.from_work_area_spec, optional($.__modify_single_line_tail)),
 
   /**
    * ... { TRANSPORTING comp1 comp2 ... [result] | result } ...
@@ -65,10 +64,13 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_SINGLE.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_RESULT.html
    */
-  _modify_single_line_tail: $ =>
+  __modify_single_line_tail: $ =>
     choice(
-      seq($.transporting_components, optional($._modify_result)),
-      $._modify_result,
+      seq(
+        alias($._transporting_components_spec, $.transporting_spec),
+        optional($.__modify_result),
+      ),
+      $.__modify_result,
     ),
 
   /**
@@ -80,14 +82,14 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_INDEX.html
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_MULTIPLE.html
    */
-  _modify_after_work_area: $ =>
+  __modify_after_work_area: $ =>
     choice(
-      seq($.index, optional($._modify_single_line_tail)),
+      seq($.index_spec, optional($.__modify_single_line_tail)),
       seq(
-        $.transporting_components,
-        optional(choice($.where_condition, $._modify_result)),
+        alias($._transporting_components_spec, $.transporting_spec),
+        optional(choice($.where_condition_spec, $.__modify_result)),
       ),
-      $._modify_result,
+      $.__modify_result,
     ),
 
   /**
@@ -96,5 +98,5 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB_RESULT.html
    */
-  _modify_result: $ => field("result", choice($.assigning, $.reference_into)),
+  __modify_result: $ => field("result", $._itab_mutation_result),
 };

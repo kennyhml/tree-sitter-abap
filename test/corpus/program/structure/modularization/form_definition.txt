@@ -35,7 +35,7 @@ ENDFORM.
       (parameter
         (implicit_reference
           name: (identifier))
-        (structure_parameter
+        (structure_parameter_spec
           name: (identifier))))))
 
 =================================================================================
@@ -87,7 +87,7 @@ ENDFORM.
       (parameter
         (implicit_reference
           name: (identifier))
-        (structure_parameter
+        (structure_parameter_spec
           name: (identifier))))))
 
 =================================================================================
@@ -110,7 +110,7 @@ ENDFORM.
         typing: (table_type
           kind: (standard_table))))
     raising: (raising_list
-      (non_resumable_exception
+      (non_resumable_exception_spec
         name: (identifier))
-      (resumable_exception
+      (resumable_exception_spec
         name: (identifier)))))

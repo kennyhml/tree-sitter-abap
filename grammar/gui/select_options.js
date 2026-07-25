@@ -21,7 +21,7 @@ module.exports = {
       field("intervals", $.no_intervals_spec),
 
       field("obligatory", $.obligatory_spec),
-      field("display", $.no_display_spec),
+      field("display", $.no_display),
       field("modif_id", $.modif_id_spec),
     ),
 
@@ -29,13 +29,13 @@ module.exports = {
   __selopt_value_option: $ =>
     choice(
       field("default", $.default_value_spec),
-      field("default", $.default_range),
-      field("case", $.lower_case_spec),
+      field("default", $.default_range_spec),
+      field("case", $.lower_case),
       field("search_help", $.search_help_spec),
       field("memory_id", $.memory_id_spec),
     ),
 
-  default_range: $ =>
+  default_range_spec: $ =>
     seq(
       gen.kw("default"),
       field("low", $.data_object),

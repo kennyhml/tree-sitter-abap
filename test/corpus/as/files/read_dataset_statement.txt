@@ -31,7 +31,7 @@ READ DATASET file INTO data MAXIMUM LENGTH max_length.
   (read_dataset_statement
     source: (identifier)
     destination: (identifier)
-    (dataset_maximum_length_spec
+    (maximum_length_spec
       length: (identifier))))
 
 =================================================================================
@@ -44,7 +44,7 @@ READ DATASET file INTO data MAXIMUM LENGTH 4.
   (read_dataset_statement
     source: (identifier)
     destination: (identifier)
-    (dataset_maximum_length_spec
+    (maximum_length_spec
       length: (number))))
 
 =================================================================================
@@ -57,7 +57,7 @@ READ DATASET file INTO data ACTUAL LENGTH actual_length.
   (read_dataset_statement
     source: (identifier)
     destination: (identifier)
-    (dataset_actual_length_spec
+    (actual_length_spec
       destination: (identifier))))
 
 =================================================================================
@@ -70,7 +70,7 @@ READ DATASET file INTO data LENGTH actual_length.
   (read_dataset_statement
     source: (identifier)
     destination: (identifier)
-    (dataset_actual_length_spec
+    (actual_length_spec
       destination: (identifier))))
 
 =================================================================================
@@ -83,7 +83,7 @@ READ DATASET file INTO data ACTUAL LENGTH FINAL(actual_length).
   (read_dataset_statement
     source: (identifier)
     destination: (identifier)
-    (dataset_actual_length_spec
+    (actual_length_spec
       destination: (declaration_expression
         name: (identifier)))))
 
@@ -99,7 +99,7 @@ READ DATASET file INTO data
   (read_dataset_statement
     source: (identifier)
     destination: (identifier)
-    (dataset_maximum_length_spec
+    (maximum_length_spec
       length: (identifier))
-    (dataset_actual_length_spec
+    (actual_length_spec
       destination: (identifier))))

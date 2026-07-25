@@ -35,7 +35,7 @@ MESSAGE i200 DISPLAY LIKE 'S'.
     (message_spec
       type: (message_type)
       number: (number)
-      (display_like
+      (display_like_spec
         type: (string_literal)))))
 
 ======
@@ -61,7 +61,7 @@ MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1.
     (message_spec
       source: (string_literal)
       type: (string_literal)
-      (raising_exception
+      (raising_exception_spec
         exception: (identifier)))))
 
 ======
@@ -89,12 +89,12 @@ MESSAGE s888(sabapdemos)
       type: (message_type)
       number: (number)
       id: (identifier)
-      (with_arguments
+      (with_arguments_spec
         (string_literal)
         (string_literal)
         (string_literal)
         (string_literal))
-      (into_clause
+      (into_spec
         result: (declaration_expression
           name: (identifier))))))
 
@@ -123,7 +123,7 @@ message e888(msg_class) with 'Foo' 'Bar' 'Baz'.
       type: (message_type)
       number: (number)
       id: (identifier)
-      (with_arguments
+      (with_arguments_spec
         (string_literal)
         (string_literal)
         (string_literal)))))
@@ -142,14 +142,14 @@ message: e888(msg_class) with 'Foo' 'Bar' 'Baz',
       type: (message_type)
       number: (number)
       id: (identifier)
-      (with_arguments
+      (with_arguments_spec
         (string_literal)
         (string_literal)
         (string_literal)))
     (message_spec
       type: (message_type)
       number: (number)
-      (with_arguments
+      (with_arguments_spec
         (string_literal)
         (string_literal)
         (string_literal)))
@@ -210,10 +210,10 @@ MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
       number: (component_selection
         subject: (identifier)
         component: (identifier))
-      (into_clause
+      (into_spec
         result: (declaration_expression
           name: (identifier)))
-      (with_arguments
+      (with_arguments_spec
         (component_selection
           subject: (identifier)
           component: (identifier))
@@ -239,7 +239,7 @@ message i368(00) with 'No import'(002) <ls_request>-trkorr.
       type: (message_type)
       number: (number)
       id: (number)
-      (with_arguments
+      (with_arguments_spec
         (text_symbol
           literal: (string_literal)
           id: (symbol_id))
@@ -260,7 +260,7 @@ message i368(00) with text-aab <ls_request>-trkorr.
       type: (message_type)
       number: (number)
       id: (number)
-      (with_arguments
+      (with_arguments_spec
         (text_symbol
           (identifier)
           id: (symbol_id))

@@ -19,9 +19,9 @@ module.exports = {
     choice(
       $.reduced_functionality,
       $.no_standard_page_heading,
-      $.line_size,
-      $.line_count,
-      $.default_message_class,
+      $.line_size_spec,
+      $.line_count_spec,
+      $.default_message_class_spec,
     ),
 
   /**
@@ -42,9 +42,9 @@ module.exports = {
   __function_pool_statement_addition: $ =>
     choice(
       $.no_standard_page_heading,
-      $.line_size,
-      $.line_count,
-      $.default_message_class,
+      $.line_size_spec,
+      $.line_count_spec,
+      $.default_message_class_spec,
     ),
 
   /**
@@ -68,10 +68,10 @@ module.exports = {
     choice(
       $.reduced_functionality,
       $.no_standard_page_heading,
-      $.defining_database,
-      $.line_size,
-      $.line_count,
-      $.default_message_class,
+      $.defining_database_spec,
+      $.line_size_spec,
+      $.line_count_spec,
+      $.default_message_class_spec,
     ),
 
   /**
@@ -85,7 +85,7 @@ module.exports = {
     seq(
       gen.kw("class-pool"),
       field("name", $.identifier),
-      optional($.default_message_class),
+      optional($.default_message_class_spec),
     ),
 
   /**
@@ -108,17 +108,18 @@ module.exports = {
   __type_pool_statement_prefix: $ =>
     seq(gen.kw("type-pool")),
 
-  reduced_functionality: _ => seq(...gen.kws("reduced", "functionality")),
+  reduced_functionality: _ =>
+    seq(...gen.kws("reduced", "functionality")),
 
   no_standard_page_heading: _ =>
     seq(...gen.kws("no", "standard", "page", "heading")),
 
-  defining_database: $ =>
+  defining_database_spec: $ =>
     seq(...gen.kws("defining", "database"), field("name", $.identifier)),
 
-  line_size: $ => seq(gen.kw("line-size"), field("size", $.number)),
+  line_size_spec: $ => seq(gen.kw("line-size"), field("size", $.number)),
 
-  line_count: $ =>
+  line_count_spec: $ =>
     seq(
       gen.kw("line-count"),
       field("page_lines", $.number),
@@ -127,6 +128,6 @@ module.exports = {
       token.immediate(")"),
     ),
 
-  default_message_class: $ =>
+  default_message_class_spec: $ =>
     seq(gen.kw("message-id"), field("name", $.identifier)),
 };

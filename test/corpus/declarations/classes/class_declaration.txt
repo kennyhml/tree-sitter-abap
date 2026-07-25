@@ -18,7 +18,7 @@ ENDCLASS.
     (class_options
       (public)
       (final)
-      (create_visibility))
+      (create_visibility_spec))
     (class_body
       (public_section)
       (protected_section)
@@ -36,7 +36,7 @@ ENDCLASS.
   (class_declaration
     name: (identifier)
     (class_options
-      (inheriting_from
+      (inheriting_from_spec
         name: (identifier)))))
 
 =================================================================================
@@ -69,11 +69,11 @@ ENDCLASS.
     name: (identifier)
     (class_options
       (public)
-      (inheriting_from
+      (inheriting_from_spec
         name: (identifier))
       (final)
-      (create_visibility)
-      (global_friends
+      (create_visibility_spec)
+      (global_friends_spec
         (identifier)))))
 
 =================================================================================
@@ -93,7 +93,7 @@ ENDCLASS.
     (class_options
       (public)
       (final)
-      (create_visibility)
+      (create_visibility_spec)
       (shared_memory_enabled))))
 
 =================================================================================
@@ -110,9 +110,8 @@ ENDCLASS.
     (identifier)
     (class_options
       (for_testing
-        (for_testing)
-        (risk_level)
-        (duration)))))
+        (risk_level_spec)
+        (duration_spec)))))
 
 =================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Behavior BDEF
@@ -129,7 +128,7 @@ ENDCLASS.
       (public)
       (abstract)
       (final)
-      (for_behavior_of
+      (for_behavior_of_spec
         name: (identifier)))))
 
 =================================================================================

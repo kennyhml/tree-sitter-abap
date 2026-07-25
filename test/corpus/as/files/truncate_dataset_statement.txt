@@ -7,7 +7,7 @@ TRUNCATE DATASET file AT CURRENT POSITION.
 (source
   (truncate_dataset_statement
     subject: (identifier)
-    (truncate_at_position_spec
+    (at_position_spec
       (current_position))))
 
 =================================================================================
@@ -19,7 +19,7 @@ TRUNCATE DATASET file AT POSITION position.
 (source
   (truncate_dataset_statement
     subject: (identifier)
-    (truncate_at_position_spec
+    (at_position_spec
       position: (identifier))))
 
 =================================================================================
@@ -31,5 +31,5 @@ TRUNCATE DATASET file AT POSITION 0.
 (source
   (truncate_dataset_statement
     subject: (identifier)
-    (truncate_at_position_spec
+    (at_position_spec
       position: (number))))

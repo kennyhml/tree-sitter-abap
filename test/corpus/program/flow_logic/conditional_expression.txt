@@ -196,7 +196,7 @@ COND i( WHEN cflag = abap_true  THEN 1
             type: (message_type)
             number: (number)
             id: (identifier)
-            (with_arguments
+            (with_arguments_spec
               (string_literal)
               (string_literal)
               (string_literal)

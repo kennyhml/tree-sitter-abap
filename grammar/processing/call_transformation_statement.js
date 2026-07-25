@@ -18,12 +18,12 @@ module.exports = {
       optional($.transformation_parameters_spec),
       optional($.transformation_options_spec),
       choice(
-        $.transformation_source_xml_spec,
-        $.transformation_source_bindings_spec,
+        $.source_xml_spec,
+        $.source_bindings_spec,
       ),
       choice(
-        $.transformation_result_xml_spec,
-        $.transformation_result_bindings_spec,
+        $.result_xml_spec,
+        $.result_bindings_spec,
       ),
     ),
 
@@ -34,13 +34,15 @@ module.exports = {
     seq(
       gen.kw("parameters"),
       choice(
-        repeat1($.transformation_parameter_binding_spec),
+        repeat1(
+          alias(
+            $._data_object_binding,
+            $.transformation_parameter_binding_spec,
+          ),
+        ),
         field("binding_table", $.dynamic_spec),
       ),
     ),
-
-  transformation_parameter_binding_spec: $ =>
-    seq(field("name", $.identifier), "=", field("value", $.data_object)),
 
   transformation_options_spec: $ =>
     seq(gen.kw("options"), repeat1($.transformation_option_spec)),
@@ -63,34 +65,34 @@ module.exports = {
       field("value", $.data_object),
     ),
 
-  transformation_source_xml_spec: $ =>
+  source_xml_spec: $ =>
     seq(...gen.kws("source", "xml"), field("xml", $.data_object)),
 
-  transformation_source_bindings_spec: $ =>
+  source_bindings_spec: $ =>
     seq(
       gen.kw("source"),
       choice(
-        repeat1($.transformation_source_binding_spec),
+        repeat1($.source_binding_spec),
         field("binding_table", $.dynamic_spec),
       ),
     ),
 
-  transformation_source_binding_spec: $ =>
+  source_binding_spec: $ =>
     seq(field("name", $.identifier), "=", field("value", $.general_expression)),
 
-  transformation_result_xml_spec: $ =>
+  result_xml_spec: $ =>
     seq(...gen.kws("result", "xml"), field("xml", $.writable_expression)),
 
-  transformation_result_bindings_spec: $ =>
+  result_bindings_spec: $ =>
     seq(
       gen.kw("result"),
       choice(
-        repeat1($.transformation_result_binding_spec),
+        repeat1($.result_binding_spec),
         field("binding_table", $.dynamic_spec),
       ),
     ),
 
-  transformation_result_binding_spec: $ =>
+  result_binding_spec: $ =>
     seq(
       field("name", $.identifier),
       "=",

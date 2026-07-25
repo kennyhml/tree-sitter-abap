@@ -20,7 +20,7 @@ module.exports = {
     seq(
       ...gen.kws("create", "object"),
       field("subject", $.writable_expression),
-      optional($.object_area_handle_spec),
+      optional($.area_handle_spec),
       optional(
         seq(
           gen.kw("type"),
@@ -31,12 +31,4 @@ module.exports = {
       optional($._exceptions_args),
       optional($._parameter_table_args),
     ),
-
-  /**
-   * CREATE OBJECT oref AREA HANDLE handle ...
-   *
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCREATE_OBJECT_AREA_HANDLE.html
-   */
-  object_area_handle_spec: $ =>
-    seq(...gen.kws("area", "handle"), field("handle", $.writable_expression)),
 };

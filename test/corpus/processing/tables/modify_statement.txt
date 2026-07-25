@@ -7,7 +7,7 @@ MODIFY TABLE scarr_tab FROM wa.
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -19,13 +19,14 @@ MODIFY TABLE scarr_tab USING KEY skey FROM wa TRANSPORTING carrname currcode.
 (source
   (modify_statement
     subject: (identifier)
-    (using_key
+    (using_key_spec
       name: (identifier))
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    (transporting_components
-      (identifier)
-      (identifier))))
+    (transporting_spec
+      (component_list
+        (identifier)
+        (identifier)))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Index before work area
@@ -36,15 +37,16 @@ MODIFY itab INDEX idx USING KEY skey FROM wa TRANSPORTING comp1 comp2.
 (source
   (modify_statement
     subject: (identifier)
-    (index
+    (index_spec
       index: (identifier)
-      (using_key
+      (using_key_spec
         name: (identifier)))
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    (transporting_components
-      (identifier)
-      (identifier))))
+    (transporting_spec
+      (component_list
+        (identifier)
+        (identifier)))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Index after work area
@@ -55,12 +57,13 @@ MODIFY itab FROM wa INDEX idx TRANSPORTING comp.
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    (index
+    (index_spec
       index: (identifier))
-    (transporting_components
-      (identifier))))
+    (transporting_spec
+      (component_list
+        (identifier)))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Implicit loop index
@@ -71,7 +74,7 @@ MODIFY itab FROM wa.
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -83,11 +86,12 @@ MODIFY itab USING KEY loop_key FROM wa TRANSPORTING comp.
 (source
   (modify_statement
     subject: (identifier)
-    (using_loop_key)
-    (from_work_area
+    (using_loop_key_spec)
+    (from_work_area_spec
       work_area: (identifier))
-    (transporting_components
-      (identifier))))
+    (transporting_spec
+      (component_list
+        (identifier)))))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / MODIFY ] Static condition
@@ -98,11 +102,12 @@ MODIFY itab FROM wa TRANSPORTING status WHERE status IS INITIAL.
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    (transporting_components
-      (identifier))
-    (where_condition
+    (transporting_spec
+      (component_list
+        (identifier)))
+    (where_condition_spec
       condition: (initial_predicate
         subject: (identifier)))))
 
@@ -115,13 +120,14 @@ MODIFY itab FROM wa USING KEY skey TRANSPORTING status WHERE status = value.
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier)
-      (using_key
+      (using_key_spec
         name: (identifier)))
-    (transporting_components
-      (identifier))
-    (where_condition
+    (transporting_spec
+      (component_list
+        (identifier)))
+    (where_condition_spec
       condition: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -135,11 +141,12 @@ MODIFY itab FROM wa TRANSPORTING status WHERE (condition).
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    (transporting_components
-      (identifier))
-    (where_condition
+    (transporting_spec
+      (component_list
+        (identifier)))
+    (where_condition_spec
       condition: (dynamic_spec
         value: (identifier)))))
 
@@ -152,9 +159,9 @@ MODIFY TABLE itab FROM wa ASSIGNING FIELD-SYMBOL(<line>) CASTING ELSE UNASSIGN.
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier)))
@@ -170,10 +177,11 @@ MODIFY TABLE itab FROM wa TRANSPORTING smoker REFERENCE INTO FINAL(dref).
 (source
   (modify_statement
     subject: (identifier)
-    (from_work_area
+    (from_work_area_spec
       work_area: (identifier))
-    (transporting_components
-      (identifier))
-    result: (reference_into
+    (transporting_spec
+      (component_list
+        (identifier)))
+    result: (reference_into_spec
       work_area: (declaration_expression
         name: (identifier)))))

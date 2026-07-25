@@ -18,30 +18,31 @@ module.exports = {
       field("name", $.named_data_object),
       repeat(
         choice(
-          $.badi_filters_spec,
-          $.badi_filter_table_spec,
-          $.badi_type_spec,
-          $.badi_context_spec,
+          $.filters_spec,
+          $.filter_table_spec,
+          $.dynamic_type_spec,
+          $.context_spec,
         ),
       ),
     ),
 
   // f1 = x1 f2 = x2 ...
-  badi_filters_spec: $ =>
-    prec.right(seq(gen.kw("filters"), repeat1($.badi_filter))),
+  filters_spec: $ =>
+    prec.right(
+      seq(
+        gen.kw("filters"),
+        repeat1(alias($._data_object_binding, $.filter_binding)),
+      ),
+    ),
 
   // FILTER-TABLE ftab
-  badi_filter_table_spec: $ =>
+  filter_table_spec: $ =>
     seq(gen.kw("filter-table"), field("value", $.named_data_object)),
 
-  // f = x, where x is a data object rather than an expression.
-  badi_filter: $ =>
-    seq(field("name", $.identifier), "=", field("value", $.data_object)),
-
   // TYPE (name)
-  badi_type_spec: $ => seq(gen.kw("type"), field("type", $.dynamic_spec)),
+  dynamic_type_spec: $ => seq(gen.kw("type"), field("type", $.dynamic_spec)),
 
   // CONTEXT con
-  badi_context_spec: $ =>
+  context_spec: $ =>
     seq(gen.kw("context"), field("value", $.named_data_object)),
 };

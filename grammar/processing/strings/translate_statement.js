@@ -11,13 +11,17 @@ module.exports = {
     seq(
       gen.kw("translate"),
       field("subject", $.character_like_expression),
-      choice($.to_lower_case, $.to_upper_case, $.translation_mask),
+      choice(
+        $.to_lower_case_spec,
+        $.to_upper_case_spec,
+        $.translation_mask_spec,
+      ),
     ),
 
-  to_upper_case: _ => seq(...gen.kws("to", "upper", "case")),
+  to_upper_case_spec: _ => seq(...gen.kws("to", "upper", "case")),
 
-  to_lower_case: _ => seq(...gen.kws("to", "lower", "case")),
+  to_lower_case_spec: _ => seq(...gen.kws("to", "lower", "case")),
 
-  translation_mask: $ =>
+  translation_mask_spec: $ =>
     seq(gen.kw("using"), field("mask", $.character_like_expression)),
 };

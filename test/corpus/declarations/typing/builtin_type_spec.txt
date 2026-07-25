@@ -10,9 +10,9 @@ types foo type p length 8 decimals 3.
       name: (identifier)
       typing: (builtin_type_spec
         name: (identifier)
-        (type_length
+        (type_length_spec
           count: (number))
-        (type_decimals
+        (type_decimals_spec
           count: (number))))))
 
 =================================================================================

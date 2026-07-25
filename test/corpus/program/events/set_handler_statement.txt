@@ -24,7 +24,7 @@ SET HANDLER cl_handler=>on_changed lo_handler->on_saved FOR lo_source.
       (component_selection
         subject: (identifier)
         component: (identifier)))
-    (event_handler_for_spec
+    (for_instance_spec
       instance: (identifier))))
 
 =================================================================================
@@ -39,9 +39,9 @@ SET HANDLER lo_handler->on_changed FOR ALL INSTANCES ACTIVATION lv_active.
       (component_selection
         subject: (identifier)
         component: (identifier)))
-    (event_handler_for_spec
+    (for_instance_spec
       instance: (all_instances))
-    (event_handler_activation_spec
+    (activation_spec
       activate: (identifier))))
 
 =================================================================================
@@ -54,7 +54,7 @@ SET HANDLER handle_double_click FOR alv->get_event( ).
   (set_handler_statement
     (event_handler_list
       (identifier))
-    (event_handler_for_spec
+    (for_instance_spec
       instance: (function_call
         source: (identifier)
         name: (identifier)))))
@@ -71,5 +71,5 @@ SET HANDLER cl_handler=>on_completed ACTIVATION ' '.
       (component_selection
         subject: (identifier)
         component: (identifier)))
-    (event_handler_activation_spec
+    (activation_spec
       activate: (string_literal))))

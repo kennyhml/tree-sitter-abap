@@ -23,13 +23,13 @@ INSERT REPORT prog FROM source
   (insert_report_statement
     program: (identifier)
     source: (identifier)
-    (report_maximum_width_spec
+    (maximum_width_spec
       destination: (identifier))
-    (insert_report_program_type_spec
+    (program_type_spec
       type: (string_literal))
-    (insert_report_arithmetic_spec
+    (fixed_point_arithmetic_spec
       value: (string_literal))
-    (insert_report_version_spec
+    (version_spec
       version: (string_literal))))
 
 =================================================================================
@@ -54,5 +54,5 @@ INSERT REPORT prog FROM source DIRECTORY ENTRY dir.
   (insert_report_statement
     program: (identifier)
     source: (identifier)
-    (program_directory_entry_spec
+    (directory_entry_spec
       entry: (identifier))))

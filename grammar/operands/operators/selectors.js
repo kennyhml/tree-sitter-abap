@@ -66,15 +66,15 @@ const in_consideration = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCHAINED_NAME_GLOSRY.html
    */
   chained_identifier: $ =>
-    alias($._elementary_component_selection, $.component_selection),
+    alias($.__elementary_component_selection, $.component_selection),
 
-  _elementary_component_selection: $ =>
+  __elementary_component_selection: $ =>
     seq(
       field(
         "subject",
         choice(
           $.identifier,
-          alias($._elementary_component_selection, $.component_selection),
+          alias($.__elementary_component_selection, $.component_selection),
         ),
       ),
       field(

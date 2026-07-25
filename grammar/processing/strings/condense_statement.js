@@ -10,8 +10,8 @@ module.exports = {
     seq(
       gen.kw("condense"),
       field("text", $.data_object),
-      optional($.no_gaps_spec),
+      optional($.no_gaps),
     ),
 
-  no_gaps_spec: _ => gen.kw("no-gaps"),
+  no_gaps: _ => gen.kw("no-gaps"),
 };

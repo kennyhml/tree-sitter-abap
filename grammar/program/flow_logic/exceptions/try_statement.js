@@ -33,7 +33,7 @@ module.exports = {
       gen.kw("catch"),
       optional($.before_unwind),
       field("exceptions", $.catch_exception_list),
-      optional($.into_clause),
+      optional(alias($._writable_into_spec, $.into_spec)),
       ".",
       optional(field("body", alias($.statement_block, $.catch_block))),
     ),
@@ -42,7 +42,7 @@ module.exports = {
   cleanup_clause: $ =>
     seq(
       gen.kw("cleanup"),
-      optional($.into_clause),
+      optional(alias($._writable_into_spec, $.into_spec)),
       ".",
       optional(field("body", alias($.statement_block, $.cleanup_block))),
     ),

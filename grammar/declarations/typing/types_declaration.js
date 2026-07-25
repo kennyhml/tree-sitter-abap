@@ -1,10 +1,11 @@
 module.exports = {
   // TYPES BEGIN OF struc_type.
-  begin_of_struct: $ =>
+  begin_of_struct_spec: $ =>
     seq(...gen.kws("begin", "of"), field("name", $.identifier)),
 
   // TYPES END OF struc_type.
-  end_of_struct: $ => seq(...gen.kws("end", "of"), field("name", $.identifier)),
+  end_of_struct_spec: $ =>
+    seq(...gen.kws("end", "of"), field("name", $.identifier)),
 
   /**
    * INCLUDE { {TYPE struc_type}
@@ -20,21 +21,21 @@ module.exports = {
     seq(
       ...gen.kws("include", "type"),
       field("name", $.identifier),
-      optional($.include_alias),
-      optional($.renaming_with_suffix),
+      optional($.include_alias_spec),
+      optional($.renaming_with_suffix_spec),
     ),
 
   include_structure: $ =>
     seq(
       ...gen.kws("include", "structure"),
       field("name", $.identifier),
-      optional($.include_alias),
-      optional($.renaming_with_suffix),
+      optional($.include_alias_spec),
+      optional($.renaming_with_suffix_spec),
     ),
 
-  include_alias: $ => seq(gen.kw("as"), field("alias", $.identifier)),
+  include_alias_spec: $ => seq(gen.kw("as"), field("alias", $.identifier)),
 
-  renaming_with_suffix: $ =>
+  renaming_with_suffix_spec: $ =>
     seq(
       ...gen.kws("renaming", "with", "suffix"),
       field("suffix", $.identifier),

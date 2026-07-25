@@ -38,7 +38,7 @@ GENERATE SUBROUTINE POOL itab NAME prog
       destination: (identifier))
     (source_error_message_id_spec
       destination: (identifier))
-    (generate_shortdump_id_spec
+    (shortdump_id_spec
       destination: (identifier))))
 
 =================================================================================
@@ -77,6 +77,6 @@ GENERATE SUBROUTINE POOL tab NAME FINAL(prog)
     (source_error_message_id_spec
       destination: (declaration_expression
         name: (identifier)))
-    (generate_shortdump_id_spec
+    (shortdump_id_spec
       destination: (declaration_expression
         name: (identifier)))))

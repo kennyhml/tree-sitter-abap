@@ -8,7 +8,7 @@ FILTER #( messages EXCEPT WHERE sprsl = 'D' )
   (filter_expression
     subject: (identifier)
     (except)
-    (where_condition
+    (where_condition_spec
       condition: (comparison_expression
         left: (identifier)
         right: (string_literal)))))
@@ -22,7 +22,7 @@ FILTER #( messages WHERE sprsl = 'D' )
 (source
   (filter_expression
     subject: (identifier)
-    (where_condition
+    (where_condition_spec
       condition: (comparison_expression
         left: (identifier)
         right: (string_literal)))))
@@ -39,9 +39,9 @@ FILTER #( spfli_tab EXCEPT USING KEY carr_city
   (filter_expression
     subject: (identifier)
     (except)
-    (using_key
+    (using_key_spec
       name: (identifier))
-    (where_condition
+    (where_condition_spec
       condition: (logical_expression
         left: (comparison_expression
           left: (identifier)
@@ -59,9 +59,9 @@ FILTER #( carriers IN filter WHERE carrid = table_line )
 (source
   (filter_expression
     subject: (identifier)
-    (in_filter_table
+    (in_filter_table_spec
       table: (identifier))
-    (where_condition
+    (where_condition_spec
       condition: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -75,11 +75,11 @@ FILTER #( carriers using key foo IN filter WHERE carrid = table_line )
 (source
   (filter_expression
     subject: (identifier)
-    (using_key
+    (using_key_spec
       name: (identifier))
-    (in_filter_table
+    (in_filter_table_spec
       table: (identifier))
-    (where_condition
+    (where_condition_spec
       condition: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -93,11 +93,11 @@ FILTER #( carriers IN filter using key bar WHERE carrid = table_line )
 (source
   (filter_expression
     subject: (identifier)
-    (in_filter_table
+    (in_filter_table_spec
       table: (identifier)
-      (using_key
+      (using_key_spec
         name: (identifier)))
-    (where_condition
+    (where_condition_spec
       condition: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -114,12 +114,12 @@ DATA(f11) = FILTER #( itab2 USING KEY sec_key EXCEPT IN filter_tab2 WHERE num = 
       name: (identifier))
     right: (filter_expression
       subject: (identifier)
-      (using_key
+      (using_key_spec
         name: (identifier))
       (except)
-      (in_filter_table
+      (in_filter_table_spec
         table: (identifier))
-      (where_condition
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (identifier))))))

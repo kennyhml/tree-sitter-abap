@@ -12,9 +12,14 @@ module.exports = {
     seq(
       ...gen.kws("convert"),
 
-      $.date_spec,
-      optional($.time_spec),
-      optional($.daylight_saving_time_spec),
+      alias($._source_date_spec, $.date_spec),
+      optional(alias($._source_time_spec, $.time_spec)),
+      optional(
+        alias(
+          $._source_daylight_saving_time_spec,
+          $.daylight_saving_time_spec,
+        ),
+      ),
 
       ...gen.kws("into", "time", "stamp"),
       field("destination", $.writable_expression),

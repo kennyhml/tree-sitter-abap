@@ -66,7 +66,7 @@ AUTHORITY-CHECK OBJECT auth_object
 (source
   (authority_check_statement
     auth_object: (identifier)
-    (authority_check_for_user_spec
+    (for_user_spec
       user: (identifier))
     (id_field_spec
       id: (identifier)

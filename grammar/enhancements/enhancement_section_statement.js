@@ -15,7 +15,7 @@ module.exports = {
     seq(
       gen.kw("enhancement-section"),
       field("name", $.identifier),
-      $.enhancement_spots_spec,
+      $.spots_spec,
       optional($.static),
       optional($.include_bound),
       ".",

@@ -6,7 +6,7 @@ ASSERT foo = abap_true.
 
 (source
   (assert_statement
-    (assert_condition_spec
+    (condition_spec
       conditon: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -19,7 +19,7 @@ ASSERT CONDITION gui_flag = abap_true.
 
 (source
   (assert_statement
-    (assert_condition_spec
+    (condition_spec
       conditon: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -34,7 +34,7 @@ ASSERT ID demo_checkpoint_group gui_flag = abap_true.
   (assert_statement
     (checkpoint_id_spec
       group: (identifier))
-    (assert_condition_spec
+    (condition_spec
       conditon: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -54,7 +54,7 @@ ASSERT ID demo_checkpoint_group
       subkey: (component_selection
         subject: (identifier)
         component: (identifier)))
-    (assert_condition_spec
+    (condition_spec
       conditon: (comparison_expression
         left: (identifier)
         right: (identifier)))))
@@ -80,7 +80,7 @@ ASSERT ID demo_checkpoint_group
       (component_selection
         subject: (identifier)
         component: (identifier)))
-    (assert_condition_spec
+    (condition_spec
       conditon: (comparison_expression
         left: (identifier)
         right: (identifier)))))

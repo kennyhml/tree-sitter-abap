@@ -41,13 +41,13 @@ module.exports = {
         $.final,
         $.redefinition,
         $.for_testing,
-        $.default_fail,
-        $.default_ignore,
-        $.for_table_function,
-        $.for_scalar_function,
-        $.for_event,
-        $.for_sql_service,
-        $.amdp_options,
+        $.default_fail_spec,
+        $.default_ignore_spec,
+        $.for_table_function_spec,
+        $.for_scalar_function_spec,
+        $.for_event_spec,
+        $.for_sql_service_spec,
+        $.amdp_options_spec,
 
         // Parameter lists
         gen.kw_tagged("importing", $.parameters),
@@ -63,7 +63,7 @@ module.exports = {
   redefinition: _ => gen.kw("redefinition"),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_EVENT_HANDLER.html
-  for_event: $ =>
+  for_event_spec: $ =>
     seq(
       ...gen.kws("for", "event"),
       field("name", $.identifier),
@@ -72,7 +72,7 @@ module.exports = {
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_DEFAULT.html
-  default_ignore: _ => seq(...gen.kws("default", "ignore")),
+  default_ignore_spec: _ => seq(...gen.kws("default", "ignore")),
 
-  default_fail: _ => seq(...gen.kws("default", "fail")),
+  default_fail_spec: _ => seq(...gen.kws("default", "fail")),
 };

@@ -6,9 +6,9 @@ SELECTION-SCREEN COMMENT /1(50) comm1 MODIF ID mg1.
 
 (source
   (selection_screen_statement
-    (comment_element
+    (comment_element_spec
       (comment_spec
-        (output_position
+        (output_position_spec
           position: (number)
           length: (number))
         name: (identifier)
@@ -23,12 +23,12 @@ SELECTION-SCREEN COMMENT /1(50) for field foo.
 
 (source
   (selection_screen_statement
-    (comment_element
+    (comment_element_spec
       (comment_spec
-        (output_position
+        (output_position_spec
           position: (number)
           length: (number))
-        (for_screen_field
+        (for_screen_field_spec
           name: (identifier))))))
 
 =================================================================================
@@ -39,11 +39,11 @@ SELECTION-SCREEN COMMENT /1(50) bar for field foo.
 
 (source
   (selection_screen_statement
-    (comment_element
+    (comment_element_spec
       (comment_spec
-        (output_position
+        (output_position_spec
           position: (number)
           length: (number))
         name: (identifier)
-        (for_screen_field
+        (for_screen_field_spec
           name: (identifier))))))

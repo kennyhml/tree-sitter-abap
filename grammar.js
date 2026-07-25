@@ -43,7 +43,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     // ... FROM 1 TO 5 STEP 2 TO itab <<< conflict at 'TO <dobj>'
-    [$.lines_of],
+    [$.lines_of_spec],
     [$.at_selscreen_statement],
     [$.initialization_event],
     [$.start_of_selection_event],
@@ -88,7 +88,7 @@ module.exports = grammar({
     $.character_like_expression,
   ],
 
-  word: $ => $._name,
+  word: $ => $.__name,
 
   rules: {
     source: $ => {
@@ -552,9 +552,9 @@ module.exports = grammar({
      */
     _empty_statement: $ => token("."),
 
-    _name: $ => IDENTIFIER_REGEX,
+    __name: $ => IDENTIFIER_REGEX,
 
-    identifier: $ => prec(-1, choice($._name, $._contextual_keyword)),
+    identifier: $ => prec(-1, choice($.__name, $.__contextual_keyword)),
 
     /**
      * ABAP does not reserve keywords whatsoever. Any keyword is valid to be used as an identifier.
@@ -600,7 +600,7 @@ module.exports = grammar({
      *
      * Great for testing: https://www.abapforum.com/forum/viewtopic.php?p=21654
      */
-    _contextual_keyword: $ => {
+    __contextual_keyword: $ => {
       return prec(
         -1,
         choice(

@@ -8,7 +8,7 @@ endloop.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into
+    result: (into_spec
       work_area: (identifier))))
 
 =================================================================================
@@ -21,7 +21,7 @@ endloop.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (reference_into
+    result: (reference_into_spec
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -35,7 +35,7 @@ endloop.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))))
@@ -64,7 +64,7 @@ ENDLOOP.
           (argument_list
             (positional_argument
               value: (number))))))
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))))
@@ -83,23 +83,23 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))
-    (itab_lines
-      (where_condition
+    (itab_lines_spec
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (identifier))))
     body: (loop_at_body
       (loop_at_statement
         subject: (identifier)
-        result: (into
+        result: (into_spec
           work_area: (declaration_expression
             name: (identifier)))
-        (itab_lines
-          (where_condition
+        (itab_lines_spec
+          (where_condition_spec
             condition: (comparison_expression
               left: (identifier)
               right: (component_selection
@@ -117,11 +117,11 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into
+    result: (into_spec
       work_area: (declaration_expression
         name: (identifier)))
-    (itab_lines
-      (using_key
+    (itab_lines_spec
+      (using_key_spec
         name: (identifier)))))
 
 =================================================================================
@@ -134,14 +134,14 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    (itab_lines
-      (lines_from
+    (itab_lines_spec
+      (lines_from_spec
         index: (function_call
           name: (identifier)
           (call_argument_list
             exporting: (positional_argument
               value: (identifier))))))
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))))
@@ -156,17 +156,17 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    (itab_lines
-      (lines_from
+    (itab_lines_spec
+      (lines_from_spec
         index: (number))
-      (lines_step
+      (lines_step_spec
         size: (number)))
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))
-    (itab_lines
-      (lines_to
+    (itab_lines_spec
+      (lines_to_spec
         index: (number)))))
 
 =================================================================================
@@ -179,14 +179,14 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into
+    result: (into_spec
       work_area: (identifier))
-    (itab_lines
-      (lines_from
+    (itab_lines_spec
+      (lines_from_spec
         index: (number))
-      (lines_to
+      (lines_to_spec
         index: (number))
-      (where_condition
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (dereference_expression
@@ -202,14 +202,14 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into
+    result: (into_spec
       work_area: (identifier))
-    (itab_lines
-      (lines_from
+    (itab_lines_spec
+      (lines_from_spec
         index: (number))
-      (lines_to
+      (lines_to_spec
         index: (number))
-      (where_condition
+      (where_condition_spec
         condition: (dynamic_spec
           value: (identifier))))))
 
@@ -223,9 +223,10 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (transporting_no_fields)
-    (itab_lines
-      (where_condition
+    result: (transporting_spec
+      (no_fields))
+    (itab_lines_spec
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (number))))))
@@ -248,7 +249,7 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))
@@ -274,10 +275,10 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into
+    result: (into_spec
       work_area: (declaration_expression
         name: (identifier)))
-    (group_by
+    (group_by_spec
       (group_key_components
         (group_key_component
           field: (identifier)
@@ -295,7 +296,7 @@ ENDLOOP.
         (group_key_component
           field: (identifier)
           value: (group_size)))
-      result: (into
+      result: (into_spec
         work_area: (declaration_expression
           name: (identifier))))))
 
@@ -310,11 +311,11 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))
-    (group_by
+    (group_by_spec
       (group_key_components
         (group_key_component
           field: (identifier)
@@ -341,15 +342,15 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (into
+    result: (into_spec
       work_area: (declaration_expression
         name: (identifier)))
-    (group_by
+    (group_by_spec
       key: (component_selection
         subject: (identifier)
         component: (identifier))
       (without_members)
-      result: (into
+      result: (into_spec
         work_area: (declaration_expression
           name: (identifier))))))
 
@@ -366,20 +367,20 @@ ENDLOOP.
 (source
   (loop_at_statement
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))
-    (group_by
+    (group_by_spec
       key: (function_call
         name: (identifier)
         (call_argument_list
           exporting: (positional_argument
             value: (field_symbol
               name: (identifier)))))
-      (sort_order
+      (sort_order_spec
         direction: (ascending))
-      result: (assigning
+      result: (assigning_spec
         target: (declaration_expression
           name: (field_symbol
             name: (identifier)))))))
@@ -395,12 +396,12 @@ ENDLOOP.
 (source
   (loop_at_group_statement
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (declaration_expression
         name: (field_symbol
           name: (identifier))))
-    (itab_lines
-      (where_condition
+    (itab_lines_spec
+      (where_condition_spec
         condition: (comparison_expression
           left: (identifier)
           right: (string_literal))))))

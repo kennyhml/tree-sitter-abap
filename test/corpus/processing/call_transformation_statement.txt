@@ -10,11 +10,11 @@ CALL TRANSFORMATION id
   (call_transformation_statement
     (transformation_name_spec
       name: (id))
-    (transformation_source_bindings_spec
-      (transformation_source_binding_spec
+    (source_bindings_spec
+      (source_binding_spec
         name: (identifier)
         value: (identifier)))
-    (transformation_result_xml_spec
+    (result_xml_spec
       xml: (declaration_expression
         name: (identifier)))))
 
@@ -41,10 +41,10 @@ CALL TRANSFORMATION z_demo
         value: (string_literal))
       (transformation_option_spec
         value: (string_literal)))
-    (transformation_source_xml_spec
+    (source_xml_spec
       xml: (identifier))
-    (transformation_result_bindings_spec
-      (transformation_result_binding_spec
+    (result_bindings_spec
+      (result_binding_spec
         name: (identifier)
         value: (identifier)))))
 
@@ -65,10 +65,10 @@ CALL TRANSFORMATION (lv_transformation)
     (transformation_parameters_spec
       binding_table: (dynamic_spec
         value: (identifier)))
-    (transformation_source_bindings_spec
+    (source_bindings_spec
       binding_table: (dynamic_spec
         value: (identifier)))
-    (transformation_result_bindings_spec
+    (result_bindings_spec
       binding_table: (dynamic_spec
         value: (identifier)))))
 
@@ -84,14 +84,14 @@ CALL TRANSFORMATION z_calculation
   (call_transformation_statement
     (transformation_name_spec
       name: (identifier))
-    (transformation_source_bindings_spec
-      (transformation_source_binding_spec
+    (source_bindings_spec
+      (source_binding_spec
         name: (identifier)
         value: (arithmetic_expression
           left: (identifier)
           right: (identifier))))
-    (transformation_result_bindings_spec
-      (transformation_result_binding_spec
+    (result_bindings_spec
+      (result_binding_spec
         name: (identifier)
         value: (identifier)))))
 
@@ -130,7 +130,7 @@ CALL TRANSFORMATION id
         value: (string_literal))
       (transformation_option_spec
         value: (string_literal)))
-    (transformation_source_xml_spec
+    (source_xml_spec
       xml: (identifier))
-    (transformation_result_xml_spec
+    (result_xml_spec
       xml: (identifier))))

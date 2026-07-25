@@ -7,9 +7,9 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_ARITH.html
    */
-  arithmetic_expression: $ => choice($._binary_operation, $._unary_operation),
+  arithmetic_expression: $ => choice($.__binary_operation, $.__unary_operation),
 
-  _binary_operation: $ => {
+  __binary_operation: $ => {
     // Arithmetic operator precedences
     // @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITH_OPERATORS.html
     const ARITHMETIC_OPERATORS = [
@@ -35,7 +35,7 @@ module.exports = {
     );
   },
 
-  _unary_operation: $ =>
+  __unary_operation: $ =>
     prec(
       4,
       seq(

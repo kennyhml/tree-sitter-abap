@@ -9,9 +9,9 @@ module.exports = {
    */
   table_expression: $ =>
     seq(
-      field("subject", $._table_expression_subject),
+      field("subject", $.__table_expression_subject),
       token.immediate("["),
-      $._itab_line,
+      $.__itab_line,
       "]",
     ),
 
@@ -29,14 +29,17 @@ module.exports = {
 
   __table_expression_with_default_additions: $ =>
     seq(
-      field("subject", $._table_expression_subject),
+      field("subject", $.__table_expression_subject),
       token.immediate("["),
-      $._itab_line,
+      $.__itab_line,
       "]",
-      choice($.optional, alias($._table_expr_default, $.default_value)),
+      choice(
+        $.optional,
+        alias($.__table_expr_default, $.default_value),
+      ),
     ),
 
-  _table_expression_subject: $ =>
+  __table_expression_subject: $ =>
     choice(
       $.named_data_object,
       $.dereference_expression,
@@ -46,15 +49,16 @@ module.exports = {
   /**
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_ITAB_LINE.html
    */
-  _itab_line: $ => choice($.index_read, $.free_key, $.table_key),
+  __itab_line: $ =>
+    choice($.index_read, $.free_key_spec, $.table_key_spec),
 
   index_read: $ =>
     seq(
-      optional(seq($.index_key, gen.kw("index"))),
+      optional(seq($.index_key_spec, gen.kw("index"))),
       field("index", $.numeric_expression),
     ),
 
-  index_key: $ =>
+  index_key_spec: $ =>
     seq(gen.kw("key"), field("name", choice($.identifier, $.dynamic_spec))),
 
   /**
@@ -62,6 +66,6 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_OPTIONAL_DEFAULT.html
    */
-  _table_expr_default: $ =>
+  __table_expr_default: $ =>
     seq(gen.kw("default"), field("value", $.general_expression)),
 };

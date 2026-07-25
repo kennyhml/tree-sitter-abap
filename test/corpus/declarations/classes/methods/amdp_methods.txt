@@ -9,7 +9,7 @@ CLASS-METHODS meth FOR SCALAR FUNCTION cds_scalar_func.
   (class_methods_declaration
     (method_spec
       name: (identifier)
-      (for_scalar_function
+      (for_scalar_function_spec
         name: (identifier)))))
 
 =================================================================================
@@ -23,7 +23,7 @@ CLASS-METHODS meth FOR TABLE FUNCTION cds_tabfunc.
   (class_methods_declaration
     (method_spec
       name: (identifier)
-      (for_table_function
+      (for_table_function_spec
         name: (identifier)))))
 
 =================================================================================
@@ -38,8 +38,8 @@ CLASS-METHODS meth FOR SQL SERVICE
   (class_methods_declaration
     (method_spec
       name: (identifier)
-      (for_sql_service)
-      (amdp_options
+      (for_sql_service_spec)
+      (amdp_options_spec
         (read_only)
         (client_independent)))))
 
@@ -55,7 +55,7 @@ CLASS-METHODS meth
   (class_methods_declaration
     (method_spec
       name: (identifier)
-      (amdp_options
+      (amdp_options_spec
         (cds_session_client_dependent)))))
 
 =================================================================================
@@ -70,7 +70,7 @@ CLASS-METHODS meth
   (class_methods_declaration
     (method_spec
       name: (identifier)
-      (amdp_options
+      (amdp_options_spec
         (cds_session_client
           name: (identifier))))))
 
@@ -86,6 +86,6 @@ CLASS-METHODS meth
   (class_methods_declaration
     (method_spec
       name: (identifier)
-      (amdp_options
+      (amdp_options_spec
         (cds_session_client
           name: (current))))))

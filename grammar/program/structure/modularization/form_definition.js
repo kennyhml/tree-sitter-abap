@@ -19,9 +19,9 @@ module.exports = {
       field("name", $.identifier),
       repeat(
         choice(
-          gen.kw_tagged("tables", $._form_parameter_list),
-          gen.kw_tagged("using", $._form_parameter_list),
-          gen.kw_tagged("changing", $._form_parameter_list),
+          gen.kw_tagged("tables", $.__form_parameter_list),
+          gen.kw_tagged("using", $.__form_parameter_list),
+          gen.kw_tagged("changing", $.__form_parameter_list),
           gen.kw_tagged("raising", $.raising_list),
         ),
       ),
@@ -30,10 +30,11 @@ module.exports = {
       gen.kw("endform"),
     ),
 
-  _form_parameter_list: $ => alias($.__form_parameter_list, $.parameter_list),
-
   __form_parameter_list: $ =>
-    prec.right(seq(repeat1(alias($.__form_parameter, $.parameter)))),
+    alias(
+      prec.right(seq(repeat1(alias($.__form_parameter, $.parameter)))),
+      $.parameter_list,
+    ),
 
   /**
    *... { VALUE(p1) | p1 } [typing|structure]
@@ -45,10 +46,10 @@ module.exports = {
     prec.right(
       seq(
         choice($.implicit_reference, $.explicit_value),
-        optional(choice(field("typing", $.typing), $.structure_parameter)),
+        optional(choice(field("typing", $.typing), $.structure_parameter_spec)),
       ),
     ),
 
-  structure_parameter: $ =>
+  structure_parameter_spec: $ =>
     seq(gen.kw("structure"), field("name", $.named_data_object)),
 };

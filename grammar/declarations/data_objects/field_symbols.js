@@ -8,19 +8,6 @@ module.exports = {
   field_symbol: $ =>
     seq("<", field("name", $._immediate_identifier), token.immediate(">")),
 
-  // ... ASSIGNING <fs> / field-symbol(<fs>) [CASTING] [ELSE UNASSIGN] ...
-  assigning: $ =>
-    seq(
-      ...gen.kws("assigning"),
-      field("target", choice($.field_symbol, $.declaration_expression)),
-      optional($.casting),
-      optional($.else_unassign),
-    ),
-
-  else_unassign: _ => seq(...gen.kws("else", "unassign")),
-
-  casting: _ => gen.kw("casting"),
-
   _immediate_field_symbol: $ =>
     alias($.__immediate_field_symbol, $.field_symbol),
 
@@ -31,4 +18,3 @@ module.exports = {
       token.immediate(">"),
     ),
 };
-

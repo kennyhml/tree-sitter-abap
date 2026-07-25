@@ -19,8 +19,8 @@ module.exports = {
     seq(
       ...gen.kws("loop", "at"),
       field("subject", $.functional_expression),
-      repeat(choice(field("result", $.__loop_at_result), $.itab_lines)),
-      optional($.group_by),
+      repeat(choice(field("result", $.__loop_at_result), $.itab_lines_spec)),
+      optional($.group_by_spec),
       ".",
       optional(field("body", $.loop_at_body)),
       gen.kw("endloop"),
@@ -40,8 +40,8 @@ module.exports = {
     seq(
       ...gen.kws("loop", "at", "group"),
       field("subject", $.named_data_object),
-      repeat(choice(field("result", $.__loop_at_result), $.itab_lines)),
-      optional($.group_by),
+      repeat(choice(field("result", $.__loop_at_result), $.itab_lines_spec)),
+      optional($.group_by_spec),
       ".",
       optional(field("body", alias($.statement_block, $.loop_at_body))),
       gen.kw("endloop"),
@@ -138,5 +138,10 @@ module.exports = {
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
   __loop_at_result: $ =>
-    choice($.into, $.assigning, $.reference_into, $.transporting_no_fields),
+    choice(
+      $.into_spec,
+      $.assigning_spec,
+      $.reference_into_spec,
+      alias($._transporting_no_fields_spec, $.transporting_spec),
+    ),
 };

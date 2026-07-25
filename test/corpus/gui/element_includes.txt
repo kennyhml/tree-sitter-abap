@@ -6,8 +6,8 @@ SELECTION-SCREEN INCLUDE PUSHBUTTON /5(25) btn_text USER-COMMAND click.
 
 (source
   (selection_screen_statement
-    (include_pushbutton_directive
-      (output_position
+    (include_pushbutton_directive_spec
+      (output_position_spec
         position: (number)
         length: (number))
       name: (identifier)
@@ -22,7 +22,7 @@ SELECTION-SCREEN INCLUDE SELECT-OPTIONS s_date NO INTERVALS.
 
 (source
   (selection_screen_statement
-    (include_select_option_directive
+    (include_select_option_directive_spec
       name: (identifier)
       (no_intervals_spec))))
 
@@ -34,7 +34,7 @@ SELECTION-SCREEN INCLUDE PARAMETERS p_user OBLIGATORY OFF.
 
 (source
   (selection_screen_statement
-    (include_parameter_directive
+    (include_parameter_directive_spec
       name: (identifier)
       (obligatory_spec))))
 
@@ -46,5 +46,5 @@ SELECTION-SCREEN INCLUDE BLOCKS part1.
 
 (source
   (selection_screen_statement
-    (include_block_directive
+    (include_block_directive_spec
       name: (identifier))))

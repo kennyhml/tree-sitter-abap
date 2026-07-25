@@ -12,6 +12,6 @@ module.exports = {
       field("program", $.named_data_object),
       gen.kw("into"),
       field("destination", $.named_data_object),
-      optional($.report_maximum_width_spec),
+      optional($.maximum_width_spec),
     ),
 };

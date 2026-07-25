@@ -19,5 +19,5 @@ READ REPORT prog INTO source MAXIMUM WIDTH INTO width.
   (read_report_statement
     program: (identifier)
     destination: (identifier)
-    (report_maximum_width_spec
+    (maximum_width_spec
       destination: (identifier))))

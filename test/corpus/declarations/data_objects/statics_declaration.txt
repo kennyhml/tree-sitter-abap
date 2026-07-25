@@ -10,7 +10,7 @@ STATICS static TYPE i VALUE 10.
       name: (identifier)
       typing: (referred_type
         name: (identifier)
-        (default_data_value
+        (default_data_value_spec
           val: (number))))))
 
 =================================================================================
@@ -25,7 +25,7 @@ STATICS: num TYPE i VALUE 10, str type string.
       name: (identifier)
       typing: (referred_type
         name: (identifier)
-        (default_data_value
+        (default_data_value_spec
           val: (number))))
     (statics_spec
       name: (identifier)
@@ -44,21 +44,21 @@ STATICS: begin of struct,
 
 (source
   (statics_declaration
-    (begin_of_struct
+    (begin_of_struct_spec
       name: (identifier))
     (statics_spec
       name: (identifier)
       typing: (referred_type
         name: (identifier)
-        (default_data_value
+        (default_data_value_spec
           val: (number))))
     (statics_spec
       name: (identifier)
       typing: (builtin_type_spec
         name: (identifier)
-        (type_length
+        (type_length_spec
           count: (number))
-        (default_data_value
+        (default_data_value_spec
           val: (string_literal))))
-    (end_of_struct
+    (end_of_struct_spec
       name: (identifier))))

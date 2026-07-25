@@ -13,14 +13,14 @@ module.exports = {
       field("source", $.data_object),
       gen.kw("into"),
       field("destination", $.writable_expression),
-      optional($.dataset_maximum_length_spec),
-      optional($.dataset_actual_length_spec),
+      optional($.maximum_length_spec),
+      optional($.actual_length_spec),
     ),
 
-  dataset_maximum_length_spec: $ =>
+  maximum_length_spec: $ =>
     seq(...gen.kws("maximum", "length"), field("length", $.data_object)),
 
-  dataset_actual_length_spec: $ =>
+  actual_length_spec: $ =>
     seq(
       optional(gen.kw("actual")),
       gen.kw("length"),

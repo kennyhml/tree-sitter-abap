@@ -21,39 +21,39 @@ module.exports = {
       field("name", $.character_like_expression),
       repeat(
         choice(
-          $.rfc_destination,
-          $.in_remote_session,
-          $.starting_new_task,
-          $.asynchronous_callback,
-          $.in_background_unit,
-          $.in_background_task,
-          $.in_update_task,
+          $.destination_spec,
+          $.in_remote_session_spec,
+          $.starting_new_task_spec,
+          $.asynchronous_callback_spec,
+          $.in_background_unit_spec,
+          $.in_background_task_spec,
+          $.in_update_task_spec,
         ),
       ),
       optional($.call_argument_list),
     ),
 
   // ... [DESTINATION {dest|{IN GROUP {group|DEFAULT}}}] ...
-  rfc_destination: $ =>
-    seq(gen.kw("destination"), choice($.data_object, $.in_group)),
+  destination_spec: $ =>
+    seq(gen.kw("destination"), choice($.data_object, $.in_group_spec)),
 
   // ... {IN GROUP {group|DEFAULT} ...
-  in_group: $ =>
+  in_group_spec: $ =>
     seq(
       ...gen.kws("in", "group"),
       field("group", choice($.named_data_object, gen.kw("default"))),
     ),
 
-  in_remote_session: $ =>
+  in_remote_session_spec: $ =>
     seq(
       ...gen.kws("in", "remote", "session"),
       field("session", $.named_data_object),
     ),
 
-  starting_new_task: $ =>
+  starting_new_task_spec: $ =>
     seq(...gen.kws("starting", "new", "task"), field("task_id", $.data_object)),
 
-  asynchronous_callback: $ =>
+  asynchronous_callback_spec: $ =>
     seq(
       choice(
         seq(
@@ -65,7 +65,7 @@ module.exports = {
       ...gen.kws("on", "end", "of", "task"),
     ),
 
-  in_background_unit: $ =>
+  in_background_unit_spec: $ =>
     seq(
       ...gen.kws("in", "background", "unit"),
       field("name", $.named_data_object),
@@ -76,12 +76,15 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION_BACKGROUND_TASK.html
    */
-  in_background_task: $ =>
+  in_background_task_spec: $ =>
     prec.right(
-      seq(...gen.kws("in", "background", "task"), optional($.as_seperate_unit)),
+      seq(
+        ...gen.kws("in", "background", "task"),
+        optional($.as_separate_unit),
+      ),
     ),
 
-  in_update_task: _ => seq(...gen.kws("in", "update", "task")),
+  in_update_task_spec: _ => seq(...gen.kws("in", "update", "task")),
 
-  as_seperate_unit: _ => seq(...gen.kws("as", "separate", "unit")),
+  as_separate_unit: _ => seq(...gen.kws("as", "separate", "unit")),
 };

@@ -1,19 +1,8 @@
 module.exports = {
-  /**
-   * Specification of the processing mode (byte | character) for various statements.
-   *
-   * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_STATEMENTS.html
-   */
-  _processing_mode_spec: $ => choice($.in_character_mode, $.in_byte_mode),
-
-  in_character_mode: _ => seq(...gen.kws("in", "character", "mode")),
-
-  in_byte_mode: _ => seq(...gen.kws("in", "byte", "mode")),
-
   _pattern_spec: $ =>
     choice(
-      $.first_occurrence_of_pattern,
-      $.all_occurrences_of_pattern,
+      $.first_occurrence_of_pattern_spec,
+      $.all_occurrences_of_pattern_spec,
       field("pattern", $.__pattern),
     ),
 
@@ -24,14 +13,16 @@ module.exports = {
         seq(
           gen.kw("table"),
           field("subject", $.general_expression),
-          repeat(choice($.table_range_from, $.table_range_to)),
+          repeat(choice($.table_range_from_spec, $.table_range_to_spec)),
         ),
-        seq(optional($._section_spec), field("subject", $.general_expression)),
+        seq(optional($.__section_spec), field("subject", $.general_expression)),
       ),
     ),
 
-  table_range_from: $ => seq($.lines_from, optional($.section_offset)),
-  table_range_to: $ => seq($.lines_to, optional($.section_offset)),
+  table_range_from_spec: $ =>
+    seq($.lines_from_spec, optional($.section_offset_spec)),
+  table_range_to_spec: $ =>
+    seq($.lines_to_spec, optional($.section_offset_spec)),
 
   /**
    *
@@ -39,10 +30,10 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND_SECTION_OF.html
    */
-  _section_spec: $ =>
+  __section_spec: $ =>
     seq(
       gen.kw("section"),
-      repeat(choice($.section_offset, $.section_length)),
+      repeat(choice($.section_offset_spec, $.section_length_spec)),
       gen.kw("of"),
     ),
 
@@ -51,7 +42,7 @@ module.exports = {
    *
    * Used in {@link find_statement} and {@link replace_statement}
    */
-  first_occurrence_of_pattern: $ =>
+  first_occurrence_of_pattern_spec: $ =>
     seq(...gen.kws("first", "occurrence", "of"), field("pattern", $.__pattern)),
 
   /**
@@ -59,35 +50,38 @@ module.exports = {
    *
    * Used in {@link find_statement} and {@link replace_statement}
    */
-  all_occurrences_of_pattern: $ =>
+  all_occurrences_of_pattern_spec: $ =>
     seq(...gen.kws("all", "occurrences", "of"), field("pattern", $.__pattern)),
 
-  section_offset: $ =>
+  section_offset_spec: $ =>
     seq(gen.kw("offset"), field("offset", $.numeric_expression)),
 
-  section_length: $ =>
+  section_length_spec: $ =>
     seq(gen.kw("length"), field("length", $.numeric_expression)),
 
   /**
    *
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_PATTERN.html
    */
-  __pattern: $ => choice($.substring, $.pcre, $.regex),
+  __pattern: $ => choice($.substring_spec, $.pcre_spec, $.regex_spec),
 
-  substring: $ =>
+  substring_spec: $ =>
     seq(
       optional(gen.kw("substring")),
       field("value", $.character_like_expression),
     ),
-  pcre: $ => seq(gen.kw("pcre"), field("value", $.character_like_expression)),
-  regex: $ => seq(gen.kw("regex"), field("value", $.character_like_expression)),
+  pcre_spec: $ =>
+    seq(gen.kw("pcre"), field("value", $.character_like_expression)),
+  regex_spec: $ =>
+    seq(gen.kw("regex"), field("value", $.character_like_expression)),
 
   /**
    * Specification of a case sensitivity in various string operations.
    *
    * `RESPECTING/IGNORING CASE`
    */
-  _case_sensitivity_spec: $ => choice($.respecting_case, $.ignoring_case),
+  _case_sensitivity_spec: $ =>
+    choice($.respecting_case, $.ignoring_case),
 
   respecting_case: _ => seq(...gen.kws("respecting", "case")),
 
@@ -98,5 +92,6 @@ module.exports = {
    *
    * RESULTS result_tab|result_wa
    */
-  results: $ => seq(gen.kw("results"), field("target", $.receiving_expression)),
+  results_spec: $ =>
+    seq(gen.kw("results"), field("target", $.receiving_expression)),
 };

@@ -14,13 +14,13 @@ module.exports = {
     seq(
       gen.kw("concatenate"),
       field("subject", $.__concat_subject_spec),
-      $.into,
+      $.into_spec,
       repeat(choice($.__concat_addition)),
     ),
 
   respecting_blanks: _ => seq(...gen.kws("respecting", "blanks")),
 
-  separated_by: $ =>
+  separated_by_spec: $ =>
     seq(
       ...gen.kws("separated", "by"),
       field("separator", $.character_like_expression),
@@ -29,7 +29,11 @@ module.exports = {
   data_object_list: $ => prec.right(repeat1($.data_object)),
 
   __concat_addition: $ =>
-    choice($._processing_mode_spec, $.separated_by, $.respecting_blanks),
+    choice(
+      $._processing_mode_spec,
+      $.separated_by_spec,
+      $.respecting_blanks,
+    ),
 
-  __concat_subject_spec: $ => choice($.data_object_list, $.lines_of),
+  __concat_subject_spec: $ => choice($.data_object_list, $.lines_of_spec),
 };

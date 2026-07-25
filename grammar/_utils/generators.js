@@ -79,9 +79,9 @@ function declaration_and_spec(keyword, identifier, prefix) {
     ...rules,
     [decl]: $ => seq($[`__${decl}_prefix`], "."),
     [`__${decl}_prefix`]: $ => {
-      let opt = [$.begin_of_struct, $.end_of_struct, $[spec]];
+      let opt = [$.begin_of_struct_spec, $.end_of_struct_spec, $[spec]];
       if (keyword === "types") {
-        opt.push($.begin_of_enum, $.end_of_enum, $.enum_value_spec);
+        opt.push($.begin_of_enum_spec, $.end_of_enum_spec, $.enum_value_spec);
       }
       return chainable(keyword, choice(...opt));
     },

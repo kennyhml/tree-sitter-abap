@@ -133,13 +133,13 @@ check foo not between bar and 100.
   (check_statement
     condition: (comparison_expression
       left: (identifier)
-      right: (between
+      right: (between_spec
         low: (identifier)
         high: (number))))
   (check_statement
     condition: (comparison_expression
       left: (identifier)
-      right: (between
+      right: (between_spec
         low: (identifier)
         high: (number)))))
 
@@ -154,13 +154,13 @@ check foo not in range_tab->*.
   (check_statement
     condition: (comparison_expression
       left: (identifier)
-      right: (in_table
+      right: (in_table_spec
         table: (dereference_expression
           subject: (identifier)))))
   (check_statement
     condition: (comparison_expression
       left: (identifier)
-      right: (in_table
+      right: (in_table_spec
         table: (dereference_expression
           subject: (identifier))))))
 
@@ -191,12 +191,12 @@ check time BETWEEN '080000' AND '120000' OR time BETWEEN '130000' AND '170000'.
     condition: (logical_expression
       left: (comparison_expression
         left: (identifier)
-        right: (between
+        right: (between_spec
           low: (string_literal)
           high: (string_literal)))
       right: (comparison_expression
         left: (identifier)
-        right: (between
+        right: (between_spec
           low: (string_literal)
           high: (string_literal))))))
 

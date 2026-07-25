@@ -42,7 +42,11 @@ module.exports = {
     ),
 
   __referred_type_addition: $ =>
-    choice($.default_data_value, $.initial_value, $.read_only),
+    choice(
+      $.default_data_value_spec,
+      $.initial_value_spec,
+      $.read_only,
+    ),
 
   __referred_type_type_spec: $ =>
     seq(

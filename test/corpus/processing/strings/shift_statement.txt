@@ -17,7 +17,7 @@ SHIFT xstr IN BYTE MODE.
 (source
   (shift_statement
     subject: (identifier)
-    (in_byte_mode)))
+    (in_byte_mode_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Strings / SHIFT ] By places
@@ -28,7 +28,7 @@ SHIFT text BY off PLACES.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_by
+    (shift_by_spec
       amount: (identifier))))
 
 =================================================================================
@@ -40,7 +40,7 @@ SHIFT text UP TO 'you'.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_up_to
+    (shift_up_to_spec
       substring: (string_literal))))
 
 =================================================================================
@@ -52,7 +52,7 @@ SHIFT text RIGHT.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_direction
+    (shift_direction_spec
       (right))))
 
 =================================================================================
@@ -64,7 +64,7 @@ SHIFT text LEFT.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_direction
+    (shift_direction_spec
       (left))))
 
 =================================================================================
@@ -76,7 +76,7 @@ SHIFT text LEFT CIRCULAR.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_direction
+    (shift_direction_spec
       (left)
       (circular))))
 
@@ -89,7 +89,7 @@ SHIFT text RIGHT CIRCULAR.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_direction
+    (shift_direction_spec
       (right)
       (circular))))
 
@@ -102,7 +102,7 @@ SHIFT text CIRCULAR.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_direction
+    (shift_direction_spec
       (circular))))
 
 =================================================================================
@@ -114,7 +114,7 @@ SHIFT txt LEFT DELETING LEADING ` `.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_left_deleting
+    (shift_left_deleting_spec
       mask: (string_literal))))
 
 =================================================================================
@@ -126,5 +126,5 @@ SHIFT txt RIGHT DELETING TRAILING 'ab cd'.
 (source
   (shift_statement
     subject: (identifier)
-    (shift_right_deleting
+    (shift_right_deleting_spec
       mask: (string_literal))))

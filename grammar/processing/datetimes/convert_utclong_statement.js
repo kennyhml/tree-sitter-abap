@@ -15,10 +15,23 @@ module.exports = {
       ...gen.kws("convert", "utclong"),
       field("source", $.general_expression),
       gen.kw("into"),
-      optional($.date_spec),
-      optional($.time_spec),
-      optional($.fractional_seconds_spec),
-      optional($.daylight_saving_time_spec),
+      optional(alias($._result_date_spec, $.date_spec)),
+      optional(alias($._result_time_spec, $.time_spec)),
+      optional(
+        alias($.__result_fractional_seconds_spec, $.fractional_seconds_spec),
+      ),
+      optional(
+        alias(
+          $._result_daylight_saving_time_spec,
+          $.daylight_saving_time_spec,
+        ),
+      ),
       $.time_zone_spec,
+    ),
+
+  __result_fractional_seconds_spec: $ =>
+    seq(
+      ...gen.kws("fractional", "seconds"),
+      field("value", $.writable_expression),
     ),
 };

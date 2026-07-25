@@ -43,23 +43,21 @@ module.exports = {
       ),
     ),
 
-  into_clause: $ => seq(gen.kw("into"), field("result", $.writable_expression)),
-
-  raising_exception: $ =>
+  raising_exception_spec: $ =>
     seq(gen.kw("raising"), field("exception", $.identifier)),
 
-  display_like: $ =>
+  display_like_spec: $ =>
     seq(...gen.kws("display", "like"), field("type", $.data_object)),
 
-  with_arguments: $ =>
+  with_arguments_spec: $ =>
     seq(gen.kw("with"), prec.right(repeat1($.general_expression))),
 
   __message_addition: $ =>
     choice(
-      $.display_like,
-      $.with_arguments,
-      $.into_clause,
-      $.raising_exception,
+      $.display_like_spec,
+      $.with_arguments_spec,
+      alias($._writable_into_spec, $.into_spec),
+      $.raising_exception_spec,
     ),
 
   /**

@@ -21,7 +21,7 @@ APPEND seats TO seats_tab SORTED BY seatsfree.
   (append_statement
     lines: (identifier)
     subject: (identifier)
-    (sorted_by
+    (sorted_by_spec
       comp: (identifier))))
 
 =================================================================================
@@ -34,7 +34,7 @@ APPEND seats TO seats_tab SORTED BY foo->bar.
   (append_statement
     lines: (identifier)
     subject: (identifier)
-    (sorted_by
+    (sorted_by_spec
       comp: (component_selection
         subject: (identifier)
         component: (identifier)))))
@@ -47,9 +47,9 @@ APPEND INITIAL LINE TO itab ASSIGNING <line>.
 
 (source
   (append_statement
-    lines: (initial_line)
+    lines: (initial_line_spec)
     subject: (identifier)
-    result: (assigning
+    result: (assigning_spec
       target: (field_symbol
         name: (identifier)))))
 
@@ -61,11 +61,11 @@ APPEND INITIAL LINE TO foo-bar REFERENCE INTO data(line).
 
 (source
   (append_statement
-    lines: (initial_line)
+    lines: (initial_line_spec)
     subject: (component_selection
       subject: (identifier)
       component: (identifier))
-    result: (reference_into
+    result: (reference_into_spec
       work_area: (declaration_expression
         name: (identifier)))))
 
@@ -77,7 +77,7 @@ APPEND LINES OF itab2 TO itab1.
 
 (source
   (append_statement
-    lines: (lines_of
+    lines: (lines_of_spec
       subject: (identifier))
     subject: (identifier)))
 
@@ -89,13 +89,13 @@ APPEND LINES OF jtab FROM 1 TO 5 STEP 2 TO itab.
 
 (source
   (append_statement
-    lines: (lines_of
+    lines: (lines_of_spec
       subject: (identifier)
-      (lines_from
+      (lines_from_spec
         index: (number))
-      (lines_to
+      (lines_to_spec
         index: (number))
-      (lines_step
+      (lines_step_spec
         size: (number)))
     subject: (identifier)))
 

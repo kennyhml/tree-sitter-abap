@@ -42,11 +42,11 @@ module.exports = {
   parenthesized_length: $ =>
     gen.immediateTightParens(field("length", $._immediate_number)),
 
-  type_length: $ =>
+  type_length_spec: $ =>
     seq(gen.kw("length"), field("count", choice($.number, $.string_literal))),
 
   // Yes, decimals can be specified as data object in certain situations..
-  type_decimals: $ =>
+  type_decimals_spec: $ =>
     seq(
       gen.kw("decimals"),
       field("count", choice($.number, $.named_data_object)),
@@ -54,10 +54,10 @@ module.exports = {
 
   __abap_type_additions: $ =>
     choice(
-      $.type_length,
-      $.type_decimals,
-      $.initial_value,
-      $.default_data_value,
+      $.type_length_spec,
+      $.type_decimals_spec,
+      $.initial_value_spec,
+      $.default_data_value_spec,
       $.read_only,
     ),
 };

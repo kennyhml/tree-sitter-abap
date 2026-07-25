@@ -9,7 +9,7 @@ REDUCE string( INIT s = 0
 (source
   (reduce_expression
     result_type: (identifier)
-    (accumulators
+    (accumulators_spec
       (accumulator_spec
         name: (identifier)
         value: (number)))
@@ -18,11 +18,11 @@ REDUCE string( INIT s = 0
         left: (identifier)
         right: (number))
       (iteration_condition
-        (until
+        (until_spec
           condition: (comparison_expression
             left: (identifier)
             right: (number)))))
-    (reduce_next
+    (next_spec
       (assignment
         left: (identifier)
         right: (identifier)))))
@@ -38,7 +38,7 @@ REDUCE string( INIT <fr> = 0
 (source
   (reduce_expression
     result_type: (identifier)
-    (accumulators
+    (accumulators_spec
       (accumulator_spec
         name: (field_symbol
           name: (identifier))
@@ -48,11 +48,11 @@ REDUCE string( INIT <fr> = 0
         left: (identifier)
         right: (number))
       (iteration_condition
-        (until
+        (until_spec
           condition: (comparison_expression
             left: (identifier)
             right: (number)))))
-    (reduce_next
+    (next_spec
       (assignment
         left: (field_symbol
           name: (identifier))
@@ -69,7 +69,7 @@ REDUCE string( INIT text type string
 (source
   (reduce_expression
     result_type: (identifier)
-    (accumulators
+    (accumulators_spec
       (accumulator_spec
         name: (identifier)
         typing: (referred_type
@@ -78,16 +78,16 @@ REDUCE string( INIT text type string
       init: (assignment
         left: (identifier)
         right: (number))
-      next: (then_clause
+      next: (then_spec
         (arithmetic_expression
           left: (identifier)
           right: (number)))
       (iteration_condition
-        (while
+        (while_spec
           condition: (comparison_expression
             left: (identifier)
             right: (number)))))
-    (reduce_next
+    (next_spec
       (calculation_assignment
         left: (identifier)
         right: (string_template
@@ -105,7 +105,7 @@ REDUCE string( INIT text = `Accumulator`
 (source
   (reduce_expression
     result_type: (identifier)
-    (accumulators
+    (accumulators_spec
       (accumulator_spec
         name: (identifier)
         value: (string_literal)))
@@ -113,16 +113,16 @@ REDUCE string( INIT text = `Accumulator`
       init: (assignment
         left: (identifier)
         right: (number))
-      next: (then_clause
+      next: (then_spec
         (arithmetic_expression
           left: (identifier)
           right: (number)))
       (iteration_condition
-        (while
+        (while_spec
           condition: (comparison_expression
             left: (identifier)
             right: (number)))))
-    (reduce_next
+    (next_spec
       (calculation_assignment
         left: (identifier)
         right: (string_template
@@ -145,7 +145,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
 (source
   (reduce_expression
     result_type: (identifier)
-    (accumulators
+    (accumulators_spec
       (accumulator_spec
         name: (identifier)
         value: (value_expression
@@ -164,7 +164,7 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
       work_area: (field_symbol
         name: (identifier))
       subject: (identifier))
-    (reduce_next
+    (next_spec
       (calculation_assignment
         left: (component_selection
           subject: (identifier)
@@ -221,7 +221,7 @@ REDUCE string( INIT text = `` sep = ``
 (source
   (reduce_expression
     result_type: (identifier)
-    (accumulators
+    (accumulators_spec
       (accumulator_spec
         name: (identifier)
         value: (string_literal))
@@ -251,7 +251,7 @@ REDUCE string( INIT text = `` sep = ``
                     result: (string_literal))
                   (else_case
                     result: (identifier)))))))))
-    (reduce_next
+    (next_spec
       (assignment
         left: (identifier)
         right: (string_template

@@ -20,7 +20,5 @@ module.exports = {
 
   __module_kind: $ => choice($.output, $.input),
 
-  output: _ => gen.kw("output"),
-
   input: _ => gen.kw("input"),
 };

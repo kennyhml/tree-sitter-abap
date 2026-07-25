@@ -12,7 +12,7 @@ module.exports = {
       field("line", $._line_spec),
       gen.kw("into"),
       $.__insert_position,
-      optional(field("result", $.__insert_result)),
+      optional(field("result", $._itab_mutation_result)),
     ),
 
   /**
@@ -22,9 +22,10 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_ITAB_POSITION.html
    */
-  __insert_position: $ => choice($.into_table, $.at_index),
+  __insert_position: $ => choice($.into_table_spec, $.at_index),
 
-  into_table: $ => seq(gen.kw("table"), field("subject", $.general_expression)),
+  into_table_spec: $ =>
+    seq(gen.kw("table"), field("subject", $.general_expression)),
 
   at_index: $ =>
     seq(
@@ -33,11 +34,4 @@ module.exports = {
       optional(seq(gen.kw("index"), field("index", $.general_expression))),
     ),
 
-  /**
-   * ... { ASSIGNING <fs> [CASTING] [ELSE UNASSIGN]}
-   *   | { REFERENCE INTO dref }.
-   *
-   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_ITAB_POSITION.html
-   */
-  __insert_result: $ => choice($.assigning, $.reference_into),
 };

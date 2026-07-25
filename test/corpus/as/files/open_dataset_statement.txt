@@ -7,7 +7,8 @@ OPEN DATASET file FOR INPUT IN BINARY MODE.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
       mode: (binary_mode))))
 
@@ -20,7 +21,8 @@ OPEN DATASET file FOR OUTPUT IN BINARY MODE.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
       mode: (binary_mode))))
 
@@ -33,7 +35,8 @@ OPEN DATASET file FOR APPENDING IN BINARY MODE.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_appending)
+    (dataset_access_spec
+      (appending))
     (in_dataset_mode_spec
       mode: (binary_mode))))
 
@@ -46,7 +49,8 @@ OPEN DATASET file FOR UPDATE IN BINARY MODE.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_update)
+    (dataset_access_spec
+      (update))
     (in_dataset_mode_spec
       mode: (binary_mode))))
 
@@ -59,10 +63,11 @@ OPEN DATASET file FOR INPUT IN TEXT MODE ENCODING DEFAULT.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (default))))))
 
 =================================================================================
@@ -74,10 +79,11 @@ OPEN DATASET file FOR INPUT IN TEXT MODE ENCODING UTF-8.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (utf8))))))
 
 =================================================================================
@@ -89,10 +95,11 @@ OPEN DATASET file FOR INPUT IN TEXT MODE ENCODING UTF-8 SKIPPING BYTE-ORDER MARK
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (utf8)
           (skipping_byte_order_mark))))))
 
@@ -105,10 +112,11 @@ OPEN DATASET file FOR OUTPUT IN TEXT MODE ENCODING UTF-8 WITH BYTE-ORDER MARK.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (utf8)
           (with_byte_order_mark))))))
 
@@ -121,10 +129,11 @@ OPEN DATASET file FOR INPUT IN TEXT MODE ENCODING NON-UNICODE.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (non_unicode))))))
 
 =================================================================================
@@ -136,12 +145,13 @@ OPEN DATASET file FOR INPUT IN TEXT MODE ENCODING DEFAULT WITH NATIVE LINEFEED.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (default))
-        (dataset_linefeed_spec)))))
+        (linefeed_spec)))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Smart linefeed
@@ -152,12 +162,13 @@ OPEN DATASET file FOR INPUT IN TEXT MODE ENCODING DEFAULT WITH SMART LINEFEED.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (default))
-        (dataset_linefeed_spec)))))
+        (linefeed_spec)))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Unix linefeed
@@ -168,12 +179,13 @@ OPEN DATASET file FOR OUTPUT IN TEXT MODE ENCODING DEFAULT WITH UNIX LINEFEED.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (default))
-        (dataset_linefeed_spec)))))
+        (linefeed_spec)))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Windows linefeed
@@ -184,12 +196,13 @@ OPEN DATASET file FOR OUTPUT IN TEXT MODE ENCODING DEFAULT WITH WINDOWS LINEFEED
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (default))
-        (dataset_linefeed_spec)))))
+        (linefeed_spec)))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Legacy binary mode
@@ -200,9 +213,10 @@ OPEN DATASET file FOR OUTPUT IN LEGACY BINARY MODE.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_binary_mode))))
+      mode: (legacy_binary_mode))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Big endian
@@ -213,10 +227,11 @@ OPEN DATASET file FOR OUTPUT IN LEGACY BINARY MODE BIG ENDIAN.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_binary_mode
-        (dataset_endian_spec)))))
+      mode: (legacy_binary_mode
+        (endian_spec)))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Little endian
@@ -227,10 +242,11 @@ OPEN DATASET file FOR INPUT IN LEGACY BINARY MODE LITTLE ENDIAN.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_binary_mode
-        (dataset_endian_spec)))))
+      mode: (legacy_binary_mode
+        (endian_spec)))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Legacy binary code page
@@ -241,10 +257,11 @@ OPEN DATASET file FOR OUTPUT IN LEGACY BINARY MODE CODE PAGE cp.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_binary_mode
-        (dataset_code_page_spec
+      mode: (legacy_binary_mode
+        (code_page_spec
           code_page: (identifier))))))
 
 =================================================================================
@@ -256,9 +273,10 @@ OPEN DATASET file FOR OUTPUT IN LEGACY TEXT MODE.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_text_mode))))
+      mode: (legacy_text_mode))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Legacy text additions
@@ -272,13 +290,14 @@ OPEN DATASET file FOR OUTPUT IN LEGACY TEXT MODE
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_text_mode
-        (dataset_endian_spec)
-        (dataset_code_page_spec
+      mode: (legacy_text_mode
+        (endian_spec)
+        (code_page_spec
           code_page: (string_literal))
-        (dataset_linefeed_spec)))))
+        (linefeed_spec)))))
 
 =================================================================================
 [ ABAP - Application Server / Files / OPEN DATASET ] Position
@@ -289,10 +308,11 @@ OPEN DATASET file FOR UPDATE IN BINARY MODE AT POSITION pos.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_update)
+    (dataset_access_spec
+      (update))
     (in_dataset_mode_spec
       mode: (binary_mode))
-    (dataset_position_spec
+    (at_position_spec
       position: (identifier))))
 
 =================================================================================
@@ -306,10 +326,11 @@ OPEN DATASET 'test.dat' TYPE 'lrecl=80' FOR OUTPUT IN TEXT MODE ENCODING DEFAULT
     file: (string_literal)
     (dataset_type_spec
       attributes: (string_literal))
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_text_mode_spec
-        (dataset_encoding_spec
+      mode: (text_mode
+        (encoding_spec
           (default))))))
 
 =================================================================================
@@ -321,7 +342,8 @@ OPEN DATASET file FOR OUTPUT IN BINARY MODE FILTER command.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
       mode: (binary_mode))
     (dataset_filter_spec
@@ -336,7 +358,8 @@ OPEN DATASET file FOR INPUT IN BINARY MODE MESSAGE msg.
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
       mode: (binary_mode))
     (dataset_message_spec
@@ -351,7 +374,8 @@ OPEN DATASET file FOR INPUT IN BINARY MODE MESSAGE FINAL(msg).
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_input)
+    (dataset_access_spec
+      (input))
     (in_dataset_mode_spec
       mode: (binary_mode))
     (dataset_message_spec
@@ -368,10 +392,11 @@ OPEN DATASET file FOR OUTPUT IN LEGACY TEXT MODE
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_text_mode))
-    (dataset_replacement_character_spec
+      mode: (legacy_text_mode))
+    (replacement_character_spec
       character: (identifier))))
 
 =================================================================================
@@ -384,7 +409,8 @@ OPEN DATASET file FOR OUTPUT IN LEGACY TEXT MODE
 (source
   (open_dataset_statement
     file: (identifier)
-    (for_output)
+    (dataset_access_spec
+      (output))
     (in_dataset_mode_spec
-      mode: (dataset_legacy_text_mode))
+      mode: (legacy_text_mode))
     (ignoring_conversion_errors)))

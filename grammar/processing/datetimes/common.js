@@ -1,28 +1,31 @@
 module.exports = {
-  time_zone_spec: $ =>
-    seq(...gen.kws("time", "zone"), field("value", $.general_expression)),
-
-  fractional_seconds_spec: $ =>
-    seq(
-      ...gen.kws("fractional", "seconds"),
-      field("value", choice($.general_expression, $.declaration_expression)),
-    ),
-
-  daylight_saving_time_spec: $ =>
+  _source_daylight_saving_time_spec: $ =>
     seq(
       ...gen.kws("daylight", "saving", "time"),
-      field("value", choice($.declaration_expression, $.general_expression)),
+      field("value", $.general_expression),
     ),
 
-  time_spec: $ =>
+  _result_daylight_saving_time_spec: $ =>
+    seq(
+      ...gen.kws("daylight", "saving", "time"),
+      field("value", $.writable_expression),
+    ),
+
+  _source_time_spec: $ =>
     seq(
       gen.kw("time"),
-      field("value", choice($.general_expression, $.declaration_expression)),
+      field("value", $.general_expression),
     ),
 
-  date_spec: $ =>
+  _result_time_spec: $ =>
+    seq(gen.kw("time"), field("value", $.writable_expression)),
+
+  _source_date_spec: $ =>
     seq(
       gen.kw("date"),
-      field("value", choice($.declaration_expression, $.general_expression)),
+      field("value", $.general_expression),
     ),
+
+  _result_date_spec: $ =>
+    seq(gen.kw("date"), field("value", $.writable_expression)),
 };

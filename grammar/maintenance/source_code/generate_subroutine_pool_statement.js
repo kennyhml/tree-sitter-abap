@@ -23,9 +23,9 @@ module.exports = {
       $.source_error_word_spec,
       $.source_error_offset_spec,
       $.source_error_message_id_spec,
-      $.generate_shortdump_id_spec,
+      $.shortdump_id_spec,
     ),
 
-  generate_shortdump_id_spec: $ =>
+  shortdump_id_spec: $ =>
     seq(gen.kw("shortdump-id"), field("destination", $.writable_expression)),
 };

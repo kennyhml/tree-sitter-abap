@@ -254,3 +254,23 @@ REPLACE ALL OCCURRENCES OF foo IN TABLE bar WITH baz.
 FIND FIRST OCCURRENCE OF PCRE '[fF][oO][bB]' IN TABLE bar.
 "                              ^ string.regexp
 "                                                     ^ variable
+MODIFY TABLE itab FROM wa.
+"            ^ variable
+"                      ^ variable
+
+MODIFY itab FROM VALUE line( col2 = 0 ) TRANSPORTING col2 WHERE col2 < 0.
+"      ^ variable
+"                      ^ type
+"                            ^ variable.member
+"                                                    ^ variable.member
+"                                                               ^ variable.member
+MODIFY itab FROM wa USING KEY mkey.
+"      ^ variable
+"                ^ variable
+"                             ^ constant
+MODIFY itab FROM wa TRANSPORTING col2 where col1 < foo.
+"      ^ variable
+"                ^ variable
+"                                ^ variable.member
+"                                           ^ variable.member
+"                                                  ^ variable

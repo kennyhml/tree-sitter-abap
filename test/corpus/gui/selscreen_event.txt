@@ -16,10 +16,10 @@ at selection-screen on end of p_carrid.
 
 (source
   (at_selscreen_statement
-    event: (on_parameter
+    event: (on_parameter_spec
       name: (identifier)))
   (at_selscreen_statement
-    event: (on_end_of_parameter
+    event: (on_end_of_parameter_spec
       name: (identifier))))
 
 =================================================================================
@@ -40,7 +40,7 @@ AT SELECTION-SCREEN ON p_carrid.
 
 (source
   (at_selscreen_statement
-    event: (on_parameter
+    event: (on_parameter_spec
       name: (identifier))))
 
 =================================================================================
@@ -51,7 +51,7 @@ AT SELECTION-SCREEN ON END OF p_carrid.
 
 (source
   (at_selscreen_statement
-    event: (on_end_of_parameter
+    event: (on_end_of_parameter_spec
       name: (identifier))))
 
 =================================================================================
@@ -62,7 +62,7 @@ AT SELECTION-SCREEN ON BLOCK block.
 
 (source
   (at_selscreen_statement
-    event: (on_block
+    event: (on_block_spec
       name: (identifier))))
 
 =================================================================================
@@ -73,7 +73,7 @@ AT SELECTION-SCREEN ON RADIOBUTTON GROUP grp.
 
 (source
   (at_selscreen_statement
-    event: (on_radiobutton_group
+    event: (on_radiobutton_group_spec
       name: (identifier))))
 
 =================================================================================
@@ -84,7 +84,7 @@ AT SELECTION-SCREEN ON EXIT-COMMAND.
 
 (source
   (at_selscreen_statement
-    event: (on_exit_command)))
+    event: (on_exit_command_spec)))
 
 =================================================================================
 [ ABAP - SAP GUI User Dialogs / Selection Screens / Processing ] On help request
@@ -94,7 +94,7 @@ AT SELECTION-SCREEN ON HELP-REQUEST FOR p_carr_2.
 
 (source
   (at_selscreen_statement
-    event: (on_help_request
+    event: (on_help_request_spec
       name: (identifier))))
 
 =================================================================================
@@ -105,7 +105,7 @@ AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_carr_2.
 
 (source
   (at_selscreen_statement
-    event: (on_value_request
+    event: (on_value_request_spec
       name: (identifier))))
 
 =================================================================================

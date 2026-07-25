@@ -25,9 +25,9 @@ module.exports = {
       $.describe_type_spec,
       $.describe_length_spec,
       $.describe_decimals_spec,
-      $.describe_output_length_spec,
-      $.describe_help_id_spec,
-      $.describe_edit_mask_spec,
+      $.output_length_spec,
+      $.help_id_spec,
+      $.edit_mask_spec,
     ),
 
   describe_type_spec: $ =>
@@ -49,13 +49,13 @@ module.exports = {
   describe_decimals_spec: $ =>
     seq(gen.kw("decimals"), field("destination", $.writable_expression)),
 
-  describe_output_length_spec: $ =>
+  output_length_spec: $ =>
     seq(gen.kw("output-length"), field("destination", $.writable_expression)),
 
-  describe_help_id_spec: $ =>
+  help_id_spec: $ =>
     seq(gen.kw("help-id"), field("destination", $.writable_expression)),
 
-  describe_edit_mask_spec: $ =>
+  edit_mask_spec: $ =>
     seq(
       ...gen.kws("edit", "mask"),
       field("destination", $.writable_expression),

@@ -22,23 +22,23 @@ module.exports = {
       choice(
         seq(
           optional($.except),
-          optional($.using_key),
-          optional($.in_filter_table),
+          optional($.using_key_spec),
+          optional($.in_filter_table_spec),
         ),
-        seq($.using_key, $.except, $.in_filter_table),
+        seq($.using_key_spec, $.except, $.in_filter_table_spec),
       ),
 
       // Technically a special kind of where condition where fields of
       // both tables are mapped to each other
-      $.where_condition,
+      $.where_condition_spec,
       ")",
     ),
 
-  in_filter_table: $ =>
+  in_filter_table_spec: $ =>
     seq(
       gen.kw("in"),
       field("table", $.general_expression),
-      optional($.using_key),
+      optional($.using_key_spec),
     ),
 
   except: _ => gen.kw("except"),

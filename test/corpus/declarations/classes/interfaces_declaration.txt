@@ -52,7 +52,7 @@ ENDCLASS.
         (interfaces_declaration
           (interfaces_spec
             name: (identifier)
-            (abstract_methods
+            (abstract_methods_spec
               (component_selection
                 subject: (identifier)
                 component: (identifier))
@@ -75,7 +75,7 @@ ENDCLASS.
         (interfaces_declaration
           (interfaces_spec
             name: (identifier)
-            (final_methods
+            (final_methods_spec
               (component_selection
                 subject: (identifier)
                 component: (identifier))
@@ -98,7 +98,7 @@ ENDCLASS.
         (interfaces_declaration
           (interfaces_spec
             name: (identifier)
-            (all_methods
+            (all_methods_spec
               (final))))))))
 
 =================================================================================
@@ -118,7 +118,7 @@ ENDCLASS.
         (interfaces_declaration
           (interfaces_spec
             name: (identifier)
-            (all_methods
+            (all_methods_spec
               (abstract))))))))
 
 =================================================================================
@@ -140,7 +140,7 @@ ENDCLASS.
         (interfaces_declaration
           (interfaces_spec
             name: (identifier)
-            (data_values
+            (data_values_spec
               (data_value_assignment
                 member: (identifier)
                 value: (string_literal))

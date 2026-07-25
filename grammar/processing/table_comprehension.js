@@ -21,7 +21,7 @@ module.exports = {
    */
   table_comprehension: $ =>
     seq(
-      optional($.base_table),
+      optional($.base_spec),
 
       // Optionally any number of nested for expressions
       repeat($.iteration_expression),
@@ -39,7 +39,7 @@ module.exports = {
    *
    * Without the base addition, this is amiguous due to the NEW #( ) constructor.
    */
-  table_constructor: $ => seq($.base_table, $.argument_list),
+  table_constructor: $ => seq($.base_spec, $.argument_list),
 
   /**
    * ... line
@@ -48,8 +48,8 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEW_CONSTRUCTOR_PARAMS_LSPC.html
    */
   line_spec: $ =>
-    gen.parenthesized(optional(choice($.lines_of, $.argument_list))),
+    gen.parenthesized(optional(choice($.lines_of_spec, $.argument_list))),
 
   // ... BASE base ...
-  base_table: $ => seq(gen.kw("base"), field("value", $.general_expression)),
+  base_spec: $ => seq(gen.kw("base"), field("value", $.general_expression)),
 };

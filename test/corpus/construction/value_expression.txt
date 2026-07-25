@@ -128,7 +128,7 @@ VALUE struct( BASE base2 col2 = 'BB' ).
   (value_expression
     result_type: (identifier)
     (table_constructor
-      (base_table
+      (base_spec
         value: (identifier))
       (argument_list
         (named_argument
@@ -244,7 +244,7 @@ VALUE #( BASE itab ( `d` ) ( `e` ) ( `f` ) ).
 (source
   (value_expression
     (table_comprehension
-      (base_table
+      (base_spec
         value: (identifier))
       (line_spec
         (argument_list
@@ -268,7 +268,7 @@ VALUE #( BASE itab ( ipow( base = sy-index exp = 2 ) ) )
 (source
   (value_expression
     (table_comprehension
-      (base_table
+      (base_spec
         value: (identifier))
       (line_spec
         (argument_list
@@ -358,7 +358,7 @@ VALUE t_itab( ( ) ( 1 ) ( 2 ) ( LINES OF jtab ) )
           (positional_argument
             value: (number))))
       (line_spec
-        (lines_of
+        (lines_of_spec
           subject: (identifier))))))
 
 =================================================================================
@@ -381,15 +381,15 @@ VALUE t_itab( ( ) ( 1 ) ( 2 ) ( LINES OF jtab FROM start to END STEP 3 using key
           (positional_argument
             value: (number))))
       (line_spec
-        (lines_of
+        (lines_of_spec
           subject: (identifier)
-          (lines_from
+          (lines_from_spec
             index: (identifier))
-          (lines_to
+          (lines_to_spec
             index: (identifier))
-          (lines_step
+          (lines_step_spec
             size: (number))
-          (using_key
+          (using_key_spec
             name: (identifier)))))))
 
 =================================================================================

@@ -17,7 +17,7 @@ CREATE OBJECT root AREA HANDLE handle.
 (source
   (create_object_statement
     subject: (identifier)
-    (object_area_handle_spec
+    (area_handle_spec
       handle: (identifier))))
 
 =================================================================================

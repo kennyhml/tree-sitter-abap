@@ -12,7 +12,7 @@ module.exports = {
       field("subject", $.general_expression),
       ".",
       repeat(field("alternative", $.case_type_clause)),
-      optional(field("others", $.case_others_type_clause)),
+      optional(field("others", $.others_case_clause)),
       gen.kw("endcase"),
     ),
 
@@ -24,24 +24,13 @@ module.exports = {
     seq(
       ...gen.kws("when", "type"),
       field("type", $.identifier),
-      optional($.cast_into_spec),
-      ".",
-      field("consequence", optional($.statement_block)),
-    ),
-
-  /**
-   * [WHEN OTHERS.
-   *   [statement_block2]]
-   */
-  case_others_type_clause: $ =>
-    seq(
-      ...gen.kws("when", "others"),
+      optional(alias($.__cast_into_spec, $.into_spec)),
       ".",
       field("consequence", optional($.statement_block)),
     ),
 
   // [INTO target1]
-  cast_into_spec: $ =>
+  __cast_into_spec: $ =>
     seq(
       gen.kw("into"),
       field("target", choice($.named_data_object, $.declaration_expression)),

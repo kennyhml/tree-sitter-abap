@@ -15,7 +15,7 @@ DESCRIBE DISTANCE BETWEEN struct-col3 AND struct-col1
       component: (identifier))
     destination: (declaration_expression
       name: (identifier))
-    (in_byte_mode)))
+    (in_byte_mode_spec)))
 
 =================================================================================
 [ ABAP - Procecssing Internal Data / Describing Data Objects / DESCRIBE DISTANCE ] Substrings
@@ -37,4 +37,4 @@ DESCRIBE DISTANCE BETWEEN text+2(1) AND text+7(1)
       length: (number))
     destination: (declaration_expression
       name: (identifier))
-    (in_character_mode)))
+    (in_character_mode_spec)))

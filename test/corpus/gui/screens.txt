@@ -9,25 +9,27 @@ selection-screen: begin of screen 100 title text-tt1 as window,
 
 (source
   (selection_screen_statement
-    (begin_of_screen_element
+    (begin_of_screen_element_spec
       (screen_spec
         dynnr: (number)
-        (title
+        (title_spec
           text: (text_symbol
             (identifier)
             id: (symbol_id)))
-        (as_window)))
-    (begin_of_block_element
+        (as_window_spec)))
+    (begin_of_block_element_spec
       name: (identifier)
       (frame_spec
-        (title
+        (title_spec
           text: (text_symbol
             (identifier)
             id: (symbol_id)))))
-    (end_of_screen_element
-      dynnr: (number))
-    (end_of_block_element
-      name: (identifier))))
+    (end_of_screen_element_spec
+      (end_of_screen_spec
+        dynnr: (number)))
+    (end_of_block_element_spec
+      (end_of_block_spec
+        name: (identifier)))))
 
 =================================================================================
 [ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Screens ] Chained screens
@@ -37,15 +39,15 @@ SELECTION-SCREEN BEGIN OF SCREEN: 100 as window title abab, 200 as window.
 
 (source
   (selection_screen_statement
-    (begin_of_screen_element
+    (begin_of_screen_element_spec
       (screen_spec
         dynnr: (number)
-        (as_window)
-        (title
+        (as_window_spec)
+        (title_spec
           text: (identifier)))
       (screen_spec
         dynnr: (number)
-        (as_window)))))
+        (as_window_spec)))))
 
 =================================================================================
 [ ABAP - SAP GUI User Dialogs / Selection Screens / Elements / Screens ] Subscreen
@@ -56,10 +58,11 @@ selection-screen: begin of screen 100 as subscreen nesting level 5,
 
 (source
   (selection_screen_statement
-    (begin_of_screen_element
+    (begin_of_screen_element_spec
       (subscreen_spec
         dynnr: (number)
-        (nesting_level
+        (nesting_level_spec
           level: (number))))
-    (end_of_screen_element
-      dynnr: (number))))
+    (end_of_screen_element_spec
+      (end_of_screen_spec
+        dynnr: (number)))))

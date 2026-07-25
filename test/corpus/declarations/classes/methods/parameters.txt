@@ -99,7 +99,7 @@ METHODS meth IMPORTING p1 TYPE i DEFAULT 99.
             name: (identifier))
           typing: (referred_type
             name: (identifier))
-          (parameter_default
+          (parameter_default_spec
             value: (number)))))))
 
 =================================================================================
@@ -129,7 +129,7 @@ METHODS meth
           typing: (referred_type
             name: (identifier))
           (optional))
-        (preferred_parameter
+        (preferred_parameter_spec
           name: (identifier))))))
 
 =================================================================================
@@ -228,7 +228,7 @@ METHODS divide
     (method_spec
       name: (identifier)
       raising: (raising_list
-        (non_resumable_exception
+        (non_resumable_exception_spec
           name: (identifier))))))
 
 =================================================================================
@@ -243,5 +243,5 @@ METHODS divide
     (method_spec
       name: (identifier)
       raising: (raising_list
-        (resumable_exception
+        (resumable_exception_spec
           name: (identifier))))))
