@@ -503,6 +503,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "sum_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -18977,6 +18981,19 @@
         }
       ]
     },
+    "sum_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_sum"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "modify_statement": {
       "type": "SEQ",
       "members": [
@@ -27337,6 +27354,19 @@
         },
         "named": false,
         "value": "value"
+      }
+    },
+    "_kw_sum": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)sum"
+        },
+        "named": false,
+        "value": "sum"
       }
     },
     "_kw_new": {
@@ -36285,6 +36315,10 @@
           {
             "type": "PATTERN",
             "value": "(?i)value"
+          },
+          {
+            "type": "PATTERN",
+            "value": "(?i)sum"
           },
           {
             "type": "PATTERN",

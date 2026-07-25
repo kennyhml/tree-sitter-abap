@@ -251,6 +251,7 @@ module.exports = grammar({
           $.raise_event_statement,
 
           $.set_handler_statement,
+          $.sum_statement,
 
           $._empty_statement,
         ),
@@ -606,6 +607,7 @@ module.exports = grammar({
         choice(
           ...gen.caseInsensitive(
             "value",
+            "sum",
             "new",
             "cond",
             "switch",

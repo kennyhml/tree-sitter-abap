@@ -262,6 +262,47 @@ ENDLOOP.
       (at_last_statement))))
 
 =================================================================================
+[ ABAP - Processing Internal Data / Internal Tables / LOOP AT ] Sum control group
+=================================================================================
+LOOP AT sales INTO row.
+  AT END OF customer.
+    SUM.
+  ENDAT.
+ENDLOOP.
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    body: (loop_at_body
+      (at_end_of_statement
+        component: (identifier)
+        body: (body
+          (sum_statement))))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Internal Tables / LOOP AT ] Sum all rows
+=================================================================================
+LOOP AT sales INTO row.
+  AT LAST.
+    SUM.
+  ENDAT.
+ENDLOOP.
+---
+
+(source
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    body: (loop_at_body
+      (at_last_statement
+        body: (body
+          (sum_statement))))))
+
+=================================================================================
 [ ABAP - Processing Internal Data / Internal Tables / LOOP AT ] Group key binding
 =================================================================================
 LOOP AT spfli_tab INTO FINAL(wa) 

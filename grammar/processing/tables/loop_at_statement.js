@@ -144,4 +144,6 @@ module.exports = {
       $.reference_into_spec,
       alias($._transporting_no_fields_spec, $.transporting_spec),
     ),
+
+  sum_statement: _ => seq(gen.kw("sum"), "."),
 };

@@ -790,6 +790,10 @@
         "named": true
       },
       {
+        "type": "sum_statement",
+        "named": true
+      },
+      {
         "type": "syntax_check_statement",
         "named": true
       },
@@ -23125,6 +23129,22 @@
     }
   },
   {
+    "type": "sum_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sum",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "supplied_predicate",
     "named": true,
     "fields": {
@@ -27871,6 +27891,10 @@
   },
   {
     "type": "suffix",
+    "named": false
+  },
+  {
+    "type": "sum",
     "named": false
   },
   {
