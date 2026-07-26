@@ -12114,6 +12114,10 @@
               },
               {
                 "type": "SYMBOL",
+                "name": "_chained_identifier"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "_immediate_field_symbol"
               },
               {
@@ -12164,6 +12168,10 @@
               {
                 "type": "SYMBOL",
                 "name": "_immediate_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_chained_identifier"
               },
               {
                 "type": "SYMBOL",
@@ -12285,6 +12293,87 @@
                 "name": "_immediate_identifier"
               }
             ]
+          }
+        }
+      ]
+    },
+    "_chained_identifier": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "__elementary_component_selection"
+      },
+      "named": true,
+      "value": "component_selection"
+    },
+    "__elementary_component_selection": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_immediate_identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "__elementary_component_selection"
+                },
+                "named": true,
+                "value": "component_selection"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "selector",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "STRING",
+                  "value": "-"
+                }
+              },
+              {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "STRING",
+                  "value": "->"
+                }
+              },
+              {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "STRING",
+                  "value": "=>"
+                }
+              },
+              {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "STRING",
+                  "value": "~"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "component",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
           }
         }
       ]

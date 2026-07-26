@@ -15,6 +15,7 @@ module.exports = {
         "value",
         choice(
           $._immediate_identifier,
+          $._chained_identifier,
           $._immediate_field_symbol,
           $._immediate_string_literal,
           $._immediate_number,
@@ -32,6 +33,7 @@ module.exports = {
         "value",
         choice(
           $._immediate_identifier,
+          $._chained_identifier,
           $._immediate_string_literal,
           $._immediate_field_symbol,
           $._immediate_number,

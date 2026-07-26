@@ -112,3 +112,28 @@ CALL METHOD ('CL_ABAP_BROWSER')=>('SHOW_HTML')
           name: (dynamic_spec
             value: (identifier))
           value: (string_literal))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL METHOD ] Dynamic structure component
+=================================================================================
+CALL METHOD (meth_wa-name) EXPORTING out = out text = CONV string( meth_wa-name ).
+---
+
+(source
+  (call_method_statement
+    name: (dynamic_spec
+      value: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    (call_argument_list
+      exporting: (argument_list
+        (named_argument
+          name: (identifier)
+          value: (identifier))
+        (named_argument
+          name: (identifier)
+          value: (conv_expression
+            result_type: (identifier)
+            subject: (component_selection
+              subject: (identifier)
+              component: (identifier))))))))

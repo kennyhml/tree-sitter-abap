@@ -51,9 +51,7 @@ module.exports = {
       ),
       field("component", choice($.dynamic_spec, $._immediate_identifier)),
     ),
-};
 
-const in_consideration = {
   /**
    * Based on the ABAP spec, identifiers 'constructed from multiple names separated
    * by component selectors' are NOT expressions but single (or composite?) operands
@@ -65,7 +63,7 @@ const in_consideration = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCHAINED_NAME_GLOSRY.html
    */
-  chained_identifier: $ =>
+  _chained_identifier: $ =>
     alias($.__elementary_component_selection, $.component_selection),
 
   __elementary_component_selection: $ =>
@@ -73,7 +71,7 @@ const in_consideration = {
       field(
         "subject",
         choice(
-          $.identifier,
+          $._immediate_identifier,
           alias($.__elementary_component_selection, $.component_selection),
         ),
       ),

@@ -1,0 +1,467 @@
+=================================================================================
+[ SAP-samples/abap-cheat-sheets@32797360 ] Internal table statements
+=================================================================================
+APPEND LINES OF it_a FROM 5 TO 7 TO it_b.
+APPEND LINES OF it_a TO 3 TO it_b.
+INSERT LINES OF it_a FROM 8 TO 10 INTO TABLE it_b.
+INSERT LINES OF it_a FROM 1 TO 3 INTO it_b INDEX 1.
+READ TABLE it_j INTO struc_e INDEX 1 USING KEY sk.
+READ TABLE it_k FROM pr_key USING KEY primary_key INTO struc_i.
+READ TABLE it_m WITH KEY str = `X` TRANSPORTING NO FIELDS.
+READ TABLE it_m INTO struc_m INDEX idx COMPARING ALL FIELDS TRANSPORTING ALL FIELDS.
+READ TABLE itab_wh TRANSPORTING NO FIELDS WHERE comp2 CS 'd'.
+READ TABLE itab_wh USING KEY primary_key INTO wa_wh WHERE comp2 CS 't'.
+line = itab[ KEY sk INDEX 1 ].
+line = itab[ TABLE KEY sk COMPONENTS comp2 = 20 comp3 = 21 ].
+ASSIGN itab[ 2 ] TO FIELD-SYMBOL(<line>).
+READ TABLE deep_tab INDEX 2 INTO DATA(wa1).
+READ TABLE wa2 INTO DATA(wa3) INDEX 2.
+SORT it1 BY b ASCENDING c DESCENDING.
+DELETE it_std INDEX 1 USING KEY primary_key.
+DELETE TABLE it_ha_sec WITH TABLE KEY sec_key_h COMPONENTS b = 'bbb'.
+DELETE ADJACENT DUPLICATES FROM it_std2 COMPARING ALL FIELDS.
+DELETE ADJACENT DUPLICATES FROM it_std2 USING KEY primary_key.
+COLLECT seats INTO seats_tab_col.
+APPEND VALUE st_a( num = 5 str = `I` char = 'jj' ) TO it_a ASSIGNING FIELD-SYMBOL(<fs_a>).
+INSERT LINES OF VALUE ty_tab_a( ( num = 10 str = `R` ) ( num = 11 str = `S` ) ) INTO it_b INDEX 5.
+READ TABLE itq ASSIGNING <fs_o> CASTING ELSE UNASSIGN INDEX sy-index.
+MODIFY it_so_sec FROM VALUE #( a = 1 b = 'EEE' c = 'EEE' d = 'EEE' ) INDEX 1 USING KEY primary_key TRANSPORTING c d.
+MODIFY TABLE it_st FROM VALUE #( BASE workarea comp2 = `OOOOOO` comp3 = 'ppp' ).
+DATA(num1) = deep_tab[ 2 ]-compb[ 1 ][ 2 ]-comp2.
+DATA(it2) = VALUE it_type( FOR <line> IN itab4for INDEX INTO idx LET idxplus1 = idx + 1 IN ( col1 = <line>-col1 col2 = idx col3 = idxplus1 ) ).
+DATA(for4) = VALUE t_type3( FOR w1 IN tab1 WHERE ( comp1 = 'A' ) FOR w2 IN tab2 WHERE ( comp4 > 6 ) FOR w3 IN tab3 WHERE ( comp3 < 4 ) ( compX = w1-comp1 compY = w2-comp1 compZ = w3-comp3 ) ).
+DATA(it9) = VALUE it_type( FOR wa IN itab4for FROM 2 TO 3 ( col1 = wa-col1 && 'v' col2 = 6 col3 = wa-col2 + 5 ) ).
+LOOP AT it_loop INTO wal FROM 5 TO 1 STEP 2.
+ENDLOOP.
+LOOP AT it INTO DATA(wac) GROUP BY wac-comp1 WITHOUT MEMBERS INTO DATA(keyc).
+ENDLOOP.
+DELETE itab_del_loop2 USING KEY loop_key.
+
+---
+
+(source
+  (append_statement
+    lines: (lines_of_spec
+      subject: (identifier)
+      (lines_from_spec
+        index: (number))
+      (lines_to_spec
+        index: (number)))
+    subject: (identifier))
+  (append_statement
+    lines: (lines_of_spec
+      subject: (identifier)
+      (lines_to_spec
+        index: (number)))
+    subject: (identifier))
+  (insert_statement
+    line: (lines_of_spec
+      subject: (identifier)
+      (lines_from_spec
+        index: (number))
+      (lines_to_spec
+        index: (number)))
+    (into_table_spec
+      subject: (identifier)))
+  (insert_statement
+    line: (lines_of_spec
+      subject: (identifier)
+      (lines_from_spec
+        index: (number))
+      (lines_to_spec
+        index: (number)))
+    (at_index
+      subject: (identifier)
+      index: (number)))
+  (read_table_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    (index_spec
+      index: (number)
+      (using_key_spec
+        name: (identifier))))
+  (read_table_statement
+    subject: (identifier)
+    (from_work_area_spec
+      work_area: (identifier)
+      (using_key_spec
+        name: (identifier)))
+    result: (into_spec
+      work_area: (identifier)))
+  (read_table_statement
+    subject: (identifier)
+    (free_key_spec
+      (key_component_list
+        (itab_comp_spec
+          comp: (identifier)
+          value: (string_literal))))
+    result: (transporting_spec
+      (no_fields)))
+  (read_table_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    (index_spec
+      index: (identifier))
+    (comparing_spec
+      (all_fields))
+    (transporting_spec
+      (all_fields)))
+  (read_table_statement
+    subject: (identifier)
+    result: (transporting_spec
+      (no_fields))
+    (itab_lines_spec
+      (where_condition_spec
+        condition: (comparison_expression
+          left: (identifier)
+          right: (string_literal)))))
+  (read_table_statement
+    subject: (identifier)
+    (itab_lines_spec
+      (using_key_spec
+        name: (identifier)))
+    result: (into_spec
+      work_area: (identifier))
+    (itab_lines_spec
+      (where_condition_spec
+        condition: (comparison_expression
+          left: (identifier)
+          right: (string_literal)))))
+  (assignment
+    left: (identifier)
+    right: (table_expression
+      subject: (identifier)
+      (index_read
+        (index_key_spec
+          name: (identifier))
+        index: (number))))
+  (assignment
+    left: (identifier)
+    right: (table_expression
+      subject: (identifier)
+      (table_key_spec
+        name: (identifier)
+        (key_component_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number))
+          (itab_comp_spec
+            comp: (identifier)
+            value: (number))))))
+  (assign_statement
+    source: (table_expression
+      subject: (identifier)
+      (index_read
+        index: (number)))
+    destination: (declaration_expression
+      name: (field_symbol
+        name: (identifier))))
+  (read_table_statement
+    subject: (identifier)
+    (index_spec
+      index: (number))
+    result: (into_spec
+      work_area: (declaration_expression
+        name: (identifier))))
+  (read_table_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    (index_spec
+      index: (number)))
+  (sort_statement
+    subject: (identifier)
+    (by_sort_component_list_spec
+      (sort_component_spec
+        comp: (identifier)
+        (sort_order_spec
+          direction: (ascending)))
+      (sort_component_spec
+        comp: (identifier)
+        (sort_order_spec
+          direction: (descending)))))
+  (delete_statement
+    (delete_itab_index_spec
+      subject: (identifier)
+      (index_spec
+        index: (number)
+        (using_key_spec
+          name: (identifier)))))
+  (delete_statement
+    (delete_itab_key_spec
+      subject: (identifier)
+      (table_key_spec
+        name: (identifier)
+        (key_component_list
+          (itab_comp_spec
+            comp: (identifier)
+            value: (string_literal))))))
+  (delete_statement
+    (delete_itab_duplicates_spec
+      subject: (identifier)
+      (comparing_spec
+        (all_fields))))
+  (delete_statement
+    (delete_itab_duplicates_spec
+      subject: (identifier)
+      (using_key_spec
+        name: (identifier))))
+  (collect_statement
+    source: (identifier)
+    (into_spec
+      work_area: (identifier)))
+  (append_statement
+    lines: (value_expression
+      result_type: (identifier)
+      (argument_list
+        (named_argument
+          name: (identifier)
+          value: (number))
+        (named_argument
+          name: (identifier)
+          value: (string_literal))
+        (named_argument
+          name: (identifier)
+          value: (string_literal))))
+    subject: (identifier)
+    result: (assigning_spec
+      target: (declaration_expression
+        name: (field_symbol
+          name: (identifier)))))
+  (insert_statement
+    line: (lines_of_spec
+      subject: (value_expression
+        result_type: (identifier)
+        (table_comprehension
+          (line_spec
+            (argument_list
+              (named_argument
+                name: (identifier)
+                value: (number))
+              (named_argument
+                name: (identifier)
+                value: (string_literal))))
+          (line_spec
+            (argument_list
+              (named_argument
+                name: (identifier)
+                value: (number))
+              (named_argument
+                name: (identifier)
+                value: (string_literal)))))))
+    (at_index
+      subject: (identifier)
+      index: (number)))
+  (read_table_statement
+    subject: (identifier)
+    result: (assigning_spec
+      target: (field_symbol
+        name: (identifier))
+      (casting)
+      (else_unassign))
+    (index_spec
+      index: (component_selection
+        subject: (identifier)
+        component: (identifier))))
+  (modify_statement
+    subject: (identifier)
+    (from_work_area_spec
+      work_area: (value_expression
+        (argument_list
+          (named_argument
+            name: (identifier)
+            value: (number))
+          (named_argument
+            name: (identifier)
+            value: (string_literal))
+          (named_argument
+            name: (identifier)
+            value: (string_literal))
+          (named_argument
+            name: (identifier)
+            value: (string_literal)))))
+    (index_spec
+      index: (number)
+      (using_key_spec
+        name: (identifier)))
+    (transporting_spec
+      (component_list
+        (identifier)
+        (identifier))))
+  (modify_statement
+    subject: (identifier)
+    (from_work_area_spec
+      work_area: (value_expression
+        (table_constructor
+          (base_spec
+            value: (identifier))
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (string_literal))
+            (named_argument
+              name: (identifier)
+              value: (string_literal)))))))
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (component_selection
+      subject: (table_expression
+        subject: (table_expression
+          subject: (component_selection
+            subject: (table_expression
+              subject: (identifier)
+              (index_read
+                index: (number)))
+            component: (identifier))
+          (index_read
+            index: (number)))
+        (index_read
+          index: (number)))
+      component: (identifier)))
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (value_expression
+      result_type: (identifier)
+      (table_comprehension
+        (table_iteration
+          work_area: (field_symbol
+            name: (identifier))
+          subject: (identifier)
+          (index_into_spec
+            enumerator: (identifier))
+          (let_expression
+            (assignment
+              left: (identifier)
+              right: (arithmetic_expression
+                left: (identifier)
+                right: (number)))))
+        (line_spec
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (component_selection
+                subject: (field_symbol
+                  name: (identifier))
+                component: (identifier)))
+            (named_argument
+              name: (identifier)
+              value: (identifier))
+            (named_argument
+              name: (identifier)
+              value: (identifier)))))))
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (value_expression
+      result_type: (identifier)
+      (table_comprehension
+        (table_iteration
+          work_area: (identifier)
+          subject: (identifier)
+          (itab_lines_spec
+            (where_condition_spec
+              condition: (parenthesized_expression
+                (comparison_expression
+                  left: (identifier)
+                  right: (string_literal))))))
+        (table_iteration
+          work_area: (identifier)
+          subject: (identifier)
+          (itab_lines_spec
+            (where_condition_spec
+              condition: (parenthesized_expression
+                (comparison_expression
+                  left: (identifier)
+                  right: (number))))))
+        (table_iteration
+          work_area: (identifier)
+          subject: (identifier)
+          (itab_lines_spec
+            (where_condition_spec
+              condition: (parenthesized_expression
+                (comparison_expression
+                  left: (identifier)
+                  right: (number))))))
+        (line_spec
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (component_selection
+                subject: (identifier)
+                component: (identifier)))
+            (named_argument
+              name: (identifier)
+              value: (component_selection
+                subject: (identifier)
+                component: (identifier)))
+            (named_argument
+              name: (identifier)
+              value: (component_selection
+                subject: (identifier)
+                component: (identifier))))))))
+  (assignment
+    left: (declaration_expression
+      name: (identifier))
+    right: (value_expression
+      result_type: (identifier)
+      (table_comprehension
+        (table_iteration
+          work_area: (identifier)
+          subject: (identifier)
+          (itab_lines_spec
+            (lines_from_spec
+              index: (number))
+            (lines_to_spec
+              index: (number))))
+        (line_spec
+          (argument_list
+            (named_argument
+              name: (identifier)
+              value: (string_concatenation
+                left: (component_selection
+                  subject: (identifier)
+                  component: (identifier))
+                right: (string_literal)))
+            (named_argument
+              name: (identifier)
+              value: (number))
+            (named_argument
+              name: (identifier)
+              value: (arithmetic_expression
+                left: (component_selection
+                  subject: (identifier)
+                  component: (identifier))
+                right: (number))))))))
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (identifier))
+    (itab_lines_spec
+      (lines_from_spec
+        index: (number))
+      (lines_to_spec
+        index: (number))
+      (lines_step_spec
+        size: (number))))
+  (loop_at_statement
+    subject: (identifier)
+    result: (into_spec
+      work_area: (declaration_expression
+        name: (identifier)))
+    (group_by_spec
+      key: (component_selection
+        subject: (identifier)
+        component: (identifier))
+      (without_members)
+      result: (into_spec
+        work_area: (declaration_expression
+          name: (identifier)))))
+  (delete_statement
+    (delete_itab_index_spec
+      subject: (identifier)
+      (using_loop_key_spec))))
