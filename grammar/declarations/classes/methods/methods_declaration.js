@@ -4,7 +4,8 @@ module.exports = {
   __methods_declaration_prefix: $ =>
     gen.chainable("methods", choice($.method_spec, $.constructor_spec)),
 
-  class_methods_declaration: $ => seq($.__class_methods_declaration_prefix, "."),
+  class_methods_declaration: $ =>
+    seq($.__class_methods_declaration_prefix, "."),
 
   __class_methods_declaration_prefix: $ =>
     gen.chainable(
@@ -44,6 +45,7 @@ module.exports = {
         $.default_fail_spec,
         $.default_ignore_spec,
         $.for_table_function_spec,
+        $.for_ddl_object_spec,
         $.for_scalar_function_spec,
         $.for_event_spec,
         $.for_sql_service_spec,

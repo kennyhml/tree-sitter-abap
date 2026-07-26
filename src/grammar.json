@@ -24031,6 +24031,40 @@
         }
       ]
     },
+    "for_ddl_object_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ddl"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_object"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "__ddl_object_options_spec"
+              },
+              "named": true,
+              "value": "amdp_options_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "for_sql_service_spec": {
       "type": "SEQ",
       "members": [
@@ -24077,24 +24111,42 @@
         }
       ]
     },
+    "__ddl_object_options_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_options"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "cds_session_client_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "client_independent"
+            }
+          ]
+        }
+      ]
+    },
     "__amdp_client_handling_spec": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "cds_session_client_dependent"
+          "name": "cds_session_client_spec"
         },
         {
           "type": "SYMBOL",
           "name": "client_independent"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cds_session_client"
         }
       ]
     },
-    "cds_session_client": {
+    "cds_session_client_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -24122,32 +24174,35 @@
               {
                 "type": "SYMBOL",
                 "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dependent"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "independent"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "required"
               }
             ]
           }
         }
       ]
     },
-    "cds_session_client_dependent": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_kw_cds"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_session"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_client"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_dependent"
-        }
-      ]
+    "dependent": {
+      "type": "SYMBOL",
+      "name": "_kw_dependent"
+    },
+    "independent": {
+      "type": "SYMBOL",
+      "name": "_kw_independent"
+    },
+    "required": {
+      "type": "SYMBOL",
+      "name": "_kw_required"
     },
     "client_independent": {
       "type": "SEQ",
@@ -24515,6 +24570,10 @@
           {
             "type": "SYMBOL",
             "name": "for_table_function_spec"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "for_ddl_object_spec"
           },
           {
             "type": "SYMBOL",
@@ -34575,6 +34634,19 @@
         "value": "scalar"
       }
     },
+    "_kw_ddl": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)ddl"
+        },
+        "named": false,
+        "value": "ddl"
+      }
+    },
     "_kw_sql": {
       "type": "FIELD",
       "name": "keyword",
@@ -34664,6 +34736,19 @@
         },
         "named": false,
         "value": "independent"
+      }
+    },
+    "_kw_required": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)required"
+        },
+        "named": false,
+        "value": "required"
       }
     },
     "_kw_endmethod": {

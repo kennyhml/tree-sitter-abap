@@ -384,6 +384,8 @@
 (deferred_class_declaration name: (identifier) @type )
 (deferred_interface_declaration name: (identifier) @type )
 (class_implementation name: (identifier) @type )
+(for_scalar_function_spec name: (identifier) @type )
+(for_table_function_spec name: (identifier) @type )
 
 (non_resumable_exception_spec name: (identifier) @type )
 (resumable_exception_spec name: (identifier) @type )

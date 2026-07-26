@@ -92,7 +92,7 @@ The following language features are currently implemented:
 - [x] Table comprehensions
 - [x] All string and byte processing statements (split, concatenate, find..)
 - [x] All date and time processing statements (get time stamp, convert time stamp..)
-- [x] Common table processing statements (insert, read, delete, append...)
+- [x] Table processing statements (insert, read, delete, append...)
 - [x] All statements used to access datasets on the application server
 - [x] Enhancement framework statements and BAdI calls
 - [x] Calling transformations
@@ -108,6 +108,5 @@ For a more detailed look, you can refer to the test cases in the `test/corpus/` 
 - [ ] Internal session and program call statements
 - [ ] Data cluster and memory import/export statements
 - [ ] AMDP method implementations
-- [ ] Remaining table processing statements (modify, sum)
 - [ ] Language environment statements (set country, set language, set/get locale language)
 - [ ] Mesh statements

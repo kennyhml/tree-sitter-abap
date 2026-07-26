@@ -27,6 +27,69 @@ CLASS-METHODS meth FOR TABLE FUNCTION cds_tabfunc.
         name: (identifier)))))
 
 =================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] DDL object
+=================================================================================
+CLASS-METHODS meth FOR DDL OBJECT.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_ddl_object_spec))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] DDL object dependent client
+=================================================================================
+CLASS-METHODS meth FOR DDL OBJECT
+    OPTIONS CDS SESSION CLIENT DEPENDENT.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_ddl_object_spec
+        (amdp_options_spec
+          (cds_session_client_spec
+            name: (dependent)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] DDL object required client
+=================================================================================
+CLASS-METHODS meth FOR DDL OBJECT
+    OPTIONS CDS SESSION CLIENT REQUIRED.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_ddl_object_spec
+        (amdp_options_spec
+          (cds_session_client_spec
+            name: (required)))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] DDL object client independent
+=================================================================================
+CLASS-METHODS meth FOR DDL OBJECT
+    OPTIONS CLIENT INDEPENDENT.
+
+---
+
+(source
+  (class_methods_declaration
+    (method_spec
+      name: (identifier)
+      (for_ddl_object_spec
+        (amdp_options_spec
+          (client_independent))))))
+
+=================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / METHODS ] SQL Service
 =================================================================================
 CLASS-METHODS meth FOR SQL SERVICE 
@@ -56,7 +119,8 @@ CLASS-METHODS meth
     (method_spec
       name: (identifier)
       (amdp_options_spec
-        (cds_session_client_dependent)))))
+        (cds_session_client_spec
+          name: (dependent))))))
 
 =================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Speciflic client
@@ -71,7 +135,7 @@ CLASS-METHODS meth
     (method_spec
       name: (identifier)
       (amdp_options_spec
-        (cds_session_client
+        (cds_session_client_spec
           name: (identifier))))))
 
 =================================================================================
@@ -87,5 +151,5 @@ CLASS-METHODS meth
     (method_spec
       name: (identifier)
       (amdp_options_spec
-        (cds_session_client
+        (cds_session_client_spec
           name: (current))))))

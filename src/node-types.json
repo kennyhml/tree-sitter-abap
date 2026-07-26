@@ -1347,11 +1347,7 @@
       "required": true,
       "types": [
         {
-          "type": "cds_session_client",
-          "named": true
-        },
-        {
-          "type": "cds_session_client_dependent",
+          "type": "cds_session_client_spec",
           "named": true
         },
         {
@@ -4288,7 +4284,7 @@
     }
   },
   {
-    "type": "cds_session_client",
+    "type": "cds_session_client_spec",
     "named": true,
     "fields": {
       "keyword": {
@@ -4318,36 +4314,20 @@
             "named": true
           },
           {
+            "type": "dependent",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "cds_session_client_dependent",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "cds",
-            "named": false
           },
           {
-            "type": "client",
-            "named": false
+            "type": "independent",
+            "named": true
           },
           {
-            "type": "dependent",
-            "named": false
-          },
-          {
-            "type": "session",
-            "named": false
+            "type": "required",
+            "named": true
           }
         ]
       }
@@ -4673,6 +4653,10 @@
         },
         {
           "type": "final",
+          "named": true
+        },
+        {
+          "type": "for_ddl_object_spec",
           "named": true
         },
         {
@@ -6112,6 +6096,10 @@
         },
         {
           "type": "final",
+          "named": true
+        },
+        {
+          "type": "for_ddl_object_spec",
           "named": true
         },
         {
@@ -8164,6 +8152,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "dependent",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dependent",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -10670,6 +10674,40 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "for_ddl_object_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "ddl",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "object",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "amdp_options_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -13710,6 +13748,22 @@
     }
   },
   {
+    "type": "independent",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "independent",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "index_into_spec",
     "named": true,
     "fields": {
@@ -16650,6 +16704,10 @@
         },
         {
           "type": "final",
+          "named": true
+        },
+        {
+          "type": "for_ddl_object_spec",
           "named": true
         },
         {
@@ -20485,6 +20543,22 @@
           {
             "type": "general_expression",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "required",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "required",
+            "named": false
           }
         ]
       }
@@ -26680,6 +26754,10 @@
     "named": false
   },
   {
+    "type": "ddl",
+    "named": false
+  },
+  {
     "type": "ddmmyy",
     "named": false
   },
@@ -27667,6 +27745,10 @@
   },
   {
     "type": "requested",
+    "named": false
+  },
+  {
+    "type": "required",
     "named": false
   },
   {
