@@ -123,3 +123,27 @@ DATA(f11) = FILTER #( itab2 USING KEY sec_key EXCEPT IN filter_tab2 WHERE num = 
         condition: (comparison_expression
           left: (identifier)
           right: (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / FILTER ] Functional operand
+=================================================================================
+DATA(line_num_filtered3) = lines( FILTER #( it_sorted USING KEY sec_key WHERE comp2 = 1 ) ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (function_call
+      (identifier)
+      (call_argument_list
+        (positional_argument
+          (filter_expression
+            (identifier)
+            (using_key_spec
+              (identifier))
+            (where_condition_spec
+              (comparison_expression
+                (identifier)
+                (number)))))))))

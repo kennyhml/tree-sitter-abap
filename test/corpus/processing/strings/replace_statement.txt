@@ -229,3 +229,25 @@ REPLACE ALL OCCURRENCES OF `d` IN str WITH 't'
     (results_spec
       target: (declaration_expression
         name: (identifier)))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / REPLACE ] Count and results
+=================================================================================
+REPLACE ALL OCCURRENCES OF PCRE `p.` IN str_replace WITH `#` REPLACEMENT COUNT DATA(repl_cnt) RESULTS DATA(repl_res).
+
+---
+
+(source
+  (replace_statement
+    (all_occurrences_of_pattern_spec
+      (pcre_spec
+        (string_literal)))
+    (identifier)
+    (substitute_with_spec
+      (string_literal))
+    (replacement_count_spec
+      (declaration_expression
+        (identifier)))
+    (results_spec
+      (declaration_expression
+        (identifier)))))

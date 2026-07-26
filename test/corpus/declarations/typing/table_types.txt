@@ -254,3 +254,26 @@ types foo type table of bar
             (key_components_spec
               (identifier)
               (identifier))))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / Table Types ] LIKE TABLE OF
+=================================================================================
+TYPES tt_like_table LIKE TABLE OF itab_local_ts.
+TYPES tr_like_table_ref LIKE TABLE OF REF TO itab_str.
+
+---
+
+(source
+  (types_declaration
+    (types_spec
+      (identifier)
+      (table_type
+        (standard_table)
+        (identifier))))
+  (types_declaration
+    (types_spec
+      (identifier)
+      (table_type
+        (standard_table)
+        (ref_to
+          (identifier))))))

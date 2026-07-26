@@ -46,3 +46,24 @@ CONVERT UTCLONG time_stamp INTO TIME tim DAYLIGHT SAVING TIME dst TIME ZONE tz.
       value: (identifier))
     (time_zone_spec
       value: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT UTCLONG ] Expression time zone
+=================================================================================
+CONVERT UTCLONG CONV utclong( '2024-08-08 09:23:11.7681270' ) INTO DATE DATA(date_init) TIME DATA(time_init) TIME ZONE VALUE #( ).
+
+---
+
+(source
+  (convert_utclong_statement
+    (conv_expression
+      (identifier)
+      (string_literal))
+    (date_spec
+      (declaration_expression
+        (identifier)))
+    (time_spec
+      (declaration_expression
+        (identifier)))
+    (time_zone_spec
+      (value_expression))))

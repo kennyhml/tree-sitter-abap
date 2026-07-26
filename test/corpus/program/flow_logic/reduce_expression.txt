@@ -207,6 +207,118 @@ REDUCE result( INIT res = VALUE result( max = 0 text = `Result: ` )
         right: (string_literal)))))
 
 =================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] LET with table construction
+=================================================================================
+DATA(itab10) = REDUCE tt_type3( INIT tab = VALUE #( ) FOR w5 IN itab1 LET tableline = VALUE #( itab2[ key2 = w5-key1 ] OPTIONAL ) IN NEXT tab = VALUE #( BASE tab ( key1 = w5-key1 a = w5-a b = w5-b d = tableline-d e = tableline-e ) ) ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (reduce_expression
+      (identifier)
+      (accumulators_spec
+        (accumulator_spec
+          (identifier)
+          (value_expression)))
+      (table_iteration
+        (identifier)
+        (identifier)
+        (let_expression
+          (assignment
+            (identifier)
+            (value_expression
+              (table_expression
+                (identifier)
+                (free_key_spec
+                  (key_component_list
+                    (itab_comp_spec
+                      (identifier)
+                      (component_selection
+                        (identifier)
+                        (identifier)))))
+                (optional))))))
+      (next_spec
+        (assignment
+          (identifier)
+          (value_expression
+            (table_comprehension
+              (base_spec
+                (identifier))
+              (line_spec
+                (argument_list
+                  (named_argument
+                    (identifier)
+                    (component_selection
+                      (identifier)
+                      (identifier)))
+                  (named_argument
+                    (identifier)
+                    (component_selection
+                      (identifier)
+                      (identifier)))
+                  (named_argument
+                    (identifier)
+                    (component_selection
+                      (identifier)
+                      (identifier)))
+                  (named_argument
+                    (identifier)
+                    (component_selection
+                      (identifier)
+                      (identifier)))
+                  (named_argument
+                    (identifier)
+                    (component_selection
+                      (identifier)
+                      (identifier))))))))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Outer LET and conditional iteration
+=================================================================================
+DATA(count) = REDUCE string( LET start = 10 IN INIT txt = |Counting downwards starting with { start }:| FOR n = start THEN n - 1 WHILE n > 0 NEXT txt &&= | { n }| ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (reduce_expression
+      (identifier)
+      (let_expression
+        (assignment
+          (identifier)
+          (number)))
+      (accumulators_spec
+        (accumulator_spec
+          (identifier)
+          (string_template
+            (embedded_expression
+              (identifier)))))
+      (conditional_iteration
+        (assignment
+          (identifier)
+          (identifier))
+        (then_spec
+          (arithmetic_expression
+            (identifier)
+            (number)))
+        (iteration_condition
+          (while_spec
+            (comparison_expression
+              (identifier)
+              (number)))))
+      (next_spec
+        (calculation_assignment
+          (identifier)
+          (string_template
+            (embedded_expression
+              (identifier))))))))
+
+=================================================================================
 [ ABAP - Program Flow Logic / Iteration Expressions / REDUCE ] Nested conditionals
 =================================================================================
 REDUCE string( INIT text = `` sep = `` 

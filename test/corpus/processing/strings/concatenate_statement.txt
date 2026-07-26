@@ -63,3 +63,29 @@ CONCATENATE LINES OF itab INTO result RESPECTING BLANKS.
     (into_spec
       (identifier))
     (respecting_blanks)))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / CONCATENATE ] Byte mode
+=================================================================================
+CONCATENATE part_xstr1 part_xstr2 INTO concat_xstr SEPARATED BY sep_xstr IN BYTE MODE.
+CONCATENATE LINES OF xstr_table INTO DATA(concat_xstr_tab) IN BYTE MODE.
+
+---
+
+(source
+  (concatenate_statement
+    (data_object_list
+      (identifier)
+      (identifier))
+    (into_spec
+      (identifier))
+    (separated_by_spec
+      (identifier))
+    (in_byte_mode_spec))
+  (concatenate_statement
+    (lines_of_spec
+      (identifier))
+    (into_spec
+      (declaration_expression
+        (identifier)))
+    (in_byte_mode_spec)))

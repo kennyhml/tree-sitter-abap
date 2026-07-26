@@ -86,3 +86,16 @@ CREATE OBJECT container TYPE (class)
     type: (dynamic_spec
       value: (identifier))
     parameter_table: (identifier)))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE OBJECT ] Dynamic literal type
+=================================================================================
+CREATE OBJECT dyn_exc TYPE ('CX_SY_ZERODIVIDE').
+
+---
+
+(source
+  (create_object_statement
+    (identifier)
+    (dynamic_spec
+      (string_literal))))

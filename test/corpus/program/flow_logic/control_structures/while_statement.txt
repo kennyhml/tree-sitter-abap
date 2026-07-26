@@ -1,0 +1,31 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / WHILE ] Functional condition
+=================================================================================
+WHILE lines( int_itab ) < 10.
+  int_itab = VALUE #( BASE int_itab ( sy-index ) ).
+ENDWHILE.
+
+---
+
+(source
+  (while_statement
+    (comparison_expression
+      (function_call
+        (identifier)
+        (call_argument_list
+          (positional_argument
+            (identifier))))
+      (number))
+    (statement_block
+      (assignment
+        (identifier)
+        (value_expression
+          (table_comprehension
+            (base_spec
+              (identifier))
+            (line_spec
+              (argument_list
+                (positional_argument
+                  (component_selection
+                    (identifier)
+                    (identifier)))))))))))

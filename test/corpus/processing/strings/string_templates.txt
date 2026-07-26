@@ -96,3 +96,42 @@
         value: (dynamic_spec
           value: (field_symbol
             name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / String Templates ] Nested expressions
+=================================================================================
+DATA(str_c4) = |{ str_c1 } { sy-uname }, | && |{ str_c2 } { str_c3 } you?|.
+s1 = |{ CONV decfloat34( - 1 / 3 ) DECIMALS = 3 }|.
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (string_concatenation
+      (string_template
+        (embedded_expression
+          (identifier))
+        (embedded_expression
+          (component_selection
+            (identifier)
+            (identifier))))
+      (string_template
+        (embedded_expression
+          (identifier))
+        (embedded_expression
+          (identifier)))))
+  (assignment
+    (identifier)
+    (string_template
+      (embedded_expression
+        (conv_expression
+          (identifier)
+          (arithmetic_expression
+            (arithmetic_expression
+              (number))
+            (number)))
+        (format_option
+          (identifier)
+          (number))))))

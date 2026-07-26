@@ -40,3 +40,27 @@ CONVERT DATE CONV d( '20191105' )
       value: (string_literal))
     destination: (declaration_expression
       name: (identifier))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT INTO UTCLONG ] All source additions
+=================================================================================
+CONVERT DATE date2utcl TIME time2utcl FRACTIONAL SECONDS CONV decfloat34( '0.768127' ) DAYLIGHT SAVING TIME '' TIME ZONE 'EST' INTO UTCLONG DATA(utcl_inl1).
+
+---
+
+(source
+  (convert_into_utclong_statement
+    (date_spec
+      (identifier))
+    (time_spec
+      (identifier))
+    (fractional_seconds_spec
+      (conv_expression
+        (identifier)
+        (string_literal)))
+    (daylight_saving_time_spec
+      (string_literal))
+    (time_zone_spec
+      (string_literal))
+    (declaration_expression
+      (identifier))))

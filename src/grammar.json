@@ -12242,6 +12242,15 @@
           }
         },
         {
+          "type": "SYMBOL",
+          "name": "__component_selection_tail"
+        }
+      ]
+    },
+    "__component_selection_tail": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "FIELD",
           "name": "selector",
           "content": {
@@ -19922,48 +19931,114 @@
       "value": "table_expression"
     },
     "__table_expression_with_default_additions": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "FIELD",
-          "name": "subject",
-          "content": {
-            "type": "SYMBOL",
-            "name": "__table_expression_subject"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "["
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "__itab_line"
-        },
-        {
-          "type": "STRING",
-          "value": "]"
-        },
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "optional"
-            },
-            {
-              "type": "ALIAS",
+              "type": "FIELD",
+              "name": "subject",
               "content": {
                 "type": "SYMBOL",
-                "name": "__table_expr_default"
-              },
-              "named": true,
-              "value": "default_value"
+                "name": "__table_expression_subject"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "["
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__itab_line"
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__table_expression_default_addition"
             }
           ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "subject",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "__table_expression_result_component_selection"
+                },
+                "named": true,
+                "value": "component_selection"
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__table_expression_default_addition"
+            }
+          ]
+        }
+      ]
+    },
+    "__table_expression_result_component_selection": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "subject",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "table_expression"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "__table_expression_result_component_selection"
+                  },
+                  "named": true,
+                  "value": "component_selection"
+                }
+              ]
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "__component_selection_tail"
+          }
+        ]
+      }
+    },
+    "__table_expression_default_addition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "optional"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__table_expr_default"
+          },
+          "named": true,
+          "value": "default_value"
         }
       ]
     },

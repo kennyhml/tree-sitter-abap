@@ -137,3 +137,26 @@ CALL METHOD (meth_wa-name) EXPORTING out = out text = CONV string( meth_wa-name 
             subject: (component_selection
               subject: (identifier)
               component: (identifier))))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures / CALL METHOD ] Dynamic class with parameters
+=================================================================================
+CALL METHOD (`ZCL_DEMO_ABAP_DYNAMIC_PROG`)=>stat_meth2 EXPORTING text = `hallo` IMPORTING result = res.
+
+---
+
+(source
+  (call_method_statement
+    (component_selection
+      (dynamic_spec
+        (string_literal))
+      (identifier))
+    (call_argument_list
+      (argument_list
+        (named_argument
+          (identifier)
+          (string_literal)))
+      (argument_list
+        (named_argument
+          (identifier)
+          (identifier))))))

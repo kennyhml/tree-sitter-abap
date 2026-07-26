@@ -296,3 +296,25 @@ ref  #( itab[ 1 ] DEFAULT new #( carrid   = 'XXX'
             (named_argument
               name: (identifier)
               value: (string_literal))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Expression ] Optional component
+=================================================================================
+VALUE #( itab2[ key2 = w3-key1 ]-d OPTIONAL )
+---
+
+(source
+  (value_expression
+    (table_expression
+      subject: (component_selection
+        subject: (table_expression
+          subject: (identifier)
+          (free_key_spec
+            (key_component_list
+              (itab_comp_spec
+                comp: (identifier)
+                value: (component_selection
+                  subject: (identifier)
+                  component: (identifier))))))
+        component: (identifier))
+      (optional))))

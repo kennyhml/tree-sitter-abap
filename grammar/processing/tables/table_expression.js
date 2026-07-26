@@ -23,21 +23,52 @@ module.exports = {
    * Variant of the expression that allows the optional / default additons.
    * Only to be used inside VALUE and REF expressions - semantically it just
    * makes more sense to be part of the table expression and be defined here.
-   */
+  */
   _table_expression_with_default_additions: $ =>
     alias($.__table_expression_with_default_additions, $.table_expression),
 
   __table_expression_with_default_additions: $ =>
-    seq(
-      field("subject", $.__table_expression_subject),
-      token.immediate("["),
-      $.__itab_line,
-      "]",
-      choice(
-        $.optional,
-        alias($.__table_expr_default, $.default_value),
+    choice(
+      seq(
+        field("subject", $.__table_expression_subject),
+        token.immediate("["),
+        $.__itab_line,
+        "]",
+        $.__table_expression_default_addition,
+      ),
+      seq(
+        field(
+          "subject",
+          alias(
+            $.__table_expression_result_component_selection,
+            $.component_selection,
+          ),
+        ),
+        $.__table_expression_default_addition,
       ),
     ),
+
+  // Restrict fallback additions to selector chains rooted in table expressions.
+  __table_expression_result_component_selection: $ =>
+    prec.left(
+      1,
+      seq(
+        field(
+          "subject",
+          choice(
+            $.table_expression,
+            alias(
+              $.__table_expression_result_component_selection,
+              $.component_selection,
+            ),
+          ),
+        ),
+        $.__component_selection_tail,
+      ),
+    ),
+
+  __table_expression_default_addition: $ =>
+    choice($.optional, alias($.__table_expr_default, $.default_value)),
 
   __table_expression_subject: $ =>
     choice(

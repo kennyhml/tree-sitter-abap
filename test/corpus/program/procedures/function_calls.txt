@@ -291,3 +291,195 @@ NEW cls( iref )->meth1( ).
         (positional_argument
           value: (identifier))))
     name: (identifier)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] Nested built-in calls
+=================================================================================
+DATA(matches) = xsdbool( matches( val = `jon.doe@email.com` pcre = `\w+(\.\w+)*@(\w+\.)+(\w{2,4})` ) ).
+DATA(repeat3) = COND #( WHEN repeat( val = `a` occ = 0 ) = `` THEN `Y` ELSE `Z` ).
+DATA(condense5) = condense( val = `  Rock'xxx'Roller` del = `re ` from = `x` to = `n` ).
+DATA(insert3) = insert( val = to_be_inserted sub = `#` off = strlen( to_be_inserted ) ).
+DATA(ts4) = utclong_add( val = utc4calc days = 1 hours = 2 minutes = CONV int8( '13' ) seconds = CONV decfloat34( '53.12' ) ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (function_call
+      (identifier)
+      (call_argument_list
+        (positional_argument
+          (function_call
+            (identifier)
+            (call_argument_list
+              (argument_list
+                (named_argument
+                  (identifier)
+                  (string_literal))
+                (named_argument
+                  (identifier)
+                  (string_literal)))))))))
+  (assignment
+    (declaration_expression
+      (identifier))
+    (cond_expression
+      (case
+        (comparison_expression
+          (function_call
+            (identifier)
+            (call_argument_list
+              (argument_list
+                (named_argument
+                  (identifier)
+                  (string_literal))
+                (named_argument
+                  (identifier)
+                  (number)))))
+          (string_literal))
+        (string_literal))
+      (else_case
+        (string_literal))))
+  (assignment
+    (declaration_expression
+      (identifier))
+    (function_call
+      (identifier)
+      (call_argument_list
+        (argument_list
+          (named_argument
+            (identifier)
+            (string_literal))
+          (named_argument
+            (identifier)
+            (string_literal))
+          (named_argument
+            (identifier)
+            (string_literal))
+          (named_argument
+            (identifier)
+            (string_literal))))))
+  (assignment
+    (declaration_expression
+      (identifier))
+    (function_call
+      (identifier)
+      (call_argument_list
+        (argument_list
+          (named_argument
+            (identifier)
+            (identifier))
+          (named_argument
+            (identifier)
+            (string_literal))
+          (named_argument
+            (identifier)
+            (function_call
+              (identifier)
+              (call_argument_list
+                (positional_argument
+                  (identifier)))))))))
+  (assignment
+    (declaration_expression
+      (identifier))
+    (function_call
+      (identifier)
+      (call_argument_list
+        (argument_list
+          (named_argument
+            (identifier)
+            (identifier))
+          (named_argument
+            (identifier)
+            (number))
+          (named_argument
+            (identifier)
+            (number))
+          (named_argument
+            (identifier)
+            (conv_expression
+              (identifier)
+              (string_literal)))
+          (named_argument
+            (identifier)
+            (conv_expression
+              (identifier)
+              (string_literal))))))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Procedures ] RTTI call chains
+=================================================================================
+DATA(components) = CAST cl_abap_structdescr( cl_abap_typedescr=>describe_by_data( <strco> ) )->components.
+DATA(tab_comps) = CAST cl_abap_structdescr( type_descr_obj_tab->get_table_line_type( ) )->get_components( ).
+DATA(tdo_tab_2) = cl_abap_tabledescr=>get( p_line_type = CAST cl_abap_structdescr( cl_abap_tabledescr=>describe_by_name( 'ZDEMO_ABAP_FLSCH' ) ) p_table_kind = cl_abap_tabledescr=>tablekind_sorted p_key = VALUE #( ( name = 'CARRID' ) ( name = 'CONNID' ) ) p_unique = cl_abap_typedescr=>true ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (component_selection
+      (cast_expression
+        (identifier)
+        (function_call
+          (identifier)
+          (identifier)
+          (call_argument_list
+            (positional_argument
+              (field_symbol
+                (identifier))))))
+      (identifier)))
+  (assignment
+    (declaration_expression
+      (identifier))
+    (function_call
+      (cast_expression
+        (identifier)
+        (function_call
+          (identifier)
+          (identifier)))
+      (identifier)))
+  (assignment
+    (declaration_expression
+      (identifier))
+    (function_call
+      (identifier)
+      (identifier)
+      (call_argument_list
+        (argument_list
+          (named_argument
+            (identifier)
+            (cast_expression
+              (identifier)
+              (function_call
+                (identifier)
+                (identifier)
+                (call_argument_list
+                  (positional_argument
+                    (string_literal))))))
+          (named_argument
+            (identifier)
+            (component_selection
+              (identifier)
+              (identifier)))
+          (named_argument
+            (identifier)
+            (value_expression
+              (table_comprehension
+                (line_spec
+                  (argument_list
+                    (named_argument
+                      (identifier)
+                      (string_literal))))
+                (line_spec
+                  (argument_list
+                    (named_argument
+                      (identifier)
+                      (string_literal)))))))
+          (named_argument
+            (identifier)
+            (component_selection
+              (identifier)
+              (identifier))))))))

@@ -1,0 +1,29 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / DATA ] LIKE additions
+=================================================================================
+DATA struc_init_val LIKE con_struc VALUE IS INITIAL.
+DATA dref_tab_str LIKE TABLE OF REF TO do_some_string.
+DATA dyn_exc TYPE REF TO cx_root.
+
+---
+
+(source
+  (data_declaration
+    (data_spec
+      (identifier)
+      (referred_type
+        (identifier)
+        (initial_value_spec))))
+  (data_declaration
+    (data_spec
+      (identifier)
+      (table_type
+        (standard_table)
+        (ref_to
+          (identifier)))))
+  (data_declaration
+    (data_spec
+      (identifier)
+      (reference_type
+        (ref_to
+          (identifier))))))

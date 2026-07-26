@@ -153,3 +153,39 @@ CREATE DATA dref TYPE HANDLE type.
     subject: (identifier)
     typing: (handle_type
       name: (identifier))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / CREATE DATA ] Dynamic reference and table types
+=================================================================================
+CREATE DATA data_ref TYPE REF TO ('STRING').
+CREATE DATA data_ref TYPE TABLE OF ('T_FLI_STRUC') WITH EMPTY KEY.
+CREATE DATA data_ref TYPE SORTED TABLE OF ('ZDEMO_ABAP_CARR') WITH UNIQUE KEY carrid.
+
+---
+
+(source
+  (create_data_statement
+    (identifier)
+    (reference_type
+      (ref_to
+        (dynamic_spec
+          (string_literal)))))
+  (create_data_statement
+    (identifier)
+    (table_type
+      (standard_table)
+      (dynamic_spec
+        (string_literal))
+      (with_key_spec
+        (empty_key))))
+  (create_data_statement
+    (identifier)
+    (table_type
+      (sorted_table)
+      (dynamic_spec
+        (string_literal))
+      (with_key_spec
+        (table_key_definition_spec
+          (unique)
+          (key_components_spec
+            (identifier)))))))

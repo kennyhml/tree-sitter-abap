@@ -48,3 +48,17 @@ MOVE-CORRESPONDING itab1 TO itab2 KEEPING TARGET LINES.
     source: (identifier)
     destination: (identifier)
     (keeping_target_lines)))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / Structures / MOVE-CORRESPONDING ] Deep table additions
+=================================================================================
+MOVE-CORRESPONDING gs_deep1 TO gs_deep2 EXPANDING NESTED TABLES KEEPING TARGET LINES.
+
+---
+
+(source
+  (move_corresponding_statement
+    (identifier)
+    (identifier)
+    (expanding_nested_tables)
+    (keeping_target_lines)))

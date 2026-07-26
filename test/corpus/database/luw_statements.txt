@@ -1,0 +1,16 @@
+=================================================================================
+[ ABAP - Database Access / SAP LUW ] Transaction control
+=================================================================================
+COMMIT WORK.
+COMMIT WORK AND WAIT.
+ROLLBACK WORK.
+SET UPDATE TASK LOCAL.
+
+---
+
+(source
+  (commit_work_statement)
+  (commit_work_statement
+    (and_wait))
+  (rollback_work_statement)
+  (set_update_task_local_statement))

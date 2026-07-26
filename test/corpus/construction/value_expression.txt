@@ -442,3 +442,81 @@ value #( ( hex1 BIT-AND hex2 ) ).
             value: (bit_expression
               left: (identifier)
               right: (identifier))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE ] Dereferenced BASE
+=================================================================================
+addr_ref2->* = VALUE #( BASE addr_ref2->* name = `Mr. John Doe` ).
+
+---
+
+(source
+  (assignment
+    (dereference_expression
+      (identifier))
+    (value_expression
+      (table_constructor
+        (base_spec
+          (dereference_expression
+            (identifier)))
+        (argument_list
+          (named_argument
+            (identifier)
+            (string_literal)))))))
+
+=================================================================================
+[ ABAP - Creating Objects and Values / VALUE ] Nested table values
+=================================================================================
+DATA(deep_itab) = VALUE itab_deep_type( ( char = 'aaa' tab = VALUE #( ( 1 ) ( 2 ) ( 3 ) ) ) ( char = 'bbb' tab = VALUE #( ( 4 ) ( 5 ) ( 6 ) ) ) ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (value_expression
+      (identifier)
+      (table_comprehension
+        (line_spec
+          (argument_list
+            (named_argument
+              (identifier)
+              (string_literal))
+            (named_argument
+              (identifier)
+              (value_expression
+                (table_comprehension
+                  (line_spec
+                    (argument_list
+                      (positional_argument
+                        (number))))
+                  (line_spec
+                    (argument_list
+                      (positional_argument
+                        (number))))
+                  (line_spec
+                    (argument_list
+                      (positional_argument
+                        (number)))))))))
+        (line_spec
+          (argument_list
+            (named_argument
+              (identifier)
+              (string_literal))
+            (named_argument
+              (identifier)
+              (value_expression
+                (table_comprehension
+                  (line_spec
+                    (argument_list
+                      (positional_argument
+                        (number))))
+                  (line_spec
+                    (argument_list
+                      (positional_argument
+                        (number))))
+                  (line_spec
+                    (argument_list
+                      (positional_argument
+                        (number)))))))))))))

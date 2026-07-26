@@ -1,0 +1,16 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Data Objects / CLASS-DATA ] Read-only initial value
+=================================================================================
+CLASS-DATA: read_only_attribute TYPE string VALUE `Hallo` READ-ONLY.
+
+---
+
+(source
+  (class_data_declaration
+    (class_data_spec
+      (identifier)
+      (referred_type
+        (identifier)
+        (default_data_value_spec
+          (string_literal))
+        (read_only)))))

@@ -464,3 +464,26 @@ c2=>m2( NEW #( p1 = 1 p2 = 2 ) )
             (named_argument
               name: (identifier)
               value: (number))))))))
+
+=================================================================================
+[ ABAP - Creating Objects and news / NEW ] Concatenated constructor operand
+=================================================================================
+DATA(dref4) = NEW string( `Hello ` && tx && CONV string( '!' ) ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (new_expression
+      (identifier)
+      (argument_list
+        (positional_argument
+          (string_concatenation
+            (string_concatenation
+              (string_literal)
+              (identifier))
+            (conv_expression
+              (identifier)
+              (string_literal))))))))

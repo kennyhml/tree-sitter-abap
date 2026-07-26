@@ -29,6 +29,41 @@ TYPES END OF street_type.
     (end_of_struct_spec
       name: (identifier))))
 
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Types / Structures ] Included aliases and suffixes
+=================================================================================
+TYPES BEGIN OF address_type.
+INCLUDE TYPE name_type AS name.
+INCLUDE TYPE street_type AS street RENAMING WITH SUFFIX _street.
+INCLUDE STRUCTURE city_struc AS city RENAMING WITH SUFFIX _city.
+TYPES END OF address_type.
+
+---
+
+(source
+  (types_declaration
+    (begin_of_struct_spec
+      (identifier)))
+  (include_type
+    (identifier)
+    (include_alias_spec
+      (identifier)))
+  (include_type
+    (identifier)
+    (include_alias_spec
+      (identifier))
+    (renaming_with_suffix_spec
+      (identifier)))
+  (include_structure
+    (identifier)
+    (include_alias_spec
+      (identifier))
+    (renaming_with_suffix_spec
+      (identifier)))
+  (types_declaration
+    (end_of_struct_spec
+      (identifier))))
+
 ======
 [STRUCTURE-TYPES] Flat structure
 ======

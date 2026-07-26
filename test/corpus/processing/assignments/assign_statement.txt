@@ -305,3 +305,50 @@ UNASSIGN: <fs>, <fs2>, <fs3>.
     (unassign_spec
       subject: (field_symbol
         name: (identifier)))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / ASSIGN ] Dynamic components and casts
+=================================================================================
+ASSIGN cl_ref->(attribute) TO FIELD-SYMBOL(<attr>) ELSE UNASSIGN.
+ASSIGN CAST zcl_demo_abap_objects( iref )->another_string TO <fs>.
+ASSIGN dobj_c_l5 TO <fs_dyn_as> CASTING TYPE ('DTYPE_C_L2').
+ASSIGN dobj_c10 TO <casttype> CASTING LIKE some_struct-('CARRID').
+
+---
+
+(source
+  (assign_statement
+    (component_selection
+      (identifier)
+      (dynamic_spec
+        (identifier)))
+    (declaration_expression
+      (field_symbol
+        (identifier)))
+    (else_unassign))
+  (assign_statement
+    (component_selection
+      (cast_expression
+        (identifier)
+        (identifier))
+      (identifier))
+    (field_symbol
+      (identifier)))
+  (assign_statement
+    (identifier)
+    (field_symbol
+      (identifier))
+    (assignment_casting_spec
+      (referred_type
+        (dynamic_spec
+          (string_literal)))))
+  (assign_statement
+    (identifier)
+    (field_symbol
+      (identifier))
+    (assignment_casting_spec
+      (referred_type
+        (component_selection
+          (identifier)
+          (dynamic_spec
+            (string_literal)))))))

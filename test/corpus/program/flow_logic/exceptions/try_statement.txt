@@ -175,3 +175,176 @@ ENDTRY.
           (call_argument_list
             exporting: (positional_argument
               value: (string_literal))))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / TRY ... CATCH ] Returning expressions
+=================================================================================
+TRY.
+  RETURN num1 * num2.
+  CATCH cx_sy_arithmetic_error.
+    RETURN VALUE #( ).
+ENDTRY.
+
+---
+
+(source
+  (try_statement
+    (try_block
+      (return_statement
+        (arithmetic_expression
+          (identifier)
+          (identifier))))
+    (catch_clause
+      (catch_exception_list
+        (identifier))
+      (catch_block
+        (return_statement
+          (value_expression))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / TRY ... CATCH ] Dynamic exception object
+=================================================================================
+TRY.
+  RAISE EXCEPTION dyn_exc.
+  CATCH cx_root.
+ENDTRY.
+
+---
+
+(source
+  (try_statement
+    (try_block
+      (raise_exception_statement
+        (identifier)))
+    (catch_clause
+      (catch_exception_list
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / TRY ... CATCH ] Nested previous exceptions
+=================================================================================
+TRY.
+  TRY.
+    TRY.
+      RAISE EXCEPTION NEW cx_sy_zerodivide( ).
+      CATCH cx_sy_zerodivide INTO DATA(err1).
+        RAISE EXCEPTION NEW cx_sy_arithmetic_overflow( previous = err1 ).
+    ENDTRY.
+    CATCH cx_sy_arithmetic_overflow INTO DATA(err2).
+      RAISE EXCEPTION NEW cx_sy_itab_line_not_found( previous = err2 ).
+  ENDTRY.
+  CATCH cx_sy_itab_line_not_found INTO DATA(err3).
+ENDTRY.
+
+---
+
+(source
+  (try_statement
+    (try_block
+      (try_statement
+        (try_block
+          (try_statement
+            (try_block
+              (raise_exception_statement
+                (new_expression
+                  (identifier))))
+            (catch_clause
+              (catch_exception_list
+                (identifier))
+              (into_spec
+                (declaration_expression
+                  (identifier)))
+              (catch_block
+                (raise_exception_statement
+                  (new_expression
+                    (identifier)
+                    (argument_list
+                      (named_argument
+                        (identifier)
+                        (identifier)))))))))
+        (catch_clause
+          (catch_exception_list
+            (identifier))
+          (into_spec
+            (declaration_expression
+              (identifier)))
+          (catch_block
+            (raise_exception_statement
+              (new_expression
+                (identifier)
+                (argument_list
+                  (named_argument
+                    (identifier)
+                    (identifier)))))))))
+    (catch_clause
+      (catch_exception_list
+        (identifier))
+      (into_spec
+        (declaration_expression
+          (identifier))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Exception Handling / TRY ... CATCH ] Cleanup and resume
+=================================================================================
+TRY.
+  TRY.
+    DATA(calc_b) = CONV decfloat34( 1 / 0 ).
+    CLEANUP INTO cleanup_b.
+      APPEND `#### Executing CLEANUP block ####` TO info_tab_b.
+  ENDTRY.
+  CATCH cx_sy_itab_line_not_found INTO cleanup_b.
+ENDTRY.
+TRY.
+  meth_resumable( ).
+  CATCH BEFORE UNWIND zcx_demo_abap_error_b INTO DATA(error_resume).
+    IF error_resume->is_resumable IS NOT INITIAL.
+      RESUME.
+    ENDIF.
+ENDTRY.
+
+---
+
+(source
+  (try_statement
+    (try_block
+      (try_statement
+        (try_block
+          (assignment
+            (declaration_expression
+              (identifier))
+            (conv_expression
+              (identifier)
+              (arithmetic_expression
+                (number)
+                (number)))))
+        (cleanup_clause
+          (into_spec
+            (identifier))
+          (cleanup_block
+            (append_statement
+              (string_literal)
+              (identifier))))))
+    (catch_clause
+      (catch_exception_list
+        (identifier))
+      (into_spec
+        (identifier))))
+  (try_statement
+    (try_block
+      (function_call
+        (identifier)))
+    (catch_clause
+      (before_unwind)
+      (catch_exception_list
+        (identifier))
+      (into_spec
+        (declaration_expression
+          (identifier)))
+      (catch_block
+        (if_statement
+          (initial_predicate
+            (component_selection
+              (identifier)
+              (identifier)))
+          (statement_block
+            (resume_statement)))))))

@@ -1,0 +1,109 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / DO ] Flow statements and calculations
+=================================================================================
+DO.
+  IF sy-index = 2.
+    CONTINUE.
+  ENDIF.
+  CHECK sy-index <> 5.
+  IF sy-index = 8.
+    EXIT.
+  ENDIF.
+  do_counter += 1.
+  do_sy_index = do_sy_index && sy-index && ` `.
+ENDDO.
+
+---
+
+(source
+  (do_statement
+    (statement_block
+      (if_statement
+        (comparison_expression
+          (component_selection
+            (identifier)
+            (identifier))
+          (number))
+        (statement_block
+          (continue_statement)))
+      (check_statement
+        (comparison_expression
+          (component_selection
+            (identifier)
+            (identifier))
+          (number)))
+      (if_statement
+        (comparison_expression
+          (component_selection
+            (identifier)
+            (identifier))
+          (number))
+        (statement_block
+          (exit_statement)))
+      (calculation_assignment
+        (identifier)
+        (number))
+      (assignment
+        (identifier)
+        (string_concatenation
+          (string_concatenation
+            (identifier)
+            (component_selection
+              (identifier)
+              (identifier)))
+          (string_literal))))))
+
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / DO ] Exceptions in bounded loop
+=================================================================================
+DO 3 TIMES.
+  TRY.
+    CASE sy-index.
+      WHEN 1.
+        RAISE EXCEPTION TYPE cx_sy_zerodivide.
+      WHEN 2.
+        RAISE EXCEPTION TYPE cx_uuid_error.
+      WHEN 3.
+        RAISE EXCEPTION TYPE cx_sy_itab_line_not_found.
+    ENDCASE.
+    CATCH cx_root.
+  ENDTRY.
+ENDDO.
+
+---
+
+(source
+  (do_statement
+    (times_spec
+      (number))
+    (statement_block
+      (try_statement
+        (try_block
+          (case_statement
+            (component_selection
+              (identifier)
+              (identifier))
+            (case_clause
+              (case_operand_list
+                (number))
+              (statement_block
+                (raise_exception_statement
+                  (new_exception_spec
+                    (identifier)))))
+            (case_clause
+              (case_operand_list
+                (number))
+              (statement_block
+                (raise_exception_statement
+                  (new_exception_spec
+                    (identifier)))))
+            (case_clause
+              (case_operand_list
+                (number))
+              (statement_block
+                (raise_exception_statement
+                  (new_exception_spec
+                    (identifier)))))))
+        (catch_clause
+          (catch_exception_list
+            (identifier)))))))

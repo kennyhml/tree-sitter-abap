@@ -110,6 +110,133 @@ VALUE #( FOR wa IN messages WHERE ( sprsl = 'E' ) ( wa ) ).
             value: (identifier)))))))
 
 =================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] LET with optional lookup
+=================================================================================
+DATA(itab9) = VALUE tt_type3( FOR w4 IN itab1 LET tab_line = VALUE #( itab2[ key2 = w4-key1 ] OPTIONAL ) IN ( key1 = w4-key1 a = w4-a b = w4-b d = tab_line-d e = tab_line-e ) ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (value_expression
+      (identifier)
+      (table_comprehension
+        (table_iteration
+          (identifier)
+          (identifier)
+          (let_expression
+            (assignment
+              (identifier)
+              (value_expression
+                (table_expression
+                  (identifier)
+                  (free_key_spec
+                    (key_component_list
+                      (itab_comp_spec
+                        (identifier)
+                        (component_selection
+                          (identifier)
+                          (identifier)))))
+                  (optional))))))
+        (line_spec
+          (argument_list
+            (named_argument
+              (identifier)
+              (component_selection
+                (identifier)
+                (identifier)))
+            (named_argument
+              (identifier)
+              (component_selection
+                (identifier)
+                (identifier)))
+            (named_argument
+              (identifier)
+              (component_selection
+                (identifier)
+                (identifier)))
+            (named_argument
+              (identifier)
+              (component_selection
+                (identifier)
+                (identifier)))
+            (named_argument
+              (identifier)
+              (component_selection
+                (identifier)
+                (identifier)))))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Default lookup and nested VALUE
+=================================================================================
+DATA(it4) = VALUE it_type( FOR wa IN itab4for INDEX INTO idx ( col1 = wa-col1 col2 = VALUE #( integertable[ idx ] DEFAULT 0 ) ) ).
+DATA(it5) = VALUE it_type( FOR wa IN itab4for ( VALUE #( BASE wa col1 = wa-col1 && 'y' col2 = wa-col2 + 3 ) ) ).
+
+---
+
+(source
+  (assignment
+    (declaration_expression
+      (identifier))
+    (value_expression
+      (identifier)
+      (table_comprehension
+        (table_iteration
+          (identifier)
+          (identifier)
+          (index_into_spec
+            (identifier)))
+        (line_spec
+          (argument_list
+            (named_argument
+              (identifier)
+              (component_selection
+                (identifier)
+                (identifier)))
+            (named_argument
+              (identifier)
+              (value_expression
+                (table_expression
+                  (identifier)
+                  (index_read
+                    (identifier))
+                  (default_value
+                    (number))))))))))
+  (assignment
+    (declaration_expression
+      (identifier))
+    (value_expression
+      (identifier)
+      (table_comprehension
+        (table_iteration
+          (identifier)
+          (identifier))
+        (line_spec
+          (argument_list
+            (positional_argument
+              (value_expression
+                (table_constructor
+                  (base_spec
+                    (identifier))
+                  (argument_list
+                    (named_argument
+                      (identifier)
+                      (string_concatenation
+                        (component_selection
+                          (identifier)
+                          (identifier))
+                        (string_literal)))
+                    (named_argument
+                      (identifier)
+                      (arithmetic_expression
+                        (component_selection
+                          (identifier)
+                          (identifier))
+                        (number)))))))))))))
+
+=================================================================================
 [ ABAP - Procecssing Internal Data / Internal Tables / Table Iterations ] Dynamic where condition
 =================================================================================
 VALUE #( FOR wa IN messages WHERE (cond) ( wa ) ). 

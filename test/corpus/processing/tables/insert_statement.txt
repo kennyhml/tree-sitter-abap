@@ -84,3 +84,18 @@ INSERT LINES OF itab USING KEY skey INTO itab INDEX 1.
     (at_index
       subject: (identifier)
       index: (number))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Internal Tables / INSERT ] Initial line reference
+=================================================================================
+INSERT INITIAL LINE INTO TABLE it_a REFERENCE INTO dref_b.
+
+---
+
+(source
+  (insert_statement
+    (initial_line_spec)
+    (into_table_spec
+      (identifier))
+    (reference_into_spec
+      (identifier))))

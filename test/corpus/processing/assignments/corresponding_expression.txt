@@ -240,3 +240,97 @@ CORRESPONDING itab1( itab1 FROM itab2 USING value = value cmt = cmt ).
       (lookup_mapping
         left: (identifier)
         right: (identifier)))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / CORRESPONDING ] BASE with mapping and exclusions
+=================================================================================
+gs_struc_diff4 = CORRESPONDING #( BASE ( gs_struc_diff4 ) gs_struc MAPPING c1 = char2 ).
+gs_struc_diff5 = CORRESPONDING #( BASE ( gs_struc_diff5 ) gs_struc EXCEPT num2 ).
+it_f = CORRESPONDING #( BASE ( it_f ) it_e MAPPING comp_b = comp_a ).
+
+---
+
+(source
+  (assignment
+    (identifier)
+    (corresponding_expression
+      (base_spec
+        (identifier))
+      (identifier)
+      (mapping_list_spec
+        (mapping
+          (identifier)
+          (identifier)))))
+  (assignment
+    (identifier)
+    (corresponding_expression
+      (base_spec
+        (identifier))
+      (identifier)
+      (mapping_list_spec
+        (except_list_spec
+          (identifier)))))
+  (assignment
+    (identifier)
+    (corresponding_expression
+      (base_spec
+        (identifier))
+      (identifier)
+      (mapping_list_spec
+        (mapping
+          (identifier)
+          (identifier))))))
+
+=================================================================================
+[ ABAP - Processing Internal Data / Assignments / CORRESPONDING ] Lookup key and result mapping
+=================================================================================
+it_lk3 = CORRESPONDING #( it_lk3 FROM lookup_table USING KEY sk c = a d = b ).
+it_lk4 = CORRESPONDING #( it_lk4 FROM lookup_table USING KEY sk c = a d = b MAPPING a = a b = b c = c d = d f = g ).
+
+---
+
+(source
+  (assignment
+    (identifier)
+    (corresponding_expression
+      (identifier)
+      (identifier)
+      (using_key_spec
+        (identifier))
+      (lookup_mapping_list
+        (lookup_mapping
+          (identifier)
+          (identifier))
+        (lookup_mapping
+          (identifier)
+          (identifier)))))
+  (assignment
+    (identifier)
+    (corresponding_expression
+      (identifier)
+      (identifier)
+      (using_key_spec
+        (identifier))
+      (lookup_mapping_list
+        (lookup_mapping
+          (identifier)
+          (identifier))
+        (lookup_mapping
+          (identifier)
+          (identifier)))
+      (mapping_list_spec
+        (mapping
+          (identifier)
+          (identifier))
+        (mapping
+          (identifier)
+          (identifier))
+        (mapping
+          (identifier)
+          (identifier))
+        (mapping
+          (identifier)
+          (identifier))
+        (mapping
+          (identifier)
+          (identifier))))))

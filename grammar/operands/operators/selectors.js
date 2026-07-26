@@ -40,6 +40,11 @@ module.exports = {
           $.dynamic_spec,
         ),
       ),
+      $.__component_selection_tail,
+    ),
+
+  __component_selection_tail: $ =>
+    seq(
       field(
         "selector",
         choice(

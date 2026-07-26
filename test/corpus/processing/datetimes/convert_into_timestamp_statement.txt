@@ -47,3 +47,24 @@ CONVERT DATE dat TIME tim DAYLIGHT SAVING TIME 'X'
       name: (identifier))
     (time_zone_spec
       value: (string_literal))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Dates & Time / CONVERT INTO TIME STAMP ] Converted operands
+=================================================================================
+CONVERT DATE CONV d( '20240101' ) TIME CONV t( '112458' ) INTO TIME STAMP tsl_conv TIME ZONE 'EST'.
+
+---
+
+(source
+  (convert_into_timestamp_statement
+    (date_spec
+      (conv_expression
+        (identifier)
+        (string_literal)))
+    (time_spec
+      (conv_expression
+        (identifier)
+        (string_literal)))
+    (identifier)
+    (time_zone_spec
+      (string_literal))))

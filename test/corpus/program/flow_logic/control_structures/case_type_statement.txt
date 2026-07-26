@@ -1,0 +1,54 @@
+=================================================================================
+[ ABAP - Program Flow Logic / Control Structures / CASE TYPE OF ] Alternatives
+=================================================================================
+CASE TYPE OF oref_check.
+  WHEN TYPE zcl_demo_abap_prog_flow_logic.
+    out->write( `Type zcl_demo_abap_prog_flow_logic? True!` ).
+  WHEN TYPE if_oo_adt_classrun.
+    out->write( `Type if_oo_adt_classrun? True!` ).
+  WHEN TYPE zcl_demo_abap_sql.
+    out->write( `Type zcl_demo_abap_sql? True!` ).
+  WHEN OTHERS.
+    out->write( `Other type.` ).
+ENDCASE.
+
+---
+
+(source
+  (case_type_of_statement
+    (identifier)
+    (case_type_clause
+      (identifier)
+      (statement_block
+        (function_call
+          (identifier)
+          (identifier)
+          (call_argument_list
+            (positional_argument
+              (string_literal))))))
+    (case_type_clause
+      (identifier)
+      (statement_block
+        (function_call
+          (identifier)
+          (identifier)
+          (call_argument_list
+            (positional_argument
+              (string_literal))))))
+    (case_type_clause
+      (identifier)
+      (statement_block
+        (function_call
+          (identifier)
+          (identifier)
+          (call_argument_list
+            (positional_argument
+              (string_literal))))))
+    (others_case_clause
+      (statement_block
+        (function_call
+          (identifier)
+          (identifier)
+          (call_argument_list
+            (positional_argument
+              (string_literal))))))))

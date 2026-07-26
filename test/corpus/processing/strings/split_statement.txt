@@ -31,3 +31,32 @@ SPLIT text1 AT ':' INTO TABLE DATA(segments).
       (split_table_result
         (declaration_expression
           (identifier))))))
+
+=================================================================================
+[ ABAP - Procecssing Internal Data / Strings / SPLIT ] Byte mode
+=================================================================================
+SPLIT test_xstr AT blank_xstr INTO DATA(xstr1) DATA(xstr2) IN BYTE MODE.
+SPLIT test_xstr AT blank_xstr INTO TABLE DATA(xstr_tab) IN BYTE MODE.
+
+---
+
+(source
+  (split_statement
+    (identifier)
+    (split_at_spec
+      (identifier))
+    (into_spec
+      (declaration_expression
+        (identifier))
+      (declaration_expression
+        (identifier)))
+    (in_byte_mode_spec))
+  (split_statement
+    (identifier)
+    (split_at_spec
+      (identifier))
+    (into_spec
+      (split_table_result
+        (declaration_expression
+          (identifier))))
+    (in_byte_mode_spec)))
