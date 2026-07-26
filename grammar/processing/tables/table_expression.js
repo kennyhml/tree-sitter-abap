@@ -63,7 +63,20 @@ module.exports = {
             ),
           ),
         ),
-        $.__component_selection_tail,
+        // A shared tail rule adds about 3 MB to the generated parser.
+        field(
+          "selector",
+          choice(
+            token.immediate("-"),
+            token.immediate("->"),
+            token.immediate("=>"),
+            token.immediate("~"),
+          ),
+        ),
+        field(
+          "component",
+          choice($.dynamic_spec, $._immediate_identifier),
+        ),
       ),
     ),
 
