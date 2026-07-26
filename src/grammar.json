@@ -23981,6 +23981,197 @@
         }
       ]
     },
+    "by_database_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_by"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_database"
+        },
+        {
+          "type": "FIELD",
+          "name": "implementation",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "function"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "procedure"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "graph_workspace"
+              }
+            ]
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "db_system_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "db_language_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "db_options_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "using_entities_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "using_schema_spec"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "db_system_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "FIELD",
+          "name": "database",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "db_language_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_language"
+        },
+        {
+          "type": "FIELD",
+          "name": "language",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "db_options_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_options"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "read_only"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "deterministic"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "suppress_syntax_errors"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "using_entities_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_using"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "component_selection"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "using_schema_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_using"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_schema"
+        },
+        {
+          "type": "FIELD",
+          "name": "schema",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "schema_objects_spec"
+        }
+      ]
+    },
+    "schema_objects_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_objects"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "for_table_function_spec": {
       "type": "SEQ",
       "members": [
@@ -24221,6 +24412,48 @@
       "type": "SYMBOL",
       "name": "_kw_current"
     },
+    "procedure": {
+      "type": "SYMBOL",
+      "name": "_kw_procedure"
+    },
+    "function": {
+      "type": "SYMBOL",
+      "name": "_kw_function"
+    },
+    "deterministic": {
+      "type": "SYMBOL",
+      "name": "_kw_deterministic"
+    },
+    "suppress_syntax_errors": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_suppress"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_syntax"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_errors"
+        }
+      ]
+    },
+    "graph_workspace": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_graph"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_workspace"
+        }
+      ]
+    },
     "method_implementation": {
       "type": "SEQ",
       "members": [
@@ -24257,6 +24490,18 @@
               }
             ]
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "by_database_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -34621,6 +34866,32 @@
         "value": "line-count"
       }
     },
+    "_kw_schema": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)schema"
+        },
+        "named": false,
+        "value": "schema"
+      }
+    },
+    "_kw_objects": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)objects"
+        },
+        "named": false,
+        "value": "objects"
+      }
+    },
     "_kw_scalar": {
       "type": "FIELD",
       "name": "keyword",
@@ -34749,6 +35020,84 @@
         },
         "named": false,
         "value": "required"
+      }
+    },
+    "_kw_procedure": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)procedure"
+        },
+        "named": false,
+        "value": "procedure"
+      }
+    },
+    "_kw_deterministic": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)deterministic"
+        },
+        "named": false,
+        "value": "deterministic"
+      }
+    },
+    "_kw_suppress": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)suppress"
+        },
+        "named": false,
+        "value": "suppress"
+      }
+    },
+    "_kw_syntax": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)syntax"
+        },
+        "named": false,
+        "value": "syntax"
+      }
+    },
+    "_kw_graph": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)graph"
+        },
+        "named": false,
+        "value": "graph"
+      }
+    },
+    "_kw_workspace": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)workspace"
+        },
+        "named": false,
+        "value": "workspace"
       }
     },
     "_kw_endmethod": {

@@ -214,6 +214,8 @@
 (enhancement_point_statement name: (identifier) @constant )
 (enhancement_section_statement name: (identifier) @constant )
 (spots_spec (identifier) @constant )
+(db_language_spec (identifier) @constant.builtin )
+(db_system_spec (identifier) @constant.builtin )
 
 (key_components_spec (identifier) @variable.member )
 (group_key_component field: (identifier) @variable.member )
@@ -386,6 +388,9 @@
 (class_implementation name: (identifier) @type )
 (for_scalar_function_spec name: (identifier) @type )
 (for_table_function_spec name: (identifier) @type )
+(using_entities_spec (identifier) @type )
+(using_schema_spec (identifier) @type )
+(schema_objects_spec (identifier) @type )
 
 (non_resumable_exception_spec name: (identifier) @type )
 (resumable_exception_spec name: (identifier) @type )
@@ -464,6 +469,11 @@
     (component_selection component: (identifier) @function.method)
   ]
 )
+
+(using_entities_spec
+  (component_selection component: (identifier) @function.method)
+)
+
 
 (transformation_name_spec name: (identifier) @function.call)
 

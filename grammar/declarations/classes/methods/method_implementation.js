@@ -12,6 +12,7 @@ module.exports = {
     seq(
       gen.kw("method"),
       field("name", choice($.identifier, $.component_selection)),
+      optional($.by_database_spec),
       ".",
       optional($.method_body),
       gen.kw("endmethod"),

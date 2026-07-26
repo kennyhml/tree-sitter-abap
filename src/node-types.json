@@ -3207,6 +3207,70 @@
     }
   },
   {
+    "type": "by_database_spec",
+    "named": true,
+    "fields": {
+      "implementation": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "function",
+            "named": true
+          },
+          {
+            "type": "graph_workspace",
+            "named": true
+          },
+          {
+            "type": "procedure",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "database",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "db_language_spec",
+          "named": true
+        },
+        {
+          "type": "db_options_spec",
+          "named": true
+        },
+        {
+          "type": "db_system_spec",
+          "named": true
+        },
+        {
+          "type": "using_entities_spec",
+          "named": true
+        },
+        {
+          "type": "using_schema_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "by_order_table_spec",
     "named": true,
     "fields": {
@@ -7241,6 +7305,92 @@
     }
   },
   {
+    "type": "db_language_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "language",
+            "named": false
+          }
+        ]
+      },
+      "language": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "db_options_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "options",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "deterministic",
+          "named": true
+        },
+        {
+          "type": "read_only",
+          "named": true
+        },
+        {
+          "type": "suppress_syntax_errors",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "db_system_spec",
+    "named": true,
+    "fields": {
+      "database": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "declaration_expression",
     "named": true,
     "fields": {
@@ -8618,6 +8768,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "deterministic",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "deterministic",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -11590,6 +11756,22 @@
     }
   },
   {
+    "type": "function",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "function",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "function-pool",
     "named": false,
     "fields": {}
@@ -12381,6 +12563,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "graph_workspace",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "graph",
+            "named": false
+          },
+          {
+            "type": "workspace",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -16567,9 +16769,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "by_database_spec",
+          "named": true
+        },
         {
           "type": "method_body",
           "named": true
@@ -18782,6 +18988,22 @@
     }
   },
   {
+    "type": "procedure",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "procedure",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "program_spec",
     "named": true,
     "fields": {
@@ -20953,6 +21175,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "schema_objects_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "objects",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -23253,6 +23501,30 @@
     }
   },
   {
+    "type": "suppress_syntax_errors",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "errors",
+            "named": false
+          },
+          {
+            "type": "suppress",
+            "named": false
+          },
+          {
+            "type": "syntax",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "switch_expression",
     "named": true,
     "fields": {
@@ -25378,6 +25650,36 @@
     }
   },
   {
+    "type": "using_entities_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "component_selection",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "using_key_spec",
     "named": true,
     "fields": {
@@ -25449,6 +25751,46 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "using_schema_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "schema",
+            "named": false
+          },
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      },
+      "schema": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "schema_objects_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -26814,6 +27156,10 @@
     "named": false
   },
   {
+    "type": "deterministic",
+    "named": false
+  },
+  {
     "type": "directory",
     "named": false
   },
@@ -27111,6 +27457,10 @@
   },
   {
     "type": "global",
+    "named": false
+  },
+  {
+    "type": "graph",
     "named": false
   },
   {
@@ -27536,6 +27886,10 @@
     "named": false
   },
   {
+    "type": "objects",
+    "named": false
+  },
+  {
     "type": "obligatory",
     "named": false
   },
@@ -27649,6 +28003,10 @@
   },
   {
     "type": "private",
+    "named": false
+  },
+  {
+    "type": "procedure",
     "named": false
   },
   {
@@ -27809,6 +28167,10 @@
   },
   {
     "type": "scalar",
+    "named": false
+  },
+  {
+    "type": "schema",
     "named": false
   },
   {
@@ -27984,6 +28346,10 @@
     "named": false
   },
   {
+    "type": "suppress",
+    "named": false
+  },
+  {
     "type": "switch",
     "named": false
   },
@@ -27994,6 +28360,10 @@
   {
     "type": "symbol_id",
     "named": true
+  },
+  {
+    "type": "syntax",
+    "named": false
   },
   {
     "type": "tab",
@@ -28229,6 +28599,10 @@
   },
   {
     "type": "work",
+    "named": false
+  },
+  {
+    "type": "workspace",
     "named": false
   },
   {

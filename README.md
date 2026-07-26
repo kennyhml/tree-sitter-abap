@@ -78,7 +78,7 @@ The following language features are currently implemented:
 - [x] Selection screens statements
 - [x] Declaring and using form routines
 - [x] Control Flow (if, case, loop at..)
-- [x] Defining classes, interfaces and method (except RAP and AMDP behavior) 
+- [x] Defining classes, interfaces and method (except RAP behavior) 
 - [x] Declaring, raising and handling events
 - [x] Calling of functions, methods and function modules
 - [x] Arithmetic expressions
@@ -96,6 +96,7 @@ The following language features are currently implemented:
 - [x] All statements used to access datasets on the application server
 - [x] Enhancement framework statements and BAdI calls
 - [x] Calling transformations
+- [x] AMDP method implementations
       
 Partially completed categories are not mentioned here.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
@@ -107,6 +108,5 @@ For a more detailed look, you can refer to the test cases in the `test/corpus/` 
 - [ ] Classical list processing and spool statements
 - [ ] Internal session and program call statements
 - [ ] Data cluster and memory import/export statements
-- [ ] AMDP method implementations
 - [ ] Language environment statements (set country, set language, set/get locale language)
 - [ ] Mesh statements

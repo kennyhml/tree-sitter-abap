@@ -1,0 +1,111 @@
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHOD ] Database procedure
+=================================================================================
+METHOD meth BY DATABASE PROCEDURE
+    FOR HDB
+    LANGUAGE SQLSCRIPT
+    OPTIONS READ-ONLY SUPPRESS SYNTAX ERRORS
+    USING scarr spfli cl_other_amdp=>meth.
+ENDMETHOD.
+
+---
+
+(source
+  (method_implementation
+    name: (identifier)
+    (by_database_spec
+      implementation: (procedure)
+      (db_system_spec
+        database: (identifier))
+      (db_language_spec
+        language: (identifier))
+      (db_options_spec
+        (read_only)
+        (suppress_syntax_errors))
+      (using_entities_spec
+        (identifier)
+        (identifier)
+        (component_selection
+          subject: (identifier)
+          component: (identifier))))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHOD ] Database function
+=================================================================================
+METHOD meth BY DATABASE FUNCTION
+    FOR HDB
+    LANGUAGE SQLSCRIPT
+    OPTIONS READ-ONLY DETERMINISTIC.
+ENDMETHOD.
+
+---
+
+(source
+  (method_implementation
+    name: (identifier)
+    (by_database_spec
+      implementation: (function)
+      (db_system_spec
+        database: (identifier))
+      (db_language_spec
+        language: (identifier))
+      (db_options_spec
+        (read_only)
+        (deterministic)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHOD ] Graph workspace
+=================================================================================
+METHOD meth BY DATABASE GRAPH WORKSPACE
+    FOR HDB
+    LANGUAGE SQL
+    USING z_graph_workspace.
+ENDMETHOD.
+
+---
+
+(source
+  (method_implementation
+    name: (identifier)
+    (by_database_spec
+      implementation: (graph_workspace)
+      (db_system_spec
+        database: (identifier))
+      (db_language_spec
+        language: (identifier))
+      (using_entities_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHOD ] Database schema objects
+=================================================================================
+METHOD meth BY DATABASE PROCEDURE
+    FOR HDB
+    LANGUAGE SQLSCRIPT
+    OPTIONS READ-ONLY
+    USING SCHEMA ext_schema OBJECTS ext_table ext_view
+    USING SCHEMA archive_schema OBJECTS old_table.
+ENDMETHOD.
+
+---
+
+(source
+  (method_implementation
+    name: (identifier)
+    (by_database_spec
+      implementation: (procedure)
+      (db_system_spec
+        database: (identifier))
+      (db_language_spec
+        language: (identifier))
+      (db_options_spec
+        (read_only))
+      (using_schema_spec
+        schema: (identifier)
+        (schema_objects_spec
+          (identifier)
+          (identifier)))
+      (using_schema_spec
+        schema: (identifier)
+        (schema_objects_spec
+          (identifier))))))
