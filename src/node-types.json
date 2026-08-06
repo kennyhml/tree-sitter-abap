@@ -3153,6 +3153,136 @@
     }
   },
   {
+    "type": "bo_determination",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bo_event",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bo_features_target",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "group": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bo_function",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bo_validation",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "body",
     "named": true,
     "fields": {},
@@ -8729,6 +8859,396 @@
     }
   },
   {
+    "type": "derive_for_determination_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "determination",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_determination",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_event_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "event",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_event",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_failed_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "failed",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      },
+      "time": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "early",
+            "named": true
+          },
+          {
+            "type": "late",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_features_key_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "features",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "instance",
+            "named": false
+          },
+          {
+            "type": "key",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_features_target",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_features_result_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "features",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "instance",
+            "named": false
+          },
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_features_target",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_function_import_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "function",
+            "named": false
+          },
+          {
+            "type": "import",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_function",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_function_result_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "function",
+            "named": false
+          },
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_function",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_hierarchy_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "hierarchy",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_key_of_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "key",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_mapped_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "mapped",
+            "named": false
+          }
+        ]
+      },
+      "time": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "early",
+            "named": true
+          },
+          {
+            "type": "late",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_permissions_key_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "key",
+            "named": false
+          },
+          {
+            "type": "permissions",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "derive_for_read_changes_spec",
     "named": true,
     "fields": {
@@ -8805,7 +9325,7 @@
         "required": true,
         "types": [
           {
-            "type": "business_object",
+            "type": "association_navigation",
             "named": true
           }
         ]
@@ -8865,6 +9385,50 @@
     }
   },
   {
+    "type": "derive_for_reported_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "reported",
+            "named": false
+          }
+        ]
+      },
+      "time": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "early",
+            "named": true
+          },
+          {
+            "type": "late",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "derive_for_update_spec",
     "named": true,
     "fields": {
@@ -8889,6 +9453,36 @@
           {
             "type": "update",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_validation_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "validation",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_validation",
+            "named": true
           }
         ]
       }
@@ -8946,6 +9540,50 @@
           "named": true
         },
         {
+          "type": "derive_for_determination_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_event_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_failed_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_features_key_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_features_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_function_import_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_function_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_hierarchy_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_key_of_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_mapped_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_permissions_key_spec",
+          "named": true
+        },
+        {
           "type": "derive_for_read_changes_spec",
           "named": true
         },
@@ -8962,7 +9600,15 @@
           "named": true
         },
         {
+          "type": "derive_for_reported_spec",
+          "named": true
+        },
+        {
           "type": "derive_for_update_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_validation_spec",
           "named": true
         }
       ]
@@ -9722,6 +10368,22 @@
           {
             "type": "dynamic_spec",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "early",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "early",
+            "named": false
           }
         ]
       }
@@ -15712,6 +16374,22 @@
           {
             "type": "named_data_object",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "late",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "late",
+            "named": false
           }
         ]
       }
@@ -27792,6 +28470,10 @@
     "named": false
   },
   {
+    "type": "determination",
+    "named": false
+  },
+  {
     "type": "deterministic",
     "named": false
   },
@@ -27833,6 +28515,10 @@
   },
   {
     "type": "e",
+    "named": false
+  },
+  {
+    "type": "early",
     "named": false
   },
   {
@@ -28000,6 +28686,14 @@
     "named": false
   },
   {
+    "type": "failed",
+    "named": false
+  },
+  {
+    "type": "features",
+    "named": false
+  },
+  {
     "type": "field",
     "named": false
   },
@@ -28133,6 +28827,10 @@
   },
   {
     "type": "heading",
+    "named": false
+  },
+  {
+    "type": "hierarchy",
     "named": false
   },
   {
@@ -28276,6 +28974,10 @@
     "named": false
   },
   {
+    "type": "late",
+    "named": false
+  },
+  {
     "type": "le",
     "named": false
   },
@@ -28366,6 +29068,10 @@
   },
   {
     "type": "m",
+    "named": false
+  },
+  {
+    "type": "mapped",
     "named": false
   },
   {
@@ -28630,6 +29336,10 @@
     "named": false
   },
   {
+    "type": "permissions",
+    "named": false
+  },
+  {
     "type": "places",
     "named": false
   },
@@ -28743,6 +29453,10 @@
   },
   {
     "type": "report",
+    "named": false
+  },
+  {
+    "type": "reported",
     "named": false
   },
   {
@@ -29175,6 +29889,10 @@
   },
   {
     "type": "utclong",
+    "named": false
+  },
+  {
+    "type": "validation",
     "named": false
   },
   {

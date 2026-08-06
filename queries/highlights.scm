@@ -630,6 +630,26 @@
   entity: (identifier) @type
   group: (identifier)? @variable.member )
 
+(bo_determination
+  entity: (identifier) @type
+  name: (identifier) @function.method )
+
+(bo_event
+  entity: (identifier) @type
+  name: (identifier) @constant )
+
+(bo_features_target
+  entity: (identifier) @type
+  group: (identifier)? @variable.member )
+
+(bo_function
+  entity: (identifier) @type
+  name: (identifier) @function.method )
+
+(bo_validation
+  entity: (identifier) @type
+  name: (identifier) @function.method )
+
 
 ; Tables / structs are always field assignments, not parameters.
 ; Up to 3 levels of nesting supported for deep component assignments.

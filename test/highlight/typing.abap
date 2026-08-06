@@ -246,3 +246,62 @@ TYPES r_rslt TYPE TABLE FOR READ RESULT demo_managed_root_was\_child.
 "     ^ type.definition
 "                                       ^ type
 "                                                             ^ type
+
+TYPES determination TYPE TABLE FOR DETERMINATION
+"     ^ type.definition
+  demo_managed_root_was~set_status.
+" ^ type
+"                       ^ function.method
+TYPES event TYPE TABLE FOR EVENT
+"     ^ type.definition
+  demo_managed_root_was~status_changed.
+" ^ type
+"                       ^ constant
+TYPES failed TYPE TABLE FOR FAILED EARLY
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES hierarchy TYPE TABLE FOR HIERARCHY
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES features_key TYPE TABLE FOR INSTANCE FEATURES KEY
+"     ^ type.definition
+  demo_managed_root_was~control.
+" ^ type
+"                       ^ variable.member
+TYPES features_result TYPE TABLE FOR FEATURES RESULT
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES function_import TYPE TABLE FOR FUNCTION IMPORT
+"     ^ type.definition
+  demo_managed_root_was~calculate.
+" ^ type
+"                       ^ function.method
+TYPES function_result TYPE TABLE FOR FUNCTION RESULT
+"     ^ type.definition
+  demo_managed_root_was~calculate.
+" ^ type
+"                       ^ function.method
+TYPES entity_key TYPE TABLE FOR KEY OF
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES mapped TYPE TABLE FOR MAPPED
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES permissions_key TYPE TABLE FOR PERMISSIONS KEY
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES reported TYPE TABLE FOR REPORTED LATE
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES validation TYPE TABLE FOR VALIDATION
+"     ^ type.definition
+  demo_managed_root_was~validate_status.
+" ^ type
+"                       ^ function.method

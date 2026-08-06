@@ -35,6 +35,42 @@ module.exports = {
       ),
     ),
 
+  bo_determination: $ =>
+    seq(
+      field("entity", $.identifier),
+      token.immediate("~"),
+      field("name", $._immediate_identifier),
+    ),
+
+  bo_event: $ =>
+    seq(
+      field("entity", $.identifier),
+      token.immediate("~"),
+      field("name", $._immediate_identifier),
+    ),
+
+  bo_features_target: $ =>
+    seq(
+      field("entity", $.identifier),
+      optional(
+        seq(token.immediate("~"), field("group", $._immediate_identifier)),
+      ),
+    ),
+
+  bo_function: $ =>
+    seq(
+      field("entity", $.identifier),
+      token.immediate("~"),
+      field("name", $._immediate_identifier),
+    ),
+
+  bo_validation: $ =>
+    seq(
+      field("entity", $.identifier),
+      token.immediate("~"),
+      field("name", $._immediate_identifier),
+    ),
+
   association_navigation: $ =>
     seq(
       field(
@@ -108,7 +144,7 @@ module.exports = {
   derive_for_read_link_spec: $ =>
     seq(
       ...gen.kws("for", "read", "link"),
-      field("business_object", $.business_object),
+      field("business_object", $.association_navigation),
     ),
 
   // ... FOR READ RESULT bdef [\_assoc] ...
@@ -139,6 +175,92 @@ module.exports = {
       ...gen.kws("authorization", "result"),
       field("target", $.bo_authorization_target),
     ),
+
+  derive_for_determination_spec: $ =>
+    seq(
+      ...gen.kws("for", "determination"),
+      field("target", $.bo_determination),
+    ),
+
+  derive_for_event_spec: $ =>
+    seq(...gen.kws("for", "event"), field("target", $.bo_event)),
+
+  derive_for_failed_spec: $ =>
+    seq(
+      ...gen.kws("for", "failed"),
+      optional(field("time", choice($.early, $.late))),
+      field("business_object", $.business_object),
+    ),
+
+  derive_for_mapped_spec: $ =>
+    seq(
+      ...gen.kws("for", "mapped"),
+      optional(field("time", choice($.early, $.late))),
+      field("business_object", $.business_object),
+    ),
+
+  derive_for_reported_spec: $ =>
+    seq(
+      ...gen.kws("for", "reported"),
+      optional(field("time", choice($.early, $.late))),
+      field("business_object", $.business_object),
+    ),
+
+  derive_for_hierarchy_spec: $ =>
+    seq(
+      ...gen.kws("for", "hierarchy"),
+      field("business_object", $.business_object),
+    ),
+
+  derive_for_features_key_spec: $ =>
+    seq(
+      gen.kw("for"),
+      optional(gen.kw("instance")),
+      ...gen.kws("features", "key"),
+      field("target", $.bo_features_target),
+    ),
+
+  derive_for_features_result_spec: $ =>
+    seq(
+      gen.kw("for"),
+      optional(gen.kw("instance")),
+      ...gen.kws("features", "result"),
+      field("target", $.bo_features_target),
+    ),
+
+  derive_for_function_import_spec: $ =>
+    seq(
+      ...gen.kws("for", "function", "import"),
+      field("target", $.bo_function),
+    ),
+
+  derive_for_function_result_spec: $ =>
+    seq(
+      ...gen.kws("for", "function", "result"),
+      field("target", $.bo_function),
+    ),
+
+  derive_for_key_of_spec: $ =>
+    seq(
+      ...gen.kws("for", "key", "of"),
+      field("business_object", $.business_object),
+    ),
+
+  derive_for_permissions_key_spec: $ =>
+    seq(
+      ...gen.kws("for", "permissions", "key"),
+      field("business_object", $.business_object),
+    ),
+
+  derive_for_validation_spec: $ =>
+    seq(
+      ...gen.kws("for", "validation"),
+      field("target", $.bo_validation),
+    ),
+
+  late: _ => gen.kw("late"),
+
+  early: _ => gen.kw("early"),
 
   /*
    *... TABLE FOR { ACTION IMPORT bdef~action }
@@ -171,18 +293,31 @@ module.exports = {
     seq(
       ...gen.kws("type", "table"),
       choice(
-        $.derive_for_create_spec,
+        $.derive_for_action_import_spec,
+        $.derive_for_action_result_spec,
+        $.derive_for_authorization_key_spec,
+        $.derive_for_authorization_result_spec,
         $.derive_for_change_spec,
-        $.derive_for_update_spec,
+        $.derive_for_create_spec,
         $.derive_for_delete_spec,
+        $.derive_for_determination_spec,
+        $.derive_for_event_spec,
+        $.derive_for_failed_spec,
+        $.derive_for_hierarchy_spec,
+        $.derive_for_features_key_spec,
+        $.derive_for_features_result_spec,
+        $.derive_for_function_import_spec,
+        $.derive_for_function_result_spec,
+        $.derive_for_key_of_spec,
+        $.derive_for_mapped_spec,
+        $.derive_for_permissions_key_spec,
         $.derive_for_read_changes_spec,
         $.derive_for_read_import_spec,
         $.derive_for_read_link_spec,
         $.derive_for_read_result_spec,
-        $.derive_for_action_result_spec,
-        $.derive_for_action_import_spec,
-        $.derive_for_authorization_key_spec,
-        $.derive_for_authorization_result_spec,
+        $.derive_for_reported_spec,
+        $.derive_for_update_spec,
+        $.derive_for_validation_spec,
       ),
     ),
 
@@ -245,6 +380,3 @@ module.exports = {
    */
   _response_derived_purpose: $ => choice(),
 };
-
-// TODO: Dirty hack to get around issues in the generator
-// gen.kw("authorization")

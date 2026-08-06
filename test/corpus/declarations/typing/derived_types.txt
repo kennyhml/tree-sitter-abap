@@ -413,3 +413,246 @@ TYPES read_result_association TYPE TABLE FOR READ RESULT demo_managed_root_was\_
           business_object: (association_navigation
             source: (identifier)
             association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR DETERMINATION ] Determination
+=================================================================================
+TYPES determination TYPE TABLE FOR DETERMINATION demo_managed_root_was~set_status.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_determination_spec
+          target: (bo_determination
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR EVENT ] Event
+=================================================================================
+TYPES event TYPE TABLE FOR EVENT demo_managed_root_was~status_changed.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_event_spec
+          target: (bo_event
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FAILED ] BDEF
+=================================================================================
+TYPES failed TYPE TABLE FOR FAILED demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_failed_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FAILED ] Early
+=================================================================================
+TYPES failed_early TYPE TABLE FOR FAILED EARLY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_failed_spec
+          time: (early)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR HIERARCHY ] BDEF
+=================================================================================
+TYPES hierarchy TYPE TABLE FOR HIERARCHY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_hierarchy_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FEATURES KEY ] BDEF
+=================================================================================
+TYPES features_key TYPE TABLE FOR FEATURES KEY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_features_key_spec
+          target: (bo_features_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FEATURES KEY ] Instance group
+=================================================================================
+TYPES instance_features_key TYPE TABLE FOR INSTANCE FEATURES KEY demo_managed_root_was~control.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_features_key_spec
+          target: (bo_features_target
+            entity: (identifier)
+            group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FEATURES RESULT ] BDEF
+=================================================================================
+TYPES features_result TYPE TABLE FOR FEATURES RESULT demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_features_result_spec
+          target: (bo_features_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FEATURES RESULT ] Instance group
+=================================================================================
+TYPES instance_features_result TYPE TABLE FOR INSTANCE FEATURES RESULT demo_managed_root_was~control.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_features_result_spec
+          target: (bo_features_target
+            entity: (identifier)
+            group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FUNCTION IMPORT ] Function
+=================================================================================
+TYPES function_import TYPE TABLE FOR FUNCTION IMPORT demo_managed_root_was~calculate.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_function_import_spec
+          target: (bo_function
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FUNCTION RESULT ] Function
+=================================================================================
+TYPES function_result TYPE TABLE FOR FUNCTION RESULT demo_managed_root_was~calculate.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_function_result_spec
+          target: (bo_function
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR KEY OF ] BDEF
+=================================================================================
+TYPES entity_key TYPE TABLE FOR KEY OF demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_key_of_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR MAPPED ] Early
+=================================================================================
+TYPES mapped_early TYPE TABLE FOR MAPPED EARLY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_mapped_spec
+          time: (early)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR PERMISSIONS KEY ] BDEF
+=================================================================================
+TYPES permissions_key TYPE TABLE FOR PERMISSIONS KEY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_permissions_key_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR REPORTED ] Late
+=================================================================================
+TYPES reported_late TYPE TABLE FOR REPORTED LATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_reported_spec
+          time: (late)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR VALIDATION ] Validation
+=================================================================================
+TYPES validation TYPE TABLE FOR VALIDATION demo_managed_root_was~validate_status.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_validation_spec
+          target: (bo_validation
+            entity: (identifier)
+            name: (identifier)))))))
