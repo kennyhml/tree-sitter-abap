@@ -9982,6 +9982,169 @@
         }
       ]
     },
+    "derive_for_change_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_change"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_update_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_update"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_delete_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_delete"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_read_changes_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_changes"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_read_import_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_import"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_read_link_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_link"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_read_result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
     "derive_for_action_import_spec": {
       "type": "SEQ",
       "members": [
@@ -10115,6 +10278,34 @@
             {
               "type": "SYMBOL",
               "name": "derive_for_create_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_change_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_update_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_delete_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_changes_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_import_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_link_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_result_spec"
             },
             {
               "type": "SYMBOL",
@@ -32141,17 +32332,30 @@
         "value": "size"
       }
     },
-    "_kw_action": {
+    "_kw_change": {
       "type": "FIELD",
       "name": "keyword",
       "content": {
         "type": "ALIAS",
         "content": {
           "type": "PATTERN",
-          "value": "(?i)action"
+          "value": "(?i)change"
         },
         "named": false,
-        "value": "action"
+        "value": "change"
+      }
+    },
+    "_kw_changes": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)changes"
+        },
+        "named": false,
+        "value": "changes"
       }
     },
     "_kw_import": {
@@ -32165,6 +32369,32 @@
         },
         "named": false,
         "value": "import"
+      }
+    },
+    "_kw_link": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)link"
+        },
+        "named": false,
+        "value": "link"
+      }
+    },
+    "_kw_action": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)action"
+        },
+        "named": false,
+        "value": "action"
       }
     },
     "_kw_instance": {

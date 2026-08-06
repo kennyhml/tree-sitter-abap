@@ -8639,6 +8639,36 @@
     }
   },
   {
+    "type": "derive_for_change_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "change",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "derive_for_create_spec",
     "named": true,
     "fields": {
@@ -8662,6 +8692,202 @@
           },
           {
             "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_delete_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "delete",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_read_changes_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "changes",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_read_import_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "import",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_read_link_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "link",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_read_result_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          },
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_update_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "update",
             "named": false
           }
         ]
@@ -8708,7 +8934,35 @@
           "named": true
         },
         {
+          "type": "derive_for_change_spec",
+          "named": true
+        },
+        {
           "type": "derive_for_create_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_delete_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_changes_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_import_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_link_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_update_spec",
           "named": true
         }
       ]
@@ -27270,6 +27524,14 @@
     "named": false
   },
   {
+    "type": "change",
+    "named": false
+  },
+  {
+    "type": "changes",
+    "named": false
+  },
+  {
     "type": "changing",
     "named": false
   },
@@ -28060,6 +28322,10 @@
   },
   {
     "type": "lines",
+    "named": false
+  },
+  {
+    "type": "link",
     "named": false
   },
   {

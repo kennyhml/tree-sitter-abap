@@ -222,3 +222,27 @@ TYPES bar TYPE TABLE FOR AUTHORIZATION RESULT bdef~group.
 "                                             ^ type
 "                                                  ^ variable.member
 
+TYPES change_root TYPE TABLE FOR CHANGE demo_managed_root_was.
+"     ^ type.definition
+"                                       ^ type
+TYPES update_root TYPE TABLE FOR UPDATE demo_managed_root_was.
+"     ^ type.definition
+"                                       ^ type
+TYPES delete_root TYPE TABLE FOR DELETE demo_managed_root_was.
+"     ^ type.definition
+"                                       ^ type
+TYPES r_chg TYPE TABLE FOR READ CHANGES demo_managed_root_was.
+"     ^ type.definition
+"                                       ^ type
+TYPES r_impt TYPE TABLE FOR READ IMPORT demo_managed_root_was\_child.
+"     ^ type.definition
+"                                       ^ type
+"                                                             ^ type
+TYPES readlink TYPE TABLE FOR READ LINK demo_managed_root_was\_child.
+"     ^ type.definition
+"                                       ^ type
+"                                                             ^ type
+TYPES r_rslt TYPE TABLE FOR READ RESULT demo_managed_root_was\_child.
+"     ^ type.definition
+"                                       ^ type
+"                                                             ^ type

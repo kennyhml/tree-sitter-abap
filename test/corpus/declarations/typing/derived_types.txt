@@ -309,3 +309,107 @@ TYPES instance_authorization_result TYPE TABLE FOR INSTANCE AUTHORIZATION RESULT
           target: (bo_authorization_target
             entity: (identifier)
             group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CHANGE ] Root
+=================================================================================
+TYPES change_root TYPE TABLE FOR CHANGE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_change_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR UPDATE ] Root
+=================================================================================
+TYPES update_root TYPE TABLE FOR UPDATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_update_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR DELETE ] Root
+=================================================================================
+TYPES delete_root TYPE TABLE FOR DELETE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_delete_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR READ CHANGES ] Root
+=================================================================================
+TYPES read_changes_root TYPE TABLE FOR READ CHANGES demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_read_changes_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR READ IMPORT ] Association
+=================================================================================
+TYPES read_import_association TYPE TABLE FOR READ IMPORT demo_managed_root_was\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_read_import_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR READ LINK ] Association
+=================================================================================
+TYPES read_link_association TYPE TABLE FOR READ LINK demo_managed_root_was\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_read_link_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR READ RESULT ] Association
+=================================================================================
+TYPES read_result_association TYPE TABLE FOR READ RESULT demo_managed_root_was\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_read_result_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))

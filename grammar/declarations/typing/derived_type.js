@@ -62,10 +62,59 @@ module.exports = {
       field("composition", $._immediate_identifier),
     ),
 
-  // ... FOR CREATE ...
+  // ... FOR CREATE bdef [\_assoc] ...
   derive_for_create_spec: $ =>
     seq(
       ...gen.kws("for", "create"),
+      field("business_object", $.business_object),
+    ),
+
+  // ... FOR CHANGE bdef ...
+  derive_for_change_spec: $ =>
+    seq(
+      ...gen.kws("for", "change"),
+      field("business_object", $.business_object),
+    ),
+
+  // ... FOR UPDATE bdef ...
+  derive_for_update_spec: $ =>
+    seq(
+      ...gen.kws("for", "update"),
+      field("business_object", $.business_object),
+    ),
+
+  // ... FOR DELETE bdef ...
+  derive_for_delete_spec: $ =>
+    seq(
+      ...gen.kws("for", "delete"),
+      field("business_object", $.business_object),
+    ),
+
+  // ... FOR READ CHANGES bdef ...
+  derive_for_read_changes_spec: $ =>
+    seq(
+      ...gen.kws("for", "read", "changes"),
+      field("business_object", $.business_object),
+    ),
+
+  // ... FOR READ IMPORT bdef [\_assoc] ...
+  derive_for_read_import_spec: $ =>
+    seq(
+      ...gen.kws("for", "read", "import"),
+      field("business_object", $.business_object),
+    ),
+
+  // ... FOR READ LINK bdef\_assoc ...
+  derive_for_read_link_spec: $ =>
+    seq(
+      ...gen.kws("for", "read", "link"),
+      field("business_object", $.business_object),
+    ),
+
+  // ... FOR READ RESULT bdef [\_assoc] ...
+  derive_for_read_result_spec: $ =>
+    seq(
+      ...gen.kws("for", "read", "result"),
       field("business_object", $.business_object),
     ),
 
@@ -123,6 +172,13 @@ module.exports = {
       ...gen.kws("type", "table"),
       choice(
         $.derive_for_create_spec,
+        $.derive_for_change_spec,
+        $.derive_for_update_spec,
+        $.derive_for_delete_spec,
+        $.derive_for_read_changes_spec,
+        $.derive_for_read_import_spec,
+        $.derive_for_read_link_spec,
+        $.derive_for_read_result_spec,
         $.derive_for_action_result_spec,
         $.derive_for_action_import_spec,
         $.derive_for_authorization_key_spec,
