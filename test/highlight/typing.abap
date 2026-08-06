@@ -207,3 +207,18 @@ TYPES action_result TYPE TABLE FOR ACTION RESULT /DMO/I_TRAVEL_M~acceptTravel.
 "     ^ type.definition
 "                                                ^ type
 "                                                                ^ function.method
+TYPES foo TYPE TABLE FOR INSTANCE AUTHORIZATION KEY bdef.
+"     ^ type.definition
+"                                                   ^ type
+TYPES foo TYPE TABLE FOR AUTHORIZATION KEY bdef~group.
+"     ^ type.definition
+"                                          ^ type
+"                                               ^ variable.member
+TYPES bar TYPE TABLE FOR AUTHORIZATION RESULT bdef.
+"     ^ type.definition
+"                                             ^ type
+TYPES bar TYPE TABLE FOR AUTHORIZATION RESULT bdef~group.
+"     ^ type.definition
+"                                             ^ type
+"                                                  ^ variable.member
+

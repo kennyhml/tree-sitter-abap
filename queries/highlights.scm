@@ -626,6 +626,10 @@
   name: (identifier) @function.method
 )
 
+(bo_authorization_target 
+  entity: (identifier) @type
+  group: (identifier)? @variable.member )
+
 
 ; Tables / structs are always field assignments, not parameters.
 ; Up to 3 levels of nesting supported for deep component assignments.

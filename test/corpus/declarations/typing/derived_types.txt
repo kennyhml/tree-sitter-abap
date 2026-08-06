@@ -247,3 +247,65 @@ TYPES create_namespaced_composition TYPE TABLE FOR CREATE /DMO/I_TRAVEL_M\\_Trav
           business_object: (composition_navigation
             source: (identifier)
             composition: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR AUTHORIZATION KEY ] BDEF
+=================================================================================
+TYPES authorization_key TYPE TABLE FOR AUTHORIZATION KEY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_authorization_key_spec
+          target: (bo_authorization_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR AUTHORIZATION KEY ] Instance group
+=================================================================================
+TYPES instance_authorization_key TYPE TABLE FOR INSTANCE AUTHORIZATION KEY demo_managed_root_was~admin.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_authorization_key_spec
+          target: (bo_authorization_target
+            entity: (identifier)
+            group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR AUTHORIZATION RESULT ] BDEF
+=================================================================================
+TYPES authorization_result TYPE TABLE FOR AUTHORIZATION RESULT demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_authorization_result_spec
+          target: (bo_authorization_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR AUTHORIZATION RESULT ] Instance group
+=================================================================================
+TYPES instance_authorization_result TYPE TABLE FOR INSTANCE AUTHORIZATION RESULT demo_managed_root_was~admin.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_authorization_result_spec
+          target: (bo_authorization_target
+            entity: (identifier)
+            group: (identifier)))))))

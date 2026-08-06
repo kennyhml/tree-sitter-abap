@@ -1,6 +1,13 @@
 module.exports = {
+  /*
+   * RAP derived types
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenrpm_derived_types.html
+   */
   _derived_type: $ => choice($.derived_table_type),
 
+  // Reference to a business object, either via a single entity root,
+  // or a path expression using composition and associations.
   business_object: $ =>
     choice(
       $.identifier, // root entity
@@ -8,11 +15,24 @@ module.exports = {
       $.composition_navigation,
     ),
 
+  /*
+   * Business object action reference
+   *
+   * `bdef~action`
+   */
   bo_action: $ =>
     seq(
       field("entity", $.identifier),
       token.immediate("~"),
       field("name", $._immediate_identifier),
+    ),
+
+  bo_authorization_target: $ =>
+    seq(
+      field("entity", $.identifier),
+      optional(
+        seq(token.immediate("~"), field("group", $._immediate_identifier)),
+      ),
     ),
 
   association_navigation: $ =>
@@ -42,6 +62,7 @@ module.exports = {
       field("composition", $._immediate_identifier),
     ),
 
+  // ... FOR CREATE ...
   derive_for_create_spec: $ =>
     seq(
       ...gen.kws("for", "create"),
@@ -53,6 +74,22 @@ module.exports = {
 
   derive_for_action_result_spec: $ =>
     seq(...gen.kws("for", "action", "result"), $.bo_action),
+
+  derive_for_authorization_key_spec: $ =>
+    seq(
+      gen.kw("for"),
+      optional(gen.kw("instance")),
+      ...gen.kws("authorization", "key"),
+      field("target", $.bo_authorization_target),
+    ),
+
+  derive_for_authorization_result_spec: $ =>
+    seq(
+      gen.kw("for"),
+      optional(gen.kw("instance")),
+      ...gen.kws("authorization", "result"),
+      field("target", $.bo_authorization_target),
+    ),
 
   /*
    *... TABLE FOR { ACTION IMPORT bdef~action }
@@ -88,6 +125,8 @@ module.exports = {
         $.derive_for_create_spec,
         $.derive_for_action_result_spec,
         $.derive_for_action_import_spec,
+        $.derive_for_authorization_key_spec,
+        $.derive_for_authorization_result_spec,
       ),
     ),
 
@@ -150,3 +189,6 @@ module.exports = {
    */
   _response_derived_purpose: $ => choice(),
 };
+
+// TODO: Dirty hack to get around issues in the generator
+// gen.kw("authorization")

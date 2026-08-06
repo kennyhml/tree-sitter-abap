@@ -9842,6 +9842,47 @@
         }
       ]
     },
+    "bo_authorization_target": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "entity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "STRING",
+                    "value": "~"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "group",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_immediate_identifier"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "association_navigation": {
       "type": "SEQ",
       "members": [
@@ -9983,6 +10024,80 @@
         }
       ]
     },
+    "derive_for_authorization_key_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_instance"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authorization"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_key"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_authorization_target"
+          }
+        }
+      ]
+    },
+    "derive_for_authorization_result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_instance"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authorization"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_authorization_target"
+          }
+        }
+      ]
+    },
     "derived_table_type": {
       "type": "SEQ",
       "members": [
@@ -10008,6 +10123,14 @@
             {
               "type": "SYMBOL",
               "name": "derive_for_action_import_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_authorization_key_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_authorization_result_spec"
             }
           ]
         }
@@ -32044,6 +32167,32 @@
         "value": "import"
       }
     },
+    "_kw_instance": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)instance"
+        },
+        "named": false,
+        "value": "instance"
+      }
+    },
+    "_kw_authorization": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)authorization"
+        },
+        "named": false,
+        "value": "authorization"
+      }
+    },
     "_kw_table": {
       "type": "FIELD",
       "name": "keyword",
@@ -34378,19 +34527,6 @@
         },
         "named": false,
         "value": "not"
-      }
-    },
-    "_kw_instance": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)instance"
-        },
-        "named": false,
-        "value": "instance"
       }
     },
     "_kw_assigned": {
