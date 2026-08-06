@@ -1,5 +1,23 @@
 [
   {
+    "type": "business_object",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "association_navigation",
+        "named": true
+      },
+      {
+        "type": "composition_navigation",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "character_like_expression",
     "named": true,
     "subtypes": [
@@ -875,6 +893,10 @@
     "subtypes": [
       {
         "type": "builtin_type_spec",
+        "named": true
+      },
+      {
+        "type": "derived_table_type",
         "named": true
       },
       {
@@ -2073,6 +2095,40 @@
     }
   },
   {
+    "type": "association_navigation",
+    "named": true,
+    "fields": {
+      "association": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "association_navigation",
+            "named": true
+          },
+          {
+            "type": "composition_navigation",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "asynchronous_callback_spec",
     "named": true,
     "fields": {
@@ -3038,6 +3094,32 @@
         "types": [
           {
             "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bo_action",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -5732,6 +5814,36 @@
     }
   },
   {
+    "type": "composition_navigation",
+    "named": true,
+    "fields": {
+      "composition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "composition_navigation",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "concatenate_statement",
     "named": true,
     "fields": {
@@ -8354,6 +8466,142 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "derive_for_action_import_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "import",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bo_action",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "derive_for_action_result_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bo_action",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "derive_for_create_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "create",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derived_table_type",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "table",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "derive_for_action_import_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_action_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_create_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -26676,11 +26924,19 @@
     "named": false
   },
   {
+    "type": "\\\\",
+    "named": false
+  },
+  {
     "type": "]",
     "named": false
   },
   {
     "type": "abstract",
+    "named": false
+  },
+  {
+    "type": "action",
     "named": false
   },
   {
@@ -27533,6 +27789,10 @@
   },
   {
     "type": "implemented",
+    "named": false
+  },
+  {
+    "type": "import",
     "named": false
   },
   {

@@ -88,7 +88,8 @@ module.exports = {
 
   hashed: _ => gen.kw("hashed"),
 
-  standard_table: _ => seq(...gen.kws(optional("standard"), "table")),
+  standard_table: _ =>
+    prec.right(seq(...gen.kws(optional("standard"), "table"))),
 
   sorted_table: _ => seq(...gen.kws("sorted", "table")),
 

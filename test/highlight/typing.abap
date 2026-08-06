@@ -190,3 +190,20 @@ TYPES bar.
 "     ^ constant
 TYPES END OF ENUM planet.
 "                 ^ type.definition
+
+TYPES create_root TYPE TABLE FOR CREATE demo_managed_root_was.
+"     ^ type.definition
+"                                       ^ type
+TYPES create_path TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\_child.
+"     ^ type.definition
+"                                       ^ type
+"                                                              ^ type
+"                                                                    ^ type
+TYPES action_import TYPE TABLE FOR ACTION IMPORT demo_managed_root_was~copy.
+"     ^ type.definition
+"                                                ^ type
+"                                                                      ^ function.method
+TYPES action_result TYPE TABLE FOR ACTION RESULT /DMO/I_TRAVEL_M~acceptTravel.
+"     ^ type.definition
+"                                                ^ type
+"                                                                ^ function.method

@@ -71,6 +71,7 @@ module.exports = grammar({
     $.simple_statement,
     $.reserved_statement,
     $.named_data_object,
+    $.business_object,
 
     $.constructor_expression,
 
@@ -310,6 +311,7 @@ module.exports = grammar({
         $.reference_type,
         $.table_type,
         $.range_type,
+        $._derived_type,
       ),
 
     ...(() => {

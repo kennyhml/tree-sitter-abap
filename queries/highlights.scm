@@ -596,7 +596,6 @@
   (end_of_struct_spec name: (identifier) @type.definition )
 )
 
-
 ; NOTE: Do not try to integrate anchor tags.
 ; Works in the playground and neovim, but the CLI highlighter seems
 ; to have some issue with it making it fail the tests.
@@ -608,6 +607,23 @@
     (end_of_struct_spec name: (identifier) @variable.member)
   ]
   (end_of_struct_spec)
+)
+
+; RAP derived types
+(business_object/identifier) @type
+(composition_navigation 
+  source: (identifier)? @type
+  "\\\\" @operator
+  composition: (identifier) @type )
+
+(association_navigation 
+  source: (identifier)? @type 
+  "\\" @operator
+  association: (identifier) @type )
+
+(bo_action
+  entity: (identifier) @type
+  name: (identifier) @function.method
 )
 
 
@@ -685,9 +701,6 @@
 (typing/table_type
   kind: (_ keyword: _ @type.builtin ) .
 )
-
-; TODO: Gave up on explicit, long form declarations for now.
-; The sibling relationship doesnt work well with incremental parsing
 
 
 (include_statement

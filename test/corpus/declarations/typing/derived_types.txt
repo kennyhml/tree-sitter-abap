@@ -1,0 +1,249 @@
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Existing composition and association path
+=================================================================================
+TYPES t6 TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\_child. 
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (association_navigation
+            source: (composition_navigation
+              source: (identifier)
+              composition: (identifier))
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Root
+=================================================================================
+TYPES create_root TYPE TABLE FOR CREATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Association
+=================================================================================
+TYPES create_association TYPE TABLE FOR CREATE demo_managed_root_was\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Composition
+=================================================================================
+TYPES create_composition TYPE TABLE FOR CREATE demo_managed_root_was\\_Root.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (composition_navigation
+            source: (identifier)
+            composition: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR ACTION IMPORT ] Action
+=================================================================================
+TYPES action_import TYPE TABLE FOR ACTION IMPORT demo_managed_root_was~copy.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_action_import_spec
+          (bo_action
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR ACTION IMPORT ] Namespaced action
+=================================================================================
+TYPES namespaced_action_import TYPE TABLE FOR ACTION IMPORT /DMO/I_TRAVEL_M~acceptTravel.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_action_import_spec
+          (bo_action
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR ACTION RESULT ] Action
+=================================================================================
+TYPES action_result TYPE TABLE FOR ACTION RESULT demo_managed_root_was~copy.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_action_result_spec
+          (bo_action
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR ACTION RESULT ] Namespaced action
+=================================================================================
+TYPES namespaced_action_result TYPE TABLE FOR ACTION RESULT /DMO/I_TRAVEL_M~acceptTravel.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_action_result_spec
+          (bo_action
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Nested associations
+=================================================================================
+TYPES create_nested_associations TYPE TABLE FOR CREATE demo_managed_root_was\_child\_grandchild.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (association_navigation
+            source: (association_navigation
+              source: (identifier)
+              association: (identifier))
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Nested compositions
+=================================================================================
+TYPES create_nested_compositions TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\\_Item.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (composition_navigation
+            source: (composition_navigation
+              source: (identifier)
+              composition: (identifier))
+            composition: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Mixed path
+=================================================================================
+TYPES create_mixed_path TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (association_navigation
+            source: (composition_navigation
+              source: (identifier)
+              composition: (identifier))
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Deep mixed path
+=================================================================================
+TYPES create_deep_mixed_path TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\\_Item\_child\_detail.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (association_navigation
+            source: (association_navigation
+              source: (composition_navigation
+                source: (composition_navigation
+                  source: (identifier)
+                  composition: (identifier))
+                composition: (identifier))
+              association: (identifier))
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Namespaced root
+=================================================================================
+TYPES create_namespaced_root TYPE TABLE FOR CREATE /DMO/I_TRAVEL_M.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Namespaced association
+=================================================================================
+TYPES create_namespaced_association TYPE TABLE FOR CREATE /DMO/I_TRAVEL_M\_Booking.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Namespaced composition
+=================================================================================
+TYPES create_namespaced_composition TYPE TABLE FOR CREATE /DMO/I_TRAVEL_M\\_Travel.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_table_type
+        (derive_for_create_spec
+          business_object: (composition_navigation
+            source: (identifier)
+            composition: (identifier)))))))

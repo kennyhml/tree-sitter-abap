@@ -647,6 +647,10 @@
         {
           "type": "SYMBOL",
           "name": "range_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_derived_type"
         }
       ]
     },
@@ -9784,6 +9788,243 @@
         }
       ]
     },
+    "_derived_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "derived_table_type"
+        }
+      ]
+    },
+    "business_object": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "association_navigation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "composition_navigation"
+        }
+      ]
+    },
+    "bo_action": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "entity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "~"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
+          }
+        }
+      ]
+    },
+    "association_navigation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "composition_navigation"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "association_navigation"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            ]
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "\\"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "association",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
+          }
+        }
+      ]
+    },
+    "composition_navigation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "composition_navigation"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            ]
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "\\\\"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "composition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_immediate_identifier"
+          }
+        }
+      ]
+    },
+    "derive_for_create_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_create"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_action_import_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_action"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_import"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bo_action"
+        }
+      ]
+    },
+    "derive_for_action_result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_action"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bo_action"
+        }
+      ]
+    },
+    "derived_table_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_table"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_create_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_action_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_action_import_spec"
+            }
+          ]
+        }
+      ]
+    },
+    "_structure_derived_purpose": {
+      "type": "CHOICE",
+      "members": []
+    },
+    "_request_derived_purpose": {
+      "type": "CHOICE",
+      "members": []
+    },
+    "_response_derived_purpose": {
+      "type": "CHOICE",
+      "members": []
+    },
     "begin_of_enum_spec": {
       "type": "SEQ",
       "members": [
@@ -10619,25 +10860,29 @@
       "name": "_kw_hashed"
     },
     "standard_table": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_standard"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_kw_table"
-        }
-      ]
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_kw_standard"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_kw_table"
+          }
+        ]
+      }
     },
     "sorted_table": {
       "type": "SEQ",
@@ -31773,6 +32018,45 @@
         "value": "size"
       }
     },
+    "_kw_action": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)action"
+        },
+        "named": false,
+        "value": "action"
+      }
+    },
+    "_kw_import": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)import"
+        },
+        "named": false,
+        "value": "import"
+      }
+    },
+    "_kw_table": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)table"
+        },
+        "named": false,
+        "value": "table"
+      }
+    },
     "_kw_enum": {
       "type": "FIELD",
       "name": "keyword",
@@ -31904,19 +32188,6 @@
         },
         "named": false,
         "value": "standard"
-      }
-    },
-    "_kw_table": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)table"
-        },
-        "named": false,
-        "value": "table"
       }
     },
     "_kw_without": {
@@ -37294,6 +37565,7 @@
     "simple_statement",
     "reserved_statement",
     "named_data_object",
+    "business_object",
     "constructor_expression",
     "data_object",
     "general_expression",
