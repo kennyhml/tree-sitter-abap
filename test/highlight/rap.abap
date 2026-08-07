@@ -13,6 +13,20 @@ METHODS det_on_save2 FOR DETERMINE ON MODIFY
   CHANGING reported TYPE DATA. 
 "          ^ variable.parameter.builtin
 
+METHODS lock FOR LOCK
+"       ^ function.method
+  IMPORTING keys FOR LOCK bdef.
+"           ^ variable.parameter
+"                         ^ type
+
+METHODS lock2 FINAL FOR LOCK
+  REFERENCE(keys) FOR LOCK /DMO/I_TRAVEL
+"           ^ variable.parameter
+"                          ^ type
+  CHANGING failed TYPE DATA reported TYPE DATA.
+"          ^ variable.parameter.builtin
+"                           ^ variable.parameter.builtin
+
 METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
 "       ^ function.method
   IMPORTING REQUEST requested_authorizations FOR bdef

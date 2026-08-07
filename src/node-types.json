@@ -9734,6 +9734,10 @@
           "named": true
         },
         {
+          "type": "parameter_for_lock_spec",
+          "named": true
+        },
+        {
           "type": "parameter_for_spec",
           "named": true
         }
@@ -17576,6 +17580,22 @@
     }
   },
   {
+    "type": "lock",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "lock",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "log-point",
     "named": false,
     "fields": {}
@@ -20312,6 +20332,36 @@
     }
   },
   {
+    "type": "parameter_for_lock_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "lock",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "business_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter_for_spec",
     "named": true,
     "fields": {
@@ -21636,6 +21686,10 @@
         },
         {
           "type": "global_features",
+          "named": true
+        },
+        {
+          "type": "lock",
           "named": true
         }
       ]
@@ -29822,6 +29876,10 @@
   },
   {
     "type": "local",
+    "named": false
+  },
+  {
+    "type": "lock",
     "named": false
   },
   {

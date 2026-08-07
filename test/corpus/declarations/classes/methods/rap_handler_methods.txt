@@ -94,6 +94,57 @@ METHODS det_on_save2 FOR DETERMINE ON SAVE
             name: (identifier)))))))
 
 =================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Lock
+=================================================================================
+METHODS lock FOR LOCK
+    IMPORTING keys FOR LOCK bdef.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (lock))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_lock_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Lock explicit reference
+=================================================================================
+METHODS lock2 FINAL FOR LOCK
+    REFERENCE(keys) FOR LOCK /DMO/I_TRAVEL
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (lock))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (parameter_for_lock_spec
+          (identifier)))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Global features
 =================================================================================
 METHODS get_global_features FOR GLOBAL FEATURES

@@ -27090,6 +27090,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "lock"
+            },
+            {
+              "type": "SYMBOL",
               "name": "global_authorization"
             },
             {
@@ -27160,8 +27164,17 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "parameter_for_spec"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "parameter_for_spec"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "parameter_for_lock_spec"
+                  }
+                ]
               },
               {
                 "type": "BLANK"
@@ -27200,6 +27213,10 @@
           }
         }
       ]
+    },
+    "lock": {
+      "type": "SYMBOL",
+      "name": "_kw_lock"
     },
     "global_authorization": {
       "type": "SEQ",
@@ -27343,6 +27360,23 @@
         {
           "type": "SYMBOL",
           "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "business_object"
+        }
+      ]
+    },
+    "parameter_for_lock_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_lock"
         },
         {
           "type": "SYMBOL",
@@ -37545,6 +37579,19 @@
         },
         "named": false,
         "value": "determine"
+      }
+    },
+    "_kw_lock": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)lock"
+        },
+        "named": false,
+        "value": "lock"
       }
     },
     "_kw_save": {
