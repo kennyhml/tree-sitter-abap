@@ -26,7 +26,10 @@ module.exports = {
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_GENERAL.html
    */
   method_spec: $ =>
-    seq(field("name", $.identifier), optional($.__method_signature)),
+    seq(
+      field("name", $.identifier),
+      optional(choice($.__method_signature, $._rap_method_signature)),
+    ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_CONSTRUCTOR.html
   constructor_spec: $ =>
@@ -50,6 +53,7 @@ module.exports = {
         $.for_event_spec,
         $.for_sql_service_spec,
         $.amdp_options_spec,
+        $.rap_handler_for_spec,
 
         // Parameter lists
         gen.kw_tagged("importing", $.parameters),

@@ -1,0 +1,94 @@
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Determine on save
+=================================================================================
+METHODS det_on_save FOR DETERMINE ON SAVE 
+    IMPORTING keys FOR bdef~det_save. 
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (determine_on_spec
+          kind: (save)))
+      (rap_handler_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (bo_determination
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Determine on modify
+=================================================================================
+METHODS det_on_save FOR DETERMINE ON SAVE 
+    IMPORTING keys FOR bdef~det_mod. 
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (determine_on_spec
+          kind: (save)))
+      (rap_handler_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (bo_determination
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Explicit ref param
+=================================================================================
+METHODS det_on_save FOR DETERMINE ON SAVE 
+    IMPORTING reference(keys) FOR bdef~det_mod. 
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (determine_on_spec
+          kind: (save)))
+      (rap_handler_parameter
+        (explicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (bo_determination
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Changing parameter
+=================================================================================
+METHODS det_on_save2 FOR DETERMINE ON SAVE 
+    IMPORTING keys FOR bdef~det_save2 
+    CHANGING reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (determine_on_spec
+          kind: (save)))
+      (rap_handler_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (bo_determination
+            entity: (identifier)
+            name: (identifier))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))

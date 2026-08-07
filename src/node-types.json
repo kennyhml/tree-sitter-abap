@@ -4994,6 +4994,10 @@
           "named": true
         },
         {
+          "type": "rap_handler_for_spec",
+          "named": true
+        },
+        {
           "type": "redefinition",
           "named": true
         }
@@ -6464,6 +6468,10 @@
         },
         {
           "type": "for_testing",
+          "named": true
+        },
+        {
+          "type": "rap_handler_for_spec",
           "named": true
         },
         {
@@ -10640,6 +10648,40 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "determine_on_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "determine",
+            "named": false
+          },
+          {
+            "type": "on",
+            "named": false
+          }
+        ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "modify",
+            "named": true
+          },
+          {
+            "type": "save",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -18845,6 +18887,14 @@
           "named": true
         },
         {
+          "type": "rap_handler_for_spec",
+          "named": true
+        },
+        {
+          "type": "rap_handler_parameter",
+          "named": true
+        },
+        {
           "type": "redefinition",
           "named": true
         }
@@ -18905,6 +18955,22 @@
           },
           {
             "type": "modif",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "modify",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "modify",
             "named": false
           }
         ]
@@ -20310,6 +20376,32 @@
     }
   },
   {
+    "type": "parameter_for_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bo_determination",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter_list",
     "named": true,
     "fields": {},
@@ -21566,6 +21658,66 @@
         },
         {
           "type": "with_header_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rap_handler_for_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "determine_on_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rap_handler_parameter",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "importing",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "explicit_reference",
+          "named": true
+        },
+        {
+          "type": "implicit_reference",
+          "named": true
+        },
+        {
+          "type": "parameter_for_spec",
           "named": true
         }
       ]
@@ -23079,6 +23231,22 @@
           },
           {
             "type": "work",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "save",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "save",
             "named": false
           }
         ]
@@ -29088,6 +29256,10 @@
     "named": false
   },
   {
+    "type": "determine",
+    "named": false
+  },
+  {
     "type": "deterministic",
     "named": false
   },
@@ -30139,6 +30311,10 @@
   },
   {
     "type": "run",
+    "named": false
+  },
+  {
+    "type": "save",
     "named": false
   },
   {

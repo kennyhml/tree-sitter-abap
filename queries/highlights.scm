@@ -650,6 +650,19 @@
   entity: (identifier) @type
   name: (identifier) @function.method )
 
+(method_spec
+  (rap_handler_for_spec)
+  changing: (parameters
+    (parameter
+      [ 
+        (implicit_reference name: (identifier) @variable.parameter.builtin )
+        (explicit_reference name: (identifier) @variable.parameter.builtin )
+      ]
+    )
+  )
+  (#eq? @variable.parameter.builtin "reported" )
+)
+
 
 ; Tables / structs are always field assignments, not parameters.
 ; Up to 3 levels of nesting supported for deep component assignments.

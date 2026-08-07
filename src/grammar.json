@@ -26604,8 +26604,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "__method_signature"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "__method_signature"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_rap_method_signature"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -26708,6 +26717,10 @@
           {
             "type": "SYMBOL",
             "name": "amdp_options_spec"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "rap_handler_for_spec"
           },
           {
             "type": "SEQ",
@@ -27176,6 +27189,175 @@
         "type": "SYMBOL",
         "name": "identifier"
       }
+    },
+    "_rap_method_signature": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "final"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "rap_handler_for_spec"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "rap_handler_parameter"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_kw_changing"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "changing",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "parameters"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "rap_handler_for_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "determine_on_spec"
+            }
+          ]
+        }
+      ]
+    },
+    "rap_handler_parameter": {
+      "type": "PREC_DYNAMIC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_kw_importing"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "implicit_reference"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "explicit_reference"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "parameter_for_spec"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "determine_on_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_determine"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_on"
+        },
+        {
+          "type": "FIELD",
+          "name": "kind",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "save"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "modify"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "parameter_for_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bo_determination"
+        }
+      ]
+    },
+    "save": {
+      "type": "SYMBOL",
+      "name": "_kw_save"
+    },
+    "modify": {
+      "type": "SYMBOL",
+      "name": "_kw_modify"
     },
     "doclink": {
       "type": "SEQ",
@@ -37351,6 +37533,32 @@
         },
         "named": false,
         "value": "optional"
+      }
+    },
+    "_kw_determine": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)determine"
+        },
+        "named": false,
+        "value": "determine"
+      }
+    },
+    "_kw_save": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)save"
+        },
+        "named": false,
+        "value": "save"
       }
     },
     "_kw_doma": {
