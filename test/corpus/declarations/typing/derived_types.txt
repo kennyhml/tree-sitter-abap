@@ -1191,3 +1191,163 @@ TYPES structure_validation TYPE STRUCTURE FOR VALIDATION demo_managed_root_was~v
           target: (bo_validation
             entity: (identifier)
             name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE REQUEST FOR CHANGE ] BDEF
+=================================================================================
+TYPES request_change TYPE REQUEST FOR CHANGE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_request_type
+        (derive_for_change_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE REQUEST FOR DELETE ] Namespaced BDEF
+=================================================================================
+TYPES request_delete TYPE REQUEST FOR DELETE /DMO/I_TRAVEL_M.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_request_type
+        (derive_for_delete_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR FAILED ] Default early response
+=================================================================================
+TYPES response_failed TYPE RESPONSE FOR FAILED demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_failed_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR FAILED ] Explicit early response
+=================================================================================
+TYPES response_failed_early TYPE RESPONSE FOR FAILED EARLY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_failed_spec
+          time: (early)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR FAILED ] Late response
+=================================================================================
+TYPES response_failed_late TYPE RESPONSE FOR FAILED LATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_failed_spec
+          time: (late)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR MAPPED ] Default early response
+=================================================================================
+TYPES response_mapped TYPE RESPONSE FOR MAPPED demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_mapped_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR MAPPED ] Explicit early response
+=================================================================================
+TYPES response_mapped_early TYPE RESPONSE FOR MAPPED EARLY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_mapped_spec
+          time: (early)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR MAPPED ] Late response
+=================================================================================
+TYPES response_mapped_late TYPE RESPONSE FOR MAPPED LATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_mapped_spec
+          time: (late)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR REPORTED ] Default early response
+=================================================================================
+TYPES response_reported TYPE RESPONSE FOR REPORTED demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_reported_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR REPORTED ] Explicit early response
+=================================================================================
+TYPES response_reported_early TYPE RESPONSE FOR REPORTED EARLY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_reported_spec
+          time: (early)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE RESPONSE FOR REPORTED ] Late response
+=================================================================================
+TYPES response_reported_late TYPE RESPONSE FOR REPORTED LATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_response_type
+        (derive_for_reported_spec
+          time: (late)
+          business_object: (identifier))))))

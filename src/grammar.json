@@ -9798,6 +9798,14 @@
         {
           "type": "SYMBOL",
           "name": "derived_structure_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "derived_request_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "derived_response_type"
         }
       ]
     },
@@ -11384,13 +11392,61 @@
         }
       ]
     },
-    "_request_derived_purpose": {
-      "type": "CHOICE",
-      "members": []
+    "derived_request_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_change_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_delete_spec"
+            }
+          ]
+        }
+      ]
     },
-    "_response_derived_purpose": {
-      "type": "CHOICE",
-      "members": []
+    "derived_response_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_response"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_failed_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_mapped_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_reported_spec"
+            }
+          ]
+        }
+      ]
     },
     "begin_of_enum_spec": {
       "type": "SEQ",
@@ -33656,6 +33712,19 @@
         },
         "named": false,
         "value": "structure"
+      }
+    },
+    "_kw_response": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)response"
+        },
+        "named": false,
+        "value": "response"
       }
     },
     "_kw_enum": {

@@ -4,7 +4,13 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenrpm_derived_types.html
    */
-  _derived_type: $ => choice($.derived_table_type, $.derived_structure_type),
+  _derived_type: $ =>
+    choice(
+      $.derived_table_type,
+      $.derived_structure_type,
+      $.derived_request_type,
+      $.derived_response_type,
+    ),
 
   // Reference to a business object, either via a single entity root,
   // or a path expression using composition and associations.
@@ -459,16 +465,20 @@ module.exports = {
     ),
 
   /*
-   * ... FOR { { CHANGE
+   * ... REQUEST FOR { { CHANGE
    *            | DELETE }
    *              bdef } ...
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPTYPE_REQUEST_FOR.html
    */
-  _request_derived_purpose: $ => choice(),
+  derived_request_type: $ =>
+    seq(
+      ...gen.kws("type", "request"),
+      choice($.derive_for_change_spec, $.derive_for_delete_spec),
+    ),
 
   /*
-   * ... FOR { FAILED
+   * ... RESPONSE FOR { FAILED
    *         | MAPPED
    *         | REPORTED
    *         { [EARLY | LATE] }
@@ -476,5 +486,13 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPTYPE_RESPONSE_FOR.html
    */
-  _response_derived_purpose: $ => choice(),
+  derived_response_type: $ =>
+    seq(
+      ...gen.kws("type", "response"),
+      choice(
+        $.derive_for_failed_spec,
+        $.derive_for_mapped_spec,
+        $.derive_for_reported_spec,
+      ),
+    ),
 };

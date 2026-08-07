@@ -357,3 +357,24 @@ TYPES structure_read_link TYPE STRUCTURE FOR READ LINK
   demo_managed_root_was\_child.
 " ^ type
 "                       ^ type
+
+TYPES request_change TYPE REQUEST FOR CHANGE
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES request_delete TYPE REQUEST FOR DELETE
+"     ^ type.definition
+  /DMO/I_TRAVEL_M.
+" ^ type
+TYPES response_failed TYPE RESPONSE FOR FAILED
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES response_mapped_early TYPE RESPONSE FOR MAPPED EARLY
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES response_reported_late TYPE RESPONSE FOR REPORTED LATE
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type

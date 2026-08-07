@@ -896,6 +896,14 @@
         "named": true
       },
       {
+        "type": "derived_request_type",
+        "named": true
+      },
+      {
+        "type": "derived_response_type",
+        "named": true
+      },
+      {
         "type": "derived_structure_type",
         "named": true
       },
@@ -9854,6 +9862,78 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "derived_request_type",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "request",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "derive_for_change_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_delete_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "derived_response_type",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "response",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "derive_for_failed_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_mapped_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_reported_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -30011,6 +30091,10 @@
   },
   {
     "type": "respecting",
+    "named": false
+  },
+  {
+    "type": "response",
     "named": false
   },
   {
