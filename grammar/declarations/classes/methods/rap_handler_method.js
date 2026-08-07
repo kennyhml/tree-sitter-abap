@@ -16,6 +16,7 @@ module.exports = {
    *     | NUMBERING
    *     | PRECHECK
    *     | MODIFY
+   *     | READ
    *     | GLOBAL AUTHORIZATION
    *     | GLOBAL FEATURES
    *     | [INSTANCE] AUTHORIZATION
@@ -30,6 +31,7 @@ module.exports = {
         $.determine_on,
         $.lock,
         $.numbering,
+        $.read,
         $.precheck,
         $.modify,
         $.global_authorization,
@@ -62,6 +64,8 @@ module.exports = {
           choice(
             $.parameter_for_spec,
             $.parameter_for_lock_spec,
+            $.parameter_for_read_spec,
+            $.parameter_for_function_spec,
             $.for_create_spec,
             $.for_update_spec,
             $.for_delete_spec,
@@ -99,6 +103,13 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_NUMBERING.html
    */
   numbering: _ => gen.kw("numbering"),
+
+  /**
+   * READ
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_READ.html
+   */
+  read: _ => gen.kw("read"),
 
   /**
    * GLOBAL AUTHORIZATION
@@ -170,6 +181,49 @@ module.exports = {
     seq(...gen.kws("for", "lock"), $.business_object),
 
   /**
+   * FOR READ bdef RESULT result
+   * FOR READ bdef\_assoc FULL full RESULT result LINK link
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_READ.html
+   */
+  parameter_for_read_spec: $ =>
+    seq(
+      ...gen.kws("for", "read"),
+      field("target", $.business_object),
+      choice(
+        $.result_parameter_spec,
+        seq(
+          $.full_parameter_spec,
+          $.result_parameter_spec,
+          $.link_parameter_spec,
+        ),
+      ),
+    ),
+
+  full_parameter_spec: $ =>
+    seq(gen.kw("full"), choice($.implicit_reference, $.explicit_reference)),
+
+  link_parameter_spec: $ =>
+    seq(gen.kw("link"), choice($.implicit_reference, $.explicit_reference)),
+
+  /**
+   * FOR FUNCTION bdef~function [REQUEST req] RESULT result
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_READ.html
+   */
+  parameter_for_function_spec: $ =>
+    prec.right(
+      seq(
+        ...gen.kws("for", "function"),
+        field("target", $.business_object),
+        optional(
+          alias($.__operation_request_parameter_spec, $.request_parameter_spec),
+        ),
+        $.result_parameter_spec,
+      ),
+    ),
+
+  /**
    * FOR ACTION bdef~action [REQUEST req] [RESULT res]
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_MODIFY.html
@@ -180,13 +234,13 @@ module.exports = {
         ...gen.kws("for", "action"),
         field("target", $.business_object),
         optional(
-          alias($.__action_request_parameter_spec, $.request_parameter_spec),
+          alias($.__operation_request_parameter_spec, $.request_parameter_spec),
         ),
         optional($.result_parameter_spec),
       ),
     ),
 
-  __action_request_parameter_spec: $ =>
+  __operation_request_parameter_spec: $ =>
     seq(gen.kw("request"), choice($.implicit_reference, $.explicit_reference)),
 
   save: _ => gen.kw("save"),

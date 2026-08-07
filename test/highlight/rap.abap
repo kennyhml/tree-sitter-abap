@@ -91,6 +91,37 @@ METHODS execute_action FOR MODIFY
   RESULT result.
 "        ^ variable.parameter
 
+METHODS read_entity FOR READ
+"       ^ function.method
+  IMPORTING keys FOR READ bdef RESULT result
+"           ^ variable.parameter
+"                         ^ type
+"                                     ^ variable.parameter
+  CHANGING failed TYPE DATA reported TYPE DATA.
+"          ^ variable.parameter.builtin
+"                           ^ variable.parameter.builtin
+
+METHODS read_items FINAL FOR READ
+  REFERENCE(keys) FOR READ /DMO/I_TRAVEL\_Booking
+"           ^ variable.parameter
+"                              ^ type
+  FULL REFERENCE(full_result)
+"                ^ variable.parameter
+  RESULT result
+"        ^ variable.parameter
+  LINK REFERENCE(links).
+"                ^ variable.parameter
+
+METHODS calculate FOR READ
+  keys FOR FUNCTION bdef~calculate
+" ^ variable.parameter
+"                   ^ type
+"                        ^ variable.member
+  REQUEST request
+"         ^ variable.parameter
+  RESULT REFERENCE(result).
+"                  ^ variable.parameter
+
 METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
 "       ^ function.method
   IMPORTING REQUEST requested_authorizations FOR bdef

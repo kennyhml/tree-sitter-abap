@@ -9660,7 +9660,15 @@
           "named": true
         },
         {
+          "type": "parameter_for_function_spec",
+          "named": true
+        },
+        {
           "type": "parameter_for_lock_spec",
+          "named": true
+        },
+        {
+          "type": "parameter_for_read_spec",
           "named": true
         },
         {
@@ -13598,6 +13606,36 @@
     }
   },
   {
+    "type": "full_parameter_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "full",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "explicit_reference",
+          "named": true
+        },
+        {
+          "type": "implicit_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "function",
     "named": true,
     "fields": {
@@ -17452,6 +17490,36 @@
     }
   },
   {
+    "type": "link_parameter_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "link",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "explicit_reference",
+          "named": true
+        },
+        {
+          "type": "implicit_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "linked_node",
     "named": true,
     "fields": {
@@ -20408,6 +20476,50 @@
     }
   },
   {
+    "type": "parameter_for_function_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "function",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "request_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "result_parameter_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter_for_lock_spec",
     "named": true,
     "fields": {
@@ -20432,6 +20544,54 @@
       "types": [
         {
           "type": "business_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter_for_read_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "full_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "link_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "result_parameter_spec",
           "named": true
         }
       ]
@@ -21795,8 +21955,28 @@
         {
           "type": "precheck",
           "named": true
+        },
+        {
+          "type": "read",
+          "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "read",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -29699,6 +29879,10 @@
   },
   {
     "type": "from",
+    "named": false
+  },
+  {
+    "type": "full",
     "named": false
   },
   {

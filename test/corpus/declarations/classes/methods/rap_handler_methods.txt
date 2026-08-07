@@ -529,6 +529,115 @@ METHODS resume_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~resume.
             component: (identifier)))))))
 
 =================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Read entity
+=================================================================================
+METHODS read_entity FOR READ
+    IMPORTING keys FOR READ bdef RESULT result
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (read))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_read_spec
+          target: (identifier)
+          (result_parameter_spec
+            (implicit_reference
+              name: (identifier)))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Read by association
+=================================================================================
+METHODS read_items FINAL FOR READ
+    REFERENCE(keys) FOR READ /DMO/I_TRAVEL\_Booking
+    FULL REFERENCE(full_result)
+    RESULT result
+    LINK REFERENCE(links).
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (read))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (parameter_for_read_spec
+          target: (association_navigation
+            source: (identifier)
+            association: (identifier))
+          (full_parameter_spec
+            (explicit_reference
+              name: (identifier)))
+          (result_parameter_spec
+            (implicit_reference
+              name: (identifier)))
+          (link_parameter_spec
+            (explicit_reference
+              name: (identifier))))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Read function
+=================================================================================
+METHODS calculate FOR READ
+    IMPORTING keys FOR FUNCTION bdef~calculate
+    REQUEST request
+    RESULT REFERENCE(result)
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (read))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_function_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier))
+          (request_parameter_spec
+            (implicit_reference
+              name: (identifier)))
+          (result_parameter_spec
+            (explicit_reference
+              name: (identifier)))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Global features
 =================================================================================
 METHODS get_global_features FOR GLOBAL FEATURES
