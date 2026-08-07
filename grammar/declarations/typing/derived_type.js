@@ -12,75 +12,10 @@ module.exports = {
       $.derived_response_type,
     ),
 
-  // Reference to a business object, either via a single entity root,
-  // or a path expression using composition and associations.
-  business_object: $ =>
-    choice(
-      $.identifier, // root entity
-      $.association_navigation,
-      $.composition_navigation,
-      alias($.__business_object_component_selection, $.component_selection),
-    ),
-
-  __business_object_component_selection: $ =>
-    seq(
-      field("subject", $.identifier),
-      field("selector", token.immediate("~")),
-      field("component", $._immediate_identifier),
-    ),
-
-  association_navigation: $ =>
-    seq(
-      field(
-        "source",
-        choice(
-          $.composition_navigation,
-          $.association_navigation,
-          $.identifier, // root
-        ),
-      ),
-      token.immediate("\\"),
-      field("association", $._immediate_identifier),
-    ),
-
-  composition_navigation: $ =>
-    seq(
-      field(
-        "source",
-        choice(
-          $.composition_navigation,
-          $.identifier, // root
-        ),
-      ),
-      token.immediate("\\\\"),
-      field("composition", $._immediate_identifier),
-    ),
-
-  // ... FOR CREATE bdef [\_assoc] ...
-  derive_for_create_spec: $ =>
-    seq(
-      ...gen.kws("for", "create"),
-      field("business_object", $.business_object),
-    ),
-
   // ... FOR CHANGE bdef ...
   derive_for_change_spec: $ =>
     seq(
       ...gen.kws("for", "change"),
-      field("business_object", $.business_object),
-    ),
-
-  // ... FOR UPDATE bdef ...
-  derive_for_update_spec: $ =>
-    seq(
-      ...gen.kws("for", "update"),
-      field("business_object", $.business_object),
-    ),
-
-  // ... FOR DELETE bdef ...
-  derive_for_delete_spec: $ =>
-    seq(
-      ...gen.kws("for", "delete"),
       field("business_object", $.business_object),
     ),
 
@@ -167,16 +102,10 @@ module.exports = {
     ),
 
   derive_for_determination_spec: $ =>
-    seq(
-      ...gen.kws("for", "determination"),
-      field("target", $.business_object),
-    ),
+    seq(...gen.kws("for", "determination"), field("target", $.business_object)),
 
   derive_for_event_spec: $ =>
-    seq(
-      ...gen.kws("for", "event"),
-      field("target", $.business_object),
-    ),
+    seq(...gen.kws("for", "event"), field("target", $.business_object)),
 
   derive_for_failed_spec: $ =>
     seq(
@@ -284,10 +213,7 @@ module.exports = {
     ),
 
   derive_for_validation_spec: $ =>
-    seq(
-      ...gen.kws("for", "validation"),
-      field("target", $.business_object),
-    ),
+    seq(...gen.kws("for", "validation"), field("target", $.business_object)),
 
   late: _ => gen.kw("late"),
 
@@ -329,8 +255,8 @@ module.exports = {
         $.derive_for_authorization_key_spec,
         $.derive_for_authorization_result_spec,
         $.derive_for_change_spec,
-        $.derive_for_create_spec,
-        $.derive_for_delete_spec,
+        $.for_create_spec,
+        $.for_delete_spec,
         $.derive_for_determination_spec,
         $.derive_for_event_spec,
         $.derive_for_failed_spec,
@@ -347,7 +273,7 @@ module.exports = {
         $.derive_for_read_link_spec,
         $.derive_for_read_result_spec,
         $.derive_for_reported_spec,
-        $.derive_for_update_spec,
+        $.for_update_spec,
         $.derive_for_validation_spec,
       ),
     ),
@@ -400,8 +326,8 @@ module.exports = {
         $.derive_for_authorization_request_spec,
         $.derive_for_authorization_result_spec,
         $.derive_for_change_spec,
-        $.derive_for_create_spec,
-        $.derive_for_delete_spec,
+        $.for_create_spec,
+        $.for_delete_spec,
         $.derive_for_determination_spec,
         $.derive_for_event_spec,
         $.derive_for_failed_spec,
@@ -426,7 +352,7 @@ module.exports = {
         $.derive_for_read_link_spec,
         $.derive_for_read_result_spec,
         $.derive_for_reported_spec,
-        $.derive_for_update_spec,
+        $.for_update_spec,
         $.derive_for_validation_spec,
       ),
     ),
@@ -441,7 +367,7 @@ module.exports = {
   derived_request_type: $ =>
     seq(
       ...gen.kws("type", "request"),
-      choice($.derive_for_change_spec, $.derive_for_delete_spec),
+      choice($.derive_for_change_spec, $.for_delete_spec),
     ),
 
   /*

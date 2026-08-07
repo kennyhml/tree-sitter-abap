@@ -13,6 +13,7 @@ module.exports = {
   /**
    * FOR { DETERMINE ON { SAVE | MODIFY }
    *     | LOCK
+   *     | MODIFY
    *     | GLOBAL AUTHORIZATION
    *     | GLOBAL FEATURES
    *     | [INSTANCE] AUTHORIZATION
@@ -26,6 +27,7 @@ module.exports = {
       choice(
         $.determine_on,
         $.lock,
+        $.modify,
         $.global_authorization,
         $.authorization,
         $.global_features,
@@ -42,7 +44,7 @@ module.exports = {
 
   /**
    * [IMPORTING] { REFERENCE(param) | param }
-   * [FOR { bdef~purpose | LOCK bdef }]
+   * [FOR handler-specific operation target]
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMETHODS_FOR_RAP_BEHV.html
    */
@@ -52,7 +54,16 @@ module.exports = {
       seq(
         optional(gen.kw("importing")),
         choice($.implicit_reference, $.explicit_reference),
-        optional(choice($.parameter_for_spec, $.parameter_for_lock_spec)),
+        optional(
+          choice(
+            $.parameter_for_spec,
+            $.parameter_for_lock_spec,
+            $.for_create_spec,
+            $.for_update_spec,
+            $.for_delete_spec,
+            $.parameter_for_action_spec,
+          ),
+        ),
       ),
     ),
 
@@ -139,6 +150,29 @@ module.exports = {
    */
   parameter_for_lock_spec: $ =>
     seq(...gen.kws("for", "lock"), $.business_object),
+
+  /**
+   * FOR ACTION bdef~action [REQUEST req] [RESULT res]
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_MODIFY.html
+   */
+  parameter_for_action_spec: $ =>
+    prec.right(
+      seq(
+        ...gen.kws("for", "action"),
+        field("target", $.business_object),
+        optional(
+          alias($.__action_request_parameter_spec, $.request_parameter_spec),
+        ),
+        optional($.result_parameter_spec),
+      ),
+    ),
+
+  __action_request_parameter_spec: $ =>
+    seq(
+      gen.kw("request"),
+      choice($.implicit_reference, $.explicit_reference),
+    ),
 
   save: _ => gen.kw("save"),
 

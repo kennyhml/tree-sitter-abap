@@ -8725,66 +8725,6 @@
     }
   },
   {
-    "type": "derive_for_create_spec",
-    "named": true,
-    "fields": {
-      "business_object": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "business_object",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "create",
-            "named": false
-          },
-          {
-            "type": "for",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "derive_for_delete_spec",
-    "named": true,
-    "fields": {
-      "business_object": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "business_object",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "delete",
-            "named": false
-          },
-          {
-            "type": "for",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "derive_for_determination_spec",
     "named": true,
     "fields": {
@@ -9647,36 +9587,6 @@
     }
   },
   {
-    "type": "derive_for_update_spec",
-    "named": true,
-    "fields": {
-      "business_object": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "business_object",
-            "named": true
-          }
-        ]
-      },
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "for",
-            "named": false
-          },
-          {
-            "type": "update",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "derive_for_validation_spec",
     "named": true,
     "fields": {
@@ -9730,7 +9640,23 @@
           "named": true
         },
         {
+          "type": "for_create_spec",
+          "named": true
+        },
+        {
+          "type": "for_delete_spec",
+          "named": true
+        },
+        {
+          "type": "for_update_spec",
+          "named": true
+        },
+        {
           "type": "implicit_reference",
+          "named": true
+        },
+        {
+          "type": "parameter_for_action_spec",
           "named": true
         },
         {
@@ -9772,7 +9698,7 @@
           "named": true
         },
         {
-          "type": "derive_for_delete_spec",
+          "type": "for_delete_spec",
           "named": true
         }
       ]
@@ -9865,14 +9791,6 @@
         },
         {
           "type": "derive_for_change_spec",
-          "named": true
-        },
-        {
-          "type": "derive_for_create_spec",
-          "named": true
-        },
-        {
-          "type": "derive_for_delete_spec",
           "named": true
         },
         {
@@ -9972,11 +9890,19 @@
           "named": true
         },
         {
-          "type": "derive_for_update_spec",
+          "type": "derive_for_validation_spec",
           "named": true
         },
         {
-          "type": "derive_for_validation_spec",
+          "type": "for_create_spec",
+          "named": true
+        },
+        {
+          "type": "for_delete_spec",
+          "named": true
+        },
+        {
+          "type": "for_update_spec",
           "named": true
         }
       ]
@@ -10023,14 +9949,6 @@
         },
         {
           "type": "derive_for_change_spec",
-          "named": true
-        },
-        {
-          "type": "derive_for_create_spec",
-          "named": true
-        },
-        {
-          "type": "derive_for_delete_spec",
           "named": true
         },
         {
@@ -10098,11 +10016,19 @@
           "named": true
         },
         {
-          "type": "derive_for_update_spec",
+          "type": "derive_for_validation_spec",
           "named": true
         },
         {
-          "type": "derive_for_validation_spec",
+          "type": "for_create_spec",
+          "named": true
+        },
+        {
+          "type": "for_delete_spec",
+          "named": true
+        },
+        {
+          "type": "for_update_spec",
           "named": true
         }
       ]
@@ -12669,6 +12595,36 @@
     }
   },
   {
+    "type": "for_create_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "create",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "for_ddl_object_spec",
     "named": true,
     "fields": {
@@ -12700,6 +12656,36 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "for_delete_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "delete",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -12930,6 +12916,36 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "for_update_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "update",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -20332,6 +20348,50 @@
     }
   },
   {
+    "type": "parameter_for_action_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "request_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "result_parameter_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter_for_lock_spec",
     "named": true,
     "fields": {
@@ -21691,6 +21751,10 @@
         {
           "type": "lock",
           "named": true
+        },
+        {
+          "type": "modify",
+          "named": true
         }
       ]
     }
@@ -22792,7 +22856,7 @@
       },
       "target": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "business_object",

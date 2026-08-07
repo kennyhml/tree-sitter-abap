@@ -145,6 +145,221 @@ METHODS lock2 FINAL FOR LOCK
             name: (identifier)))))))
 
 =================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify create
+=================================================================================
+METHODS create_entity FOR MODIFY
+    IMPORTING entities FOR CREATE bdef.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (for_create_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify create by association
+=================================================================================
+METHODS create_items FOR MODIFY
+    IMPORTING entities FOR CREATE bdef\_items.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (for_create_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify update explicit reference
+=================================================================================
+METHODS update FINAL FOR MODIFY
+    REFERENCE(entities) FOR UPDATE /DMO/I_TRAVEL
+    CHANGING failed TYPE DATA reported TYPE DATA mapped TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (for_update_spec
+          business_object: (identifier)))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify delete
+=================================================================================
+METHODS delete FOR MODIFY
+    IMPORTING keys FOR DELETE bdef.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (for_delete_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify action parameters
+=================================================================================
+METHODS execute_action FINAL FOR MODIFY
+    IMPORTING REFERENCE(entities) FOR ACTION bdef~do_something
+    REQUEST REFERENCE(request)
+    RESULT result
+    CHANGING failed TYPE DATA reported TYPE DATA mapped TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (parameter_for_action_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier))
+          (request_parameter_spec
+            (explicit_reference
+              name: (identifier)))
+          (result_parameter_spec
+            (implicit_reference
+              name: (identifier)))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify draft actions
+=================================================================================
+METHODS activate_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~activate.
+METHODS additional_save FOR MODIFY IMPORTING keys FOR ACTION bdef~additionalsave.
+METHODS edit_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~edit.
+METHODS discard_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~discard.
+METHODS resume_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~resume.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_action_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_action_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_action_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_action_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier))))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (modify))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_action_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
+
+=================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Global features
 =================================================================================
 METHODS get_global_features FOR GLOBAL FEATURES

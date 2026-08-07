@@ -9,7 +9,7 @@ TYPES t6 TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\_child.
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (association_navigation
             source: (composition_navigation
               source: (identifier)
@@ -27,7 +27,7 @@ TYPES create_root TYPE TABLE FOR CREATE demo_managed_root_was.
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (identifier))))))
 
 =================================================================================
@@ -41,7 +41,7 @@ TYPES create_association TYPE TABLE FOR CREATE demo_managed_root_was\_child.
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (association_navigation
             source: (identifier)
             association: (identifier)))))))
@@ -57,7 +57,7 @@ TYPES create_composition TYPE TABLE FOR CREATE demo_managed_root_was\\_Root.
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (composition_navigation
             source: (identifier)
             composition: (identifier)))))))
@@ -137,7 +137,7 @@ TYPES create_nested_associations TYPE TABLE FOR CREATE demo_managed_root_was\_ch
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (association_navigation
             source: (association_navigation
               source: (identifier)
@@ -155,7 +155,7 @@ TYPES create_nested_compositions TYPE TABLE FOR CREATE demo_managed_root_was\\_R
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (composition_navigation
             source: (composition_navigation
               source: (identifier)
@@ -173,7 +173,7 @@ TYPES create_mixed_path TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\_chil
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (association_navigation
             source: (composition_navigation
               source: (identifier)
@@ -191,7 +191,7 @@ TYPES create_deep_mixed_path TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (association_navigation
             source: (association_navigation
               source: (composition_navigation
@@ -213,7 +213,7 @@ TYPES create_namespaced_root TYPE TABLE FOR CREATE /DMO/I_TRAVEL_M.
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (identifier))))))
 
 =================================================================================
@@ -227,7 +227,7 @@ TYPES create_namespaced_association TYPE TABLE FOR CREATE /DMO/I_TRAVEL_M\_Booki
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (association_navigation
             source: (identifier)
             association: (identifier)))))))
@@ -243,7 +243,7 @@ TYPES create_namespaced_composition TYPE TABLE FOR CREATE /DMO/I_TRAVEL_M\\_Trav
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (composition_navigation
             source: (identifier)
             composition: (identifier)))))))
@@ -333,7 +333,7 @@ TYPES update_root TYPE TABLE FOR UPDATE demo_managed_root_was.
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_update_spec
+        (for_update_spec
           business_object: (identifier))))))
 
 =================================================================================
@@ -347,7 +347,7 @@ TYPES delete_root TYPE TABLE FOR DELETE demo_managed_root_was.
     (types_spec
       name: (identifier)
       typing: (derived_table_type
-        (derive_for_delete_spec
+        (for_delete_spec
           business_object: (identifier))))))
 
 =================================================================================
@@ -770,7 +770,7 @@ TYPES structure_create TYPE STRUCTURE FOR CREATE demo_managed_root_was\\_Root\_c
     (types_spec
       name: (identifier)
       typing: (derived_structure_type
-        (derive_for_create_spec
+        (for_create_spec
           business_object: (association_navigation
             source: (composition_navigation
               source: (identifier)
@@ -788,7 +788,7 @@ TYPES structure_delete TYPE STRUCTURE FOR DELETE demo_managed_root_was.
     (types_spec
       name: (identifier)
       typing: (derived_structure_type
-        (derive_for_delete_spec
+        (for_delete_spec
           business_object: (identifier))))))
 
 =================================================================================
@@ -1163,7 +1163,7 @@ TYPES structure_update TYPE STRUCTURE FOR UPDATE demo_managed_root_was.
     (types_spec
       name: (identifier)
       typing: (derived_structure_type
-        (derive_for_update_spec
+        (for_update_spec
           business_object: (identifier))))))
 
 =================================================================================
@@ -1207,7 +1207,7 @@ TYPES request_delete TYPE REQUEST FOR DELETE /DMO/I_TRAVEL_M.
     (types_spec
       name: (identifier)
       typing: (derived_request_type
-        (derive_for_delete_spec
+        (for_delete_spec
           business_object: (identifier))))))
 
 =================================================================================

@@ -27,6 +27,38 @@ METHODS lock2 FINAL FOR LOCK
 "          ^ variable.parameter.builtin
 "                           ^ variable.parameter.builtin
 
+METHODS create_entity FOR MODIFY
+"       ^ function.method
+  entities FOR CREATE bdef.
+" ^ variable.parameter
+"                     ^ type
+
+METHODS create_items FOR MODIFY
+  entities FOR CREATE bdef\_items.
+" ^ variable.parameter
+"                     ^ type
+"                          ^ type
+
+METHODS update FINAL FOR MODIFY
+  REFERENCE(entities) FOR UPDATE /DMO/I_TRAVEL
+"           ^ variable.parameter
+"                                ^ type
+  CHANGING failed TYPE DATA reported TYPE DATA mapped TYPE DATA.
+"          ^ variable.parameter.builtin
+"                           ^ variable.parameter.builtin
+"                                              ^ variable.parameter.builtin
+
+METHODS execute_action FOR MODIFY
+"       ^ function.method
+  entities FOR ACTION bdef~do_something
+" ^ variable.parameter
+"                     ^ type
+"                          ^ variable.member
+  REQUEST REFERENCE(request)
+"                   ^ variable.parameter
+  RESULT result.
+"        ^ variable.parameter
+
 METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
 "       ^ function.method
   IMPORTING REQUEST requested_authorizations FOR bdef
