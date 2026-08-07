@@ -27094,6 +27094,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "validate_on_save"
+            },
+            {
+              "type": "SYMBOL",
               "name": "numbering"
             },
             {
@@ -27257,6 +27261,23 @@
     "lock": {
       "type": "SYMBOL",
       "name": "_kw_lock"
+    },
+    "validate_on_save": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_validate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_on"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_save"
+        }
+      ]
     },
     "precheck": {
       "type": "SYMBOL",
@@ -37859,6 +37880,32 @@
         "value": "lock"
       }
     },
+    "_kw_validate": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)validate"
+        },
+        "named": false,
+        "value": "validate"
+      }
+    },
+    "_kw_save": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)save"
+        },
+        "named": false,
+        "value": "save"
+      }
+    },
     "_kw_precheck": {
       "type": "FIELD",
       "name": "keyword",
@@ -37896,19 +37943,6 @@
         },
         "named": false,
         "value": "full"
-      }
-    },
-    "_kw_save": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)save"
-        },
-        "named": false,
-        "value": "save"
       }
     },
     "_kw_doma": {

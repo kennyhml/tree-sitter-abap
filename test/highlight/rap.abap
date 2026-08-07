@@ -13,6 +13,25 @@ METHODS det_on_save2 FOR DETERMINE ON MODIFY
   CHANGING reported TYPE DATA. 
 "          ^ variable.parameter.builtin
 
+METHODS validate_status FOR VALIDATE ON SAVE
+"       ^ function.method
+  IMPORTING keys FOR bdef~validate_status
+"           ^ variable.parameter
+"                    ^ type
+"                         ^ variable.member
+  CHANGING failed TYPE DATA reported TYPE DATA.
+"          ^ variable.parameter.builtin
+"                           ^ variable.parameter.builtin
+
+METHODS validate_amount FINAL FOR VALIDATE ON SAVE
+  REFERENCE(keys) FOR /DMO/I_TRAVEL~validate_amount
+"           ^ variable.parameter
+"                      ^ type
+"                                    ^ variable.member
+  CHANGING reported TYPE DATA failed TYPE DATA.
+"          ^ variable.parameter.builtin
+"                             ^ variable.parameter.builtin
+
 METHODS lock FOR LOCK
 "       ^ function.method
   IMPORTING keys FOR LOCK bdef.

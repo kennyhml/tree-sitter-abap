@@ -21959,6 +21959,10 @@
         {
           "type": "read",
           "named": true
+        },
+        {
+          "type": "validate_on_save",
+          "named": true
         }
       ]
     }
@@ -28255,6 +28259,30 @@
     }
   },
   {
+    "type": "validate_on_save",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "on",
+            "named": false
+          },
+          {
+            "type": "save",
+            "named": false
+          },
+          {
+            "type": "validate",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "value-request",
     "named": false,
     "fields": {}
@@ -31037,6 +31065,10 @@
   },
   {
     "type": "utclong",
+    "named": false
+  },
+  {
+    "type": "validate",
     "named": false
   },
   {

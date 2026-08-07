@@ -12,6 +12,7 @@ module.exports = {
 
   /**
    * FOR { DETERMINE ON { SAVE | MODIFY }
+   *     | VALIDATE ON SAVE
    *     | LOCK
    *     | NUMBERING
    *     | PRECHECK
@@ -30,6 +31,7 @@ module.exports = {
       choice(
         $.determine_on,
         $.lock,
+        $.validate_on_save,
         $.numbering,
         $.read,
         $.precheck,
@@ -89,6 +91,13 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_LOCK.html
    */
   lock: _ => gen.kw("lock"),
+
+  /**
+   * VALIDATE ON SAVE
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_VALIDATE.html
+   */
+  validate_on_save: _ => seq(...gen.kws("validate", "on", "save")),
 
   /**
    * PRECHECK

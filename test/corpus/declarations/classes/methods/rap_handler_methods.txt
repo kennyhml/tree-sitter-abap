@@ -94,6 +94,73 @@ METHODS det_on_save2 FOR DETERMINE ON SAVE
             name: (identifier)))))))
 
 =================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Validate on save
+=================================================================================
+METHODS validate_status FOR VALIDATE ON SAVE
+    IMPORTING keys FOR bdef~validate_status
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (validate_on_save))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (component_selection
+            subject: (identifier)
+            component: (identifier))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Validate explicit reference
+=================================================================================
+METHODS validate_amount FINAL FOR VALIDATE ON SAVE
+    REFERENCE(keys) FOR /DMO/I_TRAVEL~validate_amount
+    CHANGING reported TYPE DATA failed TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (validate_on_save))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (component_selection
+            subject: (identifier)
+            component: (identifier))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Lock
 =================================================================================
 METHODS lock FOR LOCK
