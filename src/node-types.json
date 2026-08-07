@@ -11599,6 +11599,26 @@
     }
   },
   {
+    "type": "entity_event",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          },
+          {
+            "type": "event",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "enum_base_type_spec",
     "named": true,
     "fields": {
@@ -21929,6 +21949,10 @@
           "named": true
         },
         {
+          "type": "entity_event",
+          "named": true
+        },
+        {
           "type": "features",
           "named": true
         },
@@ -29763,6 +29787,10 @@
   },
   {
     "type": "enhancement",
+    "named": false
+  },
+  {
+    "type": "entity",
     "named": false
   },
   {

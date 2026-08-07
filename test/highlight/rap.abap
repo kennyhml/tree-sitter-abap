@@ -13,6 +13,23 @@ METHODS det_on_save2 FOR DETERMINE ON MODIFY
   CHANGING reported TYPE DATA. 
 "          ^ variable.parameter.builtin
 
+METHODS on_created FOR ENTITY EVENT
+"       ^ function.method
+  IMPORTING created FOR root~created.
+"           ^ variable.parameter
+"                       ^ type
+"                            ^ variable.member
+
+METHODS on_change FINAL FOR ENTITY EVENT
+  REFERENCE(updated) FOR root~updated
+"           ^ variable.parameter
+"                        ^ type
+"                             ^ variable.member
+  deleted FOR root~deleted.
+" ^ variable.parameter
+"             ^ type
+"                  ^ variable.member
+
 METHODS validate_status FOR VALIDATE ON SAVE
 "       ^ function.method
   IMPORTING keys FOR bdef~validate_status

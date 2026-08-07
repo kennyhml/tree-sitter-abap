@@ -94,6 +94,57 @@ METHODS det_on_save2 FOR DETERMINE ON SAVE
             name: (identifier)))))))
 
 =================================================================================
+[ ABAP - RAP Business Objects / Event Handlers ] Entity event
+=================================================================================
+METHODS on_created FOR ENTITY EVENT
+    IMPORTING created FOR root~created.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (entity_event))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Event Handlers ] Multiple entity events
+=================================================================================
+METHODS on_change FINAL FOR ENTITY EVENT
+    REFERENCE(updated) FOR root~updated
+    deleted FOR root~deleted.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (entity_event))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (component_selection
+            subject: (identifier)
+            component: (identifier))))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_spec
+          (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
+
+=================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Validate on save
 =================================================================================
 METHODS validate_status FOR VALIDATE ON SAVE

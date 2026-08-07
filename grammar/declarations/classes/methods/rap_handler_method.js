@@ -12,6 +12,7 @@ module.exports = {
 
   /**
    * FOR { DETERMINE ON { SAVE | MODIFY }
+   *     | ENTITY EVENT
    *     | VALIDATE ON SAVE
    *     | LOCK
    *     | NUMBERING
@@ -30,6 +31,7 @@ module.exports = {
       gen.kw("for"),
       choice(
         $.determine_on,
+        $.entity_event,
         $.lock,
         $.validate_on_save,
         $.numbering,
@@ -84,6 +86,13 @@ module.exports = {
    */
   determine_on: $ =>
     seq(...gen.kws("determine", "on"), field("kind", choice($.save, $.modify))),
+
+  /**
+   * ENTITY EVENT
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_FOR_ENTITY_EVENT.html
+   */
+  entity_event: _ => seq(...gen.kws("entity", "event")),
 
   /**
    * LOCK

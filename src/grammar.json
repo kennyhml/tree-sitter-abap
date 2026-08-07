@@ -27090,6 +27090,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "entity_event"
+            },
+            {
+              "type": "SYMBOL",
               "name": "lock"
             },
             {
@@ -27255,6 +27259,19 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "entity_event": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entity"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_event"
         }
       ]
     },
@@ -37865,6 +37882,19 @@
         },
         "named": false,
         "value": "determine"
+      }
+    },
+    "_kw_entity": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)entity"
+        },
+        "named": false,
+        "value": "entity"
       }
     },
     "_kw_lock": {
