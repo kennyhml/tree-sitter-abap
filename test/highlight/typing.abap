@@ -305,3 +305,55 @@ TYPES validation TYPE TABLE FOR VALIDATION
   demo_managed_root_was~validate_status.
 " ^ type
 "                       ^ function.method
+
+TYPES structure_create TYPE STRUCTURE FOR CREATE
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES structure_action_request TYPE STRUCTURE FOR ACTION REQUEST
+"     ^ type.definition
+  demo_managed_root_was~copy.
+" ^ type
+"                       ^ function.method
+TYPES structure_authorization_request TYPE STRUCTURE FOR INSTANCE AUTHORIZATION REQUEST
+"     ^ type.definition
+  demo_managed_root_was~admin.
+" ^ type
+"                       ^ variable.member
+TYPES structure_global_authorization_result TYPE STRUCTURE FOR GLOBAL AUTHORIZATION RESULT
+"     ^ type.definition
+  demo_managed_root_was~admin.
+" ^ type
+"                       ^ variable.member
+TYPES structure_features_request TYPE STRUCTURE FOR INSTANCE FEATURES REQUEST
+"     ^ type.definition
+  demo_managed_root_was~control.
+" ^ type
+"                       ^ variable.member
+TYPES structure_global_features_result TYPE STRUCTURE FOR GLOBAL FEATURES RESULT
+"     ^ type.definition
+  demo_managed_root_was~control.
+" ^ type
+"                       ^ variable.member
+TYPES structure_function_request TYPE STRUCTURE FOR FUNCTION REQUEST
+"     ^ type.definition
+  demo_managed_root_was~calculate.
+" ^ type
+"                       ^ function.method
+TYPES structure_permissions_request TYPE STRUCTURE FOR PERMISSIONS REQUEST
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES structure_permissions_result TYPE STRUCTURE FOR PERMISSIONS RESULT
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES structure_hierarchy TYPE STRUCTURE FOR HIERARCHY
+"     ^ type.definition
+  demo_managed_root_was.
+" ^ type
+TYPES structure_read_link TYPE STRUCTURE FOR READ LINK
+"     ^ type.definition
+  demo_managed_root_was\_child.
+" ^ type
+"                       ^ type

@@ -4,7 +4,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenrpm_derived_types.html
    */
-  _derived_type: $ => choice($.derived_table_type),
+  _derived_type: $ => choice($.derived_table_type, $.derived_structure_type),
 
   // Reference to a business object, either via a single entity root,
   // or a path expression using composition and associations.
@@ -157,6 +157,9 @@ module.exports = {
   derive_for_action_import_spec: $ =>
     seq(...gen.kws("for", "action", "import"), $.bo_action),
 
+  derive_for_action_request_spec: $ =>
+    seq(...gen.kws("for", "action", "request"), $.bo_action),
+
   derive_for_action_result_spec: $ =>
     seq(...gen.kws("for", "action", "result"), $.bo_action),
 
@@ -168,11 +171,31 @@ module.exports = {
       field("target", $.bo_authorization_target),
     ),
 
+  derive_for_authorization_request_spec: $ =>
+    seq(
+      gen.kw("for"),
+      optional(gen.kw("instance")),
+      ...gen.kws("authorization", "request"),
+      field("target", $.bo_authorization_target),
+    ),
+
   derive_for_authorization_result_spec: $ =>
     seq(
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("authorization", "result"),
+      field("target", $.bo_authorization_target),
+    ),
+
+  derive_for_global_authorization_request_spec: $ =>
+    seq(
+      ...gen.kws("for", "global", "authorization", "request"),
+      field("target", $.bo_authorization_target),
+    ),
+
+  derive_for_global_authorization_result_spec: $ =>
+    seq(
+      ...gen.kws("for", "global", "authorization", "result"),
       field("target", $.bo_authorization_target),
     ),
 
@@ -220,12 +243,38 @@ module.exports = {
       field("target", $.bo_features_target),
     ),
 
+  derive_for_features_request_spec: $ =>
+    seq(
+      gen.kw("for"),
+      optional(gen.kw("instance")),
+      ...gen.kws("features", "request"),
+      field("target", $.bo_features_target),
+    ),
+
   derive_for_features_result_spec: $ =>
     seq(
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("features", "result"),
       field("target", $.bo_features_target),
+    ),
+
+  derive_for_global_features_request_spec: $ =>
+    seq(
+      ...gen.kws("for", "global", "features", "request"),
+      field("target", $.bo_features_target),
+    ),
+
+  derive_for_global_features_result_spec: $ =>
+    seq(
+      ...gen.kws("for", "global", "features", "result"),
+      field("target", $.bo_features_target),
+    ),
+
+  derive_for_function_request_spec: $ =>
+    seq(
+      ...gen.kws("for", "function", "request"),
+      field("target", $.bo_function),
     ),
 
   derive_for_function_import_spec: $ =>
@@ -252,11 +301,20 @@ module.exports = {
       field("business_object", $.business_object),
     ),
 
-  derive_for_validation_spec: $ =>
+  derive_for_permissions_request_spec: $ =>
     seq(
-      ...gen.kws("for", "validation"),
-      field("target", $.bo_validation),
+      ...gen.kws("for", "permissions", "request"),
+      field("business_object", $.business_object),
     ),
+
+  derive_for_permissions_result_spec: $ =>
+    seq(
+      ...gen.kws("for", "permissions", "result"),
+      field("business_object", $.business_object),
+    ),
+
+  derive_for_validation_spec: $ =>
+    seq(...gen.kws("for", "validation"), field("target", $.bo_validation)),
 
   late: _ => gen.kw("late"),
 
@@ -322,7 +380,7 @@ module.exports = {
     ),
 
   /*
-   *... FOR { ACTION IMPORT bdef~action }
+   *... STRUCTURE FOR { ACTION IMPORT bdef~action }
    *            | { ACTION REQUEST bdef~action }
    *            | { ACTION RESULT bdef~action }
    *            | { [INSTANCE] AUTHORIZATION KEY bdef[~group] }
@@ -358,7 +416,47 @@ module.exports = {
    *            | { UPDATE bdef }
    *            | { VALIDATION bdef~valid } ...
    */
-  _structure_derived_purpose: $ => choice(),
+  derived_structure_type: $ =>
+    seq(
+      ...gen.kws("type", "structure"),
+      choice(
+        $.derive_for_action_import_spec,
+        $.derive_for_action_request_spec,
+        $.derive_for_action_result_spec,
+        $.derive_for_authorization_key_spec,
+        $.derive_for_authorization_request_spec,
+        $.derive_for_authorization_result_spec,
+        $.derive_for_change_spec,
+        $.derive_for_create_spec,
+        $.derive_for_delete_spec,
+        $.derive_for_determination_spec,
+        $.derive_for_event_spec,
+        $.derive_for_failed_spec,
+        $.derive_for_hierarchy_spec,
+        $.derive_for_features_key_spec,
+        $.derive_for_features_request_spec,
+        $.derive_for_features_result_spec,
+        $.derive_for_function_import_spec,
+        $.derive_for_function_request_spec,
+        $.derive_for_function_result_spec,
+        $.derive_for_global_authorization_request_spec,
+        $.derive_for_global_authorization_result_spec,
+        $.derive_for_global_features_request_spec,
+        $.derive_for_global_features_result_spec,
+        $.derive_for_key_of_spec,
+        $.derive_for_mapped_spec,
+        $.derive_for_permissions_key_spec,
+        $.derive_for_permissions_request_spec,
+        $.derive_for_permissions_result_spec,
+        $.derive_for_read_changes_spec,
+        $.derive_for_read_import_spec,
+        $.derive_for_read_link_spec,
+        $.derive_for_read_result_spec,
+        $.derive_for_reported_spec,
+        $.derive_for_update_spec,
+        $.derive_for_validation_spec,
+      ),
+    ),
 
   /*
    * ... FOR { { CHANGE

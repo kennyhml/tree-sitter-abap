@@ -896,6 +896,10 @@
         "named": true
       },
       {
+        "type": "derived_structure_type",
+        "named": true
+      },
+      {
         "type": "derived_table_type",
         "named": true
       },
@@ -8659,6 +8663,40 @@
     }
   },
   {
+    "type": "derive_for_action_request_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "request",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bo_action",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "derive_for_action_result_spec",
     "named": true,
     "fields": {
@@ -8714,6 +8752,44 @@
           },
           {
             "type": "key",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_authorization_target",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_authorization_request_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authorization",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "instance",
+            "named": false
+          },
+          {
+            "type": "request",
             "named": false
           }
         ]
@@ -9001,6 +9077,44 @@
     }
   },
   {
+    "type": "derive_for_features_request_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "features",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "instance",
+            "named": false
+          },
+          {
+            "type": "request",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_features_target",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "derive_for_features_result_spec",
     "named": true,
     "fields": {
@@ -9073,6 +9187,40 @@
     }
   },
   {
+    "type": "derive_for_function_request_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "function",
+            "named": false
+          },
+          {
+            "type": "request",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_function",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "derive_for_function_result_spec",
     "named": true,
     "fields": {
@@ -9100,6 +9248,158 @@
         "types": [
           {
             "type": "bo_function",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_global_authorization_request_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authorization",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          },
+          {
+            "type": "request",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_authorization_target",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_global_authorization_result_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authorization",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          },
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_authorization_target",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_global_features_request_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "features",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          },
+          {
+            "type": "request",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_features_target",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_global_features_result_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "features",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          },
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_features_target",
             "named": true
           }
         ]
@@ -9242,6 +9542,74 @@
           },
           {
             "type": "permissions",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_permissions_request_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "permissions",
+            "named": false
+          },
+          {
+            "type": "request",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "derive_for_permissions_result_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "permissions",
+            "named": false
+          },
+          {
+            "type": "result",
             "named": false
           }
         ]
@@ -9486,6 +9854,172 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "derived_structure_type",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "structure",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "derive_for_action_import_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_action_request_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_action_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_authorization_key_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_authorization_request_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_authorization_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_change_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_create_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_delete_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_determination_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_event_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_failed_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_features_key_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_features_request_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_features_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_function_import_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_function_request_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_function_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_global_authorization_request_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_global_authorization_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_global_features_request_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_global_features_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_hierarchy_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_key_of_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_mapped_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_permissions_key_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_permissions_request_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_permissions_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_changes_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_import_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_link_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_read_result_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_reported_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_update_spec",
+          "named": true
+        },
+        {
+          "type": "derive_for_validation_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -29457,6 +29991,10 @@
   },
   {
     "type": "reported",
+    "named": false
+  },
+  {
+    "type": "request",
     "named": false
   },
   {

@@ -656,3 +656,538 @@ TYPES validation TYPE TABLE FOR VALIDATION demo_managed_root_was~validate_status
           target: (bo_validation
             entity: (identifier)
             name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR ACTION IMPORT ] Action
+=================================================================================
+TYPES structure_action_import TYPE STRUCTURE FOR ACTION IMPORT demo_managed_root_was~copy.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_action_import_spec
+          (bo_action
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR ACTION REQUEST ] Action
+=================================================================================
+TYPES structure_action_request TYPE STRUCTURE FOR ACTION REQUEST demo_managed_root_was~copy.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_action_request_spec
+          (bo_action
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR ACTION RESULT ] Namespaced action
+=================================================================================
+TYPES structure_action_result TYPE STRUCTURE FOR ACTION RESULT /DMO/I_TRAVEL_M~acceptTravel.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_action_result_spec
+          (bo_action
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR AUTHORIZATION KEY ] BDEF
+=================================================================================
+TYPES structure_authorization_key TYPE STRUCTURE FOR AUTHORIZATION KEY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_authorization_key_spec
+          target: (bo_authorization_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR AUTHORIZATION REQUEST ] Instance group
+=================================================================================
+TYPES structure_authorization_request TYPE STRUCTURE FOR INSTANCE AUTHORIZATION REQUEST demo_managed_root_was~admin.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_authorization_request_spec
+          target: (bo_authorization_target
+            entity: (identifier)
+            group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR AUTHORIZATION RESULT ] BDEF
+=================================================================================
+TYPES structure_authorization_result TYPE STRUCTURE FOR AUTHORIZATION RESULT demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_authorization_result_spec
+          target: (bo_authorization_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR CHANGE ] Root
+=================================================================================
+TYPES structure_change TYPE STRUCTURE FOR CHANGE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_change_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR CREATE ] Composition and association path
+=================================================================================
+TYPES structure_create TYPE STRUCTURE FOR CREATE demo_managed_root_was\\_Root\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_create_spec
+          business_object: (association_navigation
+            source: (composition_navigation
+              source: (identifier)
+              composition: (identifier))
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR DELETE ] Root
+=================================================================================
+TYPES structure_delete TYPE STRUCTURE FOR DELETE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_delete_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR DETERMINATION ] Determination
+=================================================================================
+TYPES structure_determination TYPE STRUCTURE FOR DETERMINATION demo_managed_root_was~set_status.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_determination_spec
+          target: (bo_determination
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR EVENT ] Event
+=================================================================================
+TYPES structure_event TYPE STRUCTURE FOR EVENT demo_managed_root_was~status_changed.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_event_spec
+          target: (bo_event
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FAILED ] Early
+=================================================================================
+TYPES structure_failed TYPE STRUCTURE FOR FAILED EARLY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_failed_spec
+          time: (early)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FEATURES KEY ] BDEF
+=================================================================================
+TYPES structure_features_key TYPE STRUCTURE FOR FEATURES KEY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_features_key_spec
+          target: (bo_features_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FEATURES REQUEST ] Instance group
+=================================================================================
+TYPES structure_features_request TYPE STRUCTURE FOR INSTANCE FEATURES REQUEST demo_managed_root_was~control.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_features_request_spec
+          target: (bo_features_target
+            entity: (identifier)
+            group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FEATURES RESULT ] BDEF
+=================================================================================
+TYPES structure_features_result TYPE STRUCTURE FOR FEATURES RESULT demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_features_result_spec
+          target: (bo_features_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FUNCTION IMPORT ] Function
+=================================================================================
+TYPES structure_function_import TYPE STRUCTURE FOR FUNCTION IMPORT demo_managed_root_was~calculate.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_function_import_spec
+          target: (bo_function
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FUNCTION REQUEST ] Function
+=================================================================================
+TYPES structure_function_request TYPE STRUCTURE FOR FUNCTION REQUEST demo_managed_root_was~calculate.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_function_request_spec
+          target: (bo_function
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FUNCTION RESULT ] Function
+=================================================================================
+TYPES structure_function_result TYPE STRUCTURE FOR FUNCTION RESULT demo_managed_root_was~calculate.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_function_result_spec
+          target: (bo_function
+            entity: (identifier)
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL AUTHORIZATION REQUEST ] Group
+=================================================================================
+TYPES structure_global_authorization_request TYPE STRUCTURE FOR GLOBAL AUTHORIZATION REQUEST demo_managed_root_was~admin.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_global_authorization_request_spec
+          target: (bo_authorization_target
+            entity: (identifier)
+            group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL AUTHORIZATION RESULT ] BDEF
+=================================================================================
+TYPES structure_global_authorization_result TYPE STRUCTURE FOR GLOBAL AUTHORIZATION RESULT demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_global_authorization_result_spec
+          target: (bo_authorization_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL FEATURES REQUEST ] Group
+=================================================================================
+TYPES structure_global_features_request TYPE STRUCTURE FOR GLOBAL FEATURES REQUEST demo_managed_root_was~control.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_global_features_request_spec
+          target: (bo_features_target
+            entity: (identifier)
+            group: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL FEATURES RESULT ] BDEF
+=================================================================================
+TYPES structure_global_features_result TYPE STRUCTURE FOR GLOBAL FEATURES RESULT demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_global_features_result_spec
+          target: (bo_features_target
+            entity: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR HIERARCHY ] BDEF
+=================================================================================
+TYPES structure_hierarchy TYPE STRUCTURE FOR HIERARCHY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_hierarchy_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR KEY OF ] BDEF
+=================================================================================
+TYPES structure_key TYPE STRUCTURE FOR KEY OF demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_key_of_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR MAPPED ] Late
+=================================================================================
+TYPES structure_mapped TYPE STRUCTURE FOR MAPPED LATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_mapped_spec
+          time: (late)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR PERMISSIONS KEY ] BDEF
+=================================================================================
+TYPES structure_permissions_key TYPE STRUCTURE FOR PERMISSIONS KEY demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_permissions_key_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR PERMISSIONS REQUEST ] BDEF
+=================================================================================
+TYPES structure_permissions_request TYPE STRUCTURE FOR PERMISSIONS REQUEST demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_permissions_request_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR PERMISSIONS RESULT ] BDEF
+=================================================================================
+TYPES structure_permissions_result TYPE STRUCTURE FOR PERMISSIONS RESULT demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_permissions_result_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR READ CHANGES ] Root
+=================================================================================
+TYPES structure_read_changes TYPE STRUCTURE FOR READ CHANGES demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_read_changes_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR READ IMPORT ] Association
+=================================================================================
+TYPES structure_read_import TYPE STRUCTURE FOR READ IMPORT demo_managed_root_was\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_read_import_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR READ LINK ] Association
+=================================================================================
+TYPES structure_read_link TYPE STRUCTURE FOR READ LINK demo_managed_root_was\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_read_link_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR READ RESULT ] Association
+=================================================================================
+TYPES structure_read_result TYPE STRUCTURE FOR READ RESULT demo_managed_root_was\_child.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_read_result_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR REPORTED ] Late
+=================================================================================
+TYPES structure_reported TYPE STRUCTURE FOR REPORTED LATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_reported_spec
+          time: (late)
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR UPDATE ] Root
+=================================================================================
+TYPES structure_update TYPE STRUCTURE FOR UPDATE demo_managed_root_was.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_update_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR VALIDATION ] Validation
+=================================================================================
+TYPES structure_validation TYPE STRUCTURE FOR VALIDATION demo_managed_root_was~validate_status.
+---
+
+(source
+  (types_declaration
+    (types_spec
+      name: (identifier)
+      typing: (derived_structure_type
+        (derive_for_validation_spec
+          target: (bo_validation
+            entity: (identifier)
+            name: (identifier)))))))

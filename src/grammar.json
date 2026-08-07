@@ -9794,6 +9794,10 @@
         {
           "type": "SYMBOL",
           "name": "derived_table_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "derived_structure_type"
         }
       ]
     },
@@ -10319,6 +10323,27 @@
         }
       ]
     },
+    "derive_for_action_request_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_action"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bo_action"
+        }
+      ]
+    },
     "derive_for_action_result_spec": {
       "type": "SEQ",
       "members": [
@@ -10377,6 +10402,43 @@
         }
       ]
     },
+    "derive_for_authorization_request_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_instance"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authorization"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_authorization_target"
+          }
+        }
+      ]
+    },
     "derive_for_authorization_result_spec": {
       "type": "SEQ",
       "members": [
@@ -10395,6 +10457,64 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authorization"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_authorization_target"
+          }
+        }
+      ]
+    },
+    "derive_for_global_authorization_request_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_global"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authorization"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_authorization_target"
+          }
+        }
+      ]
+    },
+    "derive_for_global_authorization_result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_global"
         },
         {
           "type": "SYMBOL",
@@ -10652,6 +10772,43 @@
         }
       ]
     },
+    "derive_for_features_request_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_instance"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_features"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_features_target"
+          }
+        }
+      ]
+    },
     "derive_for_features_result_spec": {
       "type": "SEQ",
       "members": [
@@ -10685,6 +10842,89 @@
           "content": {
             "type": "SYMBOL",
             "name": "bo_features_target"
+          }
+        }
+      ]
+    },
+    "derive_for_global_features_request_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_global"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_features"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_features_target"
+          }
+        }
+      ]
+    },
+    "derive_for_global_features_result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_global"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_features"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_features_target"
+          }
+        }
+      ]
+    },
+    "derive_for_function_request_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_function"
           }
         }
       ]
@@ -10778,6 +11018,56 @@
         {
           "type": "SYMBOL",
           "name": "_kw_key"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_permissions_request_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_permissions"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        }
+      ]
+    },
+    "derive_for_permissions_result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_permissions"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
         },
         {
           "type": "FIELD",
@@ -10936,9 +11226,163 @@
         }
       ]
     },
-    "_structure_derived_purpose": {
-      "type": "CHOICE",
-      "members": []
+    "derived_structure_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_structure"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_action_import_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_action_request_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_action_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_authorization_key_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_authorization_request_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_authorization_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_change_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_create_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_delete_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_determination_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_event_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_failed_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_hierarchy_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_features_key_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_features_request_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_features_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_function_import_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_function_request_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_function_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_global_authorization_request_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_global_authorization_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_global_features_request_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_global_features_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_key_of_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_mapped_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_permissions_key_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_permissions_request_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_permissions_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_changes_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_import_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_link_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_read_result_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_reported_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_update_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "derive_for_validation_spec"
+            }
+          ]
+        }
+      ]
     },
     "_request_derived_purpose": {
       "type": "CHOICE",
@@ -33006,6 +33450,19 @@
         "value": "action"
       }
     },
+    "_kw_request": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)request"
+        },
+        "named": false,
+        "value": "request"
+      }
+    },
     "_kw_instance": {
       "type": "FIELD",
       "name": "keyword",
@@ -33188,19 +33645,6 @@
         "value": "table"
       }
     },
-    "_kw_enum": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)enum"
-        },
-        "named": false,
-        "value": "enum"
-      }
-    },
     "_kw_structure": {
       "type": "FIELD",
       "name": "keyword",
@@ -33212,6 +33656,19 @@
         },
         "named": false,
         "value": "structure"
+      }
+    },
+    "_kw_enum": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)enum"
+        },
+        "named": false,
+        "value": "enum"
       }
     },
     "_kw_range": {
