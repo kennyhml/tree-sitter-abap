@@ -202,11 +202,11 @@ TYPES create_path TYPE TABLE FOR CREATE demo_managed_root_was\\_Root\_child.
 TYPES action_import TYPE TABLE FOR ACTION IMPORT demo_managed_root_was~copy.
 "     ^ type.definition
 "                                                ^ type
-"                                                                      ^ function.method
+"                                                                      ^ variable.member
 TYPES action_result TYPE TABLE FOR ACTION RESULT /DMO/I_TRAVEL_M~acceptTravel.
 "     ^ type.definition
 "                                                ^ type
-"                                                                ^ function.method
+"                                                                ^ variable.member
 TYPES foo TYPE TABLE FOR INSTANCE AUTHORIZATION KEY bdef.
 "     ^ type.definition
 "                                                   ^ type
@@ -251,12 +251,12 @@ TYPES determination TYPE TABLE FOR DETERMINATION
 "     ^ type.definition
   demo_managed_root_was~set_status.
 " ^ type
-"                       ^ function.method
+"                       ^ variable.member
 TYPES event TYPE TABLE FOR EVENT
 "     ^ type.definition
   demo_managed_root_was~status_changed.
 " ^ type
-"                       ^ constant
+"                       ^ variable.member
 TYPES failed TYPE TABLE FOR FAILED EARLY
 "     ^ type.definition
   demo_managed_root_was.
@@ -278,12 +278,12 @@ TYPES function_import TYPE TABLE FOR FUNCTION IMPORT
 "     ^ type.definition
   demo_managed_root_was~calculate.
 " ^ type
-"                       ^ function.method
+"                       ^ variable.member
 TYPES function_result TYPE TABLE FOR FUNCTION RESULT
 "     ^ type.definition
   demo_managed_root_was~calculate.
 " ^ type
-"                       ^ function.method
+"                       ^ variable.member
 TYPES entity_key TYPE TABLE FOR KEY OF
 "     ^ type.definition
   demo_managed_root_was.
@@ -304,7 +304,7 @@ TYPES validation TYPE TABLE FOR VALIDATION
 "     ^ type.definition
   demo_managed_root_was~validate_status.
 " ^ type
-"                       ^ function.method
+"                       ^ variable.member
 
 TYPES structure_create TYPE STRUCTURE FOR CREATE
 "     ^ type.definition
@@ -314,7 +314,7 @@ TYPES structure_action_request TYPE STRUCTURE FOR ACTION REQUEST
 "     ^ type.definition
   demo_managed_root_was~copy.
 " ^ type
-"                       ^ function.method
+"                       ^ variable.member
 TYPES structure_authorization_request TYPE STRUCTURE FOR INSTANCE AUTHORIZATION REQUEST
 "     ^ type.definition
   demo_managed_root_was~admin.
@@ -339,7 +339,7 @@ TYPES structure_function_request TYPE STRUCTURE FOR FUNCTION REQUEST
 "     ^ type.definition
   demo_managed_root_was~calculate.
 " ^ type
-"                       ^ function.method
+"                       ^ variable.member
 TYPES structure_permissions_request TYPE STRUCTURE FOR PERMISSIONS REQUEST
 "     ^ type.definition
   demo_managed_root_was.

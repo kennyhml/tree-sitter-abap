@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "component_selection",
+        "named": true
+      },
+      {
         "type": "composition_navigation",
         "named": true
       },
@@ -3126,188 +3130,6 @@
         "types": [
           {
             "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bo_action",
-    "named": true,
-    "fields": {
-      "entity": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bo_authorization_target",
-    "named": true,
-    "fields": {
-      "entity": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "group": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bo_determination",
-    "named": true,
-    "fields": {
-      "entity": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bo_event",
-    "named": true,
-    "fields": {
-      "entity": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bo_features_target",
-    "named": true,
-    "fields": {
-      "entity": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "group": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bo_function",
-    "named": true,
-    "fields": {
-      "entity": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bo_validation",
-    "named": true,
-    "fields": {
-      "entity": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -8677,17 +8499,17 @@
             "named": false
           }
         ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "bo_action",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -8711,17 +8533,17 @@
             "named": false
           }
         ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "bo_action",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -8745,17 +8567,17 @@
             "named": false
           }
         ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "bo_action",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -8789,7 +8611,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_authorization_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -8827,7 +8649,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_authorization_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -8865,7 +8687,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_authorization_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -8985,7 +8807,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_determination",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9015,7 +8837,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_event",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9097,7 +8919,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_features_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9135,7 +8957,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_features_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9173,7 +8995,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_features_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9207,7 +9029,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_function",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9241,7 +9063,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_function",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9275,7 +9097,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_function",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9313,7 +9135,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_authorization_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9351,7 +9173,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_authorization_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9389,7 +9211,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_features_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9427,7 +9249,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_features_target",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -9877,7 +9699,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_validation",
+            "type": "business_object",
             "named": true
           }
         ]
@@ -12301,6 +12123,26 @@
     }
   },
   {
+    "type": "features",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "features",
+            "named": false
+          },
+          {
+            "type": "instance",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "field-symbol",
     "named": false,
     "fields": {}
@@ -14525,6 +14367,26 @@
         "types": [
           {
             "type": "authorization",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "global_features",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "features",
             "named": false
           },
           {
@@ -20469,7 +20331,7 @@
       "required": true,
       "types": [
         {
-          "type": "bo_determination",
+          "type": "business_object",
           "named": true
         }
       ]
@@ -21765,7 +21627,15 @@
           "named": true
         },
         {
+          "type": "features",
+          "named": true
+        },
+        {
           "type": "global_authorization",
+          "named": true
+        },
+        {
+          "type": "global_features",
           "named": true
         }
       ]
@@ -22871,7 +22741,7 @@
         "required": true,
         "types": [
           {
-            "type": "bo_authorization_target",
+            "type": "business_object",
             "named": true
           }
         ]

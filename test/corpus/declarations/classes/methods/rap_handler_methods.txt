@@ -16,9 +16,9 @@ METHODS det_on_save FOR DETERMINE ON SAVE
         (implicit_reference
           name: (identifier))
         (parameter_for_spec
-          (bo_determination
-            entity: (identifier)
-            name: (identifier)))))))
+          (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Determine on modify
@@ -38,9 +38,9 @@ METHODS det_on_modify FOR DETERMINE ON MODIFY
         (implicit_reference
           name: (identifier))
         (parameter_for_spec
-          (bo_determination
-            entity: (identifier)
-            name: (identifier)))))))
+          (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Explicit ref param
@@ -60,9 +60,9 @@ METHODS det_on_save FOR DETERMINE ON SAVE
         (explicit_reference
           name: (identifier))
         (parameter_for_spec
-          (bo_determination
-            entity: (identifier)
-            name: (identifier)))))))
+          (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Changing parameter
@@ -83,10 +83,129 @@ METHODS det_on_save2 FOR DETERMINE ON SAVE
         (implicit_reference
           name: (identifier))
         (parameter_for_spec
-          (bo_determination
-            entity: (identifier)
-            name: (identifier))))
+          (component_selection
+            subject: (identifier)
+            component: (identifier))))
       changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Global features
+=================================================================================
+METHODS get_global_features FOR GLOBAL FEATURES
+    IMPORTING REQUEST requested_features FOR bdef
+    RESULT result.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (global_features))
+      (request_parameter_spec
+        (implicit_reference
+          name: (identifier))
+        target: (identifier))
+      (result_parameter_spec
+        (implicit_reference
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Global features explicit references
+=================================================================================
+METHODS get_global_features2 FINAL FOR GLOBAL FEATURES
+    REQUEST REFERENCE(requested_features) FOR bdef~admin
+    RESULT REFERENCE(result)
+    CHANGING reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (global_features))
+      (request_parameter_spec
+        (explicit_reference
+          name: (identifier))
+        target: (component_selection
+          subject: (identifier)
+          component: (identifier)))
+      (result_parameter_spec
+        (explicit_reference
+          name: (identifier)))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Instance features
+=================================================================================
+METHODS get_instance_features FOR INSTANCE FEATURES
+    IMPORTING keys REQUEST requested_features FOR bdef
+    RESULT result.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (features))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier)))
+      (request_parameter_spec
+        (implicit_reference
+          name: (identifier))
+        target: (identifier))
+      (result_parameter_spec
+        (implicit_reference
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Features explicit references
+=================================================================================
+METHODS get_features FINAL FOR FEATURES
+    REFERENCE(keys) REQUEST REFERENCE(requested_features) FOR bdef~admin
+    RESULT REFERENCE(result)
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (features))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier)))
+      (request_parameter_spec
+        (explicit_reference
+          name: (identifier))
+        target: (component_selection
+          subject: (identifier)
+          component: (identifier)))
+      (result_parameter_spec
+        (explicit_reference
+          name: (identifier)))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
         (parameter
           (implicit_reference
             name: (identifier))
@@ -113,8 +232,7 @@ METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       (request_parameter_spec
         (implicit_reference
           name: (identifier))
-        target: (bo_authorization_target
-          entity: (identifier)))
+        target: (identifier))
       (result_parameter_spec
         (implicit_reference
           name: (identifier))))))
@@ -141,9 +259,9 @@ METHODS get_authorizations FINAL FOR AUTHORIZATION
       (request_parameter_spec
         (explicit_reference
           name: (identifier))
-        target: (bo_authorization_target
-          entity: (identifier)
-          group: (identifier)))
+        target: (component_selection
+          subject: (identifier)
+          component: (identifier)))
       (result_parameter_spec
         (explicit_reference
           name: (identifier)))
@@ -176,8 +294,7 @@ METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
       (request_parameter_spec
         (implicit_reference
           name: (identifier))
-        target: (bo_authorization_target
-          entity: (identifier)))
+        target: (identifier))
       (result_parameter_spec
         (implicit_reference
           name: (identifier))))))
@@ -201,9 +318,9 @@ METHODS get_global_authorizations FINAL FOR GLOBAL AUTHORIZATION
       (request_parameter_spec
         (explicit_reference
           name: (identifier))
-        target: (bo_authorization_target
-          entity: (identifier)
-          group: (identifier)))
+        target: (component_selection
+          subject: (identifier)
+          component: (identifier)))
       (result_parameter_spec
         (explicit_reference
           name: (identifier)))

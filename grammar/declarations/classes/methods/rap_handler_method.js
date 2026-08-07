@@ -13,14 +13,22 @@ module.exports = {
   /**
    * FOR { DETERMINE ON { SAVE | MODIFY }
    *     | GLOBAL AUTHORIZATION
-   *     | [INSTANCE] AUTHORIZATION }
+   *     | GLOBAL FEATURES
+   *     | [INSTANCE] AUTHORIZATION
+   *     | [INSTANCE] FEATURES }
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMETHODS_FOR_RAP_BEHV.html
    */
   rap_handler_for_spec: $ =>
     seq(
       gen.kw("for"),
-      choice($.determine_on, $.global_authorization, $.authorization),
+      choice(
+        $.determine_on,
+        $.global_authorization,
+        $.authorization,
+        $.global_features,
+        $.features,
+      ),
     ),
 
   __rap_handler_parameter: $ =>
@@ -61,6 +69,13 @@ module.exports = {
   global_authorization: _ => seq(...gen.kws("global", "authorization")),
 
   /**
+   * GLOBAL FEATURES
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_GLOBAL_FEATURES.html
+   */
+  global_features: _ => seq(...gen.kws("global", "features")),
+
+  /**
    * [INSTANCE] AUTHORIZATION
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_AUTH.html
@@ -69,10 +84,19 @@ module.exports = {
     seq(optional(gen.kw("instance")), gen.kw("authorization")),
 
   /**
+   * [INSTANCE] FEATURES
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_FEATURES.html
+   */
+  features: _ => seq(optional(gen.kw("instance")), gen.kw("features")),
+
+  /**
    * [IMPORTING] REQUEST { REFERENCE(req) | req } FOR bdef
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_GLOBAL_AUTH.html
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_AUTH.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_GLOBAL_FEATURES.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_FEATURES.html
    */
   request_parameter_spec: $ =>
     seq(
@@ -80,7 +104,7 @@ module.exports = {
       gen.kw("request"),
       choice($.implicit_reference, $.explicit_reference),
       gen.kw("for"),
-      field("target", $.bo_authorization_target),
+      field("target", $.business_object),
     ),
 
   /**
@@ -96,7 +120,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_DET.html
    */
-  parameter_for_spec: $ => seq(gen.kw("for"), $.bo_determination),
+  parameter_for_spec: $ => seq(gen.kw("for"), $.business_object),
 
   save: _ => gen.kw("save"),
 

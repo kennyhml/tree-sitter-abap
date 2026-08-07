@@ -74,9 +74,9 @@ TYPES action_import TYPE TABLE FOR ACTION IMPORT demo_managed_root_was~copy.
       name: (identifier)
       typing: (derived_table_type
         (derive_for_action_import_spec
-          (bo_action
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR ACTION IMPORT ] Namespaced action
@@ -90,9 +90,9 @@ TYPES namespaced_action_import TYPE TABLE FOR ACTION IMPORT /DMO/I_TRAVEL_M~acce
       name: (identifier)
       typing: (derived_table_type
         (derive_for_action_import_spec
-          (bo_action
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR ACTION RESULT ] Action
@@ -106,9 +106,9 @@ TYPES action_result TYPE TABLE FOR ACTION RESULT demo_managed_root_was~copy.
       name: (identifier)
       typing: (derived_table_type
         (derive_for_action_result_spec
-          (bo_action
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR ACTION RESULT ] Namespaced action
@@ -122,9 +122,9 @@ TYPES namespaced_action_result TYPE TABLE FOR ACTION RESULT /DMO/I_TRAVEL_M~acce
       name: (identifier)
       typing: (derived_table_type
         (derive_for_action_result_spec
-          (bo_action
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CREATE ] Nested associations
@@ -260,8 +260,7 @@ TYPES authorization_key TYPE TABLE FOR AUTHORIZATION KEY demo_managed_root_was.
       name: (identifier)
       typing: (derived_table_type
         (derive_for_authorization_key_spec
-          target: (bo_authorization_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR AUTHORIZATION KEY ] Instance group
@@ -275,9 +274,9 @@ TYPES instance_authorization_key TYPE TABLE FOR INSTANCE AUTHORIZATION KEY demo_
       name: (identifier)
       typing: (derived_table_type
         (derive_for_authorization_key_spec
-          target: (bo_authorization_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR AUTHORIZATION RESULT ] BDEF
@@ -291,8 +290,7 @@ TYPES authorization_result TYPE TABLE FOR AUTHORIZATION RESULT demo_managed_root
       name: (identifier)
       typing: (derived_table_type
         (derive_for_authorization_result_spec
-          target: (bo_authorization_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR AUTHORIZATION RESULT ] Instance group
@@ -306,9 +304,9 @@ TYPES instance_authorization_result TYPE TABLE FOR INSTANCE AUTHORIZATION RESULT
       name: (identifier)
       typing: (derived_table_type
         (derive_for_authorization_result_spec
-          target: (bo_authorization_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR CHANGE ] Root
@@ -426,9 +424,9 @@ TYPES determination TYPE TABLE FOR DETERMINATION demo_managed_root_was~set_statu
       name: (identifier)
       typing: (derived_table_type
         (derive_for_determination_spec
-          target: (bo_determination
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR EVENT ] Event
@@ -442,9 +440,9 @@ TYPES event TYPE TABLE FOR EVENT demo_managed_root_was~status_changed.
       name: (identifier)
       typing: (derived_table_type
         (derive_for_event_spec
-          target: (bo_event
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FAILED ] BDEF
@@ -501,8 +499,7 @@ TYPES features_key TYPE TABLE FOR FEATURES KEY demo_managed_root_was.
       name: (identifier)
       typing: (derived_table_type
         (derive_for_features_key_spec
-          target: (bo_features_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FEATURES KEY ] Instance group
@@ -516,9 +513,9 @@ TYPES instance_features_key TYPE TABLE FOR INSTANCE FEATURES KEY demo_managed_ro
       name: (identifier)
       typing: (derived_table_type
         (derive_for_features_key_spec
-          target: (bo_features_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FEATURES RESULT ] BDEF
@@ -532,8 +529,7 @@ TYPES features_result TYPE TABLE FOR FEATURES RESULT demo_managed_root_was.
       name: (identifier)
       typing: (derived_table_type
         (derive_for_features_result_spec
-          target: (bo_features_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FEATURES RESULT ] Instance group
@@ -547,9 +543,9 @@ TYPES instance_features_result TYPE TABLE FOR INSTANCE FEATURES RESULT demo_mana
       name: (identifier)
       typing: (derived_table_type
         (derive_for_features_result_spec
-          target: (bo_features_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FUNCTION IMPORT ] Function
@@ -563,9 +559,9 @@ TYPES function_import TYPE TABLE FOR FUNCTION IMPORT demo_managed_root_was~calcu
       name: (identifier)
       typing: (derived_table_type
         (derive_for_function_import_spec
-          target: (bo_function
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR FUNCTION RESULT ] Function
@@ -579,9 +575,9 @@ TYPES function_result TYPE TABLE FOR FUNCTION RESULT demo_managed_root_was~calcu
       name: (identifier)
       typing: (derived_table_type
         (derive_for_function_result_spec
-          target: (bo_function
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE TABLE FOR KEY OF ] BDEF
@@ -653,9 +649,9 @@ TYPES validation TYPE TABLE FOR VALIDATION demo_managed_root_was~validate_status
       name: (identifier)
       typing: (derived_table_type
         (derive_for_validation_spec
-          target: (bo_validation
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR ACTION IMPORT ] Action
@@ -669,9 +665,9 @@ TYPES structure_action_import TYPE STRUCTURE FOR ACTION IMPORT demo_managed_root
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_action_import_spec
-          (bo_action
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR ACTION REQUEST ] Action
@@ -685,9 +681,9 @@ TYPES structure_action_request TYPE STRUCTURE FOR ACTION REQUEST demo_managed_ro
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_action_request_spec
-          (bo_action
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR ACTION RESULT ] Namespaced action
@@ -701,9 +697,9 @@ TYPES structure_action_result TYPE STRUCTURE FOR ACTION RESULT /DMO/I_TRAVEL_M~a
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_action_result_spec
-          (bo_action
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR AUTHORIZATION KEY ] BDEF
@@ -717,8 +713,7 @@ TYPES structure_authorization_key TYPE STRUCTURE FOR AUTHORIZATION KEY demo_mana
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_authorization_key_spec
-          target: (bo_authorization_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR AUTHORIZATION REQUEST ] Instance group
@@ -732,9 +727,9 @@ TYPES structure_authorization_request TYPE STRUCTURE FOR INSTANCE AUTHORIZATION 
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_authorization_request_spec
-          target: (bo_authorization_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR AUTHORIZATION RESULT ] BDEF
@@ -748,8 +743,7 @@ TYPES structure_authorization_result TYPE STRUCTURE FOR AUTHORIZATION RESULT dem
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_authorization_result_spec
-          target: (bo_authorization_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR CHANGE ] Root
@@ -809,9 +803,9 @@ TYPES structure_determination TYPE STRUCTURE FOR DETERMINATION demo_managed_root
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_determination_spec
-          target: (bo_determination
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR EVENT ] Event
@@ -825,9 +819,9 @@ TYPES structure_event TYPE STRUCTURE FOR EVENT demo_managed_root_was~status_chan
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_event_spec
-          target: (bo_event
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FAILED ] Early
@@ -856,8 +850,7 @@ TYPES structure_features_key TYPE STRUCTURE FOR FEATURES KEY demo_managed_root_w
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_features_key_spec
-          target: (bo_features_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FEATURES REQUEST ] Instance group
@@ -871,9 +864,9 @@ TYPES structure_features_request TYPE STRUCTURE FOR INSTANCE FEATURES REQUEST de
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_features_request_spec
-          target: (bo_features_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FEATURES RESULT ] BDEF
@@ -887,8 +880,7 @@ TYPES structure_features_result TYPE STRUCTURE FOR FEATURES RESULT demo_managed_
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_features_result_spec
-          target: (bo_features_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FUNCTION IMPORT ] Function
@@ -902,9 +894,9 @@ TYPES structure_function_import TYPE STRUCTURE FOR FUNCTION IMPORT demo_managed_
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_function_import_spec
-          target: (bo_function
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FUNCTION REQUEST ] Function
@@ -918,9 +910,9 @@ TYPES structure_function_request TYPE STRUCTURE FOR FUNCTION REQUEST demo_manage
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_function_request_spec
-          target: (bo_function
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR FUNCTION RESULT ] Function
@@ -934,9 +926,9 @@ TYPES structure_function_result TYPE STRUCTURE FOR FUNCTION RESULT demo_managed_
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_function_result_spec
-          target: (bo_function
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL AUTHORIZATION REQUEST ] Group
@@ -950,9 +942,9 @@ TYPES structure_global_authorization_request TYPE STRUCTURE FOR GLOBAL AUTHORIZA
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_global_authorization_request_spec
-          target: (bo_authorization_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL AUTHORIZATION RESULT ] BDEF
@@ -966,8 +958,7 @@ TYPES structure_global_authorization_result TYPE STRUCTURE FOR GLOBAL AUTHORIZAT
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_global_authorization_result_spec
-          target: (bo_authorization_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL FEATURES REQUEST ] Group
@@ -981,9 +972,9 @@ TYPES structure_global_features_request TYPE STRUCTURE FOR GLOBAL FEATURES REQUE
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_global_features_request_spec
-          target: (bo_features_target
-            entity: (identifier)
-            group: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR GLOBAL FEATURES RESULT ] BDEF
@@ -997,8 +988,7 @@ TYPES structure_global_features_result TYPE STRUCTURE FOR GLOBAL FEATURES RESULT
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_global_features_result_spec
-          target: (bo_features_target
-            entity: (identifier)))))))
+          target: (identifier))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE STRUCTURE FOR HIERARCHY ] BDEF
@@ -1188,9 +1178,9 @@ TYPES structure_validation TYPE STRUCTURE FOR VALIDATION demo_managed_root_was~v
       name: (identifier)
       typing: (derived_structure_type
         (derive_for_validation_spec
-          target: (bo_validation
-            entity: (identifier)
-            name: (identifier)))))))
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier)))))))
 
 =================================================================================
 [ ABAP RAP Business Objects / BDEF Derived Types / TYPE REQUEST FOR CHANGE ] BDEF

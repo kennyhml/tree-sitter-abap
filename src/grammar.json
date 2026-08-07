@@ -9823,224 +9823,43 @@
         {
           "type": "SYMBOL",
           "name": "composition_navigation"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__business_object_component_selection"
+          },
+          "named": true,
+          "value": "component_selection"
         }
       ]
     },
-    "bo_action": {
+    "__business_object_component_selection": {
       "type": "SEQ",
       "members": [
         {
           "type": "FIELD",
-          "name": "entity",
+          "name": "subject",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
           }
         },
         {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "~"
-          }
-        },
-        {
           "type": "FIELD",
-          "name": "name",
+          "name": "selector",
           "content": {
-            "type": "SYMBOL",
-            "name": "_immediate_identifier"
-          }
-        }
-      ]
-    },
-    "bo_authorization_target": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "entity",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "IMMEDIATE_TOKEN",
-                  "content": {
-                    "type": "STRING",
-                    "value": "~"
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "group",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_immediate_identifier"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "~"
             }
-          ]
-        }
-      ]
-    },
-    "bo_determination": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "entity",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "~"
           }
         },
         {
           "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_immediate_identifier"
-          }
-        }
-      ]
-    },
-    "bo_event": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "entity",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "~"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_immediate_identifier"
-          }
-        }
-      ]
-    },
-    "bo_features_target": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "entity",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "IMMEDIATE_TOKEN",
-                  "content": {
-                    "type": "STRING",
-                    "value": "~"
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "group",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_immediate_identifier"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
-    "bo_function": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "entity",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "~"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_immediate_identifier"
-          }
-        }
-      ]
-    },
-    "bo_validation": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "entity",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "~"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
+          "name": "component",
           "content": {
             "type": "SYMBOL",
             "name": "_immediate_identifier"
@@ -10326,8 +10145,12 @@
           "name": "_kw_import"
         },
         {
-          "type": "SYMBOL",
-          "name": "bo_action"
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
         }
       ]
     },
@@ -10347,8 +10170,12 @@
           "name": "_kw_request"
         },
         {
-          "type": "SYMBOL",
-          "name": "bo_action"
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
         }
       ]
     },
@@ -10368,8 +10195,12 @@
           "name": "_kw_result"
         },
         {
-          "type": "SYMBOL",
-          "name": "bo_action"
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
         }
       ]
     },
@@ -10405,7 +10236,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_authorization_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10442,7 +10273,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_authorization_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10479,7 +10310,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_authorization_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10508,7 +10339,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_authorization_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10537,7 +10368,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_authorization_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10558,7 +10389,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_determination"
+            "name": "business_object"
           }
         }
       ]
@@ -10579,7 +10410,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_event"
+            "name": "business_object"
           }
         }
       ]
@@ -10775,7 +10606,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_features_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10812,7 +10643,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_features_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10849,7 +10680,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_features_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10878,7 +10709,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_features_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10907,7 +10738,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_features_target"
+            "name": "business_object"
           }
         }
       ]
@@ -10932,7 +10763,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_function"
+            "name": "business_object"
           }
         }
       ]
@@ -10957,7 +10788,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_function"
+            "name": "business_object"
           }
         }
       ]
@@ -10982,7 +10813,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_function"
+            "name": "business_object"
           }
         }
       ]
@@ -11103,7 +10934,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_validation"
+            "name": "business_object"
           }
         }
       ]
@@ -27264,6 +27095,14 @@
             {
               "type": "SYMBOL",
               "name": "authorization"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "global_features"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "features"
             }
           ]
         }
@@ -27375,6 +27214,19 @@
         }
       ]
     },
+    "global_features": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_global"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_features"
+        }
+      ]
+    },
     "authorization": {
       "type": "SEQ",
       "members": [
@@ -27393,6 +27245,27 @@
         {
           "type": "SYMBOL",
           "name": "_kw_authorization"
+        }
+      ]
+    },
+    "features": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_instance"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_features"
         }
       ]
     },
@@ -27437,7 +27310,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "bo_authorization_target"
+            "name": "business_object"
           }
         }
       ]
@@ -27473,7 +27346,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "bo_determination"
+          "name": "business_object"
         }
       ]
     },

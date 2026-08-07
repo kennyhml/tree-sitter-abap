@@ -19,62 +19,14 @@ module.exports = {
       $.identifier, // root entity
       $.association_navigation,
       $.composition_navigation,
+      alias($.__business_object_component_selection, $.component_selection),
     ),
 
-  /*
-   * Business object action reference
-   *
-   * `bdef~action`
-   */
-  bo_action: $ =>
+  __business_object_component_selection: $ =>
     seq(
-      field("entity", $.identifier),
-      token.immediate("~"),
-      field("name", $._immediate_identifier),
-    ),
-
-  bo_authorization_target: $ =>
-    seq(
-      field("entity", $.identifier),
-      optional(
-        seq(token.immediate("~"), field("group", $._immediate_identifier)),
-      ),
-    ),
-
-  bo_determination: $ =>
-    seq(
-      field("entity", $.identifier),
-      token.immediate("~"),
-      field("name", $._immediate_identifier),
-    ),
-
-  bo_event: $ =>
-    seq(
-      field("entity", $.identifier),
-      token.immediate("~"),
-      field("name", $._immediate_identifier),
-    ),
-
-  bo_features_target: $ =>
-    seq(
-      field("entity", $.identifier),
-      optional(
-        seq(token.immediate("~"), field("group", $._immediate_identifier)),
-      ),
-    ),
-
-  bo_function: $ =>
-    seq(
-      field("entity", $.identifier),
-      token.immediate("~"),
-      field("name", $._immediate_identifier),
-    ),
-
-  bo_validation: $ =>
-    seq(
-      field("entity", $.identifier),
-      token.immediate("~"),
-      field("name", $._immediate_identifier),
+      field("subject", $.identifier),
+      field("selector", token.immediate("~")),
+      field("component", $._immediate_identifier),
     ),
 
   association_navigation: $ =>
@@ -161,20 +113,29 @@ module.exports = {
     ),
 
   derive_for_action_import_spec: $ =>
-    seq(...gen.kws("for", "action", "import"), $.bo_action),
+    seq(
+      ...gen.kws("for", "action", "import"),
+      field("target", $.business_object),
+    ),
 
   derive_for_action_request_spec: $ =>
-    seq(...gen.kws("for", "action", "request"), $.bo_action),
+    seq(
+      ...gen.kws("for", "action", "request"),
+      field("target", $.business_object),
+    ),
 
   derive_for_action_result_spec: $ =>
-    seq(...gen.kws("for", "action", "result"), $.bo_action),
+    seq(
+      ...gen.kws("for", "action", "result"),
+      field("target", $.business_object),
+    ),
 
   derive_for_authorization_key_spec: $ =>
     seq(
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("authorization", "key"),
-      field("target", $.bo_authorization_target),
+      field("target", $.business_object),
     ),
 
   derive_for_authorization_request_spec: $ =>
@@ -182,7 +143,7 @@ module.exports = {
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("authorization", "request"),
-      field("target", $.bo_authorization_target),
+      field("target", $.business_object),
     ),
 
   derive_for_authorization_result_spec: $ =>
@@ -190,29 +151,32 @@ module.exports = {
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("authorization", "result"),
-      field("target", $.bo_authorization_target),
+      field("target", $.business_object),
     ),
 
   derive_for_global_authorization_request_spec: $ =>
     seq(
       ...gen.kws("for", "global", "authorization", "request"),
-      field("target", $.bo_authorization_target),
+      field("target", $.business_object),
     ),
 
   derive_for_global_authorization_result_spec: $ =>
     seq(
       ...gen.kws("for", "global", "authorization", "result"),
-      field("target", $.bo_authorization_target),
+      field("target", $.business_object),
     ),
 
   derive_for_determination_spec: $ =>
     seq(
       ...gen.kws("for", "determination"),
-      field("target", $.bo_determination),
+      field("target", $.business_object),
     ),
 
   derive_for_event_spec: $ =>
-    seq(...gen.kws("for", "event"), field("target", $.bo_event)),
+    seq(
+      ...gen.kws("for", "event"),
+      field("target", $.business_object),
+    ),
 
   derive_for_failed_spec: $ =>
     seq(
@@ -246,7 +210,7 @@ module.exports = {
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("features", "key"),
-      field("target", $.bo_features_target),
+      field("target", $.business_object),
     ),
 
   derive_for_features_request_spec: $ =>
@@ -254,7 +218,7 @@ module.exports = {
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("features", "request"),
-      field("target", $.bo_features_target),
+      field("target", $.business_object),
     ),
 
   derive_for_features_result_spec: $ =>
@@ -262,37 +226,37 @@ module.exports = {
       gen.kw("for"),
       optional(gen.kw("instance")),
       ...gen.kws("features", "result"),
-      field("target", $.bo_features_target),
+      field("target", $.business_object),
     ),
 
   derive_for_global_features_request_spec: $ =>
     seq(
       ...gen.kws("for", "global", "features", "request"),
-      field("target", $.bo_features_target),
+      field("target", $.business_object),
     ),
 
   derive_for_global_features_result_spec: $ =>
     seq(
       ...gen.kws("for", "global", "features", "result"),
-      field("target", $.bo_features_target),
+      field("target", $.business_object),
     ),
 
   derive_for_function_request_spec: $ =>
     seq(
       ...gen.kws("for", "function", "request"),
-      field("target", $.bo_function),
+      field("target", $.business_object),
     ),
 
   derive_for_function_import_spec: $ =>
     seq(
       ...gen.kws("for", "function", "import"),
-      field("target", $.bo_function),
+      field("target", $.business_object),
     ),
 
   derive_for_function_result_spec: $ =>
     seq(
       ...gen.kws("for", "function", "result"),
-      field("target", $.bo_function),
+      field("target", $.business_object),
     ),
 
   derive_for_key_of_spec: $ =>
@@ -320,7 +284,10 @@ module.exports = {
     ),
 
   derive_for_validation_spec: $ =>
-    seq(...gen.kws("for", "validation"), field("target", $.bo_validation)),
+    seq(
+      ...gen.kws("for", "validation"),
+      field("target", $.business_object),
+    ),
 
   late: _ => gen.kw("late"),
 
