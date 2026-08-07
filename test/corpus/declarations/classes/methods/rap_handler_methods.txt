@@ -203,6 +203,117 @@ METHODS early_numbering_items FINAL FOR NUMBERING
             name: (identifier)))))))
 
 =================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Precheck standard operations
+=================================================================================
+METHODS precheck_create FOR PRECHECK IMPORTING entities FOR CREATE bdef.
+METHODS precheck_update FOR PRECHECK IMPORTING entities FOR UPDATE bdef.
+METHODS precheck_delete FOR PRECHECK IMPORTING keys FOR DELETE bdef.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (precheck))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (for_create_spec
+          business_object: (identifier)))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (precheck))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (for_update_spec
+          business_object: (identifier)))))
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (precheck))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (for_delete_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Precheck create by association
+=================================================================================
+METHODS precheck_items FINAL FOR PRECHECK
+    REFERENCE(entities) FOR CREATE /DMO/I_TRAVEL\_Booking
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (precheck))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (for_create_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Precheck action request
+=================================================================================
+METHODS precheck_action FOR PRECHECK
+    IMPORTING entities FOR ACTION bdef~approve
+    REQUEST REFERENCE(request)
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (precheck))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (parameter_for_action_spec
+          target: (component_selection
+            subject: (identifier)
+            component: (identifier))
+          (request_parameter_spec
+            (explicit_reference
+              name: (identifier)))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify create
 =================================================================================
 METHODS create_entity FOR MODIFY

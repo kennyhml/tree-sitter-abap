@@ -20954,6 +20954,22 @@
     }
   },
   {
+    "type": "precheck",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "precheck",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "preferred_parameter_spec",
     "named": true,
     "fields": {
@@ -21774,6 +21790,10 @@
         },
         {
           "type": "numbering",
+          "named": true
+        },
+        {
+          "type": "precheck",
           "named": true
         }
       ]
@@ -30277,6 +30297,10 @@
   },
   {
     "type": "position",
+    "named": false
+  },
+  {
+    "type": "precheck",
     "named": false
   },
   {

@@ -27098,6 +27098,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "precheck"
+            },
+            {
+              "type": "SYMBOL",
               "name": "modify"
             },
             {
@@ -27241,6 +27245,10 @@
     "lock": {
       "type": "SYMBOL",
       "name": "_kw_lock"
+    },
+    "precheck": {
+      "type": "SYMBOL",
+      "name": "_kw_precheck"
     },
     "numbering": {
       "type": "SYMBOL",
@@ -37696,6 +37704,19 @@
         },
         "named": false,
         "value": "lock"
+      }
+    },
+    "_kw_precheck": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)precheck"
+        },
+        "named": false,
+        "value": "precheck"
       }
     },
     "_kw_numbering": {

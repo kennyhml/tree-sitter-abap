@@ -14,6 +14,7 @@ module.exports = {
    * FOR { DETERMINE ON { SAVE | MODIFY }
    *     | LOCK
    *     | NUMBERING
+   *     | PRECHECK
    *     | MODIFY
    *     | GLOBAL AUTHORIZATION
    *     | GLOBAL FEATURES
@@ -29,6 +30,7 @@ module.exports = {
         $.determine_on,
         $.lock,
         $.numbering,
+        $.precheck,
         $.modify,
         $.global_authorization,
         $.authorization,
@@ -83,6 +85,13 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_LOCK.html
    */
   lock: _ => gen.kw("lock"),
+
+  /**
+   * PRECHECK
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_PRECHECK.html
+   */
+  precheck: _ => gen.kw("precheck"),
 
   /**
    * NUMBERING

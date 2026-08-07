@@ -42,6 +42,23 @@ METHODS early_numbering_items FINAL FOR NUMBERING
 "                           ^ variable.parameter.builtin
 "                                            ^ variable.parameter.builtin
 
+METHODS precheck_update FOR PRECHECK
+"       ^ function.method
+  IMPORTING entities FOR UPDATE bdef.
+"           ^ variable.parameter
+"                               ^ type
+
+METHODS precheck_action FINAL FOR PRECHECK
+  REFERENCE(entities) FOR ACTION bdef~approve
+"           ^ variable.parameter
+"                                 ^ type
+"                                      ^ variable.member
+  REQUEST REFERENCE(request)
+"                   ^ variable.parameter
+  CHANGING failed TYPE DATA reported TYPE DATA.
+"          ^ variable.parameter.builtin
+"                           ^ variable.parameter.builtin
+
 METHODS create_entity FOR MODIFY
 "       ^ function.method
   entities FOR CREATE bdef.
