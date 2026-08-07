@@ -2574,6 +2574,26 @@
     }
   },
   {
+    "type": "authorization",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authorization",
+            "named": false
+          },
+          {
+            "type": "instance",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "await_list",
     "named": true,
     "fields": {},
@@ -4994,10 +5014,6 @@
           "named": true
         },
         {
-          "type": "rap_handler_for_spec",
-          "named": true
-        },
-        {
           "type": "redefinition",
           "named": true
         }
@@ -6468,10 +6484,6 @@
         },
         {
           "type": "for_testing",
-          "named": true
-        },
-        {
-          "type": "rap_handler_for_spec",
           "named": true
         },
         {
@@ -9873,6 +9885,40 @@
     }
   },
   {
+    "type": "derived_importing_parameter",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "importing",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "explicit_reference",
+          "named": true
+        },
+        {
+          "type": "implicit_reference",
+          "named": true
+        },
+        {
+          "type": "parameter_for_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "derived_request_type",
     "named": true,
     "fields": {
@@ -10651,7 +10697,7 @@
     }
   },
   {
-    "type": "determine_on_spec",
+    "type": "determine_on",
     "named": true,
     "fields": {
       "keyword": {
@@ -14463,6 +14509,26 @@
           },
           {
             "type": "time",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "global_authorization",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authorization",
+            "named": false
+          },
+          {
+            "type": "global",
             "named": false
           }
         ]
@@ -18859,6 +18925,10 @@
           "named": true
         },
         {
+          "type": "derived_importing_parameter",
+          "named": true
+        },
+        {
           "type": "final",
           "named": true
         },
@@ -18891,11 +18961,15 @@
           "named": true
         },
         {
-          "type": "rap_handler_parameter",
+          "type": "redefinition",
           "named": true
         },
         {
-          "type": "redefinition",
+          "type": "request_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "result_parameter_spec",
           "named": true
         }
       ]
@@ -21683,41 +21757,15 @@
       "required": true,
       "types": [
         {
-          "type": "determine_on_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "rap_handler_parameter",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "importing",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "explicit_reference",
+          "type": "authorization",
           "named": true
         },
         {
-          "type": "implicit_reference",
+          "type": "determine_on",
           "named": true
         },
         {
-          "type": "parameter_for_spec",
+          "type": "global_authorization",
           "named": true
         }
       ]
@@ -22797,6 +22845,54 @@
     }
   },
   {
+    "type": "request_parameter_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "request",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bo_authorization_target",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "explicit_reference",
+          "named": true
+        },
+        {
+          "type": "implicit_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "requested_predicate",
     "named": true,
     "fields": {
@@ -22943,6 +23039,36 @@
       "types": [
         {
           "type": "result_binding_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "result_parameter_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "explicit_reference",
+          "named": true
+        },
+        {
+          "type": "implicit_reference",
           "named": true
         }
       ]

@@ -5,38 +5,37 @@ module.exports = {
       seq(
         optional($.final),
         $.rap_handler_for_spec,
-        $.rap_handler_parameter,
+        repeat($.__rap_handler_parameter),
         optional(gen.kw_tagged("changing", $.parameters)),
       ),
     ),
 
-  /*
-   * Covers all RAP handler purpose specifications.
+  /**
+   * FOR { DETERMINE ON { SAVE | MODIFY }
+   *     | GLOBAL AUTHORIZATION
+   *     | [INSTANCE] AUTHORIZATION }
    *
-   * FOR { DETERMINE ON { SAVE | MODIFY } ... [IMPORTING] ... FOR ... }
-   *   | { GLOBAL AUTHORIZATION ... [IMPORTING] ... FOR ... }
-   *   | { GLOBAL FEATURES ... [IMPORTING] ... FOR ... }
-   *   | { [INSTANCE] AUTHORIZATION ... [IMPORTING] ... FOR ... }
-   *   | { [INSTANCE] FEATURES ... [IMPORTING] ... FOR ... }
-   *   | { LOCK ... [IMPORTING] ... FOR ... }
-   *   | { MODIFY ... [IMPORTING] ... FOR ... }
-   *   | { NUMBERING ... [IMPORTING] ... FOR ... }
-   *   | { PRECHECK ... [IMPORTING] ... FOR ... }
-   *   | { READ ... [IMPORTING] ... FOR ... }
-   *   | { VALIDATE ON SAVE ... [IMPORTING] ... FOR ... }
-   *
-   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_DET.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMETHODS_FOR_RAP_BEHV.html
    */
-  rap_handler_for_spec: $ => seq(gen.kw("for"), choice($.determine_on_spec)),
+  rap_handler_for_spec: $ =>
+    seq(
+      gen.kw("for"),
+      choice($.determine_on, $.global_authorization, $.authorization),
+    ),
 
-  /*
-   * [IMPORTING] { REFERENCE(param) | param } [ FOR <purpose> ]
+  __rap_handler_parameter: $ =>
+    choice(
+      $.derived_importing_parameter,
+      $.request_parameter_spec,
+      $.result_parameter_spec,
+    ),
+
+  /**
+   * [IMPORTING] { REFERENCE(param) | param } [FOR bdef~purpose]
    *
-   * A large number of purposes can be named, ranging from something simple like
-   * `FOR bdef~determination` for a determination handler, to more complex purposes:
-   * `FOR READ bdef\_assoc FULL {param} RESULT {param} LINK {param}`
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMETHODS_FOR_RAP_BEHV.html
    */
-  rap_handler_parameter: $ =>
+  derived_importing_parameter: $ =>
     prec.dynamic(
       1,
       seq(
@@ -46,9 +45,57 @@ module.exports = {
       ),
     ),
 
-  determine_on_spec: $ =>
+  /**
+   * DETERMINE ON { SAVE | MODIFY }
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_DET.html
+   */
+  determine_on: $ =>
     seq(...gen.kws("determine", "on"), field("kind", choice($.save, $.modify))),
 
+  /**
+   * GLOBAL AUTHORIZATION
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_GLOBAL_AUTH.html
+   */
+  global_authorization: _ => seq(...gen.kws("global", "authorization")),
+
+  /**
+   * [INSTANCE] AUTHORIZATION
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_AUTH.html
+   */
+  authorization: _ =>
+    seq(optional(gen.kw("instance")), gen.kw("authorization")),
+
+  /**
+   * [IMPORTING] REQUEST { REFERENCE(req) | req } FOR bdef
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_GLOBAL_AUTH.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_AUTH.html
+   */
+  request_parameter_spec: $ =>
+    seq(
+      optional(gen.kw("importing")),
+      gen.kw("request"),
+      choice($.implicit_reference, $.explicit_reference),
+      gen.kw("for"),
+      field("target", $.bo_authorization_target),
+    ),
+
+  /**
+   * RESULT { REFERENCE(res) | res }
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMETHODS_FOR_RAP_BEHV.html
+   */
+  result_parameter_spec: $ =>
+    seq(gen.kw("result"), choice($.implicit_reference, $.explicit_reference)),
+
+  /**
+   * FOR bdef~det
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_DET.html
+   */
   parameter_for_spec: $ => seq(gen.kw("for"), $.bo_determination),
 
   save: _ => gen.kw("save"),

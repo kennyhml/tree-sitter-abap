@@ -53,7 +53,6 @@ module.exports = {
         $.for_event_spec,
         $.for_sql_service_spec,
         $.amdp_options_spec,
-        $.rap_handler_for_spec,
 
         // Parameter lists
         gen.kw_tagged("importing", $.parameters),

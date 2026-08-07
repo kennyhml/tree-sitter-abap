@@ -660,7 +660,7 @@
       ]
     )
   )
-  (#eq? @variable.parameter.builtin "reported" )
+  (#any-of? @variable.parameter.builtin "failed" "mapped" "reported" )
 )
 
 

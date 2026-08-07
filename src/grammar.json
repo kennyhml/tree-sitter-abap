@@ -26719,10 +26719,6 @@
             "name": "amdp_options_spec"
           },
           {
-            "type": "SYMBOL",
-            "name": "rap_handler_for_spec"
-          },
-          {
             "type": "SEQ",
             "members": [
               {
@@ -27213,8 +27209,11 @@
             "name": "rap_handler_for_spec"
           },
           {
-            "type": "SYMBOL",
-            "name": "rap_handler_parameter"
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "__rap_handler_parameter"
+            }
           },
           {
             "type": "CHOICE",
@@ -27256,13 +27255,38 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "determine_on_spec"
+              "name": "determine_on"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "global_authorization"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "authorization"
             }
           ]
         }
       ]
     },
-    "rap_handler_parameter": {
+    "__rap_handler_parameter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "derived_importing_parameter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "request_parameter_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "result_parameter_spec"
+        }
+      ]
+    },
+    "derived_importing_parameter": {
       "type": "PREC_DYNAMIC",
       "value": 1,
       "content": {
@@ -27308,7 +27332,7 @@
         ]
       }
     },
-    "determine_on_spec": {
+    "determine_on": {
       "type": "SEQ",
       "members": [
         {
@@ -27335,6 +27359,108 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "global_authorization": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_global"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authorization"
+        }
+      ]
+    },
+    "authorization": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_instance"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authorization"
+        }
+      ]
+    },
+    "request_parameter_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_importing"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_request"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "implicit_reference"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "explicit_reference"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "bo_authorization_target"
+          }
+        }
+      ]
+    },
+    "result_parameter_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "implicit_reference"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "explicit_reference"
+            }
+          ]
         }
       ]
     },

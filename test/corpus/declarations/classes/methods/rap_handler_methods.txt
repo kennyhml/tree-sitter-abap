@@ -10,9 +10,9 @@ METHODS det_on_save FOR DETERMINE ON SAVE
     (method_spec
       name: (identifier)
       (rap_handler_for_spec
-        (determine_on_spec
+        (determine_on
           kind: (save)))
-      (rap_handler_parameter
+      (derived_importing_parameter
         (implicit_reference
           name: (identifier))
         (parameter_for_spec
@@ -23,7 +23,7 @@ METHODS det_on_save FOR DETERMINE ON SAVE
 =================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Determine on modify
 =================================================================================
-METHODS det_on_save FOR DETERMINE ON SAVE 
+METHODS det_on_modify FOR DETERMINE ON MODIFY
     IMPORTING keys FOR bdef~det_mod. 
 ---
 
@@ -32,9 +32,9 @@ METHODS det_on_save FOR DETERMINE ON SAVE
     (method_spec
       name: (identifier)
       (rap_handler_for_spec
-        (determine_on_spec
-          kind: (save)))
-      (rap_handler_parameter
+        (determine_on
+          kind: (modify)))
+      (derived_importing_parameter
         (implicit_reference
           name: (identifier))
         (parameter_for_spec
@@ -54,9 +54,9 @@ METHODS det_on_save FOR DETERMINE ON SAVE
     (method_spec
       name: (identifier)
       (rap_handler_for_spec
-        (determine_on_spec
+        (determine_on
           kind: (save)))
-      (rap_handler_parameter
+      (derived_importing_parameter
         (explicit_reference
           name: (identifier))
         (parameter_for_spec
@@ -77,15 +77,136 @@ METHODS det_on_save2 FOR DETERMINE ON SAVE
     (method_spec
       name: (identifier)
       (rap_handler_for_spec
-        (determine_on_spec
+        (determine_on
           kind: (save)))
-      (rap_handler_parameter
+      (derived_importing_parameter
         (implicit_reference
           name: (identifier))
         (parameter_for_spec
           (bo_determination
             entity: (identifier)
             name: (identifier))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Instance authorization
+=================================================================================
+METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+    IMPORTING keys REQUEST requested_authorizations FOR bdef
+    RESULT result.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (authorization))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier)))
+      (request_parameter_spec
+        (implicit_reference
+          name: (identifier))
+        target: (bo_authorization_target
+          entity: (identifier)))
+      (result_parameter_spec
+        (implicit_reference
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Authorization explicit references
+=================================================================================
+METHODS get_authorizations FINAL FOR AUTHORIZATION
+    REFERENCE(keys) REQUEST REFERENCE(requested_authorizations) FOR bdef~admin
+    RESULT REFERENCE(result)
+    CHANGING failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (authorization))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier)))
+      (request_parameter_spec
+        (explicit_reference
+          name: (identifier))
+        target: (bo_authorization_target
+          entity: (identifier)
+          group: (identifier)))
+      (result_parameter_spec
+        (explicit_reference
+          name: (identifier)))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Global authorization
+=================================================================================
+METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+    IMPORTING REQUEST requested_authorizations FOR bdef
+    RESULT result.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (global_authorization))
+      (request_parameter_spec
+        (implicit_reference
+          name: (identifier))
+        target: (bo_authorization_target
+          entity: (identifier)))
+      (result_parameter_spec
+        (implicit_reference
+          name: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Global authorization explicit references
+=================================================================================
+METHODS get_global_authorizations FINAL FOR GLOBAL AUTHORIZATION
+    REQUEST REFERENCE(requested_authorizations) FOR bdef~admin
+    RESULT REFERENCE(result)
+    CHANGING reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (global_authorization))
+      (request_parameter_spec
+        (explicit_reference
+          name: (identifier))
+        target: (bo_authorization_target
+          entity: (identifier)
+          group: (identifier)))
+      (result_parameter_spec
+        (explicit_reference
+          name: (identifier)))
       changing: (parameters
         (parameter
           (implicit_reference
