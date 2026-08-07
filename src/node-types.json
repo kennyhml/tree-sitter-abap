@@ -19633,6 +19633,22 @@
     }
   },
   {
+    "type": "numbering",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numbering",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "obligatory_spec",
     "named": true,
     "fields": {
@@ -21754,6 +21770,10 @@
         },
         {
           "type": "modify",
+          "named": true
+        },
+        {
+          "type": "numbering",
           "named": true
         }
       ]
@@ -30130,6 +30150,10 @@
   {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "numbering",
+    "named": false
   },
   {
     "type": "o",

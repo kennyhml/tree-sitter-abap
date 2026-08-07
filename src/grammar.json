@@ -27094,6 +27094,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "numbering"
+            },
+            {
+              "type": "SYMBOL",
               "name": "modify"
             },
             {
@@ -27237,6 +27241,10 @@
     "lock": {
       "type": "SYMBOL",
       "name": "_kw_lock"
+    },
+    "numbering": {
+      "type": "SYMBOL",
+      "name": "_kw_numbering"
     },
     "global_authorization": {
       "type": "SEQ",
@@ -37688,6 +37696,19 @@
         },
         "named": false,
         "value": "lock"
+      }
+    },
+    "_kw_numbering": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)numbering"
+        },
+        "named": false,
+        "value": "numbering"
       }
     },
     "_kw_save": {

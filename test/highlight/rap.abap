@@ -27,6 +27,21 @@ METHODS lock2 FINAL FOR LOCK
 "          ^ variable.parameter.builtin
 "                           ^ variable.parameter.builtin
 
+METHODS early_numbering FOR NUMBERING
+"       ^ function.method
+  IMPORTING entities FOR CREATE bdef.
+"           ^ variable.parameter
+"                               ^ type
+
+METHODS early_numbering_items FINAL FOR NUMBERING
+  REFERENCE(entities) FOR CREATE /DMO/I_TRAVEL\_Booking
+"           ^ variable.parameter
+"                                ^ type
+  CHANGING mapped TYPE DATA failed TYPE DATA reported TYPE DATA.
+"          ^ variable.parameter.builtin
+"                           ^ variable.parameter.builtin
+"                                            ^ variable.parameter.builtin
+
 METHODS create_entity FOR MODIFY
 "       ^ function.method
   entities FOR CREATE bdef.

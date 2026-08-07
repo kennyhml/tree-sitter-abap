@@ -145,6 +145,64 @@ METHODS lock2 FINAL FOR LOCK
             name: (identifier)))))))
 
 =================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Numbering create
+=================================================================================
+METHODS early_numbering FOR NUMBERING
+    IMPORTING entities FOR CREATE bdef.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (rap_handler_for_spec
+        (numbering))
+      (derived_importing_parameter
+        (implicit_reference
+          name: (identifier))
+        (for_create_spec
+          business_object: (identifier))))))
+
+=================================================================================
+[ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Numbering create by association
+=================================================================================
+METHODS early_numbering_items FINAL FOR NUMBERING
+    REFERENCE(entities) FOR CREATE /DMO/I_TRAVEL\_Booking
+    CHANGING mapped TYPE DATA failed TYPE DATA reported TYPE DATA.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      (final)
+      (rap_handler_for_spec
+        (numbering))
+      (derived_importing_parameter
+        (explicit_reference
+          name: (identifier))
+        (for_create_spec
+          business_object: (association_navigation
+            source: (identifier)
+            association: (identifier))))
+      changing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier)))))))
+
+=================================================================================
 [ ABAP - RAP Business Objects / Behavior Pools / Handler Methods ] Modify create
 =================================================================================
 METHODS create_entity FOR MODIFY

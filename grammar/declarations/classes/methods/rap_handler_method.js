@@ -13,6 +13,7 @@ module.exports = {
   /**
    * FOR { DETERMINE ON { SAVE | MODIFY }
    *     | LOCK
+   *     | NUMBERING
    *     | MODIFY
    *     | GLOBAL AUTHORIZATION
    *     | GLOBAL FEATURES
@@ -27,6 +28,7 @@ module.exports = {
       choice(
         $.determine_on,
         $.lock,
+        $.numbering,
         $.modify,
         $.global_authorization,
         $.authorization,
@@ -81,6 +83,13 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_LOCK.html
    */
   lock: _ => gen.kw("lock"),
+
+  /**
+   * NUMBERING
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_NUMBERING.html
+   */
+  numbering: _ => gen.kw("numbering"),
 
   /**
    * GLOBAL AUTHORIZATION
@@ -169,10 +178,7 @@ module.exports = {
     ),
 
   __action_request_parameter_spec: $ =>
-    seq(
-      gen.kw("request"),
-      choice($.implicit_reference, $.explicit_reference),
-    ),
+    seq(gen.kw("request"), choice($.implicit_reference, $.explicit_reference)),
 
   save: _ => gen.kw("save"),
 
