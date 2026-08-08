@@ -688,6 +688,10 @@
         "named": true
       },
       {
+        "type": "modify_entities_statement",
+        "named": true
+      },
+      {
         "type": "modify_entity_statement",
         "named": true
       },
@@ -19720,6 +19724,66 @@
     }
   },
   {
+    "type": "modify_entities_statement",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entities",
+            "named": false
+          },
+          {
+            "type": "modify",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "in_local_mode",
+          "named": true
+        },
+        {
+          "type": "modify_entity_spec",
+          "named": true
+        },
+        {
+          "type": "operations_spec",
+          "named": true
+        },
+        {
+          "type": "privileged",
+          "named": true
+        },
+        {
+          "type": "response_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "modify_entity_operations",
     "named": true,
     "fields": {},
@@ -19748,6 +19812,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "modify_entity_spec",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          }
+        ]
+      },
+      "operations": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "modify_entity_operations",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

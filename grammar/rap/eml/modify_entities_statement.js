@@ -7,6 +7,21 @@ module.exports = {
    */
   modify_entity_statement: $ => seq($.__modify_entity_statement_prefix, "."),
 
+  /*
+   * MODIFY ENTITIES OF bdef [IN LOCAL MODE|[FORWARDING] PRIVILEGED]
+   *        ENTITY entity1 operations
+   *        [ENTITY entity2 operations]
+   *        [response_param].
+   *
+   * MODIFY ENTITIES [IN LOCAL MODE|[FORWARDING] PRIVILEGED]
+   *      OPERATIONS op_tab [response_param].
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMODIFY_ENTITIES_LONG.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMODIFY_ENTITIES_OPERATIONS_DYN.html
+   */
+  modify_entities_statement: $ =>
+    seq($.__modify_entities_statement_prefix, "."),
+
   __modify_entity_statement_prefix: $ =>
     seq(
       ...gen.kws("modify", "entity"),
@@ -15,6 +30,35 @@ module.exports = {
       field("entity", $.business_object),
       field("operations", optional($.modify_entity_operations)),
       optional($.response_parameters),
+    ),
+
+  __modify_entities_statement_prefix: $ =>
+    seq(
+      ...gen.kws("modify", "entities"),
+      choice(
+        // static form
+        seq(
+          gen.kw("of"),
+          field("business_object", $.business_object),
+          repeat(choice($.in_local_mode, $.privileged)),
+          repeat($.modify_entity_spec),
+          optional($.response_parameters),
+        ),
+        // dynamic form
+        seq(
+          repeat(choice($.in_local_mode, $.privileged)),
+          $.operations_spec,
+          optional($.response_parameters),
+        ),
+      ),
+    ),
+
+  // ... ENTITY entity1 operations ...
+  modify_entity_spec: $ =>
+    seq(
+      gen.kw("entity"),
+      field("entity", $.business_object),
+      field("operations", optional($.modify_entity_operations)),
     ),
 
   /*

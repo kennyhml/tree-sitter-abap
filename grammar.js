@@ -256,6 +256,7 @@ module.exports = grammar({
 
           //rap
           $.modify_entity_statement,
+          $.modify_entities_statement,
           $.read_entity_statement,
           $.read_entities_statement,
 

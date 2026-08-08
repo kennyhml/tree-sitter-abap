@@ -1,0 +1,124 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITIES ] Multiple entities and responses
+=================================================================================
+MODIFY ENTITIES OF demo_root IN LOCAL MODE
+  ENTITY root
+    CREATE FIELDS ( root_id status ) WITH create_rows
+    UPDATE SET FIELDS WITH update_rows
+  ENTITY item
+    CREATE BY \_details AUTO FILL CID WITH detail_rows
+    DELETE FROM delete_rows
+  FAILED failed
+  MAPPED mapped
+  REPORTED reported.
+---
+
+(source
+  (modify_entities_statement
+    (identifier)
+    (in_local_mode)
+    (modify_entity_spec
+      (identifier)
+      (modify_entity_operations
+        (create_entity
+          (fields_spec
+            (identifier)
+            (identifier))
+          (with_fields_table_spec
+            (identifier)))
+        (update_entity
+          (set_fields)
+          (with_fields_table_spec
+            (identifier)))))
+    (modify_entity_spec
+      (identifier)
+      (modify_entity_operations
+        (create_by_association
+          (association_navigation
+            (identifier))
+          (auto_fill_cid)
+          (with_fields_table_spec
+            (identifier)))
+        (delete_entity
+          (from_fields_table_spec
+            (identifier)))))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (mapped_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITIES ] Privileged long form
+=================================================================================
+MODIFY ENTITIES OF /dmo/i_travel FORWARDING PRIVILEGED
+  ENTITY travel
+    EXECUTE approve FROM action_rows RESULT action_result.
+---
+
+(source
+  (modify_entities_statement
+    (identifier)
+    (privileged)
+    (modify_entity_spec
+      (identifier)
+      (modify_entity_operations
+        (execute_action
+          (identifier)
+          (from_fields_table_spec
+            (identifier))
+          (result_table_spec
+            (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITIES ] Dynamic operations
+=================================================================================
+MODIFY ENTITIES OPERATIONS operation_table.
+---
+
+(source
+  (modify_entities_statement
+    (operations_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITIES ] Dynamic operations with responses
+=================================================================================
+MODIFY ENTITIES IN LOCAL MODE
+  OPERATIONS operation_table
+  FAILED failed
+  MAPPED mapped
+  REPORTED reported.
+---
+
+(source
+  (modify_entities_statement
+    (in_local_mode)
+    (operations_spec
+      (identifier))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (mapped_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITIES ] Privileged dynamic operations
+=================================================================================
+MODIFY ENTITIES FORWARDING PRIVILEGED
+  OPERATIONS operation_table
+  FAILED failed.
+---
+
+(source
+  (modify_entities_statement
+    (privileged)
+    (operations_spec
+      (identifier))
+    (response_parameters
+      (failed_spec
+        (identifier)))))

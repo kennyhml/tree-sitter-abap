@@ -110,3 +110,28 @@ MODIFY ENTITY IN LOCAL MODE demo_root
 "        ^ variable
   REPORTED reported.
 "          ^ variable
+
+MODIFY ENTITIES OF demo_root IN LOCAL MODE
+"                  ^ type
+  ENTITY root
+"        ^ type
+    CREATE FIELDS ( root_id status ) WITH create_rows
+"                   ^ variable.member
+"                           ^ variable.member
+"                                         ^ variable
+  ENTITY item
+"        ^ type
+    UPDATE SET FIELDS WITH update_rows
+"                          ^ variable
+  FAILED failed
+"        ^ variable
+  MAPPED mapped
+"        ^ variable
+  REPORTED reported.
+"          ^ variable
+
+MODIFY ENTITIES FORWARDING PRIVILEGED
+  OPERATIONS operation_table
+"            ^ variable
+  FAILED failed.
+"        ^ variable

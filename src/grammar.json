@@ -511,6 +511,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "modify_entities_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "read_entity_statement"
           },
           {
@@ -26022,6 +26026,19 @@
         }
       ]
     },
+    "modify_entities_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__modify_entities_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "__modify_entity_statement_prefix": {
       "type": "SEQ",
       "members": [
@@ -26092,6 +26109,146 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "__modify_entities_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_modify"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_of"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "business_object",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "business_object"
+                  }
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "in_local_mode"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "privileged"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "modify_entity_spec"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "response_parameters"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "in_local_mode"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "privileged"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "operations_spec"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "response_parameters"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "modify_entity_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entity"
+        },
+        {
+          "type": "FIELD",
+          "name": "entity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "operations",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "modify_entity_operations"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
         }
       ]
     },
@@ -38678,6 +38835,19 @@
         "value": "entity"
       }
     },
+    "_kw_entities": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)entities"
+        },
+        "named": false,
+        "value": "entities"
+      }
+    },
     "_kw_execute": {
       "type": "FIELD",
       "name": "keyword",
@@ -38728,19 +38898,6 @@
         },
         "named": false,
         "value": "cid"
-      }
-    },
-    "_kw_entities": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)entities"
-        },
-        "named": false,
-        "value": "entities"
       }
     },
     "_kw_schema": {
