@@ -488,6 +488,10 @@
         "named": true
       },
       {
+        "type": "commit_entities_statement",
+        "named": true
+      },
+      {
         "type": "commit_work_statement",
         "named": true
       },
@@ -5515,6 +5519,48 @@
         },
         {
           "type": "visible_length_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "commit_entities_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "commit",
+            "named": false
+          },
+          {
+            "type": "entities",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "in_simulation_mode",
+          "named": true
+        },
+        {
+          "type": "response_of_spec",
+          "named": true
+        },
+        {
+          "type": "responses_of_spec",
+          "named": true
+        },
+        {
+          "type": "responses_spec",
           "named": true
         }
       ]
@@ -16084,6 +16130,30 @@
     }
   },
   {
+    "type": "in_simulation_mode",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "in",
+            "named": false
+          },
+          {
+            "type": "mode",
+            "named": false
+          },
+          {
+            "type": "simulation",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "in_table_spec",
     "named": true,
     "fields": {
@@ -24266,6 +24336,46 @@
     }
   },
   {
+    "type": "response_of_spec",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "response",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "response_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "response_parameters",
     "named": true,
     "fields": {},
@@ -24283,6 +24393,72 @@
         },
         {
           "type": "reported_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "responses_of_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "responses",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "response_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "responses_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "responses",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "response_parameters",
           "named": true
         }
       ]
@@ -31912,6 +32088,10 @@
     "named": false
   },
   {
+    "type": "responses",
+    "named": false
+  },
+  {
     "type": "result",
     "named": false
   },
@@ -32029,6 +32209,10 @@
   },
   {
     "type": "sign",
+    "named": false
+  },
+  {
+    "type": "simulation",
     "named": false
   },
   {

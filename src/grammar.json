@@ -507,6 +507,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "commit_entities_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "modify_entity_statement"
           },
           {
@@ -25727,6 +25731,210 @@
         }
       ]
     },
+    "commit_entities_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "__commit_entities_short_form_prefix"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__commit_entities_long_form_prefix"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__commit_entities_dynamic_form_prefix"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__commit_entities_short_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_commit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "in_simulation_mode"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "responses_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__commit_entities_long_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_commit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "in_simulation_mode"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "response_of_spec"
+          }
+        }
+      ]
+    },
+    "__commit_entities_dynamic_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_commit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "in_simulation_mode"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "responses_of_spec"
+        }
+      ]
+    },
+    "responses_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_responses"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "response_parameters"
+        }
+      ]
+    },
+    "response_of_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_response"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "response_parameters"
+        }
+      ]
+    },
+    "responses_of_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_responses"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "response_parameters"
+        }
+      ]
+    },
+    "in_simulation_mode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_in"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_simulation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mode"
+        }
+      ]
+    },
     "in_local_mode": {
       "type": "SEQ",
       "members": [
@@ -38785,6 +38993,45 @@
         "value": "line-count"
       }
     },
+    "_kw_entities": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)entities"
+        },
+        "named": false,
+        "value": "entities"
+      }
+    },
+    "_kw_responses": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)responses"
+        },
+        "named": false,
+        "value": "responses"
+      }
+    },
+    "_kw_simulation": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)simulation"
+        },
+        "named": false,
+        "value": "simulation"
+      }
+    },
     "_kw_forwarding": {
       "type": "FIELD",
       "name": "keyword",
@@ -38835,19 +39082,6 @@
         },
         "named": false,
         "value": "entity"
-      }
-    },
-    "_kw_entities": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)entities"
-        },
-        "named": false,
-        "value": "entities"
       }
     },
     "_kw_execute": {

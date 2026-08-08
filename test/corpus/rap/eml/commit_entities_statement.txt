@@ -1,0 +1,99 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Short form
+=================================================================================
+COMMIT ENTITIES.
+---
+
+(source
+  (commit_entities_statement))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Short responses in simulation mode
+=================================================================================
+COMMIT ENTITIES IN SIMULATION MODE
+  RESPONSES
+    FAILED FINAL(failed)
+    REPORTED FINAL(reported).
+---
+
+(source
+  (commit_entities_statement
+    (in_simulation_mode)
+    (responses_spec
+      (response_parameters
+        (failed_spec
+          (declaration_expression
+            (identifier)))
+        (reported_spec
+          (declaration_expression
+            (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Long form responses
+=================================================================================
+COMMIT ENTITIES
+  RESPONSE OF demo_root
+    FAILED failed
+    REPORTED reported
+  RESPONSE OF /dmo/i_travel
+    FAILED travel_failed
+    REPORTED travel_reported.
+---
+
+(source
+  (commit_entities_statement
+    (response_of_spec
+      (identifier)
+      (response_parameters
+        (failed_spec
+          (identifier))
+        (reported_spec
+          (identifier))))
+    (response_of_spec
+      (identifier)
+      (response_parameters
+        (failed_spec
+          (identifier))
+        (reported_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Dynamic responses
+=================================================================================
+COMMIT ENTITIES
+  RESPONSES OF response_roots
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (commit_entities_statement
+    (responses_of_spec
+      (identifier)
+      (response_parameters
+        (failed_spec
+          (identifier))
+        (reported_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Dynamic simulation mode
+=================================================================================
+COMMIT ENTITIES IN SIMULATION MODE
+  RESPONSES OF response_roots
+  FAILED FINAL(failed)
+  REPORTED FINAL(reported).
+---
+
+(source
+  (commit_entities_statement
+    (in_simulation_mode)
+    (responses_of_spec
+      (identifier)
+      (response_parameters
+        (failed_spec
+          (declaration_expression
+            (identifier)))
+        (reported_spec
+          (declaration_expression
+            (identifier)))))))

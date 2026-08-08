@@ -145,3 +145,29 @@ MODIFY ENTITIES FORWARDING PRIVILEGED
 "            ^ variable
   FAILED failed.
 "        ^ variable
+
+COMMIT ENTITIES RESPONSES
+  FAILED failed
+"        ^ variable
+  REPORTED reported.
+"          ^ variable
+
+COMMIT ENTITIES
+  RESPONSE OF demo_root
+"             ^ type
+    FAILED failed
+"          ^ variable
+    REPORTED reported
+"            ^ variable
+  RESPONSE OF demo_other
+"             ^ type
+    FAILED other_failed.
+"          ^ variable
+
+COMMIT ENTITIES IN SIMULATION MODE
+  RESPONSES OF response_roots
+"              ^ variable
+  FAILED dynamic_failed
+"        ^ variable
+  REPORTED dynamic_reported.
+"          ^ variable
