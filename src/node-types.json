@@ -812,6 +812,10 @@
         "named": true
       },
       {
+        "type": "set_locks_statement",
+        "named": true
+      },
+      {
         "type": "set_parameter_statement",
         "named": true
       },
@@ -14346,6 +14350,32 @@
     }
   },
   {
+    "type": "from_instance_table_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "from_keys_spec",
     "named": true,
     "fields": {
@@ -18689,6 +18719,42 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "lock_entity",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "from_instance_table_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -25888,6 +25954,64 @@
     }
   },
   {
+    "type": "set_locks_statement",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "locks",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          }
+        ]
+      },
+      "lock_table": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "lock_entity",
+          "named": true
+        },
+        {
+          "type": "response_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "set_parameter_statement",
     "named": true,
     "fields": {
@@ -31986,6 +32110,10 @@
   },
   {
     "type": "lock",
+    "named": false
+  },
+  {
+    "type": "locks",
     "named": false
   },
   {

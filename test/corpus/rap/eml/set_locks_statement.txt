@@ -1,0 +1,77 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / SET LOCKS ] Short form
+=================================================================================
+SET LOCKS ENTITY demo_root
+  FROM VALUE #( ( id = 1 ) ( id = 2 ) )
+  FAILED FINAL(failed)
+  REPORTED FINAL(reported).
+---
+
+(source
+  (set_locks_statement
+    (lock_entity
+      (identifier)
+      (from_instance_table_spec
+        (value_expression
+          (table_comprehension
+            (line_spec
+              (argument_list
+                (named_argument
+                  (identifier)
+                  (number))))
+            (line_spec
+              (argument_list
+                (named_argument
+                  (identifier)
+                  (number))))))))
+    (response_parameters
+      (failed_spec
+        (declaration_expression
+          (identifier)))
+      (reported_spec
+        (declaration_expression
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / SET LOCKS ] Long form
+=================================================================================
+SET LOCKS OF demo_root
+  ENTITY root FROM root_instances
+  ENTITY child FROM child_instances
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (set_locks_statement
+    (identifier)
+    (lock_entity
+      (identifier)
+      (from_instance_table_spec
+        (identifier)))
+    (lock_entity
+      (identifier)
+      (from_instance_table_spec
+        (identifier)))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / SET LOCKS ] Dynamic form
+=================================================================================
+SET LOCKS lock_operations
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (set_locks_statement
+    (identifier)
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))

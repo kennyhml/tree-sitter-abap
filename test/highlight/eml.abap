@@ -196,3 +196,16 @@ GET PERMISSIONS ONLY INSTANCE FEATURES
 "        ^ variable
   REPORTED reported.
 "          ^ variable
+
+SET LOCKS OF demo_root
+"             ^ type
+  ENTITY root FROM root_instances
+"        ^ type
+"                  ^ variable
+  ENTITY child FROM child_instances
+"        ^ type
+"                   ^ variable
+  FAILED failed
+"        ^ variable
+  REPORTED reported.
+"          ^ variable
