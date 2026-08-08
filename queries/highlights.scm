@@ -134,6 +134,12 @@
   (end_of_struct_spec)
 )
 
+; Consecutive structure boundaries belong to separate top-level declarations.
+(data_declaration
+  (end_of_struct_spec name: (identifier) @variable)
+  (begin_of_struct_spec name: (identifier) @variable)
+)
+
 (statics_declaration 
   (statics_spec name: (identifier) @variable )
 )
@@ -156,20 +162,32 @@
   (end_of_struct_spec)
 )
 
+(statics_declaration
+  (end_of_struct_spec name: (identifier) @variable)
+  (begin_of_struct_spec name: (identifier) @variable)
+)
+
 (class_body
   (_ ; any section
-    [
-      (data_declaration
-        (data_spec name: (identifier) @variable.member )?
-        (begin_of_struct_spec name: (identifier) @variable.member )?
-        (end_of_struct_spec name: (identifier) @variable.member )?
-      )
-      (class_data_declaration
-        (class_data_spec name: (identifier) @variable.member )?
-        (begin_of_struct_spec name: (identifier) @variable.member )?
-        (end_of_struct_spec name: (identifier) @variable.member )?
-      )
-    ]
+    (data_declaration
+      [
+        (data_spec name: (identifier) @variable.member)
+        (begin_of_struct_spec name: (identifier) @variable.member)
+        (end_of_struct_spec name: (identifier) @variable.member)
+      ]
+    )
+  )
+)
+
+(class_body
+  (_ ; any section
+    (class_data_declaration
+      [
+        (class_data_spec name: (identifier) @variable.member)
+        (begin_of_struct_spec name: (identifier) @variable.member)
+        (end_of_struct_spec name: (identifier) @variable.member)
+      ]
+    )
   )
 )
 
@@ -332,6 +350,13 @@
   . (begin_of_struct_spec name: (identifier) @constant )
 )
 
+; A chained structure may follow one or more immediate constants.
+; Nested structure names are overridden as members by the next rule.
+(constants_declaration
+  (constants_spec)
+  (begin_of_struct_spec name: (identifier) @constant)
+)
+
 (constants_declaration
   (begin_of_struct_spec)
   [
@@ -340,6 +365,11 @@
     (end_of_struct_spec name: (identifier) @variable.member)
   ]
   (end_of_struct_spec)
+)
+
+(constants_declaration
+  (end_of_struct_spec name: (identifier) @constant)
+  (begin_of_struct_spec name: (identifier) @constant)
 )
 
 (component_selection 
@@ -607,6 +637,11 @@
     (end_of_struct_spec name: (identifier) @variable.member)
   ]
   (end_of_struct_spec)
+)
+
+(types_declaration
+  (end_of_struct_spec name: (identifier) @type.definition)
+  (begin_of_struct_spec name: (identifier) @type.definition)
 )
 
 ; RAP derived types

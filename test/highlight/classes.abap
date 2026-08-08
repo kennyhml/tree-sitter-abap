@@ -42,6 +42,28 @@ ENDCLASS.
 
 CLASS c1 DEFINITION DEFERRED. 
 "     ^ type
+
+CLASS chained_class_data DEFINITION.
+  PUBLIC SECTION.
+    CLASS-DATA:
+      BEGIN OF first_class_data,
+"              ^ variable.member
+        field_a TYPE i,
+"       ^ variable.member
+        field_b TYPE string,
+"       ^ variable.member
+      END OF first_class_data,
+"            ^ variable.member
+      BEGIN OF second_class_data,
+"              ^ variable.member
+        field_c TYPE i,
+"       ^ variable.member
+        field_d TYPE string,
+"       ^ variable.member
+      END OF second_class_data.
+"            ^ variable.member
+ENDCLASS.
+
 CLASS cl_demo_amdp_mesh DEFINITION
 "     ^ type
   LOCAL FRIENDS cl_one cl_two cl_three.

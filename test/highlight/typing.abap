@@ -88,6 +88,39 @@ TYPES: BEGIN OF top, f1 TYPE mytype, BEGIN OF inner, f2 type i, END OF inner, EN
 "                                                    ^ variable.member
 "                                                                      ^ variable.member
 "                                                                                    ^ type.definition
+TYPES:
+  BEGIN OF first_type,
+"          ^ type.definition
+    field_a TYPE i,
+"   ^ variable.member
+    field_b TYPE string,
+"   ^ variable.member
+  END OF first_type,
+"        ^ type.definition
+  BEGIN OF second_type,
+"          ^ type.definition
+    field_c TYPE i,
+"   ^ variable.member
+    field_d TYPE string,
+"   ^ variable.member
+  END OF second_type.
+"        ^ type.definition
+
+TYPES:
+  BEGIN OF outer_type,
+"          ^ type.definition
+    outer_field TYPE i,
+"   ^ variable.member
+    BEGIN OF inner_type,
+"            ^ variable.member
+      inner_field_a TYPE i,
+"     ^ variable.member
+      inner_field_b TYPE string,
+"     ^ variable.member
+    END OF inner_type,
+"          ^ variable.member
+  END OF outer_type.
+"        ^ type.definition
 types gtyt_std_tab1 type table of gtys_mystruct.
 "     ^ type.definition
 "                                 ^ type
