@@ -27154,83 +27154,79 @@
       ]
     },
     "derived_importing_parameter": {
-      "type": "PREC_DYNAMIC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_kw_importing"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "implicit_reference"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "explicit_reference"
-              }
-            ]
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "parameter_for_spec"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "parameter_for_lock_spec"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "parameter_for_read_spec"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "parameter_for_function_spec"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "for_create_spec"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "for_update_spec"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "for_delete_spec"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "parameter_for_action_spec"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        ]
-      }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_importing"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "implicit_reference"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "explicit_reference"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "for_determination_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_lock_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_read_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_function_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_action_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_create_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_update_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_delete_spec"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "determine_on": {
       "type": "SEQ",
@@ -27444,7 +27440,7 @@
         }
       ]
     },
-    "parameter_for_spec": {
+    "for_determination_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -27457,7 +27453,7 @@
         }
       ]
     },
-    "parameter_for_lock_spec": {
+    "for_lock_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -27474,7 +27470,7 @@
         }
       ]
     },
-    "parameter_for_read_spec": {
+    "for_read_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -27565,7 +27561,7 @@
         }
       ]
     },
-    "parameter_for_function_spec": {
+    "for_function_spec": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -27611,7 +27607,7 @@
         ]
       }
     },
-    "parameter_for_action_spec": {
+    "for_action_spec": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {

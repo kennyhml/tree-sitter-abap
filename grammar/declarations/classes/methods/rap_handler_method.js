@@ -59,22 +59,21 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMETHODS_FOR_RAP_BEHV.html
    */
   derived_importing_parameter: $ =>
-    prec.dynamic(
-      1,
-      seq(
-        optional(gen.kw("importing")),
-        choice($.implicit_reference, $.explicit_reference),
-        optional(
-          choice(
-            $.parameter_for_spec,
-            $.parameter_for_lock_spec,
-            $.parameter_for_read_spec,
-            $.parameter_for_function_spec,
-            $.for_create_spec,
-            $.for_update_spec,
-            $.for_delete_spec,
-            $.parameter_for_action_spec,
-          ),
+    seq(
+      optional(gen.kw("importing")),
+      choice($.implicit_reference, $.explicit_reference),
+      optional(
+        choice(
+          $.for_determination_spec,
+          $.for_lock_spec,
+          $.for_read_spec,
+          $.for_function_spec,
+          // These are defined in declarations/common cause
+          // derived type declarations use them in the same form.
+          $.for_action_spec,
+          $.for_create_spec,
+          $.for_update_spec,
+          $.for_delete_spec,
         ),
       ),
     ),
@@ -188,15 +187,14 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_DET.html
    */
-  parameter_for_spec: $ => seq(gen.kw("for"), $.business_object),
+  for_determination_spec: $ => seq(gen.kw("for"), $.business_object),
 
   /**
    * FOR LOCK bdef
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_LOCK.html
    */
-  parameter_for_lock_spec: $ =>
-    seq(...gen.kws("for", "lock"), $.business_object),
+  for_lock_spec: $ => seq(...gen.kws("for", "lock"), $.business_object),
 
   /**
    * FOR READ bdef RESULT result
@@ -204,7 +202,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_READ.html
    */
-  parameter_for_read_spec: $ =>
+  for_read_spec: $ =>
     seq(
       ...gen.kws("for", "read"),
       field("target", $.business_object),
@@ -229,7 +227,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_READ.html
    */
-  parameter_for_function_spec: $ =>
+  for_function_spec: $ =>
     prec.right(
       seq(
         ...gen.kws("for", "function"),
@@ -246,7 +244,7 @@ module.exports = {
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPHANDLER_METH_MODIFY.html
    */
-  parameter_for_action_spec: $ =>
+  for_action_spec: $ =>
     prec.right(
       seq(
         ...gen.kws("for", "action"),

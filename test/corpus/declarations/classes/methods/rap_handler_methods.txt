@@ -15,7 +15,7 @@ METHODS det_on_save FOR DETERMINE ON SAVE
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier)))))))
@@ -37,7 +37,7 @@ METHODS det_on_modify FOR DETERMINE ON MODIFY
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier)))))))
@@ -59,7 +59,7 @@ METHODS det_on_save FOR DETERMINE ON SAVE
       (derived_importing_parameter
         (explicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier)))))))
@@ -82,7 +82,7 @@ METHODS det_on_save2 FOR DETERMINE ON SAVE
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier))))
@@ -109,7 +109,7 @@ METHODS on_created FOR ENTITY EVENT
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier)))))))
@@ -132,14 +132,14 @@ METHODS on_change FINAL FOR ENTITY EVENT
       (derived_importing_parameter
         (explicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier))))
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier)))))))
@@ -161,7 +161,7 @@ METHODS validate_status FOR VALIDATE ON SAVE
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier))))
@@ -195,7 +195,7 @@ METHODS validate_amount FINAL FOR VALIDATE ON SAVE
       (derived_importing_parameter
         (explicit_reference
           name: (identifier))
-        (parameter_for_spec
+        (for_determination_spec
           (component_selection
             subject: (identifier)
             component: (identifier))))
@@ -227,7 +227,7 @@ METHODS lock FOR LOCK
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_lock_spec
+        (for_lock_spec
           (identifier))))))
 
 =================================================================================
@@ -248,7 +248,7 @@ METHODS lock2 FINAL FOR LOCK
       (derived_importing_parameter
         (explicit_reference
           name: (identifier))
-        (parameter_for_lock_spec
+        (for_lock_spec
           (identifier)))
       changing: (parameters
         (parameter
@@ -412,7 +412,7 @@ METHODS precheck_action FOR PRECHECK
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_action_spec
+        (for_action_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier))
@@ -547,7 +547,7 @@ METHODS execute_action FINAL FOR MODIFY
       (derived_importing_parameter
         (explicit_reference
           name: (identifier))
-        (parameter_for_action_spec
+        (for_action_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier))
@@ -593,7 +593,7 @@ METHODS resume_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~resume.
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_action_spec
+        (for_action_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier))))))
@@ -605,7 +605,7 @@ METHODS resume_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~resume.
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_action_spec
+        (for_action_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier))))))
@@ -617,7 +617,7 @@ METHODS resume_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~resume.
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_action_spec
+        (for_action_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier))))))
@@ -629,7 +629,7 @@ METHODS resume_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~resume.
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_action_spec
+        (for_action_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier))))))
@@ -641,7 +641,7 @@ METHODS resume_draft FOR MODIFY IMPORTING keys FOR ACTION bdef~resume.
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_action_spec
+        (for_action_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier)))))))
@@ -663,7 +663,7 @@ METHODS read_entity FOR READ
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_read_spec
+        (for_read_spec
           target: (identifier)
           (result_parameter_spec
             (implicit_reference
@@ -700,7 +700,7 @@ METHODS read_items FINAL FOR READ
       (derived_importing_parameter
         (explicit_reference
           name: (identifier))
-        (parameter_for_read_spec
+        (for_read_spec
           target: (association_navigation
             source: (identifier)
             association: (identifier))
@@ -733,7 +733,7 @@ METHODS calculate FOR READ
       (derived_importing_parameter
         (implicit_reference
           name: (identifier))
-        (parameter_for_function_spec
+        (for_function_spec
           target: (component_selection
             subject: (identifier)
             component: (identifier))

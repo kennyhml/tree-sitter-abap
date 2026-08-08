@@ -9640,6 +9640,10 @@
           "named": true
         },
         {
+          "type": "for_action_spec",
+          "named": true
+        },
+        {
           "type": "for_create_spec",
           "named": true
         },
@@ -9648,31 +9652,27 @@
           "named": true
         },
         {
+          "type": "for_determination_spec",
+          "named": true
+        },
+        {
+          "type": "for_function_spec",
+          "named": true
+        },
+        {
+          "type": "for_lock_spec",
+          "named": true
+        },
+        {
+          "type": "for_read_spec",
+          "named": true
+        },
+        {
           "type": "for_update_spec",
           "named": true
         },
         {
           "type": "implicit_reference",
-          "named": true
-        },
-        {
-          "type": "parameter_for_action_spec",
-          "named": true
-        },
-        {
-          "type": "parameter_for_function_spec",
-          "named": true
-        },
-        {
-          "type": "parameter_for_lock_spec",
-          "named": true
-        },
-        {
-          "type": "parameter_for_read_spec",
-          "named": true
-        },
-        {
-          "type": "parameter_for_spec",
           "named": true
         }
       ]
@@ -12589,6 +12589,50 @@
     }
   },
   {
+    "type": "for_action_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "request_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "result_parameter_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "for_behavior_of_spec",
     "named": true,
     "fields": {
@@ -12717,6 +12761,32 @@
     }
   },
   {
+    "type": "for_determination_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "business_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "for_event_spec",
     "named": true,
     "fields": {
@@ -12761,6 +12831,50 @@
     }
   },
   {
+    "type": "for_function_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "function",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "request_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "result_parameter_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "for_instance_spec",
     "named": true,
     "fields": {
@@ -12788,6 +12902,84 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "for_lock_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "lock",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "business_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_read_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "full_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "link_parameter_spec",
+          "named": true
+        },
+        {
+          "type": "result_parameter_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -20449,198 +20641,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "parameter_for_action_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "action",
-            "named": false
-          },
-          {
-            "type": "for",
-            "named": false
-          }
-        ]
-      },
-      "target": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "business_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "request_parameter_spec",
-          "named": true
-        },
-        {
-          "type": "result_parameter_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "parameter_for_function_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "for",
-            "named": false
-          },
-          {
-            "type": "function",
-            "named": false
-          }
-        ]
-      },
-      "target": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "business_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "request_parameter_spec",
-          "named": true
-        },
-        {
-          "type": "result_parameter_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "parameter_for_lock_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "for",
-            "named": false
-          },
-          {
-            "type": "lock",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "business_object",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "parameter_for_read_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "for",
-            "named": false
-          },
-          {
-            "type": "read",
-            "named": false
-          }
-        ]
-      },
-      "target": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "business_object",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "full_parameter_spec",
-          "named": true
-        },
-        {
-          "type": "link_parameter_spec",
-          "named": true
-        },
-        {
-          "type": "result_parameter_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "parameter_for_spec",
-    "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "for",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "business_object",
-          "named": true
-        }
-      ]
     }
   },
   {
