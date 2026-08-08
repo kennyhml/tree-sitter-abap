@@ -103,6 +103,29 @@ METHODS meth IMPORTING p1 TYPE i DEFAULT 99.
             value: (number)))))))
 
 =================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Default constant
+=================================================================================
+METHODS meth IMPORTING p1 TYPE i DEFAULT zcl_class=>constants-constant.
+---
+
+(source
+  (methods_declaration
+    (method_spec
+      name: (identifier)
+      importing: (parameters
+        (parameter
+          (implicit_reference
+            name: (identifier))
+          typing: (referred_type
+            name: (identifier))
+          (parameter_default_spec
+            value: (component_selection
+              subject: (component_selection
+                subject: (identifier)
+                component: (identifier))
+              component: (identifier))))))))
+
+=================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / METHODS ] Preferred param
 =================================================================================
 METHODS meth 

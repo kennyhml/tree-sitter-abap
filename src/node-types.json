@@ -20886,6 +20886,10 @@
         "required": true,
         "types": [
           {
+            "type": "component_selection",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },

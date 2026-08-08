@@ -34,16 +34,41 @@ module.exports = {
   optional: _ => gen.kw("optional"),
 
   parameter_default_spec: $ =>
-    seq(
-      gen.kw("default"),
-      field(
-        "value",
-        choice(
-          $.identifier, // constant
-          $.number,
-          $.string_literal,
+    prec.right(
+      seq(
+        gen.kw("default"),
+        field(
+          "value",
+          choice(
+            $.identifier, // constant
+            $.number,
+            $.string_literal,
+            alias($.__parameter_default_constant, $.component_selection),
+          ),
         ),
       ),
+    ),
+
+  // TODO: this needs a cleaner fix
+  __parameter_default_constant: $ =>
+    seq(
+      field(
+        "subject",
+        choice(
+          $.identifier,
+          alias($.__parameter_default_constant, $.component_selection),
+        ),
+      ),
+      field(
+        "selector",
+        choice(
+          token.immediate("-"),
+          token.immediate("->"),
+          token.immediate("=>"),
+          token.immediate("~"),
+        ),
+      ),
+      field("component", $._immediate_identifier),
     ),
 
   implicit_reference: $ => seq(optional("!"), field("name", $.identifier)),
