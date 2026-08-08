@@ -142,6 +142,17 @@ CLASS c1 DEFINITION DEFERRED.
     name: (identifier)))
 
 =================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Deferred for testing
+=================================================================================
+CLASS c1 DEFINITION DEFERRED FOR TESTING. 
+---
+
+(source
+  (deferred_class_declaration
+    name: (identifier)
+    (for_testing)))
+
+=================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Local friends declaration
 =================================================================================
 CLASS cl_demo_amdp_mesh DEFINITION LOCAL FRIENDS cl_test_selects.

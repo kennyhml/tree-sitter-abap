@@ -8176,6 +8176,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "for_testing",
+          "named": true
+        }
+      ]
     }
   },
   {

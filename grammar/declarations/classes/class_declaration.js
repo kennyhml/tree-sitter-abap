@@ -39,6 +39,7 @@ module.exports = {
       gen.kw("class"),
       field("name", $.identifier),
       ...gen.kws("definition", "deferred"),
+      optional($.for_testing),
     ),
 
   class_body: $ =>
@@ -138,8 +139,7 @@ module.exports = {
       repeat(choice($.duration_spec, $.risk_level_spec)),
     ),
 
-  shared_memory_enabled: _ =>
-    seq(...gen.kws("shared", "memory", "enabled")),
+  shared_memory_enabled: _ => seq(...gen.kws("shared", "memory", "enabled")),
 
   risk_level_spec: $ =>
     seq(...gen.kws("risk", "level"), field("level", $.__test_risk_level)),

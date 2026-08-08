@@ -8232,6 +8232,18 @@
         {
           "type": "SYMBOL",
           "name": "_kw_deferred"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "for_testing"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
