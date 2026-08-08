@@ -89,3 +89,24 @@ READ ENTITIES OF demo_root IN LOCAL MODE
 "        ^ variable
   REPORTED reported.
 "          ^ variable
+
+MODIFY ENTITY IN LOCAL MODE demo_root
+"                           ^ type
+  CREATE AUTO FILL CID FIELDS ( root_id status ) WITH create_rows
+"                               ^ variable.member
+"                                       ^ variable.member
+"                                                     ^ variable
+  CREATE BY \_items AUTO FILL CID SET FIELDS WITH item_rows
+"           ^ operator
+"            ^ type
+"                                                   ^ variable
+  EXECUTE approve FROM action_rows RESULT action_result
+"         ^ function.method
+"                      ^ variable
+"                                         ^ variable
+  FAILED failed
+"        ^ variable
+  MAPPED mapped
+"        ^ variable
+  REPORTED reported.
+"          ^ variable

@@ -659,8 +659,12 @@
 (fields_spec (identifier) @variable.member)
 (deep_entity_fields (identifier) @variable.member)
 
-(execute_function
-  name: (identifier) @function.method)
+[
+  (execute_action
+    name: (identifier) @function.method)
+  (execute_function
+    name: (identifier) @function.method)
+]
 
 (method_spec
   (rap_handler_for_spec)

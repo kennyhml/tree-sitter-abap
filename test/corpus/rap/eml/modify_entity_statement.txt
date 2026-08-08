@@ -1,0 +1,122 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITY ] All operations
+=================================================================================
+MODIFY ENTITY IN LOCAL MODE demo_root
+  CREATE AUTO FILL CID FIELDS ( root_id status ) WITH create_rows
+  CREATE BY \_items AUTO FILL CID SET FIELDS WITH item_rows
+  UPDATE SET FIELDS WITH update_rows
+  DELETE FROM delete_rows
+  EXECUTE approve FROM action_rows REQUEST requested_fields RESULT action_result
+  FAILED failed
+  MAPPED mapped
+  REPORTED reported.
+---
+
+(source
+  (modify_entity_statement
+    (in_local_mode)
+    (identifier)
+    (modify_entity_operations
+      (create_entity
+        (auto_fill_cid)
+        (fields_spec
+          (identifier)
+          (identifier))
+        (with_fields_table_spec
+          (identifier)))
+      (create_by_association
+        (association_navigation
+          (identifier))
+        (auto_fill_cid)
+        (set_fields)
+        (with_fields_table_spec
+          (identifier)))
+      (update_entity
+        (set_fields)
+        (with_fields_table_spec
+          (identifier)))
+      (delete_entity
+        (from_fields_table_spec
+          (identifier)))
+      (execute_action
+        (identifier)
+        (from_fields_table_spec
+          (identifier))
+        (request_spec
+          (identifier))
+        (result_table_spec
+          (identifier))))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (mapped_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITY ] Privileged create and action without result
+=================================================================================
+MODIFY ENTITY FORWARDING PRIVILEGED demo_root
+  CREATE AUTO FILL CID WITH create_rows
+  EXECUTE recalculate FROM action_rows.
+---
+
+(source
+  (modify_entity_statement
+    (privileged)
+    (identifier)
+    (modify_entity_operations
+      (create_entity
+        (auto_fill_cid)
+        (with_fields_table_spec
+          (identifier)))
+      (execute_action
+        (identifier)
+        (from_fields_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY ENTITY ] Constructor and inline responses
+=================================================================================
+MODIFY ENTITY demo_root
+  CREATE FIELDS ( key_field data_field ) WITH VALUE #(
+    ( %cid = 'cid1' key_field = 1 data_field = 'created' )
+  )
+  FAILED FINAL(failed)
+  MAPPED FINAL(mapped)
+  REPORTED FINAL(reported).
+---
+
+(source
+  (modify_entity_statement
+    (identifier)
+    (modify_entity_operations
+      (create_entity
+        (fields_spec
+          (identifier)
+          (identifier))
+        (with_fields_table_spec
+          (value_expression
+            (table_comprehension
+              (line_spec
+                (argument_list
+                  (named_argument
+                    (identifier)
+                    (string_literal))
+                  (named_argument
+                    (identifier)
+                    (number))
+                  (named_argument
+                    (identifier)
+                    (string_literal)))))))))
+    (response_parameters
+      (failed_spec
+        (declaration_expression
+          (identifier)))
+      (mapped_spec
+        (declaration_expression
+          (identifier)))
+      (reported_spec
+        (declaration_expression
+          (identifier))))))

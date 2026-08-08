@@ -118,18 +118,5 @@ module.exports = {
       $.result_table_spec,
     ),
 
-  // For selective functions. may appear in other contexts later?
-  request_spec: $ =>
-    seq(gen.kw("request"), field("value", $.general_expression)),
-
-  operations_spec: $ =>
-    seq(gen.kw("operations"), field("value", $.general_expression)),
-
-  from_fields_table_spec: $ =>
-    seq(gen.kw("from"), field("value", $.general_expression)),
-
-  with_fields_table_spec: $ =>
-    seq(gen.kw("with"), field("value", $.general_expression)),
-
   all_fields: _ => seq(...gen.kws("all", "fields")),
 };

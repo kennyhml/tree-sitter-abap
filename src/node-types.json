@@ -688,6 +688,10 @@
         "named": true
       },
       {
+        "type": "modify_entity_statement",
+        "named": true
+      },
+      {
         "type": "modify_statement",
         "named": true
       },
@@ -2599,6 +2603,30 @@
           },
           {
             "type": "instance",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "auto_fill_cid",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "cid",
+            "named": false
+          },
+          {
+            "type": "fill",
             "named": false
           }
         ]
@@ -6804,6 +6832,62 @@
     }
   },
   {
+    "type": "create_by_association",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "association_navigation",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "create",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_fill_cid",
+          "named": true
+        },
+        {
+          "type": "fields_spec",
+          "named": true
+        },
+        {
+          "type": "from_fields_table_spec",
+          "named": true
+        },
+        {
+          "type": "set_fields",
+          "named": true
+        },
+        {
+          "type": "with_fields_table_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "create_data_statement",
     "named": true,
     "fields": {
@@ -6852,6 +6936,48 @@
       "types": [
         {
           "type": "area_handle_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_entity",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "create",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_fill_cid",
+          "named": true
+        },
+        {
+          "type": "fields_spec",
+          "named": true
+        },
+        {
+          "type": "from_fields_table_spec",
+          "named": true
+        },
+        {
+          "type": "set_fields",
+          "named": true
+        },
+        {
+          "type": "with_fields_table_spec",
           "named": true
         }
       ]
@@ -8290,6 +8416,48 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "delete_entity",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "delete",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_fill_cid",
+          "named": true
+        },
+        {
+          "type": "fields_spec",
+          "named": true
+        },
+        {
+          "type": "from_fields_table_spec",
+          "named": true
+        },
+        {
+          "type": "set_fields",
+          "named": true
+        },
+        {
+          "type": "with_fields_table_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -12026,6 +12194,66 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "execute_action",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "execute",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_fill_cid",
+          "named": true
+        },
+        {
+          "type": "fields_spec",
+          "named": true
+        },
+        {
+          "type": "from_fields_table_spec",
+          "named": true
+        },
+        {
+          "type": "request_spec",
+          "named": true
+        },
+        {
+          "type": "result_table_spec",
+          "named": true
+        },
+        {
+          "type": "set_fields",
+          "named": true
+        },
+        {
+          "type": "with_fields_table_spec",
           "named": true
         }
       ]
@@ -19492,6 +19720,95 @@
     }
   },
   {
+    "type": "modify_entity_operations",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "create_by_association",
+          "named": true
+        },
+        {
+          "type": "create_entity",
+          "named": true
+        },
+        {
+          "type": "delete_entity",
+          "named": true
+        },
+        {
+          "type": "execute_action",
+          "named": true
+        },
+        {
+          "type": "update_entity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "modify_entity_statement",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          },
+          {
+            "type": "modify",
+            "named": false
+          }
+        ]
+      },
+      "operations": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "modify_entity_operations",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "in_local_mode",
+          "named": true
+        },
+        {
+          "type": "privileged",
+          "named": true
+        },
+        {
+          "type": "response_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "modify_statement",
     "named": true,
     "fields": {
@@ -24879,6 +25196,26 @@
     }
   },
   {
+    "type": "set_fields",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "fields",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "set_handler_statement",
     "named": true,
     "fields": {
@@ -28736,6 +29073,48 @@
     }
   },
   {
+    "type": "update_entity",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "update",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_fill_cid",
+          "named": true
+        },
+        {
+          "type": "fields_spec",
+          "named": true
+        },
+        {
+          "type": "from_fields_table_spec",
+          "named": true
+        },
+        {
+          "type": "set_fields",
+          "named": true
+        },
+        {
+          "type": "with_fields_table_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "user-command",
     "named": false,
     "fields": {}
@@ -29975,6 +30354,10 @@
     "named": false
   },
   {
+    "type": "auto",
+    "named": false
+  },
+  {
     "type": "background",
     "named": false
   },
@@ -30120,6 +30503,10 @@
   },
   {
     "type": "checkbox",
+    "named": false
+  },
+  {
+    "type": "cid",
     "named": false
   },
   {
@@ -30612,6 +30999,10 @@
   },
   {
     "type": "file",
+    "named": false
+  },
+  {
+    "type": "fill",
     "named": false
   },
   {
