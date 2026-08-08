@@ -19,15 +19,20 @@ module.exports = {
 
   association_navigation: $ =>
     seq(
-      field(
-        "source",
-        choice(
-          $.composition_navigation,
-          $.association_navigation,
-          $.identifier,
+      choice(
+        seq(
+          field(
+            "source",
+            choice(
+              $.composition_navigation,
+              $.association_navigation,
+              $.identifier,
+            ),
+          ),
+          token.immediate("\\"),
         ),
+        "\\",
       ),
-      token.immediate("\\"),
       field("association", $._immediate_identifier),
     ),
 

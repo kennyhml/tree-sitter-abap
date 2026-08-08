@@ -235,3 +235,4 @@ METHODS get_features FINAL FOR FEATURES
   CHANGING failed TYPE DATA reported TYPE DATA.
 "          ^ variable.parameter.builtin
 "                           ^ variable.parameter.builtin
+

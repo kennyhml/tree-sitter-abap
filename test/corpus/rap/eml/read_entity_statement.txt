@@ -1,0 +1,222 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] Read entity
+=================================================================================
+READ ENTITY demo_root
+  FROM read_keys
+  RESULT entities.
+---
+
+(source
+  (read_entity_statement
+    entity: (identifier)
+    operations: (read_entity_operations
+      (read_entity
+        (from_fields_table_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] Deep field selection
+=================================================================================
+READ ENTITY demo_root
+  FIELDS ( root_field _detail ( child_a child_b ) ) WITH read_keys
+  RESULT entities.
+---
+
+(source
+  (read_entity_statement
+    entity: (identifier)
+    operations: (read_entity_operations
+      (read_entity
+        (fields_spec
+          (identifier)
+          (deep_entity_fields
+            entity: (identifier)
+            (identifier)
+            (identifier)))
+        (with_fields_table_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] Flagged deep field selection
+=================================================================================
+READ ENTITY demo_root
+  FIELDS ( root_field _detail +( child_a child_b ) ) WITH read_keys
+  RESULT entities.
+---
+
+(source
+  (read_entity_statement
+    entity: (identifier)
+    operations: (read_entity_operations
+      (read_entity
+        (fields_spec
+          (identifier)
+          (deep_entity_fields
+            entity: (identifier)
+            (identifier)
+            (identifier)))
+        (with_fields_table_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] Recursive deep field selection
+=================================================================================
+READ ENTITY demo_root
+  FIELDS (
+    root_field
+    _detail +( child_a _nested ( nested_a _leaf +( leaf_a leaf_b ) ) )
+  ) WITH read_keys
+  RESULT entities.
+---
+
+(source
+  (read_entity_statement
+    entity: (identifier)
+    operations: (read_entity_operations
+      (read_entity
+        (fields_spec
+          (identifier)
+          (deep_entity_fields
+            entity: (identifier)
+            (identifier)
+            (deep_entity_fields
+              entity: (identifier)
+              (identifier)
+              (deep_entity_fields
+                entity: (identifier)
+                (identifier)
+                (identifier)))))
+        (with_fields_table_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] Read by association with result
+=================================================================================
+READ ENTITY demo_root
+  BY \_items
+  FIELDS ( item_id amount ) WITH item_keys
+  RESULT items.
+---
+
+(source
+  (read_entity_statement
+    entity: (identifier)
+    operations: (read_entity_operations
+      (read_by_association
+        (association_navigation
+          association: (identifier))
+        (fields_spec
+          (identifier)
+          (identifier))
+        (with_fields_table_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] Read by association with link
+=================================================================================
+READ ENTITY demo_root
+  BY \_items
+  ALL FIELDS WITH item_keys
+  LINK item_links.
+---
+
+(source
+  (read_entity_statement
+    entity: (identifier)
+    operations: (read_entity_operations
+      (read_by_association
+        (association_navigation
+          association: (identifier))
+        (all_fields)
+        (with_fields_table_spec
+          value: (identifier))
+        (link_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] Execute function
+=================================================================================
+READ ENTITY demo_root
+  EXECUTE calculate_total
+  FROM function_parameters
+  REQUEST requested_fields
+  RESULT calculation_result.
+---
+
+(source
+  (read_entity_statement
+    entity: (identifier)
+    operations: (read_entity_operations
+      (execute_function
+        name: (identifier)
+        (from_fields_table_spec
+          value: (identifier))
+        (request_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITY ] All operations
+=================================================================================
+READ ENTITY IN LOCAL MODE WITH CHANGES demo_root
+  FROM read_keys
+  RESULT entities
+  BY \_items
+  FIELDS ( item_id amount ) WITH item_keys
+  RESULT items
+  LINK item_links
+  EXECUTE calculate_total
+  FROM function_parameters
+  REQUEST requested_fields
+  RESULT calculation_result
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (read_entity_statement
+    (in_local_mode)
+    (with_changes)
+    entity: (identifier)
+    operations: (read_entity_operations
+      (read_entity
+        (from_fields_table_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier)))
+      (read_by_association
+        (association_navigation
+          association: (identifier))
+        (fields_spec
+          (identifier)
+          (identifier))
+        (with_fields_table_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))
+        (link_table_spec
+          (identifier)))
+      (execute_function
+        name: (identifier)
+        (from_fields_table_spec
+          value: (identifier))
+        (request_spec
+          value: (identifier))
+        (result_table_spec
+          (identifier))))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))

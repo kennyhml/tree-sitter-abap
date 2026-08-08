@@ -254,6 +254,9 @@ module.exports = grammar({
           $.set_handler_statement,
           $.sum_statement,
 
+          //rap
+          $.read_entity_statement,
+
           $._empty_statement,
         ),
       ),
