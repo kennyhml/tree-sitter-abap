@@ -493,6 +493,10 @@
   ]
 )
 
+(raise_entity_event_statement
+  event: (component_selection component: (identifier) @constant)
+)
+
 (event_handler_list
   [
     (identifier) @function.method

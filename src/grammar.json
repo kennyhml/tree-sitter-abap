@@ -499,6 +499,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "raise_entity_event_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "set_handler_statement"
           },
           {
@@ -6279,6 +6283,65 @@
           "content": {
             "type": "SYMBOL",
             "name": "_logical_expression"
+          }
+        }
+      ]
+    },
+    "raise_entity_event_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__raise_entity_event_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__raise_entity_event_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_raise"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entity"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_event"
+        },
+        {
+          "type": "FIELD",
+          "name": "event",
+          "content": {
+            "type": "SYMBOL",
+            "name": "component_selection"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "event_parameters_spec"
+        }
+      ]
+    },
+    "event_parameters_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
           }
         }
       ]
@@ -35068,6 +35131,32 @@
         "value": "until"
       }
     },
+    "_kw_entity": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)entity"
+        },
+        "named": false,
+        "value": "entity"
+      }
+    },
+    "_kw_event": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)event"
+        },
+        "named": false,
+        "value": "event"
+      }
+    },
     "_kw_language": {
       "type": "FIELD",
       "name": "keyword",
@@ -36267,19 +36356,6 @@
         },
         "named": false,
         "value": "determination"
-      }
-    },
-    "_kw_event": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)event"
-        },
-        "named": false,
-        "value": "event"
       }
     },
     "_kw_failed": {
@@ -39773,19 +39849,6 @@
         },
         "named": false,
         "value": "temporary"
-      }
-    },
-    "_kw_entity": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)entity"
-        },
-        "named": false,
-        "value": "entity"
       }
     },
     "_kw_execute": {

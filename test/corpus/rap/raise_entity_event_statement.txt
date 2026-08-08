@@ -1,0 +1,49 @@
+=================================================================================
+[ ABAP RAP Business Events / RAISE ENTITY EVENT ] Named event table
+=================================================================================
+RAISE ENTITY EVENT demo_root~created
+  FROM raised_events.
+---
+
+(source
+  (raise_entity_event_statement
+    (component_selection
+      (identifier)
+      (identifier))
+    (event_parameters_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP RAP Business Events / RAISE ENTITY EVENT ] Inline event parameters
+=================================================================================
+RAISE ENTITY EVENT demo_root~deleted
+  FROM VALUE #( (
+    %key = VALUE #( id = 1 )
+    %param = VALUE #( reason = 'deleted' )
+  ) ).
+---
+
+(source
+  (raise_entity_event_statement
+    (component_selection
+      (identifier)
+      (identifier))
+    (event_parameters_spec
+      (value_expression
+        (table_comprehension
+          (line_spec
+            (argument_list
+              (named_argument
+                (identifier)
+                (value_expression
+                  (argument_list
+                    (named_argument
+                      (identifier)
+                      (number)))))
+              (named_argument
+                (identifier)
+                (value_expression
+                  (argument_list
+                    (named_argument
+                      (identifier)
+                      (string_literal))))))))))))

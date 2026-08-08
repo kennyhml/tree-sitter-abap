@@ -236,3 +236,9 @@ METHODS get_features FINAL FOR FEATURES
 "          ^ variable.parameter.builtin
 "                           ^ variable.parameter.builtin
 
+RAISE ENTITY EVENT demo_root~created
+"                  ^ type
+"                            ^ constant
+  FROM raised_events.
+"      ^ variable
+
