@@ -28,6 +28,20 @@ READ ENTITY IN LOCAL MODE WITH CHANGES demo_root
   REPORTED reported.
 "          ^ variable
 
+READ ENTITIES IN LOCAL MODE
+  OPERATIONS operation_table
+"            ^ variable
+  FAILED failed
+"        ^ variable
+  REPORTED reported.
+"          ^ variable
+
+READ ENTITIES FORWARDING PRIVILEGED
+  OPERATIONS privileged_operations
+"            ^ variable
+  FAILED privileged_failed.
+"        ^ variable
+
 READ ENTITY demo_root
   FIELDS (
     root_field

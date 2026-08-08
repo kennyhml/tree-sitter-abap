@@ -20633,6 +20633,32 @@
     }
   },
   {
+    "type": "operations_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "operations",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "optional",
     "named": true,
     "fields": {
@@ -22412,7 +22438,7 @@
     "fields": {
       "business_object": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "business_object",
@@ -22445,6 +22471,10 @@
       "types": [
         {
           "type": "in_local_mode",
+          "named": true
+        },
+        {
+          "type": "operations_spec",
           "named": true
         },
         {
@@ -31172,6 +31202,10 @@
   },
   {
     "type": "open",
+    "named": false
+  },
+  {
+    "type": "operations",
     "named": false
   },
   {

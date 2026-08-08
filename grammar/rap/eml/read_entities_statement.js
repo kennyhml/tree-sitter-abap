@@ -14,7 +14,11 @@ module.exports = {
    *      [WITH CHANGES]
    *      [response_param].
    *
+   * READ ENTITIES [IN LOCAL MODE|[FORWARDING] PRIVILEGED]
+   *      OPERATIONS op_tab [response_param].
+   *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPREAD_ENTITIES_LONG.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPREAD_ENTITIES_OPERATIONS.html
    */
   read_entities_statement: $ => seq($.__read_entities_statement_prefix, "."),
 
@@ -29,12 +33,24 @@ module.exports = {
 
   __read_entities_statement_prefix: $ =>
     seq(
-      ...gen.kws("read", "entities", "of"),
-      field("business_object", $.business_object),
-      repeat(choice($.in_local_mode, $.privileged)),
-      repeat($.read_entity_spec),
-      optional($.with_changes),
-      optional($.response_parameters),
+      ...gen.kws("read", "entities"),
+      choice(
+        // static form
+        seq(
+          gen.kw("of"),
+          field("business_object", $.business_object),
+          repeat(choice($.in_local_mode, $.privileged)),
+          repeat($.read_entity_spec),
+          optional($.with_changes),
+          optional($.response_parameters),
+        ),
+        // dynamic form
+        seq(
+          repeat(choice($.in_local_mode, $.privileged)),
+          $.operations_spec,
+          optional($.response_parameters),
+        ),
+      ),
     ),
 
   // ... ENTITY entity1 operations ...
@@ -105,6 +121,9 @@ module.exports = {
   // For selective functions. may appear in other contexts later?
   request_spec: $ =>
     seq(gen.kw("request"), field("value", $.general_expression)),
+
+  operations_spec: $ =>
+    seq(gen.kw("operations"), field("value", $.general_expression)),
 
   from_fields_table_spec: $ =>
     seq(gen.kw("from"), field("value", $.general_expression)),

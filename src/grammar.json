@@ -26044,61 +26044,108 @@
           "name": "_kw_entities"
         },
         {
-          "type": "SYMBOL",
-          "name": "_kw_of"
-        },
-        {
-          "type": "FIELD",
-          "name": "business_object",
-          "content": {
-            "type": "SYMBOL",
-            "name": "business_object"
-          }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "in_local_mode"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "privileged"
-              }
-            ]
-          }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "read_entity_spec"
-          }
-        },
-        {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "with_changes"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_of"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "business_object",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "business_object"
+                  }
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "in_local_mode"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "privileged"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "read_entity_spec"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "with_changes"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "response_parameters"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             },
             {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "response_parameters"
-            },
-            {
-              "type": "BLANK"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "in_local_mode"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "privileged"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "operations_spec"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "response_parameters"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -26296,6 +26343,23 @@
         {
           "type": "SYMBOL",
           "name": "_kw_request"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "operations_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_operations"
         },
         {
           "type": "FIELD",
@@ -38291,6 +38355,19 @@
         },
         "named": false,
         "value": "execute"
+      }
+    },
+    "_kw_operations": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)operations"
+        },
+        "named": false,
+        "value": "operations"
       }
     },
     "_kw_schema": {

@@ -20,6 +20,54 @@ READ ENTITIES OF demo_root
             (identifier)))))))
 
 =================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITIES ] Dynamic operations
+=================================================================================
+READ ENTITIES OPERATIONS operation_table.
+---
+
+(source
+  (read_entities_statement
+    (operations_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITIES ] Dynamic operations in local mode
+=================================================================================
+READ ENTITIES IN LOCAL MODE
+  OPERATIONS operation_table
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (read_entities_statement
+    (in_local_mode)
+    (operations_spec
+      value: (identifier))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITIES ] Privileged dynamic operations
+=================================================================================
+READ ENTITIES FORWARDING PRIVILEGED
+  OPERATIONS operation_table
+  FAILED failed.
+---
+
+(source
+  (read_entities_statement
+    (privileged)
+    (operations_spec
+      value: (identifier))
+    (response_parameters
+      (failed_spec
+        (identifier)))))
+
+=================================================================================
 [ ABAP RAP Business Objects / EML / READ ENTITIES ] Multiple entities and response
 =================================================================================
 READ ENTITIES OF demo_root IN LOCAL MODE
