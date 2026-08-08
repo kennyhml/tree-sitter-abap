@@ -12,6 +12,14 @@ module.exports = {
     ),
 
   /*
+   * ROLLBACK ENTITIES.
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPROLLBACK_ENTITIES.html
+   */
+  rollback_entities_statement: $ =>
+    seq(...gen.kws("rollback", "entities"), "."),
+
+  /*
    * COMMIT ENTITIES BEGIN ... .
    *   [statement_block]
    * COMMIT ENTITIES END.

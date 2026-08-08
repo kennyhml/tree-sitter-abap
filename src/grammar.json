@@ -511,6 +511,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "rollback_entities_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "convert_key_statement"
           },
           {
@@ -25758,6 +25762,23 @@
               "name": "__commit_entities_late_form_prefix"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "rollback_entities_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_rollback"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
         },
         {
           "type": "STRING",

@@ -1,0 +1,8 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / ROLLBACK ENTITIES ] Basic form
+=================================================================================
+ROLLBACK ENTITIES.
+---
+
+(source
+  (rollback_entities_statement))

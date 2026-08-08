@@ -788,6 +788,10 @@
         "named": true
       },
       {
+        "type": "rollback_entities_statement",
+        "named": true
+      },
+      {
         "type": "rollback_work_statement",
         "named": true
       },
@@ -24937,6 +24941,26 @@
           },
           {
             "type": "harmless",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "rollback_entities_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entities",
+            "named": false
+          },
+          {
+            "type": "rollback",
             "named": false
           }
         ]
