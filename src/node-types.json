@@ -732,6 +732,10 @@
         "named": true
       },
       {
+        "type": "read_entities_statement",
+        "named": true
+      },
+      {
         "type": "read_entity_statement",
         "named": true
       },
@@ -22403,6 +22407,66 @@
     }
   },
   {
+    "type": "read_entities_statement",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entities",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "read",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "in_local_mode",
+          "named": true
+        },
+        {
+          "type": "privileged",
+          "named": true
+        },
+        {
+          "type": "read_entity_spec",
+          "named": true
+        },
+        {
+          "type": "response_parameters",
+          "named": true
+        },
+        {
+          "type": "with_changes",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "read_entity",
     "named": true,
     "fields": {},
@@ -22454,6 +22518,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "read_entity_spec",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          }
+        ]
+      },
+      "operations": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "read_entity_operations",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -30382,6 +30482,10 @@
   },
   {
     "type": "enhancement",
+    "named": false
+  },
+  {
+    "type": "entities",
     "named": false
   },
   {

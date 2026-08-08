@@ -1,0 +1,117 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITIES ] Single entity
+=================================================================================
+READ ENTITIES OF demo_root
+  ENTITY root
+    FROM root_keys
+    RESULT roots.
+---
+
+(source
+  (read_entities_statement
+    business_object: (identifier)
+    (read_entity_spec
+      entity: (identifier)
+      operations: (read_entity_operations
+        (read_entity
+          (from_fields_table_spec
+            value: (identifier))
+          (result_table_spec
+            (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITIES ] Multiple entities and response
+=================================================================================
+READ ENTITIES OF demo_root IN LOCAL MODE
+  ENTITY root
+    FIELDS ( root_id status ) WITH root_keys
+    RESULT roots
+  ENTITY item
+    ALL FIELDS WITH item_keys
+    RESULT items
+  WITH CHANGES
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (read_entities_statement
+    business_object: (identifier)
+    (in_local_mode)
+    (read_entity_spec
+      entity: (identifier)
+      operations: (read_entity_operations
+        (read_entity
+          (fields_spec
+            (identifier)
+            (identifier))
+          (with_fields_table_spec
+            value: (identifier))
+          (result_table_spec
+            (identifier)))))
+    (read_entity_spec
+      entity: (identifier)
+      operations: (read_entity_operations
+        (read_entity
+          (all_fields)
+          (with_fields_table_spec
+            value: (identifier))
+          (result_table_spec
+            (identifier)))))
+    (with_changes)
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / READ ENTITIES ] Association and function
+=================================================================================
+READ ENTITIES OF /dmo/i_travel FORWARDING PRIVILEGED
+  ENTITY travel
+    FROM travel_keys
+    RESULT travels
+    BY \_booking
+    FROM travel_keys
+    RESULT bookings
+    LINK booking_links
+  ENTITY booking
+    EXECUTE calculate_total
+    FROM function_parameters
+    REQUEST requested_fields
+    RESULT calculation_result.
+---
+
+(source
+  (read_entities_statement
+    business_object: (identifier)
+    (privileged)
+    (read_entity_spec
+      entity: (identifier)
+      operations: (read_entity_operations
+        (read_entity
+          (from_fields_table_spec
+            value: (identifier))
+          (result_table_spec
+            (identifier)))
+        (read_by_association
+          (association_navigation
+            association: (identifier))
+          (from_fields_table_spec
+            value: (identifier))
+          (result_table_spec
+            (identifier))
+          (link_table_spec
+            (identifier)))))
+    (read_entity_spec
+      entity: (identifier)
+      operations: (read_entity_operations
+        (execute_function
+          name: (identifier)
+          (from_fields_table_spec
+            value: (identifier))
+          (request_spec
+            value: (identifier))
+          (result_table_spec
+            (identifier)))))))

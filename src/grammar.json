@@ -511,6 +511,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "read_entities_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -25946,6 +25950,19 @@
         }
       ]
     },
+    "read_entities_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__read_entities_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
     "__read_entity_statement_prefix": {
       "type": "SEQ",
       "members": [
@@ -26012,6 +26029,111 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "__read_entities_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "in_local_mode"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "privileged"
+              }
+            ]
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "read_entity_spec"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "with_changes"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "response_parameters"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "read_entity_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entity"
+        },
+        {
+          "type": "FIELD",
+          "name": "entity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "operations",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "read_entity_operations"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
         }
       ]
     },
@@ -38143,6 +38265,19 @@
         },
         "named": false,
         "value": "entity"
+      }
+    },
+    "_kw_entities": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)entities"
+        },
+        "named": false,
+        "value": "entities"
       }
     },
     "_kw_execute": {

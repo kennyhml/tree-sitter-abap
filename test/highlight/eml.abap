@@ -54,3 +54,24 @@ READ ENTITY demo_root
   RESULT entities.
 "        ^ variable
 
+READ ENTITIES OF demo_root IN LOCAL MODE
+"                ^ type
+  ENTITY root
+"        ^ type
+    FIELDS ( root_id status ) WITH root_keys
+"            ^ variable.member
+"                    ^ variable.member
+"                                  ^ variable
+    RESULT roots
+"          ^ variable
+  ENTITY item
+"        ^ type
+    ALL FIELDS WITH item_keys
+"                   ^ variable
+    RESULT items
+"          ^ variable
+  WITH CHANGES
+  FAILED failed
+"        ^ variable
+  REPORTED reported.
+"          ^ variable

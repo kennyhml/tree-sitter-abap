@@ -7,6 +7,17 @@ module.exports = {
    */
   read_entity_statement: $ => seq($.__read_entity_statement_prefix, "."),
 
+  /*
+   * READ ENTITIES OF bdef [IN LOCAL MODE|[FORWARDING] PRIVILEGED]
+   *      ENTITY entity1 operations
+   *      [ENTITY entity2 operations]
+   *      [WITH CHANGES]
+   *      [response_param].
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPREAD_ENTITIES_LONG.html
+   */
+  read_entities_statement: $ => seq($.__read_entities_statement_prefix, "."),
+
   __read_entity_statement_prefix: $ =>
     seq(
       ...gen.kws("read", "entity"),
@@ -14,6 +25,24 @@ module.exports = {
       field("entity", $.business_object),
       field("operations", optional($.read_entity_operations)),
       optional($.response_parameters),
+    ),
+
+  __read_entities_statement_prefix: $ =>
+    seq(
+      ...gen.kws("read", "entities", "of"),
+      field("business_object", $.business_object),
+      repeat(choice($.in_local_mode, $.privileged)),
+      repeat($.read_entity_spec),
+      optional($.with_changes),
+      optional($.response_parameters),
+    ),
+
+  // ... ENTITY entity1 operations ...
+  read_entity_spec: $ =>
+    seq(
+      gen.kw("entity"),
+      field("entity", $.business_object),
+      field("operations", optional($.read_entity_operations)),
     ),
 
   /*
