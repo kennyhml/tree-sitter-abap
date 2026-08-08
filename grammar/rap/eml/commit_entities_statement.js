@@ -6,8 +6,32 @@ module.exports = {
         $.__commit_entities_short_form_prefix,
         $.__commit_entities_long_form_prefix,
         $.__commit_entities_dynamic_form_prefix,
+        $.__commit_entities_late_form_prefix,
       ),
       ".",
+    ),
+
+  /*
+   * COMMIT ENTITIES BEGIN ... .
+   *   [statement_block]
+   * COMMIT ENTITIES END.
+   *
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPEMLCOMMIT_ENTITIES_LATE.html
+   */
+  __commit_entities_late_form_prefix: $ =>
+    seq(
+      ...gen.kws("commit", "entities", "begin"),
+      optional($.in_simulation_mode),
+      optional(
+        choice(
+          $.responses_spec,
+          repeat1($.response_of_spec),
+          $.responses_of_spec,
+        ),
+      ),
+      ".",
+      optional(field("body", $.statement_block)),
+      ...gen.kws("commit", "entities", "end"),
     ),
 
   /*

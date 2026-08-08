@@ -511,6 +511,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "convert_key_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "modify_entity_statement"
           },
           {
@@ -25748,12 +25752,105 @@
             {
               "type": "SYMBOL",
               "name": "__commit_entities_dynamic_form_prefix"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__commit_entities_late_form_prefix"
             }
           ]
         },
         {
           "type": "STRING",
           "value": "."
+        }
+      ]
+    },
+    "__commit_entities_late_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_commit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_begin"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "in_simulation_mode"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "responses_spec"
+                },
+                {
+                  "type": "REPEAT1",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "response_of_spec"
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "responses_of_spec"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "statement_block"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_commit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_end"
         }
       ]
     },
@@ -26218,6 +26315,80 @@
             "type": "SYMBOL",
             "name": "general_expression"
           }
+        }
+      ]
+    },
+    "convert_key_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_convert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "business_object"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_temporary"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "preliminary_key",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "final_key",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -39069,6 +39240,19 @@
         },
         "named": false,
         "value": "operations"
+      }
+    },
+    "_kw_temporary": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)temporary"
+        },
+        "named": false,
+        "value": "temporary"
       }
     },
     "_kw_entity": {

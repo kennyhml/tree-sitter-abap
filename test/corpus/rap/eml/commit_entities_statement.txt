@@ -97,3 +97,82 @@ COMMIT ENTITIES IN SIMULATION MODE
         (reported_spec
           (declaration_expression
             (identifier)))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Late numbering scope
+=================================================================================
+COMMIT ENTITIES BEGIN
+  RESPONSES
+    FAILED DATA(failed)
+    REPORTED DATA(reported).
+
+  IF sy-subrc = 0.
+    CONVERT KEY OF demo_root
+      FROM preliminary_key
+      TO FINAL(final_key).
+  ENDIF.
+
+COMMIT ENTITIES END.
+---
+
+(source
+  (commit_entities_statement
+    (responses_spec
+      (response_parameters
+        (failed_spec
+          (declaration_expression
+            (identifier)))
+        (reported_spec
+          (declaration_expression
+            (identifier)))))
+    (statement_block
+      (if_statement
+        (comparison_expression
+          (component_selection
+            (identifier)
+            (identifier))
+          (number))
+        (statement_block
+          (convert_key_statement
+            (identifier)
+            (identifier)
+            (declaration_expression
+              (identifier))))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Late numbering long form
+=================================================================================
+COMMIT ENTITIES BEGIN
+  RESPONSE OF demo_root
+    FAILED failed
+    REPORTED reported.
+COMMIT ENTITIES END.
+---
+
+(source
+  (commit_entities_statement
+    (response_of_spec
+      (identifier)
+      (response_parameters
+        (failed_spec
+          (identifier))
+        (reported_spec
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / COMMIT ENTITIES ] Late numbering dynamic simulation
+=================================================================================
+COMMIT ENTITIES BEGIN IN SIMULATION MODE
+  RESPONSES OF response_roots
+    FAILED failed.
+COMMIT ENTITIES END.
+---
+
+(source
+  (commit_entities_statement
+    (in_simulation_mode)
+    (responses_of_spec
+      (identifier)
+      (response_parameters
+        (failed_spec
+          (identifier))))))

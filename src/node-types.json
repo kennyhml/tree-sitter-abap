@@ -520,6 +520,10 @@
         "named": true
       },
       {
+        "type": "convert_key_statement",
+        "named": true
+      },
+      {
         "type": "convert_text_statement",
         "named": true
       },
@@ -5528,12 +5532,30 @@
     "type": "commit_entities_statement",
     "named": true,
     "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": true,
         "required": true,
         "types": [
           {
+            "type": "begin",
+            "named": false
+          },
+          {
             "type": "commit",
+            "named": false
+          },
+          {
+            "type": "end",
             "named": false
           },
           {
@@ -6611,6 +6633,76 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "convert_key_statement",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
+      },
+      "final_key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "convert",
+            "named": false
+          },
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "key",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "temporary",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "preliminary_key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -32381,6 +32473,10 @@
   },
   {
     "type": "technical_types",
+    "named": false
+  },
+  {
+    "type": "temporary",
     "named": false
   },
   {

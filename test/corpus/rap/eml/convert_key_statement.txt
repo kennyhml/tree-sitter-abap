@@ -1,0 +1,37 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / CONVERT KEY ] Static entity
+=================================================================================
+CONVERT KEY OF demo_root
+  FROM preliminary_key
+  TO FINAL(final_key).
+---
+
+(source
+  (convert_key_statement
+    (identifier)
+    (identifier)
+    (declaration_expression
+      (identifier))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / CONVERT KEY ] Dynamic entity and temporary key
+=================================================================================
+CONVERT KEY OF (entity_name)
+  FROM TEMPORARY VALUE #( %pid = preliminary_id %tmp = preliminary_key )
+  TO DATA(final_key).
+---
+
+(source
+  (convert_key_statement
+    (dynamic_spec
+      (identifier))
+    (value_expression
+      (argument_list
+        (named_argument
+          (identifier)
+          (identifier))
+        (named_argument
+          (identifier)
+          (identifier))))
+    (declaration_expression
+      (identifier))))

@@ -171,3 +171,14 @@ COMMIT ENTITIES IN SIMULATION MODE
 "        ^ variable
   REPORTED dynamic_reported.
 "          ^ variable
+
+COMMIT ENTITIES BEGIN.
+  IF sy-subrc = 0.
+    CONVERT KEY OF demo_root
+"                  ^ type
+      FROM TEMPORARY preliminary_key
+"                    ^ variable
+      TO FINAL(final_key).
+"              ^ variable
+  ENDIF.
+COMMIT ENTITIES END.
