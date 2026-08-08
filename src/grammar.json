@@ -8564,6 +8564,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "for_events_of_spec"
+        },
+        {
+          "type": "SYMBOL",
           "name": "friends_spec"
         },
         {
@@ -8697,7 +8701,32 @@
         },
         {
           "type": "FIELD",
-          "name": "name",
+          "name": "entity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "for_events_of_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_events"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "entity",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -35897,6 +35926,19 @@
         "value": "behavior"
       }
     },
+    "_kw_events": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)events"
+        },
+        "named": false,
+        "value": "events"
+      }
+    },
     "_kw_testing": {
       "type": "FIELD",
       "name": "keyword",
@@ -36051,19 +36093,6 @@
         },
         "named": false,
         "value": "abstract"
-      }
-    },
-    "_kw_events": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)events"
-        },
-        "named": false,
-        "value": "events"
       }
     },
     "__kw_class_events": {

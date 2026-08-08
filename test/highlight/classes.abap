@@ -40,6 +40,12 @@ CLASS cl_demo_spfli DEFINITION
 " ^ keyword.modifier
 ENDCLASS.
 
+CLASS lsc_demo_events DEFINITION
+"     ^ type
+  FOR EVENTS OF demo_managed_root.
+"               ^ type
+ENDCLASS.
+
 CLASS c1 DEFINITION DEFERRED. 
 "     ^ type
 

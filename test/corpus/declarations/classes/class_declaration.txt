@@ -129,7 +129,22 @@ ENDCLASS.
       (abstract)
       (final)
       (for_behavior_of_spec
-        name: (identifier)))))
+        entity: (identifier)))))
+
+=================================================================================
+[ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Events BDEF
+=================================================================================
+CLASS lsc_demo_events DEFINITION
+  FOR EVENTS OF demo_managed_root.
+ENDCLASS.
+---
+
+(source
+  (class_declaration
+    (identifier)
+    (class_options
+      (for_events_of_spec
+        (identifier)))))
 
 =================================================================================
 [ ABAP - Declarations / Declaration Statements / Classes / CLASS ] Forward declaration

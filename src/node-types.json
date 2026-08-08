@@ -5139,6 +5139,10 @@
           "named": true
         },
         {
+          "type": "for_events_of_spec",
+          "named": true
+        },
+        {
           "type": "for_testing",
           "named": true
         },
@@ -13208,6 +13212,16 @@
     "type": "for_behavior_of_spec",
     "named": true,
     "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": true,
         "required": true,
@@ -13223,16 +13237,6 @@
           {
             "type": "of",
             "named": false
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
           }
         ]
       }
@@ -13397,6 +13401,40 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "for_events_of_spec",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "events",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
           }
         ]
       }

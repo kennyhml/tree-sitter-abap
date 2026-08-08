@@ -97,6 +97,7 @@ module.exports = {
    * [SHARED MEMORY ENABLED]
    * [FOR TESTING]
    * [FOR BEHAVIOR OF]
+   * [FOR EVENTS OF]
    * [[GLOBAL] FRIENDS class1 class2 ... intf1 intf2 ...].
    *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_OPTIONS.html
@@ -108,6 +109,7 @@ module.exports = {
       $.final,
       $.shared_memory_enabled,
       $.for_behavior_of_spec,
+      $.for_events_of_spec,
       $.friends_spec,
       $.global_friends_spec,
       $.create_visibility_spec,
@@ -130,7 +132,11 @@ module.exports = {
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_BEHAVIOR_OF.html
   for_behavior_of_spec: $ =>
-    seq(...gen.kws("for", "behavior", "of"), field("name", $.identifier)),
+    seq(...gen.kws("for", "behavior", "of"), field("entity", $.identifier)),
+
+  // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCLASS_FOR_EVENTS.html
+  for_events_of_spec: $ =>
+    seq(...gen.kws("for", "events", "of"), field("entity", $.identifier)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCLASS_FOR_TESTING.html
   __class_for_testing_spec: $ =>
