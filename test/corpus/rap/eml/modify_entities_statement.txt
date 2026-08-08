@@ -80,7 +80,7 @@ MODIFY ENTITIES OPERATIONS operation_table.
 
 (source
   (modify_entities_statement
-    (operations_spec
+    (operations_table_spec
       (identifier))))
 
 =================================================================================
@@ -96,7 +96,7 @@ MODIFY ENTITIES IN LOCAL MODE
 (source
   (modify_entities_statement
     (in_local_mode)
-    (operations_spec
+    (operations_table_spec
       (identifier))
     (response_parameters
       (failed_spec
@@ -117,7 +117,7 @@ MODIFY ENTITIES FORWARDING PRIVILEGED
 (source
   (modify_entities_statement
     (privileged)
-    (operations_spec
+    (operations_table_spec
       (identifier))
     (response_parameters
       (failed_spec

@@ -19769,7 +19769,7 @@
           "named": true
         },
         {
-          "type": "operations_spec",
+          "type": "operations_table_spec",
           "named": true
         },
         {
@@ -21050,7 +21050,7 @@
     }
   },
   {
-    "type": "operations_spec",
+    "type": "operations_table_spec",
     "named": true,
     "fields": {
       "keyword": {
@@ -22891,7 +22891,7 @@
           "named": true
         },
         {
-          "type": "operations_spec",
+          "type": "operations_table_spec",
           "named": true
         },
         {

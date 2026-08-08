@@ -1,9 +1,10 @@
 module.exports = {
   /*
    * READ ENTITY [IN LOCAL MODE [WITH CHANGES]|[FORWARDING] PRIVILEGED]
-   *      entity operations [response_param].
+   *      entity [WITH CHANGES] operations [response_param].
    *
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPREAD_ENTITY_SHORT.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPEML_READ_WITH_CHANGES.html
    */
   read_entity_statement: $ => seq($.__read_entity_statement_prefix, "."),
 
@@ -27,6 +28,7 @@ module.exports = {
       ...gen.kws("read", "entity"),
       repeat(choice($.in_local_mode, $.with_changes, $.privileged)),
       field("entity", $.business_object),
+      optional($.with_changes),
       field("operations", optional($.read_entity_operations)),
       optional($.response_parameters),
     ),
@@ -47,7 +49,7 @@ module.exports = {
         // dynamic form
         seq(
           repeat(choice($.in_local_mode, $.privileged)),
-          $.operations_spec,
+          $.operations_table_spec,
           optional($.response_parameters),
         ),
       ),
@@ -81,12 +83,10 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENEML_READ_OP_FIELDS_ABEXA.html
    */
   _read_fields_spec: $ =>
-    seq(
-      choice(
-        $.from_fields_table_spec,
-        seq($.fields_spec, $.with_fields_table_spec),
-        seq($.all_fields, $.with_fields_table_spec),
-      ),
+    choice(
+      $.from_fields_table_spec,
+      seq($.fields_spec, $.with_fields_table_spec),
+      seq($.all_fields, $.with_fields_table_spec),
     ),
 
   // field_spec RESULT result_tab

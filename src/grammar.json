@@ -25962,7 +25962,7 @@
         }
       ]
     },
-    "operations_spec": {
+    "operations_table_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -26199,7 +26199,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "operations_spec"
+                  "name": "operations_table_spec"
                 },
                 {
                   "type": "CHOICE",
@@ -26390,77 +26390,72 @@
       ]
     },
     "_modify_fields_spec": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "SYMBOL",
+          "name": "from_fields_table_spec"
+        },
+        {
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "from_fields_table_spec"
+              "name": "auto_fill_cid"
             },
             {
-              "type": "SEQ",
+              "type": "SYMBOL",
+              "name": "with_fields_table_spec"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
               "members": [
                 {
                   "type": "SYMBOL",
                   "name": "auto_fill_cid"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "with_fields_table_spec"
+                  "type": "BLANK"
                 }
               ]
             },
             {
-              "type": "SEQ",
+              "type": "SYMBOL",
+              "name": "fields_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "with_fields_table_spec"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "auto_fill_cid"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "auto_fill_cid"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "fields_spec"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "with_fields_table_spec"
+                  "type": "BLANK"
                 }
               ]
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "auto_fill_cid"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "set_fields"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "with_fields_table_spec"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "set_fields"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "with_fields_table_spec"
             }
           ]
         }
@@ -26560,6 +26555,18 @@
             "type": "SYMBOL",
             "name": "business_object"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "with_changes"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -26690,7 +26697,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "operations_spec"
+                  "name": "operations_table_spec"
                 },
                 {
                   "type": "CHOICE",
@@ -26764,40 +26771,35 @@
       }
     },
     "_read_fields_spec": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "SYMBOL",
+          "name": "from_fields_table_spec"
+        },
+        {
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "from_fields_table_spec"
+              "name": "fields_spec"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "fields_spec"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "with_fields_table_spec"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "with_fields_table_spec"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "all_fields"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "all_fields"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "with_fields_table_spec"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "with_fields_table_spec"
             }
           ]
         }

@@ -28,6 +28,16 @@ READ ENTITY IN LOCAL MODE WITH CHANGES demo_root
   REPORTED reported.
 "          ^ variable
 
+READ ENTITY IN LOCAL MODE demo_root
+"                         ^ type
+  WITH CHANGES
+  ALL FIELDS WITH read_keys
+"                 ^ variable
+  RESULT entities
+"        ^ variable
+  FAILED failed.
+"        ^ variable
+
 READ ENTITIES IN LOCAL MODE
   OPERATIONS operation_table
 "            ^ variable

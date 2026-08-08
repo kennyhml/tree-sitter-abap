@@ -47,7 +47,7 @@ module.exports = {
         // dynamic form
         seq(
           repeat(choice($.in_local_mode, $.privileged)),
-          $.operations_spec,
+          $.operations_table_spec,
           optional($.response_parameters),
         ),
       ),
@@ -117,13 +117,11 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPMODIFY_ENTITY_ENTITIES_FIELDS.html
    */
   _modify_fields_spec: $ =>
-    seq(
-      choice(
-        $.from_fields_table_spec,
-        seq($.auto_fill_cid, $.with_fields_table_spec),
-        seq(optional($.auto_fill_cid), $.fields_spec, $.with_fields_table_spec),
-        seq(optional($.auto_fill_cid), $.set_fields, $.with_fields_table_spec),
-      ),
+    choice(
+      $.from_fields_table_spec,
+      seq($.auto_fill_cid, $.with_fields_table_spec),
+      seq(optional($.auto_fill_cid), $.fields_spec, $.with_fields_table_spec),
+      seq(optional($.auto_fill_cid), $.set_fields, $.with_fields_table_spec),
     ),
 
   auto_fill_cid: _ => seq(...gen.kws("auto", "fill", "cid")),

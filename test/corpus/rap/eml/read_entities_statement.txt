@@ -27,7 +27,7 @@ READ ENTITIES OPERATIONS operation_table.
 
 (source
   (read_entities_statement
-    (operations_spec
+    (operations_table_spec
       value: (identifier))))
 
 =================================================================================
@@ -42,7 +42,7 @@ READ ENTITIES IN LOCAL MODE
 (source
   (read_entities_statement
     (in_local_mode)
-    (operations_spec
+    (operations_table_spec
       value: (identifier))
     (response_parameters
       (failed_spec
@@ -61,7 +61,7 @@ READ ENTITIES FORWARDING PRIVILEGED
 (source
   (read_entities_statement
     (privileged)
-    (operations_spec
+    (operations_table_spec
       value: (identifier))
     (response_parameters
       (failed_spec

@@ -10,7 +10,7 @@ module.exports = {
   /*
    * ... WITH CHANGES ...
    *
-   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPIN_WITH_CHANGES.html
+   * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABAPEML_READ_WITH_CHANGES.html
    */
   with_changes: _ => seq(...gen.kws("with", "changes")),
 
@@ -70,11 +70,11 @@ module.exports = {
       ")",
     ),
 
-  // For selective functions. may appear in other contexts later?
+  // For selective function and action results.
   request_spec: $ =>
     seq(gen.kw("request"), field("value", $.general_expression)),
 
-  operations_spec: $ =>
+  operations_table_spec: $ =>
     seq(gen.kw("operations"), field("value", $.general_expression)),
 
   from_fields_table_spec: $ =>
