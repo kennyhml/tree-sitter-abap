@@ -48,3 +48,30 @@ report foobar ##NO_TEXT.
       code: (identifier)
       parameter: (identifier)
       parameter: (identifier))))
+
+==========================================================================
+[ ABAP - Syntax Elements / Directives / Pragmas ] Pragma in chaining
+==========================================================================
+data: foo type string ##NO_TEXT,
+      bar type string ##NO_TEXT.
+
+---
+
+(source
+  (data_declaration
+    (data_spec
+      (identifier)
+      (referred_type
+        (identifier)))
+    (pragma
+      (identifier)
+      (identifier)
+      (identifier))
+    (data_spec
+      (identifier)
+      (referred_type
+        (identifier)))
+    (pragma
+      (identifier)
+      (identifier)
+      (identifier))))
