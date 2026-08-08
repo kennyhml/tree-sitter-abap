@@ -182,3 +182,17 @@ COMMIT ENTITIES BEGIN.
 "              ^ variable
   ENDIF.
 COMMIT ENTITIES END.
+
+GET PERMISSIONS ONLY INSTANCE FEATURES
+  ENTITY demo_root
+"        ^ type
+  FROM permission_keys
+"      ^ variable
+  REQUEST permission_request
+"         ^ variable
+  RESULT FINAL(permission_result)
+"              ^ variable
+  FAILED failed
+"        ^ variable
+  REPORTED reported.
+"          ^ variable

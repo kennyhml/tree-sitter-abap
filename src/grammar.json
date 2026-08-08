@@ -519,6 +519,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "get_permissions_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "modify_entity_statement"
           },
           {
@@ -26288,6 +26292,23 @@
         }
       ]
     },
+    "result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "writable_expression"
+          }
+        }
+      ]
+    },
     "operations_table_spec": {
       "type": "SEQ",
       "members": [
@@ -26412,6 +26433,310 @@
           "value": "."
         }
       ]
+    },
+    "get_permissions_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "__get_permissions_short_form_prefix"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__get_permissions_long_form_prefix"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__get_permissions_dynamic_form_prefix"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__get_permissions_short_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_permissions"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "privileged"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "permissions_scope_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "get_entity_permissions"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "response_parameters"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__get_permissions_long_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_permissions"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "privileged"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "permissions_scope_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "get_entity_permissions"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "response_parameters"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__get_permissions_dynamic_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_permissions"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "privileged"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "permissions_scope_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "operations_table_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "response_parameters"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "get_entity_permissions": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entity"
+        },
+        {
+          "type": "FIELD",
+          "name": "entity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "from_keys_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "request_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "result_spec"
+        }
+      ]
+    },
+    "from_keys_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "permissions_scope_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_only"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "global"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "global_features"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "global_authorization"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "instance"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "features"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "authorization"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "dynamic_spec"
+            }
+          ]
+        }
+      ]
+    },
+    "global": {
+      "type": "SYMBOL",
+      "name": "_kw_global"
+    },
+    "instance": {
+      "type": "SYMBOL",
+      "name": "_kw_instance"
     },
     "modify_entity_statement": {
       "type": "SEQ",

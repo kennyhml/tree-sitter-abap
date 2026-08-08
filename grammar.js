@@ -258,6 +258,7 @@ module.exports = grammar({
           $.commit_entities_statement,
           $.rollback_entities_statement,
           $.convert_key_statement,
+          $.get_permissions_statement,
           $.modify_entity_statement,
           $.modify_entities_statement,
           $.read_entity_statement,

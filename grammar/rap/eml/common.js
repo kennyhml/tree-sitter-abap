@@ -74,6 +74,8 @@ module.exports = {
   request_spec: $ =>
     seq(gen.kw("request"), field("value", $.general_expression)),
 
+  result_spec: $ => seq(gen.kw("result"), field("value", $.writable_expression)),
+
   operations_table_spec: $ =>
     seq(gen.kw("operations"), field("value", $.general_expression)),
 

@@ -628,6 +628,10 @@
         "named": true
       },
       {
+        "type": "get_permissions_statement",
+        "named": true
+      },
+      {
         "type": "get_reference_statement",
         "named": true
       },
@@ -14342,6 +14346,32 @@
     }
   },
   {
+    "type": "from_keys_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "from_work_area_spec",
     "named": true,
     "fields": {
@@ -14978,6 +15008,50 @@
     }
   },
   {
+    "type": "get_entity_permissions",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "from_keys_spec",
+          "named": true
+        },
+        {
+          "type": "request_spec",
+          "named": true
+        },
+        {
+          "type": "result_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "get_parameter_statement",
     "named": true,
     "fields": {
@@ -15023,6 +15097,66 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "get_permissions_statement",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "get",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "permissions",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "get_entity_permissions",
+          "named": true
+        },
+        {
+          "type": "operations_table_spec",
+          "named": true
+        },
+        {
+          "type": "permissions_scope_spec",
+          "named": true
+        },
+        {
+          "type": "privileged",
+          "named": true
+        },
+        {
+          "type": "response_parameters",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -15181,6 +15315,22 @@
           },
           {
             "type": "time",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "global",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "global",
             "named": false
           }
         ]
@@ -17265,6 +17415,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "instance",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "instance",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -21938,6 +22104,56 @@
     }
   },
   {
+    "type": "permissions_scope_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "only",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "authorization",
+          "named": true
+        },
+        {
+          "type": "dynamic_spec",
+          "named": true
+        },
+        {
+          "type": "features",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "global_authorization",
+          "named": true
+        },
+        {
+          "type": "global_features",
+          "named": true
+        },
+        {
+          "type": "instance",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "positional_argument",
     "named": true,
     "fields": {
@@ -24650,6 +24866,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "result_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

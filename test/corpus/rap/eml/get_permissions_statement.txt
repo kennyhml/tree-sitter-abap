@@ -1,0 +1,135 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / GET PERMISSIONS ] Short form
+=================================================================================
+GET PERMISSIONS FORWARDING PRIVILEGED ONLY INSTANCE FEATURES
+  ENTITY demo_root
+  FROM permission_keys
+  REQUEST permission_request
+  RESULT FINAL(permission_result)
+  FAILED FINAL(failed)
+  REPORTED FINAL(reported).
+---
+
+(source
+  (get_permissions_statement
+    (privileged)
+    (permissions_scope_spec
+      (features))
+    (get_entity_permissions
+      (identifier)
+      (from_keys_spec
+        (identifier))
+      (request_spec
+        (identifier))
+      (result_spec
+        (declaration_expression
+          (identifier))))
+    (response_parameters
+      (failed_spec
+        (declaration_expression
+          (identifier)))
+      (reported_spec
+        (declaration_expression
+          (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / GET PERMISSIONS ] Long form
+=================================================================================
+GET PERMISSIONS ONLY GLOBAL AUTHORIZATION OF demo_root
+  ENTITY root
+    REQUEST root_request
+    RESULT root_result
+  ENTITY child
+    REQUEST child_request
+    RESULT child_result
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (get_permissions_statement
+    (permissions_scope_spec
+      (global_authorization))
+    (identifier)
+    (get_entity_permissions
+      (identifier)
+      (request_spec
+        (identifier))
+      (result_spec
+        (identifier)))
+    (get_entity_permissions
+      (identifier)
+      (request_spec
+        (identifier))
+      (result_spec
+        (identifier)))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / GET PERMISSIONS ] Dynamic form and scope
+=================================================================================
+GET PERMISSIONS ONLY (permission_scope)
+  OPERATIONS permission_operations
+  FAILED failed
+  REPORTED reported.
+---
+
+(source
+  (get_permissions_statement
+    (permissions_scope_spec
+      (dynamic_spec
+        (identifier)))
+    (operations_table_spec
+      (identifier))
+    (response_parameters
+      (failed_spec
+        (identifier))
+      (reported_spec
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / GET PERMISSIONS ] Remaining static scopes
+=================================================================================
+GET PERMISSIONS ONLY GLOBAL OPERATIONS global_operations.
+GET PERMISSIONS ONLY GLOBAL FEATURES OPERATIONS global_feature_operations.
+GET PERMISSIONS ONLY INSTANCE OPERATIONS instance_operations.
+GET PERMISSIONS ONLY INSTANCE AUTHORIZATION OPERATIONS instance_authorizations.
+GET PERMISSIONS ONLY FEATURES OPERATIONS feature_operations.
+GET PERMISSIONS ONLY AUTHORIZATION OPERATIONS authorizations.
+---
+
+(source
+  (get_permissions_statement
+    (permissions_scope_spec
+      (global))
+    (operations_table_spec
+      (identifier)))
+  (get_permissions_statement
+    (permissions_scope_spec
+      (global_features))
+    (operations_table_spec
+      (identifier)))
+  (get_permissions_statement
+    (permissions_scope_spec
+      (instance))
+    (operations_table_spec
+      (identifier)))
+  (get_permissions_statement
+    (permissions_scope_spec
+      (authorization))
+    (operations_table_spec
+      (identifier)))
+  (get_permissions_statement
+    (permissions_scope_spec
+      (features))
+    (operations_table_spec
+      (identifier)))
+  (get_permissions_statement
+    (permissions_scope_spec
+      (authorization))
+    (operations_table_spec
+      (identifier))))
