@@ -4578,6 +4578,26 @@
     }
   },
   {
+    "type": "changing_control",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "changing",
+            "named": false
+          },
+          {
+            "type": "control",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "check_statement",
     "named": true,
     "fields": {
@@ -6975,6 +6995,10 @@
           "named": true
         },
         {
+          "type": "changing_control",
+          "named": true
+        },
+        {
           "type": "deep",
           "named": true
         },
@@ -6991,7 +7015,19 @@
           "named": true
         },
         {
+          "type": "mapping_from_entity",
+          "named": true
+        },
+        {
           "type": "mapping_list_spec",
+          "named": true
+        },
+        {
+          "type": "mapping_to_entity",
+          "named": true
+        },
+        {
+          "type": "using_control",
           "named": true
         },
         {
@@ -19536,6 +19572,30 @@
     }
   },
   {
+    "type": "mapping_from_entity",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          },
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "mapping",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "mapping_like_spec",
     "named": true,
     "fields": {
@@ -19601,6 +19661,30 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "mapping_to_entity",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          },
+          {
+            "type": "mapping",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -30244,6 +30328,26 @@
     }
   },
   {
+    "type": "using_control",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "control",
+            "named": false
+          },
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "using_entities_spec",
     "named": true,
     "fields": {
@@ -31705,6 +31809,10 @@
   },
   {
     "type": "continue",
+    "named": false
+  },
+  {
+    "type": "control",
     "named": false
   },
   {

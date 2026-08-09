@@ -282,6 +282,67 @@ it_f = CORRESPONDING #( BASE ( it_f ) it_e MAPPING comp_b = comp_a ).
           (identifier))))))
 
 =================================================================================
+[ ABAP - RAP / Type Mapping / CORRESPONDING ] Entity mappings
+=================================================================================
+legacy = CORRESPONDING #( entity_input MAPPING FROM ENTITY ).
+entity_output = CORRESPONDING entity_type( legacy MAPPING TO ENTITY ).
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      subject: (identifier)
+      (mapping_from_entity)))
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      result_type: (identifier)
+      subject: (identifier)
+      (mapping_to_entity))))
+
+=================================================================================
+[ ABAP - RAP / Type Mapping / CORRESPONDING ] Control mappings
+=================================================================================
+legacy = CORRESPONDING #( entity_input USING CONTROL ).
+legacy = CORRESPONDING #( entity_input MAPPING FROM ENTITY USING CONTROL ).
+entity_input = CORRESPONDING #( legacy CHANGING CONTROL ).
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      subject: (identifier)
+      (using_control)))
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      subject: (identifier)
+      (mapping_from_entity)
+      (using_control)))
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      subject: (identifier)
+      (changing_control))))
+
+=================================================================================
+[ ABAP - RAP / Type Mapping / CORRESPONDING ] Base
+=================================================================================
+legacy = CORRESPONDING #( BASE ( legacy ) entity_input MAPPING FROM ENTITY ).
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (corresponding_expression
+      (base_spec
+        base: (identifier))
+      subject: (identifier)
+      (mapping_from_entity))))
+
+=================================================================================
 [ ABAP - Processing Internal Data / Assignments / CORRESPONDING ] Lookup key and result mapping
 =================================================================================
 it_lk3 = CORRESPONDING #( it_lk3 FROM lookup_table USING KEY sk c = a d = b ).

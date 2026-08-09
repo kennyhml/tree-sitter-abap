@@ -2,10 +2,6 @@ module.exports = {
   /**
    * Branches into multiple "forms".
    *
-   * 1. {@link __corresponding_basic_form}
-   * 2. {@link __corresponding_lookup_table_form}
-   * 3. TODO: RAP form
-   *
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPR_CORRESPONDING.html
    */
   corresponding_expression: $ =>
@@ -13,7 +9,11 @@ module.exports = {
       gen.kw("corresponding"),
       field("result_type", $._constructor_result),
       "(",
-      choice($.__corresponding_basic_form, $.__corresponding_lookup_table_form),
+      choice(
+        $.__corresponding_basic_form,
+        $.__corresponding_lookup_table_form,
+        $.__corresponding_type_mapping_form,
+      ),
       ")",
     ),
 
@@ -26,9 +26,7 @@ module.exports = {
     seq(
       optional($.exact),
       // only one of these can occur
-      optional(
-        choice(alias($.__corresponding_base_spec, $.base_spec), $.deep),
-      ),
+      optional(choice(alias($.__corresponding_base_spec, $.base_spec), $.deep)),
       field("subject", $.general_expression),
       optional($.discarding_duplicates),
       optional($.mapping_list_spec),
@@ -51,6 +49,25 @@ module.exports = {
       ),
       $.lookup_mapping_list,
       optional($.mapping_list_spec),
+    ),
+
+  /**
+   * RAP form
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEML_CORRESPONDING.html
+   */
+  __corresponding_type_mapping_form: $ =>
+    seq(
+      optional(alias($.__corresponding_base_spec, $.base_spec)),
+      field("subject", $.general_expression),
+      repeat1(
+        choice(
+          $.mapping_from_entity,
+          $.mapping_to_entity,
+          $.using_control,
+          $.changing_control,
+        ),
+      ),
     ),
 
   /**
@@ -126,8 +143,15 @@ module.exports = {
 
   deep_appending: _ => seq(...gen.kws("deep", "appending")),
 
-  discarding_duplicates: _ =>
-    seq(...gen.kws("discarding", "duplicates")),
+  discarding_duplicates: _ => seq(...gen.kws("discarding", "duplicates")),
+
+  mapping_from_entity: _ => seq(...gen.kws("mapping", "from", "entity")),
+
+  mapping_to_entity: _ => seq(...gen.kws("mapping", "to", "entity")),
+
+  using_control: _ => seq(...gen.kws("using", "control")),
+
+  changing_control: _ => seq(...gen.kws("changing", "control")),
 
   __corresponding_base_spec: $ =>
     seq(
