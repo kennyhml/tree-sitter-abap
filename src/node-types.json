@@ -700,6 +700,10 @@
         "named": true
       },
       {
+        "type": "modify_augmenting_statement",
+        "named": true
+      },
+      {
         "type": "modify_entities_statement",
         "named": true
       },
@@ -2571,6 +2575,77 @@
           {
             "type": "selection-screen",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "augmented_modify_entity_operations",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "create_by_association",
+          "named": true
+        },
+        {
+          "type": "create_entity",
+          "named": true
+        },
+        {
+          "type": "delete_entity",
+          "named": true
+        },
+        {
+          "type": "execute_action",
+          "named": true
+        },
+        {
+          "type": "relating_to_spec",
+          "named": true
+        },
+        {
+          "type": "update_entity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "augmented_modify_entity_spec",
+    "named": true,
+    "fields": {
+      "entity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity",
+            "named": false
+          }
+        ]
+      },
+      "operations": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "augmented_modify_entity_operations",
+            "named": true
           }
         ]
       }
@@ -20406,6 +20481,54 @@
     }
   },
   {
+    "type": "modify_augmenting_statement",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "augmenting",
+            "named": false
+          },
+          {
+            "type": "entities",
+            "named": false
+          },
+          {
+            "type": "modify",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "augmented_modify_entity_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "modify_entities_statement",
     "named": true,
     "fields": {
@@ -24455,6 +24578,50 @@
         "types": [
           {
             "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "relating_to_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "relating",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "origin": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "relation": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -31552,6 +31719,10 @@
     "named": false
   },
   {
+    "type": "augmenting",
+    "named": false
+  },
+  {
     "type": "authorization",
     "named": false
   },
@@ -32979,6 +33150,10 @@
   },
   {
     "type": "regex",
+    "named": false
+  },
+  {
+    "type": "relating",
     "named": false
   },
   {

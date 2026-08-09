@@ -547,6 +547,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "modify_augmenting_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "read_entity_statement"
           },
           {
@@ -27171,6 +27175,192 @@
       "type": "SYMBOL",
       "name": "_kw_instance"
     },
+    "modify_augmenting_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "__modify_augmenting_short_form_prefix"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__modify_augmenting_long_form_prefix"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__modify_augmenting_short_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_modify"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_augmenting"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "augmented_modify_entity_spec"
+        }
+      ]
+    },
+    "__modify_augmenting_long_form_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_modify"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_augmenting"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entities"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "FIELD",
+          "name": "business_object",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "augmented_modify_entity_spec"
+          }
+        }
+      ]
+    },
+    "augmented_modify_entity_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entity"
+        },
+        {
+          "type": "FIELD",
+          "name": "entity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "business_object"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "operations",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "augmented_modify_entity_operations"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "augmented_modify_entity_operations": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "create_entity"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "create_by_association"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "update_entity"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "delete_entity"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "execute_action"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "relating_to_spec"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "relating_to_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_relating"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "origin",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_by"
+        },
+        {
+          "type": "FIELD",
+          "name": "relation",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        }
+      ]
+    },
     "modify_entity_statement": {
       "type": "SEQ",
       "members": [
@@ -40254,6 +40444,32 @@
         },
         "named": false,
         "value": "temporary"
+      }
+    },
+    "_kw_augmenting": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)augmenting"
+        },
+        "named": false,
+        "value": "augmenting"
+      }
+    },
+    "_kw_relating": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)relating"
+        },
+        "named": false,
+        "value": "relating"
       }
     },
     "_kw_execute": {

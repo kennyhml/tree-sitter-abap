@@ -146,6 +146,35 @@ MODIFY ENTITIES FORWARDING PRIVILEGED
   FAILED failed.
 "        ^ variable
 
+MODIFY AUGMENTING ENTITY demo_root
+"                        ^ type
+  CREATE FROM create_rows RELATING TO original_create BY create_relation
+"             ^ variable
+"                                     ^ variable
+"                                                        ^ variable
+  EXECUTE approve FROM action_rows RELATING TO original_action BY action_relation.
+"         ^ function.method
+"                      ^ variable
+"                                              ^ variable
+"                                                                 ^ variable
+
+MODIFY AUGMENTING ENTITIES OF demo_root
+"                             ^ type
+  ENTITY root
+"        ^ type
+    UPDATE SET FIELDS WITH root_rows RELATING TO original_root BY root_relation
+"                          ^ variable
+"                                                ^ variable
+"                                                                 ^ variable
+  ENTITY item
+"        ^ type
+    CREATE BY \_items AUTO FILL CID WITH item_rows RELATING TO original_items BY item_relation.
+"             ^ operator
+"              ^ type
+"                                        ^ variable
+"                                                              ^ variable
+"                                                                                ^ variable
+
 COMMIT ENTITIES RESPONSES
   FAILED failed
 "        ^ variable

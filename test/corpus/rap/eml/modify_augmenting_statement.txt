@@ -1,0 +1,75 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY AUGMENTING ENTITY ] Per-operation relations
+=================================================================================
+MODIFY AUGMENTING ENTITY demo_root
+  CREATE FROM create_rows RELATING TO original_create BY create_relation
+  UPDATE FIELDS ( status ) WITH update_rows RELATING TO original_update BY update_relation
+  DELETE FROM delete_rows
+  EXECUTE approve FROM action_rows RELATING TO original_action BY action_relation.
+---
+
+(source
+  (modify_augmenting_statement
+    (augmented_modify_entity_spec
+      entity: (identifier)
+      operations: (augmented_modify_entity_operations
+        (create_entity
+          (from_fields_table_spec
+            value: (identifier)))
+        (relating_to_spec
+          origin: (identifier)
+          relation: (identifier))
+        (update_entity
+          (fields_spec
+            (identifier))
+          (with_fields_table_spec
+            value: (identifier)))
+        (relating_to_spec
+          origin: (identifier)
+          relation: (identifier))
+        (delete_entity
+          (from_fields_table_spec
+            value: (identifier)))
+        (execute_action
+          name: (identifier)
+          (from_fields_table_spec
+            value: (identifier)))
+        (relating_to_spec
+          origin: (identifier)
+          relation: (identifier))))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / MODIFY AUGMENTING ENTITIES ] Multiple entities
+=================================================================================
+MODIFY AUGMENTING ENTITIES OF demo_root
+  ENTITY root
+    UPDATE SET FIELDS WITH root_rows RELATING TO original_root BY root_relation
+  ENTITY item
+    CREATE BY \_items AUTO FILL CID WITH item_rows RELATING TO original_items BY item_relation.
+---
+
+(source
+  (modify_augmenting_statement
+    business_object: (identifier)
+    (augmented_modify_entity_spec
+      entity: (identifier)
+      operations: (augmented_modify_entity_operations
+        (update_entity
+          (set_fields)
+          (with_fields_table_spec
+            value: (identifier)))
+        (relating_to_spec
+          origin: (identifier)
+          relation: (identifier))))
+    (augmented_modify_entity_spec
+      entity: (identifier)
+      operations: (augmented_modify_entity_operations
+        (create_by_association
+          entity: (association_navigation
+            association: (identifier))
+          (auto_fill_cid)
+          (with_fields_table_spec
+            value: (identifier)))
+        (relating_to_spec
+          origin: (identifier)
+          relation: (identifier))))))

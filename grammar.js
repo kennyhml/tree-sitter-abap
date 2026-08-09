@@ -265,6 +265,7 @@ module.exports = grammar({
           $.set_names_statement,
           $.modify_entity_statement,
           $.modify_entities_statement,
+          $.modify_augmenting_statement,
           $.read_entity_statement,
           $.read_entities_statement,
 
