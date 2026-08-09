@@ -7452,11 +7452,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "area_handle_spec",
+          "named": true
+        },
+        {
+          "type": "for_testing",
           "named": true
         }
       ]

@@ -99,3 +99,14 @@ CREATE OBJECT dyn_exc TYPE ('CX_SY_ZERODIVIDE').
     (identifier)
     (dynamic_spec
       (string_literal))))
+
+=================================================================================
+[ ABAP RAP Business Objects / Testing / CREATE OBJECT ] For testing
+=================================================================================
+CREATE OBJECT class_under_test FOR TESTING.
+---
+
+(source
+  (create_object_statement
+    subject: (identifier)
+    (for_testing)))

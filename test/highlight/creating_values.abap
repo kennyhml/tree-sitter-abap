@@ -53,6 +53,8 @@ CREATE OBJECT container->* TYPE (class)
 "                                ^ variable
     PARAMETER-TABLE ptab.
 "                   ^ variable
+CREATE OBJECT class_under_test FOR TESTING.
+"             ^ variable
 SET PARAMETER ID param FIELD val.
 "                ^ variable
 "                            ^ variable
