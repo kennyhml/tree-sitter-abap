@@ -816,6 +816,10 @@
         "named": true
       },
       {
+        "type": "set_entities_statement",
+        "named": true
+      },
+      {
         "type": "set_flags_statement",
         "named": true
       },
@@ -3278,6 +3282,22 @@
           {
             "type": "number",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "blocked",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "blocked",
+            "named": false
           }
         ]
       }
@@ -26391,6 +26411,54 @@
     }
   },
   {
+    "type": "set_entities_statement",
+    "named": true,
+    "fields": {
+      "business_object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "business_object",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "entities",
+            "named": false
+          },
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "blocked",
+            "named": true
+          },
+          {
+            "type": "unblocked",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "set_fields",
     "named": true,
     "fields": {
@@ -30258,6 +30326,22 @@
     }
   },
   {
+    "type": "unblocked",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "unblocked",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "unique",
     "named": true,
     "fields": {
@@ -31792,6 +31876,10 @@
   },
   {
     "type": "block",
+    "named": false
+  },
+  {
+    "type": "blocked",
     "named": false
   },
   {
@@ -33586,6 +33674,10 @@
   },
   {
     "type": "unassign",
+    "named": false
+  },
+  {
+    "type": "unblocked",
     "named": false
   },
   {

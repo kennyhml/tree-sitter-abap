@@ -1,0 +1,14 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / SET ENTITIES ] Blocking states
+=================================================================================
+SET ENTITIES OF demo_root BLOCKED.
+SET ENTITIES OF /dmo/i_travel UNBLOCKED.
+---
+
+(source
+  (set_entities_statement
+    business_object: (identifier)
+    state: (blocked))
+  (set_entities_statement
+    business_object: (identifier)
+    state: (unblocked)))

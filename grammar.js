@@ -260,6 +260,7 @@ module.exports = grammar({
           $.rollback_entities_statement,
           $.convert_key_statement,
           $.get_permissions_statement,
+          $.set_entities_statement,
           $.set_locks_statement,
           $.set_flags_statement,
           $.set_names_statement,

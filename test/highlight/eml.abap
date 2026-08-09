@@ -238,3 +238,8 @@ SET LOCKS OF demo_root
 "        ^ variable
   REPORTED reported.
 "          ^ variable
+
+SET ENTITIES OF demo_root BLOCKED.
+"               ^ type
+SET ENTITIES OF /dmo/i_travel UNBLOCKED.
+"               ^ type
