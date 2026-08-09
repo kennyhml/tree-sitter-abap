@@ -1,0 +1,38 @@
+=================================================================================
+[ ABAP RAP Business Objects / EML / AUTHORITY-CHECK DISABLE ] Empty scope
+=================================================================================
+AUTHORITY-CHECK DISABLE BEGIN CONTEXT demo_root~no_checks.
+AUTHORITY-CHECK DISABLE END.
+---
+
+(source
+  (authority_check_disable_statement
+    (authorization_context_spec
+      context: (component_selection
+        subject: (identifier)
+        component: (identifier)))))
+
+=================================================================================
+[ ABAP RAP Business Objects / EML / AUTHORITY-CHECK DISABLE ] Nested scopes
+=================================================================================
+AUTHORITY-CHECK DISABLE BEGIN CONTEXT demo_root~outer_context.
+  AUTHORITY-CHECK DISABLE BEGIN CONTEXT demo_root~inner_context.
+    RETURN.
+  AUTHORITY-CHECK DISABLE END.
+AUTHORITY-CHECK DISABLE END.
+---
+
+(source
+  (authority_check_disable_statement
+    (authorization_context_spec
+      context: (component_selection
+        subject: (identifier)
+        component: (identifier)))
+    body: (statement_block
+      (authority_check_disable_statement
+        (authorization_context_spec
+          context: (component_selection
+            subject: (identifier)
+            component: (identifier)))
+        body: (statement_block
+          (return_statement))))))

@@ -243,3 +243,9 @@ SET ENTITIES OF demo_root BLOCKED.
 "               ^ type
 SET ENTITIES OF /dmo/i_travel UNBLOCKED.
 "               ^ type
+
+AUTHORITY-CHECK DISABLE BEGIN CONTEXT demo_root~no_checks.
+"                                     ^ type
+"                                               ^ variable.member
+  RETURN.
+AUTHORITY-CHECK DISABLE END.

@@ -424,6 +424,10 @@
         "named": true
       },
       {
+        "type": "authority_check_disable_statement",
+        "named": true
+      },
+      {
         "type": "authority_check_statement",
         "named": true
       },
@@ -2661,6 +2665,54 @@
     "fields": {}
   },
   {
+    "type": "authority_check_disable_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authority-check",
+            "named": false
+          },
+          {
+            "type": "begin",
+            "named": false
+          },
+          {
+            "type": "disable",
+            "named": false
+          },
+          {
+            "type": "end",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "authorization_context_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "authority_check_statement",
     "named": true,
     "fields": {
@@ -2718,6 +2770,32 @@
           },
           {
             "type": "instance",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "authorization_context_spec",
+    "named": true,
+    "fields": {
+      "context": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "context",
             "named": false
           }
         ]
@@ -32228,6 +32306,10 @@
   },
   {
     "type": "directory",
+    "named": false
+  },
+  {
+    "type": "disable",
     "named": false
   },
   {

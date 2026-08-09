@@ -511,6 +511,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "authority_check_disable_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "commit_entities_statement"
           },
           {
@@ -26184,6 +26188,94 @@
         }
       ]
     },
+    "authority_check_disable_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__authority_check_disable_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__authority_check_disable_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authority_check"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_disable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_begin"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "authorization_context_spec"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "statement_block"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_authority_check"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_disable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_end"
+        }
+      ]
+    },
+    "authorization_context_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_context"
+        },
+        {
+          "type": "FIELD",
+          "name": "context",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "__business_object_component_selection"
+            },
+            "named": true,
+            "value": "component_selection"
+          }
+        }
+      ]
+    },
     "commit_entities_statement": {
       "type": "SEQ",
       "members": [
@@ -40420,6 +40512,19 @@
         },
         "named": false,
         "value": "line-count"
+      }
+    },
+    "_kw_disable": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)disable"
+        },
+        "named": false,
+        "value": "disable"
       }
     },
     "_kw_entities": {
