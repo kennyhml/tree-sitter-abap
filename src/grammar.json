@@ -531,6 +531,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "set_flags_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "set_names_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "modify_entity_statement"
           },
           {
@@ -6342,6 +6350,217 @@
           "content": {
             "type": "SYMBOL",
             "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "set_flags_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__set_flags_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__set_flags_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_flags"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "from_names_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "mapping_like_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "mapping_type_spec"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "set_names_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__set_names_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__set_names_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_names"
+        },
+        {
+          "type": "FIELD",
+          "name": "subject",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "from_flags_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "mapping_like_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "mapping_type_spec"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "from_names_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_names"
+        },
+        {
+          "type": "FIELD",
+          "name": "fields",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "from_flags_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_flags"
+        },
+        {
+          "type": "FIELD",
+          "name": "flags",
+          "content": {
+            "type": "SYMBOL",
+            "name": "general_expression"
+          }
+        }
+      ]
+    },
+    "mapping_type_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mapping"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_type"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "mapping_like_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mapping"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_like"
+        },
+        {
+          "type": "FIELD",
+          "name": "object",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "component_selection"
+              }
+            ]
           }
         }
       ]
@@ -35186,6 +35405,58 @@
         "value": "event"
       }
     },
+    "_kw_flags": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)flags"
+        },
+        "named": false,
+        "value": "flags"
+      }
+    },
+    "_kw_names": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)names"
+        },
+        "named": false,
+        "value": "names"
+      }
+    },
+    "_kw_mapping": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)mapping"
+        },
+        "named": false,
+        "value": "mapping"
+      }
+    },
+    "_kw_like": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)like"
+        },
+        "named": false,
+        "value": "like"
+      }
+    },
     "_kw_language": {
       "type": "FIELD",
       "name": "keyword",
@@ -35236,19 +35507,6 @@
         },
         "named": false,
         "value": "display"
-      }
-    },
-    "_kw_like": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)like"
-        },
-        "named": false,
-        "value": "like"
       }
     },
     "_kw_number": {
@@ -37212,19 +37470,6 @@
         },
         "named": false,
         "value": "exact"
-      }
-    },
-    "_kw_mapping": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)mapping"
-        },
-        "named": false,
-        "value": "mapping"
       }
     },
     "_kw_except": {

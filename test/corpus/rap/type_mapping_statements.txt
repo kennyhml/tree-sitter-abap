@@ -1,0 +1,87 @@
+=================================================================================
+[ ABAP RAP Type Mapping / SET FLAGS ] Basic form
+=================================================================================
+SET FLAGS update_request FROM NAMES fields.
+---
+
+(source
+  (set_flags_statement
+    (identifier)
+    (from_names_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP RAP Type Mapping / SET FLAGS ] Mapping type
+=================================================================================
+SET FLAGS update_request FROM NAMES legacy_fields
+  MAPPING TYPE zlegacy_order.
+---
+
+(source
+  (set_flags_statement
+    (identifier)
+    (from_names_spec
+      (identifier))
+    (mapping_type_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP RAP Type Mapping / SET FLAGS ] Mapping like
+=================================================================================
+SET FLAGS update_request FROM NAMES legacy_fields
+  MAPPING LIKE context-legacy_order.
+---
+
+(source
+  (set_flags_statement
+    (identifier)
+    (from_names_spec
+      (identifier))
+    (mapping_like_spec
+      (component_selection
+        (identifier)
+        (identifier)))))
+
+=================================================================================
+[ ABAP RAP Type Mapping / SET NAMES ] Basic form
+=================================================================================
+SET NAMES changed_fields FROM FLAGS update_request.
+---
+
+(source
+  (set_names_statement
+    (identifier)
+    (from_flags_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP RAP Type Mapping / SET NAMES ] Mapping type
+=================================================================================
+SET NAMES legacy_fields FROM FLAGS update_request
+  MAPPING TYPE zlegacy_order.
+---
+
+(source
+  (set_names_statement
+    (identifier)
+    (from_flags_spec
+      (identifier))
+    (mapping_type_spec
+      (identifier))))
+
+=================================================================================
+[ ABAP RAP Type Mapping / SET NAMES ] Mapping like
+=================================================================================
+SET NAMES legacy_fields FROM FLAGS update_request
+  MAPPING LIKE context-legacy_order.
+---
+
+(source
+  (set_names_statement
+    (identifier)
+    (from_flags_spec
+      (identifier))
+    (mapping_like_spec
+      (component_selection
+        (identifier)
+        (identifier)))))

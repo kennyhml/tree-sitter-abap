@@ -242,3 +242,14 @@ RAISE ENTITY EVENT demo_root~created
   FROM raised_events.
 "      ^ variable
 
+SET FLAGS update_request FROM NAMES legacy_fields
+"         ^ variable
+"                                   ^ variable
+  MAPPING TYPE zlegacy_order.
+"              ^ type
+
+SET NAMES changed_fields FROM FLAGS update_request
+"         ^ variable
+"                                   ^ variable
+  MAPPING LIKE legacy_order.
+"              ^ variable

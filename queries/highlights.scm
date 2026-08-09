@@ -497,6 +497,9 @@
   event: (component_selection component: (identifier) @constant)
 )
 
+(mapping_type_spec name: (identifier) @type)
+(mapping_like_spec object: (identifier) @variable)
+
 (event_handler_list
   [
     (identifier) @function.method
