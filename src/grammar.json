@@ -4841,7 +4841,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26115,7 +26115,7 @@
           "name": "number",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26182,7 +26182,7 @@
           "name": "program",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26203,7 +26203,7 @@
           "name": "table",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26217,21 +26217,158 @@
         },
         {
           "type": "FIELD",
-          "name": "expression",
+          "name": "selection",
           "content": {
             "type": "SYMBOL",
-            "name": "_logical_expression"
+            "name": "identifier"
           }
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "sign_spec"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "="
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_eq"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_ne"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_cp"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_np"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_gt"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_ge"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_lt"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_le"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_kw_incl"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "data_object"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "sign_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             },
             {
-              "type": "BLANK"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_kw_not"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_between"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "low",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "data_object"
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_and"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "high",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "data_object"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "sign_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_in"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "table",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "data_object"
+                  }
+                }
+              ]
             }
           ]
         }
@@ -26249,7 +26386,7 @@
           "name": "sign",
           "content": {
             "type": "SYMBOL",
-            "name": "character_like_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26274,7 +26411,7 @@
           "name": "selections",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26322,7 +26459,7 @@
           "name": "size",
           "content": {
             "type": "SYMBOL",
-            "name": "numeric_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26339,7 +26476,7 @@
           "name": "page_lines",
           "content": {
             "type": "SYMBOL",
-            "name": "numeric_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26423,7 +26560,7 @@
           "name": "parameters",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26444,7 +26581,7 @@
           "name": "parameters",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26515,7 +26652,7 @@
           "name": "job",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         },
         {
@@ -26527,7 +26664,7 @@
           "name": "number",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26544,7 +26681,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -26561,7 +26698,7 @@
           "name": "language",
           "content": {
             "type": "SYMBOL",
-            "name": "general_expression"
+            "name": "data_object"
           }
         }
       ]
@@ -41352,6 +41489,19 @@
         },
         "named": false,
         "value": "selection-table"
+      }
+    },
+    "_kw_incl": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)incl"
+        },
+        "named": false,
+        "value": "incl"
       }
     },
     "_kw_selections": {

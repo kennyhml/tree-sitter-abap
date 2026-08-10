@@ -26,10 +26,14 @@ SUBMIT (report).
 SUBMIT report
   USING SELECTION-SCREEN '1100'
   VIA SELECTION-SCREEN
-  USING SELECTION-SET variant
+  USING SELECTION-SET if_variants=>default
   USING SELECTION-SETS OF PROGRAM program
-  WITH SELECTION-TABLE selections
+  WITH SELECTION-TABLE <selections>
   WITH parameter EQ value SIGN sign
+  WITH included INCL value
+  WITH direct = value
+  WITH interval NOT BETWEEN low AND high
+  WITH range IN ranges
   WITH FREE SELECTIONS free_selections
   AND RETURN.
 ---
@@ -41,17 +45,32 @@ SUBMIT report
       number: (string_literal))
     (via_selection_screen)
     (using_selection_set_spec
-      name: (identifier))
+      name: (component_selection
+        subject: (identifier)
+        component: (identifier)))
     (using_selection_sets_of_program_spec
       program: (identifier))
     (with_selection_table_spec
-      table: (identifier))
+      table: (field_symbol
+        name: (identifier)))
     (with_selection_criteria_spec
-      expression: (comparison_expression
-        left: (identifier)
-        right: (identifier))
+      selection: (identifier)
+      value: (identifier)
       (sign_spec
         sign: (identifier)))
+    (with_selection_criteria_spec
+      selection: (identifier)
+      value: (identifier))
+    (with_selection_criteria_spec
+      selection: (identifier)
+      value: (identifier))
+    (with_selection_criteria_spec
+      selection: (identifier)
+      low: (identifier)
+      high: (identifier))
+    (with_selection_criteria_spec
+      selection: (identifier)
+      table: (identifier))
     (with_free_selections_spec
       selections: (identifier))
     (and_return)))

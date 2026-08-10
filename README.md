@@ -81,6 +81,7 @@ The following language features are currently implemented:
 - [x] Defining classes, interfaces and method (except RAP behavior) 
 - [x] Declaring, raising and handling events
 - [x] Calling of functions, methods and function modules
+- [x] Calling and exiting executable programs and transactions
 - [x] Arithmetic expressions
 - [x] String expressions (including string templates)
 - [x] Calculation expressions
@@ -106,7 +107,6 @@ For a more detailed look, you can refer to the test cases in the `test/corpus/` 
 - [ ] **ABAP SQL**, including cursor statements and Native SQL
 - [ ] Dynpro interaction statements
 - [ ] Classical list processing and spool statements
-- [ ] Internal session and program call statements
 - [ ] Data cluster and memory import/export statements
 - [ ] Language environment statements (set country, set language, set/get locale language)
 - [ ] Mesh statements

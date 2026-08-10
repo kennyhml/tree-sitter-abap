@@ -1674,7 +1674,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -18439,7 +18439,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -18465,7 +18465,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -18944,7 +18944,7 @@
         "required": true,
         "types": [
           {
-            "type": "numeric_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -18970,7 +18970,7 @@
         "required": true,
         "types": [
           {
-            "type": "numeric_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -27562,7 +27562,7 @@
         "required": true,
         "types": [
           {
-            "type": "character_like_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -28166,7 +28166,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -31520,7 +31520,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -31550,7 +31550,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -31588,7 +31588,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -31772,7 +31772,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -31800,7 +31800,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -32288,7 +32288,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -32353,55 +32353,161 @@
     "type": "with_selection_criteria_spec",
     "named": true,
     "fields": {
-      "expression": {
+      "high": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "assigned_predicate",
-            "named": true
-          },
-          {
-            "type": "bound_predicate",
-            "named": true
-          },
-          {
-            "type": "comparison_expression",
-            "named": true
-          },
-          {
-            "type": "initial_predicate",
-            "named": true
-          },
-          {
-            "type": "instance_of_predicate",
-            "named": true
-          },
-          {
-            "type": "logical_expression",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "requested_predicate",
-            "named": true
-          },
-          {
-            "type": "supplied_predicate",
+            "type": "data_object",
             "named": true
           }
         ]
       },
       "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "between",
+            "named": false
+          },
+          {
+            "type": "cp",
+            "named": false
+          },
+          {
+            "type": "eq",
+            "named": false
+          },
+          {
+            "type": "ge",
+            "named": false
+          },
+          {
+            "type": "gt",
+            "named": false
+          },
+          {
+            "type": "in",
+            "named": false
+          },
+          {
+            "type": "incl",
+            "named": false
+          },
+          {
+            "type": "le",
+            "named": false
+          },
+          {
+            "type": "lt",
+            "named": false
+          },
+          {
+            "type": "ne",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "np",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "low": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": "cp",
+            "named": false
+          },
+          {
+            "type": "eq",
+            "named": false
+          },
+          {
+            "type": "ge",
+            "named": false
+          },
+          {
+            "type": "gt",
+            "named": false
+          },
+          {
+            "type": "incl",
+            "named": false
+          },
+          {
+            "type": "le",
+            "named": false
+          },
+          {
+            "type": "lt",
+            "named": false
+          },
+          {
+            "type": "ne",
+            "named": false
+          },
+          {
+            "type": "np",
+            "named": false
+          }
+        ]
+      },
+      "selection": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "with",
-            "named": false
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "data_object",
+            "named": true
           }
         ]
       }
@@ -32440,7 +32546,7 @@
         "required": true,
         "types": [
           {
-            "type": "general_expression",
+            "type": "data_object",
             "named": true
           }
         ]
@@ -33747,6 +33853,10 @@
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "incl",
     "named": false
   },
   {
