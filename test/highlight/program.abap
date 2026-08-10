@@ -154,3 +154,8 @@ insert textpool prog from texts language lang.
 "                         ^ variable
 "                               ^ keyword
 "                                        ^ variable
+
+SUBMIT report AND RETURN.
+"      ^ module
+SUBMIT (report) AND RETURN.
+"       ^ variable

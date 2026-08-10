@@ -880,6 +880,10 @@
         "named": true
       },
       {
+        "type": "submit_statement",
+        "named": true
+      },
+      {
         "type": "sum_statement",
         "named": true
       },
@@ -1468,6 +1472,26 @@
     }
   },
   {
+    "type": "and_return",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "return",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "and_skip_first_screen",
     "named": true,
     "fields": {
@@ -1618,6 +1642,36 @@
           {
             "type": "appending",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "archive_parameters_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "archive",
+            "named": false
+          },
+          {
+            "type": "parameters",
+            "named": false
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
           }
         ]
       }
@@ -12946,6 +13000,34 @@
     }
   },
   {
+    "type": "exporting_list_to_memory",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "list",
+            "named": false
+          },
+          {
+            "type": "memory",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "failed_spec",
     "named": true,
     "fields": {
@@ -18335,6 +18417,58 @@
     }
   },
   {
+    "type": "job_language_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "language",
+            "named": false
+          }
+        ]
+      },
+      "language": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "job_user_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "user",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "keeping_directory_entry",
     "named": true,
     "fields": {
@@ -18763,7 +18897,7 @@
     "fields": {
       "footer_lines": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "number",
@@ -18786,7 +18920,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "numeric_expression",
             "named": true
           }
         ]
@@ -18812,7 +18946,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "numeric_expression",
             "named": true
           }
         ]
@@ -26065,6 +26199,11 @@
     }
   },
   {
+    "type": "sap-spool",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "save",
     "named": true,
     "fields": {
@@ -26431,6 +26570,16 @@
   },
   {
     "type": "selection-set",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "selection-sets",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "selection-table",
     "named": false,
     "fields": {}
   },
@@ -27371,6 +27520,32 @@
     }
   },
   {
+    "type": "sign_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sign",
+            "named": false
+          }
+        ]
+      },
+      "sign": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "skipping_byte_order_mark",
     "named": true,
     "fields": {
@@ -27945,6 +28120,36 @@
     }
   },
   {
+    "type": "spool_parameters_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "parameters",
+            "named": false
+          },
+          {
+            "type": "spool",
+            "named": false
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "spots_spec",
     "named": true,
     "fields": {
@@ -28329,6 +28534,102 @@
       "types": [
         {
           "type": "receiving_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "submit_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "submit",
+            "named": false
+          }
+        ]
+      },
+      "report": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "and_return",
+          "named": true
+        },
+        {
+          "type": "exporting_list_to_memory",
+          "named": true
+        },
+        {
+          "type": "job_language_spec",
+          "named": true
+        },
+        {
+          "type": "job_user_spec",
+          "named": true
+        },
+        {
+          "type": "line_count_spec",
+          "named": true
+        },
+        {
+          "type": "line_size_spec",
+          "named": true
+        },
+        {
+          "type": "to_sap_spool_spec",
+          "named": true
+        },
+        {
+          "type": "using_selection_screen_spec",
+          "named": true
+        },
+        {
+          "type": "using_selection_set_spec",
+          "named": true
+        },
+        {
+          "type": "using_selection_sets_of_program_spec",
+          "named": true
+        },
+        {
+          "type": "via_job_number_spec",
+          "named": true
+        },
+        {
+          "type": "via_selection_screen",
+          "named": true
+        },
+        {
+          "type": "with_free_selections_spec",
+          "named": true
+        },
+        {
+          "type": "with_selection_criteria_spec",
+          "named": true
+        },
+        {
+          "type": "with_selection_table_spec",
           "named": true
         }
       ]
@@ -29765,6 +30066,44 @@
     }
   },
   {
+    "type": "to_sap_spool_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "sap-spool",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "archive_parameters_spec",
+          "named": true
+        },
+        {
+          "type": "spool_parameters_spec",
+          "named": true
+        },
+        {
+          "type": "without_spool_dynpro",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "to_upper_case_spec",
     "named": true,
     "fields": {
@@ -31135,6 +31474,36 @@
     }
   },
   {
+    "type": "using_selection_screen_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "selection-screen",
+            "named": false
+          },
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      },
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "using_selection_set_spec",
     "named": true,
     "fields": {
@@ -31157,7 +31526,45 @@
         "required": true,
         "types": [
           {
-            "type": "data_object",
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "using_selection_sets_of_program_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "program",
+            "named": false
+          },
+          {
+            "type": "selection-sets",
+            "named": false
+          },
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
             "named": true
           }
         ]
@@ -31327,6 +31734,70 @@
           {
             "type": "data_object",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "via_job_number_spec",
+    "named": true,
+    "fields": {
+      "job": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "job",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": false
+          },
+          {
+            "type": "via",
+            "named": false
+          }
+        ]
+      },
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "via_selection_screen",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "selection-screen",
+            "named": false
+          },
+          {
+            "type": "via",
+            "named": false
           }
         ]
       }
@@ -31767,6 +32238,40 @@
     }
   },
   {
+    "type": "with_free_selections_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "free",
+            "named": false
+          },
+          {
+            "type": "selections",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "selections": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "with_header_line",
     "named": true,
     "fields": {
@@ -31821,6 +32326,104 @@
     }
   },
   {
+    "type": "with_selection_criteria_spec",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assigned_predicate",
+            "named": true
+          },
+          {
+            "type": "bound_predicate",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "initial_predicate",
+            "named": true
+          },
+          {
+            "type": "instance_of_predicate",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "supplied_predicate",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "sign_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "with_selection_table_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "selection-table",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "without_authority_check",
     "named": true,
     "fields": {
@@ -31850,6 +32453,30 @@
         "types": [
           {
             "type": "members",
+            "named": false
+          },
+          {
+            "type": "without",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "without_spool_dynpro",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "dynpro",
+            "named": false
+          },
+          {
+            "type": "spool",
             "named": false
           },
           {
@@ -32188,6 +32815,10 @@
   },
   {
     "type": "appending",
+    "named": false
+  },
+  {
+    "type": "archive",
     "named": false
   },
   {
@@ -32699,6 +33330,10 @@
     "named": false
   },
   {
+    "type": "dynpro",
+    "named": false
+  },
+  {
     "type": "e",
     "named": false
   },
@@ -33163,6 +33798,10 @@
     "named": false
   },
   {
+    "type": "job",
+    "named": false
+  },
+  {
     "type": "keeping",
     "named": false
   },
@@ -33245,6 +33884,10 @@
   },
   {
     "type": "link",
+    "named": false
+  },
+  {
+    "type": "list",
     "named": false
   },
   {
@@ -33821,6 +34464,10 @@
     "named": false
   },
   {
+    "type": "selections",
+    "named": false
+  },
+  {
     "type": "separate",
     "named": false
   },
@@ -33901,6 +34548,10 @@
     "named": false
   },
   {
+    "type": "spool",
+    "named": false
+  },
+  {
     "type": "spots",
     "named": false
   },
@@ -33950,6 +34601,10 @@
   },
   {
     "type": "submatches",
+    "named": false
+  },
+  {
+    "type": "submit",
     "named": false
   },
   {
@@ -34202,6 +34857,10 @@
   },
   {
     "type": "version",
+    "named": false
+  },
+  {
+    "type": "via",
     "named": false
   },
   {

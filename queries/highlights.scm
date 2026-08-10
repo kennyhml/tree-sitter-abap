@@ -775,6 +775,8 @@
   (defining_database_spec name: (identifier) @type )?
 )
 
+(submit_statement report: (identifier) @module)
+
 (program_statement
   name: (identifier) @module
   (default_message_class_spec name: (identifier) @type )?

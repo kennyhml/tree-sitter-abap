@@ -1,0 +1,121 @@
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / SUBMIT ] Static report
+=================================================================================
+SUBMIT report AND RETURN.
+---
+
+(source
+  (submit_statement
+    report: (identifier)
+    (and_return)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / SUBMIT ] Dynamic report
+=================================================================================
+SUBMIT (report).
+---
+
+(source
+  (submit_statement
+    report: (dynamic_spec
+      value: (identifier))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / SUBMIT ] Selection screen options
+=================================================================================
+SUBMIT report
+  USING SELECTION-SCREEN '1100'
+  VIA SELECTION-SCREEN
+  USING SELECTION-SET variant
+  USING SELECTION-SETS OF PROGRAM program
+  WITH SELECTION-TABLE selections
+  WITH parameter EQ value SIGN sign
+  WITH FREE SELECTIONS free_selections
+  AND RETURN.
+---
+
+(source
+  (submit_statement
+    report: (identifier)
+    (using_selection_screen_spec
+      number: (string_literal))
+    (via_selection_screen)
+    (using_selection_set_spec
+      name: (identifier))
+    (using_selection_sets_of_program_spec
+      program: (identifier))
+    (with_selection_table_spec
+      table: (identifier))
+    (with_selection_criteria_spec
+      expression: (comparison_expression
+        left: (identifier)
+        right: (identifier))
+      (sign_spec
+        sign: (identifier)))
+    (with_free_selections_spec
+      selections: (identifier))
+    (and_return)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / SUBMIT ] List options
+=================================================================================
+SUBMIT report
+  LINE-SIZE width
+  LINE-COUNT page_lines
+  EXPORTING LIST TO MEMORY
+  AND RETURN.
+---
+
+(source
+  (submit_statement
+    report: (identifier)
+    (line_size_spec
+      size: (identifier))
+    (line_count_spec
+      page_lines: (identifier))
+    (exporting_list_to_memory)
+    (and_return)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / SUBMIT ] Spool options
+=================================================================================
+SUBMIT report
+  TO SAP-SPOOL
+  SPOOL PARAMETERS spool_parameters
+  ARCHIVE PARAMETERS archive_parameters
+  WITHOUT SPOOL DYNPRO
+  AND RETURN.
+---
+
+(source
+  (submit_statement
+    report: (identifier)
+    (to_sap_spool_spec
+      (spool_parameters_spec
+        parameters: (identifier))
+      (archive_parameters_spec
+        parameters: (identifier))
+      (without_spool_dynpro))
+    (and_return)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / SUBMIT ] Background job
+=================================================================================
+SUBMIT report
+  USER user
+  VIA JOB job NUMBER number
+  LANGUAGE language
+  AND RETURN.
+---
+
+(source
+  (submit_statement
+    report: (identifier)
+    (job_user_spec
+      name: (identifier))
+    (via_job_number_spec
+      job: (identifier)
+      number: (identifier))
+    (job_language_spec
+      language: (identifier))
+    (and_return)))
