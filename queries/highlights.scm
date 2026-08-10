@@ -78,13 +78,16 @@
 
 ; This helps a great deal marking basically all identifiers as variables
 ; where they are interchangable with other data-like expressions.
-(named_data_object/identifier) @variable
-((named_data_object/identifier) @variable.builtin 
+(name_reference/identifier) @variable
+((name_reference/identifier) @variable.builtin
   ( #match? @variable.builtin "^(([mM][eE])|([sS][uU][pP][eE][rR])|([sS][yY]))$"))
+
+(assignment (identifier) @variable)
+(calculation_assignment left: (identifier) @variable)
 
 ; Macro parameters
 (
- (named_data_object/identifier) @variable.parameter
+ (identifier) @variable.parameter
    (#any-of? @variable.parameter "&1" "&2" "&3" "&4" "&5" "&6" "&7" "&8" "&9" )
 )
 
@@ -93,6 +96,28 @@
 (substring_access (identifier) @variable )
 (table_body_access (identifier) @variable )
 (field_symbol name: (identifier) @variable )
+(for_user_spec user: (identifier) @variable)
+(id_field_spec field: (identifier) @variable)
+(conv_expression subject: (identifier) @variable)
+(replace_statement subject: (identifier) @variable)
+(find_statement subject: (identifier) @variable)
+(shift_statement subject: (identifier) @variable)
+(convert_text_statement source: (identifier) @variable)
+(convert_text_statement destination: (identifier) @variable)
+(overlay_statement subject: (identifier) @variable)
+(overlay_statement overlay: (identifier) @variable)
+(only_spec mask: (identifier) @variable)
+(translate_statement subject: (identifier) @variable)
+(set_bit_statement position: (identifier) @variable)
+(set_bit_statement subject: (identifier) @variable)
+(set_bit_statement to: (identifier) @variable)
+(get_bit_statement position: (identifier) @variable)
+(get_bit_statement subject: (identifier) @variable)
+(get_bit_statement into: (identifier) @variable)
+(write_to_statement source: (identifier) @variable)
+(write_to_statement destination: (identifier) @variable)
+(format_unit_spec value: (identifier) @variable)
+(get_reference_statement source: (identifier) @variable)
 (tables_declaration (tables_spec name: (identifier) @variable ))
 (accumulator_spec name: (identifier) @variable )
 
@@ -249,6 +274,11 @@
     . (identifier) @variable.member
   )
 )
+(where_condition_spec
+  (comparison_expression
+    right: (identifier) @variable
+  )
+)
 
 
 ; Parameter identifiers
@@ -325,7 +355,7 @@
 )
 
 ; CONSTANTS
-((named_data_object/identifier) @constant.builtin
+((name_reference/identifier) @constant.builtin
   (#match? @constant.builtin "^([aA][bB][aA][pP]_(([tT][rR][uU][eE])|([fF][aA][lL][sS][eE])|([uU][nN][dD][eE][fF][iI][nN][eE][dD]))|([sS][pP][aA][cC][eE]))$" )
 )
 (text_symbol

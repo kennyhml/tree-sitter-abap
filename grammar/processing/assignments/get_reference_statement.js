@@ -9,11 +9,11 @@ module.exports = {
   __get_reference_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "reference", "of"),
-      field("source", $.general_expression),
+      field("source", $._contextual_expression),
       gen.kw("into"),
       field(
         "destination",
-        choice($.named_data_object, $.declaration_expression),
+        $._result_target,
       ),
     ),
 };

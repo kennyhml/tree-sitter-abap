@@ -16,7 +16,10 @@ module.exports = {
   __shift_statement_prefix: $ =>
     seq(
       gen.kw("shift"),
-      field("subject", $.data_object),
+      field(
+        "subject",
+        choice($._contextual_identifier, $._modifiable_target),
+      ),
       repeat($.__shift_addition),
     ),
 
@@ -32,13 +35,13 @@ module.exports = {
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
   shift_by_spec: $ =>
-    seq(gen.kw("by"), field("amount", $.numeric_expression), gen.kw("places")),
+    seq(gen.kw("by"), field("amount", $._numeric_position), gen.kw("places")),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_PLACES.html
   shift_up_to_spec: $ =>
     seq(
       ...gen.kws("up", "to"),
-      field("substring", $.character_like_expression),
+      field("substring", $._character_position),
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DIRECTION.html
@@ -49,14 +52,14 @@ module.exports = {
   shift_left_deleting_spec: $ =>
     seq(
       ...gen.kws("left", "deleting", "leading"),
-      field("mask", $.character_like_expression),
+      field("mask", $._character_position),
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSHIFT_DELETING.html
   shift_right_deleting_spec: $ =>
     seq(
       ...gen.kws("right", "deleting", "trailing"),
-      field("mask", $.character_like_expression),
+      field("mask", $._character_position),
     ),
 
   circular: _ => gen.kw("circular"),

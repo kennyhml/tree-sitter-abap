@@ -9,6 +9,6 @@ module.exports = {
   __get_timestamp_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "time", "stamp", "field"),
-      field("destination", $.writable_expression),
+      field("destination", $._write_target),
     ),
 };

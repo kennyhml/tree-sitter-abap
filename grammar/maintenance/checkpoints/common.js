@@ -5,11 +5,11 @@ module.exports = {
       gen.kw("id"),
       field("group", $.identifier),
       optional(
-        seq(gen.kw("subkey"), field("subkey", $.character_like_expression)),
+        seq(gen.kw("subkey"), field("subkey", $._character_position)),
       ),
     ),
 
   // [FIELDS val1 val2 ...]
   checkpoint_fields_spec: $ =>
-    prec.right(seq(gen.kw("fields"), repeat1($.general_expression))),
+    prec.right(seq(gen.kw("fields"), repeat1($.expression))),
 };

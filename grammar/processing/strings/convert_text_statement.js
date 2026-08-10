@@ -9,11 +9,11 @@ module.exports = {
   __convert_text_statement_prefix: $ =>
     seq(
       ...gen.kws("convert", "text"),
-      field("source", $.general_expression),
+      field("source", $._contextual_expression),
       ...gen.kws("into", "sortable", "code"),
       field(
         "destination",
-        choice($.named_data_object, $.declaration_expression),
+        $._result_target,
       ),
     ),
 };

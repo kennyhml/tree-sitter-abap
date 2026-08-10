@@ -76,7 +76,7 @@ module.exports = {
         ),
       ),
       "=",
-      field("value", $.general_expression),
+      field("value", $.expression),
     ),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTERFACE.html

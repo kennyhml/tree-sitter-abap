@@ -26,12 +26,12 @@ module.exports = {
       ),
       $.time_zone_spec,
       ...gen.kws("into", "utclong"),
-      field("destination", $.writable_expression),
+      field("destination", $._write_target),
     ),
 
   __source_fractional_seconds_spec: $ =>
     seq(
       ...gen.kws("fractional", "seconds"),
-      field("value", $.general_expression),
+      field("value", $.expression),
     ),
 };

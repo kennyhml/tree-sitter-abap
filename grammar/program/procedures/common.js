@@ -44,7 +44,7 @@ module.exports = {
       field(
         "value",
         choice(
-          $.data_object,
+          $._simple_operand,
           $.constructor_expression,
           $.function_call,
           $.table_expression,
@@ -64,12 +64,13 @@ module.exports = {
           "name",
           choice(
             $.identifier,
+            $._contextual_identifier,
             $.dynamic_spec, // dynamic param spec in dynamic method calls
             $.component_selection, // for components of structures
           ),
         ),
         "=",
-        field("value", choice($.general_expression, $.declaration_expression)),
+        field("value", choice($.expression, $.declaration_expression)),
       ),
     ),
 
@@ -109,9 +110,9 @@ module.exports = {
   __tables_args: $ => gen.kw_tagged("tables", $._named_argument_list),
   _exceptions_args: $ => gen.kw_tagged("exceptions", $.__exception_mapping_list),
   _parameter_table_args: $ =>
-    gen.kw_tagged("parameter-table", $.named_data_object),
+    gen.kw_tagged("parameter-table", $._reference_operand),
   __exception_table_args: $ =>
-    gen.kw_tagged("exception-table", $.named_data_object),
+    gen.kw_tagged("exception-table", $._reference_operand),
 
   /**
    * An argument list where only named arguments can occur. This is needed
@@ -136,7 +137,7 @@ module.exports = {
       alias(
         repeat1(
           alias(
-            choice($.named_data_object, $.data_object),
+            $._simple_operand,
             $.positional_argument,
           ),
         ),
@@ -152,6 +153,6 @@ module.exports = {
       field("name", $.identifier),
       "=",
       field("value", $.number),
-      optional(seq(gen.kw("message"), field("message", $.named_data_object))),
+      optional(seq(gen.kw("message"), field("message", $._reference_operand))),
     ),
 };

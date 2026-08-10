@@ -11,9 +11,9 @@ module.exports = {
   __insert_report_statement_prefix: $ =>
     seq(
       ...gen.kws("insert", "report"),
-      field("program", $.named_data_object),
+      field("program", $._reference_operand),
       gen.kw("from"),
-      field("source", $.named_data_object),
+      field("source", $._reference_operand),
       optional($.maximum_width_spec),
       optional($.__insert_report_properties),
     ),
@@ -35,11 +35,11 @@ module.exports = {
     seq(...gen.kws("keeping", "directory", "entry")),
 
   program_type_spec: $ =>
-    seq(...gen.kws("program", "type"), field("type", $.data_object)),
+    seq(...gen.kws("program", "type"), field("type", $._simple_operand)),
 
   fixed_point_arithmetic_spec: $ =>
-    seq(...gen.kws("fixed-point", "arithmetic"), field("value", $.data_object)),
+    seq(...gen.kws("fixed-point", "arithmetic"), field("value", $._simple_operand)),
 
   version_spec: $ =>
-    seq(gen.kw("version"), field("version", $.data_object)),
+    seq(gen.kw("version"), field("version", $._simple_operand)),
 };

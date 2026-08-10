@@ -37,7 +37,7 @@ module.exports = {
     ),
 
   substitute_with_spec: $ =>
-    seq(gen.kw("with"), field("value", $.character_like_expression)),
+    seq(gen.kw("with"), field("value", $._character_position)),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPLACE_OPTIONS.html
   __replace_addition: $ =>
@@ -58,28 +58,28 @@ module.exports = {
   replacement_count_spec: $ =>
     seq(
       ...gen.kws("replacement", "count"),
-      field("target", $.receiving_expression),
+      field("target", $._result_target),
     ),
 
   // replacement line lin
   replacement_line_spec: $ =>
     seq(
       ...gen.kws("replacement", "line"),
-      field("target", $.receiving_expression),
+      field("target", $._result_target),
     ),
 
   // replacement OFFSET off
   replacement_offset_spec: $ =>
     seq(
       ...gen.kws("replacement", "offset"),
-      field("target", $.receiving_expression),
+      field("target", $._result_target),
     ),
 
   // replacement LENGTH len
   replacement_length_spec: $ =>
     seq(
       ...gen.kws("replacement", "length"),
-      field("target", $.receiving_expression),
+      field("target", $._result_target),
     ),
 
   verbatim: _ => gen.kw("verbatim"),

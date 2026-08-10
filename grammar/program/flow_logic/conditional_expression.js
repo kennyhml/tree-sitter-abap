@@ -33,7 +33,7 @@ module.exports = {
       gen.parenthesized(
         seq(
           optional($.let_expression),
-          field("subject", $.general_expression),
+          field("subject", $.expression),
           repeat1($.case),
           optional($.else_case),
         ),
@@ -77,5 +77,5 @@ module.exports = {
   /**
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html
    */
-  __conditional_result: $ => choice($.general_expression, $.throw_exception),
+  __conditional_result: $ => choice($.expression, $.throw_exception),
 };

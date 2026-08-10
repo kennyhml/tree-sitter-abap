@@ -11,7 +11,7 @@ module.exports = {
   __call_statement_prefix: $ =>
     seq(
       gen.kw("call"),
-      field("name", $.data_object),
+      field("name", $._simple_operand),
       repeat($.id_field_spec),
     ),
 };

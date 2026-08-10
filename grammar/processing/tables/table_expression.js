@@ -85,7 +85,7 @@ module.exports = {
 
   __table_expression_subject: $ =>
     choice(
-      $.named_data_object,
+      $._reference_operand,
       $.dereference_expression,
       $.table_expression,
     ),
@@ -99,7 +99,7 @@ module.exports = {
   index_read: $ =>
     seq(
       optional(seq($.index_key_spec, gen.kw("index"))),
-      field("index", $.numeric_expression),
+      field("index", $._numeric_position),
     ),
 
   index_key_spec: $ =>
@@ -111,5 +111,5 @@ module.exports = {
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_OPTIONAL_DEFAULT.html
    */
   __table_expr_default: $ =>
-    seq(gen.kw("default"), field("value", $.general_expression)),
+    seq(gen.kw("default"), field("value", $.expression)),
 };

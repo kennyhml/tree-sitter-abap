@@ -51,5 +51,5 @@ module.exports = {
     gen.parenthesized(optional(choice($.lines_of_spec, $.argument_list))),
 
   // ... BASE base ...
-  base_spec: $ => seq(gen.kw("base"), field("value", $.general_expression)),
+  base_spec: $ => seq(gen.kw("base"), field("value", $.expression)),
 };

@@ -23,11 +23,11 @@ const makeLogicalExpr = rule => {
   );
 };
 
-const makeComparisonExpr = ($, rule) =>
+const makeComparisonExpr = ($, leftRule, rightRule) =>
   seq(
-    field("left", rule),
+    field("left", leftRule),
     choice(
-      seq($._comparison_operator, field("right", $.general_expression)),
+      seq($._comparison_operator, field("right", rightRule)),
       field("right", $.between_spec),
       field("right", $.in_table_spec),
     ),
@@ -83,7 +83,7 @@ module.exports = {
     ),
 
   /**
-   * Comparison of two or more subjects represented as {@link general_expression}.
+   * Comparison of two or more subjects represented as {@link expression}.
    *... { subject1
    *      {=|EQ|<>|NE|>|GT|<|LT|>=|GE|<=|LE}
    *      | {CO|CN|CA|NA|CS|NS|CP|NP}
@@ -96,23 +96,25 @@ module.exports = {
    *
    * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_COMP.html
    */
-  comparison_expression: $ => makeComparisonExpr($, $.general_expression),
-  __member_comparison_expression: $ => makeComparisonExpr($, $.itab_comp),
+  comparison_expression: $ =>
+    makeComparisonExpr($, $.expression, $.expression),
+  __member_comparison_expression: $ =>
+    makeComparisonExpr($, $.itab_comp, $._contextual_expression),
 
   in_table_spec: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("in"),
-      field("table", $.general_expression),
+      field("table", $.expression),
     ),
 
   between_spec: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("between"),
-      field("low", $.general_expression),
+      field("low", $.expression),
       gen.kw("and"),
-      field("high", $.general_expression),
+      field("high", $.expression),
     ),
 
   __predicate_expression: $ =>
@@ -141,7 +143,7 @@ module.exports = {
       choice(
         field("subject", $.function_call),
         seq(
-          field("subject", $.general_expression),
+          field("subject", $.expression),
           gen.kw("is"),
           optional(gen.kw("not")),
           gen.kw("initial"),
@@ -159,7 +161,7 @@ module.exports = {
 
   bound_predicate: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       gen.kw("is"),
       optional(gen.kw("not")),
       gen.kw("bound"),
@@ -175,17 +177,17 @@ module.exports = {
 
   instance_of_predicate: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       gen.kw("is"),
       optional(gen.kw("not")),
       gen.kw("instance"),
       gen.kw("of"),
-      field("type", $.general_expression),
+      field("type", $.expression),
     ),
 
   assigned_predicate: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       gen.kw("is"),
       optional(gen.kw("not")),
       gen.kw("assigned"),
@@ -193,7 +195,7 @@ module.exports = {
 
   supplied_predicate: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $._contextual_expression),
       gen.kw("is"),
       optional(gen.kw("not")),
       gen.kw("supplied"),
@@ -201,7 +203,7 @@ module.exports = {
 
   requested_predicate: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $._contextual_expression),
       gen.kw("is"),
       optional(gen.kw("not")),
       gen.kw("requested"),

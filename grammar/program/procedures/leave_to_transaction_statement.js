@@ -14,7 +14,7 @@ module.exports = {
       choice(
         seq(
           gen.kw("transaction"),
-          field("transaction", $.character_like_expression),
+          field("transaction", $._character_position),
         ),
         $.current_transaction,
       ),

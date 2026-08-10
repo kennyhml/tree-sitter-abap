@@ -9,7 +9,7 @@ module.exports = {
     seq(
       field("name", $.identifier),
       gen.kw("for"),
-      field("for", choice($.dynamic_spec, $.named_data_object)),
+      field("for", choice($.dynamic_spec, $._reference_operand)),
       repeat(choice($.__selopt_screen_option, $.__selopt_value_option)),
     ),
 
@@ -38,10 +38,10 @@ module.exports = {
   default_range_spec: $ =>
     seq(
       gen.kw("default"),
-      field("low", $.data_object),
+      field("low", $._simple_operand),
       repeat1(
         choice(
-          seq(gen.kw("to"), field("high", $.data_object)),
+          seq(gen.kw("to"), field("high", $._simple_operand)),
           seq(
             gen.kw("option"),
             field(

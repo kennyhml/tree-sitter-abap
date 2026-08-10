@@ -37,10 +37,10 @@ module.exports = {
    */
   __assign_source: $ =>
     choice(
-      $.data_object,
+      $._simple_operand,
       $.dynamic_spec,
       $.component_of_structure,
-      $.writable_expression,
+      $._write_target,
     ),
 
   /**
@@ -49,7 +49,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSIGN_MEM_AREA_DYNAMIC_DOBJ.html
    */
   assignment_increment_spec: $ =>
-    seq(gen.kw("increment"), field("amount", $.data_object)),
+    seq(gen.kw("increment"), field("amount", $._simple_operand)),
 
   /**
    * ... {} / RANGE range ...
@@ -57,7 +57,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSIGN_RANGE.html
    */
   assignment_range_spec: $ =>
-    seq(gen.kw("range"), field("range", $.named_data_object)),
+    seq(gen.kw("range"), field("range", $._reference_operand)),
 
   /**
    * ... { }  
@@ -96,10 +96,10 @@ module.exports = {
     seq(
       gen.kw("component"),
       // ... comp is a character-like or numeric expression position.
-      field("comp", choice($.character_like_expression, $.numeric_expression)),
+      field("comp", choice($._character_position, $._numeric_position)),
       ...gen.kws("of", "structure"),
       // ... The structure can be specified as a data object or as a writable expression.
-      field("struct", $.writable_expression),
+      field("struct", $._write_target),
     ),
 
 };

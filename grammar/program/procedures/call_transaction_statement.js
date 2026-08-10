@@ -16,7 +16,7 @@ module.exports = {
   __call_transaction_simple_form_prefix: $ =>
     seq(
       ...gen.kws("call", "transaction"),
-      field("transaction", $.character_like_expression),
+      field("transaction", $._character_position),
       choice($.with_authority_check, $.without_authority_check),
       optional($.and_skip_first_screen),
     ),
@@ -32,7 +32,7 @@ module.exports = {
   __call_transaction_batch_form_prefix: $ =>
     seq(
       ...gen.kws("call", "transaction"),
-      field("transaction", $.character_like_expression),
+      field("transaction", $._character_position),
       choice($.with_authority_check, $.without_authority_check),
       $.using_batch_table_spec,
       optional(
@@ -49,19 +49,19 @@ module.exports = {
     ),
 
   using_batch_table_spec: $ =>
-    seq(gen.kw("using"), field("table", $.general_expression)),
+    seq(gen.kw("using"), field("table", $.expression)),
 
   transaction_processing_mode_spec: $ =>
-    seq(gen.kw("mode"), field("mode", $.general_expression)),
+    seq(gen.kw("mode"), field("mode", $.expression)),
 
   transaction_update_mode_spec: $ =>
-    seq(gen.kw("update"), field("mode", $.general_expression)),
+    seq(gen.kw("update"), field("mode", $.expression)),
 
   transaction_options_from_spec: $ =>
-    seq(...gen.kws("options", "from"), field("options", $.general_expression)),
+    seq(...gen.kws("options", "from"), field("options", $.expression)),
 
   transaction_messages_into_spec: $ =>
-    seq(...gen.kws("messages", "into"), field("target", $.writable_expression)),
+    seq(...gen.kws("messages", "into"), field("target", $._write_target)),
 
   with_authority_check: _ => seq(...gen.kws("with", "authority-check")),
 

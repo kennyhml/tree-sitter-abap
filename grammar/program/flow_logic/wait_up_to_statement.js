@@ -9,7 +9,7 @@ module.exports = {
   __wait_up_to_statement_prefix: $ =>
     seq(
       ...gen.kws("wait", "up", "to"),
-      field("seconds", $.numeric_expression),
+      field("seconds", $._numeric_position),
       gen.kw("seconds"),
     ),
 };

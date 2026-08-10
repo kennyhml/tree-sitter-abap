@@ -16,7 +16,7 @@ module.exports = {
   __create_data_statement_prefix: $ =>
     seq(
       ...gen.kws("create", "data"),
-      field("subject", $.writable_expression),
+      field("subject", $._write_target),
       optional($.area_handle_spec),
       optional(field("typing", choice($.typing, $.handle_type))),
     ),

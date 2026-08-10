@@ -51,7 +51,7 @@ module.exports = {
   up_to_spec: $ =>
     seq(
       ...gen.kws("up", "to"),
-      field("seconds", $.data_object),
+      field("seconds", $._simple_operand),
       gen.kw("seconds"),
     ),
 };

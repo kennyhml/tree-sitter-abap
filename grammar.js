@@ -70,23 +70,19 @@ module.exports = grammar({
     $.typing,
     $.simple_statement,
     $.reserved_statement,
-    $.named_data_object,
     $.business_object,
 
+    $.name_reference,
+    $.literal,
+    $.access_expression,
+    $.primary_expression,
+    $.expression,
+
     $.constructor_expression,
-
-    $.data_object,
-
-    $.general_expression,
-    $.functional_expression,
     $.iteration_expression,
-    $.writable_expression,
     $.calculation_expression,
-    $.receiving_expression,
     $.string_expression,
     $.itab_comp,
-    $.numeric_expression,
-    $.character_like_expression,
   ],
 
   word: $ => $.__name,
@@ -98,7 +94,7 @@ module.exports = grammar({
 
       return repeat(
         choice(
-          $.general_expression,
+          $.expression,
           $.simple_statement,
           $.reserved_statement,
           $.docstring,
@@ -390,7 +386,7 @@ module.exports = grammar({
           choice(
             $.arithmetic_expression,
             $.bit_expression,
-            $.named_data_object,
+            $._reference_operand,
           ),
           ")",
         ),
@@ -418,47 +414,76 @@ module.exports = grammar({
         $.reduce_expression,
       ),
 
+    /** Atomic syntax that refers to a name without asserting what it denotes. */
+    name_reference: $ => choice($.identifier, $.field_symbol),
+
+    /** Source literals, including references into the text pool. */
+    literal: $ => prec.right(choice($.number, $.string_literal, $.text_symbol)),
+
+    /** Operand forms recognized by an explicit access operator or suffix. */
+    access_expression: $ =>
+      choice(
+        $.component_selection,
+        $.table_body_access,
+        $.table_expression,
+        $.dereference_expression,
+        $.substring_access,
+      ),
+
+    /** Expressions without an infix calculation or grouping wrapper. */
+    primary_expression: $ =>
+      choice(
+        $.name_reference,
+        $.literal,
+        $.access_expression,
+        $.constructor_expression,
+        $.function_call,
+      ),
+
     /**
-     * https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDATA_OBJECTS.html
+     * Any syntactically recognizable expression.
+     *
+     * This taxonomy intentionally does not classify an expression by inferred
+     * ABAP type, mutability, or whether a name resolves to a data object.
      */
-    data_object: $ =>
+    expression: $ =>
+      choice(
+        $.primary_expression,
+        $.calculation_expression,
+        $.parenthesized_expression,
+      ),
+
+    _contextual_expression: $ =>
+      choice($._contextual_identifier, $.expression),
+
+    // Restricted source forms used in positions where a full expression causes
+    // ambiguity or where the ABAP syntax explicitly requires a single operand.
+    _simple_operand: $ =>
       prec(
         100,
         choice(
+          $._reference_operand,
+          $.literal,
           $.substring_access,
-          $.number,
-          $.string_literal,
-          $.named_data_object,
         ),
       ),
 
-    named_data_object: $ =>
-      choice(
-        $.identifier,
-        $.field_symbol,
-        $.text_symbol,
-        $.component_selection,
-        $.table_body_access,
+    _contextual_simple_operand: $ =>
+      choice($._contextual_identifier, $._simple_operand),
+
+    _reference_operand: $ =>
+      prec(
+        2,
+        choice(
+          $.name_reference,
+          $.component_selection,
+          $.table_body_access,
+        ),
       ),
 
-    // https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
-    general_expression: $ =>
+    _call_or_access_operand: $ =>
       choice(
-        $.data_object,
-        $.constructor_expression,
-        $.function_call,
-        $.table_expression,
-        $.arithmetic_expression,
-        $.bit_expression,
-        $.parenthesized_expression,
-        $.string_expression,
-        $.dereference_expression,
-      ),
-
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_RESULT.html
-    functional_expression: $ =>
-      choice(
-        $.named_data_object,
+        $._reference_operand,
         $.constructor_expression,
         $.table_expression,
         $.function_call,
@@ -468,12 +493,12 @@ module.exports = grammar({
     calculation_expression: $ =>
       choice($.arithmetic_expression, $.string_expression, $.bit_expression),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMERICAL_EXPRESSION_GLOSRY.html
-    numeric_expression: $ =>
+    // The numeric result required by these positions is checked semantically.
+    _numeric_position: $ =>
       prec(
         1,
         choice(
-          $.named_data_object,
+          $._reference_operand,
           $.number,
           $.constructor_expression,
           $.function_call,
@@ -482,36 +507,36 @@ module.exports = grammar({
         ),
       ),
 
-    // This is made up and not from the keyword documentation. It should be used
-    // for positions in which a suitable named data object can be used to receive
-    // the result of an operation, but also a declaration expression.
-    receiving_expression: $ =>
-      choice($.named_data_object, $.declaration_expression),
+    _modifiable_target: $ =>
+      prec(
+        99,
+        choice(
+          $._reference_operand,
+          $.dereference_expression,
+          $.substring_access,
+        ),
+      ),
 
-    // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_EXPRESSION_POSITIONS.html
-    character_like_expression: $ =>
+    _result_target: $ =>
+      choice($._modifiable_target, $.declaration_expression),
+
+    // The character-like result required by these positions is checked semantically.
+    _character_position: $ =>
       choice(
-        $.data_object,
+        $._simple_operand,
         $.constructor_expression,
         $.string_expression,
         $.table_expression,
         $.function_call,
       ),
 
-    /**
-     * A LHS operand that can be written to, can be specified in **write positions**.
-     *
-     * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html
-     */
-    writable_expression: $ =>
+    _write_target: $ =>
       choice(
+        $._modifiable_target,
         $.new_expression,
         $.cast_expression,
         $.table_expression,
         $.declaration_expression,
-        $.named_data_object,
-        $.dereference_expression,
-        $.substring_access,
       ),
 
     // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcompute_string.html
@@ -524,6 +549,7 @@ module.exports = grammar({
         1,
         choice(
           $.identifier,
+          $._contextual_identifier,
           $.component_selection,
           $.substring_access,
           $.dynamic_spec,
@@ -536,14 +562,10 @@ module.exports = grammar({
         $.identifier, // explicit
       ),
 
-    /**
-     * Bad idea to allow general expression here as that boils down to identifiers
-     * which then causes conflicts on statements scopes that dont have a well defined
-     * END<> statement delimeter (such as AT SELECTION SCREEN)
-     */
+    /** Expressions remain valid here for permissive parsing and macro-like syntax. */
     statement_block: $ =>
       prec.left(
-        repeat1(choice($.simple_statement, $.docstring, $.general_expression)),
+        repeat1(choice($.simple_statement, $.docstring, $.expression)),
       ),
 
     /**
@@ -578,112 +600,68 @@ module.exports = grammar({
 
     __name: $ => IDENTIFIER_REGEX,
 
-    identifier: $ => prec(-1, choice($.__name, $.__contextual_keyword)),
+    identifier: $ => prec(-1, $.__name),
 
-    /**
-     * ABAP does not reserve keywords whatsoever. Any keyword is valid to be used as an identifier.
-     *
-     * Why dont we just add all keywords to this list then? Because tree-sitter performs context-aware
-     * parsing, meaning it will only consider the keywords in a position where they could appear based on
-     * the grammars structure. For example, an "endclass" keyword wouldnt cause ambiguity because it can
-     * only appear in a very specific position, unlike keywords that introduce a `general_expression`.
-     *
-     * Consider the following code:
-     *
-     * ceil( value i( 10 )).
-     *
-     * The builtin function could receive either a `named_argument or a `positional_argument`.
-     * So during lexical analysis, the parser considers that the word could either be a `value`
-     * keyword or a `value` identifier. The keyword ends up taking higher lexical precendence (as it should)
-     * and as a result, the branch containing the identifier rule is pruned.
-     *
-     * The only way to resolve this is to make sure that the other branch doesnt get dropped, so both
-     * can be explored and the contextually correct one is chosen. For this reason, the keywords must
-     * be added to the `identifier` rule as well and aliased to an identifier. Do however make sure
-     * that they have a lower precedence to express:
-     *
-     * If theres a keyword valid in that context, use that. Otherwise consider the keyword to be an identifier.
-     *
-     * Things if tried to make this work better:
-     *
-     * - Automatically walk the rules to add affected keywords
-     *   -> Hard to identify the rules where conflicts can occur
-     * - Join the keywords into one regex to reduce parser size
-     *   -> The more concrete rule always wins
-     * - Literally just add all keywords
-     *   -> Tree-sitter kills itself due to running out of memory, tons of parsing conflicts
-     *
-     * WARN: Be cautious what keywords are added, things such as ... IMPORTING importing ...
-     * already work out of the box due to context aware lexing. Each keyword added here
-     * increases parser size a ton!
-     *
-     * TODO: Another thing that would help is actually merge keywords that belong together.
-     * For example instead of _kw_at we have _kw_at_selection_screen, _kw_at_end_of, etc..
-     * We could save keywords that way, but partial highlighting would also suffer mid typing
-     * Would also get rid of READ (table), CALL (function), LOOP (at)..
-     *
-     * Great for testing: https://www.abapforum.com/forum/viewtopic.php?p=21654
-     */
-    __contextual_keyword: $ => {
-      return prec(
-        -1,
-        choice(
-          ...gen.caseInsensitive(
-            "value",
-            "sum",
-            "new",
-            "cond",
-            "switch",
-            "cast",
-            "conv",
-            "ref",
-            "any",
-            "filter",
-            "reduce",
-            "text",
-            "initialization",
-
-            "class",
-            "method",
-
-            "data",
-            "types",
-            "constants",
-            "test", // due to test-seam
-
-            "condense",
-            "split",
-            "replace",
-            "call",
-            "if",
-            "case",
-            "include",
-            "perform",
-            "form",
-            "at",
-            "parameters",
-
-            "check",
-            "return",
-            "continue",
-            "exit",
-            "try",
-            "raise",
-            "tables",
-            "corresponding",
-            "loop",
-            "read",
-            "sort",
-            "insert",
-            "delete",
-            "append",
-            "interfaces",
-            "interface",
-            "methods",
+    // ABAP permits keywords as names. Keep this expensive lexical fallback
+    // scoped to positions where keyword and identifier parses compete.
+    _contextual_identifier: $ =>
+      alias(
+        prec(
+          -1,
+          choice(
+            ...gen.caseInsensitive(
+              "value",
+              "sum",
+              "new",
+              "cond",
+              "switch",
+              "cast",
+              "conv",
+              "ref",
+              "any",
+              "filter",
+              "reduce",
+              "text",
+              "initialization",
+              "class",
+              "method",
+              "data",
+              "types",
+              "constants",
+              "test",
+              "condense",
+              "split",
+              "replace",
+              "call",
+              "if",
+              "case",
+              "include",
+              "perform",
+              "form",
+              "at",
+              "parameters",
+              "check",
+              "return",
+              "continue",
+              "exit",
+              "try",
+              "raise",
+              "tables",
+              "corresponding",
+              "loop",
+              "read",
+              "sort",
+              "insert",
+              "delete",
+              "append",
+              "interfaces",
+              "interface",
+              "methods",
+            ),
           ),
         ),
-      );
-    },
+        $.identifier,
+      ),
 
     _immediate_identifier: $ =>
       alias(token.immediate(IDENTIFIER_REGEX), $.identifier),

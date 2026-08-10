@@ -36,7 +36,7 @@ module.exports = {
   using_selection_screen_spec: $ =>
     seq(
       ...gen.kws("using", "selection-screen"),
-      field("number", $.data_object),
+      field("number", $._simple_operand),
     ),
 
   via_selection_screen: _ => seq(...gen.kws("via", "selection-screen")),
@@ -62,25 +62,28 @@ module.exports = {
   using_selection_set_spec: $ =>
     seq(
       ...gen.kws("using", "selection-set"),
-      field("name", $.data_object),
+      field("name", $._simple_operand),
     ),
 
   using_selection_sets_of_program_spec: $ =>
     seq(
       ...gen.kws("using", "selection-sets", "of", "program"),
-      field("program", $.data_object),
+      field("program", $._simple_operand),
     ),
 
   with_selection_table_spec: $ =>
     seq(
       ...gen.kws("with", "selection-table"),
-      field("table", $.data_object),
+      field("table", $._simple_operand),
     ),
 
   with_selection_criteria_spec: $ =>
     seq(
       gen.kw("with"),
-      field("selection", $.identifier),
+      field(
+        "selection",
+        choice($.identifier, $._contextual_identifier),
+      ),
       choice(
         seq(
           field(
@@ -90,28 +93,28 @@ module.exports = {
               ...gen.kws("eq", "ne", "cp", "np", "gt", "ge", "lt", "le", "incl"),
             ),
           ),
-          field("value", $.data_object),
+          field("value", $._contextual_simple_operand),
           optional($.sign_spec),
         ),
         seq(
           optional(gen.kw("not")),
           gen.kw("between"),
-          field("low", $.data_object),
+          field("low", $._simple_operand),
           gen.kw("and"),
-          field("high", $.data_object),
+          field("high", $._simple_operand),
           optional($.sign_spec),
         ),
-        seq(gen.kw("in"), field("table", $.data_object)),
+        seq(gen.kw("in"), field("table", $._simple_operand)),
       ),
     ),
 
   sign_spec: $ =>
-    seq(gen.kw("sign"), field("sign", $.data_object)),
+    seq(gen.kw("sign"), field("sign", $._simple_operand)),
 
   with_free_selections_spec: $ =>
     seq(
       ...gen.kws("with", "free", "selections"),
-      field("selections", $.data_object),
+      field("selections", $._simple_operand),
     ),
 
   /**
@@ -131,10 +134,10 @@ module.exports = {
     ),
 
   __submit_line_size_spec: $ =>
-    seq(gen.kw("line-size"), field("size", $.data_object)),
+    seq(gen.kw("line-size"), field("size", $._simple_operand)),
 
   __submit_line_count_spec: $ =>
-    seq(gen.kw("line-count"), field("page_lines", $.data_object)),
+    seq(gen.kw("line-count"), field("page_lines", $._simple_operand)),
 
   exporting_list_to_memory: _ =>
     seq(...gen.kws("exporting", "list", "to", "memory")),
@@ -159,13 +162,13 @@ module.exports = {
   spool_parameters_spec: $ =>
     seq(
       ...gen.kws("spool", "parameters"),
-      field("parameters", $.data_object),
+      field("parameters", $._simple_operand),
     ),
 
   archive_parameters_spec: $ =>
     seq(
       ...gen.kws("archive", "parameters"),
-      field("parameters", $.data_object),
+      field("parameters", $._simple_operand),
     ),
 
   without_spool_dynpro: _ => seq(...gen.kws("without", "spool", "dynpro")),
@@ -185,16 +188,16 @@ module.exports = {
   via_job_number_spec: $ =>
     seq(
       ...gen.kws("via", "job"),
-      field("job", $.data_object),
+      field("job", $._simple_operand),
       gen.kw("number"),
-      field("number", $.data_object),
+      field("number", $._simple_operand),
     ),
 
   job_user_spec: $ =>
-    seq(gen.kw("user"), field("name", $.data_object)),
+    seq(gen.kw("user"), field("name", $._simple_operand)),
 
   job_language_spec: $ =>
-    seq(gen.kw("language"), field("language", $.data_object)),
+    seq(gen.kw("language"), field("language", $._simple_operand)),
 
   and_return: _ => seq(...gen.kws("and", "return")),
 };

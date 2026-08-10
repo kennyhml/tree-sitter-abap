@@ -9,5 +9,5 @@ module.exports = {
   __free_statement_prefix: $ =>
     gen.chainable("free", $.free_spec),
 
-  free_spec: $ => field("subject", $.named_data_object),
+  free_spec: $ => field("subject", $._modifiable_target),
 };

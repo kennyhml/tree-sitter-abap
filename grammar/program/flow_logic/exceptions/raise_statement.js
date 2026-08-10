@@ -22,7 +22,7 @@ module.exports = {
       gen.kw("raise"),
       optional($.resumable),
       gen.kw("exception"),
-      field("exception", choice($.general_expression, $.new_exception_spec)),
+      field("exception", choice($.expression, $.new_exception_spec)),
     ),
 
   // {TYPE cx_class [message] [EXPORTING p1 = a1 p2 = a2 ...]

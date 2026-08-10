@@ -4,8 +4,8 @@ module.exports = {
   __unpack_statement_prefix: $ =>
     seq(
       gen.kw("unpack"),
-      field("source", $.general_expression),
+      field("source", $.expression),
       gen.kw("to"),
-      field("destination", $.general_expression),
+      field("destination", $._write_target),
     ),
 };

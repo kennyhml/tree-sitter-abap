@@ -11,7 +11,7 @@ module.exports = {
   __set_flags_statement_prefix: $ =>
     seq(
       ...gen.kws("set", "flags"),
-      field("subject", $.general_expression),
+      field("subject", $._write_target),
       $.from_names_spec,
       optional(choice($.mapping_like_spec, $.mapping_type_spec)),
     ),
@@ -28,16 +28,16 @@ module.exports = {
   __set_names_statement_prefix: $ =>
     seq(
       ...gen.kws("set", "names"),
-      field("subject", $.general_expression),
+      field("subject", $._write_target),
       $.from_flags_spec,
       optional(choice($.mapping_like_spec, $.mapping_type_spec)),
     ),
 
   from_names_spec: $ =>
-    seq(...gen.kws("from", "names"), field("fields", $.general_expression)),
+    seq(...gen.kws("from", "names"), field("fields", $.expression)),
 
   from_flags_spec: $ =>
-    seq(...gen.kws("from", "flags"), field("flags", $.general_expression)),
+    seq(...gen.kws("from", "flags"), field("flags", $.expression)),
 
   mapping_type_spec: $ =>
     seq(...gen.kws("mapping", "type"), field("name", $.identifier)),

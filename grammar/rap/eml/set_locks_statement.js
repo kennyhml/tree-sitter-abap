@@ -47,7 +47,7 @@ module.exports = {
   __set_locks_dynamic_form_prefix: $ =>
     seq(
       ...gen.kws("set", "locks"),
-      field("lock_table", $.general_expression),
+      field("lock_table", $.expression),
       optional($.response_parameters),
     ),
 
@@ -60,5 +60,5 @@ module.exports = {
     ),
 
   from_instance_table_spec: $ =>
-    seq(gen.kw("from"), field("value", $.general_expression)),
+    seq(gen.kw("from"), field("value", $.expression)),
 };

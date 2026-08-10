@@ -22,9 +22,9 @@ module.exports = {
       ...BITWISE_OPERATORS.map(([op, prec]) =>
         prec(
           seq(
-            field("left", $.general_expression),
+            field("left", $.expression),
             field("operator", op),
-            field("right", $.general_expression),
+            field("right", $.expression),
           ),
         ),
       ),
@@ -36,7 +36,7 @@ module.exports = {
       4,
       seq(
         field("operator", gen.kw("bit-not")),
-        field("value", $.general_expression),
+        field("value", $.expression),
       ),
     ),
 };

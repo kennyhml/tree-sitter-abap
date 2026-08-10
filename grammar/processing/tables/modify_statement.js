@@ -24,7 +24,7 @@ module.exports = {
   __modify_itab_key_spec: $ =>
     seq(
       gen.kw("table"),
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       optional($.using_key_spec),
     ),
 
@@ -40,7 +40,7 @@ module.exports = {
    */
   __modify_itab_index_or_lines_spec: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       choice(
         seq(
           choice($.index_spec, $.using_loop_key_spec),

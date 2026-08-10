@@ -47,7 +47,7 @@ module.exports = {
     seq(
       field("name", choice($.identifier, $.field_symbol)),
       choice(
-        seq("=", field("value", $.general_expression)),
+        seq("=", field("value", $.expression)),
         field("typing", $.typing),
       ),
     ),

@@ -9,9 +9,9 @@ module.exports = {
   __read_report_statement_prefix: $ =>
     seq(
       ...gen.kws("read", "report"),
-      field("program", $.named_data_object),
+      field("program", $._reference_operand),
       gen.kw("into"),
-      field("destination", $.named_data_object),
+      field("destination", $._modifiable_target),
       optional($.maximum_width_spec),
     ),
 };

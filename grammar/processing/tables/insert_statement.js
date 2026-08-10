@@ -25,13 +25,13 @@ module.exports = {
   __insert_position: $ => choice($.into_table_spec, $.at_index),
 
   into_table_spec: $ =>
-    seq(gen.kw("table"), field("subject", $.general_expression)),
+    seq(gen.kw("table"), field("subject", $._modifiable_target)),
 
   at_index: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       // can be ommitted inside a loop at statement
-      optional(seq(gen.kw("index"), field("index", $.general_expression))),
+      optional(seq(gen.kw("index"), field("index", $._numeric_position))),
     ),
 
 };

@@ -11,7 +11,7 @@ module.exports = {
       gen.kw("append"),
       field("lines", $._line_spec),
       gen.kw("to"),
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       optional(alias($.__append_sorted_by_spec, $.sorted_by_spec)),
       optional(field("result", $._itab_mutation_result)),
     ),

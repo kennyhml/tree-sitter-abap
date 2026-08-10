@@ -53,7 +53,12 @@ module.exports = {
       gen.kw("type"),
       field(
         "name",
-        choice($.identifier, $.component_selection, $.dynamic_spec),
+        choice(
+          $.identifier,
+          $._contextual_identifier,
+          $.component_selection,
+          $.dynamic_spec,
+        ),
       ),
     ),
 

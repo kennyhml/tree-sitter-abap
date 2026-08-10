@@ -10,7 +10,7 @@ module.exports = {
       field("result_type", $._constructor_result),
       "(",
       optional($.let_expression),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       ")",
     ),
 };

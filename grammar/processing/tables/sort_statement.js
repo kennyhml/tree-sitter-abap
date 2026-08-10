@@ -19,7 +19,7 @@ module.exports = {
   __sort_statement_prefix: $ =>
     seq(
       gen.kw("sort"),
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       optional($.__sort_additions),
     ),
 

@@ -11,8 +11,8 @@ module.exports = {
   __add_statement_prefix: $ =>
     seq(
       gen.kw("add"),
-      field("value", $.data_object),
+      field("value", $._simple_operand),
       gen.kw("to"),
-      field("subject", $.data_object),
+      field("subject", $._modifiable_target),
     ),
 };

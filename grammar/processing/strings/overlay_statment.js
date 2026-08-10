@@ -9,12 +9,12 @@ module.exports = {
   __overlay_statement_prefix: $ =>
     seq(
       gen.kw("overlay"),
-      field("subject", $.character_like_expression),
+      field("subject", $._modifiable_target),
       gen.kw("with"),
-      field("overlay", $.character_like_expression),
+      field("overlay", $._character_position),
       optional($.only_spec),
     ),
 
   only_spec: $ =>
-    seq(gen.kw("only"), field("mask", $.character_like_expression)),
+    seq(gen.kw("only"), field("mask", $._character_position)),
 };

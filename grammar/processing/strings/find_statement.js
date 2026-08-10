@@ -47,20 +47,20 @@ module.exports = {
    * `SUBMATCHES s1 s2 ...`
    */
   submatches_spec: $ =>
-    prec.right(seq(gen.kw("submatches"), repeat1($.receiving_expression))),
+    prec.right(seq(gen.kw("submatches"), repeat1($._result_target))),
 
   // `MATCH COUNT cnt`
   match_count_spec: $ =>
-    seq(...gen.kws("match", "count"), field("target", $.receiving_expression)),
+    seq(...gen.kws("match", "count"), field("target", $._result_target)),
 
   match_line_spec: $ =>
-    seq(...gen.kws("match", "line"), field("target", $.receiving_expression)),
+    seq(...gen.kws("match", "line"), field("target", $._result_target)),
 
   // MATCH OFFSET off
   match_offset_spec: $ =>
-    seq(...gen.kws("match", "offset"), field("target", $.receiving_expression)),
+    seq(...gen.kws("match", "offset"), field("target", $._result_target)),
 
   // MATCH LENGTH len
   match_length_spec: $ =>
-    seq(...gen.kws("match", "length"), field("target", $.receiving_expression)),
+    seq(...gen.kws("match", "length"), field("target", $._result_target)),
 };

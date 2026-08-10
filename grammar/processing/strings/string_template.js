@@ -20,7 +20,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html
    */
   embedded_expression: $ =>
-    seq("{", $.general_expression, repeat($.format_option), "}"),
+    seq("{", $._contextual_expression, repeat($.format_option), "}"),
 
   /**
    * String template formatting arguments, e.g `ALPHA = IN`.
@@ -31,6 +31,6 @@ module.exports = {
     seq(
       field("name", $.identifier),
       "=",
-      field("value", choice($.general_expression, $.dynamic_spec)),
+      field("value", choice($.expression, $.dynamic_spec)),
     ),
 };

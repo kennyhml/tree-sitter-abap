@@ -9,7 +9,7 @@ module.exports = {
   __collect_statement_prefix: $ =>
     seq(
       gen.kw("collect"),
-      field("source", $.general_expression),
+      field("source", $.expression),
       $.into_spec,
       optional($._itab_mutation_result),
     ),

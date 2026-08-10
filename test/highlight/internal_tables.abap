@@ -62,7 +62,7 @@ MODIFY itab FROM wa INDEX idx TRANSPORTING comp.
 MODIFY itab FROM wa USING KEY skey TRANSPORTING status WHERE status = value.
 "                             ^ constant
 "                                               ^ variable.member
-"                                                            ^ variable.member
+"                                                               ^ variable.member
 "                                                                     ^ variable
 MODIFY TABLE itab FROM wa REFERENCE INTO DATA(line).
 "            ^ variable
@@ -147,7 +147,6 @@ VALUE #( FOR <fs> IN itab INDEX INTO tabix
 VALUE group_keys( FOR GROUPS carrier OF wa IN spfli GROUP BY wa-carrid ( carrier ) )
 "                            ^ variable
 "                                                            ^ variable
-w  "                                                            ^ variable.member
 VALUE #( FOR GROUPS grp OF wa IN itab GROUP BY wa let foo = grp-carrid in ( foo ) ).
 "                                              ^ variable
 "                                                     ^ variable

@@ -10,9 +10,15 @@ module.exports = {
   string_concatenation: $ =>
     prec.left(
       seq(
-        field("left", $.character_like_expression),
+        field(
+          "left",
+          choice($._contextual_identifier, $._character_position),
+        ),
         "&&",
-        field("right", $.character_like_expression),
+        field(
+          "right",
+          choice($._contextual_identifier, $._character_position),
+        ),
       ),
     ),
 };

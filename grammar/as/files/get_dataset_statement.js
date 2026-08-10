@@ -9,7 +9,7 @@ module.exports = {
   __get_dataset_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "dataset"),
-      field("file", $.data_object),
+      field("file", $._simple_operand),
       repeat(
         choice(
           alias($.__get_dataset_position_spec, $.dataset_position_spec),
@@ -19,8 +19,8 @@ module.exports = {
     ),
 
   __get_dataset_position_spec: $ =>
-    seq(gen.kw("position"), field("destination", $.receiving_expression)),
+    seq(gen.kw("position"), field("destination", $._result_target)),
 
   __get_dataset_attributes_spec: $ =>
-    seq(gen.kw("attributes"), field("destination", $.receiving_expression)),
+    seq(gen.kw("attributes"), field("destination", $._result_target)),
 };

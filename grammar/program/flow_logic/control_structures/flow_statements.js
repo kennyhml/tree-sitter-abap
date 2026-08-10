@@ -8,7 +8,7 @@ module.exports = {
   return_statement: $ => seq($.__return_statement_prefix, "."),
 
   __return_statement_prefix: $ =>
-    seq(gen.kw("return"), optional(field("expr", $.general_expression))),
+    seq(gen.kw("return"), optional(field("expr", $.expression))),
 
   // https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEXIT_PROCESSING_BLOCKS.html
   exit_statement: $ => seq($.__exit_statement_prefix, "."),

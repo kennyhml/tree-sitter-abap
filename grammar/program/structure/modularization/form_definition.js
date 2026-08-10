@@ -51,5 +51,5 @@ module.exports = {
     ),
 
   structure_parameter_spec: $ =>
-    seq(gen.kw("structure"), field("name", $.named_data_object)),
+    seq(gen.kw("structure"), field("name", $._reference_operand)),
 };

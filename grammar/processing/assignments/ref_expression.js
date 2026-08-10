@@ -13,7 +13,7 @@ module.exports = {
       field(
         "subject",
         choice(
-          $.general_expression,
+          $.expression,
           $._table_expression_with_default_additions,
         ),
       ),

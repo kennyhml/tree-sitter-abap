@@ -22,7 +22,7 @@ module.exports = {
       ),
 
       ...gen.kws("into", "time", "stamp"),
-      field("destination", $.writable_expression),
+      field("destination", $._write_target),
       $.time_zone_spec,
     ),
 };

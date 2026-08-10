@@ -24,7 +24,7 @@ module.exports = {
     ),
 
   // ... [THEN expr] ...
-  then_spec: $ => seq(gen.kw("then"), $.general_expression),
+  then_spec: $ => seq(gen.kw("then"), $.expression),
 
   // ... UNTIL / WHILE log_exp ...
   iteration_condition: $ => choice($.while_spec, $.until_spec),

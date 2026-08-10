@@ -9,7 +9,7 @@ module.exports = {
   __condense_statement_prefix: $ =>
     seq(
       gen.kw("condense"),
-      field("text", $.data_object),
+      field("text", $._modifiable_target),
       optional($.no_gaps),
     ),
 

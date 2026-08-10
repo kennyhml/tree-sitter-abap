@@ -69,7 +69,7 @@ module.exports = {
 
   // ... FROM keys ...
   from_keys_spec: $ =>
-    seq(gen.kw("from"), field("value", $.general_expression)),
+    seq(gen.kw("from"), field("value", $.expression)),
 
   /*
    * ... ONLY { GLOBAL

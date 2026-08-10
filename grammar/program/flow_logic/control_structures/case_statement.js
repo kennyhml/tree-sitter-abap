@@ -18,7 +18,7 @@ module.exports = {
   __case_statement_prefix: $ =>
     seq(
       gen.kw("case"),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       ".",
       repeat(field("alternative", $.case_clause)),
       optional(field("others", $.others_case_clause)),
@@ -42,5 +42,5 @@ module.exports = {
    * See https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_FUNCTIONAL_POSITIONS.html
    */
   __case_operand: $ =>
-    choice($.data_object, $.constructor_expression, $.function_call),
+    choice($._simple_operand, $.constructor_expression, $.function_call),
 };

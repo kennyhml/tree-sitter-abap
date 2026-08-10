@@ -18,7 +18,7 @@ module.exports = {
       field("result_type", $._constructor_result),
 
       "(",
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       choice(
         seq(
           optional($.except),
@@ -37,7 +37,7 @@ module.exports = {
   in_filter_table_spec: $ =>
     seq(
       gen.kw("in"),
-      field("table", $.general_expression),
+      field("table", $._contextual_expression),
       optional($.using_key_spec),
     ),
 

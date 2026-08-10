@@ -9,9 +9,9 @@ module.exports = {
   __generate_subroutine_pool_statement_prefix: $ =>
     seq(
       ...gen.kws("generate", "subroutine", "pool"),
-      field("source", $.named_data_object),
+      field("source", $._reference_operand),
       gen.kw("name"),
-      field("program", $.writable_expression),
+      field("program", $._write_target),
       repeat($.__generate_subroutine_pool_addition),
     ),
 
@@ -27,5 +27,5 @@ module.exports = {
     ),
 
   shortdump_id_spec: $ =>
-    seq(gen.kw("shortdump-id"), field("destination", $.writable_expression)),
+    seq(gen.kw("shortdump-id"), field("destination", $._write_target)),
 };

@@ -18,7 +18,7 @@ module.exports = {
   __loop_at_statement_prefix: $ =>
     seq(
       ...gen.kws("loop", "at"),
-      field("subject", $.functional_expression),
+      field("subject", $._call_or_access_operand),
       repeat(choice(field("result", $.__loop_at_result), $.itab_lines_spec)),
       optional($.group_by_spec),
       ".",
@@ -39,7 +39,7 @@ module.exports = {
   __loop_at_group_statement_prefix: $ =>
     seq(
       ...gen.kws("loop", "at", "group"),
-      field("subject", $.named_data_object),
+      field("subject", $.name_reference),
       repeat(choice(field("result", $.__loop_at_result), $.itab_lines_spec)),
       optional($.group_by_spec),
       ".",

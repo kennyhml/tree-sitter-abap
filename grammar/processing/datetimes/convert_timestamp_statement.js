@@ -11,7 +11,7 @@ module.exports = {
   __convert_timestamp_statement_prefix: $ =>
     seq(
       ...gen.kws("convert", "time", "stamp"),
-      field("source", $.general_expression),
+      field("source", $.expression),
       $.time_zone_spec,
       gen.kw("into"),
       repeat1(

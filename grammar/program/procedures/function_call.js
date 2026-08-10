@@ -33,7 +33,10 @@ module.exports = {
             field("name", $._immediate_identifier),
           ),
           // function call is the root (builtin or local method)
-          field("name", $.identifier),
+          field(
+            "name",
+            choice($.identifier, $._contextual_identifier),
+          ),
         ),
         $._parenthesized_call_arguments,
       ),

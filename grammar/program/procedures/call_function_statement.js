@@ -18,7 +18,7 @@ module.exports = {
   __call_function_statement_prefix: $ =>
     seq(
       ...gen.kws("call", "function"),
-      field("name", $.character_like_expression),
+      field("name", $._character_position),
       repeat(
         choice(
           $.destination_spec,
@@ -35,23 +35,23 @@ module.exports = {
 
   // ... [DESTINATION {dest|{IN GROUP {group|DEFAULT}}}] ...
   destination_spec: $ =>
-    seq(gen.kw("destination"), choice($.data_object, $.in_group_spec)),
+    seq(gen.kw("destination"), choice($._simple_operand, $.in_group_spec)),
 
   // ... {IN GROUP {group|DEFAULT} ...
   in_group_spec: $ =>
     seq(
       ...gen.kws("in", "group"),
-      field("group", choice($.named_data_object, gen.kw("default"))),
+      field("group", choice($._reference_operand, gen.kw("default"))),
     ),
 
   in_remote_session_spec: $ =>
     seq(
       ...gen.kws("in", "remote", "session"),
-      field("session", $.named_data_object),
+      field("session", $._reference_operand),
     ),
 
   starting_new_task_spec: $ =>
-    seq(...gen.kws("starting", "new", "task"), field("task_id", $.data_object)),
+    seq(...gen.kws("starting", "new", "task"), field("task_id", $._simple_operand)),
 
   asynchronous_callback_spec: $ =>
     seq(
@@ -68,7 +68,7 @@ module.exports = {
   in_background_unit_spec: $ =>
     seq(
       ...gen.kws("in", "background", "unit"),
-      field("name", $.named_data_object),
+      field("name", $._reference_operand),
     ),
 
   /**

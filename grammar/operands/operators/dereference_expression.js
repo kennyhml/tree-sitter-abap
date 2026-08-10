@@ -17,6 +17,7 @@ module.exports = {
         "subject",
         choice(
           $.identifier,
+          $._contextual_identifier,
           $.component_selection,
           $.function_call,
           $.new_expression,

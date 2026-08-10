@@ -31,7 +31,7 @@ module.exports = {
    */
   subroutine_spec: $ =>
     choice(
-      field("name", $.identifier),
+      field("name", choice($.identifier, $._contextual_identifier)),
       $.__dynamic_subroutine_spec,
       $.__long_form_subroutine_spec,
       $.__index_subroutine_spec,
@@ -48,7 +48,7 @@ module.exports = {
     ),
 
   // LEVEL idx
-  level_spec: $ => seq(gen.kw("level"), field("level", $.data_object)),
+  level_spec: $ => seq(gen.kw("level"), field("level", $._simple_operand)),
 
   // IN PROGRAM {prog|(pname)}
   in_program_spec: $ =>
@@ -75,7 +75,7 @@ module.exports = {
   // PERFORM n OF subr1 subr2
   __index_subroutine_spec: $ =>
     seq(
-      field("index", $.data_object),
+      field("index", $._simple_operand),
       gen.kw("of"),
       field("subroutines", $.subroutine_list),
     ),

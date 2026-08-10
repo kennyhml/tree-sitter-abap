@@ -15,7 +15,7 @@ module.exports = {
   __receive_results_statement_prefix: $ =>
     seq(
       ...gen.kws("receive", "results", "from", "function"),
-      field("name", $.character_like_expression),
+      field("name", $._character_position),
       optional($.keeping_task),
       optional($.call_argument_list),
     ),

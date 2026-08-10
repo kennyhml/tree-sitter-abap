@@ -12,7 +12,7 @@ module.exports = {
   __syntax_check_statement_prefix: $ =>
     seq(
       ...gen.kws("syntax-check", "for"),
-      field("source", $.named_data_object),
+      field("source", $._reference_operand),
       $.source_error_message_spec,
       $.source_error_line_spec,
       $.source_error_word_spec,
@@ -30,7 +30,7 @@ module.exports = {
     ),
 
   program_spec: $ =>
-    seq(gen.kw("program"), field("program", $.named_data_object)),
+    seq(gen.kw("program"), field("program", $._reference_operand)),
 
   with_current_switchstates: _ =>
     seq(...gen.kws("with", "current", "switchstates")),

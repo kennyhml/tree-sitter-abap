@@ -14,7 +14,7 @@ module.exports = {
   __open_dataset_statement_prefix: $ =>
     seq(
       ...gen.kws("open", "dataset"),
-      field("file", $.data_object),
+      field("file", $._simple_operand),
       // all the additions can seemingly just be intermixed.
       repeat(
         choice(
@@ -33,7 +33,7 @@ module.exports = {
   delete_dataset_statement: $ => seq($.__delete_dataset_statement_prefix, "."),
 
   __delete_dataset_statement_prefix: $ =>
-    seq(...gen.kws("delete", "dataset"), field("dataset", $.data_object)),
+    seq(...gen.kws("delete", "dataset"), field("dataset", $._simple_operand)),
 
   /**
    * CLOSE DATASET dset.
@@ -43,7 +43,7 @@ module.exports = {
   close_dataset_statement: $ => seq($.__close_dataset_statement_prefix, "."),
 
   __close_dataset_statement_prefix: $ =>
-    seq(...gen.kws("close", "dataset"), field("dataset", $.data_object)),
+    seq(...gen.kws("close", "dataset"), field("dataset", $._simple_operand)),
 
   // ... FOR INPUT / OUTPUT / APPENDING / UPDATE ...
   dataset_access_spec: $ =>
@@ -143,7 +143,7 @@ module.exports = {
     seq(field("kind", choice(...gen.kws("big", "little"))), gen.kw("endian")),
 
   code_page_spec: $ =>
-    seq(...gen.kws("code", "page"), field("code_page", $.data_object)),
+    seq(...gen.kws("code", "page"), field("code_page", $._simple_operand)),
 
   non_unicode: _ => gen.kw("non-unicode"),
 
@@ -163,16 +163,16 @@ module.exports = {
 
   // ... AT POSITION pos ...
   __open_at_position_spec: $ =>
-    seq(...gen.kws("at", "position"), field("position", $.data_object)),
+    seq(...gen.kws("at", "position"), field("position", $._simple_operand)),
 
   dataset_type_spec: $ =>
-    seq(gen.kw("type"), field("attributes", $.data_object)),
+    seq(gen.kw("type"), field("attributes", $._simple_operand)),
 
   dataset_filter_spec: $ =>
-    seq(gen.kw("filter"), field("command", $.data_object)),
+    seq(gen.kw("filter"), field("command", $._simple_operand)),
 
   dataset_message_spec: $ =>
-    seq(gen.kw("message"), field("destination", $.receiving_expression)),
+    seq(gen.kw("message"), field("destination", $._result_target)),
 
   ignoring_conversion_errors: _ =>
     seq(...gen.kws("ignoring", "conversion", "errors")),
@@ -180,7 +180,7 @@ module.exports = {
   replacement_character_spec: $ =>
     seq(
       ...gen.kws("replacement", "character"),
-      field("character", $.data_object),
+      field("character", $._simple_operand),
     ),
 
 };

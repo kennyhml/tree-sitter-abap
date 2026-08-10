@@ -10,9 +10,12 @@ module.exports = {
   __write_to_statement_prefix: $ =>
     seq(
       gen.kw("write"),
-      field("source", choice($.general_expression, $.dynamic_spec)),
+      field("source", choice($._contextual_expression, $.dynamic_spec)),
       gen.kw("to"),
-      field("destination", $.general_expression),
+      field(
+        "destination",
+        choice($._contextual_identifier, $._write_target),
+      ),
       repeat($.__format_option),
     ),
 
@@ -65,7 +68,7 @@ module.exports = {
   right_justified: _ => gen.kw("right-justified"),
 
   format_exponent_spec: $ =>
-    seq(gen.kw("exponent"), field("value", $.general_expression)),
+    seq(gen.kw("exponent"), field("value", $.expression)),
 
   no_grouping: _ => gen.kw("no-grouping"),
 
@@ -74,27 +77,27 @@ module.exports = {
   no_zero: _ => gen.kw("no-zero"),
 
   format_currency_spec: $ =>
-    seq(gen.kw("currency"), field("value", $.general_expression)),
+    seq(gen.kw("currency"), field("value", $.expression)),
 
   format_decimals_spec: $ =>
-    seq(gen.kw("decimals"), field("value", $.general_expression)),
+    seq(gen.kw("decimals"), field("value", $.expression)),
 
   format_round_spec: $ =>
-    seq(gen.kw("round"), field("value", $.general_expression)),
+    seq(gen.kw("round"), field("value", $.expression)),
 
   format_unit_spec: $ =>
-    seq(gen.kw("unit"), field("value", $.general_expression)),
+    seq(gen.kw("unit"), field("value", $.expression)),
 
   environment_time_format: _ =>
     seq(...gen.kws("environment", "time", "format")),
 
   format_style_spec: $ =>
-    seq(gen.kw("style"), field("value", $.general_expression)),
+    seq(gen.kw("style"), field("value", $.expression)),
 
   format_using_edit_mask_spec: $ =>
     seq(
       ...gen.kws("using", "edit", "mask"),
-      field("mask", $.general_expression),
+      field("mask", $.expression),
     ),
 
   format_using_no_edit_mask_spec: _ =>

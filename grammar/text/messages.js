@@ -34,7 +34,7 @@ module.exports = {
           seq(
             choice(
               field("text", choice($.string_literal, $.field_symbol)),
-              field("source", $.character_like_expression),
+              field("source", $._character_position),
             ),
             optional($.__message_type_spec),
           ),
@@ -47,10 +47,10 @@ module.exports = {
     seq(gen.kw("raising"), field("exception", $.identifier)),
 
   display_like_spec: $ =>
-    seq(...gen.kws("display", "like"), field("type", $.data_object)),
+    seq(...gen.kws("display", "like"), field("type", $._simple_operand)),
 
   with_arguments_spec: $ =>
-    seq(gen.kw("with"), prec.right(repeat1($.general_expression))),
+    seq(gen.kw("with"), prec.right(repeat1($.expression))),
 
   __message_addition: $ =>
     choice(
@@ -92,13 +92,13 @@ module.exports = {
   __long_form_message_id: $ =>
     seq(
       gen.kw("id"),
-      field("id", $.data_object),
+      field("id", $._simple_operand),
 
       // Not technically optional, but theres not really any ambiguity in
       // this context and it makes highlighting smoother..
       optional($.__message_type_spec),
-      optional(seq(gen.kw("number"), field("number", $.data_object))),
+      optional(seq(gen.kw("number"), field("number", $._simple_operand))),
     ),
 
-  __message_type_spec: $ => seq(gen.kw("type"), field("type", $.data_object)),
+  __message_type_spec: $ => seq(gen.kw("type"), field("type", $._simple_operand)),
 };

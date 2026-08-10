@@ -13,7 +13,7 @@ module.exports = {
   __convert_utclong_statement_prefix: $ =>
     seq(
       ...gen.kws("convert", "utclong"),
-      field("source", $.general_expression),
+      field("source", $.expression),
       gen.kw("into"),
       optional(alias($._result_date_spec, $.date_spec)),
       optional(alias($._result_time_spec, $.time_spec)),
@@ -32,6 +32,6 @@ module.exports = {
   __result_fractional_seconds_spec: $ =>
     seq(
       ...gen.kws("fractional", "seconds"),
-      field("value", $.writable_expression),
+      field("value", $._write_target),
     ),
 };

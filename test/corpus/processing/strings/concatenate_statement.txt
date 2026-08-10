@@ -6,7 +6,7 @@ CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str).
 
 (source
   (concatenate_statement
-    subject: (data_object_list
+    subject: (operand_list
       (identifier)
       (string_literal)
       (component_selection
@@ -41,7 +41,7 @@ CONCATENATE t1 t2 t3 INTO result SEPARATED BY space.
 
 (source
   (concatenate_statement
-    subject: (data_object_list
+    subject: (operand_list
       (identifier)
       (identifier)
       (identifier))
@@ -74,7 +74,7 @@ CONCATENATE LINES OF xstr_table INTO DATA(concat_xstr_tab) IN BYTE MODE.
 
 (source
   (concatenate_statement
-    (data_object_list
+    (operand_list
       (identifier)
       (identifier))
     (into_spec

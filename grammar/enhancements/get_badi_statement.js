@@ -15,7 +15,7 @@ module.exports = {
   __get_badi_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "badi"),
-      field("name", $.named_data_object),
+      field("name", $._modifiable_target),
       repeat(
         choice(
           $.filters_spec,
@@ -31,18 +31,18 @@ module.exports = {
     prec.right(
       seq(
         gen.kw("filters"),
-        repeat1(alias($._data_object_binding, $.filter_binding)),
+        repeat1(alias($._operand_binding, $.filter_binding)),
       ),
     ),
 
   // FILTER-TABLE ftab
   filter_table_spec: $ =>
-    seq(gen.kw("filter-table"), field("value", $.named_data_object)),
+    seq(gen.kw("filter-table"), field("value", $._reference_operand)),
 
   // TYPE (name)
   dynamic_type_spec: $ => seq(gen.kw("type"), field("type", $.dynamic_spec)),
 
   // CONTEXT con
   context_spec: $ =>
-    seq(gen.kw("context"), field("value", $.named_data_object)),
+    seq(gen.kw("context"), field("value", $._reference_operand)),
 };

@@ -5,13 +5,16 @@ module.exports = {
   __split_statement_prefix: $ =>
     seq(
       gen.kw("split"),
-      field("subject", $.character_like_expression),
+      field(
+        "subject",
+        choice($._contextual_identifier, $._character_position),
+      ),
       $.split_at_spec,
       alias($.__split_result, $.into_spec),
       optional($._processing_mode_spec),
     ),
 
-  split_at_spec: $ => seq(gen.kw("at"), field("separator", $.data_object)),
+  split_at_spec: $ => seq(gen.kw("at"), field("separator", $._simple_operand)),
 
   /**
    * `INTO { {result1 result2 [...]} | {TABLE result_tab} }`
@@ -20,10 +23,10 @@ module.exports = {
     prec.right(
       seq(
         gen.kw("into"),
-        choice(repeat1($.receiving_expression), $.split_table_result),
+        choice(repeat1($._result_target), $.split_table_result),
       ),
     ),
 
   split_table_result: $ =>
-    seq(gen.kw("table"), field("target", $.receiving_expression)),
+    seq(gen.kw("table"), field("target", $._result_target)),
 };

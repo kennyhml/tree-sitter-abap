@@ -20,5 +20,5 @@ module.exports = {
     ),
 
   times_spec: $ =>
-    seq(field("repetitions", $.numeric_expression), gen.kw("times")),
+    seq(field("repetitions", $._numeric_position), gen.kw("times")),
 };

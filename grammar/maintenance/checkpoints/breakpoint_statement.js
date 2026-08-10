@@ -11,6 +11,6 @@ module.exports = {
     seq(
       gen.kw("break-point"),
       optional($.checkpoint_id_spec),
-      optional(field("text", $.character_like_expression)),
+      optional(field("text", $._character_position)),
     ),
 };

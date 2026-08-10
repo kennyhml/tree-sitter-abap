@@ -14,7 +14,7 @@ module.exports = {
     seq(
       field("field", $.identifier),
       "=",
-      field("value", choice($.general_expression, $.group_index, $.group_size)),
+      field("value", choice($.expression, $.group_index, $.group_size)),
     ),
 
   group_index: _ => seq(...gen.kws("group", "index")),
@@ -27,7 +27,7 @@ module.exports = {
       seq(
         ...gen.kws("group", "by"),
         choice(
-          prec(1, field("key", $.general_expression)),
+          prec(1, field("key", $.expression)),
           $.group_key_components,
         ),
         repeat(
@@ -62,7 +62,7 @@ module.exports = {
    */
   _itab_index_spec: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       optional(choice($.using_loop_key_spec, $.index_spec)),
     ),
 
@@ -80,7 +80,7 @@ module.exports = {
   reference_into_spec: $ =>
     seq(
       ...gen.kws("reference", "into"),
-      field("work_area", choice($.declaration_expression, $.named_data_object)),
+      field("work_area", $._result_target),
     ),
 
   /**

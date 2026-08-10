@@ -9,9 +9,9 @@ module.exports = {
   __transfer_statement_prefix: $ =>
     seq(
       gen.kw("transfer"),
-      field("source", $.data_object),
+      field("source", $._contextual_simple_operand),
       gen.kw("to"),
-      field("destination", $.data_object),
+      field("destination", $._simple_operand),
       optional($.transfer_length_spec),
       optional($.no_end_of_line),
     ),
@@ -19,5 +19,5 @@ module.exports = {
   no_end_of_line: _ => seq(...gen.kws("no", "end", "of", "line")),
 
   transfer_length_spec: $ =>
-    seq(gen.kw("length"), field("length", $.data_object)),
+    seq(gen.kw("length"), field("length", $._simple_operand)),
 };

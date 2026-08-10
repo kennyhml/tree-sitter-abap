@@ -12,10 +12,13 @@ module.exports = {
       choice(
         seq(
           gen.kw("table"),
-          field("subject", $.general_expression),
+          field("subject", $.expression),
           repeat(choice($.table_range_from_spec, $.table_range_to_spec)),
         ),
-        seq(optional($.__section_spec), field("subject", $.general_expression)),
+        seq(
+          optional($.__section_spec),
+          field("subject", $._contextual_expression),
+        ),
       ),
     ),
 
@@ -54,10 +57,10 @@ module.exports = {
     seq(...gen.kws("all", "occurrences", "of"), field("pattern", $.__pattern)),
 
   section_offset_spec: $ =>
-    seq(gen.kw("offset"), field("offset", $.numeric_expression)),
+    seq(gen.kw("offset"), field("offset", $._numeric_position)),
 
   section_length_spec: $ =>
-    seq(gen.kw("length"), field("length", $.numeric_expression)),
+    seq(gen.kw("length"), field("length", $._numeric_position)),
 
   /**
    *
@@ -68,12 +71,12 @@ module.exports = {
   substring_spec: $ =>
     seq(
       optional(gen.kw("substring")),
-      field("value", $.character_like_expression),
+      field("value", $._character_position),
     ),
   pcre_spec: $ =>
-    seq(gen.kw("pcre"), field("value", $.character_like_expression)),
+    seq(gen.kw("pcre"), field("value", $._character_position)),
   regex_spec: $ =>
-    seq(gen.kw("regex"), field("value", $.character_like_expression)),
+    seq(gen.kw("regex"), field("value", $._character_position)),
 
   /**
    * Specification of a case sensitivity in various string operations.
@@ -93,5 +96,5 @@ module.exports = {
    * RESULTS result_tab|result_wa
    */
   results_spec: $ =>
-    seq(gen.kw("results"), field("target", $.receiving_expression)),
+    seq(gen.kw("results"), field("target", $._result_target)),
 };

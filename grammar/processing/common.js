@@ -8,7 +8,7 @@ module.exports = {
   in_byte_mode_spec: _ => seq(...gen.kws("in", "byte", "mode")),
 
   time_zone_spec: $ =>
-    seq(...gen.kws("time", "zone"), field("value", $.general_expression)),
+    seq(...gen.kws("time", "zone"), field("value", $.expression)),
 
   else_unassign: _ => seq(...gen.kws("else", "unassign")),
 
@@ -70,7 +70,7 @@ module.exports = {
   lines_of_spec: $ =>
     seq(
       ...gen.kws("lines", "of"),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       repeat(
         choice(
           $.lines_from_spec,
@@ -90,16 +90,16 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAPPEND_LINESPEC.html
    */
   _line_spec: $ =>
-    choice($.general_expression, $.initial_line_spec, $.lines_of_spec),
+    choice($.expression, $.initial_line_spec, $.lines_of_spec),
 
   lines_from_spec: $ =>
-    seq(gen.kw("from"), field("index", $.numeric_expression)),
+    seq(gen.kw("from"), field("index", $._numeric_position)),
 
   lines_to_spec: $ =>
-    seq(gen.kw("to"), field("index", $.numeric_expression)),
+    seq(gen.kw("to"), field("index", $._numeric_position)),
 
   lines_step_spec: $ =>
-    seq(gen.kw("step"), field("size", $.numeric_expression)),
+    seq(gen.kw("step"), field("size", $._numeric_position)),
 
   using_key_spec: $ =>
     seq(...gen.kws("using", "key"), field("name", $.identifier)),
@@ -108,7 +108,7 @@ module.exports = {
   into_spec: $ =>
     seq(
       gen.kw("into"),
-      field("work_area", choice($.named_data_object, $.declaration_expression)),
+      field("work_area", $._result_target),
     ),
 
   /**
@@ -137,7 +137,7 @@ module.exports = {
   index_spec: $ =>
     seq(
       gen.kw("index"),
-      field("index", $.numeric_expression),
+      field("index", $._numeric_position),
       optional($.using_key_spec),
     ),
 
@@ -152,7 +152,7 @@ module.exports = {
   from_work_area_spec: $ =>
     seq(
       gen.kw("from"),
-      field("work_area", $.general_expression),
+      field("work_area", $.expression),
       optional($.using_key_spec),
     ),
 
@@ -207,7 +207,7 @@ module.exports = {
     ),
 
   itab_comp_spec: $ =>
-    seq(field("comp", $.itab_comp), "=", field("value", $.general_expression)),
+    seq(field("comp", $.itab_comp), "=", field("value", $.expression)),
 
   binary_search: _ => seq(...gen.kws("binary", "search")),
 

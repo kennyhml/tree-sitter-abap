@@ -59,7 +59,7 @@ MESSAGE 'Message in a Method' TYPE 'I' RAISING exc1.
 (source
   (message_statement
     (message_spec
-      source: (string_literal)
+          text: (string_literal)
       type: (string_literal)
       (raising_exception_spec
         exception: (identifier)))))
@@ -73,7 +73,7 @@ message 'Hello World'.
 (source
   (message_statement
     (message_spec
-      source: (string_literal))))
+          text: (string_literal))))
 
 ======
 [ABAP - Text Repositories / Messages] Into inline declaration

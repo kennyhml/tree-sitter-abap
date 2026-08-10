@@ -27,7 +27,7 @@ module.exports = {
       optional($.exact),
       // only one of these can occur
       optional(choice(alias($.__corresponding_base_spec, $.base_spec), $.deep)),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       optional($.discarding_duplicates),
       optional($.mapping_list_spec),
     ),
@@ -40,9 +40,9 @@ module.exports = {
    */
   __corresponding_lookup_table_form: $ =>
     seq(
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       gen.kw("from"),
-      field("lookup_table", $.general_expression),
+      field("lookup_table", $.expression),
       choice(
         $.using_key_spec,
         gen.kw("using"), // primary key
@@ -59,7 +59,7 @@ module.exports = {
   __corresponding_type_mapping_form: $ =>
     seq(
       optional(alias($.__corresponding_base_spec, $.base_spec)),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       repeat1(
         choice(
           $.mapping_from_entity,
@@ -135,7 +135,7 @@ module.exports = {
       ),
     ),
 
-  mapping_default_spec: $ => seq(gen.kw("default"), $.general_expression),
+  mapping_default_spec: $ => seq(gen.kw("default"), $.expression),
 
   deep: _ => gen.kw("deep"),
 
@@ -164,7 +164,7 @@ module.exports = {
         seq($.deep_appending, optional(gen.kw("base"))),
       ),
       "(",
-      field("base", $.data_object),
+      field("base", $._simple_operand),
       ")",
     ),
 };

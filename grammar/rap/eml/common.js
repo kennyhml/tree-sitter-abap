@@ -31,15 +31,15 @@ module.exports = {
   response_parameters: $ =>
     repeat1(choice($.failed_spec, $.mapped_spec, $.reported_spec)),
 
-  failed_spec: $ => seq(gen.kw("failed"), $.writable_expression),
+  failed_spec: $ => seq(gen.kw("failed"), $._write_target),
 
-  reported_spec: $ => seq(gen.kw("reported"), $.writable_expression),
+  reported_spec: $ => seq(gen.kw("reported"), $._write_target),
 
-  mapped_spec: $ => seq(gen.kw("mapped"), $.writable_expression),
+  mapped_spec: $ => seq(gen.kw("mapped"), $._write_target),
 
-  result_table_spec: $ => seq(gen.kw("result"), $.writable_expression),
+  result_table_spec: $ => seq(gen.kw("result"), $._write_target),
 
-  link_table_spec: $ => seq(gen.kw("link"), $.writable_expression),
+  link_table_spec: $ => seq(gen.kw("link"), $._write_target),
 
   /*
    * An additional pair of parentheses following an associated abstract entity _ent
@@ -72,16 +72,16 @@ module.exports = {
 
   // For selective function and action results.
   request_spec: $ =>
-    seq(gen.kw("request"), field("value", $.general_expression)),
+    seq(gen.kw("request"), field("value", $.expression)),
 
-  result_spec: $ => seq(gen.kw("result"), field("value", $.writable_expression)),
+  result_spec: $ => seq(gen.kw("result"), field("value", $._write_target)),
 
   operations_table_spec: $ =>
-    seq(gen.kw("operations"), field("value", $.general_expression)),
+    seq(gen.kw("operations"), field("value", $.expression)),
 
   from_fields_table_spec: $ =>
-    seq(gen.kw("from"), field("value", $.general_expression)),
+    seq(gen.kw("from"), field("value", $.expression)),
 
   with_fields_table_spec: $ =>
-    seq(gen.kw("with"), field("value", $.general_expression)),
+    seq(gen.kw("with"), field("value", $.expression)),
 };

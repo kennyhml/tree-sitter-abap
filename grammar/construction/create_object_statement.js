@@ -23,7 +23,7 @@ module.exports = {
   __create_object_statement_prefix: $ =>
     seq(
       ...gen.kws("create", "object"),
-      field("subject", $.writable_expression),
+      field("subject", $._write_target),
       optional($.area_handle_spec),
       optional(
         seq(

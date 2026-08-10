@@ -16,7 +16,7 @@ module.exports = {
   __read_table_statement_prefix: $ =>
     seq(
       ...gen.kws("read", "table"),
-      field("subject", $.functional_expression),
+      field("subject", $._call_or_access_operand),
       choice(
         seq(
           field("result", $.__table_read_non_into_result),
@@ -45,11 +45,11 @@ module.exports = {
           ),
         ),
         seq(
-          $.itab_lines_spec,
+          $._read_table_condition_spec,
           choice(
             seq(
               field("result", $.__table_read_non_into_result),
-              optional($.itab_lines_spec),
+              optional($._read_table_condition_spec),
             ),
             seq(
               field(
@@ -57,7 +57,12 @@ module.exports = {
                 alias($.__read_table_into_spec, $.into_spec),
               ),
               optional($.__transport_options),
-              optional(seq($.itab_lines_spec, optional($.__transport_options))),
+              optional(
+                seq(
+                  $._read_table_condition_spec,
+                  optional($.__transport_options),
+                ),
+              ),
             ),
           ),
         ),
@@ -67,7 +72,7 @@ module.exports = {
   __table_read_variant: $ =>
     choice(
       $.index_spec,
-      $.itab_lines_spec,
+      $._read_table_condition_spec,
       $.free_key_spec,
       $.table_key_spec,
       $.from_work_area_spec,
@@ -79,6 +84,14 @@ module.exports = {
       $.free_key_spec,
       $.table_key_spec,
       $.from_work_area_spec,
+    ),
+
+  _read_table_condition_spec: $ =>
+    alias(
+      prec.right(
+        repeat1(choice($.using_key_spec, $.where_condition_spec)),
+      ),
+      $.itab_lines_spec,
     ),
 
   /**
@@ -100,7 +113,7 @@ module.exports = {
   __read_table_into_spec: $ =>
     seq(
       gen.kw("into"),
-      field("work_area", $.writable_expression),
+      field("work_area", $._write_target),
     ),
 
   __transport_options: $ =>

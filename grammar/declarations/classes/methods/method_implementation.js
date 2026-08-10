@@ -11,7 +11,14 @@ module.exports = {
   __method_implementation_prefix: $ =>
     seq(
       gen.kw("method"),
-      field("name", choice($.identifier, $.component_selection)),
+      field(
+        "name",
+        choice(
+          $.identifier,
+          $._contextual_identifier,
+          $.component_selection,
+        ),
+      ),
       optional($.by_database_spec),
       ".",
       optional($.method_body),

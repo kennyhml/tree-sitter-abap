@@ -9,9 +9,9 @@ module.exports = {
   __set_parameter_statement_prefix: $ =>
     seq(
       ...gen.kws("set", "parameter", "id"),
-      field("name", $.character_like_expression),
+      field("name", $._character_position),
       gen.kw("field"),
-      field("value", $.general_expression),
+      field("value", $.expression),
     ),
 
   /**
@@ -24,8 +24,8 @@ module.exports = {
   __get_parameter_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "parameter", "id"),
-      field("name", $.character_like_expression),
+      field("name", $._character_position),
       gen.kw("field"),
-      field("destination", $.writable_expression),
+      field("destination", $._write_target),
     ),
 };

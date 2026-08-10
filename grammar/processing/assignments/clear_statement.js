@@ -11,14 +11,14 @@ module.exports = {
 
   clear_spec: $ =>
     seq(
-      field("subject", $.writable_expression),
+      field("subject", $._write_target),
       optional(field("with", $.clear_value_spec)),
     ),
 
   clear_value_spec: $ =>
     seq(
       gen.kw("with"),
-      field("value", $.functional_expression),
+      field("value", $._call_or_access_operand),
       optional($._processing_mode_spec),
     ),
 };

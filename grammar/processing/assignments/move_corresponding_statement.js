@@ -5,9 +5,9 @@ module.exports = {
     seq(
       gen.kw("move-corresponding"),
       optional($.exact),
-      field("source", $.general_expression),
+      field("source", $.expression),
       gen.kw("to"),
-      field("destination", $.general_expression),
+      field("destination", $._write_target),
       optional($.expanding_nested_tables),
       optional($.keeping_target_lines),
     ),

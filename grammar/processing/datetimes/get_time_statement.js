@@ -10,7 +10,7 @@ module.exports = {
     seq(
       ...gen.kws("get", "time"),
       optional(
-        seq(gen.kw("field"), field("destination", $.writable_expression)),
+        seq(gen.kw("field"), field("destination", $._write_target)),
       ),
     ),
 };

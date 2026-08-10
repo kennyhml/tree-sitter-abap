@@ -22,13 +22,13 @@ module.exports = {
 
   // ACTIVATION act
   activation_spec: $ =>
-    seq(gen.kw("activation"), field("activate", $.data_object)),
+    seq(gen.kw("activation"), field("activate", $._simple_operand)),
 
   // FOR { oref |{ALL INSTANCES} }
   for_instance_spec: $ =>
     seq(
       gen.kw("for"),
-      field("instance", choice($.general_expression, $.all_instances)),
+      field("instance", choice($.expression, $.all_instances)),
     ),
 
   all_instances: _ => seq(...gen.kws("all", "instances")),

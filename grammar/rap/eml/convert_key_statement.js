@@ -12,9 +12,9 @@ module.exports = {
       field("business_object", choice($.business_object, $.dynamic_spec)),
       gen.kw("from"),
       optional(gen.kw("temporary")),
-      field("preliminary_key", $.general_expression),
+      field("preliminary_key", $.expression),
       gen.kw("to"),
-      field("final_key", $.writable_expression),
+      field("final_key", $._write_target),
       ".",
     ),
 };

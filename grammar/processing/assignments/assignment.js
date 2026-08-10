@@ -13,11 +13,11 @@ module.exports = {
       seq(
         repeat1(
           seq(
-            field("left", $.writable_expression),
+            field("left", $._assignment_target),
             field("operator", choice("=", "?=")),
           ),
         ),
-        field("right", $.general_expression),
+        field("right", $.expression),
         optional("."),
       ),
     ),
@@ -25,10 +25,30 @@ module.exports = {
   calculation_assignment: $ =>
     prec.right(
       seq(
-        field("left", $.writable_expression),
+        field("left", $._assignment_target),
         field("operator", choice("+=", "-=", "*=", "/=", "&&=")),
-        field("right", $.general_expression),
+        field("right", $.expression),
         optional("."),
       ),
+    ),
+
+  _assignment_target: $ =>
+    choice(
+      prec(
+        99,
+        choice(
+          $.identifier,
+          $._contextual_identifier,
+          $.field_symbol,
+          $.component_selection,
+          $.table_body_access,
+          $.dereference_expression,
+          $.substring_access,
+        ),
+      ),
+      $.new_expression,
+      $.cast_expression,
+      $.table_expression,
+      $.declaration_expression,
     ),
 };

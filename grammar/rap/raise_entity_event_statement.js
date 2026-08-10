@@ -15,5 +15,5 @@ module.exports = {
     ),
 
   event_parameters_spec: $ =>
-    seq(gen.kw("from"), field("value", $.general_expression)),
+    seq(gen.kw("from"), field("value", $.expression)),
 };

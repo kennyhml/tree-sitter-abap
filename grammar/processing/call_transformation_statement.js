@@ -36,7 +36,7 @@ module.exports = {
       choice(
         repeat1(
           alias(
-            $._data_object_binding,
+            $._operand_binding,
             $.transformation_parameter_binding_spec,
           ),
         ),
@@ -62,11 +62,11 @@ module.exports = {
         ),
       ),
       "=",
-      field("value", $.data_object),
+      field("value", $._simple_operand),
     ),
 
   source_xml_spec: $ =>
-    seq(...gen.kws("source", "xml"), field("xml", $.data_object)),
+    seq(...gen.kws("source", "xml"), field("xml", $._simple_operand)),
 
   source_bindings_spec: $ =>
     seq(
@@ -78,10 +78,10 @@ module.exports = {
     ),
 
   source_binding_spec: $ =>
-    seq(field("name", $.identifier), "=", field("value", $.general_expression)),
+    seq(field("name", $.identifier), "=", field("value", $.expression)),
 
   result_xml_spec: $ =>
-    seq(...gen.kws("result", "xml"), field("xml", $.writable_expression)),
+    seq(...gen.kws("result", "xml"), field("xml", $._write_target)),
 
   result_bindings_spec: $ =>
     seq(
@@ -96,7 +96,7 @@ module.exports = {
     seq(
       field("name", $.identifier),
       "=",
-      field("value", $.writable_expression),
+      field("value", $._write_target),
     ),
 
   id: _ => gen.kw("id"),

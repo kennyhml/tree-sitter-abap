@@ -48,8 +48,8 @@ module.exports = {
   relating_to_spec: $ =>
     seq(
       ...gen.kws("relating", "to"),
-      field("origin", $.general_expression),
+      field("origin", $.expression),
       gen.kw("by"),
-      field("relation", $.general_expression),
+      field("relation", $.expression),
     ),
 };

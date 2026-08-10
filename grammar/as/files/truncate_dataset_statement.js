@@ -7,7 +7,7 @@ module.exports = {
   truncate_dataset_statement: $ =>
     seq(
       ...gen.kws("truncate", "dataset"),
-      field("subject", $.data_object),
+      field("subject", $._simple_operand),
       alias($.__truncate_at_position_spec, $.at_position_spec),
     ),
 
@@ -16,7 +16,7 @@ module.exports = {
       gen.kw("at"),
       choice(
         $.current_position,
-        seq(gen.kw("position"), field("position", $.data_object)),
+        seq(gen.kw("position"), field("position", $._simple_operand)),
       ),
     ),
 

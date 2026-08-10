@@ -33,5 +33,6 @@ module.exports = {
       seq(field("name", $.identifier), optional($.macro_argument_list)),
     ),
 
-  macro_argument_list: $ => prec.right(repeat1($.data_object)),
+  macro_argument_list: $ =>
+    prec.right(repeat1($._contextual_simple_operand)),
 };

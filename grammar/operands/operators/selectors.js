@@ -31,6 +31,7 @@ module.exports = {
         "subject",
         choice(
           $.identifier,
+          $._contextual_identifier,
           $.field_symbol,
           $.component_selection,
           $.function_call,

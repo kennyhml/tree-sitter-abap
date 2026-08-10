@@ -9,7 +9,7 @@ module.exports = {
   __get_run_time_statement_prefix: $ =>
     seq(
       ...gen.kws("get", "run", "time", "field"),
-      field("destination", $.writable_expression),
+      field("destination", $._write_target),
     ),
 
   /**

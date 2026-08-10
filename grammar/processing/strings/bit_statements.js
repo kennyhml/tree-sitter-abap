@@ -7,10 +7,10 @@ module.exports = {
   set_bit_statement: $ =>
     seq(
       ...gen.kws("set", "bit"),
-      field("position", $.numeric_expression),
+      field("position", $._numeric_position),
       gen.kw("of"),
-      field("subject", $.writable_expression),
-      optional(seq(gen.kw("to"), field("to", $.numeric_expression))),
+      field("subject", $._write_target),
+      optional(seq(gen.kw("to"), field("to", $._numeric_position))),
     ),
 
   /**
@@ -21,9 +21,9 @@ module.exports = {
   get_bit_statement: $ =>
     seq(
       ...gen.kws("get", "bit"),
-      field("position", $.numeric_expression),
+      field("position", $._numeric_position),
       gen.kw("of"),
-      field("subject", $.writable_expression),
-      optional(seq(gen.kw("into"), field("into", $.writable_expression))),
+      field("subject", $._write_target),
+      optional(seq(gen.kw("into"), field("into", $._write_target))),
     ),
 };

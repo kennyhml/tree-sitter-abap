@@ -9,9 +9,9 @@ module.exports = {
   __read_textpool_statement_prefix: $ =>
     seq(
       ...gen.kws("read", "textpool"),
-      field("program", $.named_data_object),
+      field("program", $._reference_operand),
       gen.kw("into"),
-      field("destination", $.writable_expression),
+      field("destination", $._write_target),
       $.language_spec,
     ),
 
@@ -25,9 +25,9 @@ module.exports = {
   __insert_textpool_statement_prefix: $ =>
     seq(
       ...gen.kws("insert", "textpool"),
-      field("program", $.named_data_object),
+      field("program", $._reference_operand),
       gen.kw("from"),
-      field("source", $.named_data_object),
+      field("source", $._reference_operand),
       $.language_spec,
     ),
 };

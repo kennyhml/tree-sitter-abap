@@ -9,7 +9,7 @@ module.exports = {
   __set_dataset_statement_prefix: $ =>
     seq(
       ...gen.kws("set", "dataset"),
-      field("file", $.data_object),
+      field("file", $._simple_operand),
       repeat(
         choice(
           alias($.__set_dataset_position_spec, $.dataset_position_spec),
@@ -21,11 +21,11 @@ module.exports = {
   __set_dataset_position_spec: $ =>
     seq(
       gen.kw("position"),
-      field("position", choice($.data_object, $.end_of_file)),
+      field("position", choice($._simple_operand, $.end_of_file)),
     ),
 
   end_of_file: _ => seq(...gen.kws("end", "of", "file")),
 
   __set_dataset_attributes_spec: $ =>
-    seq(gen.kw("attributes"), field("attributes", $.data_object)),
+    seq(gen.kw("attributes"), field("attributes", $._simple_operand)),
 };

@@ -36,7 +36,7 @@ module.exports = {
   delete_itab_key_spec: $ =>
     seq(
       gen.kw("table"),
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       choice($.from_work_area_spec, $.table_key_spec),
     ),
 
@@ -49,7 +49,7 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB_LINES.html
    */
   delete_itab_lines_spec: $ =>
-    seq(field("subject", $.general_expression), $.itab_lines_spec),
+    seq(field("subject", $._modifiable_target), $.itab_lines_spec),
 
   /**
    * Delete duplicates from internal table comparing certain fields.
@@ -62,7 +62,7 @@ module.exports = {
   delete_itab_duplicates_spec: $ =>
     seq(
       $.__adjacent_duplicates_from,
-      field("subject", $.general_expression),
+      field("subject", $._modifiable_target),
       repeat(choice($.using_key_spec, $.comparing_spec)),
     ),
 

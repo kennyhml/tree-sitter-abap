@@ -2,7 +2,7 @@ module.exports = {
   modif_id_spec: $ => seq(...gen.kws("modif", "id"), field("id", $.identifier)),
 
   default_value_spec: $ =>
-    seq(gen.kw("default"), field("value", $.data_object)),
+    seq(gen.kw("default"), field("value", $._simple_operand)),
 
   visible_length_spec: $ =>
     seq(...gen.kws("visible", "length"), field("length", $.number)),

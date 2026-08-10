@@ -7,6 +7,6 @@ module.exports = {
   raise_shortdump_statement: $ =>
     seq(
       ...gen.kws("raise", "shortdump"),
-      field("exception", choice($.general_expression, $.new_exception_spec)),
+      field("exception", choice($.expression, $.new_exception_spec)),
     ),
 };

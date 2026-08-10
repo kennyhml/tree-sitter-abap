@@ -60,6 +60,20 @@ The parent-child form makes broad and specific queries straightforward:
 | A chained `MESSAGE` statement item | `message_spec` | Complete message construction queried as its own concept |
 | A message receiver in another statement | A context-qualified spec | Same keyword, but a different query concept |
 
+### Expression Taxonomy
+
+Public expression supertypes describe only syntax visible in the source:
+
+- `name_reference` covers identifiers and field symbols without asserting what they resolve to.
+- `literal` covers number, string, and text-pool literals.
+- `access_expression` covers component, table, dereference, body, and substring access syntax.
+- `primary_expression` combines references, literals, accesses, calls, and constructor expressions.
+- `expression` combines primary, calculation, and parenthesized expressions.
+
+Do not expose semantic categories such as data objects, numeric values, character-like values, or writable values as CST supertypes. Those properties require name, type, and mutability resolution. When a grammar position must accept a restricted set of source forms, use a hidden role helper such as `_simple_operand`, `_numeric_position`, or `_write_target`. Its field and owning clause provide the semantic context without making that context part of the parsed node's type.
+
+Keep postfix constructs as separate concrete nodes rather than forcing them through a generic recursive postfix rule. Component selection, table access, dereference, and substring syntax have different adjacency and ambiguity constraints.
+
 ### Chaining
 
 - Support chained statements only in explicitly designated grammar locations. Do not add chaining merely because ABAP permits it generally or the keyword documentation contains a chained example.

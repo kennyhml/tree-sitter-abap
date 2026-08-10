@@ -265,7 +265,7 @@ module.exports = {
   for_screen_field_spec: $ =>
     seq(...gen.kws("for", "field"), field("name", $.identifier)),
 
-  title_spec: $ => seq(gen.kw("title"), field("text", $.data_object)),
+  title_spec: $ => seq(gen.kw("title"), field("text", $._simple_operand)),
 
   frame_spec: $ => seq(...gen.kws("with", "frame"), optional($.title_spec)),
 
@@ -296,7 +296,7 @@ module.exports = {
   call_sel_screen_statement: $ =>
     seq(
       ...gen.kws("call", "selection-screen"),
-      field("dynnr", $.data_object),
+      field("dynnr", $._simple_operand),
       repeat(
         choice(
           $.starting_at_spec,
@@ -312,8 +312,8 @@ module.exports = {
   starting_at_spec: $ =>
     seq(
       ...gen.kws("starting", "at"),
-      field("column", $.data_object),
-      field("line", $.data_object),
+      field("column", $._simple_operand),
+      field("line", $._simple_operand),
     ),
 
   /**
@@ -322,15 +322,15 @@ module.exports = {
   ending_at_spec: $ =>
     seq(
       ...gen.kws("ending", "at"),
-      field("column", $.data_object),
-      field("line", $.data_object),
+      field("column", $._simple_operand),
+      field("line", $._simple_operand),
     ),
 
   /**
    * Addition ... USING SELECTION-SET variant of {@link call_sel_screen_statement}
    */
   using_selection_set_spec: $ =>
-    seq(...gen.kws("using", "selection-set"), field("name", $.data_object)),
+    seq(...gen.kws("using", "selection-set"), field("name", $._simple_operand)),
 
   __element_text_variable: $ => choice($.identifier, $.text_symbol),
 };

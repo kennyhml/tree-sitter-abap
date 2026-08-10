@@ -10,7 +10,10 @@ module.exports = {
   __translate_statement_prefix: $ =>
     seq(
       gen.kw("translate"),
-      field("subject", $.character_like_expression),
+      field(
+        "subject",
+        choice($._contextual_identifier, $._modifiable_target),
+      ),
       choice(
         $.to_lower_case_spec,
         $.to_upper_case_spec,
@@ -23,5 +26,5 @@ module.exports = {
   to_lower_case_spec: _ => seq(...gen.kws("to", "lower", "case")),
 
   translation_mask_spec: $ =>
-    seq(gen.kw("using"), field("mask", $.character_like_expression)),
+    seq(gen.kw("using"), field("mask", $._character_position)),
 };

@@ -23,10 +23,10 @@ module.exports = {
   separated_by_spec: $ =>
     seq(
       ...gen.kws("separated", "by"),
-      field("separator", $.character_like_expression),
+      field("separator", $._character_position),
     ),
 
-  data_object_list: $ => prec.right(repeat1($.data_object)),
+  operand_list: $ => prec.right(repeat1($._simple_operand)),
 
   __concat_addition: $ =>
     choice(
@@ -35,5 +35,5 @@ module.exports = {
       $.respecting_blanks,
     ),
 
-  __concat_subject_spec: $ => choice($.data_object_list, $.lines_of_spec),
+  __concat_subject_spec: $ => choice($.operand_list, $.lines_of_spec),
 };

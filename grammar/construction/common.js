@@ -5,5 +5,5 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCREATE_OBJECT_AREA_HANDLE.html
    */
   area_handle_spec: $ =>
-    seq(...gen.kws("area", "handle"), field("handle", $.writable_expression)),
+    seq(...gen.kws("area", "handle"), field("handle", $._write_target)),
 };

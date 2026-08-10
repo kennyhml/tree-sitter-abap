@@ -22,9 +22,9 @@ module.exports = {
    */
   __read_itab_lines: $ =>
     seq(
-      field("work_area", $.named_data_object),
+      field("work_area", $.name_reference),
       gen.kw("in"),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       repeat(choice($.itab_lines_spec, $.index_into_spec)),
     ),
 
@@ -48,7 +48,7 @@ module.exports = {
     ),
 
   index_into_spec: $ =>
-    seq(...gen.kws("index", "into"), field("enumerator", $.named_data_object)),
+    seq(...gen.kws("index", "into"), field("enumerator", $.name_reference)),
 
   /**
    * The presence of a group key decides whether the expression is a representative
@@ -57,17 +57,17 @@ module.exports = {
    * https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html
    */
   group_key_binding: $ =>
-    seq(gen.kw("groups"), field("name", $.named_data_object)),
+    seq(gen.kw("groups"), field("name", $.name_reference)),
 
   representative_binding: _ => seq(gen.kw("groups")),
 
   grouping_work_area: $ =>
-    seq(gen.kw("of"), field("work_area", $.named_data_object)),
+    seq(gen.kw("of"), field("work_area", $.name_reference)),
 
   grouping_subject: $ =>
     seq(
       gen.kw("in"),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       optional($.itab_lines_spec),
     ),
 };

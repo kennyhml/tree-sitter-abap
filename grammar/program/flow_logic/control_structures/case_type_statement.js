@@ -9,7 +9,7 @@ module.exports = {
   __case_type_of_statement_prefix: $ =>
     seq(
       ...gen.kws("case", "type", "of"),
-      field("subject", $.general_expression),
+      field("subject", $.expression),
       ".",
       repeat(field("alternative", $.case_type_clause)),
       optional(field("others", $.others_case_clause)),
@@ -33,6 +33,6 @@ module.exports = {
   __cast_into_spec: $ =>
     seq(
       gen.kw("into"),
-      field("target", choice($.named_data_object, $.declaration_expression)),
+      field("target", $._result_target),
     ),
 };

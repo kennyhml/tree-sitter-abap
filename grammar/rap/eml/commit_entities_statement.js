@@ -95,7 +95,7 @@ module.exports = {
   responses_of_spec: $ =>
     seq(
       ...gen.kws("responses", "of"),
-      field("value", $.general_expression),
+      field("value", $.expression),
       $.response_parameters,
     ),
 

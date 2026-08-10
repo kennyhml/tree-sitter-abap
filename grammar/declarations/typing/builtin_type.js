@@ -49,7 +49,7 @@ module.exports = {
   type_decimals_spec: $ =>
     seq(
       gen.kw("decimals"),
-      field("count", choice($.number, $.named_data_object)),
+      field("count", choice($.number, $._reference_operand)),
     ),
 
   __abap_type_additions: $ =>
