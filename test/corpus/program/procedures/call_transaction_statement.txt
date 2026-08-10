@@ -1,0 +1,93 @@
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / CALL TRANSACTION ] Standard call
+=================================================================================
+CALL TRANSACTION 'SE24' WITH AUTHORITY-CHECK.
+---
+
+(source
+  (call_transaction_statement
+    transaction: (string_literal)
+    (with_authority_check)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / CALL TRANSACTION ] Skip first screen
+=================================================================================
+CALL TRANSACTION transaction WITHOUT AUTHORITY-CHECK AND SKIP FIRST SCREEN.
+---
+
+(source
+  (call_transaction_statement
+    transaction: (identifier)
+    (without_authority_check)
+    (and_skip_first_screen)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / CALL TRANSACTION ] Batch input table
+=================================================================================
+CALL TRANSACTION 'SE24' WITH AUTHORITY-CHECK USING bdcdata_tab.
+---
+
+(source
+  (call_transaction_statement
+    transaction: (string_literal)
+    (with_authority_check)
+    (using_batch_table_spec
+      table: (identifier))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / CALL TRANSACTION ] Update mode only
+=================================================================================
+CALL TRANSACTION 'SE24' WITH AUTHORITY-CHECK USING bdcdata_tab UPDATE 'S'.
+---
+
+(source
+  (call_transaction_statement
+    transaction: (string_literal)
+    (with_authority_check)
+    (using_batch_table_spec
+      table: (identifier))
+    (transaction_update_mode_spec
+      mode: (string_literal))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / CALL TRANSACTION ] Batch modes and messages
+=================================================================================
+CALL TRANSACTION transaction WITHOUT AUTHORITY-CHECK
+  USING bdcdata_tab
+  MODE processing_mode
+  UPDATE update_mode
+  MESSAGES INTO messages.
+---
+
+(source
+  (call_transaction_statement
+    transaction: (identifier)
+    (without_authority_check)
+    (using_batch_table_spec
+      table: (identifier))
+    (transaction_processing_mode_spec
+      mode: (identifier))
+    (transaction_update_mode_spec
+      mode: (identifier))
+    (transaction_messages_into_spec
+      target: (identifier))))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / CALL TRANSACTION ] Batch options and messages
+=================================================================================
+CALL TRANSACTION 'SE24' WITH AUTHORITY-CHECK
+  USING bdcdata_tab
+  OPTIONS FROM options
+  MESSAGES INTO messages.
+---
+
+(source
+  (call_transaction_statement
+    transaction: (string_literal)
+    (with_authority_check)
+    (using_batch_table_spec
+      table: (identifier))
+    (transaction_options_from_spec
+      options: (identifier))
+    (transaction_messages_into_spec
+      target: (identifier))))

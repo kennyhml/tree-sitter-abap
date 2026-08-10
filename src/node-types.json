@@ -460,6 +460,10 @@
         "named": true
       },
       {
+        "type": "call_transaction_statement",
+        "named": true
+      },
+      {
         "type": "call_transformation_statement",
         "named": true
       },
@@ -1457,6 +1461,34 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "and_skip_first_screen",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "first",
+            "named": false
+          },
+          {
+            "type": "screen",
+            "named": false
+          },
+          {
+            "type": "skip",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -4153,6 +4185,74 @@
       "types": [
         {
           "type": "id_field_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "call_transaction_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "call",
+            "named": false
+          },
+          {
+            "type": "transaction",
+            "named": false
+          }
+        ]
+      },
+      "transaction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "and_skip_first_screen",
+          "named": true
+        },
+        {
+          "type": "transaction_messages_into_spec",
+          "named": true
+        },
+        {
+          "type": "transaction_options_from_spec",
+          "named": true
+        },
+        {
+          "type": "transaction_processing_mode_spec",
+          "named": true
+        },
+        {
+          "type": "transaction_update_mode_spec",
+          "named": true
+        },
+        {
+          "type": "using_batch_table_spec",
+          "named": true
+        },
+        {
+          "type": "with_authority_check",
+          "named": true
+        },
+        {
+          "type": "without_authority_check",
           "named": true
         }
       ]
@@ -29617,6 +29717,118 @@
     }
   },
   {
+    "type": "transaction_messages_into_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "messages",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "writable_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "transaction_options_from_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "options",
+            "named": false
+          }
+        ]
+      },
+      "options": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "transaction_processing_mode_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "mode",
+            "named": false
+          }
+        ]
+      },
+      "mode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "transaction_update_mode_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "update",
+            "named": false
+          }
+        ]
+      },
+      "mode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "transfer_length_spec",
     "named": true,
     "fields": {
@@ -30661,6 +30873,32 @@
     }
   },
   {
+    "type": "using_batch_table_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "general_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "using_control",
     "named": true,
     "fields": {
@@ -31343,6 +31581,26 @@
     }
   },
   {
+    "type": "with_authority_check",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authority-check",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "with_byte_order_mark",
     "named": true,
     "fields": {
@@ -31488,6 +31746,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "without_authority_check",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "authority-check",
+            "named": false
+          },
+          {
+            "type": "without",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -32990,6 +33268,10 @@
     "named": true
   },
   {
+    "type": "messages",
+    "named": false
+  },
+  {
     "type": "messaging",
     "named": false
   },
@@ -33716,6 +33998,10 @@
   },
   {
     "type": "trailing",
+    "named": false
+  },
+  {
+    "type": "transaction",
     "named": false
   },
   {

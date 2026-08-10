@@ -54,6 +54,7 @@
 
 (authority_check_statement auth_object: (string_literal) @string.special.symbol )
 (call_function_statement name: (string_literal) @string.special.symbol )
+(call_transaction_statement transaction: (string_literal) @string.special.symbol )
 (receive_results_statement name: (string_literal) @string.special.symbol )
 (id_field_spec id: (string_literal) @string.special.symbol )
 
