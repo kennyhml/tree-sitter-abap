@@ -1,0 +1,31 @@
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / LEAVE TO TRANSACTION ] Static transaction
+=================================================================================
+LEAVE TO TRANSACTION 'SE24'.
+---
+
+(source
+  (leave_to_transaction_statement
+    transaction: (string_literal)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / LEAVE TO TRANSACTION ] Dynamic transaction
+=================================================================================
+LEAVE TO TRANSACTION transaction AND SKIP FIRST SCREEN.
+---
+
+(source
+  (leave_to_transaction_statement
+    transaction: (identifier)
+    (and_skip_first_screen)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / LEAVE TO TRANSACTION ] Current transaction
+=================================================================================
+LEAVE TO CURRENT TRANSACTION AND SKIP FIRST SCREEN.
+---
+
+(source
+  (leave_to_transaction_statement
+    (current_transaction)
+    (and_skip_first_screen)))

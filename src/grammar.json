@@ -123,6 +123,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "leave_to_transaction_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "call_transformation_statement"
           },
           {
@@ -25498,6 +25502,83 @@
         ]
       }
     },
+    "leave_to_transaction_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__leave_to_transaction_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__leave_to_transaction_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_leave"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_transaction"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "transaction",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "character_like_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "current_transaction"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "and_skip_first_screen"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "current_transaction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_current"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_transaction"
+        }
+      ]
+    },
     "perform_statement": {
       "type": "SEQ",
       "members": [
@@ -40553,6 +40634,19 @@
         },
         "named": false,
         "value": "exception-table"
+      }
+    },
+    "_kw_leave": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)leave"
+        },
+        "named": false,
+        "value": "leave"
       }
     },
     "_kw_receive": {

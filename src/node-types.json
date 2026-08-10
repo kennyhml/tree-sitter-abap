@@ -688,6 +688,10 @@
         "named": true
       },
       {
+        "type": "leave_to_transaction_statement",
+        "named": true
+      },
+      {
         "type": "logpoint_statement",
         "named": true
       },
@@ -7642,6 +7646,26 @@
           },
           {
             "type": "position",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "current_transaction",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "current",
+            "named": false
+          },
+          {
+            "type": "transaction",
             "named": false
           }
         ]
@@ -18500,6 +18524,54 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "leave_to_transaction_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "leave",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "transaction",
+            "named": false
+          }
+        ]
+      },
+      "transaction": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "character_like_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "and_skip_first_screen",
+          "named": true
+        },
+        {
+          "type": "current_transaction",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -33124,6 +33196,10 @@
   },
   {
     "type": "leading",
+    "named": false
+  },
+  {
+    "type": "leave",
     "named": false
   },
   {
