@@ -127,6 +127,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "leave_program_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "submit_statement"
           },
           {
@@ -25580,6 +25584,32 @@
         {
           "type": "SYMBOL",
           "name": "_kw_transaction"
+        }
+      ]
+    },
+    "leave_program_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__leave_program_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__leave_program_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_leave"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_program"
         }
       ]
     },

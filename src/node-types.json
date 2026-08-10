@@ -688,6 +688,10 @@
         "named": true
       },
       {
+        "type": "leave_program_statement",
+        "named": true
+      },
+      {
         "type": "leave_to_transaction_statement",
         "named": true
       },
@@ -18654,6 +18658,26 @@
         "types": [
           {
             "type": "late",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "leave_program_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "leave",
+            "named": false
+          },
+          {
+            "type": "program",
             "named": false
           }
         ]

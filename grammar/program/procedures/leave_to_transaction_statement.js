@@ -22,4 +22,8 @@ module.exports = {
     ),
 
   current_transaction: _ => seq(...gen.kws("current", "transaction")),
+
+  leave_program_statement: $ => seq($.__leave_program_prefix, "."),
+
+  __leave_program_prefix: _ => seq(...gen.kws("leave", "program")),
 };

@@ -29,3 +29,12 @@ LEAVE TO CURRENT TRANSACTION AND SKIP FIRST SCREEN.
   (leave_to_transaction_statement
     (current_transaction)
     (and_skip_first_screen)))
+
+=================================================================================
+[ ABAP - Calling and Exiting Program Units / Calling Programs / LEAVE PROGRAM ] Leave program
+=================================================================================
+LEAVE PROGRAM.
+---
+
+(source
+  (leave_program_statement))

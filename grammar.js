@@ -146,6 +146,7 @@ module.exports = grammar({
           $.call_method_statement,
           $.call_transaction_statement,
           $.leave_to_transaction_statement,
+          $.leave_program_statement,
           $.submit_statement,
           $.call_transformation_statement,
           $.concatenate_statement,
