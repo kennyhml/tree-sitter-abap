@@ -64,10 +64,12 @@
 (delete_database_spec table: (identifier) @type)
 (delete_shared_memory_spec table: (identifier) @type)
 (delete_shared_buffer_spec table: (identifier) @type)
+(import_from_database_spec table: (identifier) @type)
 
 (delete_database_spec area: (identifier) @constant)
 (delete_shared_memory_spec area: (identifier) @constant)
 (delete_shared_buffer_spec area: (identifier) @constant)
+(import_from_database_spec area: (identifier) @constant)
 
 
 (method_spec name: (identifier) @function.method ) 

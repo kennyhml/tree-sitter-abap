@@ -606,6 +606,10 @@
         "named": true
       },
       {
+        "type": "import_directory_statement",
+        "named": true
+      },
+      {
         "type": "include_statement",
         "named": true
       },
@@ -8633,6 +8637,64 @@
           {
             "type": "id",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "data_cluster_to_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
           }
         ]
       }
@@ -19130,6 +19192,98 @@
     }
   },
   {
+    "type": "import_directory_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "directory",
+            "named": false
+          },
+          {
+            "type": "import",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "import_from_database_spec",
+          "named": true
+        },
+        {
+          "type": "into_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_from_database_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "database",
+            "named": false
+          },
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_to_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "in_background_task_spec",
     "named": true,
     "fields": {
@@ -20863,6 +21017,48 @@
     "type": "into_spec",
     "named": true,
     "fields": {
+      "destination": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": false,
         "required": true,
@@ -39881,11 +40077,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "numbering",

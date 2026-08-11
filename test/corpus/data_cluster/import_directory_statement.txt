@@ -1,0 +1,36 @@
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / IMPORT DIRECTORY ] Basic form
+=================================================================================
+IMPORT DIRECTORY INTO directory FROM DATABASE demo_indx_blob(HK) ID 'HK'.
+---
+
+(source
+  (import_directory_statement
+    (into_spec
+      destination: (identifier))
+    (import_from_database_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_id_spec
+        id: (string_literal)))))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / IMPORT DIRECTORY ] All additions
+=================================================================================
+IMPORT DIRECTORY INTO directory FROM DATABASE demo_indx_blob(HK)
+  TO work_area CLIENT client ID cluster_id.
+---
+
+(source
+  (import_directory_statement
+    (into_spec
+      destination: (identifier))
+    (import_from_database_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_to_spec
+        work_area: (identifier))
+      (data_cluster_client_spec
+        client: (identifier))
+      (data_cluster_id_spec
+        id: (identifier)))))

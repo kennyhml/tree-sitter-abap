@@ -48,15 +48,8 @@ module.exports = {
 
   __cluster_delete_spec: $ =>
     seq(
-      field("table", $.identifier),
-      gen.immediateTightParens(field("area", $._immediate_identifier)),
+      $._data_cluster_table_area,
       optional($.data_cluster_client_spec),
       $.data_cluster_id_spec,
     ),
-
-  data_cluster_client_spec: $ =>
-    seq(gen.kw("client"), field("client", $._simple_operand)),
-
-  data_cluster_id_spec: $ =>
-    seq(gen.kw("id"), field("id", $._simple_operand)),
 };

@@ -137,6 +137,7 @@ module.exports = grammar({
           $.set_dataset_statement,
           $.free_memory_statement,
           $.delete_from_statement,
+          $.import_directory_statement,
           $.function_call,
 
           // Processing statements

@@ -26,3 +26,20 @@ DELETE FROM SHARED BUFFER demo_indx_blob(XY) CLIENT client ID 'demo'.
 "                                                   ^ variable
 "                                                          ^ keyword
 "                                                             ^ string.special.symbol
+
+IMPORT DIRECTORY INTO directory FROM DATABASE demo_indx_blob(HK)
+" ^ keyword
+"       ^ keyword
+"                 ^ keyword
+"                      ^ variable
+"                                ^ keyword
+"                                     ^ keyword
+"                                              ^ type
+"                                                             ^ constant
+  TO work_area CLIENT client ID 'HK'.
+" ^ keyword
+"    ^ variable
+"              ^ keyword
+"                     ^ variable
+"                            ^ keyword
+"                               ^ string.special.symbol
