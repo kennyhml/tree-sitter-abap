@@ -107,6 +107,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "free_memory_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "function_call"
           },
           {
@@ -1399,6 +1403,44 @@
         {
           "type": "SYMBOL",
           "name": "_table_expression_with_default_additions"
+        }
+      ]
+    },
+    "free_memory_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__free_memory_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__free_memory_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_free"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_memory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
         }
       ]
     },
@@ -35108,6 +35150,32 @@
         "value": "get"
       }
     },
+    "_kw_free": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)free"
+        },
+        "named": false,
+        "value": "free"
+      }
+    },
+    "_kw_memory": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)memory"
+        },
+        "named": false,
+        "value": "memory"
+      }
+    },
     "_kw_update": {
       "type": "FIELD",
       "name": "keyword",
@@ -35599,19 +35667,6 @@
         },
         "named": false,
         "value": "length"
-      }
-    },
-    "_kw_memory": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)memory"
-        },
-        "named": false,
-        "value": "memory"
       }
     },
     "_kw_matchcode": {
@@ -39331,19 +39386,6 @@
         },
         "named": false,
         "value": "changing"
-      }
-    },
-    "_kw_free": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)free"
-        },
-        "named": false,
-        "value": "free"
       }
     },
     "_kw_reference": {

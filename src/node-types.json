@@ -542,6 +542,10 @@
         "named": true
       },
       {
+        "type": "free_memory_statement",
+        "named": true
+      },
+      {
         "type": "free_statement",
         "named": true
       },
@@ -16445,6 +16449,56 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "free_memory_statement",
+    "named": true,
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "free",
+            "named": false
+          },
+          {
+            "type": "id",
+            "named": false
+          },
+          {
+            "type": "memory",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -39509,11 +39563,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "numbering",

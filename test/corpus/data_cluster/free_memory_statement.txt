@@ -1,0 +1,19 @@
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / FREE MEMORY ] Literal ID
+=================================================================================
+FREE MEMORY ID 'demo'.
+---
+
+(source
+  (free_memory_statement
+    id: (string_literal)))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / FREE MEMORY ] Dynamic ID
+=================================================================================
+FREE MEMORY ID memory_id.
+---
+
+(source
+  (free_memory_statement
+    id: (identifier)))
