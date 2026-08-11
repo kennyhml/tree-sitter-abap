@@ -1,0 +1,185 @@
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / EXPORT ] Static parameters
+=================================================================================
+EXPORT first = source second FROM other
+  TO MEMORY ID 'demo' COMPRESSION ON.
+---
+
+(source
+  (export_statement
+    (export_data_cluster_parameter
+      name: (identifier)
+      source: (identifier))
+    (export_data_cluster_parameter
+      name: (identifier)
+      source: (identifier))
+    medium: (export_memory_spec
+      (data_cluster_id_spec
+        id: (string_literal)))
+    (compression_spec)))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / EXPORT ] Buffer media
+=================================================================================
+EXPORT (parameters) TO DATA BUFFER buffer COMPRESSION OFF.
+EXPORT value = source TO INTERNAL TABLE buffer.
+---
+
+(source
+  (export_statement
+    (data_cluster_parameter_table
+      table: (identifier))
+    medium: (export_data_buffer_spec
+      destination: (identifier))
+    (compression_spec))
+  (export_statement
+    (export_data_cluster_parameter
+      name: (identifier)
+      source: (identifier))
+    medium: (export_internal_table_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / EXPORT ] Table media
+=================================================================================
+EXPORT value = source TO DATABASE demo_indx_blob(XY)
+  FROM work_area CLIENT client ID cluster_id.
+EXPORT value = source TO SHARED MEMORY demo_indx_blob(XY) ID 'memory'.
+EXPORT value = source TO SHARED BUFFER demo_indx_blob(XY)
+  FROM work_area ID 'buffer'.
+---
+
+(source
+  (export_statement
+    (export_data_cluster_parameter
+      name: (identifier)
+      source: (identifier))
+    medium: (export_database_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_from_spec
+        work_area: (identifier))
+      (data_cluster_client_spec
+        client: (identifier))
+      (data_cluster_id_spec
+        id: (identifier))))
+  (export_statement
+    (export_data_cluster_parameter
+      name: (identifier)
+      source: (identifier))
+    medium: (export_shared_memory_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_id_spec
+        id: (string_literal))))
+  (export_statement
+    (export_data_cluster_parameter
+      name: (identifier)
+      source: (identifier))
+    medium: (export_shared_buffer_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_from_spec
+        work_area: (identifier))
+      (data_cluster_id_spec
+        id: (string_literal)))))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / IMPORT ] Static parameters
+=================================================================================
+IMPORT first = destination second TO other
+  FROM MEMORY ID 'demo' ACCEPTING PADDING ACCEPTING TRUNCATION.
+---
+
+(source
+  (import_statement
+    (import_data_cluster_parameter
+      name: (identifier)
+      destination: (identifier))
+    (import_data_cluster_parameter
+      name: (identifier)
+      destination: (identifier))
+    medium: (import_memory_spec
+      (data_cluster_id_spec
+        id: (string_literal)))
+    (accepting_padding)
+    (accepting_truncation)))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / IMPORT ] Buffer media
+=================================================================================
+IMPORT (parameters) FROM DATA BUFFER buffer
+  IGNORING CONVERSION ERRORS REPLACEMENT CHARACTER '#'.
+IMPORT value = destination FROM INTERNAL TABLE buffer
+  IN CHAR-TO-HEX MODE CODE PAGE INTO code_page ENDIAN INTO byte_order.
+---
+
+(source
+  (import_statement
+    (data_cluster_parameter_table
+      table: (identifier))
+    medium: (import_data_buffer_spec
+      source: (identifier))
+    (ignoring_conversion_errors)
+    (replacement_character_spec
+      character: (string_literal)))
+  (import_statement
+    (import_data_cluster_parameter
+      name: (identifier)
+      destination: (identifier))
+    medium: (import_internal_table_spec
+      source: (identifier))
+    (char_to_hex_mode)
+    (code_page_into_spec
+      destination: (identifier))
+    (endian_into_spec
+      destination: (identifier))))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / IMPORT ] Table media
+=================================================================================
+IMPORT value = destination FROM DATABASE demo_indx_blob(XY)
+  TO work_area CLIENT client ID cluster_id IGNORING STRUCTURE BOUNDARIES.
+IMPORT value = destination FROM SHARED MEMORY demo_indx_blob(XY)
+  ID 'memory' TO work_area.
+IMPORT value = destination FROM SHARED BUFFER demo_indx_blob(XY)
+  CLIENT client ID 'buffer'.
+---
+
+(source
+  (import_statement
+    (import_data_cluster_parameter
+      name: (identifier)
+      destination: (identifier))
+    medium: (import_database_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_to_spec
+        work_area: (identifier))
+      (data_cluster_client_spec
+        client: (identifier))
+      (data_cluster_id_spec
+        id: (identifier)))
+    (ignoring_structure_boundaries))
+  (import_statement
+    (import_data_cluster_parameter
+      name: (identifier)
+      destination: (identifier))
+    medium: (import_shared_memory_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_id_spec
+        id: (string_literal))
+      (data_cluster_to_spec
+        work_area: (identifier))))
+  (import_statement
+    (import_data_cluster_parameter
+      name: (identifier)
+      destination: (identifier))
+    medium: (import_shared_buffer_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_client_spec
+        client: (identifier))
+      (data_cluster_id_spec
+        id: (string_literal)))))

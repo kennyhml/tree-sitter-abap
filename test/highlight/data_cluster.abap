@@ -43,3 +43,24 @@ IMPORT DIRECTORY INTO directory FROM DATABASE demo_indx_blob(HK)
 "                     ^ variable
 "                            ^ keyword
 "                               ^ string.special.symbol
+
+EXPORT payload = source TO DATABASE demo_indx_blob(XY) ID 'demo'.
+" ^ keyword
+"       ^ variable.parameter
+"                 ^ variable
+"                        ^ keyword
+"                           ^ keyword
+"                                    ^ type
+"                                                   ^ constant
+"                                                       ^ keyword
+"                                                          ^ string.special.symbol
+IMPORT payload = destination FROM DATA BUFFER buffer ACCEPTING PADDING.
+" ^ keyword
+"       ^ variable.parameter
+"                 ^ variable
+"                             ^ keyword
+"                                  ^ keyword
+"                                       ^ keyword
+"                                              ^ variable
+"                                                     ^ keyword
+"                                                               ^ keyword

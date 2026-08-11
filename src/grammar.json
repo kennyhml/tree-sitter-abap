@@ -119,6 +119,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "export_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "import_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "function_call"
           },
           {
@@ -1471,6 +1479,23 @@
         }
       ]
     },
+    "data_cluster_from_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "FIELD",
+          "name": "work_area",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_reference_operand"
+          }
+        }
+      ]
+    },
     "data_cluster_client_spec": {
       "type": "SEQ",
       "members": [
@@ -1501,6 +1526,866 @@
           "content": {
             "type": "SYMBOL",
             "name": "_simple_operand"
+          }
+        }
+      ]
+    },
+    "export_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__export_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__export_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_export"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__export_data_cluster_parameters"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_to"
+        },
+        {
+          "type": "FIELD",
+          "name": "medium",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__export_data_cluster_medium"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "compression_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__export_data_cluster_parameters": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "export_data_cluster_parameter"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_cluster_parameter_table"
+        }
+      ]
+    },
+    "export_data_cluster_parameter": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "="
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_kw_from"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_data_cluster_buffer_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_contextual_simple_operand"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "import_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__import_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__import_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_import"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__import_data_cluster_parameters"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "FIELD",
+          "name": "medium",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__import_data_cluster_medium"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__import_conversion_option"
+          }
+        }
+      ]
+    },
+    "__import_data_cluster_parameters": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "import_data_cluster_parameter"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_cluster_parameter_table"
+        }
+      ]
+    },
+    "import_data_cluster_parameter": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "="
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_kw_to"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_data_cluster_buffer_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_contextual_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_write_target"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "data_cluster_parameter_table": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "table",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_data_cluster_buffer_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_contextual_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_reference_operand"
+              }
+            ]
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          }
+        }
+      ]
+    },
+    "_data_cluster_buffer_identifier": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)buffer"
+        }
+      },
+      "named": true,
+      "value": "identifier"
+    },
+    "__export_data_cluster_medium": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "export_data_buffer_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "export_internal_table_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "export_memory_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "export_database_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "export_shared_memory_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "export_shared_buffer_spec"
+        }
+      ]
+    },
+    "export_data_buffer_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_data"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_buffer"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_data_cluster_buffer_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_write_target"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "export_internal_table_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_internal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_table"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_data_cluster_buffer_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_write_target"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "export_memory_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_memory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_cluster_id_spec"
+        }
+      ]
+    },
+    "export_database_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_database"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__export_cluster_table_medium"
+        }
+      ]
+    },
+    "export_shared_memory_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shared"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_memory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__export_cluster_table_medium"
+        }
+      ]
+    },
+    "export_shared_buffer_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shared"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_buffer"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__export_cluster_table_medium"
+        }
+      ]
+    },
+    "__export_cluster_table_medium": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_data_cluster_table_area"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "data_cluster_from_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "data_cluster_client_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_cluster_id_spec"
+        }
+      ]
+    },
+    "compression_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_compression"
+        },
+        {
+          "type": "FIELD",
+          "name": "mode",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_kw_on"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_kw_off"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "__import_data_cluster_medium": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "import_data_buffer_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "import_internal_table_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "import_memory_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "import_database_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "import_shared_memory_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "import_shared_buffer_spec"
+        }
+      ]
+    },
+    "import_data_buffer_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_data"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_buffer"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_data_cluster_buffer_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_reference_operand"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "import_internal_table_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_internal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_table"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_data_cluster_buffer_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_reference_operand"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "import_memory_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_memory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_cluster_id_spec"
+        }
+      ]
+    },
+    "import_database_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_database"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__import_cluster_table_medium"
+        }
+      ]
+    },
+    "import_shared_memory_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shared"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_memory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__import_cluster_table_medium"
+        }
+      ]
+    },
+    "import_shared_buffer_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shared"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_buffer"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__import_cluster_table_medium"
+        }
+      ]
+    },
+    "__import_cluster_table_medium": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_data_cluster_table_area"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "data_cluster_to_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "data_cluster_client_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "data_cluster_id_spec"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "data_cluster_client_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "data_cluster_id_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "data_cluster_to_spec"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "__import_conversion_option": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "accepting_padding"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "accepting_truncation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ignoring_structure_boundaries"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__import_conversion_errors_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "char_to_hex_mode"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_page_into_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "endian_into_spec"
+        }
+      ]
+    },
+    "accepting_padding": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_accepting"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_padding"
+        }
+      ]
+    },
+    "accepting_truncation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_accepting"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_truncation"
+        }
+      ]
+    },
+    "ignoring_structure_boundaries": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ignoring"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_structure"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_boundaries"
+        }
+      ]
+    },
+    "__import_conversion_errors_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "ignoring_conversion_errors"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "replacement_character_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "char_to_hex_mode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_in"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_char_to-hex"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_mode"
+        }
+      ]
+    },
+    "code_page_into_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_code"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_page"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_write_target"
+          }
+        }
+      ]
+    },
+    "endian_into_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_endian"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_into"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_write_target"
           }
         }
       ]
@@ -35499,6 +36384,19 @@
         "value": "to"
       }
     },
+    "_kw_from": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)from"
+        },
+        "named": false,
+        "value": "from"
+      }
+    },
     "_kw_client": {
       "type": "FIELD",
       "name": "keyword",
@@ -35512,17 +36410,69 @@
         "value": "client"
       }
     },
-    "_kw_free": {
+    "_kw_export": {
       "type": "FIELD",
       "name": "keyword",
       "content": {
         "type": "ALIAS",
         "content": {
           "type": "PATTERN",
-          "value": "(?i)free"
+          "value": "(?i)export"
         },
         "named": false,
-        "value": "free"
+        "value": "export"
+      }
+    },
+    "_kw_import": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)import"
+        },
+        "named": false,
+        "value": "import"
+      }
+    },
+    "_kw_table": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)table"
+        },
+        "named": false,
+        "value": "table"
+      }
+    },
+    "_kw_buffer": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)buffer"
+        },
+        "named": false,
+        "value": "buffer"
+      }
+    },
+    "_kw_internal": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)internal"
+        },
+        "named": false,
+        "value": "internal"
       }
     },
     "_kw_memory": {
@@ -35536,19 +36486,6 @@
         },
         "named": false,
         "value": "memory"
-      }
-    },
-    "_kw_from": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)from"
-        },
-        "named": false,
-        "value": "from"
       }
     },
     "_kw_database": {
@@ -35577,30 +36514,235 @@
         "value": "shared"
       }
     },
-    "_kw_buffer": {
+    "_kw_compression": {
       "type": "FIELD",
       "name": "keyword",
       "content": {
         "type": "ALIAS",
         "content": {
           "type": "PATTERN",
-          "value": "(?i)buffer"
+          "value": "(?i)compression"
         },
         "named": false,
-        "value": "buffer"
+        "value": "compression"
       }
     },
-    "_kw_import": {
+    "_kw_on": {
       "type": "FIELD",
       "name": "keyword",
       "content": {
         "type": "ALIAS",
         "content": {
           "type": "PATTERN",
-          "value": "(?i)import"
+          "value": "(?i)on"
         },
         "named": false,
-        "value": "import"
+        "value": "on"
+      }
+    },
+    "_kw_off": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)off"
+        },
+        "named": false,
+        "value": "off"
+      }
+    },
+    "_kw_accepting": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)accepting"
+        },
+        "named": false,
+        "value": "accepting"
+      }
+    },
+    "_kw_padding": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)padding"
+        },
+        "named": false,
+        "value": "padding"
+      }
+    },
+    "_kw_truncation": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)truncation"
+        },
+        "named": false,
+        "value": "truncation"
+      }
+    },
+    "_kw_ignoring": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)ignoring"
+        },
+        "named": false,
+        "value": "ignoring"
+      }
+    },
+    "_kw_structure": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)structure"
+        },
+        "named": false,
+        "value": "structure"
+      }
+    },
+    "_kw_boundaries": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)boundaries"
+        },
+        "named": false,
+        "value": "boundaries"
+      }
+    },
+    "_kw_in": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)in"
+        },
+        "named": false,
+        "value": "in"
+      }
+    },
+    "__kw_char_to-hex": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)char"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-to"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-hex"
+          }
+        }
+      ]
+    },
+    "_kw_char_to-hex": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_char_to-hex"
+        },
+        "named": false,
+        "value": "char-to-hex"
+      }
+    },
+    "_kw_mode": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)mode"
+        },
+        "named": false,
+        "value": "mode"
+      }
+    },
+    "_kw_code": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)code"
+        },
+        "named": false,
+        "value": "code"
+      }
+    },
+    "_kw_page": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)page"
+        },
+        "named": false,
+        "value": "page"
+      }
+    },
+    "_kw_endian": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)endian"
+        },
+        "named": false,
+        "value": "endian"
+      }
+    },
+    "_kw_free": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)free"
+        },
+        "named": false,
+        "value": "free"
       }
     },
     "_kw_directory": {
@@ -35815,19 +36957,6 @@
         },
         "named": false,
         "value": "let"
-      }
-    },
-    "_kw_in": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)in"
-        },
-        "named": false,
-        "value": "in"
       }
     },
     "_kw_badi": {
@@ -36177,19 +37306,6 @@
         "value": "obligatory"
       }
     },
-    "_kw_off": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)off"
-        },
-        "named": false,
-        "value": "off"
-      }
-    },
     "_kw_no": {
       "type": "FIELD",
       "name": "keyword",
@@ -36473,19 +37589,6 @@
         },
         "named": false,
         "value": "selection-screen"
-      }
-    },
-    "_kw_on": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)on"
-        },
-        "named": false,
-        "value": "on"
       }
     },
     "__kw_exit_command": {
@@ -37371,19 +38474,6 @@
         "value": "character"
       }
     },
-    "_kw_mode": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)mode"
-        },
-        "named": false,
-        "value": "mode"
-      }
-    },
     "_kw_byte": {
       "type": "FIELD",
       "name": "keyword",
@@ -37998,45 +39088,6 @@
         "value": "little"
       }
     },
-    "_kw_endian": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)endian"
-        },
-        "named": false,
-        "value": "endian"
-      }
-    },
-    "_kw_code": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)code"
-        },
-        "named": false,
-        "value": "code"
-      }
-    },
-    "_kw_page": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)page"
-        },
-        "named": false,
-        "value": "page"
-      }
-    },
     "__kw_non_unicode": {
       "type": "SEQ",
       "members": [
@@ -38093,19 +39144,6 @@
         },
         "named": false,
         "value": "utf-8"
-      }
-    },
-    "_kw_ignoring": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)ignoring"
-        },
-        "named": false,
-        "value": "ignoring"
       }
     },
     "_kw_conversion": {
@@ -38973,32 +40011,6 @@
         },
         "named": false,
         "value": "early"
-      }
-    },
-    "_kw_table": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)table"
-        },
-        "named": false,
-        "value": "table"
-      }
-    },
-    "_kw_structure": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)structure"
-        },
-        "named": false,
-        "value": "structure"
       }
     },
     "_kw_response": {

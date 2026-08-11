@@ -538,6 +538,10 @@
         "named": true
       },
       {
+        "type": "export_statement",
+        "named": true
+      },
+      {
         "type": "field_symbols_declaration",
         "named": true
       },
@@ -607,6 +611,10 @@
       },
       {
         "type": "import_directory_statement",
+        "named": true
+      },
+      {
+        "type": "import_statement",
         "named": true
       },
       {
@@ -1011,6 +1019,46 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "accepting_padding",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "accepting",
+            "named": false
+          },
+          {
+            "type": "padding",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "accepting_truncation",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "accepting",
+            "named": false
+          },
+          {
+            "type": "truncation",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -5361,6 +5409,35 @@
     }
   },
   {
+    "type": "char-to-hex",
+    "named": false,
+    "fields": {}
+  },
+  {
+    "type": "char_to_hex_mode",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "char-to-hex",
+            "named": false
+          },
+          {
+            "type": "in",
+            "named": false
+          },
+          {
+            "type": "mode",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "check_statement",
     "named": true,
     "fields": {
@@ -6298,6 +6375,72 @@
     }
   },
   {
+    "type": "code_page_into_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "code",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "page",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "code_page_spec",
     "named": true,
     "fields": {
@@ -6951,6 +7094,44 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "compression_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "compression",
+            "named": false
+          },
+          {
+            "type": "off",
+            "named": false
+          },
+          {
+            "type": "on",
+            "named": false
+          }
+        ]
+      },
+      "mode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "off",
+            "named": false
+          },
+          {
+            "type": "on",
+            "named": false
           }
         ]
       }
@@ -8601,6 +8782,40 @@
     }
   },
   {
+    "type": "data_cluster_from_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "work_area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "data_cluster_id_spec",
     "named": true,
     "fields": {
@@ -8637,6 +8852,30 @@
           {
             "type": "id",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "data_cluster_parameter_table",
+    "named": true,
+    "fields": {
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
           }
         ]
       }
@@ -14049,6 +14288,68 @@
     }
   },
   {
+    "type": "endian_into_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "endian",
+            "named": false
+          },
+          {
+            "type": "into",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "endian_spec",
     "named": true,
     "fields": {
@@ -14950,6 +15251,446 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "export_data_buffer_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "buffer",
+            "named": false
+          },
+          {
+            "type": "data",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "export_data_cluster_parameter",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "export_database_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "database",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_from_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "export_internal_table_spec",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "internal",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "export_memory_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "memory",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "export_shared_buffer_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "buffer",
+            "named": false
+          },
+          {
+            "type": "shared",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_from_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "export_shared_memory_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "memory",
+            "named": false
+          },
+          {
+            "type": "shared",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_from_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "export_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "export",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "medium": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "export_data_buffer_spec",
+            "named": true
+          },
+          {
+            "type": "export_database_spec",
+            "named": true
+          },
+          {
+            "type": "export_internal_table_spec",
+            "named": true
+          },
+          {
+            "type": "export_memory_spec",
+            "named": true
+          },
+          {
+            "type": "export_shared_buffer_spec",
+            "named": true
+          },
+          {
+            "type": "export_shared_memory_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "compression_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_parameter_table",
+          "named": true
+        },
+        {
+          "type": "export_data_cluster_parameter",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -19176,6 +19917,30 @@
     }
   },
   {
+    "type": "ignoring_structure_boundaries",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "boundaries",
+            "named": false
+          },
+          {
+            "type": "ignoring",
+            "named": false
+          },
+          {
+            "type": "structure",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "implicit_reference",
     "named": true,
     "fields": {
@@ -19189,6 +19954,166 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "import_data_buffer_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "buffer",
+            "named": false
+          },
+          {
+            "type": "data",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import_data_cluster_parameter",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "declaration_expression",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          },
+          {
+            "type": "table_expression",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import_database_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "database",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_to_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -19278,6 +20203,282 @@
         },
         {
           "type": "data_cluster_to_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_internal_table_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "internal",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import_memory_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "memory",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_shared_buffer_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "buffer",
+            "named": false
+          },
+          {
+            "type": "shared",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_to_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_shared_memory_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "memory",
+            "named": false
+          },
+          {
+            "type": "shared",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_to_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "import",
+            "named": false
+          }
+        ]
+      },
+      "medium": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "import_data_buffer_spec",
+            "named": true
+          },
+          {
+            "type": "import_database_spec",
+            "named": true
+          },
+          {
+            "type": "import_internal_table_spec",
+            "named": true
+          },
+          {
+            "type": "import_memory_spec",
+            "named": true
+          },
+          {
+            "type": "import_shared_buffer_spec",
+            "named": true
+          },
+          {
+            "type": "import_shared_memory_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "accepting_padding",
+          "named": true
+        },
+        {
+          "type": "accepting_truncation",
+          "named": true
+        },
+        {
+          "type": "char_to_hex_mode",
+          "named": true
+        },
+        {
+          "type": "code_page_into_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_parameter_table",
+          "named": true
+        },
+        {
+          "type": "endian_into_spec",
+          "named": true
+        },
+        {
+          "type": "ignoring_conversion_errors",
+          "named": true
+        },
+        {
+          "type": "ignoring_structure_boundaries",
+          "named": true
+        },
+        {
+          "type": "import_data_cluster_parameter",
+          "named": true
+        },
+        {
+          "type": "replacement_character_spec",
           "named": true
         }
       ]
@@ -38734,6 +39935,10 @@
     "named": false
   },
   {
+    "type": "accepting",
+    "named": false
+  },
+  {
     "type": "action",
     "named": false
   },
@@ -38926,6 +40131,10 @@
     "named": false
   },
   {
+    "type": "boundaries",
+    "named": false
+  },
+  {
     "type": "bt",
     "named": false
   },
@@ -39075,6 +40284,10 @@
   },
   {
     "type": "components",
+    "named": false
+  },
+  {
+    "type": "compression",
     "named": false
   },
   {
@@ -39486,6 +40699,10 @@
     "named": false
   },
   {
+    "type": "export",
+    "named": false
+  },
+  {
     "type": "exporting",
     "named": false
   },
@@ -39763,6 +40980,10 @@
   },
   {
     "type": "interfaces",
+    "named": false
+  },
+  {
+    "type": "internal",
     "named": false
   },
   {
@@ -40077,11 +41298,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "numbering",
@@ -40169,6 +41390,10 @@
   },
   {
     "type": "overlay",
+    "named": false
+  },
+  {
+    "type": "padding",
     "named": false
   },
   {
@@ -40733,6 +41958,10 @@
   },
   {
     "type": "truncate",
+    "named": false
+  },
+  {
+    "type": "truncation",
     "named": false
   },
   {

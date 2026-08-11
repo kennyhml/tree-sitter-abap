@@ -71,6 +71,26 @@
 (delete_shared_buffer_spec area: (identifier) @constant)
 (import_from_database_spec area: (identifier) @constant)
 
+(export_data_cluster_parameter name: (identifier) @variable.parameter)
+(import_data_cluster_parameter name: (identifier) @variable.parameter)
+(data_cluster_parameter_table table: (identifier) @variable)
+(export_data_buffer_spec destination: (identifier) @variable)
+(import_data_buffer_spec source: (identifier) @variable)
+
+(export_database_spec table: (identifier) @type)
+(export_shared_memory_spec table: (identifier) @type)
+(export_shared_buffer_spec table: (identifier) @type)
+(import_database_spec table: (identifier) @type)
+(import_shared_memory_spec table: (identifier) @type)
+(import_shared_buffer_spec table: (identifier) @type)
+
+(export_database_spec area: (identifier) @constant)
+(export_shared_memory_spec area: (identifier) @constant)
+(export_shared_buffer_spec area: (identifier) @constant)
+(import_database_spec area: (identifier) @constant)
+(import_shared_memory_spec area: (identifier) @constant)
+(import_shared_buffer_spec area: (identifier) @constant)
+
 
 (method_spec name: (identifier) @function.method ) 
 
