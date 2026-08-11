@@ -1,0 +1,57 @@
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / DELETE FROM ] ABAP Memory
+=================================================================================
+DELETE FROM MEMORY ID 'demo'.
+---
+
+(source
+  (delete_from_statement
+    medium: (delete_memory_spec
+      (data_cluster_id_spec
+        id: (string_literal)))))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / DELETE FROM ] Database
+=================================================================================
+DELETE FROM DATABASE demo_indx_blob(XY) ID cluster_id.
+---
+
+(source
+  (delete_from_statement
+    medium: (delete_database_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_id_spec
+        id: (identifier)))))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / DELETE FROM ] Shared memory
+=================================================================================
+DELETE FROM SHARED MEMORY demo_indx_blob(XY) CLIENT client ID 'demo'.
+---
+
+(source
+  (delete_from_statement
+    medium: (delete_shared_memory_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_client_spec
+        client: (identifier))
+      (data_cluster_id_spec
+        id: (string_literal)))))
+
+=================================================================================
+[ ABAP - Processing External Data / Data Cluster / DELETE FROM ] Shared buffer
+=================================================================================
+DELETE FROM SHARED BUFFER demo_indx_blob(XY) CLIENT '100' ID cluster_id.
+---
+
+(source
+  (delete_from_statement
+    medium: (delete_shared_buffer_spec
+      table: (identifier)
+      area: (identifier)
+      (data_cluster_client_spec
+        client: (string_literal))
+      (data_cluster_id_spec
+        id: (identifier)))))

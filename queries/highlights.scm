@@ -59,6 +59,15 @@
 (receive_results_statement name: (string_literal) @string.special.symbol )
 (id_field_spec id: (string_literal) @string.special.symbol )
 (free_memory_statement id: (string_literal) @string.special.symbol )
+(data_cluster_id_spec id: (string_literal) @string.special.symbol )
+
+(delete_database_spec table: (identifier) @type)
+(delete_shared_memory_spec table: (identifier) @type)
+(delete_shared_buffer_spec table: (identifier) @type)
+
+(delete_database_spec area: (identifier) @constant)
+(delete_shared_memory_spec area: (identifier) @constant)
+(delete_shared_buffer_spec area: (identifier) @constant)
 
 
 (method_spec name: (identifier) @function.method ) 

@@ -498,6 +498,10 @@
         "named": true
       },
       {
+        "type": "delete_from_statement",
+        "named": true
+      },
+      {
         "type": "delete_statement",
         "named": true
       },
@@ -8551,6 +8555,90 @@
     }
   },
   {
+    "type": "data_cluster_client_spec",
+    "named": true,
+    "fields": {
+      "client": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "client",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "data_cluster_id_spec",
+    "named": true,
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "id",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "data_declaration",
     "named": true,
     "fields": {
@@ -10011,6 +10099,56 @@
     }
   },
   {
+    "type": "delete_database_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "database",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "delete_dataset_statement",
     "named": true,
     "fields": {
@@ -10096,6 +10234,48 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "delete_from_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "delete",
+            "named": false
+          },
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "medium": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "delete_database_spec",
+            "named": true
+          },
+          {
+            "type": "delete_memory_spec",
+            "named": true
+          },
+          {
+            "type": "delete_shared_buffer_spec",
+            "named": true
+          },
+          {
+            "type": "delete_shared_memory_spec",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -10301,6 +10481,140 @@
       "types": [
         {
           "type": "itab_lines_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_memory_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "memory",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_shared_buffer_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "buffer",
+            "named": false
+          },
+          {
+            "type": "shared",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_shared_memory_spec",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "memory",
+            "named": false
+          },
+          {
+            "type": "shared",
+            "named": false
+          }
+        ]
+      },
+      "table": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_cluster_client_spec",
+          "named": true
+        },
+        {
+          "type": "data_cluster_id_spec",
           "named": true
         }
       ]
@@ -38417,6 +38731,10 @@
   },
   {
     "type": "bt",
+    "named": false
+  },
+  {
+    "type": "buffer",
     "named": false
   },
   {

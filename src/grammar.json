@@ -111,6 +111,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "delete_from_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "function_call"
           },
           {
@@ -1430,6 +1434,207 @@
           "type": "SYMBOL",
           "name": "_kw_memory"
         },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_id"
+        },
+        {
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
+        }
+      ]
+    },
+    "delete_from_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__delete_from_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__delete_from_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_delete"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "FIELD",
+          "name": "medium",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "delete_memory_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "delete_database_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "delete_shared_memory_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "delete_shared_buffer_spec"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "delete_memory_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_memory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_cluster_id_spec"
+        }
+      ]
+    },
+    "delete_database_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_database"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__cluster_delete_spec"
+        }
+      ]
+    },
+    "delete_shared_memory_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shared"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_memory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__cluster_delete_spec"
+        }
+      ]
+    },
+    "delete_shared_buffer_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_shared"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_buffer"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__cluster_delete_spec"
+        }
+      ]
+    },
+    "__cluster_delete_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "table",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "area",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_immediate_identifier"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": ")"
+              }
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "data_cluster_client_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_cluster_id_spec"
+        }
+      ]
+    },
+    "data_cluster_client_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_client"
+        },
+        {
+          "type": "FIELD",
+          "name": "client",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
+        }
+      ]
+    },
+    "data_cluster_id_spec": {
+      "type": "SEQ",
+      "members": [
         {
           "type": "SYMBOL",
           "name": "_kw_id"
@@ -35176,6 +35381,71 @@
         "value": "memory"
       }
     },
+    "_kw_from": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)from"
+        },
+        "named": false,
+        "value": "from"
+      }
+    },
+    "_kw_database": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)database"
+        },
+        "named": false,
+        "value": "database"
+      }
+    },
+    "_kw_shared": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)shared"
+        },
+        "named": false,
+        "value": "shared"
+      }
+    },
+    "_kw_buffer": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)buffer"
+        },
+        "named": false,
+        "value": "buffer"
+      }
+    },
+    "_kw_client": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)client"
+        },
+        "named": false,
+        "value": "client"
+      }
+    },
     "_kw_update": {
       "type": "FIELD",
       "name": "keyword",
@@ -37022,19 +37292,6 @@
         "value": "where"
       }
     },
-    "_kw_from": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)from"
-        },
-        "named": false,
-        "value": "from"
-      }
-    },
     "_kw_step": {
       "type": "FIELD",
       "name": "keyword",
@@ -38033,19 +38290,6 @@
         },
         "named": false,
         "value": "testing"
-      }
-    },
-    "_kw_shared": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)shared"
-        },
-        "named": false,
-        "value": "shared"
       }
     },
     "_kw_enabled": {
@@ -42089,19 +42333,6 @@
         "value": "defining"
       }
     },
-    "_kw_database": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)database"
-        },
-        "named": false,
-        "value": "database"
-      }
-    },
     "_kw_disable": {
       "type": "FIELD",
       "name": "keyword",
@@ -42425,19 +42656,6 @@
         },
         "named": false,
         "value": "cds"
-      }
-    },
-    "_kw_client": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)client"
-        },
-        "named": false,
-        "value": "client"
       }
     },
     "_kw_dependent": {
