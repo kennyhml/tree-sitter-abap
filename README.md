@@ -100,6 +100,7 @@ The following language features are currently implemented:
 - [x] AMDP method implementations
 - [x] RAP behavior bool additinos
 - [x] EML statements
+- [x] Data cluster and memory import/export statements
       
 Partially completed categories are not mentioned here.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
@@ -107,6 +108,5 @@ For a more detailed look, you can refer to the test cases in the `test/corpus/` 
 - [ ] **ABAP SQL**, including cursor statements and Native SQL
 - [ ] Dynpro interaction statements
 - [ ] Classical list processing and spool statements
-- [ ] Data cluster and memory import/export statements
 - [ ] Language environment statements (set country, set language, set/get locale language)
 - [ ] Mesh statements
