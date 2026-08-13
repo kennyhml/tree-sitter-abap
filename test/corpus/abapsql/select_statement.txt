@@ -1,7 +1,7 @@
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Basic form
 =================================================================================
-SELECT foo from baz.
+SELECT foo FROM baz INTO @result.
 ---
 
 (source
@@ -9,12 +9,16 @@ SELECT foo from baz.
     (select_list
       (identifier))
     (from_database_source_spec
-      source: (identifier))))
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
 
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Wildcard select
 =================================================================================
-SELECT * from baz.
+SELECT * FROM baz INTO TABLE @results.
 ---
 
 (source
@@ -22,12 +26,16 @@ SELECT * from baz.
     (select_list
       (select_wildcard))
     (from_database_source_spec
-      source: (identifier))))
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
 
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Select multiple fields
 =================================================================================
-SELECT foo, bar, baz from baz.
+SELECT foo, bar, baz FROM source INTO (@result_one, @result_two, @result_three).
 ---
 
 (source
@@ -37,12 +45,45 @@ SELECT foo, bar, baz from baz.
       (identifier)
       (identifier))
     (from_database_source_spec
-      source: (identifier))))
+      source: (identifier))
+    (select_into_spec
+      (select_result_targets
+        (sql_host_variable
+          variable: (identifier))
+        (sql_host_variable
+          variable: (identifier))
+        (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Obsolete space-separated fields
+=================================================================================
+SELECT foo bar source~baz FROM source INTO (@first, @second, @third).
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier)
+      (identifier)
+      (qualified_field
+        source: (identifier)
+        target: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_targets
+        (sql_host_variable
+          variable: (identifier))
+        (sql_host_variable
+          variable: (identifier))
+        (sql_host_variable
+          variable: (identifier))))))
 
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Explicit fields syntax
 =================================================================================
-SELECT FROM foo FIELDS bar, baz.
+SELECT FROM foo FIELDS bar, baz INTO @result.
 ---
 
 (source
@@ -52,12 +93,17 @@ SELECT FROM foo FIELDS bar, baz.
     (select_fields_spec
       (select_list
         (identifier)
-        (identifier)))))
+        (identifier)))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
 
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Distinct fields
 =================================================================================
-SELECT DISTINCT foo, bar, baz from source.
+SELECT DISTINCT foo, bar, baz FROM source
+  INTO CORRESPONDING FIELDS OF @result.
 ---
 
 (source
@@ -68,12 +114,18 @@ SELECT DISTINCT foo, bar, baz from source.
       (identifier)
       (identifier))
     (from_database_source_spec
-      source: (identifier))))
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        (corresponding_fields_of)
+        work_area: (sql_host_variable
+          variable: (identifier))))))
 
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Fully qualified fields
 =================================================================================
-SELECT source~bar, source~baz from source.
+SELECT source~bar, source~baz FROM source
+  APPENDING CORRESPONDING FIELDS OF TABLE @results PACKAGE SIZE 10.
 ---
 
 (source
@@ -86,12 +138,19 @@ SELECT source~bar, source~baz from source.
         source: (identifier)
         target: (identifier)))
     (from_database_source_spec
-      source: (identifier))))
+      source: (identifier))
+    (select_appending_spec
+      (select_result_table
+        (corresponding_fields_of)
+        table: (sql_host_variable
+          variable: (identifier))
+        (package_size_spec
+          size: (number))))))
 
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Source wildcard
 =================================================================================
-SELECT source~* from source.
+SELECT source~* FROM source INTO TABLE @results.
 ---
 
 (source
@@ -101,4 +160,63 @@ SELECT source~* from source.
         source: (identifier)
         target: (select_wildcard)))
     (from_database_source_spec
-      source: (identifier))))
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Dynamic fields
+=================================================================================
+SELECT (columns) FROM source INTO @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (dynamic_spec
+        value: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Single row for update
+=================================================================================
+SELECT SINGLE FOR UPDATE field FROM source INTO @result.
+---
+
+(source
+  (select_statement
+    (single)
+    (for_update)
+    (select_list
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Select loop
+=================================================================================
+SELECT field FROM source INTO @result.
+ENDSELECT.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))

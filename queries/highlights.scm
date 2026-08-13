@@ -855,6 +855,17 @@
 (macro_include name: (identifier) @function.macro )
 
 
+; ABAP SQL
+(from_database_source_spec (identifier) @type )
+(select_list (identifier) @variable.member )
+(qualified_field
+  source: (identifier) @type
+  target: (identifier)? @variable.member
+)
+(sql_host_variable "@" @punctuation.special)
+
+
+
 
 ; ------------------------------------------
 ; ABAP Doc tags, links, etc.
