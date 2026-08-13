@@ -782,6 +782,10 @@
         "named": true
       },
       {
+        "type": "select_statement",
+        "named": true
+      },
+      {
         "type": "set_bit_statement",
         "named": true
       },
@@ -13480,6 +13484,22 @@
     }
   },
   {
+    "type": "distinct",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "distinct",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "do_statement",
     "named": true,
     "fields": {
@@ -16946,6 +16966,26 @@
     }
   },
   {
+    "type": "for_update",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "update",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "for_update_spec",
     "named": true,
     "fields": {
@@ -17700,6 +17740,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "from_database_source_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -28572,6 +28638,36 @@
     }
   },
   {
+    "type": "qualified_field",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "select_wildcard",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "radiobutton_group_spec",
     "named": true,
     "fields": {
@@ -31913,6 +32009,63 @@
     "fields": {}
   },
   {
+    "type": "select_fields_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fields",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "select_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "distinct",
+          "named": true
+        },
+        {
+          "type": "dynamic_spec",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_field",
+          "named": true
+        },
+        {
+          "type": "select_wildcard",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "select_options_declaration",
     "named": true,
     "fields": {
@@ -32089,6 +32242,53 @@
         ]
       }
     }
+  },
+  {
+    "type": "select_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "select",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "for_update",
+          "named": true
+        },
+        {
+          "type": "from_database_source_spec",
+          "named": true
+        },
+        {
+          "type": "select_fields_spec",
+          "named": true
+        },
+        {
+          "type": "select_list",
+          "named": true
+        },
+        {
+          "type": "single",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_wildcard",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "selection-screen",
@@ -33487,6 +33687,22 @@
           {
             "type": "table_body_access",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "single",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "single",
+            "named": false
           }
         ]
       }
@@ -40499,6 +40715,10 @@
     "named": false
   },
   {
+    "type": "distinct",
+    "named": false
+  },
+  {
     "type": "div",
     "named": false
   },
@@ -41669,6 +41889,10 @@
     "named": false
   },
   {
+    "type": "select",
+    "named": false
+  },
+  {
     "type": "selections",
     "named": false
   },
@@ -41714,6 +41938,10 @@
   },
   {
     "type": "simulation",
+    "named": false
+  },
+  {
+    "type": "single",
     "named": false
   },
   {

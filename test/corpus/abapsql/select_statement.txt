@@ -1,0 +1,104 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Basic form
+=================================================================================
+SELECT foo from baz.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Wildcard select
+=================================================================================
+SELECT * from baz.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Select multiple fields
+=================================================================================
+SELECT foo, bar, baz from baz.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier)
+      (identifier)
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Explicit fields syntax
+=================================================================================
+SELECT FROM foo FIELDS bar, baz.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (identifier))
+    (select_fields_spec
+      (select_list
+        (identifier)
+        (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Distinct fields
+=================================================================================
+SELECT DISTINCT foo, bar, baz from source.
+---
+
+(source
+  (select_statement
+    (select_list
+      (distinct)
+      (identifier)
+      (identifier)
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Fully qualified fields
+=================================================================================
+SELECT source~bar, source~baz from source.
+---
+
+(source
+  (select_statement
+    (select_list
+      (qualified_field
+        source: (identifier)
+        target: (identifier))
+      (qualified_field
+        source: (identifier)
+        target: (identifier)))
+    (from_database_source_spec
+      source: (identifier))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Source wildcard
+=================================================================================
+SELECT source~* from source.
+---
+
+(source
+  (select_statement
+    (select_list
+      (qualified_field
+        source: (identifier)
+        target: (select_wildcard)))
+    (from_database_source_spec
+      source: (identifier))))

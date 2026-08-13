@@ -603,6 +603,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "select_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -793,6 +797,262 @@
             "type": "SYMBOL",
             "name": "_simple_operand"
           }
+        }
+      ]
+    },
+    "select_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__select_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__select_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_select"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__mainquery_clause"
+        }
+      ]
+    },
+    "__mainquery_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "single"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "for_update"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "from_database_source_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "select_fields_spec"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "select_list"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "from_database_source_spec"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "select_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "distinct"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "select_wildcard"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "dynamic_spec"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "qualified_field"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "qualified_field"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "identifier"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "from_database_source_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "select_fields_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_fields"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "select_list"
+        }
+      ]
+    },
+    "single": {
+      "type": "SYMBOL",
+      "name": "_kw_single"
+    },
+    "qualified_field": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "~"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "select_wildcard"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "select_wildcard": {
+      "type": "STRING",
+      "value": "*"
+    },
+    "distinct": {
+      "type": "SYMBOL",
+      "name": "_kw_distinct"
+    },
+    "for_update": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_update"
         }
       ]
     },
@@ -36173,6 +36433,97 @@
         "value": "into"
       }
     },
+    "_kw_select": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)select"
+        },
+        "named": false,
+        "value": "select"
+      }
+    },
+    "_kw_from": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)from"
+        },
+        "named": false,
+        "value": "from"
+      }
+    },
+    "_kw_fields": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)fields"
+        },
+        "named": false,
+        "value": "fields"
+      }
+    },
+    "_kw_single": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)single"
+        },
+        "named": false,
+        "value": "single"
+      }
+    },
+    "_kw_distinct": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)distinct"
+        },
+        "named": false,
+        "value": "distinct"
+      }
+    },
+    "_kw_for": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)for"
+        },
+        "named": false,
+        "value": "for"
+      }
+    },
+    "_kw_update": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)update"
+        },
+        "named": false,
+        "value": "update"
+      }
+    },
     "__kw_authority_check": {
       "type": "SEQ",
       "members": [
@@ -36213,19 +36564,6 @@
         },
         "named": false,
         "value": "object"
-      }
-    },
-    "_kw_for": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)for"
-        },
-        "named": false,
-        "value": "for"
       }
     },
     "_kw_user": {
@@ -36382,19 +36720,6 @@
         },
         "named": false,
         "value": "to"
-      }
-    },
-    "_kw_from": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)from"
-        },
-        "named": false,
-        "value": "from"
       }
     },
     "_kw_client": {
@@ -36756,19 +37081,6 @@
         },
         "named": false,
         "value": "directory"
-      }
-    },
-    "_kw_update": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)update"
-        },
-        "named": false,
-        "value": "update"
       }
     },
     "_kw_task": {
@@ -38654,19 +38966,6 @@
         },
         "named": false,
         "value": "all"
-      }
-    },
-    "_kw_fields": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)fields"
-        },
-        "named": false,
-        "value": "fields"
       }
     },
     "_kw_base": {

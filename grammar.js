@@ -276,6 +276,9 @@ module.exports = grammar({
           $.read_entity_statement,
           $.read_entities_statement,
 
+          // abap sql
+          $.select_statement,
+
           $._empty_statement,
         ),
       ),
@@ -458,20 +461,12 @@ module.exports = grammar({
         $.parenthesized_expression,
       ),
 
-    _contextual_expression: $ =>
-      choice($._contextual_identifier, $.expression),
+    _contextual_expression: $ => choice($._contextual_identifier, $.expression),
 
     // Restricted source forms used in positions where a full expression causes
     // ambiguity or where the ABAP syntax explicitly requires a single operand.
     _simple_operand: $ =>
-      prec(
-        100,
-        choice(
-          $._reference_operand,
-          $.literal,
-          $.substring_access,
-        ),
-      ),
+      prec(100, choice($._reference_operand, $.literal, $.substring_access)),
 
     _contextual_simple_operand: $ =>
       choice($._contextual_identifier, $._simple_operand),
@@ -479,11 +474,7 @@ module.exports = grammar({
     _reference_operand: $ =>
       prec(
         2,
-        choice(
-          $.name_reference,
-          $.component_selection,
-          $.table_body_access,
-        ),
+        choice($.name_reference, $.component_selection, $.table_body_access),
       ),
 
     _call_or_access_operand: $ =>
@@ -522,8 +513,7 @@ module.exports = grammar({
         ),
       ),
 
-    _result_target: $ =>
-      choice($._modifiable_target, $.declaration_expression),
+    _result_target: $ => choice($._modifiable_target, $.declaration_expression),
 
     // The character-like result required by these positions is checked semantically.
     _character_position: $ =>
@@ -569,9 +559,7 @@ module.exports = grammar({
 
     /** Expressions remain valid here for permissive parsing and macro-like syntax. */
     statement_block: $ =>
-      prec.left(
-        repeat1(choice($.simple_statement, $.docstring, $.expression)),
-      ),
+      prec.left(repeat1(choice($.simple_statement, $.docstring, $.expression))),
 
     /**
      * INCLUDE {TYPE | STRUCTURE} inside struct declaration (BEGIN OF...).
