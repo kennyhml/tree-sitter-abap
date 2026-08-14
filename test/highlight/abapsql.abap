@@ -124,3 +124,20 @@ SELECT * FROM spfli
   INTO TABLE @results.
 "            ^ punctuation.special
 "             ^ variable
+
+SELECT * FROM source
+"             ^ type
+  WHERE source~field IN (
+"       ^ type
+"              ^ variable.member
+    SELECT field FROM lookup )
+"          ^ variable.member
+"                     ^ type
+    AND (foo, bar) IN ((@foo, @bar), (@baz, @baz2))
+"        ^ variable.member
+"             ^ variable.member
+"                       ^ punctuation.special
+"                        ^ variable
+"                                           ^ punctuation.special
+"                                            ^ variable
+  INTO TABLE @results.

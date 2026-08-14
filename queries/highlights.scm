@@ -864,6 +864,7 @@
 )
 (sql_host_variable "@" @punctuation.special)
 (sql_host_expression "@" @punctuation.special)
+(sql_operand_list (identifier) @variable.member)
 
 
 

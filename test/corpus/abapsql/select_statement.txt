@@ -127,8 +127,136 @@ SELECT * FROM spfli
         right: (comparison_expression
           left: (identifier)
           right: (sql_in_spec
-            (number)
-            (number)))))
+            (sql_in_list
+              (number)
+              (number))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Simple IN lists
+=================================================================================
+SELECT * FROM scarr
+  WHERE carrid IN ( 'LH', 'AA', 'UA' )
+    AND currcode NOT IN ( @primary_currency, @secondary_currency )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (sql_in_spec
+            (sql_in_list
+              (string_literal)
+              (string_literal)
+              (string_literal))))
+        right: (comparison_expression
+          left: (identifier)
+          right: (sql_in_spec
+            (sql_in_list
+              (sql_host_variable
+                variable: (identifier))
+              (sql_host_variable
+                variable: (identifier)))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] IN subqueries
+=================================================================================
+SELECT * FROM spfli
+  WHERE carrid IN (
+    SELECT carrid FROM scarr WHERE currcode = @currency )
+    AND connid NOT IN (
+      SELECT connid FROM spfli
+        WHERE cityfrom IN ( 'BERLIN', 'FRANKFURT' ) )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (sql_in_spec
+            (sql_in_list
+              (sql_subquery
+                (select_list
+                  (identifier))
+                (from_database_source_spec
+                  source: (identifier))
+                (where_condition_spec
+                  condition: (comparison_expression
+                    left: (identifier)
+                    right: (sql_host_variable
+                      variable: (identifier))))))))
+        right: (comparison_expression
+          left: (identifier)
+          right: (sql_in_spec
+            (sql_in_list
+              (sql_subquery
+                (select_list
+                  (identifier))
+                (from_database_source_spec
+                  source: (identifier))
+                (where_condition_spec
+                  condition: (comparison_expression
+                    left: (identifier)
+                    right: (sql_in_spec
+                      (sql_in_list
+                        (string_literal)
+                        (string_literal)))))))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Operand-list IN
+=================================================================================
+SELECT * FROM source
+  WHERE (foo, bar) IN ((@foo, @bar), (@baz, @baz2))
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (sql_operand_list
+          (identifier)
+          (identifier))
+        right: (sql_operand_list_in_spec
+          (sql_operand_list
+            (sql_host_variable
+              variable: (identifier))
+            (sql_host_variable
+              variable: (identifier)))
+          (sql_operand_list
+            (sql_host_variable
+              variable: (identifier))
+            (sql_host_variable
+              variable: (identifier))))))
     (select_into_spec
       (select_result_table
         table: (sql_host_variable
@@ -281,20 +409,22 @@ SELECT * FROM spfli
             source: (identifier)
             target: (identifier))
           right: (sql_in_spec
-            (string_literal)
-            (sql_host_variable
-              variable: (identifier))
-            (sql_host_expression
-              expression: (identifier))))
+            (sql_in_list
+              (string_literal)
+              (sql_host_variable
+                variable: (identifier))
+              (sql_host_expression
+                expression: (identifier)))))
         right: (comparison_expression
           left: (identifier)
           right: (sql_in_spec
-            (number)
-            (sql_host_variable
-              variable: (identifier))
-            (qualified_field
-              source: (identifier)
-              target: (identifier))))))
+            (sql_in_list
+              (number)
+              (sql_host_variable
+                variable: (identifier))
+              (qualified_field
+                source: (identifier)
+                target: (identifier)))))))
     (select_into_spec
       (select_result_table
         table: (sql_host_variable

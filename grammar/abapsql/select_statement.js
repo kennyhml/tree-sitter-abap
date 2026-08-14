@@ -24,6 +24,9 @@ module.exports = {
       choice($.select_into_spec, $.select_appending_spec),
     ),
 
+  // https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENWHERE_LOGEXP_SUBQUERY.html
+  sql_subquery: $ => seq(gen.kw("select"), $.__mainquery_clause),
+
   /**
    * ... [SINGLE [FOR UPDATE]]
    *     { FROM source
@@ -67,10 +70,7 @@ module.exports = {
         $.select_wildcard,
         $.dynamic_spec,
         choice(
-          seq(
-            $._select_list_field,
-            repeat1(seq(",", $._select_list_field)),
-          ),
+          seq($._select_list_field, repeat1(seq(",", $._select_list_field))),
           repeat1($._select_list_field),
         ), // TODO: col spec
       ),

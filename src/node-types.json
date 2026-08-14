@@ -6855,6 +6855,10 @@
           {
             "type": "sql_host_variable",
             "named": true
+          },
+          {
+            "type": "sql_operand_list",
+            "named": true
           }
         ]
       },
@@ -6912,6 +6916,10 @@
           },
           {
             "type": "sql_null_spec",
+            "named": true
+          },
+          {
+            "type": "sql_operand_list_in_spec",
             "named": true
           }
         ]
@@ -35070,24 +35078,9 @@
     }
   },
   {
-    "type": "sql_in_spec",
+    "type": "sql_in_list",
     "named": true,
-    "fields": {
-      "keyword": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "in",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
@@ -35110,6 +35103,44 @@
         },
         {
           "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_in_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "in",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_in_list",
           "named": true
         }
       ]
@@ -35237,6 +35268,109 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "sql_operand_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "qualified_field",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_operand_list_in_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "in",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_operand_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_subquery",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "select",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_update",
+          "named": true
+        },
+        {
+          "type": "from_database_source_spec",
+          "named": true
+        },
+        {
+          "type": "select_fields_spec",
+          "named": true
+        },
+        {
+          "type": "select_list",
+          "named": true
+        },
+        {
+          "type": "single",
+          "named": true
+        },
+        {
+          "type": "where_condition_spec",
+          "named": true
+        }
+      ]
     }
   },
   {

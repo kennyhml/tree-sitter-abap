@@ -36,6 +36,10 @@ module.exports = {
       alias($.__sql_logical_expression, $.logical_expression),
       alias($.__sql_comparison_expression, $.comparison_expression),
       alias(
+        $.__sql_operand_list_comparison_expression,
+        $.comparison_expression,
+      ),
+      alias(
         $.__sql_parenthesized_logical_expression,
         $.parenthesized_expression,
       ),
@@ -94,6 +98,12 @@ module.exports = {
       ),
     ),
 
+  __sql_operand_list_comparison_expression: $ =>
+    seq(
+      field("left", $.sql_operand_list),
+      field("right", $.sql_operand_list_in_spec),
+    ),
+
   // An operand valid in an sql logical expression, the main reason we had to build
   // this duplication layer.
   _sql_operand: $ =>
@@ -139,10 +149,24 @@ module.exports = {
     seq(
       optional(gen.kw("not")),
       gen.kw("in"),
-      choice(
-        $.sql_host_variable,
-        gen.parenthesized(gen.commaSep1($._sql_operand)),
+      choice($.sql_host_variable, $.sql_in_list),
+    ),
+
+  sql_in_list: $ =>
+    gen.parenthesized(choice(gen.commaSep1($._sql_operand), $.sql_subquery)),
+
+  sql_operand_list: $ =>
+    gen.parenthesized(
+      seq(
+        choice($._immediate_identifier, $._sql_operand),
+        repeat1(seq(",", $._sql_operand)),
       ),
+    ),
+
+  sql_operand_list_in_spec: $ =>
+    seq(
+      gen.kw("in"),
+      gen.parenthesized(gen.commaSep1($.sql_operand_list)),
     ),
 
   _sql_comparison_operator: _ =>
