@@ -85,3 +85,42 @@ SELECT field FROM source INTO @result.
 "                              ^ variable
 ENDSELECT.
 "<- keyword
+
+SELECT * FROM source
+"<- keyword
+"      ^ operator
+"        ^ keyword
+"             ^ type
+  WHERE field = @( value )
+" ^ keyword
+"       ^ variable.member
+"               ^ punctuation.special
+"                  ^ variable
+  INTO TABLE @results.
+" ^ keyword
+"      ^ keyword
+"            ^ punctuation.special
+"             ^ variable
+
+SELECT * FROM spfli
+"             ^ type
+  WHERE NOT ( spfli~carrid = @carrier OR spfli~connid BETWEEN 100 AND 200 )
+"             ^ type
+"                   ^ variable.member
+"                            ^ punctuation.special
+"                             ^ variable
+"                                         ^ type
+"                                               ^ variable.member
+"                                                              ^ number
+"                                                                      ^ number
+    AND spfli~cityfrom NOT LIKE @pattern ESCAPE '#'
+"       ^ type
+"             ^ variable.member
+"                               ^ punctuation.special
+"                                ^ variable
+"                                               ^ string
+     OR (condition)
+"        ^ variable
+  INTO TABLE @results.
+"            ^ punctuation.special
+"             ^ variable

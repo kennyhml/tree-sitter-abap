@@ -863,6 +863,7 @@
   target: (identifier)? @variable.member
 )
 (sql_host_variable "@" @punctuation.special)
+(sql_host_expression "@" @punctuation.special)
 
 
 

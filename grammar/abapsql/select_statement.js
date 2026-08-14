@@ -45,6 +45,7 @@ module.exports = {
         seq($.from_database_source_spec, $.select_fields_spec),
         seq($.select_list, $.from_database_source_spec),
       ),
+      optional($._sql_where_condition_spec),
     ),
 
   /*
@@ -102,8 +103,6 @@ module.exports = {
   // ... (@elem1, @elem2, ... ) ...
   select_result_targets: $ =>
     gen.parenthesized(gen.commaSep1($.sql_host_variable)),
-
-  sql_host_variable: $ => seq("@", field("variable", $._result_target)),
 
   // ... [CORRESPONDING FIELDS OF] wa [indicators] ...
   select_result_struct: $ =>

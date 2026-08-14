@@ -49,8 +49,6 @@ module.exports = grammar({
     [$.start_of_selection_event],
     [$.load_of_program_event],
     [$._named_argument_list],
-    [$.parameters],
-    [$.exceptions],
   ],
 
   extras: $ => [

@@ -6839,6 +6839,22 @@
           {
             "type": "itab_comp",
             "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "qualified_field",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
           }
         ]
       },
@@ -6860,6 +6876,42 @@
           },
           {
             "type": "in_table_spec",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "qualified_field",
+            "named": true
+          },
+          {
+            "type": "sql_between_spec",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_in_spec",
+            "named": true
+          },
+          {
+            "type": "sql_initial_spec",
+            "named": true
+          },
+          {
+            "type": "sql_like_spec",
+            "named": true
+          },
+          {
+            "type": "sql_null_spec",
             "named": true
           }
         ]
@@ -23928,6 +23980,10 @@
             "named": true
           },
           {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
             "type": "initial_predicate",
             "named": true
           },
@@ -23970,6 +24026,10 @@
             "named": true
           },
           {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
             "type": "initial_predicate",
             "named": true
           },
@@ -24009,6 +24069,10 @@
           },
           {
             "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
             "named": true
           },
           {
@@ -27804,6 +27868,10 @@
         },
         {
           "type": "component_selection",
+          "named": true
+        },
+        {
+          "type": "dynamic_spec",
           "named": true
         },
         {
@@ -32504,6 +32572,10 @@
         {
           "type": "single",
           "named": true
+        },
+        {
+          "type": "where_condition_spec",
+          "named": true
         }
       ]
     }
@@ -34870,6 +34942,98 @@
     }
   },
   {
+    "type": "sql_between_spec",
+    "named": true,
+    "fields": {
+      "high": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "qualified_field",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "between",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      },
+      "low": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "qualified_field",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_host_expression",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_host_variable",
     "named": true,
     "fields": {
@@ -34900,6 +35064,176 @@
           {
             "type": "table_body_access",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_in_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "in",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "qualified_field",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_initial_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "initial",
+            "named": false
+          },
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_like_spec",
+    "named": true,
+    "fields": {
+      "escape": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "qualified_field",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "escape",
+            "named": false
+          },
+          {
+            "type": "like",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          }
+        ]
+      },
+      "pattern": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "qualified_field",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_null_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "is",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "null",
+            "named": false
           }
         ]
       }
@@ -41146,6 +41480,10 @@
     "named": false
   },
   {
+    "type": "escape",
+    "named": false
+  },
+  {
     "type": "event",
     "named": false
   },
@@ -41781,6 +42119,10 @@
   },
   {
     "type": "ns",
+    "named": false
+  },
+  {
+    "type": "null",
     "named": false
   },
   {

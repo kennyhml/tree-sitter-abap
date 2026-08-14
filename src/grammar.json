@@ -800,6 +800,584 @@
         }
       ]
     },
+    "_sql_where_condition_spec": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "__sql_where_condition_spec"
+      },
+      "named": true,
+      "value": "where_condition_spec"
+    },
+    "__sql_where_condition_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_where"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_logical_expression"
+          }
+        }
+      ]
+    },
+    "_sql_logical_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__sql_logical_expression"
+          },
+          "named": true,
+          "value": "logical_expression"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__sql_comparison_expression"
+          },
+          "named": true,
+          "value": "comparison_expression"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__sql_parenthesized_logical_expression"
+          },
+          "named": true,
+          "value": "parenthesized_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dynamic_spec"
+        }
+      ]
+    },
+    "__sql_logical_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_RIGHT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_kw_not"
+              },
+              {
+                "type": "FIELD",
+                "name": "negated",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_sql_logical_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_sql_logical_expression"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_kw_and"
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_sql_logical_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_sql_logical_expression"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_kw_or"
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_sql_logical_expression"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "__sql_parenthesized_logical_expression": {
+      "type": "PREC",
+      "value": 4,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_sql_logical_expression"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "__sql_comparison_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "left",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_operand"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_sql_comparison_operator"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "right",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_sql_operand"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "FIELD",
+              "name": "right",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_between_spec"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "right",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_like_spec"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "right",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_null_spec"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "right",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_initial_spec"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "right",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_in_spec"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "_sql_operand": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "qualified_field"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_host_variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_host_expression"
+        }
+      ]
+    },
+    "sql_host_variable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "FIELD",
+          "name": "variable",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_result_target"
+          }
+        }
+      ]
+    },
+    "sql_host_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "expression",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "sql_between_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_not"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_between"
+        },
+        {
+          "type": "FIELD",
+          "name": "low",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_operand"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_and"
+        },
+        {
+          "type": "FIELD",
+          "name": "high",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_operand"
+          }
+        }
+      ]
+    },
+    "sql_like_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_not"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_like"
+        },
+        {
+          "type": "FIELD",
+          "name": "pattern",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_operand"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_escape"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "escape",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_sql_operand"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_null_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_is"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_not"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_null"
+        }
+      ]
+    },
+    "sql_initial_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_is"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_not"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_initial"
+        }
+      ]
+    },
+    "sql_in_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_not"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_in"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_host_variable"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_sql_operand"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "_sql_operand"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_sql_comparison_operator": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_eq"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ne"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_gt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_lt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ge"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_le"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": "<>"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "STRING",
+          "value": ">="
+        },
+        {
+          "type": "STRING",
+          "value": "<="
+        }
+      ]
+    },
     "select_statement": {
       "type": "SEQ",
       "members": [
@@ -920,6 +1498,18 @@
                   "name": "from_database_source_spec"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_sql_where_condition_spec"
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
@@ -1079,23 +1669,6 @@
         {
           "type": "STRING",
           "value": ")"
-        }
-      ]
-    },
-    "sql_host_variable": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "@"
-        },
-        {
-          "type": "FIELD",
-          "name": "variable",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_result_target"
-          }
         }
       ]
     },
@@ -36672,6 +37245,227 @@
         "value": "into"
       }
     },
+    "_kw_where": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)where"
+        },
+        "named": false,
+        "value": "where"
+      }
+    },
+    "_kw_not": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)not"
+        },
+        "named": false,
+        "value": "not"
+      }
+    },
+    "_kw_and": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)and"
+        },
+        "named": false,
+        "value": "and"
+      }
+    },
+    "_kw_or": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)or"
+        },
+        "named": false,
+        "value": "or"
+      }
+    },
+    "_kw_between": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)between"
+        },
+        "named": false,
+        "value": "between"
+      }
+    },
+    "_kw_like": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)like"
+        },
+        "named": false,
+        "value": "like"
+      }
+    },
+    "_kw_escape": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)escape"
+        },
+        "named": false,
+        "value": "escape"
+      }
+    },
+    "_kw_is": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)is"
+        },
+        "named": false,
+        "value": "is"
+      }
+    },
+    "_kw_null": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)null"
+        },
+        "named": false,
+        "value": "null"
+      }
+    },
+    "_kw_initial": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)initial"
+        },
+        "named": false,
+        "value": "initial"
+      }
+    },
+    "_kw_in": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)in"
+        },
+        "named": false,
+        "value": "in"
+      }
+    },
+    "_kw_eq": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)eq"
+        },
+        "named": false,
+        "value": "eq"
+      }
+    },
+    "_kw_ne": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)ne"
+        },
+        "named": false,
+        "value": "ne"
+      }
+    },
+    "_kw_gt": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)gt"
+        },
+        "named": false,
+        "value": "gt"
+      }
+    },
+    "_kw_lt": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)lt"
+        },
+        "named": false,
+        "value": "lt"
+      }
+    },
+    "_kw_ge": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)ge"
+        },
+        "named": false,
+        "value": "ge"
+      }
+    },
+    "_kw_le": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)le"
+        },
+        "named": false,
+        "value": "le"
+      }
+    },
     "_kw_endselect": {
       "type": "FIELD",
       "name": "keyword",
@@ -37260,19 +38054,6 @@
         "value": "boundaries"
       }
     },
-    "_kw_in": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)in"
-        },
-        "named": false,
-        "value": "in"
-      }
-    },
     "__kw_char_to-hex": {
       "type": "SEQ",
       "members": [
@@ -37450,19 +38231,6 @@
         },
         "named": false,
         "value": "rollback"
-      }
-    },
-    "_kw_and": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)and"
-        },
-        "named": false,
-        "value": "and"
       }
     },
     "_kw_wait": {
@@ -39129,19 +39897,6 @@
         "value": "unassign"
       }
     },
-    "_kw_where": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)where"
-        },
-        "named": false,
-        "value": "where"
-      }
-    },
     "_kw_step": {
       "type": "FIELD",
       "name": "keyword",
@@ -39192,19 +39947,6 @@
         },
         "named": false,
         "value": "index"
-      }
-    },
-    "_kw_initial": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)initial"
-        },
-        "named": false,
-        "value": "initial"
       }
     },
     "_kw_components": {
@@ -39361,19 +40103,6 @@
         },
         "named": false,
         "value": "mapping"
-      }
-    },
-    "_kw_like": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)like"
-        },
-        "named": false,
-        "value": "like"
       }
     },
     "_kw_language": {
@@ -40341,19 +41070,6 @@
         },
         "named": false,
         "value": "decimals"
-      }
-    },
-    "_kw_is": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)is"
-        },
-        "named": false,
-        "value": "is"
       }
     },
     "_kw_header": {
@@ -41641,19 +42357,6 @@
         "value": "distance"
       }
     },
-    "_kw_between": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)between"
-        },
-        "named": false,
-        "value": "between"
-      }
-    },
     "__kw_output_length": {
       "type": "SEQ",
       "members": [
@@ -42835,19 +43538,6 @@
         "value": "while"
       }
     },
-    "_kw_or": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)or"
-        },
-        "named": false,
-        "value": "or"
-      }
-    },
     "_kw_equiv": {
       "type": "FIELD",
       "name": "keyword",
@@ -42859,19 +43549,6 @@
         },
         "named": false,
         "value": "equiv"
-      }
-    },
-    "_kw_not": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)not"
-        },
-        "named": false,
-        "value": "not"
       }
     },
     "_kw_assigned": {
@@ -42911,84 +43588,6 @@
         },
         "named": false,
         "value": "requested"
-      }
-    },
-    "_kw_eq": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)eq"
-        },
-        "named": false,
-        "value": "eq"
-      }
-    },
-    "_kw_ne": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)ne"
-        },
-        "named": false,
-        "value": "ne"
-      }
-    },
-    "_kw_gt": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)gt"
-        },
-        "named": false,
-        "value": "gt"
-      }
-    },
-    "_kw_lt": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)lt"
-        },
-        "named": false,
-        "value": "lt"
-      }
-    },
-    "_kw_ge": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)ge"
-        },
-        "named": false,
-        "value": "ge"
-      }
-    },
-    "_kw_le": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)le"
-        },
-        "named": false,
-        "value": "le"
       }
     },
     "_kw_co": {
@@ -46612,12 +47211,6 @@
     ],
     [
       "_named_argument_list"
-    ],
-    [
-      "parameters"
-    ],
-    [
-      "exceptions"
     ]
   ],
   "precedences": [],

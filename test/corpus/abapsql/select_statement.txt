@@ -16,6 +16,328 @@ SELECT foo FROM baz INTO @result.
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Where comparison
+=================================================================================
+SELECT * FROM scarr WHERE scarr~carrid = @carrier INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (qualified_field
+          source: (identifier)
+          target: (identifier))
+        right: (sql_host_variable
+          variable: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Logical where condition
+=================================================================================
+SELECT * FROM spfli
+  WHERE carrid = @carrier AND ( connid >= 100 OR cityfrom IS NOT NULL )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (sql_host_variable
+            variable: (identifier)))
+        right: (parenthesized_expression
+          (logical_expression
+            left: (comparison_expression
+              left: (identifier)
+              right: (number))
+            right: (comparison_expression
+              left: (identifier)
+              right: (sql_null_spec))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Where predicates
+=================================================================================
+SELECT * FROM spfli
+  WHERE connid BETWEEN 100 AND 200 AND cityfrom LIKE 'FR%' ESCAPE '#'
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (sql_between_spec
+            low: (number)
+            high: (number)))
+        right: (comparison_expression
+          left: (identifier)
+          right: (sql_like_spec
+            pattern: (string_literal)
+            escape: (string_literal)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Where operand lists
+=================================================================================
+SELECT * FROM spfli
+  WHERE carrid IN @airlines OR connid IN ( 400, 401 )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (sql_in_spec
+            (sql_host_variable
+              variable: (identifier))))
+        right: (comparison_expression
+          left: (identifier)
+          right: (sql_in_spec
+            (number)
+            (number)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Where host expression
+=================================================================================
+SELECT FROM scarr FIELDS carrid
+  WHERE carrid = @( carrier )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (identifier))
+    (select_fields_spec
+      (select_list
+        (identifier)))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_host_expression
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Dynamic where condition
+=================================================================================
+SELECT * FROM scarr WHERE (condition) INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (dynamic_spec
+        value: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Nested where condition
+=================================================================================
+SELECT * FROM spfli
+  WHERE NOT ( carrid = @carrier OR
+              ( connid LT 100 AND cityto <> 'BERLIN' ) )
+    AND spfli~cityfrom IS NOT INITIAL
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (logical_expression
+          negated: (parenthesized_expression
+            (logical_expression
+              left: (comparison_expression
+                left: (identifier)
+                right: (sql_host_variable
+                  variable: (identifier)))
+              right: (parenthesized_expression
+                (logical_expression
+                  left: (comparison_expression
+                    left: (identifier)
+                    right: (number))
+                  right: (comparison_expression
+                    left: (identifier)
+                    right: (string_literal)))))))
+        right: (comparison_expression
+          left: (qualified_field
+            source: (identifier)
+            target: (identifier))
+          right: (sql_initial_spec))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Negated where predicates
+=================================================================================
+SELECT * FROM spfli
+  WHERE connid NOT BETWEEN @lower AND @( upper + offset )
+     OR cityfrom NOT LIKE @pattern ESCAPE '#'
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (sql_between_spec
+            low: (sql_host_variable
+              variable: (identifier))
+            high: (sql_host_expression
+              expression: (arithmetic_expression
+                left: (identifier)
+                right: (identifier)))))
+        right: (comparison_expression
+          left: (identifier)
+          right: (sql_like_spec
+            pattern: (sql_host_variable
+              variable: (identifier))
+            escape: (string_literal)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Mixed where operand lists
+=================================================================================
+SELECT * FROM spfli
+  WHERE spfli~carrid NOT IN ( 'LH', @carrier, @( fallback_carrier ) )
+    AND connid IN ( 100, @connection, spfli~connid )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (qualified_field
+            source: (identifier)
+            target: (identifier))
+          right: (sql_in_spec
+            (string_literal)
+            (sql_host_variable
+              variable: (identifier))
+            (sql_host_expression
+              expression: (identifier))))
+        right: (comparison_expression
+          left: (identifier)
+          right: (sql_in_spec
+            (number)
+            (sql_host_variable
+              variable: (identifier))
+            (qualified_field
+              source: (identifier)
+              target: (identifier))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Composed dynamic where condition
+=================================================================================
+SELECT * FROM spfli
+  WHERE (base_condition) AND NOT (excluded_condition)
+     OR ( carrid = @carrier AND cityfrom IS NULL )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (logical_expression
+          left: (dynamic_spec
+            value: (identifier))
+          right: (logical_expression
+            negated: (dynamic_spec
+              value: (identifier))))
+        right: (parenthesized_expression
+          (logical_expression
+            left: (comparison_expression
+              left: (identifier)
+              right: (sql_host_variable
+                variable: (identifier)))
+            right: (comparison_expression
+              left: (identifier)
+              right: (sql_null_spec))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Wildcard select
 =================================================================================
 SELECT * FROM baz INTO TABLE @results.
