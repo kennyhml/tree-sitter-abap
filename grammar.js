@@ -75,12 +75,14 @@ module.exports = grammar({
     $.access_expression,
     $.primary_expression,
     $.expression,
+    $._contextual_expression,
 
     $.constructor_expression,
     $.iteration_expression,
     $.calculation_expression,
     $.string_expression,
     $.itab_comp,
+    $.sql_operand,
   ],
 
   word: $ => $.__name,

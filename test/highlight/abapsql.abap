@@ -141,3 +141,14 @@ SELECT * FROM source
 "                                           ^ punctuation.special
 "                                            ^ variable
   INTO TABLE @results.
+
+SELECT * FROM sflight
+  WHERE price > ALL ( SELECT price FROM sflight )
+"       ^ variable.member
+"               ^ keyword
+"                            ^ variable.member
+    AND price > ANY ( SELECT price FROM sflight )
+"               ^ keyword
+    AND price > SOME ( SELECT price FROM sflight )
+"               ^ keyword
+  INTO TABLE @results.

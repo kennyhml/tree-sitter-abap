@@ -111,6 +111,7 @@
 ; This helps a great deal marking basically all identifiers as variables
 ; where they are interchangable with other data-like expressions.
 (name_reference/identifier) @variable
+(_contextual_expression/identifier) @variable
 ((name_reference/identifier) @variable.builtin
   ( #match? @variable.builtin "^(([mM][eE])|([sS][uU][pP][eE][rR])|([sS][yY]))$"))
 
@@ -299,18 +300,6 @@
 (mapping (identifier) @variable.member )
 (lookup_mapping (identifier) @variable.member )
 (except_list_spec (identifier) @variable.member )
-
-
-(where_condition_spec
-  (comparison_expression
-    . (identifier) @variable.member
-  )
-)
-(where_condition_spec
-  (comparison_expression
-    right: (identifier) @variable
-  )
-)
 
 
 ; Parameter identifiers
@@ -865,6 +854,7 @@
 (sql_host_variable "@" @punctuation.special)
 (sql_host_expression "@" @punctuation.special)
 (sql_operand_list (identifier) @variable.member)
+(sql_operand/identifier) @variable.member
 
 
 

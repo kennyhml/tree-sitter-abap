@@ -1,5 +1,19 @@
 [
   {
+    "type": "_contextual_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "expression",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "access_expression",
     "named": true,
     "subtypes": [
@@ -911,6 +925,32 @@
       },
       {
         "type": "write_to_statement",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "sql_operand",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "literal",
+        "named": true
+      },
+      {
+        "type": "qualified_field",
+        "named": true
+      },
+      {
+        "type": "sql_host_expression",
+        "named": true
+      },
+      {
+        "type": "sql_host_variable",
         "named": true
       }
     ]
@@ -6841,23 +6881,21 @@
             "named": true
           },
           {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "qualified_field",
-            "named": true
-          },
-          {
-            "type": "sql_host_expression",
-            "named": true
-          },
-          {
-            "type": "sql_host_variable",
+            "type": "sql_operand",
             "named": true
           },
           {
             "type": "sql_operand_list",
+            "named": true
+          }
+        ]
+      },
+      "quantifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_comparison_quantifier",
             "named": true
           }
         ]
@@ -6867,15 +6905,11 @@
         "required": true,
         "types": [
           {
+            "type": "_contextual_expression",
+            "named": true
+          },
+          {
             "type": "between_spec",
-            "named": true
-          },
-          {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -6883,23 +6917,7 @@
             "named": true
           },
           {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "qualified_field",
-            "named": true
-          },
-          {
             "type": "sql_between_spec",
-            "named": true
-          },
-          {
-            "type": "sql_host_expression",
-            "named": true
-          },
-          {
-            "type": "sql_host_variable",
             "named": true
           },
           {
@@ -6919,7 +6937,15 @@
             "named": true
           },
           {
+            "type": "sql_operand",
+            "named": true
+          },
+          {
             "type": "sql_operand_list_in_spec",
+            "named": true
+          },
+          {
+            "type": "sql_subquery",
             "named": true
           }
         ]
@@ -7762,11 +7788,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -8134,11 +8156,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -14073,15 +14091,11 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "_contextual_expression",
           "named": true
         },
         {
           "type": "format_option",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         }
       ]
@@ -16291,11 +16305,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -19067,11 +19077,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -20815,11 +20821,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -24012,6 +24014,10 @@
             "named": true
           },
           {
+            "type": "sql_exists_spec",
+            "named": true
+          },
+          {
             "type": "supplied_predicate",
             "named": true
           }
@@ -24058,6 +24064,10 @@
             "named": true
           },
           {
+            "type": "sql_exists_spec",
+            "named": true
+          },
+          {
             "type": "supplied_predicate",
             "named": true
           }
@@ -24101,6 +24111,10 @@
           },
           {
             "type": "requested_predicate",
+            "named": true
+          },
+          {
+            "type": "sql_exists_spec",
             "named": true
           },
           {
@@ -27907,6 +27921,10 @@
           "named": true
         },
         {
+          "type": "sql_exists_spec",
+          "named": true
+        },
+        {
           "type": "supplied_predicate",
           "named": true
         },
@@ -30544,11 +30562,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -31106,11 +31120,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -34958,23 +34968,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "qualified_field",
-            "named": true
-          },
-          {
-            "type": "sql_host_expression",
-            "named": true
-          },
-          {
-            "type": "sql_host_variable",
+            "type": "sql_operand",
             "named": true
           }
         ]
@@ -35002,27 +34996,61 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "qualified_field",
-            "named": true
-          },
-          {
-            "type": "sql_host_expression",
-            "named": true
-          },
-          {
-            "type": "sql_host_variable",
+            "type": "sql_operand",
             "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "sql_comparison_quantifier",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "all",
+            "named": false
+          },
+          {
+            "type": "any",
+            "named": false
+          },
+          {
+            "type": "some",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_exists_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "exists",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_subquery",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -35086,23 +35114,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "qualified_field",
-          "named": true
-        },
-        {
-          "type": "sql_host_expression",
-          "named": true
-        },
-        {
-          "type": "sql_host_variable",
+          "type": "sql_operand",
           "named": true
         },
         {
@@ -35179,23 +35191,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "qualified_field",
-            "named": true
-          },
-          {
-            "type": "sql_host_expression",
-            "named": true
-          },
-          {
-            "type": "sql_host_variable",
+            "type": "sql_operand",
             "named": true
           }
         ]
@@ -35223,23 +35219,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "qualified_field",
-            "named": true
-          },
-          {
-            "type": "sql_host_expression",
-            "named": true
-          },
-          {
-            "type": "sql_host_variable",
+            "type": "sql_operand",
             "named": true
           }
         ]
@@ -35279,23 +35259,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "qualified_field",
-          "named": true
-        },
-        {
-          "type": "sql_host_expression",
-          "named": true
-        },
-        {
-          "type": "sql_host_variable",
+          "type": "sql_operand",
           "named": true
         }
       ]
@@ -35321,7 +35285,15 @@
       "required": true,
       "types": [
         {
+          "type": "sql_operand",
+          "named": true
+        },
+        {
           "type": "sql_operand_list",
+          "named": true
+        },
+        {
+          "type": "sql_subquery",
           "named": true
         }
       ]
@@ -36337,11 +36309,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -39830,6 +39798,10 @@
           {
             "type": "parenthesized_expression",
             "named": true
+          },
+          {
+            "type": "sql_exists_spec",
+            "named": true
           }
         ]
       },
@@ -40632,15 +40604,11 @@
         "required": true,
         "types": [
           {
+            "type": "_contextual_expression",
+            "named": true
+          },
+          {
             "type": "dynamic_spec",
-            "named": true
-          },
-          {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -41643,6 +41611,10 @@
   },
   {
     "type": "execute",
+    "named": false
+  },
+  {
+    "type": "exists",
     "named": false
   },
   {
@@ -42705,6 +42677,10 @@
   },
   {
     "type": "smart",
+    "named": false
+  },
+  {
+    "type": "some",
     "named": false
   },
   {

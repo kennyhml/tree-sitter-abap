@@ -228,6 +228,149 @@ SELECT * FROM spfli
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Quantified subquery comparisons
+=================================================================================
+SELECT * FROM sflight
+  WHERE price > ALL ( SELECT price FROM sflight )
+  INTO TABLE @all_results.
+SELECT * FROM sflight
+  WHERE price > ANY ( SELECT price FROM sflight )
+  INTO TABLE @any_results.
+SELECT * FROM sflight
+  WHERE price > SOME ( SELECT price FROM sflight )
+  INTO TABLE @some_results.
+SELECT * FROM sflight
+  WHERE price > ( SELECT price FROM sflight )
+  INTO TABLE @scalar_results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        quantifier: (sql_comparison_quantifier)
+        right: (sql_subquery
+          (select_list
+            (identifier))
+          (from_database_source_spec
+            source: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier)))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        quantifier: (sql_comparison_quantifier)
+        right: (sql_subquery
+          (select_list
+            (identifier))
+          (from_database_source_spec
+            source: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier)))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        quantifier: (sql_comparison_quantifier)
+        right: (sql_subquery
+          (select_list
+            (identifier))
+          (from_database_source_spec
+            source: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier)))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_subquery
+          (select_list
+            (identifier))
+          (from_database_source_spec
+            source: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Quantifier keywords as operands
+=================================================================================
+SELECT * FROM source
+  WHERE all = any AND some = exists
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (identifier))
+        right: (comparison_expression
+          left: (identifier)
+          right: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] EXISTS subquery
+=================================================================================
+SELECT * FROM scarr
+  WHERE EXISTS ( SELECT carrid FROM spfli )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (sql_exists_spec
+        (sql_subquery
+          (select_list
+            (identifier))
+          (from_database_source_spec
+            source: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Operand-list IN
 =================================================================================
 SELECT * FROM source

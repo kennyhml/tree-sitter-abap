@@ -44,6 +44,7 @@ module.exports = {
         $.parenthesized_expression,
       ),
       $.dynamic_spec,
+      $.sql_exists_spec,
     ),
 
   // A local copy of the logical expression core for logical expressions
@@ -81,15 +82,19 @@ module.exports = {
    *     | {operand  IS [NOT] NULL}
    *     | {operand  IS [NOT] INITIAL} } ...
    *
-   * TODO: many of https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENABAP_SQL_STMT_LOGEXP.html
-   *
    * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENABAP_SQL_EXPR_LOGEXP.html
    */
   __sql_comparison_expression: $ =>
     seq(
-      field("left", $._sql_operand),
+      field("left", $.sql_operand),
       choice(
-        seq($._sql_comparison_operator, field("right", $._sql_operand)),
+        seq($._sql_comparison_operator, field("right", $.sql_operand)),
+        // ... > [ALL|ANY|SOME] ( SELECT ... )
+        seq(
+          $._sql_comparison_operator,
+          optional(field("quantifier", $.sql_comparison_quantifier)),
+          gen.parenthesized(field("right", $.sql_subquery)),
+        ),
         field("right", $.sql_between_spec),
         field("right", $.sql_like_spec),
         field("right", $.sql_null_spec),
@@ -106,30 +111,39 @@ module.exports = {
 
   // An operand valid in an sql logical expression, the main reason we had to build
   // this duplication layer.
-  _sql_operand: $ =>
+  sql_operand: $ =>
     choice(
       $.qualified_field,
       $.identifier,
+      $._sql_contextual_identifier,
       $.literal,
       $.sql_host_variable,
       $.sql_host_expression,
+    ),
+
+  _sql_contextual_identifier: $ =>
+    alias(
+      prec(-1, choice(...gen.caseInsensitive("all", "any", "some", "exists"))),
+      $.identifier,
     ),
 
   sql_between_spec: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("between"),
-      field("low", $._sql_operand),
+      field("low", $.sql_operand),
       gen.kw("and"),
-      field("high", $._sql_operand),
+      field("high", $.sql_operand),
     ),
+
+  sql_comparison_quantifier: _ => choice(...gen.kws("all", "any", "some")),
 
   sql_like_spec: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("like"),
-      field("pattern", $._sql_operand),
-      optional(seq(gen.kw("escape"), field("escape", $._sql_operand))),
+      field("pattern", $.sql_operand),
+      optional(seq(gen.kw("escape"), field("escape", $.sql_operand))),
     ),
 
   sql_null_spec: _ =>
@@ -152,21 +166,32 @@ module.exports = {
       choice($.sql_host_variable, $.sql_in_list),
     ),
 
+  // ... IN (@foo, @bar) / ( SELECT subquery ) ...
   sql_in_list: $ =>
-    gen.parenthesized(choice(gen.commaSep1($._sql_operand), $.sql_subquery)),
+    gen.parenthesized(choice(gen.commaSep1($.sql_operand), $.sql_subquery)),
+
+  // ... EXISTS ( SELECT subquery_clauses [UNION|INTERSECT|EXCEPT) ...
+  sql_exists_spec: $ =>
+    seq(gen.kw("exists"), gen.parenthesized($.sql_subquery)),
 
   sql_operand_list: $ =>
     gen.parenthesized(
       seq(
-        choice($._immediate_identifier, $._sql_operand),
-        repeat1(seq(",", $._sql_operand)),
+        choice($._immediate_identifier, $.sql_operand),
+        repeat1(seq(",", $.sql_operand)),
       ),
     ),
 
   sql_operand_list_in_spec: $ =>
     seq(
       gen.kw("in"),
-      gen.parenthesized(gen.commaSep1($.sql_operand_list)),
+      gen.parenthesized(
+        choice(
+          gen.commaSep1($.sql_operand_list),
+          gen.commaSep1($.sql_operand),
+          $.sql_subquery,
+        ),
+      ),
     ),
 
   _sql_comparison_operator: _ =>
