@@ -27,6 +27,44 @@ SELECT \_spfli-connid, source~\_spfli\_sairport-name
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] Source and field aliases
+=================================================================================
+SELECT scarr~carrname AS carrier_name, \_spfli-connid AS connection
+  FROM demo_cds_assoc_scarr AS scarr
+  WHERE scarr~carrid = 'LH'
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (qualified_field
+        source: (identifier)
+        target: (identifier))
+      (sql_field_alias_spec
+        alias: (identifier))
+      (sql_path_element
+        (sql_path_association
+          association: (identifier))
+        component: (identifier))
+      (sql_field_alias_spec
+        alias: (identifier)))
+    (from_database_source_spec
+      source: (identifier)
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (qualified_field
+          source: (identifier)
+          target: (identifier))
+        right: (string_literal)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / Path Expressions ] View arguments
 =================================================================================
 SELECT \_assoc(p_arg = @argument, p_expr = @( offset + 1 ))-field

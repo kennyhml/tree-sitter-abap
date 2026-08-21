@@ -1018,8 +1018,42 @@
       ]
     },
     "_select_list_field": {
-      "type": "SYMBOL",
-      "name": "sql_column_spec"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sql_column_spec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_field_alias_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_field_alias_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_as"
+        },
+        {
+          "type": "FIELD",
+          "name": "alias",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
     },
     "select_into_spec": {
       "type": "SEQ",
@@ -1174,6 +1208,35 @@
         {
           "type": "FIELD",
           "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_source_alias_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_source_alias_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_as"
+        },
+        {
+          "type": "FIELD",
+          "name": "alias",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -38014,6 +38077,19 @@
         "value": "select"
       }
     },
+    "_kw_as": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)as"
+        },
+        "named": false,
+        "value": "as"
+      }
+    },
     "_kw_appending": {
       "type": "FIELD",
       "name": "keyword",
@@ -39671,19 +39747,6 @@
         },
         "named": false,
         "value": "group"
-      }
-    },
-    "_kw_as": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)as"
-        },
-        "named": false,
-        "value": "as"
       }
     },
     "_kw_checkbox": {

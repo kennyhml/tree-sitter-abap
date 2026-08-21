@@ -72,11 +72,15 @@ module.exports = {
         choice(
           seq($._select_list_field, repeat1(seq(",", $._select_list_field))),
           repeat1($._select_list_field),
-        ), // TODO: col spec
+        ),
       ),
     ),
 
-  _select_list_field: $ => $.sql_column_spec,
+  _select_list_field: $ =>
+    seq($.sql_column_spec, optional($.sql_field_alias_spec)),
+
+  sql_field_alias_spec: $ =>
+    seq(gen.kw("as"), field("alias", $.identifier)),
 
   /*
    * ... { INTO (@elem1, @elem2,  ...) }
@@ -122,7 +126,14 @@ module.exports = {
 
   // ... FROM source ...
   from_database_source_spec: $ =>
-    seq(gen.kw("from"), field("source", $.identifier)),
+    seq(
+      gen.kw("from"),
+      field("source", $.identifier),
+      optional($.sql_source_alias_spec),
+    ),
+
+  sql_source_alias_spec: $ =>
+    seq(gen.kw("as"), field("alias", $.identifier)),
 
   // ... PACKAGE SIZE n ...
   package_size_spec: $ =>

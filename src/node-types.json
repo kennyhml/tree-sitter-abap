@@ -17898,6 +17898,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "sql_source_alias_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -32339,6 +32349,10 @@
         {
           "type": "sql_column_spec",
           "named": true
+        },
+        {
+          "type": "sql_field_alias_spec",
+          "named": true
         }
       ]
     }
@@ -35160,6 +35174,32 @@
     }
   },
   {
+    "type": "sql_field_alias_spec",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "as",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_host_expression",
     "named": true,
     "fields": {
@@ -35529,6 +35569,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "sql_source_alias_spec",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "as",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {

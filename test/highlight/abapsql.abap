@@ -175,3 +175,17 @@ SELECT \_assoc(p_arg = @argument)-field FROM source INTO TABLE @results.
 "                      ^ punctuation.special
 "                       ^ variable
 "                                 ^ variable.member
+
+SELECT scarr~carrname AS carrier_name
+"      ^ type
+"            ^ variable.member
+"                     ^ keyword
+"                        ^ variable.member
+  FROM demo_cds_assoc_scarr AS scarr
+"      ^ type
+"                           ^ keyword
+"                              ^ type
+  WHERE scarr~carrid = 'LH'
+"       ^ type
+"             ^ variable.member
+  INTO TABLE @results.
