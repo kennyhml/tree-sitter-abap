@@ -19445,6 +19445,37 @@
     }
   },
   {
+    "type": "group_by_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "grouping_sets_spec",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "group_by_spec",
     "named": true,
     "fields": {
@@ -19623,6 +19654,63 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "grouping_set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "grouping_sets_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "grouping",
+            "named": false
+          },
+          {
+            "type": "sets",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "grouping_set",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -26755,6 +26843,46 @@
     }
   },
   {
+    "type": "nulls_first",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "first",
+            "named": false
+          },
+          {
+            "type": "nulls",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "nulls_last",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "last",
+            "named": false
+          },
+          {
+            "type": "nulls",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "numbering",
     "named": true,
     "fields": {
@@ -27331,6 +27459,64 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "order_by_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ascending",
+          "named": true
+        },
+        {
+          "type": "descending",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "nulls_first",
+          "named": true
+        },
+        {
+          "type": "nulls_last",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "order_by_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "order_by_field",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -28391,6 +28577,26 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "primary_key",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "key",
+            "named": false
+          },
+          {
+            "type": "primary",
+            "named": false
           }
         ]
       }
@@ -32293,6 +32499,40 @@
     }
   },
   {
+    "type": "select_group_by_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "group",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "dynamic_spec",
+          "named": true
+        },
+        {
+          "type": "group_by_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "select_into_spec",
     "named": true,
     "fields": {
@@ -32536,6 +32776,44 @@
     }
   },
   {
+    "type": "select_order_by_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "order",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "dynamic_spec",
+          "named": true
+        },
+        {
+          "type": "order_by_list",
+          "named": true
+        },
+        {
+          "type": "primary_key",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "select_result_struct",
     "named": true,
     "fields": {
@@ -32656,11 +32934,19 @@
           "named": true
         },
         {
+          "type": "select_group_by_spec",
+          "named": true
+        },
+        {
           "type": "select_into_spec",
           "named": true
         },
         {
           "type": "select_list",
+          "named": true
+        },
+        {
+          "type": "select_order_by_spec",
           "named": true
         },
         {
@@ -35629,7 +35915,15 @@
           "named": true
         },
         {
+          "type": "select_group_by_spec",
+          "named": true
+        },
+        {
           "type": "select_list",
+          "named": true
+        },
+        {
+          "type": "select_order_by_spec",
           "named": true
         },
         {
@@ -42113,6 +42407,10 @@
     "named": false
   },
   {
+    "type": "grouping",
+    "named": false
+  },
+  {
     "type": "groups",
     "named": false
   },
@@ -42583,6 +42881,10 @@
     "named": false
   },
   {
+    "type": "nulls",
+    "named": false
+  },
+  {
     "type": "number",
     "named": false
   },
@@ -42671,6 +42973,10 @@
     "named": false
   },
   {
+    "type": "order",
+    "named": false
+  },
+  {
     "type": "others",
     "named": false
   },
@@ -42744,6 +43050,10 @@
   },
   {
     "type": "preferred",
+    "named": false
+  },
+  {
+    "type": "primary",
     "named": false
   },
   {
@@ -42992,6 +43302,10 @@
   },
   {
     "type": "set",
+    "named": false
+  },
+  {
+    "type": "sets",
     "named": false
   },
   {

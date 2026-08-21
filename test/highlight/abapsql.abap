@@ -189,3 +189,26 @@ SELECT scarr~carrname AS carrier_name
 "       ^ type
 "             ^ variable.member
   INTO TABLE @results.
+
+SELECT carrid, connid FROM spfli
+  GROUP BY carrid, GROUPING SETS ( (), (carrid), (connid) )
+" ^ keyword
+"       ^ keyword
+"          ^ variable.member
+"                  ^ keyword
+"                           ^ keyword
+"                                       ^ variable.member
+"                                                 ^ variable.member
+  INTO TABLE @results.
+
+SELECT carrid, connid FROM spfli
+  ORDER BY carrid ASCENDING, connid DESCENDING NULLS LAST
+" ^ keyword
+"       ^ keyword
+"          ^ variable.member
+"                 ^ keyword
+"                            ^ variable.member
+"                                   ^ keyword
+"                                              ^ keyword
+"                                                    ^ keyword
+  INTO TABLE @results.

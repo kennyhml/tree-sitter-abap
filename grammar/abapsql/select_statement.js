@@ -49,6 +49,8 @@ module.exports = {
         seq($.select_list, $.from_database_source_spec),
       ),
       optional($._sql_where_condition_spec),
+      optional($.select_group_by_spec),
+      optional($.select_order_by_spec),
     ),
 
   /*
@@ -76,11 +78,74 @@ module.exports = {
       ),
     ),
 
+  /*
+   * ... GROUP BY { { sql_exp1, sql_exp2 ...
+   *                 grouping_sets1, grouping_sets2, ...}
+   *             | (grouping_syntax) } ...
+   *
+   * TODO: HAVING ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPGROUPBY_CLAUSE.html
+   */
+  select_group_by_spec: $ =>
+    seq(...gen.kws("group", "by"), choice($.group_by_list, $.dynamic_spec)),
+
+  group_by_list: $ =>
+    gen.commaSep1(choice($._sql_expression, $.grouping_sets_spec)),
+
+  /*
+   * ... GROUPING SETS ( ( { }
+   *                       | { sql_exp1, sql_exp2, ... } ),
+   *                     ( { }
+   *                       | { sql_exp1, sql_exp2, ... } ), ... ) ...
+   */
+  grouping_sets_spec: $ =>
+    seq(
+      ...gen.kws("grouping", "sets"),
+      gen.parenthesized(gen.commaSep1($.grouping_set)),
+    ),
+
+  // ... ( sql_exp1, sql_exp2 ) ...
+  grouping_set: $ =>
+    gen.parenthesized(optional(gen.commaSep1($._sql_expression))),
+
   _select_list_field: $ =>
     seq($.sql_column_spec, optional($.sql_field_alias_spec)),
 
-  sql_field_alias_spec: $ =>
-    seq(gen.kw("as"), field("alias", $.identifier)),
+  sql_field_alias_spec: $ => seq(gen.kw("as"), field("alias", $.identifier)),
+
+  /*
+   * ... ORDER BY { PRIMARY KEY
+   *                | sort_key [ASCENDING|DESCENDING]
+   *                           [NULLS FIRST|NULLS LAST], ...
+   *                | (column_syntax) } ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPORDERBY_CLAUSE.html
+   */
+  select_order_by_spec: $ =>
+    seq(
+      ...gen.kws("order", "by"),
+      choice($.primary_key, $.order_by_list, $.dynamic_spec),
+    ),
+
+  primary_key: _ => seq(...gen.kws("primary", "key")),
+
+  order_by_list: $ => gen.commaSep1($.order_by_field),
+
+  order_by_field: $ =>
+    seq(
+      $._sql_expression,
+      optional(choice($.ascending, $.descending)),
+      optional(choice($.nulls_first, $.nulls_last)),
+    ),
+
+  /*
+   * ... [ASCENDING|DESCENDING] [NULLS FIRST|NULLS LAST] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPORDERBY_CLAUSE_ADDITIONS.html
+   */
+  nulls_first: _ => seq(...gen.kws("nulls", "first")),
+  nulls_last: _ => seq(...gen.kws("nulls", "last")),
 
   /*
    * ... { INTO (@elem1, @elem2,  ...) }
@@ -132,8 +197,7 @@ module.exports = {
       optional($.sql_source_alias_spec),
     ),
 
-  sql_source_alias_spec: $ =>
-    seq(gen.kw("as"), field("alias", $.identifier)),
+  sql_source_alias_spec: $ => seq(gen.kw("as"), field("alias", $.identifier)),
 
   // ... PACKAGE SIZE n ...
   package_size_spec: $ =>

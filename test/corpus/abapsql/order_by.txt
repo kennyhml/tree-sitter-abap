@@ -1,0 +1,77 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / ORDER BY ] Primary key
+=================================================================================
+SELECT * FROM spfli
+  ORDER BY PRIMARY KEY
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_order_by_spec
+      (primary_key))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / ORDER BY ] Sort fields
+=================================================================================
+SELECT carrid, connid, fldate FROM sflight
+  ORDER BY carrid ASCENDING,
+           connid DESCENDING NULLS LAST,
+           fldate NULLS FIRST
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier)
+      (identifier)
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (identifier)
+          (ascending))
+        (order_by_field
+          (identifier)
+          (descending)
+          (nulls_last))
+        (order_by_field
+          (identifier)
+          (nulls_first))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / ORDER BY ] Dynamic ordering
+=================================================================================
+SELECT carrid FROM spfli
+  ORDER BY (ordering)
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))
+    (select_order_by_spec
+      (dynamic_spec
+        value: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

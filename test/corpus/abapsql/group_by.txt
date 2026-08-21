@@ -1,0 +1,75 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / GROUP BY ] Expression list
+=================================================================================
+SELECT carrid, connid FROM spfli
+  GROUP BY carrid, connid
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier)
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))
+    (select_group_by_spec
+      (group_by_list
+        (identifier)
+        (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / GROUP BY ] Dynamic grouping
+=================================================================================
+SELECT carrid FROM spfli
+  GROUP BY (grouping)
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))
+    (select_group_by_spec
+      (dynamic_spec
+        value: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / GROUP BY ] Grouping sets
+=================================================================================
+SELECT carrid, connid FROM spfli
+  GROUP BY carrid, GROUPING SETS ( (), (carrid), (carrid, connid) )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (identifier)
+      (identifier))
+    (from_database_source_spec
+      source: (identifier))
+    (select_group_by_spec
+      (group_by_list
+        (identifier)
+        (grouping_sets_spec
+          (grouping_set)
+          (grouping_set
+            (identifier))
+          (grouping_set
+            (identifier)
+            (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
