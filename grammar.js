@@ -83,6 +83,7 @@ module.exports = grammar({
     $.string_expression,
     $.itab_comp,
     $.sql_operand,
+    $.sql_column_spec,
   ],
 
   word: $ => $.__name,

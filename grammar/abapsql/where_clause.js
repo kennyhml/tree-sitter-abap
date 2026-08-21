@@ -113,18 +113,10 @@ module.exports = {
   // this duplication layer.
   sql_operand: $ =>
     choice(
-      $.qualified_field,
-      $.identifier,
-      $._sql_contextual_identifier,
+      $.sql_column_spec,
       $.literal,
       $.sql_host_variable,
       $.sql_host_expression,
-    ),
-
-  _sql_contextual_identifier: $ =>
-    alias(
-      prec(-1, choice(...gen.caseInsensitive("all", "any", "some", "exists"))),
-      $.identifier,
     ),
 
   sql_between_spec: $ =>

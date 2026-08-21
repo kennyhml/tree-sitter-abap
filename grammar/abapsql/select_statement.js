@@ -76,7 +76,7 @@ module.exports = {
       ),
     ),
 
-  _select_list_field: $ => choice($.qualified_field, $.identifier),
+  _select_list_field: $ => $.sql_column_spec,
 
   /*
    * ... { INTO (@elem1, @elem2,  ...) }

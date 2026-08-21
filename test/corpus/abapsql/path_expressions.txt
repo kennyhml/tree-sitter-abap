@@ -1,0 +1,157 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] Basic and nested paths
+=================================================================================
+SELECT \_spfli-connid, source~\_spfli\_sairport-name
+  FROM source INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (sql_path_element
+        (sql_path_association
+          association: (identifier))
+        component: (identifier))
+      (sql_path_element
+        source: (identifier)
+        (sql_path_association
+          association: (identifier))
+        (sql_path_association
+          association: (identifier))
+        component: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] View arguments
+=================================================================================
+SELECT \_assoc(p_arg = @argument, p_expr = @( offset + 1 ))-field
+  FROM source INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (sql_path_element
+        (sql_path_association
+          association: (identifier)
+          (sql_view_arguments
+            (view_argument
+              name: (identifier)
+              value: (sql_host_variable
+                variable: (identifier)))
+            (view_argument
+              name: (identifier)
+              value: (sql_host_expression
+                expression: (arithmetic_expression
+                  left: (identifier)
+                  right: (number))))))
+        component: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] Numeric cardinality
+=================================================================================
+SELECT \_assoc[ (1) INNER WHERE id = @argument ]-field
+  FROM source INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (sql_path_element
+        (sql_path_association
+          association: (identifier)
+          (sql_path_filter
+            (sql_association_cardinality
+              right: (number))
+            (join_kind)
+            condition: (comparison_expression
+              left: (identifier)
+              right: (sql_host_variable
+                variable: (identifier)))))
+        component: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] Word cardinality and filter
+=================================================================================
+SELECT \_assoc[ MANY TO ONE LEFT OUTER WHERE active = 'X' ]-field,
+       \_filtered[ carrid = @carrier ]-name
+  FROM source INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (sql_path_element
+        (sql_path_association
+          association: (identifier)
+          (sql_path_filter
+            (sql_association_cardinality
+              left: (cardinality)
+              right: (cardinality))
+            (join_kind)
+            condition: (comparison_expression
+              left: (identifier)
+              right: (string_literal))))
+        component: (identifier))
+      (sql_path_element
+        (sql_path_association
+          association: (identifier)
+          (sql_path_filter
+            condition: (comparison_expression
+              left: (identifier)
+              right: (sql_host_variable
+                variable: (identifier)))))
+        component: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] To-two and to-many
+=================================================================================
+SELECT \_two[(2)]-field, \_many[(*)]-field
+  FROM source INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (sql_path_element
+        (sql_path_association
+          association: (identifier)
+          (sql_path_filter
+            (sql_association_cardinality
+              right: (number))))
+        component: (identifier))
+      (sql_path_element
+        (sql_path_association
+          association: (identifier)
+          (sql_path_filter
+            (sql_association_cardinality)))
+        component: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

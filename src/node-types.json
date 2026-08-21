@@ -930,7 +930,7 @@
     ]
   },
   {
-    "type": "sql_operand",
+    "type": "sql_column_spec",
     "named": true,
     "subtypes": [
       {
@@ -938,11 +938,25 @@
         "named": true
       },
       {
+        "type": "qualified_field",
+        "named": true
+      },
+      {
+        "type": "sql_path_element",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "sql_operand",
+    "named": true,
+    "subtypes": [
+      {
         "type": "literal",
         "named": true
       },
       {
-        "type": "qualified_field",
+        "type": "sql_column_spec",
         "named": true
       },
       {
@@ -4876,6 +4890,30 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "cardinality",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "exact",
+            "named": false
+          },
+          {
+            "type": "many",
+            "named": false
+          },
+          {
+            "type": "one",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -22775,6 +22813,34 @@
     }
   },
   {
+    "type": "join_kind",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "inner",
+            "named": false
+          },
+          {
+            "type": "left",
+            "named": false
+          },
+          {
+            "type": "outer",
+            "named": false
+          },
+          {
+            "type": "right",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "keeping_directory_entry",
     "named": true,
     "fields": {
@@ -32267,15 +32333,11 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "qualified_field",
-          "named": true
-        },
-        {
           "type": "select_wildcard",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
           "named": true
         }
       ]
@@ -34960,6 +35022,50 @@
     }
   },
   {
+    "type": "sql_association_cardinality",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cardinality",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "cardinality",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_between_spec",
     "named": true,
     "fields": {
@@ -35259,6 +35365,10 @@
       "required": true,
       "types": [
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "sql_operand",
           "named": true
         }
@@ -35294,6 +35404,128 @@
         },
         {
           "type": "sql_subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_path_association",
+    "named": true,
+    "fields": {
+      "association": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "sql_path_filter",
+          "named": true
+        },
+        {
+          "type": "sql_view_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_path_element",
+    "named": true,
+    "fields": {
+      "component": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_path_association",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_path_filter",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_exists_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "where",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "join_kind",
+          "named": true
+        },
+        {
+          "type": "sql_association_cardinality",
           "named": true
         }
       ]
@@ -35340,6 +35572,21 @@
         },
         {
           "type": "where_condition_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_view_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "view_argument",
           "named": true
         }
       ]
@@ -39622,6 +39869,36 @@
     }
   },
   {
+    "type": "view_argument",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "visible_length_spec",
     "named": true,
     "fields": {
@@ -41890,6 +42167,10 @@
     "named": false
   },
   {
+    "type": "inner",
+    "named": false
+  },
+  {
     "type": "input",
     "named": false
   },
@@ -42068,6 +42349,10 @@
   },
   {
     "type": "m",
+    "named": false
+  },
+  {
+    "type": "many",
     "named": false
   },
   {
@@ -42288,6 +42573,10 @@
     "named": false
   },
   {
+    "type": "one",
+    "named": false
+  },
+  {
     "type": "only",
     "named": false
   },
@@ -42317,6 +42606,10 @@
   },
   {
     "type": "others",
+    "named": false
+  },
+  {
+    "type": "outer",
     "named": false
   },
   {

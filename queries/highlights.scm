@@ -846,15 +846,21 @@
 
 ; ABAP SQL
 (from_database_source_spec (identifier) @type )
-(select_list (identifier) @variable.member )
+(sql_column_spec/identifier) @variable.member
 (qualified_field
   source: (identifier) @type
   target: (identifier)? @variable.member
 )
+(sql_path_element
+  source: (identifier)? @type
+  component: (identifier) @variable.member)
+(sql_path_association
+  "\\" @operator
+  association: (identifier) @type)
+(view_argument name: (identifier) @variable.parameter)
 (sql_host_variable "@" @punctuation.special)
 (sql_host_expression "@" @punctuation.special)
 (sql_operand_list (identifier) @variable.member)
-(sql_operand/identifier) @variable.member
 
 
 

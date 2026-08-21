@@ -152,3 +152,26 @@ SELECT * FROM sflight
     AND price > SOME ( SELECT price FROM sflight )
 "               ^ keyword
   INTO TABLE @results.
+
+SELECT source~\_spfli\_sairport[ (1) INNER WHERE id = @airport_id ]-name
+"      ^ type
+"             ^ operator
+"              ^ type
+"                    ^ operator
+"                     ^ type
+"                                 ^ number
+"                                    ^ keyword
+"                                          ^ keyword
+"                                                ^ variable.member
+"                                                     ^ punctuation.special
+"                                                      ^ variable
+"                                                                   ^ variable.member
+  FROM source INTO TABLE @results.
+
+SELECT \_assoc(p_arg = @argument)-field FROM source INTO TABLE @results.
+"      ^ operator
+"       ^ type
+"              ^ variable.parameter
+"                      ^ punctuation.special
+"                       ^ variable
+"                                 ^ variable.member
