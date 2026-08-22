@@ -112,6 +112,7 @@
 ; where they are interchangable with other data-like expressions.
 (name_reference/identifier) @variable
 (_contextual_expression/identifier) @variable
+(_character_position/identifier) @variable
 ((name_reference/identifier) @variable.builtin
   ( #match? @variable.builtin "^(([mM][eE])|([sS][uU][pP][eE][rR])|([sS][yY]))$"))
 

@@ -1,0 +1,93 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / String Expressions ] Chaining
+=================================================================================
+SELECT first_name && ' ' && last_name AS full_name
+  FROM people
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (string_concatenation
+          left: (identifier)
+          right: (string_concatenation
+            left: (string_literal)
+            right: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / String Expressions ] Function and host operands
+=================================================================================
+SELECT COALESCE( prefix, '' ) && @separator && suffix AS display_name
+  FROM people
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (string_concatenation
+          left: (sql_function_call
+            name: (identifier)
+            argument: (sql_positional_argument_list
+              (identifier)
+              (string_literal)))
+          right: (string_concatenation
+            left: (sql_host_variable
+              variable: (identifier))
+            right: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / String Expressions ] Precedence and parentheses
+=================================================================================
+SELECT amount + tax && currency AS total_text,
+       ( first_name && last_name ) && @suffix AS display_name
+  FROM people
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (string_concatenation
+          left: (arithmetic_expression
+            left: (identifier)
+            right: (identifier))
+          right: (identifier))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (string_concatenation
+          left: (parenthesized_expression
+            (string_concatenation
+              left: (identifier)
+              right: (identifier)))
+          right: (sql_host_variable
+            variable: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

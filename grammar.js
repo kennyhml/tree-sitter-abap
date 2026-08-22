@@ -76,6 +76,7 @@ module.exports = grammar({
     $.primary_expression,
     $.expression,
     $._contextual_expression,
+    $._character_position,
 
     $.constructor_expression,
     $.iteration_expression,
@@ -519,6 +520,7 @@ module.exports = grammar({
     // The character-like result required by these positions is checked semantically.
     _character_position: $ =>
       choice(
+        $._contextual_identifier,
         $._simple_operand,
         $.constructor_expression,
         $.string_expression,

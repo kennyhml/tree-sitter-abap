@@ -69,6 +69,16 @@ SELECT CAST( amount AS DEC( 15, 2 ) ) AS converted,
   INTO TABLE @result.
 "             ^ variable
 
+SELECT first_name &&
+"      ^ variable.member
+       ' ' &&
+"      ^ string
+       last_name AS full_name
+"      ^ variable.member
+"                   ^ variable.member
+  FROM people
+  INTO TABLE @result.
+
 SELECT * FROM spfli
 "             ^ type
   WHERE NOT ( spfli~carrid = @carrier OR spfli~connid BETWEEN 100 AND 200 )

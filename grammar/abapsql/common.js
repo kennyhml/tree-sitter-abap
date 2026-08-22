@@ -20,6 +20,7 @@ module.exports = {
       $.sql_column_spec,
       $.literal,
       $.sql_function_call,
+      alias($._sql_string_expression, $.string_concatenation),
       alias($._sql_arithmetic_expression, $.arithmetic_expression),
       alias($.__sql_parenthesized_expression, $.parenthesized_expression),
     ),
@@ -44,7 +45,12 @@ module.exports = {
    * @see https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenabap_sql_host_expressions.html
    */
   sql_host_expression: $ =>
-    seq("@", token.immediate("("), field("expression", $.expression), ")"),
+    seq(
+      "@",
+      token.immediate("("),
+      field("expression", $._contextual_expression),
+      ")",
+    ),
 
   /*
    * ... [data_source|tabalias~]colname

@@ -5,10 +5,7 @@ module.exports = {
   __split_statement_prefix: $ =>
     seq(
       gen.kw("split"),
-      field(
-        "subject",
-        choice($._contextual_identifier, $._character_position),
-      ),
+      field("subject", $._character_position),
       $.split_at_spec,
       alias($.__split_result, $.into_spec),
       optional($._processing_mode_spec),

@@ -18,6 +18,10 @@
 `string` && -1 
 " ^ string
 "            ^ number
+text = text && <col> && `, `.
+"<- variable
+"      ^ variable
+"               ^ variable
 CONCATENATE foo 'b' foo-bar obj->attr INTO FINAL(str). 
 "           ^ variable
 "                ^ string

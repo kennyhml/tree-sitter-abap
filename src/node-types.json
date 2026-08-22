@@ -1,5 +1,51 @@
 [
   {
+    "type": "_character_position",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "component_selection",
+        "named": true
+      },
+      {
+        "type": "constructor_expression",
+        "named": true
+      },
+      {
+        "type": "function_call",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "literal",
+        "named": true
+      },
+      {
+        "type": "name_reference",
+        "named": true
+      },
+      {
+        "type": "string_expression",
+        "named": true
+      },
+      {
+        "type": "substring_access",
+        "named": true
+      },
+      {
+        "type": "table_body_access",
+        "named": true
+      },
+      {
+        "type": "table_expression",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_contextual_expression",
     "named": true,
     "subtypes": [
@@ -1945,6 +1991,10 @@
           {
             "type": "sql_host_variable",
             "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
           }
         ]
       },
@@ -2013,6 +2063,10 @@
           {
             "type": "sql_host_variable",
             "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
           }
         ]
       },
@@ -2046,6 +2100,10 @@
           },
           {
             "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -3978,39 +4036,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -4577,39 +4603,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -4841,39 +4835,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -5716,39 +5678,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -7094,43 +7024,15 @@
         "required": true,
         "types": [
           {
+            "type": "_character_position",
+            "named": true
+          },
+          {
             "type": "arithmetic_expression",
             "named": true
           },
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "number",
             "named": true
           }
         ]
@@ -19045,39 +18947,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -19563,6 +19433,10 @@
         {
           "type": "sql_host_variable",
           "named": true
+        },
+        {
+          "type": "string_concatenation",
+          "named": true
         }
       ]
     }
@@ -19782,6 +19656,10 @@
         },
         {
           "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "string_concatenation",
           "named": true
         }
       ]
@@ -23331,39 +23209,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -25558,39 +25404,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -27411,39 +27225,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -27658,6 +27440,10 @@
         {
           "type": "sql_host_variable",
           "named": true
+        },
+        {
+          "type": "string_concatenation",
+          "named": true
         }
       ]
     }
@@ -27839,39 +27625,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -28365,6 +28119,10 @@
           "named": true
         },
         {
+          "type": "string_concatenation",
+          "named": true
+        },
+        {
           "type": "supplied_predicate",
           "named": true
         },
@@ -28430,39 +28188,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -30428,39 +30154,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -30852,39 +30546,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -32816,6 +32478,10 @@
           {
             "type": "sql_host_variable",
             "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
           }
         ]
       }
@@ -33334,39 +33000,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -33934,39 +33568,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -34231,39 +33833,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -34297,39 +33867,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -34435,39 +33973,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -35370,39 +34876,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -35796,6 +35270,10 @@
           {
             "type": "sql_positional_argument_list",
             "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
           }
         ]
       },
@@ -35884,7 +35362,7 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "_contextual_expression",
             "named": true
           }
         ]
@@ -36092,6 +35570,10 @@
           },
           {
             "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -36346,6 +35828,10 @@
         },
         {
           "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "string_concatenation",
           "named": true
         }
       ]
@@ -36747,39 +36233,35 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
+            "type": "_character_position",
             "named": true
           },
           {
-            "type": "constructor_expression",
+            "type": "arithmetic_expression",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "parenthesized_expression",
             "named": true
           },
           {
-            "type": "literal",
+            "type": "sql_column_spec",
             "named": true
           },
           {
-            "type": "name_reference",
+            "type": "sql_function_call",
             "named": true
           },
           {
-            "type": "string_expression",
+            "type": "sql_host_expression",
             "named": true
           },
           {
-            "type": "substring_access",
+            "type": "sql_host_variable",
             "named": true
           },
           {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -36789,39 +36271,35 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
+            "type": "_character_position",
             "named": true
           },
           {
-            "type": "constructor_expression",
+            "type": "arithmetic_expression",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "parenthesized_expression",
             "named": true
           },
           {
-            "type": "literal",
+            "type": "sql_column_spec",
             "named": true
           },
           {
-            "type": "name_reference",
+            "type": "sql_function_call",
             "named": true
           },
           {
-            "type": "string_expression",
+            "type": "sql_host_expression",
             "named": true
           },
           {
-            "type": "substring_access",
+            "type": "sql_host_variable",
             "named": true
           },
           {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -37218,39 +36696,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -37332,39 +36778,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]
@@ -39293,39 +38707,7 @@
         "required": true,
         "types": [
           {
-            "type": "component_selection",
-            "named": true
-          },
-          {
-            "type": "constructor_expression",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "name_reference",
-            "named": true
-          },
-          {
-            "type": "string_expression",
-            "named": true
-          },
-          {
-            "type": "substring_access",
-            "named": true
-          },
-          {
-            "type": "table_body_access",
-            "named": true
-          },
-          {
-            "type": "table_expression",
+            "type": "_character_position",
             "named": true
           }
         ]

@@ -417,7 +417,7 @@ SELECT * FROM source
 [ ABAP - Database Access / ABAP SQL / SELECT ] Where host expression
 =================================================================================
 SELECT FROM scarr FIELDS carrid
-  WHERE carrid = @( carrier )
+  WHERE carrid = @( value )
   INTO TABLE @results.
 ---
 
