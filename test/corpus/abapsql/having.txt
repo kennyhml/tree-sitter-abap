@@ -1,0 +1,146 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / HAVING ] Grouped comparison
+=================================================================================
+SELECT carrid FROM spfli
+  GROUP BY carrid
+  HAVING carrid = @carrier
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_group_by_spec
+      (group_by_list
+        (identifier)))
+    (having_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_host_variable
+          variable: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / HAVING ] Logical condition before ordering
+=================================================================================
+SELECT carrid, connid FROM spfli
+  GROUP BY carrid, connid
+  HAVING carrid = @carrier
+     AND ( connid BETWEEN @low AND @high OR cityfrom IS NOT NULL )
+  ORDER BY carrid, connid DESCENDING
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_group_by_spec
+      (group_by_list
+        (identifier)
+        (identifier)))
+    (having_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (identifier)
+          right: (sql_host_variable
+            variable: (identifier)))
+        right: (parenthesized_expression
+          (logical_expression
+            left: (comparison_expression
+              left: (identifier)
+              right: (sql_between_spec
+                low: (sql_host_variable
+                  variable: (identifier))
+                high: (sql_host_variable
+                  variable: (identifier))))
+            right: (comparison_expression
+              left: (identifier)
+              right: (sql_null_spec))))))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (identifier))
+        (order_by_field
+          (identifier)
+          (descending))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / HAVING ] Dynamic aggregate query
+=================================================================================
+SELECT (columns) FROM sflight
+  HAVING (condition)
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (dynamic_spec
+        value: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (having_condition_spec
+      condition: (dynamic_spec
+        value: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / HAVING ] Subquery
+=================================================================================
+SELECT * FROM scarr
+  WHERE carrid IN (
+    SELECT carrid FROM spfli
+      GROUP BY carrid
+      HAVING carrid = @carrier )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_in_spec
+          (sql_in_list
+            (sql_subquery
+              (select_list
+                (select_list_item
+                  expression: (identifier)))
+              (from_database_source_spec
+                source: (identifier))
+              (select_group_by_spec
+                (group_by_list
+                  (identifier)))
+              (having_condition_spec
+                condition: (comparison_expression
+                  left: (identifier)
+                  right: (sql_host_variable
+                    variable: (identifier)))))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

@@ -1,0 +1,210 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Arithmetic Expressions ] Select expression
+=================================================================================
+SELECT col1 + @offset AS sum FROM source INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (identifier)
+          right: (sql_host_variable
+            variable: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Arithmetic Expressions ] Precedence and associativity
+=================================================================================
+SELECT col1 + col2 * col3 AS mixed,
+       col1 - col2 - col3 AS left_assoc
+  FROM source
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (identifier)
+          right: (arithmetic_expression
+            left: (identifier)
+            right: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (arithmetic_expression
+            left: (identifier)
+            right: (identifier))
+          right: (identifier))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Arithmetic Expressions ] Parentheses
+=================================================================================
+SELECT ( col1 + col2 ) * col3 AS grouped,
+       ( @offset ) + col1 AS elementary,
+       (( col1 + col2 )) AS nested
+  FROM source
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (parenthesized_expression
+            (arithmetic_expression
+              left: (identifier)
+              right: (identifier)))
+          right: (identifier))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (parenthesized_expression
+            (sql_host_variable
+              variable: (identifier)))
+          right: (identifier))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (parenthesized_expression
+          (parenthesized_expression
+            (arithmetic_expression
+              left: (identifier)
+              right: (identifier))))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Arithmetic Expressions ] Unary minus
+=================================================================================
+SELECT -col1 AS negated,
+       col1 + ( -@offset ) AS adjusted
+  FROM source
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (arithmetic_expression
+          value: (identifier))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (identifier)
+          right: (parenthesized_expression
+            (arithmetic_expression
+              value: (sql_host_variable
+                variable: (identifier)))))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Arithmetic Expressions ] Grouping and ordering
+=================================================================================
+SELECT col1 FROM source
+  GROUP BY col1 + @offset
+  ORDER BY col1 + @offset DESCENDING
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_group_by_spec
+      (group_by_list
+        (arithmetic_expression
+          left: (identifier)
+          right: (sql_host_variable
+            variable: (identifier)))))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (arithmetic_expression
+            left: (identifier)
+            right: (sql_host_variable
+              variable: (identifier)))
+          (descending))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Arithmetic Expressions ] Conditions
+=================================================================================
+SELECT col1 FROM source
+  WHERE col1 + @offset > col2
+  GROUP BY col1
+  HAVING col1 + @offset > @minimum
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (arithmetic_expression
+          left: (identifier)
+          right: (sql_host_variable
+            variable: (identifier)))
+        right: (identifier)))
+    (select_group_by_spec
+      (group_by_list
+        (identifier)))
+    (having_condition_spec
+      condition: (comparison_expression
+        left: (arithmetic_expression
+          left: (identifier)
+          right: (sql_host_variable
+            variable: (identifier)))
+        right: (sql_host_variable
+          variable: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

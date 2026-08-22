@@ -117,6 +117,8 @@ module.exports = {
       $.literal,
       $.sql_host_variable,
       $.sql_host_expression,
+      alias($._sql_arithmetic_expression, $.arithmetic_expression),
+      alias($.__sql_parenthesized_expression, $.parenthesized_expression),
     ),
 
   sql_between_spec: $ =>

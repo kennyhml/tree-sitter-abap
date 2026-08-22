@@ -1,105 +1,72 @@
 SELECT SINGLE FOR UPDATE source~field, source~*
 "<- keyword
-"      ^ keyword
-"             ^ keyword
 "                 ^ keyword
 "                         ^ type
 "                                ^ variable.member
 "                                       ^ type
   FROM source
-" ^ keyword
 "      ^ type
   INTO CORRESPONDING FIELDS OF @result.
-" ^ keyword
-"      ^ keyword
-"                    ^ keyword
-"                           ^ keyword
 "                              ^ punctuation.special
 "                               ^ variable
 
 SELECT FROM source FIELDS DISTINCT field
-"<- keyword
-"      ^ keyword
 "           ^ type
-"                  ^ keyword
-"                         ^ keyword
 "                                  ^ variable.member
   INTO TABLE @results PACKAGE SIZE 10.
-" ^ keyword
-"      ^ keyword
-"            ^ punctuation.special
 "             ^ variable
-"                      ^ keyword
-"                              ^ keyword
-"                                   ^ number
 
 SELECT (columns) FROM source
-"<- keyword
 "       ^ variable
-"                ^ keyword
 "                     ^ type
   APPENDING TABLE @results PACKAGE SIZE package_size.
-" ^ keyword
-"           ^ keyword
-"                 ^ punctuation.special
 "                  ^ variable
-"                           ^ keyword
-"                                   ^ keyword
 "                                        ^ variable
 
 SELECT field FROM source INTO (@first_result, @second_result).
-"<- keyword
 "      ^ variable.member
-"            ^ keyword
 "                 ^ type
-"                        ^ keyword
-"                              ^ punctuation.special
 "                               ^ variable
-"                                             ^ punctuation.special
 "                                              ^ variable
 
 SELECT field_a field_b source~field_c FROM source
-"<- keyword
 "      ^ variable.member
 "               ^ variable.member
 "                       ^ type
 "                              ^ variable.member
-"                                      ^ keyword
 "                                           ^ type
   INTO (@first_result, @second_result, @third_result).
-" ^ keyword
-"       ^ punctuation.special
 "        ^ variable
-"                      ^ punctuation.special
 "                       ^ variable
-"                                      ^ punctuation.special
 "                                       ^ variable
 
 SELECT field FROM source INTO @result.
-"<- keyword
 "      ^ variable.member
-"            ^ keyword
 "                 ^ type
-"                        ^ keyword
-"                             ^ punctuation.special
 "                              ^ variable
 ENDSELECT.
 "<- keyword
 
 SELECT * FROM source
-"<- keyword
-"      ^ operator
-"        ^ keyword
 "             ^ type
   WHERE field = @( value )
-" ^ keyword
 "       ^ variable.member
 "               ^ punctuation.special
 "                  ^ variable
   INTO TABLE @results.
-" ^ keyword
-"      ^ keyword
-"            ^ punctuation.special
+"             ^ variable
+
+SELECT CAST( amount AS DEC( 15, 2 ) ) AS converted,
+"      ^ function.call
+"            ^ variable.member
+"                      ^ type.builtin
+"                                        ^ variable.member
+       COALESCE( description, 'N/A' ) AS label
+"      ^ function.call
+"                ^ variable.member
+"                                        ^ variable.member
+  FROM prices
+  INTO TABLE @result.
 "             ^ variable
 
 SELECT * FROM spfli
@@ -107,22 +74,16 @@ SELECT * FROM spfli
   WHERE NOT ( spfli~carrid = @carrier OR spfli~connid BETWEEN 100 AND 200 )
 "             ^ type
 "                   ^ variable.member
-"                            ^ punctuation.special
 "                             ^ variable
 "                                         ^ type
 "                                               ^ variable.member
-"                                                              ^ number
-"                                                                      ^ number
     AND spfli~cityfrom NOT LIKE @pattern ESCAPE '#'
 "       ^ type
 "             ^ variable.member
-"                               ^ punctuation.special
 "                                ^ variable
-"                                               ^ string
      OR (condition)
 "        ^ variable
   INTO TABLE @results.
-"            ^ punctuation.special
 "             ^ variable
 
 SELECT * FROM source
@@ -136,9 +97,7 @@ SELECT * FROM source
     AND (foo, bar) IN ((@foo, @bar), (@baz, @baz2))
 "        ^ variable.member
 "             ^ variable.member
-"                       ^ punctuation.special
 "                        ^ variable
-"                                           ^ punctuation.special
 "                                            ^ variable
   INTO TABLE @results.
 
@@ -157,33 +116,24 @@ SELECT source~\_spfli\_sairport[ (1) INNER WHERE id = @airport_id ]-name
 "      ^ type
 "             ^ operator
 "              ^ type
-"                    ^ operator
 "                     ^ type
-"                                 ^ number
-"                                    ^ keyword
-"                                          ^ keyword
 "                                                ^ variable.member
-"                                                     ^ punctuation.special
 "                                                      ^ variable
 "                                                                   ^ variable.member
   FROM source INTO TABLE @results.
 
 SELECT \_assoc(p_arg = @argument)-field FROM source INTO TABLE @results.
-"      ^ operator
 "       ^ type
 "              ^ variable.parameter
-"                      ^ punctuation.special
 "                       ^ variable
 "                                 ^ variable.member
 
 SELECT scarr~carrname AS carrier_name
 "      ^ type
 "            ^ variable.member
-"                     ^ keyword
 "                        ^ variable.member
   FROM demo_cds_assoc_scarr AS scarr
 "      ^ type
-"                           ^ keyword
 "                              ^ type
   WHERE scarr~carrid = 'LH'
 "       ^ type
@@ -193,22 +143,45 @@ SELECT scarr~carrname AS carrier_name
 SELECT carrid, connid FROM spfli
   GROUP BY carrid, GROUPING SETS ( (), (carrid), (connid) )
 " ^ keyword
-"       ^ keyword
 "          ^ variable.member
 "                  ^ keyword
-"                           ^ keyword
 "                                       ^ variable.member
 "                                                 ^ variable.member
+  HAVING carrid = @carrier AND connid IS NOT NULL
+" ^ keyword
+"        ^ variable.member
+"                  ^ variable
+"                              ^ variable.member
   INTO TABLE @results.
 
 SELECT carrid, connid FROM spfli
   ORDER BY carrid ASCENDING, connid DESCENDING NULLS LAST
-" ^ keyword
-"       ^ keyword
 "          ^ variable.member
-"                 ^ keyword
 "                            ^ variable.member
 "                                   ^ keyword
-"                                              ^ keyword
-"                                                    ^ keyword
   INTO TABLE @results.
+
+SELECT col1 + @offset AS total, ( col2 * 2 ) - -col3 AS adjusted
+"      ^ variable.member
+"              ^ variable
+"                        ^ variable.member
+"                                 ^ variable.member
+"                                               ^ variable.member
+"                                                       ^ variable.member
+  FROM source
+  WHERE col1 + @offset > col2
+"       ^ variable.member
+"               ^ variable
+"                        ^ variable.member
+  GROUP BY col1 + @offset
+"          ^ variable.member
+"                  ^ variable
+  HAVING col1 + @offset > @minimum
+"        ^ variable.member
+"                ^ variable
+"                          ^ variable
+  ORDER BY ( col1 - col2 ) / 2 DESCENDING
+"            ^ variable.member
+"                   ^ variable.member
+  INTO TABLE @results.
+"             ^ variable

@@ -9,8 +9,10 @@ SELECT carrid, connid FROM spfli
 (source
   (select_statement
     (select_list
-      (identifier)
-      (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_group_by_spec
@@ -33,7 +35,8 @@ SELECT carrid FROM spfli
 (source
   (select_statement
     (select_list
-      (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_group_by_spec
@@ -55,8 +58,10 @@ SELECT carrid, connid FROM spfli
 (source
   (select_statement
     (select_list
-      (identifier)
-      (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_group_by_spec

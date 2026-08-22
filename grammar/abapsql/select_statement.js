@@ -50,6 +50,7 @@ module.exports = {
       ),
       optional($._sql_where_condition_spec),
       optional($.select_group_by_spec),
+      optional($.having_condition_spec),
       optional($.select_order_by_spec),
     ),
 
@@ -72,8 +73,15 @@ module.exports = {
         $.select_wildcard,
         $.dynamic_spec,
         choice(
-          seq($._select_list_field, repeat1(seq(",", $._select_list_field))),
-          repeat1($._select_list_field),
+          gen.commaSep1(
+            alias($._comma_sep_select_list_item, $.select_list_item),
+          ),
+          seq(
+            alias($._space_sep_select_list_item, $.select_list_item),
+            repeat1(
+              alias($._space_sep_select_list_item, $.select_list_item),
+            ),
+          ),
         ),
       ),
     ),
@@ -83,12 +91,19 @@ module.exports = {
    *                 grouping_sets1, grouping_sets2, ...}
    *             | (grouping_syntax) } ...
    *
-   * TODO: HAVING ...
-   *
    * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPGROUPBY_CLAUSE.html
    */
   select_group_by_spec: $ =>
     seq(...gen.kws("group", "by"), choice($.group_by_list, $.dynamic_spec)),
+
+  /*
+   * ... HAVING rel_exp
+   *          | [NOT] sql_cond [AND|OR sql_cond] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPHAVING_CLAUSE.html
+   */
+  having_condition_spec: $ =>
+    seq(gen.kw("having"), field("condition", $._sql_logical_expression)),
 
   group_by_list: $ =>
     gen.commaSep1(choice($._sql_expression, $.grouping_sets_spec)),
@@ -109,8 +124,34 @@ module.exports = {
   grouping_set: $ =>
     gen.parenthesized(optional(gen.commaSep1($._sql_expression))),
 
-  _select_list_field: $ =>
-    seq($.sql_column_spec, optional($.sql_field_alias_spec)),
+  _comma_sep_select_list_item: $ =>
+    choice(
+      seq(
+        field("expression", $._sql_expression),
+        optional(field("alias", $.sql_field_alias_spec)),
+      ),
+      field(
+        "expression",
+        alias($.__qualified_select_all_fields, $.qualified_field),
+      ),
+    ),
+
+  // without comma separation, only limited syntax is possible
+  _space_sep_select_list_item: $ =>
+    prec(
+      -1,
+      seq(
+        field("expression", $.sql_column_spec),
+        optional(field("alias", $.sql_field_alias_spec)),
+      ),
+    ),
+
+  __qualified_select_all_fields: $ =>
+    seq(
+      field("source", $.identifier),
+      token.immediate("~"),
+      field("target", $.select_wildcard),
+    ),
 
   sql_field_alias_spec: $ => seq(gen.kw("as"), field("alias", $.identifier)),
 
@@ -207,13 +248,6 @@ module.exports = {
   select_fields_spec: $ => seq(gen.kw("fields"), $.select_list),
 
   single: _ => gen.kw("single"),
-
-  qualified_field: $ =>
-    seq(
-      field("source", $.identifier),
-      token.immediate("~"),
-      field("target", choice($.select_wildcard, $.identifier)),
-    ),
 
   select_wildcard: _ => "*",
 

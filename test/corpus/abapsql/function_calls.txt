@@ -1,0 +1,317 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Simple cast
+=================================================================================
+SELECT CAST( col as int8 ) as foo FROM spfli INTO @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          argument: (identifier)
+          type: (sql_cast_type
+            name: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Cast host variable
+=================================================================================
+SELECT FROM demo_cds_enum_type_usage_1 
+       FIELDS Id, 
+           CAST( @demo_cds_enum_weekday-wed AS INT1 ) AS CastEnum 
+       INTO TABLE @FINAL(result). 
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (identifier))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (sql_function_call
+            name: (identifier)
+            argument: (sql_host_variable
+              variable: (component_selection
+                subject: (identifier)
+                component: (identifier)))
+            type: (sql_cast_type
+              name: (identifier)))
+          alias: (sql_field_alias_spec
+            alias: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (declaration_expression
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Cast with metadata
+=================================================================================
+SELECT CAST( col as CHAR( 20 ) ) as foo FROM spfli INTO @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          argument: (identifier)
+          type: (sql_cast_type
+            name: (identifier)
+            length: (number)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Nested
+=================================================================================
+SELECT SINGLE 
+       FROM demo_expressions 
+       FIELDS CAST( CAST( div( timestamp1, 1000000 ) 
+                      AS CHAR ) 
+                AS DATS ) AS date, 
+              CAST( substring( CAST( timestamp1 
+                                 AS CHAR ), 9, 6 ) 
+                AS TIMS ) AS time 
+       INTO @FINAL(wa). 
+---
+
+(source
+  (select_statement
+    (single)
+    (from_database_source_spec
+      source: (identifier))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (sql_function_call
+            name: (identifier)
+            argument: (sql_function_call
+              name: (identifier)
+              argument: (sql_function_call
+                name: (identifier)
+                argument: (sql_positional_argument_list
+                  (identifier)
+                  (number)))
+              type: (sql_cast_type
+                name: (identifier)))
+            type: (sql_cast_type
+              name: (identifier)))
+          alias: (sql_field_alias_spec
+            alias: (identifier)))
+        (select_list_item
+          expression: (sql_function_call
+            name: (identifier)
+            argument: (sql_function_call
+              name: (identifier)
+              argument: (sql_positional_argument_list
+                (sql_function_call
+                  name: (identifier)
+                  argument: (identifier)
+                  type: (sql_cast_type
+                    name: (identifier)))
+                (number)
+                (number)))
+            type: (sql_cast_type
+              name: (identifier)))
+          alias: (sql_field_alias_spec
+            alias: (identifier)))))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (declaration_expression
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Named arguments
+=================================================================================
+SELECT currency_conversion(
+         amount = amount,
+         source_currency = currency,
+         target_currency = @target_currency,
+         exchange_rate_date = @rate_date ) AS converted
+  FROM prices
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          argument: (sql_named_argument_list
+            (sql_named_argument
+              name: (identifier)
+              value: (identifier))
+            (sql_named_argument
+              name: (identifier)
+              value: (identifier))
+            (sql_named_argument
+              name: (identifier)
+              value: (sql_host_variable
+                variable: (identifier)))
+            (sql_named_argument
+              name: (identifier)
+              value: (sql_host_variable
+                variable: (identifier)))))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Aggregate arguments
+=================================================================================
+SELECT COUNT(*) AS row_count,
+       SUM( DISTINCT amount ) AS total,
+       AVG( amount AS DEC( 15, 2 ) ) AS average
+  FROM prices
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          argument: (select_wildcard))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          (distinct)
+          argument: (identifier))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          argument: (identifier)
+          type: (sql_cast_type
+            name: (identifier)
+            length: (number)
+            decimals: (number)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Ordered aggregate
+=================================================================================
+SELECT STRING_AGG( name, ',' ORDER BY id DESCENDING ) AS names
+  FROM people
+  INTO @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          argument: (sql_positional_argument_list
+            (identifier)
+            (string_literal))
+          (sql_function_order_by_spec
+            (order_by_list
+              (order_by_field
+                (identifier)
+                (descending)))))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Function in arithmetic
+=================================================================================
+SELECT ROUND( amount, 2 ) * @rate AS adjusted
+  FROM prices
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (sql_function_call
+            name: (identifier)
+            argument: (sql_positional_argument_list
+              (identifier)
+              (number)))
+          right: (sql_host_variable
+            variable: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Scalar function
+=================================================================================
+SELECT SINGLE 
+       FROM demo_expressions 
+       FIELDS demo_cds_scalar_helloworld( ) 
+       WHERE id = 'X' 
+       INTO @FINAL(result). 
+---
+
+(source
+  (select_statement
+    (single)
+    (from_database_source_spec
+      source: (identifier))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (sql_function_call
+            name: (identifier)))))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (string_literal)))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (declaration_expression
+            name: (identifier)))))))

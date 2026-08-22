@@ -32,9 +32,12 @@ SELECT carrid, connid, fldate FROM sflight
 (source
   (select_statement
     (select_list
-      (identifier)
-      (identifier)
-      (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_order_by_spec
@@ -65,7 +68,8 @@ SELECT carrid FROM spfli
 (source
   (select_statement
     (select_list
-      (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_order_by_spec

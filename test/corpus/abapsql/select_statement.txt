@@ -7,7 +7,8 @@ SELECT foo FROM baz INTO @result.
 (source
   (select_statement
     (select_list
-      (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_into_spec
@@ -198,7 +199,8 @@ SELECT * FROM spfli
             (sql_in_list
               (sql_subquery
                 (select_list
-                  (identifier))
+                  (select_list_item
+                    expression: (identifier)))
                 (from_database_source_spec
                   source: (identifier))
                 (where_condition_spec
@@ -212,7 +214,8 @@ SELECT * FROM spfli
             (sql_in_list
               (sql_subquery
                 (select_list
-                  (identifier))
+                  (select_list_item
+                    expression: (identifier)))
                 (from_database_source_spec
                   source: (identifier))
                 (where_condition_spec
@@ -256,7 +259,8 @@ SELECT * FROM sflight
         quantifier: (sql_comparison_quantifier)
         right: (sql_subquery
           (select_list
-            (identifier))
+            (select_list_item
+              expression: (identifier)))
           (from_database_source_spec
             source: (identifier)))))
     (select_into_spec
@@ -274,7 +278,8 @@ SELECT * FROM sflight
         quantifier: (sql_comparison_quantifier)
         right: (sql_subquery
           (select_list
-            (identifier))
+            (select_list_item
+              expression: (identifier)))
           (from_database_source_spec
             source: (identifier)))))
     (select_into_spec
@@ -292,7 +297,8 @@ SELECT * FROM sflight
         quantifier: (sql_comparison_quantifier)
         right: (sql_subquery
           (select_list
-            (identifier))
+            (select_list_item
+              expression: (identifier)))
           (from_database_source_spec
             source: (identifier)))))
     (select_into_spec
@@ -309,7 +315,8 @@ SELECT * FROM sflight
         left: (identifier)
         right: (sql_subquery
           (select_list
-            (identifier))
+            (select_list_item
+              expression: (identifier)))
           (from_database_source_spec
             source: (identifier)))))
     (select_into_spec
@@ -362,7 +369,8 @@ SELECT * FROM scarr
       condition: (sql_exists_spec
         (sql_subquery
           (select_list
-            (identifier))
+            (select_list_item
+              expression: (identifier)))
           (from_database_source_spec
             source: (identifier)))))
     (select_into_spec
@@ -419,7 +427,8 @@ SELECT FROM scarr FIELDS carrid
       source: (identifier))
     (select_fields_spec
       (select_list
-        (identifier)))
+        (select_list_item
+          expression: (identifier))))
     (where_condition_spec
       condition: (comparison_expression
         left: (identifier)
@@ -636,9 +645,12 @@ SELECT foo, bar, baz FROM source INTO (@result_one, @result_two, @result_three).
 (source
   (select_statement
     (select_list
-      (identifier)
-      (identifier)
-      (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_into_spec
@@ -659,11 +671,14 @@ SELECT foo bar source~baz FROM source INTO (@first, @second, @third).
 (source
   (select_statement
     (select_list
-      (identifier)
-      (identifier)
-      (qualified_field
-        source: (identifier)
-        target: (identifier)))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
     (from_database_source_spec
       source: (identifier))
     (select_into_spec
@@ -687,8 +702,10 @@ SELECT FROM foo FIELDS bar, baz INTO @result.
       source: (identifier))
     (select_fields_spec
       (select_list
-        (identifier)
-        (identifier)))
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))))
     (select_into_spec
       (select_result_struct
         work_area: (sql_host_variable
@@ -705,9 +722,12 @@ SELECT DISTINCT foo, bar, baz FROM source
   (select_statement
     (select_list
       (distinct)
-      (identifier)
-      (identifier)
-      (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_into_spec
@@ -726,12 +746,14 @@ SELECT source~bar, source~baz FROM source
 (source
   (select_statement
     (select_list
-      (qualified_field
-        source: (identifier)
-        target: (identifier))
-      (qualified_field
-        source: (identifier)
-        target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
     (from_database_source_spec
       source: (identifier))
     (select_appending_spec
@@ -751,9 +773,10 @@ SELECT source~* FROM source INTO TABLE @results.
 (source
   (select_statement
     (select_list
-      (qualified_field
-        source: (identifier)
-        target: (select_wildcard)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (select_wildcard))))
     (from_database_source_spec
       source: (identifier))
     (select_into_spec
@@ -790,7 +813,8 @@ SELECT SINGLE FOR UPDATE field FROM source INTO @result.
     (single)
     (for_update)
     (select_list
-      (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_into_spec
@@ -808,7 +832,8 @@ ENDSELECT.
 (source
   (select_statement
     (select_list
-      (identifier))
+      (select_list_item
+        expression: (identifier)))
     (from_database_source_spec
       source: (identifier))
     (select_into_spec
