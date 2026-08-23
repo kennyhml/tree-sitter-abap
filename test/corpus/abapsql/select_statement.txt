@@ -803,6 +803,24 @@ SELECT (columns) FROM source INTO @result.
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Dynamic database source
+=================================================================================
+SELECT * FROM (source_name) INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (dynamic_spec
+        value: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Single row for update
 =================================================================================
 SELECT SINGLE FOR UPDATE field FROM source INTO @result.

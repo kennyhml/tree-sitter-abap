@@ -17995,6 +17995,10 @@
         "required": true,
         "types": [
           {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },

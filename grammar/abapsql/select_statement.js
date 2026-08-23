@@ -248,6 +248,7 @@ module.exports = {
       gen.kw("from"),
       choice(
         seq(field("source", $.identifier), optional($.sql_source_alias_spec)),
+        field("source", $.dynamic_spec),
         field("source", $.sql_join_expression),
       ),
     ),

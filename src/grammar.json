@@ -2622,6 +2622,14 @@
               "name": "source",
               "content": {
                 "type": "SYMBOL",
+                "name": "dynamic_spec"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "source",
+              "content": {
+                "type": "SYMBOL",
                 "name": "sql_join_expression"
               }
             }
