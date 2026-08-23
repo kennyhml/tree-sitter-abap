@@ -72,6 +72,18 @@ SELECT CAST( amount AS DEC( 15, 2 ) ) AS converted,
 SELECT NULL AS missing_value FROM source INTO TABLE @result.
 "      ^ constant.builtin
 
+SELECT SUM( amount ) OVER(
+"      ^ function.call
+"           ^ variable.member
+       PARTITION BY currency
+"                   ^ variable.member
+       ORDER BY posting_date
+"               ^ variable.member
+       ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS running_total
+  FROM postings
+"      ^ type
+  INTO TABLE @result.
+
 SELECT first_name &&
 "      ^ variable.member
        ' ' &&

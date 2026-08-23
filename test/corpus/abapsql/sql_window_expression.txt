@@ -1,0 +1,195 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Window Expressions ] Ranking and partitioning
+=================================================================================
+SELECT ROW_NUMBER( ) OVER( ) AS row_no,
+       DENSE_RANK( ) OVER( PARTITION BY carrier ORDER BY flight_date DESCENDING ) AS carrier_rank
+  FROM flights
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_window_expression
+          function: (sql_function_call
+            name: (identifier)))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (sql_window_expression
+          function: (sql_function_call
+            name: (identifier))
+          (window_partition_by_spec
+            (identifier))
+          (window_order_by_spec
+            (order_by_list
+              (order_by_field
+                (identifier)
+                (descending)))))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Window Expressions ] Running aggregate
+=================================================================================
+SELECT SUM( amount ) OVER(
+         PARTITION BY currency
+         ORDER BY posting_date
+         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS running_total
+  FROM postings
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_window_expression
+          function: (sql_function_call
+            name: (identifier)
+            argument: (identifier))
+          (window_partition_by_spec
+            (identifier))
+          (window_order_by_spec
+            (order_by_list
+              (order_by_field
+                (identifier))))
+          (window_rows_between_spec
+            low: (unbounded_preceding)
+            high: (current_row)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Window Expressions ] Remaining rows
+=================================================================================
+SELECT MAX( amount ) OVER(
+         ORDER BY posting_date
+         ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING ) AS remaining_max
+  FROM postings
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_window_expression
+          function: (sql_function_call
+            name: (identifier)
+            argument: (identifier))
+          (window_order_by_spec
+            (order_by_list
+              (order_by_field
+                (identifier))))
+          (window_rows_between_spec
+            low: (current_row)
+            high: (unbounded_following)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Window Expressions ] Moving frames
+=================================================================================
+SELECT AVG( amount ) OVER(
+         ORDER BY posting_date
+         ROWS BETWEEN 2 PRECEDING AND 1 FOLLOWING ) AS moving_average,
+       SUM( amount ) OVER(
+         ORDER BY posting_date
+         ROWS BETWEEN @preceding PRECEDING AND @( following ) FOLLOWING ) AS dynamic_total
+  FROM postings
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_window_expression
+          function: (sql_function_call
+            name: (identifier)
+            argument: (identifier))
+          (window_order_by_spec
+            (order_by_list
+              (order_by_field
+                (identifier))))
+          (window_rows_between_spec
+            low: (preceding_rows_spec
+              count: (number))
+            high: (following_rows_spec
+              count: (number))))
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (sql_window_expression
+          function: (sql_function_call
+            name: (identifier)
+            argument: (identifier))
+          (window_order_by_spec
+            (order_by_list
+              (order_by_field
+                (identifier))))
+          (window_rows_between_spec
+            low: (preceding_rows_spec
+              count: (sql_host_variable
+                variable: (identifier)))
+            high: (following_rows_spec
+              count: (sql_host_expression
+                expression: (identifier)))))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Window Expressions ] Arithmetic operands
+=================================================================================
+SELECT SUM( amount ) OVER( ) / COUNT( * ) OVER( ) AS average
+  FROM postings
+  INTO @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (arithmetic_expression
+          left: (sql_window_expression
+            function: (sql_function_call
+              name: (identifier)
+              argument: (identifier)))
+          right: (sql_window_expression
+            function: (sql_function_call
+              name: (identifier)
+              argument: (select_wildcard))))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))

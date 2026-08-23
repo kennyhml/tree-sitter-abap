@@ -21,6 +21,7 @@ module.exports = {
       $.literal,
       $.sql_null,
       $.sql_function_call,
+      $.sql_window_expression,
       alias($._sql_string_expression, $.string_concatenation),
       alias($._sql_arithmetic_expression, $.arithmetic_expression),
       alias($.__sql_parenthesized_expression, $.parenthesized_expression),

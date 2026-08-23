@@ -828,6 +828,10 @@
           "name": "sql_function_call"
         },
         {
+          "type": "SYMBOL",
+          "name": "sql_window_expression"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -2926,6 +2930,296 @@
           }
         ]
       }
+    },
+    "sql_window_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "function",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_function_call"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_over"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "window_partition_by_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "window_order_by_spec"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "window_rows_between_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "window_partition_by_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_partition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_by"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_sql_expression"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_sql_expression"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "window_order_by_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_order"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_by"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "order_by_list"
+        }
+      ]
+    },
+    "window_rows_between_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_rows"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_between"
+        },
+        {
+          "type": "FIELD",
+          "name": "low",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "unbounded_preceding"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "current_row"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "preceding_rows_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "following_rows_spec"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_and"
+        },
+        {
+          "type": "FIELD",
+          "name": "high",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "unbounded_following"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "current_row"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "preceding_rows_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "following_rows_spec"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "current_row": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_current"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_row"
+        }
+      ]
+    },
+    "unbounded_preceding": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_unbounded"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_preceding"
+        }
+      ]
+    },
+    "unbounded_following": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_unbounded"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_following"
+        }
+      ]
+    },
+    "preceding_rows_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "count",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_preceding"
+        }
+      ]
+    },
+    "following_rows_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "count",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_following"
+        }
+      ]
     },
     "_sql_where_condition_spec": {
       "type": "ALIAS",
@@ -39582,17 +39876,56 @@
         "value": "of"
       }
     },
-    "_kw_not": {
+    "_kw_over": {
       "type": "FIELD",
       "name": "keyword",
       "content": {
         "type": "ALIAS",
         "content": {
           "type": "PATTERN",
-          "value": "(?i)not"
+          "value": "(?i)over"
         },
         "named": false,
-        "value": "not"
+        "value": "over"
+      }
+    },
+    "_kw_partition": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)partition"
+        },
+        "named": false,
+        "value": "partition"
+      }
+    },
+    "_kw_rows": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)rows"
+        },
+        "named": false,
+        "value": "rows"
+      }
+    },
+    "_kw_between": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)between"
+        },
+        "named": false,
+        "value": "between"
       }
     },
     "_kw_and": {
@@ -39608,6 +39941,84 @@
         "value": "and"
       }
     },
+    "_kw_current": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)current"
+        },
+        "named": false,
+        "value": "current"
+      }
+    },
+    "_kw_row": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)row"
+        },
+        "named": false,
+        "value": "row"
+      }
+    },
+    "_kw_unbounded": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)unbounded"
+        },
+        "named": false,
+        "value": "unbounded"
+      }
+    },
+    "_kw_preceding": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)preceding"
+        },
+        "named": false,
+        "value": "preceding"
+      }
+    },
+    "_kw_following": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)following"
+        },
+        "named": false,
+        "value": "following"
+      }
+    },
+    "_kw_not": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)not"
+        },
+        "named": false,
+        "value": "not"
+      }
+    },
     "_kw_or": {
       "type": "FIELD",
       "name": "keyword",
@@ -39619,19 +40030,6 @@
         },
         "named": false,
         "value": "or"
-      }
-    },
-    "_kw_between": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)between"
-        },
-        "named": false,
-        "value": "between"
       }
     },
     "_kw_like": {
@@ -42644,19 +43042,6 @@
         },
         "named": false,
         "value": "truncate"
-      }
-    },
-    "_kw_current": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)current"
-        },
-        "named": false,
-        "value": "current"
       }
     },
     "_kw_aliases": {

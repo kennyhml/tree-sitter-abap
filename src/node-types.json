@@ -1997,6 +1997,10 @@
             "named": true
           },
           {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -2073,6 +2077,10 @@
             "named": true
           },
           {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -2112,6 +2120,10 @@
           },
           {
             "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
             "named": true
           },
           {
@@ -8851,6 +8863,26 @@
           },
           {
             "type": "position",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "current_row",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "current",
+            "named": false
+          },
+          {
+            "type": "row",
             "named": false
           }
         ]
@@ -16508,6 +16540,40 @@
     }
   },
   {
+    "type": "following_rows_spec",
+    "named": true,
+    "fields": {
+      "count": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "following",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "for_action_spec",
     "named": true,
     "fields": {
@@ -19451,6 +19517,10 @@
           "named": true
         },
         {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
           "type": "string_concatenation",
           "named": true
         }
@@ -19676,6 +19746,10 @@
         },
         {
           "type": "sql_null",
+          "named": true
+        },
+        {
+          "type": "sql_window_expression",
           "named": true
         },
         {
@@ -27466,6 +27540,10 @@
           "named": true
         },
         {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
           "type": "string_concatenation",
           "named": true
         }
@@ -28147,6 +28225,10 @@
           "named": true
         },
         {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
           "type": "string_concatenation",
           "named": true
         },
@@ -28463,6 +28545,40 @@
           {
             "type": "identifier",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "preceding_rows_spec",
+    "named": true,
+    "fields": {
+      "count": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "preceding",
+            "named": false
           }
         ]
       }
@@ -32512,6 +32628,10 @@
             "named": true
           },
           {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -35308,6 +35428,10 @@
             "named": true
           },
           {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -35613,6 +35737,10 @@
             "named": true
           },
           {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -35880,6 +36008,10 @@
           "named": true
         },
         {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
           "type": "string_concatenation",
           "named": true
         }
@@ -35980,6 +36112,50 @@
       "types": [
         {
           "type": "view_argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_window_expression",
+    "named": true,
+    "fields": {
+      "function": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_function_call",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "over",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "window_order_by_spec",
+          "named": true
+        },
+        {
+          "type": "window_partition_by_spec",
+          "named": true
+        },
+        {
+          "type": "window_rows_between_spec",
           "named": true
         }
       ]
@@ -36314,6 +36490,10 @@
             "named": true
           },
           {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -36353,6 +36533,10 @@
           },
           {
             "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
             "named": true
           },
           {
@@ -39265,6 +39449,46 @@
     }
   },
   {
+    "type": "unbounded_following",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "following",
+            "named": false
+          },
+          {
+            "type": "unbounded",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "unbounded_preceding",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "preceding",
+            "named": false
+          },
+          {
+            "type": "unbounded",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "unique",
     "named": true,
     "fields": {
@@ -40516,6 +40740,170 @@
           {
             "type": "while",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "window_order_by_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "order",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "order_by_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "window_partition_by_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "partition",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
+          "named": true
+        },
+        {
+          "type": "sql_function_call",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_null",
+          "named": true
+        },
+        {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
+          "type": "string_concatenation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "window_rows_between_spec",
+    "named": true,
+    "fields": {
+      "high": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "current_row",
+            "named": true
+          },
+          {
+            "type": "following_rows_spec",
+            "named": true
+          },
+          {
+            "type": "preceding_rows_spec",
+            "named": true
+          },
+          {
+            "type": "unbounded_following",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "between",
+            "named": false
+          },
+          {
+            "type": "rows",
+            "named": false
+          }
+        ]
+      },
+      "low": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "current_row",
+            "named": true
+          },
+          {
+            "type": "following_rows_spec",
+            "named": true
+          },
+          {
+            "type": "preceding_rows_spec",
+            "named": true
+          },
+          {
+            "type": "unbounded_preceding",
+            "named": true
           }
         ]
       }
@@ -42264,6 +42652,10 @@
     "named": false
   },
   {
+    "type": "following",
+    "named": false
+  },
+  {
     "type": "for",
     "named": false
   },
@@ -42930,6 +43322,10 @@
     "named": false
   },
   {
+    "type": "over",
+    "named": false
+  },
+  {
     "type": "overlay",
     "named": false
   },
@@ -42958,6 +43354,10 @@
     "named": false
   },
   {
+    "type": "partition",
+    "named": false
+  },
+  {
     "type": "pcre",
     "named": false
   },
@@ -42983,6 +43383,10 @@
   },
   {
     "type": "position",
+    "named": false
+  },
+  {
+    "type": "preceding",
     "named": false
   },
   {
@@ -43175,6 +43579,14 @@
   },
   {
     "type": "round",
+    "named": false
+  },
+  {
+    "type": "row",
+    "named": false
+  },
+  {
+    "type": "rows",
     "named": false
   },
   {
@@ -43555,6 +43967,10 @@
   },
   {
     "type": "unblocked",
+    "named": false
+  },
+  {
+    "type": "unbounded",
     "named": false
   },
   {
