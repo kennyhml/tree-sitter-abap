@@ -121,8 +121,8 @@ SELECT * FROM spfli
 SELECT * FROM source
 "             ^ type
   WHERE source~field IN (
-"       ^ type
-"              ^ variable.member
+"        ^ type
+"               ^ variable.member
     SELECT field FROM lookup )
 "          ^ variable.member
 "                     ^ type
@@ -217,3 +217,38 @@ SELECT col1 + @offset AS total, ( col2 * 2 ) - -col3 AS adjusted
 "                   ^ variable.member
   INTO TABLE @results.
 "             ^ variable
+
+SELECT field FROM source
+  INTO FIELDS OF TABLE @result.
+"      ^ variable
+"             ^ variable
+
+SELECT FROM spfli AS flight
+"           ^ type
+"                    ^ type
+  FIELDS flight~carrid, flight~connid
+"        ^ type
+"               ^ variable.member
+  FOR ALL ENTRIES in @carriers
+" ^ keyword
+"         ^ keyword
+"                    ^ punctuation.special
+"                     ^ variable
+  WHERE flight~carrid = @carriers-carrid
+"       ^ type
+"              ^ variable.member
+"                       ^ punctuation.special
+"                        ^ variable
+"                                 ^ variable.member
+  INTO TABLE @results.
+
+SELECT carrid FROM scarr
+  FOR ALL ENTRIES IN @<carriers>
+"                    ^ punctuation.special
+"                      ^ variable
+  WHERE carrid = @<carriers>-carrid
+"       ^ variable.member
+"                ^ punctuation.special
+"                  ^ variable
+"                            ^ variable.member
+  INTO TABLE @results.

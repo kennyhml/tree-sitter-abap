@@ -48,6 +48,7 @@ module.exports = {
         seq($.from_database_source_spec, $.select_fields_spec),
         seq($.select_list, $.from_database_source_spec),
       ),
+      optional($.for_all_entries_in_spec),
       optional($._sql_where_condition_spec),
       optional($.select_group_by_spec),
       optional($.having_condition_spec),
@@ -82,6 +83,19 @@ module.exports = {
           ),
         ),
       ),
+    ),
+
+  /*
+   * ... FOR ALL ENTRIES IN @itab ...
+   *
+   * The mentioned WHERE clause is part of the mainquery
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENWHERE_ALL_ENTRIES.html
+   */
+  for_all_entries_in_spec: $ =>
+    seq(
+      ...gen.kws("for", "all", "entries", "in"),
+      field("source", choice($.sql_host_variable, $.sql_host_expression)),
     ),
 
   /*
@@ -233,10 +247,7 @@ module.exports = {
     seq(
       gen.kw("from"),
       choice(
-        seq(
-          field("source", $.identifier),
-          optional($.sql_source_alias_spec),
-        ),
+        seq(field("source", $.identifier), optional($.sql_source_alias_spec)),
         field("source", $.sql_join_expression),
       ),
     ),

@@ -1,3 +1,8 @@
+; Low-priority fallbacks keep recognized identifiers and opaque parser recovery
+; spans highlighted. More specific captures below override these.
+(ERROR) @variable
+(identifier) @variable
+
 (string_literal) @string
 (string_template) @string
 (number) @number

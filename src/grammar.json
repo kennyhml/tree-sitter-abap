@@ -1795,6 +1795,18 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "for_all_entries_in_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "_sql_where_condition_spec"
             },
             {
@@ -1933,6 +1945,44 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    "for_all_entries_in_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_all"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_entries"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_in"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_expression"
+              }
+            ]
+          }
         }
       ]
     },
@@ -39870,6 +39920,45 @@
         "value": "select"
       }
     },
+    "_kw_for": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)for"
+        },
+        "named": false,
+        "value": "for"
+      }
+    },
+    "_kw_entries": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)entries"
+        },
+        "named": false,
+        "value": "entries"
+      }
+    },
+    "_kw_in": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)in"
+        },
+        "named": false,
+        "value": "in"
+      }
+    },
     "_kw_group": {
       "type": "FIELD",
       "name": "keyword",
@@ -40128,19 +40217,6 @@
         },
         "named": false,
         "value": "distinct"
-      }
-    },
-    "_kw_for": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)for"
-        },
-        "named": false,
-        "value": "for"
       }
     },
     "_kw_update": {
@@ -40414,19 +40490,6 @@
         },
         "named": false,
         "value": "initial"
-      }
-    },
-    "_kw_in": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)in"
-        },
-        "named": false,
-        "value": "in"
       }
     },
     "_kw_eq": {

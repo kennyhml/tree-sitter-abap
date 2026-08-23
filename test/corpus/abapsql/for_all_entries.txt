@@ -1,0 +1,198 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT, FOR ALL ENTRIES ] Basic FAE
+=================================================================================
+SELECT carrid, connid 
+       FROM spfli 
+       FOR ALL ENTRIES IN @carriers 
+       WHERE carrid = @carriers-carrid 
+       INTO TABLE @FINAL(result1). 
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (for_all_entries_in_spec
+      source: (sql_host_variable
+        variable: (identifier)))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_host_variable
+          variable: (component_selection
+            subject: (identifier)
+            component: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (declaration_expression
+            name: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT, FOR ALL ENTRIES ] Post-FROM fields and multiple predicates
+=================================================================================
+SELECT FROM spfli AS flight
+  FIELDS flight~carrid, flight~connid
+  FOR ALL ENTRIES IN @carriers
+  WHERE flight~carrid = @carriers-carrid
+    AND flight~connid = @carriers-connid
+  ORDER BY flight~carrid
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (identifier)
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (qualified_field
+            source: (identifier)
+            target: (identifier)))
+        (select_list_item
+          expression: (qualified_field
+            source: (identifier)
+            target: (identifier)))))
+    (for_all_entries_in_spec
+      source: (sql_host_variable
+        variable: (identifier)))
+    (where_condition_spec
+      condition: (logical_expression
+        left: (comparison_expression
+          left: (qualified_field
+            source: (identifier)
+            target: (identifier))
+          right: (sql_host_variable
+            variable: (component_selection
+              subject: (identifier)
+              component: (identifier))))
+        right: (comparison_expression
+          left: (qualified_field
+            source: (identifier)
+            target: (identifier))
+          right: (sql_host_variable
+            variable: (component_selection
+              subject: (identifier)
+              component: (identifier))))))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (qualified_field
+            source: (identifier)
+            target: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT, FOR ALL ENTRIES ] Field-symbol source
+=================================================================================
+SELECT carrid FROM scarr
+  FOR ALL ENTRIES IN @<carriers>
+  WHERE carrid = @<carriers>-carrid
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (for_all_entries_in_spec
+      source: (sql_host_variable
+        variable: (field_symbol
+          name: (identifier))))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_host_variable
+          variable: (component_selection
+            subject: (field_symbol
+              name: (identifier))
+            component: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT, FOR ALL ENTRIES ] Host-expression source
+=================================================================================
+SELECT carrid FROM scarr
+  FOR ALL ENTRIES IN @( carriers )
+  WHERE carrid = @carrier
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (for_all_entries_in_spec
+      source: (sql_host_expression
+        expression: (identifier)))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_host_variable
+          variable: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT, FOR ALL ENTRIES ] Dynamic condition and trailing clauses
+=================================================================================
+SELECT carrid FROM scarr
+  FOR ALL ENTRIES IN @carriers
+  WHERE (conditions)
+  GROUP BY carrid
+  HAVING carrid > @minimum
+  ORDER BY carrid
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (for_all_entries_in_spec
+      source: (sql_host_variable
+        variable: (identifier)))
+    (where_condition_spec
+      condition: (dynamic_spec
+        value: (identifier)))
+    (select_group_by_spec
+      (group_by_list
+        (identifier)))
+    (having_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_host_variable
+          variable: (identifier))))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

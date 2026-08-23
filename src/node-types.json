@@ -16618,6 +16618,48 @@
     }
   },
   {
+    "type": "for_all_entries_in_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "all",
+            "named": false
+          },
+          {
+            "type": "entries",
+            "named": false
+          },
+          {
+            "type": "for",
+            "named": false
+          },
+          {
+            "type": "in",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "for_behavior_of_spec",
     "named": true,
     "fields": {
@@ -33018,6 +33060,10 @@
       "required": true,
       "types": [
         {
+          "type": "for_all_entries_in_spec",
+          "named": true
+        },
+        {
           "type": "for_update",
           "named": true
         },
@@ -36243,6 +36289,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "for_all_entries_in_spec",
+          "named": true
+        },
         {
           "type": "for_update",
           "named": true
@@ -42701,6 +42751,10 @@
   },
   {
     "type": "entity",
+    "named": false
+  },
+  {
+    "type": "entries",
     "named": false
   },
   {
