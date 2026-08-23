@@ -847,6 +847,7 @@
 
 ; ABAP SQL
 (from_database_source_spec (identifier) @type )
+(sql_data_source source: (identifier) @type)
 (sql_function_call name: (identifier) @function.call)
 (sql_cast_type name: (identifier) @type.builtin)
 (sql_null) @constant.builtin

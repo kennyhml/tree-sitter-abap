@@ -78,9 +78,7 @@ module.exports = {
           ),
           seq(
             alias($._space_sep_select_list_item, $.select_list_item),
-            repeat1(
-              alias($._space_sep_select_list_item, $.select_list_item),
-            ),
+            repeat1(alias($._space_sep_select_list_item, $.select_list_item)),
           ),
         ),
       ),
@@ -234,8 +232,19 @@ module.exports = {
   from_database_source_spec: $ =>
     seq(
       gen.kw("from"),
+      choice(
+        seq(
+          field("source", $.identifier),
+          optional($.sql_source_alias_spec),
+        ),
+        field("source", $.sql_join_expression),
+      ),
+    ),
+
+  sql_data_source: $ =>
+    seq(
       field("source", $.identifier),
-      optional($.sql_source_alias_spec),
+      optional(field("alias", $.sql_source_alias_spec)),
     ),
 
   sql_source_alias_spec: $ => seq(gen.kw("as"), field("alias", $.identifier)),

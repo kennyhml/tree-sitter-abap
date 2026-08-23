@@ -72,6 +72,13 @@ SELECT CAST( amount AS DEC( 15, 2 ) ) AS converted,
 SELECT NULL AS missing_value FROM source INTO TABLE @result.
 "      ^ constant.builtin
 
+SELECT c~carrid, p~connid
+  FROM scarr AS c
+"      ^ type
+  INNER JOIN spfli AS p ON c~carrid = p~carrid
+"            ^ type
+  INTO TABLE @result.
+
 SELECT SUM( amount ) OVER(
 "      ^ function.call
 "           ^ variable.member

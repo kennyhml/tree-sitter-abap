@@ -17955,6 +17955,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "sql_join_expression",
+            "named": true
           }
         ]
       }
@@ -23029,15 +23033,69 @@
     }
   },
   {
+    "type": "join_cardinality",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cardinality",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cardinality",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "join_kind",
     "named": true,
     "fields": {
+      "cardinality": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "join_cardinality",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": true,
         "required": true,
         "types": [
           {
+            "type": "cross",
+            "named": false
+          },
+          {
             "type": "inner",
+            "named": false
+          },
+          {
+            "type": "join",
             "named": false
           },
           {
@@ -35324,6 +35382,32 @@
     }
   },
   {
+    "type": "sql_data_source",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_source_alias_spec",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_exists_spec",
     "named": true,
     "fields": {
@@ -35640,6 +35724,102 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "sql_join_condition_spec",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_exists_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "on",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_join_expression",
+    "named": true,
+    "fields": {
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "join_kind",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_data_source",
+            "named": true
+          },
+          {
+            "type": "sql_join_expression",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_data_source",
+            "named": true
+          },
+          {
+            "type": "sql_join_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "sql_join_condition_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -42236,6 +42416,10 @@
     "named": false
   },
   {
+    "type": "cross",
+    "named": false
+  },
+  {
     "type": "cs",
     "named": false
   },
@@ -42909,6 +43093,10 @@
   },
   {
     "type": "job",
+    "named": false
+  },
+  {
+    "type": "join",
     "named": false
   },
   {

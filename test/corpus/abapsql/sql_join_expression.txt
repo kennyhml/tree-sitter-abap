@@ -1,0 +1,196 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Join Expressions ] Inner join
+=================================================================================
+SELECT c~carrid, p~connid
+  FROM scarr AS c
+  INNER JOIN spfli AS p ON c~carrid = p~carrid
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
+    (from_database_source_spec
+      source: (sql_join_expression
+        left: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        kind: (join_kind)
+        right: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_join_condition_spec
+          condition: (comparison_expression
+            left: (qualified_field
+              source: (identifier)
+              target: (identifier))
+            right: (qualified_field
+              source: (identifier)
+              target: (identifier))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Join Expressions ] Outer join cardinality
+=================================================================================
+SELECT c~carrid, p~connid
+  FROM scarr AS c
+  LEFT OUTER MANY TO ONE JOIN spfli AS p ON c~carrid = p~carrid
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
+    (from_database_source_spec
+      source: (sql_join_expression
+        left: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        kind: (join_kind
+          cardinality: (join_cardinality
+            left: (cardinality)
+            right: (cardinality)))
+        right: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_join_condition_spec
+          condition: (comparison_expression
+            left: (qualified_field
+              source: (identifier)
+              target: (identifier))
+            right: (qualified_field
+              source: (identifier)
+              target: (identifier))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Join Expressions ] Cross join
+=================================================================================
+SELECT a~id, b~id
+  FROM table_a AS a CROSS JOIN table_b AS b
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
+    (from_database_source_spec
+      source: (sql_join_expression
+        left: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        kind: (join_kind)
+        right: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Join Expressions ] Parenthesized chain
+=================================================================================
+SELECT c~carrid, p~connid, f~fldate
+  FROM ( scarr AS c
+    INNER JOIN spfli AS p ON c~carrid = p~carrid
+    INNER JOIN sflight AS f ON p~carrid = f~carrid AND p~connid = f~connid )
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
+    (from_database_source_spec
+      source: (sql_join_expression
+        left: (sql_join_expression
+          left: (sql_data_source
+            source: (identifier)
+            alias: (sql_source_alias_spec
+              alias: (identifier)))
+          kind: (join_kind)
+          right: (sql_data_source
+            source: (identifier)
+            alias: (sql_source_alias_spec
+              alias: (identifier)))
+          (sql_join_condition_spec
+            condition: (comparison_expression
+              left: (qualified_field
+                source: (identifier)
+                target: (identifier))
+              right: (qualified_field
+                source: (identifier)
+                target: (identifier)))))
+        kind: (join_kind)
+        right: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_join_condition_spec
+          condition: (logical_expression
+            left: (comparison_expression
+              left: (qualified_field
+                source: (identifier)
+                target: (identifier))
+              right: (qualified_field
+                source: (identifier)
+                target: (identifier)))
+            right: (comparison_expression
+              left: (qualified_field
+                source: (identifier)
+                target: (identifier))
+              right: (qualified_field
+                source: (identifier)
+                target: (identifier)))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
