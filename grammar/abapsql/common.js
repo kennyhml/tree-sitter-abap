@@ -19,6 +19,7 @@ module.exports = {
       $.sql_host_variable,
       $.sql_column_spec,
       $.literal,
+      $.sql_null,
       $.sql_function_call,
       alias($._sql_string_expression, $.string_concatenation),
       alias($._sql_arithmetic_expression, $.arithmetic_expression),
@@ -28,6 +29,62 @@ module.exports = {
   // https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENSQL_EXP_PARENTHESES.html
   __sql_parenthesized_expression: $ =>
     prec(5, seq("(", $._sql_expression, ")")),
+
+  // https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENSQL_NULL.html
+  sql_null: _ => prec(1, gen.caseInsensitive("null")),
+
+  /**
+   * ... sql_elem1 && sql_elem2  [&& sql_elem3 ... ] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSQL_STRING.html
+   */
+  _sql_string_expression: $ =>
+    prec.right(
+      seq(
+        field("left", $._sql_expression),
+        "&&",
+        field("right", $._sql_expression),
+      ),
+    ),
+
+  /**
+   * ... [-] sql_exp1 +|-|*|/ [-] sql_exp2 [+|-|*|/ [-] sql_exp3 ... ] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE_ARITH.html
+   */
+  _sql_arithmetic_expression: $ =>
+    choice($.__sql_binary_operation, $.__sql_unary_operation),
+
+  __sql_binary_operation: $ => {
+    // A more limited set of operators is supported
+    const ARITHMETIC_OPERATORS = [
+      ["+", $ => prec.left(1, $)],
+      ["-", $ => prec.left(1, $)],
+      ["*", $ => prec.left(2, $)],
+      ["/", $ => prec.left(2, $)],
+    ];
+
+    return choice(
+      ...ARITHMETIC_OPERATORS.map(([op, prec]) =>
+        prec(
+          seq(
+            field("left", $._sql_expression),
+            field("operator", op),
+            field("right", $._sql_expression),
+          ),
+        ),
+      ),
+    );
+  },
+
+  __sql_unary_operation: $ =>
+    prec(
+      4,
+      seq(
+        field("operator", choice("+", "-")),
+        field("value", $._sql_expression),
+      ),
+    ),
 
   /* A variable from the surrounding ABAP context
    *

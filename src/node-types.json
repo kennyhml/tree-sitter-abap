@@ -1993,6 +1993,10 @@
             "named": true
           },
           {
+            "type": "sql_null",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -2065,6 +2069,10 @@
             "named": true
           },
           {
+            "type": "sql_null",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -2100,6 +2108,10 @@
           },
           {
             "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
             "named": true
           },
           {
@@ -19435,6 +19447,10 @@
           "named": true
         },
         {
+          "type": "sql_null",
+          "named": true
+        },
+        {
           "type": "string_concatenation",
           "named": true
         }
@@ -19656,6 +19672,10 @@
         },
         {
           "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_null",
           "named": true
         },
         {
@@ -27442,6 +27462,10 @@
           "named": true
         },
         {
+          "type": "sql_null",
+          "named": true
+        },
+        {
           "type": "string_concatenation",
           "named": true
         }
@@ -28116,6 +28140,10 @@
         },
         {
           "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_null",
           "named": true
         },
         {
@@ -32480,6 +32508,10 @@
             "named": true
           },
           {
+            "type": "sql_null",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -35268,6 +35300,10 @@
             "named": true
           },
           {
+            "type": "sql_null",
+            "named": true
+          },
+          {
             "type": "sql_positional_argument_list",
             "named": true
           },
@@ -35573,6 +35609,10 @@
             "named": true
           },
           {
+            "type": "sql_null",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -35594,6 +35634,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "sql_null",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "sql_null_spec",
@@ -35828,6 +35873,10 @@
         },
         {
           "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_null",
           "named": true
         },
         {
@@ -36261,6 +36310,10 @@
             "named": true
           },
           {
+            "type": "sql_null",
+            "named": true
+          },
+          {
             "type": "string_concatenation",
             "named": true
           }
@@ -36296,6 +36349,10 @@
           },
           {
             "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
             "named": true
           },
           {

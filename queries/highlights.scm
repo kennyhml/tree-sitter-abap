@@ -849,6 +849,7 @@
 (from_database_source_spec (identifier) @type )
 (sql_function_call name: (identifier) @function.call)
 (sql_cast_type name: (identifier) @type.builtin)
+(sql_null) @constant.builtin
 (sql_column_spec/identifier) @variable.member
 (qualified_field
   source: (identifier) @type

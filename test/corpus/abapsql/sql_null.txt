@@ -1,0 +1,30 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Null Expressions ] Select and function arguments
+=================================================================================
+SELECT NULL AS missing,
+       COALESCE( optional_value, null ) AS normalized
+  FROM source
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_null)
+        alias: (sql_field_alias_spec
+          alias: (identifier)))
+      (select_list_item
+        expression: (sql_function_call
+          name: (identifier)
+          argument: (sql_positional_argument_list
+            (identifier)
+            (sql_null)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

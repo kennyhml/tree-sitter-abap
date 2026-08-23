@@ -69,6 +69,9 @@ SELECT CAST( amount AS DEC( 15, 2 ) ) AS converted,
   INTO TABLE @result.
 "             ^ variable
 
+SELECT NULL AS missing_value FROM source INTO TABLE @result.
+"      ^ constant.builtin
+
 SELECT first_name &&
 "      ^ variable.member
        ' ' &&
