@@ -1,0 +1,187 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT OPTIONS ] Complete options
+=================================================================================
+SELECT * FROM flights
+  ORDER BY flight_date
+  INTO TABLE @results
+  UP TO 10 ROWS OFFSET @skip
+  OPTIONS
+    USING CLIENT @( client )
+    PRIVILEGED ACCESS
+    BYPASSING BUFFER
+    CONNECTION @connection.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (select_up_to_spec
+      count: (number))
+    (select_offset_spec
+      offset: (sql_host_variable
+        variable: (identifier)))
+    (sql_options_spec
+      (sql_using_client_spec
+        (single_client
+          client: (sql_host_expression
+            expression: (identifier))))
+      (privileged_access)
+      (bypassing_buffer)
+      (connection_spec
+        connection: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT OPTIONS ] Client handling
+=================================================================================
+SELECT * FROM scarr INTO TABLE @results OPTIONS USING CLIENT '100'.
+SELECT * FROM scarr INTO TABLE @results OPTIONS USING CLIENTS IN @client_range.
+SELECT * FROM scarr INTO TABLE @results OPTIONS USING CLIENTS IN T000.
+SELECT * FROM scarr INTO TABLE @results OPTIONS USING ALL CLIENTS.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (sql_using_client_spec
+        (single_client
+          client: (string_literal)))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (sql_using_client_spec
+        (clients_in
+          source: (sql_host_variable
+            variable: (identifier))))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (sql_using_client_spec
+        (clients_in
+          source: (identifier)))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (sql_using_client_spec
+        (all_clients)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT OPTIONS ] Connection forms
+=================================================================================
+SELECT * FROM scarr INTO TABLE @results OPTIONS CONNECTION @connection.
+SELECT * FROM scarr INTO TABLE @results OPTIONS CONNECTION (connection_name).
+SELECT * FROM scarr INTO TABLE @results OPTIONS CONNECTION R/3*MY_CONN.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (connection_spec
+        connection: (sql_host_variable
+          variable: (identifier)))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (connection_spec
+        connection: (dynamic_spec
+          value: (identifier)))))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (connection_spec
+        connection: (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT OPTIONS ] Direct additions
+=================================================================================
+SELECT * FROM scarr INTO TABLE @results BYPASSING BUFFER.
+SELECT * FROM scarr INTO TABLE @results PRIVILEGED ACCESS CONNECTION DEFAULT.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (bypassing_buffer)))
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (privileged_access)
+      (connection_spec
+        connection: (identifier)))))

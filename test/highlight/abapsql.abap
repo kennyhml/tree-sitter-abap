@@ -263,3 +263,18 @@ SELECT * FROM flights ORDER BY flight_date INTO TABLE @results
 "                       ^ keyword
 "                              ^ punctuation.special
 "                                 ^ variable
+
+SELECT * FROM scarr INTO TABLE @results
+  OPTIONS USING CLIENTS IN T000 PRIVILEGED ACCESS
+" ^ keyword
+"         ^ keyword
+"               ^ keyword
+"                       ^ keyword
+"                          ^ type
+"                               ^ keyword
+"                                          ^ keyword
+  BYPASSING BUFFER CONNECTION R/3*MY_CONN.
+" ^ keyword
+"           ^ keyword
+"                  ^ keyword
+"                             ^ constant

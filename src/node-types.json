@@ -1466,6 +1466,26 @@
     }
   },
   {
+    "type": "all_clients",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "all",
+            "named": false
+          },
+          {
+            "type": "clients",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "all_fields",
     "named": true,
     "fields": {
@@ -4262,6 +4282,26 @@
     }
   },
   {
+    "type": "bypassing_buffer",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "buffer",
+            "named": false
+          },
+          {
+            "type": "bypassing",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "byte-ca",
     "named": false,
     "fields": {}
@@ -6445,6 +6485,60 @@
     }
   },
   {
+    "type": "clients_in",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "clients",
+            "named": false
+          },
+          {
+            "type": "in",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "close_dataset_statement",
     "named": true,
     "fields": {
@@ -7533,6 +7627,40 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "connection_spec",
+    "named": true,
+    "fields": {
+      "connection": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "connection",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -28841,6 +28969,26 @@
     }
   },
   {
+    "type": "privileged_access",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "access",
+            "named": false
+          },
+          {
+            "type": "privileged",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "procedure",
     "named": true,
     "fields": {
@@ -33150,6 +33298,10 @@
           "named": true
         },
         {
+          "type": "sql_options_spec",
+          "named": true
+        },
+        {
           "type": "where_condition_spec",
           "named": true
         }
@@ -34455,6 +34607,56 @@
         "types": [
           {
             "type": "single",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "single_client",
+    "named": true,
+    "fields": {
+      "client": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "client",
             "named": false
           }
         ]
@@ -36160,6 +36362,44 @@
     }
   },
   {
+    "type": "sql_options_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "options",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bypassing_buffer",
+          "named": true
+        },
+        {
+          "type": "connection_spec",
+          "named": true
+        },
+        {
+          "type": "privileged_access",
+          "named": true
+        },
+        {
+          "type": "sql_using_client_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sql_path_association",
     "named": true,
     "fields": {
@@ -36415,6 +36655,40 @@
         },
         {
           "type": "where_condition_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_using_client_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "using",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "all_clients",
+          "named": true
+        },
+        {
+          "type": "clients_in",
+          "named": true
+        },
+        {
+          "type": "single_client",
           "named": true
         }
       ]
@@ -42134,6 +42408,10 @@
     "named": false
   },
   {
+    "type": "access",
+    "named": false
+  },
+  {
     "type": "action",
     "named": false
   },
@@ -42342,6 +42620,10 @@
     "named": false
   },
   {
+    "type": "bypassing",
+    "named": false
+  },
+  {
     "type": "byte",
     "named": false
   },
@@ -42438,6 +42720,10 @@
     "named": false
   },
   {
+    "type": "clients",
+    "named": false
+  },
+  {
     "type": "clock",
     "named": false
   },
@@ -42499,6 +42785,10 @@
   },
   {
     "type": "condition",
+    "named": false
+  },
+  {
+    "type": "connection",
     "named": false
   },
   {

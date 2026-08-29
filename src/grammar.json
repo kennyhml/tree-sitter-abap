@@ -1766,6 +1766,18 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_options_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -3401,6 +3413,291 @@
           "content": {
             "type": "SYMBOL",
             "name": "cardinality"
+          }
+        }
+      ]
+    },
+    "sql_options_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_options"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__sql_options_spec"
+        }
+      ]
+    },
+    "__sql_options_spec": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_using_client_spec"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "privileged_access"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "bypassing_buffer"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "connection_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "privileged_access"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "bypassing_buffer"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "connection_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "bypassing_buffer"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "connection_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "connection_spec"
+        }
+      ]
+    },
+    "sql_using_client_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_using"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "single_client"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "clients_in"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "all_clients"
+            }
+          ]
+        }
+      ]
+    },
+    "single_client": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_client"
+        },
+        {
+          "type": "FIELD",
+          "name": "client",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_client_operand"
+          }
+        }
+      ]
+    },
+    "clients_in": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_clients"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_in"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_client_operand"
+          }
+        }
+      ]
+    },
+    "all_clients": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_all"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_clients"
+        }
+      ]
+    },
+    "_sql_client_operand": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sql_host_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_host_variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_simple_operand"
+        }
+      ]
+    },
+    "privileged_access": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_privileged"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_access"
+        }
+      ]
+    },
+    "bypassing_buffer": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_bypassing"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_buffer"
+        }
+      ]
+    },
+    "connection_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_connection"
+        },
+        {
+          "type": "FIELD",
+          "name": "connection",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[a-z_\\/][a-z\\d_\\/*]*",
+                  "flags": "i"
+                },
+                "named": true,
+                "value": "identifier"
+              }
+            ]
           }
         }
       ]
@@ -40454,6 +40751,123 @@
         "value": "cross"
       }
     },
+    "_kw_options": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)options"
+        },
+        "named": false,
+        "value": "options"
+      }
+    },
+    "_kw_using": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)using"
+        },
+        "named": false,
+        "value": "using"
+      }
+    },
+    "_kw_client": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)client"
+        },
+        "named": false,
+        "value": "client"
+      }
+    },
+    "_kw_clients": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)clients"
+        },
+        "named": false,
+        "value": "clients"
+      }
+    },
+    "_kw_privileged": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)privileged"
+        },
+        "named": false,
+        "value": "privileged"
+      }
+    },
+    "_kw_access": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)access"
+        },
+        "named": false,
+        "value": "access"
+      }
+    },
+    "_kw_bypassing": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)bypassing"
+        },
+        "named": false,
+        "value": "bypassing"
+      }
+    },
+    "_kw_buffer": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)buffer"
+        },
+        "named": false,
+        "value": "buffer"
+      }
+    },
+    "_kw_connection": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)connection"
+        },
+        "named": false,
+        "value": "connection"
+      }
+    },
     "_kw_over": {
       "type": "FIELD",
       "name": "keyword",
@@ -40912,19 +41326,6 @@
         "value": "get"
       }
     },
-    "_kw_client": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)client"
-        },
-        "named": false,
-        "value": "client"
-      }
-    },
     "_kw_export": {
       "type": "FIELD",
       "name": "keyword",
@@ -40949,19 +41350,6 @@
         },
         "named": false,
         "value": "import"
-      }
-    },
-    "_kw_buffer": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)buffer"
-        },
-        "named": false,
-        "value": "buffer"
       }
     },
     "_kw_internal": {
@@ -42427,19 +42815,6 @@
         "value": "ending"
       }
     },
-    "_kw_using": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)using"
-        },
-        "named": false,
-        "value": "using"
-      }
-    },
     "__kw_selection_set": {
       "type": "SEQ",
       "members": [
@@ -42714,19 +43089,6 @@
         },
         "named": false,
         "value": "transformation"
-      }
-    },
-    "_kw_options": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)options"
-        },
-        "named": false,
-        "value": "options"
       }
     },
     "_kw_clear": {
@@ -47599,19 +47961,6 @@
         },
         "named": false,
         "value": "forwarding"
-      }
-    },
-    "_kw_privileged": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)privileged"
-        },
-        "named": false,
-        "value": "privileged"
       }
     },
     "_kw_operations": {

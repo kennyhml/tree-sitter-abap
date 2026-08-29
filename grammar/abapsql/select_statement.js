@@ -28,6 +28,7 @@ module.exports = {
           seq($.select_offset_spec, optional($.select_up_to_spec)),
         ),
       ),
+      optional($.sql_options_spec),
     ),
 
   // https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENWHERE_LOGEXP_SUBQUERY.html
