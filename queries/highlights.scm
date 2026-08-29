@@ -869,6 +869,7 @@
   association: (identifier) @type)
 (sql_source_alias_spec alias: (identifier) @type)
 (sql_field_alias_spec alias: (identifier) @variable.member)
+(sql_set_order_by_field column: (identifier) @variable.member)
 (view_argument name: (identifier) @variable.parameter)
 (sql_database_hint database: (identifier) @constant)
 (clients_in source: (identifier) @type)

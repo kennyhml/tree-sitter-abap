@@ -1,9 +1,14 @@
 module.exports = {
   /**
    * SELECT mainquery_clauses
-   *   [UNION|INTERSECT|EXCEPT ...]
    *   INTO|APPENDING target
    *   [UP TO ...] [OFFSET ...]
+   *   [OPTIONS ...].
+   *
+   * SELECT query_clauses
+   *   {UNION|INTERSECT|EXCEPT SELECT query_clauses} ...
+   *   [ORDER BY ...]
+   *   INTO|APPENDING target
    *   [OPTIONS ...].
    *   ...
    * [ENDSELECT].
@@ -12,7 +17,7 @@ module.exports = {
    */
   select_statement: $ =>
     seq(
-      $.__select_statement_prefix,
+      choice($.__select_statement_prefix, $.__select_set_statement_prefix),
       ".",
       optional(seq(gen.kw("endselect"), ".")),
     ),
@@ -31,8 +36,92 @@ module.exports = {
       optional($.sql_options_spec),
     ),
 
+  __select_set_statement_prefix: $ =>
+    seq(
+      $.sql_set_expression,
+      optional($.sql_set_order_by_spec),
+      choice($.select_into_spec, $.select_appending_spec),
+      optional($.sql_options_spec),
+    ),
+
+  sql_set_expression: $ =>
+    seq(
+      field("query", $.sql_set_query),
+      repeat1(
+        choice($.sql_union_spec, $.sql_intersect_spec, $.sql_except_spec),
+      ),
+    ),
+
+  sql_set_query: $ => seq(gen.kw("select"), $.__set_query_clause),
+
+  parenthesized_sql_query_expression: $ =>
+    gen.parenthesized(choice($.sql_set_query, $.sql_set_expression)),
+
+  /*
+   * ... UNION [ALL|DISTINCT]
+   *     [(] SELECT query_clauses [)] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPUNION.html
+   */
+  sql_union_spec: $ =>
+    seq(
+      gen.kw("union"),
+      optional(field("quantifier", $.sql_set_quantifier)),
+      field(
+        "query",
+        choice($.sql_set_query, $.parenthesized_sql_query_expression),
+      ),
+    ),
+
+  /*
+   * ... INTERSECT [DISTINCT]
+   *     [(] SELECT query_clauses [)] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPUNION.html
+   */
+  sql_intersect_spec: $ =>
+    seq(
+      gen.kw("intersect"),
+      optional(
+        field(
+          "quantifier",
+          alias($.__sql_set_distinct_quantifier, $.sql_set_quantifier),
+        ),
+      ),
+      field(
+        "query",
+        choice($.sql_set_query, $.parenthesized_sql_query_expression),
+      ),
+    ),
+
+  /*
+   * ... EXCEPT [DISTINCT]
+   *     [(] SELECT query_clauses [)] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPUNION.html
+   */
+  sql_except_spec: $ =>
+    seq(
+      gen.kw("except"),
+      optional(
+        field(
+          "quantifier",
+          alias($.__sql_set_distinct_quantifier, $.sql_set_quantifier),
+        ),
+      ),
+      field(
+        "query",
+        choice($.sql_set_query, $.parenthesized_sql_query_expression),
+      ),
+    ),
+
+  sql_set_quantifier: _ => choice(...gen.kws("all", "distinct")),
+
+  __sql_set_distinct_quantifier: _ => gen.kw("distinct"),
+
   // https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENWHERE_LOGEXP_SUBQUERY.html
-  sql_subquery: $ => seq(gen.kw("select"), $.__mainquery_clause),
+  sql_subquery: $ =>
+    choice(seq(gen.kw("select"), $.__mainquery_clause), $.sql_set_expression),
 
   /**
    * ... [SINGLE [FOR UPDATE]]
@@ -60,6 +149,19 @@ module.exports = {
       optional($.select_group_by_spec),
       optional($.having_condition_spec),
       optional($.select_order_by_spec),
+      optional($.sql_database_hints_spec),
+    ),
+
+  // Set operands exclude clauses that apply only to the merged result set.
+  __set_query_clause: $ =>
+    seq(
+      choice(
+        seq($.from_database_source_spec, $.select_fields_spec),
+        seq($.select_list, $.from_database_source_spec),
+      ),
+      optional($._sql_where_condition_spec),
+      optional($.select_group_by_spec),
+      optional($.having_condition_spec),
       optional($.sql_database_hints_spec),
     ),
 
@@ -187,6 +289,19 @@ module.exports = {
     seq(
       ...gen.kws("order", "by"),
       choice($.primary_key, $.order_by_list, $.dynamic_spec),
+    ),
+
+  // Set expressions can only be sorted by directly specified result columns.
+  sql_set_order_by_spec: $ =>
+    seq(...gen.kws("order", "by"), $.sql_set_order_by_list),
+
+  sql_set_order_by_list: $ => gen.commaSep1($.sql_set_order_by_field),
+
+  sql_set_order_by_field: $ =>
+    seq(
+      field("column", $.identifier),
+      optional(choice($.ascending, $.descending)),
+      optional(choice($.nulls_first, $.nulls_last)),
     ),
 
   primary_key: _ => seq(...gen.kws("primary", "key")),

@@ -1,0 +1,226 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Set Operators ] Mixed chain and modifiers
+=================================================================================
+SELECT carrid FROM scarr
+  UNION ALL SELECT carrid FROM spfli
+  UNION DISTINCT SELECT carrid FROM sflight
+  INTERSECT DISTINCT SELECT carrid FROM sairport
+  EXCEPT DISTINCT SELECT carrid FROM scustom
+  INTO TABLE @results
+  OPTIONS BYPASSING BUFFER.
+---
+
+(source
+  (select_statement
+    (sql_set_expression
+      query: (sql_set_query
+        (select_list
+          (select_list_item
+            expression: (identifier)))
+        (from_database_source_spec
+          source: (identifier)))
+      (sql_union_spec
+        quantifier: (sql_set_quantifier)
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier))))
+      (sql_union_spec
+        quantifier: (sql_set_quantifier)
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier))))
+      (sql_intersect_spec
+        quantifier: (sql_set_quantifier)
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier))))
+      (sql_except_spec
+        quantifier: (sql_set_quantifier)
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (sql_options_spec
+      (bypassing_buffer))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Set Operators ] Parenthesized precedence
+=================================================================================
+SELECT FROM scarr FIELDS carrid, carrname
+  UNION (
+    SELECT FROM spfli FIELDS carrid, cityfrom AS carrname
+    EXCEPT SELECT FROM sflight FIELDS carrid, planetype AS carrname )
+  INTERSECT SELECT FROM sairport FIELDS id AS carrid, name AS carrname
+  ORDER BY carrid ASCENDING, carrname DESCENDING NULLS LAST
+  APPENDING TABLE @results.
+---
+
+(source
+  (select_statement
+    (sql_set_expression
+      query: (sql_set_query
+        (from_database_source_spec
+          source: (identifier))
+        (select_fields_spec
+          (select_list
+            (select_list_item
+              expression: (identifier))
+            (select_list_item
+              expression: (identifier)))))
+      (sql_union_spec
+        query: (parenthesized_sql_query_expression
+          (sql_set_expression
+            query: (sql_set_query
+              (from_database_source_spec
+                source: (identifier))
+              (select_fields_spec
+                (select_list
+                  (select_list_item
+                    expression: (identifier))
+                  (select_list_item
+                    expression: (identifier)
+                    alias: (sql_field_alias_spec
+                      alias: (identifier))))))
+            (sql_except_spec
+              query: (sql_set_query
+                (from_database_source_spec
+                  source: (identifier))
+                (select_fields_spec
+                  (select_list
+                    (select_list_item
+                      expression: (identifier))
+                    (select_list_item
+                      expression: (identifier)
+                      alias: (sql_field_alias_spec
+                        alias: (identifier))))))))))
+      (sql_intersect_spec
+        query: (sql_set_query
+          (from_database_source_spec
+            source: (identifier))
+          (select_fields_spec
+            (select_list
+              (select_list_item
+                expression: (identifier)
+                alias: (sql_field_alias_spec
+                  alias: (identifier)))
+              (select_list_item
+                expression: (identifier)
+                alias: (sql_field_alias_spec
+                  alias: (identifier))))))))
+    (sql_set_order_by_spec
+      (sql_set_order_by_list
+        (sql_set_order_by_field
+          column: (identifier)
+          (ascending))
+        (sql_set_order_by_field
+          column: (identifier)
+          (descending)
+          (nulls_last))))
+    (select_appending_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Set Operators ] Per-query database hints
+=================================================================================
+SELECT carrid FROM scarr %_HINTS HDB 'FIRST'
+  UNION
+  SELECT carrid FROM spfli %_HINTS HDB @second_hint
+  INTO @result.
+ENDSELECT.
+---
+
+(source
+  (select_statement
+    (sql_set_expression
+      query: (sql_set_query
+        (select_list
+          (select_list_item
+            expression: (identifier)))
+        (from_database_source_spec
+          source: (identifier))
+        (sql_database_hints_spec
+          (sql_database_hint
+            database: (identifier)
+            hint: (string_literal))))
+      (sql_union_spec
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier))
+          (sql_database_hints_spec
+            (sql_database_hint
+              database: (identifier)
+              hint: (sql_host_variable
+                variable: (identifier)))))))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Set Operators ] Subquery
+=================================================================================
+SELECT * FROM sflight
+  WHERE carrid IN (
+    SELECT carrid FROM scarr
+    UNION SELECT carrid FROM spfli
+    EXCEPT SELECT carrid FROM sairport )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_in_spec
+          (sql_in_list
+            (sql_subquery
+              (sql_set_expression
+                query: (sql_set_query
+                  (select_list
+                    (select_list_item
+                      expression: (identifier)))
+                  (from_database_source_spec
+                    source: (identifier)))
+                (sql_union_spec
+                  query: (sql_set_query
+                    (select_list
+                      (select_list_item
+                        expression: (identifier)))
+                    (from_database_source_spec
+                      source: (identifier))))
+                (sql_except_spec
+                  query: (sql_set_query
+                    (select_list
+                      (select_list_item
+                        expression: (identifier)))
+                    (from_database_source_spec
+                      source: (identifier))))))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

@@ -1708,8 +1708,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "__select_statement_prefix"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "__select_statement_prefix"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__select_set_statement_prefix"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -1831,7 +1840,86 @@
         }
       ]
     },
-    "sql_subquery": {
+    "__select_set_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sql_set_expression"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_set_order_by_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "select_into_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "select_appending_spec"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_options_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_set_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "query",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_set_query"
+          }
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_union_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "sql_intersect_spec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "sql_except_spec"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sql_set_query": {
       "type": "SEQ",
       "members": [
         {
@@ -1840,7 +1928,208 @@
         },
         {
           "type": "SYMBOL",
-          "name": "__mainquery_clause"
+          "name": "__set_query_clause"
+        }
+      ]
+    },
+    "parenthesized_sql_query_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_set_query"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_set_expression"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "sql_union_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_union"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "quantifier",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_set_quantifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "query",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_set_query"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized_sql_query_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sql_intersect_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_intersect"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "quantifier",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "__sql_set_distinct_quantifier"
+                },
+                "named": true,
+                "value": "sql_set_quantifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "query",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_set_query"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized_sql_query_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sql_except_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_except"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "quantifier",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "__sql_set_distinct_quantifier"
+                },
+                "named": true,
+                "value": "sql_set_quantifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "query",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_set_query"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized_sql_query_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sql_set_quantifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_all"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_distinct"
+        }
+      ]
+    },
+    "__sql_set_distinct_quantifier": {
+      "type": "SYMBOL",
+      "name": "_kw_distinct"
+    },
+    "sql_subquery": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_select"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "__mainquery_clause"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_set_expression"
         }
       ]
     },
@@ -1961,6 +2250,90 @@
             {
               "type": "SYMBOL",
               "name": "select_order_by_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_database_hints_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "__set_query_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "from_database_source_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "select_fields_spec"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "select_list"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "from_database_source_spec"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_sql_where_condition_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "select_group_by_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "having_condition_spec"
             },
             {
               "type": "BLANK"
@@ -2448,6 +2821,103 @@
             {
               "type": "SYMBOL",
               "name": "dynamic_spec"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_set_order_by_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_order"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_by"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_set_order_by_list"
+        }
+      ]
+    },
+    "sql_set_order_by_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sql_set_order_by_field"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "sql_set_order_by_field"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sql_set_order_by_field": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "column",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ascending"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "descending"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "nulls_first"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "nulls_last"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
@@ -40423,6 +40893,58 @@
         "value": "select"
       }
     },
+    "_kw_union": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)union"
+        },
+        "named": false,
+        "value": "union"
+      }
+    },
+    "_kw_intersect": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)intersect"
+        },
+        "named": false,
+        "value": "intersect"
+      }
+    },
+    "_kw_except": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)except"
+        },
+        "named": false,
+        "value": "except"
+      }
+    },
+    "_kw_distinct": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)distinct"
+        },
+        "named": false,
+        "value": "distinct"
+      }
+    },
     "_kw_for": {
       "type": "FIELD",
       "name": "keyword",
@@ -40746,19 +41268,6 @@
         },
         "named": false,
         "value": "single"
-      }
-    },
-    "_kw_distinct": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)distinct"
-        },
-        "named": false,
-        "value": "distinct"
       }
     },
     "_kw_update": {
@@ -45387,19 +45896,6 @@
         },
         "named": false,
         "value": "component"
-      }
-    },
-    "_kw_except": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)except"
-        },
-        "named": false,
-        "value": "except"
       }
     },
     "_kw_deep": {

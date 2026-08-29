@@ -288,3 +288,18 @@ SELECT * FROM scarr
 "                                 ^ punctuation.special
 "                                  ^ variable
   INTO TABLE @results.
+
+SELECT carrid FROM scarr
+  UNION ALL SELECT carrid FROM spfli
+" ^ keyword
+"       ^ keyword
+"           ^ keyword
+"                  ^ variable.member
+  INTERSECT DISTINCT SELECT carrid FROM sflight
+" ^ keyword
+"           ^ keyword
+  EXCEPT SELECT carrid FROM sairport
+" ^ keyword
+  ORDER BY carrid DESCENDING
+"          ^ variable.member
+  INTO TABLE @results.
