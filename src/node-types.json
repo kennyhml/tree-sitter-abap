@@ -33298,6 +33298,10 @@
           "named": true
         },
         {
+          "type": "sql_database_hints_spec",
+          "named": true
+        },
+        {
           "type": "sql_options_spec",
           "named": true
         },
@@ -35744,6 +35748,74 @@
     }
   },
   {
+    "type": "sql_database_hint",
+    "named": true,
+    "fields": {
+      "database": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "hint": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_database_hints_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "%_hints",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_database_hint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sql_exists_spec",
     "named": true,
     "fields": {
@@ -36651,6 +36723,10 @@
         },
         {
           "type": "single",
+          "named": true
+        },
+        {
+          "type": "sql_database_hints_spec",
           "named": true
         },
         {
@@ -42265,6 +42341,10 @@
   },
   {
     "type": "##",
+    "named": false
+  },
+  {
+    "type": "%_hints",
     "named": false
   },
   {

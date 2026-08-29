@@ -60,6 +60,7 @@ module.exports = {
       optional($.select_group_by_spec),
       optional($.having_condition_spec),
       optional($.select_order_by_spec),
+      optional($.sql_database_hints_spec),
     ),
 
   /*

@@ -1654,6 +1654,56 @@
         }
       ]
     },
+    "sql_database_hints_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_%_hints"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_database_hint"
+          }
+        }
+      ]
+    },
+    "sql_database_hint": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "database",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "hint",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sql_host_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "string_literal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_reference_operand"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "select_statement": {
       "type": "SEQ",
       "members": [
@@ -1911,6 +1961,18 @@
             {
               "type": "SYMBOL",
               "name": "select_order_by_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_database_hints_spec"
             },
             {
               "type": "BLANK"
@@ -40320,6 +40382,19 @@
         },
         "named": false,
         "value": "exists"
+      }
+    },
+    "_kw_%_hints": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)%_hints"
+        },
+        "named": false,
+        "value": "%_hints"
       }
     },
     "_kw_endselect": {

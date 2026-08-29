@@ -1,0 +1,136 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Database Hints ] String literal
+=================================================================================
+SELECT * FROM scarr
+  %_HINTS HDB 'USE INDEX foo.bar'
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (sql_database_hints_spec
+      (sql_database_hint
+        database: (identifier)
+        hint: (string_literal)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Database Hints ] Multiple hints
+=================================================================================
+SELECT * FROM scarr
+  %_HINTS HDB @hana_hint ORACLE oracle_hint
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (sql_database_hints_spec
+      (sql_database_hint
+        database: (identifier)
+        hint: (sql_host_variable
+          variable: (identifier)))
+      (sql_database_hint
+        database: (identifier)
+        hint: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Database Hints ] Empty hints
+=================================================================================
+SELECT * FROM scarr %_HiNtS HDB '' ORACLE `` INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (sql_database_hints_spec
+      (sql_database_hint
+        database: (identifier)
+        hint: (string_literal))
+      (sql_database_hint
+        database: (identifier)
+        hint: (string_literal)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Database Hints ] Appending target
+=================================================================================
+SELECT * FROM scarr %_HINTS HDB @hint APPENDING TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (sql_database_hints_spec
+      (sql_database_hint
+        database: (identifier)
+        hint: (sql_host_variable
+          variable: (identifier))))
+    (select_appending_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Database Hints ] Subquery
+=================================================================================
+SELECT * FROM scarr
+  WHERE carrid IN (
+    SELECT carrid FROM spfli %_HINTS HDB @subquery_hint )
+  %_HINTS HDB 'outer'
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (identifier)
+        right: (sql_in_spec
+          (sql_in_list
+            (sql_subquery
+              (select_list
+                (select_list_item
+                  expression: (identifier)))
+              (from_database_source_spec
+                source: (identifier))
+              (sql_database_hints_spec
+                (sql_database_hint
+                  database: (identifier)
+                  hint: (sql_host_variable
+                    variable: (identifier)))))))))
+    (sql_database_hints_spec
+      (sql_database_hint
+        database: (identifier)
+        hint: (string_literal)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

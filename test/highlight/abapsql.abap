@@ -278,3 +278,13 @@ SELECT * FROM scarr INTO TABLE @results
 "           ^ keyword
 "                  ^ keyword
 "                             ^ constant
+
+SELECT * FROM scarr
+  %_HINTS HDB 'USE INDEX' ORACLE @oracle_hint
+" ^ keyword
+"          ^ constant
+"              ^ string
+"                          ^ constant
+"                                 ^ punctuation.special
+"                                  ^ variable
+  INTO TABLE @results.

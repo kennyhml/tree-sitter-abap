@@ -243,4 +243,22 @@ module.exports = {
       token.immediate("~"),
       field("target", $._immediate_identifier),
     ),
+
+  /*
+   * ... %_HINTS db @dbhint1
+   *              [db @dbhint2 ...] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENABAP_SQL_DB_HINTS.html
+   */
+  sql_database_hints_spec: $ =>
+    seq(gen.kw("%_hints"), repeat1($.sql_database_hint)),
+
+  sql_database_hint: $ =>
+    seq(
+      field("database", $.identifier),
+      field(
+        "hint",
+        choice($.sql_host_variable, $.string_literal, $._reference_operand),
+      ),
+    ),
 };

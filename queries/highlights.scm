@@ -870,6 +870,7 @@
 (sql_source_alias_spec alias: (identifier) @type)
 (sql_field_alias_spec alias: (identifier) @variable.member)
 (view_argument name: (identifier) @variable.parameter)
+(sql_database_hint database: (identifier) @constant)
 (clients_in source: (identifier) @type)
 (connection_spec connection: (identifier) @constant)
 (sql_host_variable "@" @punctuation.special)
