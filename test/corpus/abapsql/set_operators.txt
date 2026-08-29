@@ -224,3 +224,39 @@ SELECT * FROM sflight
       (select_result_table
         table: (sql_host_variable
           variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Set Operators ] ENDSELECT block
+=================================================================================
+SELECT carrid FROM scarr
+  UNION ALL SELECT carrid FROM spfli
+  INTO @result.
+count += 1.
+ENDSELECT.
+---
+
+(source
+  (select_statement
+    (sql_set_expression
+      query: (sql_set_query
+        (select_list
+          (select_list_item
+            expression: (identifier)))
+        (from_database_source_spec
+          source: (identifier)))
+      (sql_union_spec
+        quantifier: (sql_set_quantifier)
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier)))))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))
+    body: (statement_block
+      (calculation_assignment
+        left: (identifier)
+        right: (number)))))

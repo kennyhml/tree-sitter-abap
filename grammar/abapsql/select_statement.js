@@ -19,7 +19,13 @@ module.exports = {
     seq(
       choice($.__select_statement_prefix, $.__select_set_statement_prefix),
       ".",
-      optional(seq(gen.kw("endselect"), ".")),
+      optional(
+        seq(
+          optional(field("body", $.statement_block)),
+          gen.kw("endselect"),
+          ".",
+        ),
+      ),
     ),
 
   __select_statement_prefix: $ =>

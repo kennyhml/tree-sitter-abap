@@ -844,6 +844,7 @@ SELECT SINGLE FOR UPDATE field FROM source INTO @result.
 [ ABAP - Database Access / ABAP SQL / SELECT ] Select loop
 =================================================================================
 SELECT field FROM source INTO @result.
+result = result.
 ENDSELECT.
 ---
 
@@ -857,4 +858,8 @@ ENDSELECT.
     (select_into_spec
       (select_result_struct
         work_area: (sql_host_variable
-          variable: (identifier))))))
+          variable: (identifier))))
+    body: (statement_block
+      (assignment
+        left: (identifier)
+        right: (identifier)))))

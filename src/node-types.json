@@ -33245,6 +33245,16 @@
     "type": "select_statement",
     "named": true,
     "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": true,
         "required": false,
