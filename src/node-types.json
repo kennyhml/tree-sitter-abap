@@ -32744,6 +32744,40 @@
     }
   },
   {
+    "type": "select_offset_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "offset",
+            "named": false
+          }
+        ]
+      },
+      "offset": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "select_options_declaration",
     "named": true,
     "fields": {
@@ -33100,7 +33134,15 @@
           "named": true
         },
         {
+          "type": "select_offset_spec",
+          "named": true
+        },
+        {
           "type": "select_order_by_spec",
+          "named": true
+        },
+        {
+          "type": "select_up_to_spec",
           "named": true
         },
         {
@@ -33112,6 +33154,48 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "select_up_to_spec",
+    "named": true,
+    "fields": {
+      "count": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "rows",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "up",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {

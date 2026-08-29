@@ -252,3 +252,14 @@ SELECT carrid FROM scarr
 "                  ^ variable
 "                            ^ variable.member
   INTO TABLE @results.
+
+SELECT * FROM flights ORDER BY flight_date INTO TABLE @results
+  UP TO @page_size ROWS OFFSET @( skip ).
+" ^ keyword
+"    ^ keyword
+"       ^ punctuation.special
+"        ^ variable
+"                  ^ keyword
+"                       ^ keyword
+"                              ^ punctuation.special
+"                                 ^ variable

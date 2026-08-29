@@ -1,0 +1,104 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] UP TO with literal
+=================================================================================
+SELECT * FROM flights INTO TABLE @results UP TO 10 ROWS.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (select_up_to_spec
+      count: (number))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] OFFSET with host variable
+=================================================================================
+SELECT * FROM flights
+  ORDER BY flight_date
+  INTO TABLE @results
+  OFFSET @skip.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (select_offset_spec
+      offset: (sql_host_variable
+        variable: (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] UP TO before OFFSET
+=================================================================================
+SELECT * FROM flights
+  ORDER BY flight_date
+  INTO TABLE @results
+  UP TO @( page_size ) ROWS OFFSET 20.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (select_up_to_spec
+      count: (sql_host_expression
+        expression: (identifier)))
+    (select_offset_spec
+      offset: (number))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] OFFSET before UP TO
+=================================================================================
+SELECT * FROM flights
+  ORDER BY flight_date
+  INTO TABLE @results
+  OFFSET @( skip ) UP TO @page_size ROWS.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier))
+    (select_order_by_spec
+      (order_by_list
+        (order_by_field
+          (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (select_offset_spec
+      offset: (sql_host_expression
+        expression: (identifier)))
+    (select_up_to_spec
+      count: (sql_host_variable
+        variable: (identifier)))))

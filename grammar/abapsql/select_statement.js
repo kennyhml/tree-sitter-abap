@@ -22,6 +22,12 @@ module.exports = {
       gen.kw("select"),
       $.__mainquery_clause,
       choice($.select_into_spec, $.select_appending_spec),
+      optional(
+        choice(
+          seq($.select_up_to_spec, optional($.select_offset_spec)),
+          seq($.select_offset_spec, optional($.select_up_to_spec)),
+        ),
+      ),
     ),
 
   // https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENWHERE_LOGEXP_SUBQUERY.html
@@ -264,6 +270,27 @@ module.exports = {
   // ... PACKAGE SIZE n ...
   package_size_spec: $ =>
     seq(...gen.kws("package", "size"), field("size", $._simple_operand)),
+
+  // ... UP TO n ROWS ...
+  select_up_to_spec: $ =>
+    seq(
+      ...gen.kws("up", "to"),
+      field(
+        "count",
+        choice($.sql_host_expression, $.sql_host_variable, $.number),
+      ),
+      gen.kw("rows"),
+    ),
+
+  // ... OFFSET o ...
+  select_offset_spec: $ =>
+    seq(
+      gen.kw("offset"),
+      field(
+        "offset",
+        choice($.sql_host_expression, $.sql_host_variable, $.number),
+      ),
+    ),
 
   // Explicit form ... FIELDS select_clause ...
   select_fields_spec: $ => seq(gen.kw("fields"), $.select_list),
