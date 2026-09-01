@@ -17,7 +17,7 @@ module.exports = {
    */
   select_statement: $ =>
     seq(
-      choice($.__select_statement_prefix, $.__select_set_statement_prefix),
+      choice($._select_statement_prefix, $._select_set_statement_prefix),
       ".",
       optional(
         seq(
@@ -28,7 +28,7 @@ module.exports = {
       ),
     ),
 
-  __select_statement_prefix: $ =>
+  _select_statement_prefix: $ =>
     seq(
       gen.kw("select"),
       $.__mainquery_clause,
@@ -42,7 +42,7 @@ module.exports = {
       optional($.sql_options_spec),
     ),
 
-  __select_set_statement_prefix: $ =>
+  _select_set_statement_prefix: $ =>
     seq(
       $.sql_set_expression,
       optional($.sql_set_order_by_spec),
@@ -276,7 +276,7 @@ module.exports = {
 
   __qualified_select_all_fields: $ =>
     seq(
-      field("source", $.identifier),
+      field("source", choice($.identifier, $.cte_name)),
       token.immediate("~"),
       field("target", $.select_wildcard),
     ),
@@ -376,7 +376,10 @@ module.exports = {
     seq(
       gen.kw("from"),
       choice(
-        seq(field("source", $.identifier), optional($.sql_source_alias_spec)),
+        seq(
+          field("source", choice($.identifier, $.cte_name)),
+          optional($.sql_source_alias_spec),
+        ),
         field("source", $.dynamic_spec),
         field("source", $.sql_join_expression),
       ),
@@ -384,7 +387,7 @@ module.exports = {
 
   sql_data_source: $ =>
     seq(
-      field("source", $.identifier),
+      field("source", choice($.identifier, $.cte_name)),
       optional(field("alias", $.sql_source_alias_spec)),
     ),
 

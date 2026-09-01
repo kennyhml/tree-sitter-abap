@@ -303,3 +303,22 @@ SELECT carrid FROM scarr
   ORDER BY carrid DESCENDING
 "          ^ variable.member
   INTO TABLE @results.
+
+WITH
+"<- keyword
+  +connections( carrier, connection ) AS (
+" ^ operator
+"  ^ type
+"               ^ variable.member
+"                        ^ variable.member
+    SELECT carrid, connid FROM spfli )
+"          ^ variable.member
+"                  ^ variable.member
+"                              ^ type
+  SELECT carrier, connection FROM +connections INTO TABLE @results.
+"        ^ variable.member
+"                 ^ variable.member
+"                                 ^ operator
+"                                   ^ type
+"                                                         ^ punctuation.special
+"                                                          ^ variable

@@ -239,7 +239,7 @@ module.exports = {
 
   qualified_field: $ =>
     seq(
-      field("source", $.identifier),
+      field("source", choice($.identifier, $.cte_name)),
       token.immediate("~"),
       field("target", $._immediate_identifier),
     ),

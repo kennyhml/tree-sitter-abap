@@ -1,0 +1,307 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ] Static form and column names
+=================================================================================
+WITH
+  +connections( carrid, connid ) AS (
+    SELECT FROM spfli FIELDS carrid, connid )
+  SELECT FROM +connections FIELDS carrid, connid
+    ORDER BY carrid, connid
+    INTO TABLE @results
+    OPTIONS BYPASSING BUFFER.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_field_list
+        (identifier)
+        (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (from_database_source_spec
+            source: (identifier))
+          (select_fields_spec
+            (select_list
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier)))))))
+    query: (sql_main_query
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_fields_spec
+        (select_list
+          (select_list_item
+            expression: (identifier))
+          (select_list_item
+            expression: (identifier))))
+      (select_order_by_spec
+        (order_by_list
+          (order_by_field
+            (identifier))
+          (order_by_field
+            (identifier))))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier))))
+      (sql_options_spec
+        (bypassing_buffer)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ] Multiple CTEs and join
+=================================================================================
+WITH
+  +carriers AS (
+    SELECT carrid FROM scarr ),
+  +connections AS (
+    SELECT c~carrid, f~connid
+      FROM +carriers AS c
+      INNER JOIN spfli AS f ON f~carrid = c~carrid )
+  SELECT +connections~* FROM +connections
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier)))))
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (qualified_field
+                source: (identifier)
+                target: (identifier)))
+            (select_list_item
+              expression: (qualified_field
+                source: (identifier)
+                target: (identifier))))
+          (from_database_source_spec
+            source: (sql_join_expression
+              left: (sql_data_source
+                source: (cte_name
+                  name: (identifier))
+                alias: (sql_source_alias_spec
+                  alias: (identifier)))
+              kind: (join_kind)
+              right: (sql_data_source
+                source: (identifier)
+                alias: (sql_source_alias_spec
+                  alias: (identifier)))
+              (sql_join_condition_spec
+                condition: (comparison_expression
+                  left: (qualified_field
+                    source: (identifier)
+                    target: (identifier))
+                  right: (qualified_field
+                    source: (identifier)
+                    target: (identifier)))))))))
+    query: (sql_main_query
+      (select_list
+        (select_list_item
+          expression: (qualified_field
+            source: (cte_name
+              name: (identifier))
+            target: (select_wildcard))))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ] Set queries
+=================================================================================
+WITH
+  +cities AS (
+    SELECT cityfrom AS city FROM spfli
+    UNION DISTINCT SELECT cityto AS city FROM spfli )
+  SELECT city FROM +cities
+    UNION ALL SELECT city FROM sgeocity
+    ORDER BY city
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (sql_set_expression
+            query: (sql_set_query
+              (select_list
+                (select_list_item
+                  expression: (identifier)
+                  alias: (sql_field_alias_spec
+                    alias: (identifier))))
+              (from_database_source_spec
+                source: (identifier)))
+            (sql_union_spec
+              quantifier: (sql_set_quantifier)
+              query: (sql_set_query
+                (select_list
+                  (select_list_item
+                    expression: (identifier)
+                    alias: (sql_field_alias_spec
+                      alias: (identifier))))
+                (from_database_source_spec
+                  source: (identifier))))))))
+    query: (sql_main_query
+      (sql_set_expression
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (cte_name
+              name: (identifier))))
+        (sql_union_spec
+          quantifier: (sql_set_quantifier)
+          query: (sql_set_query
+            (select_list
+              (select_list_item
+                expression: (identifier)))
+            (from_database_source_spec
+              source: (identifier)))))
+      (sql_set_order_by_spec
+        (sql_set_order_by_list
+          (sql_set_order_by_field
+            column: (identifier))))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ] CTE row limits and hints
+=================================================================================
+WITH
+  +first_connections AS (
+    SELECT carrid, connid FROM spfli
+      ORDER BY carrid, connid UP TO 10 ROWS OFFSET 2
+      %_HINTS HDB 'FIRST' )
+  SELECT * FROM +first_connections
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (identifier))
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier))
+          (select_order_by_spec
+            (order_by_list
+              (order_by_field
+                (identifier))
+              (order_by_field
+                (identifier))))
+          (select_up_to_spec
+            count: (number))
+          (select_offset_spec
+            offset: (number))
+          (sql_database_hints_spec
+            (sql_database_hint
+              database: (identifier)
+              hint: (string_literal))))))
+    query: (sql_main_query
+      (select_list
+        (select_wildcard))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ] Dynamic form
+=================================================================================
+WITH (select_syntax)
+  INTO TABLE @results
+  UP TO 10 ROWS OFFSET @skip
+  OPTIONS BYPASSING BUFFER.
+---
+
+(source
+  (with_statement
+    (dynamic_spec
+      value: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))
+    (select_up_to_spec
+      count: (number))
+    (select_offset_spec
+      offset: (sql_host_variable
+        variable: (identifier)))
+    (sql_options_spec
+      (bypassing_buffer))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ] ENDWITH block
+=================================================================================
+WITH
+  +carriers AS (
+    SELECT carrid FROM scarr )
+  SELECT carrid FROM +carriers INTO @result.
+count += 1.
+ENDWITH.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier)))))
+    query: (sql_main_query
+      (select_list
+        (select_list_item
+          expression: (identifier)))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_into_spec
+        (select_result_struct
+          work_area: (sql_host_variable
+            variable: (identifier)))))
+    body: (statement_block
+      (calculation_assignment
+        left: (identifier)
+        right: (number)))))

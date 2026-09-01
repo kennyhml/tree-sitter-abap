@@ -50,6 +50,7 @@ module.exports = grammar({
     [$.load_of_program_event],
     [$._named_argument_list],
     [$.select_statement],
+    [$.with_statement],
   ],
 
   extras: $ => [
@@ -281,6 +282,7 @@ module.exports = grammar({
 
           // abap sql
           $.select_statement,
+          $.with_statement,
 
           $._empty_statement,
         ),

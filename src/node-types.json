@@ -970,6 +970,10 @@
         "named": true
       },
       {
+        "type": "with_statement",
+        "named": true
+      },
+      {
         "type": "write_to_statement",
         "named": true
       }
@@ -6899,6 +6903,36 @@
     }
   },
   {
+    "type": "common_table_expression",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cte_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cte_as_subquery_spec",
+          "named": true
+        },
+        {
+          "type": "cte_field_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comparing_spec",
     "named": true,
     "fields": {
@@ -8956,6 +8990,63 @@
           {
             "type": "public",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cte_as_subquery_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "as",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cte_field_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cte_name",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -18122,6 +18213,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "cte_name",
+            "named": true
+          },
           {
             "type": "dynamic_spec",
             "named": true
@@ -29411,6 +29506,10 @@
         "required": true,
         "types": [
           {
+            "type": "cte_name",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -35777,6 +35876,10 @@
         "required": true,
         "types": [
           {
+            "type": "cte_name",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -36389,6 +36492,100 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "sql_main_query",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "select",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_all_entries_in_spec",
+          "named": true
+        },
+        {
+          "type": "for_update",
+          "named": true
+        },
+        {
+          "type": "from_database_source_spec",
+          "named": true
+        },
+        {
+          "type": "having_condition_spec",
+          "named": true
+        },
+        {
+          "type": "select_appending_spec",
+          "named": true
+        },
+        {
+          "type": "select_fields_spec",
+          "named": true
+        },
+        {
+          "type": "select_group_by_spec",
+          "named": true
+        },
+        {
+          "type": "select_into_spec",
+          "named": true
+        },
+        {
+          "type": "select_list",
+          "named": true
+        },
+        {
+          "type": "select_offset_spec",
+          "named": true
+        },
+        {
+          "type": "select_order_by_spec",
+          "named": true
+        },
+        {
+          "type": "select_up_to_spec",
+          "named": true
+        },
+        {
+          "type": "single",
+          "named": true
+        },
+        {
+          "type": "sql_database_hints_spec",
+          "named": true
+        },
+        {
+          "type": "sql_options_spec",
+          "named": true
+        },
+        {
+          "type": "sql_set_expression",
+          "named": true
+        },
+        {
+          "type": "sql_set_order_by_spec",
+          "named": true
+        },
+        {
+          "type": "where_condition_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -37022,7 +37219,15 @@
           "named": true
         },
         {
+          "type": "select_offset_spec",
+          "named": true
+        },
+        {
           "type": "select_order_by_spec",
+          "named": true
+        },
+        {
+          "type": "select_up_to_spec",
           "named": true
         },
         {
@@ -42454,6 +42659,80 @@
     }
   },
   {
+    "type": "with_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "endwith",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      },
+      "query": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_main_query",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "common_table_expression",
+          "named": true
+        },
+        {
+          "type": "dynamic_spec",
+          "named": true
+        },
+        {
+          "type": "select_appending_spec",
+          "named": true
+        },
+        {
+          "type": "select_into_spec",
+          "named": true
+        },
+        {
+          "type": "select_offset_spec",
+          "named": true
+        },
+        {
+          "type": "select_up_to_spec",
+          "named": true
+        },
+        {
+          "type": "sql_options_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "without_authority_check",
     "named": true,
     "fields": {
@@ -43545,6 +43824,10 @@
   },
   {
     "type": "endwhile",
+    "named": false
+  },
+  {
+    "type": "endwith",
     "named": false
   },
   {
