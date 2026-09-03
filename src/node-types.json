@@ -2697,6 +2697,32 @@
     }
   },
   {
+    "type": "association_alias_spec",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "as",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "association_navigation",
     "named": true,
     "fields": {
@@ -2720,6 +2746,54 @@
           },
           {
             "type": "composition_navigation",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "association_redirected_to_spec",
+    "named": true,
+    "fields": {
+      "cte": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cte_name",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "redirected",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "via",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cte_name",
             "named": true
           },
           {
@@ -6927,6 +7001,10 @@
         },
         {
           "type": "cte_field_list",
+          "named": true
+        },
+        {
+          "type": "with_associations_spec",
           "named": true
         }
       ]
@@ -42157,6 +42235,74 @@
     }
   },
   {
+    "type": "with_association_path",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cte_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "association_alias_spec",
+          "named": true
+        },
+        {
+          "type": "association_redirected_to_spec",
+          "named": true
+        },
+        {
+          "type": "sql_path_association",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "with_associations_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "associations",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "with_association_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "with_authority_check",
     "named": true,
     "fields": {
@@ -43208,6 +43354,10 @@
   },
   {
     "type": "assigning",
+    "named": false
+  },
+  {
+    "type": "associations",
     "named": false
   },
   {
@@ -44798,6 +44948,10 @@
   },
   {
     "type": "redefinition",
+    "named": false
+  },
+  {
+    "type": "redirected",
     "named": false
   },
   {

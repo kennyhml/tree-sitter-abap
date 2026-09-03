@@ -1,0 +1,132 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ASSOCIATIONS ] Paths and aliases
+=================================================================================
+WITH
+  +connections AS (
+    SELECT carrid, connid
+      FROM demo_cds_expose_assoc AS source )
+    WITH ASSOCIATIONS (
+      \_spfli AS _spfli,
+      source~\_spfli[ MANY TO MANY WHERE fltime > @flight_time ]\_scarr
+        AS _carrier )
+  SELECT * FROM +connections
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (identifier))
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier)
+            (sql_source_alias_spec
+              alias: (identifier)))))
+      (with_associations_spec
+        (with_association_path
+          (sql_path_association
+            association: (identifier))
+          (association_alias_spec
+            alias: (identifier)))
+        (with_association_path
+          source: (identifier)
+          (sql_path_association
+            association: (identifier)
+            (sql_path_filter
+              (sql_association_cardinality
+                left: (cardinality)
+                right: (cardinality))
+              condition: (comparison_expression
+                left: (identifier)
+                right: (sql_host_variable
+                  variable: (identifier)))))
+          (sql_path_association
+            association: (identifier))
+          (association_alias_spec
+            alias: (identifier)))))
+    query: (sql_main_query
+      (select_list
+        (select_wildcard))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ASSOCIATIONS ] Redirected path
+=================================================================================
+WITH
+  +filtered_connections AS (
+    SELECT *
+      FROM demo_cds_assoc_spfli AS connections
+      WHERE carrid = @carrier ),
+  +carriers AS (
+    SELECT *
+      FROM demo_cds_expose_assoc AS carriers )
+    WITH ASSOCIATIONS (
+      carriers~\_spfli AS _filtered_connections
+        REDIRECTED TO +filtered_connections VIA connections )
+  SELECT * FROM +carriers
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_wildcard))
+          (from_database_source_spec
+            source: (identifier)
+            (sql_source_alias_spec
+              alias: (identifier)))
+          (where_condition_spec
+            condition: (comparison_expression
+              left: (identifier)
+              right: (sql_host_variable
+                variable: (identifier)))))))
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_wildcard))
+          (from_database_source_spec
+            source: (identifier)
+            (sql_source_alias_spec
+              alias: (identifier)))))
+      (with_associations_spec
+        (with_association_path
+          source: (identifier)
+          (sql_path_association
+            association: (identifier))
+          (association_alias_spec
+            alias: (identifier))
+          (association_redirected_to_spec
+            cte: (cte_name
+              name: (identifier))
+            target: (identifier)))))
+    query: (sql_main_query
+      (select_list
+        (select_wildcard))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))

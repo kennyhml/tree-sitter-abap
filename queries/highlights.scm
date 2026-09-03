@@ -867,6 +867,9 @@
 (sql_path_association
   "\\" @operator
   association: (identifier) @type)
+(with_association_path source: (identifier) @type)
+(association_alias_spec alias: (identifier) @type)
+(association_redirected_to_spec target: (identifier) @type)
 (sql_source_alias_spec alias: (identifier) @type)
 (sql_field_alias_spec alias: (identifier) @variable.member)
 (sql_set_order_by_field column: (identifier) @variable.member)

@@ -13,6 +13,7 @@ module.exports = {
       ".",
       optional(
         seq(
+          // only when endwith is appended
           optional(field("body", $.statement_block)),
           gen.kw("endwith"),
           ".",
@@ -32,9 +33,12 @@ module.exports = {
       ),
     ),
 
+  // Main query of the WITH statement (using the CTES)
   sql_main_query: $ =>
     choice($._select_statement_prefix, $._select_set_statement_prefix),
 
+  // Dynamic spec of the ctes + main query, so that leaves the remaining
+  // main query clauses to be called manually
   __dynamic_with_statement: $ =>
     seq(
       $.dynamic_spec,
@@ -58,6 +62,7 @@ module.exports = {
       field("name", $.cte_name),
       optional($.cte_field_list),
       $.cte_as_subquery_spec,
+      optional($.with_associations_spec),
     ),
 
   cte_name: $ => seq("+", field("name", $._immediate_identifier)),
@@ -93,5 +98,47 @@ module.exports = {
         ),
       ),
       optional($.sql_database_hints_spec),
+    ),
+
+  /**
+   * Expose existing associations of a CTE's data sources.
+   *
+   * ... WITH ASSOCIATIONS ( path [, path ...] ) ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPWITH_ASSOCIATIONS.html
+   */
+  with_associations_spec: $ =>
+    seq(
+      ...gen.kws("with", "associations"),
+      gen.parenthesized(gen.commaSep1($.with_association_path)),
+    ),
+
+  /**
+   * ... sql_path [AS alias] [REDIRECTED TO +cte VIA target] ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPWITH_ASSOCIATIONS_USING.html
+   */
+  with_association_path: $ =>
+    seq(
+      optional(
+        seq(
+          field("source", choice($.identifier, $.cte_name)),
+          token.immediate("~"),
+        ),
+      ),
+      repeat1($.sql_path_association),
+      optional($.association_alias_spec),
+      optional($.association_redirected_to_spec),
+    ),
+
+  association_alias_spec: $ =>
+    seq(gen.kw("as"), field("alias", $.identifier)),
+
+  association_redirected_to_spec: $ =>
+    seq(
+      ...gen.kws("redirected", "to"),
+      field("cte", $.cte_name),
+      gen.kw("via"),
+      field("target", choice($.identifier, $.cte_name)),
     ),
 };

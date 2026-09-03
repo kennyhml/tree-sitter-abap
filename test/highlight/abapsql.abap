@@ -322,3 +322,19 @@ WITH
 "                                   ^ type
 "                                                         ^ punctuation.special
 "                                                          ^ variable
+
+WITH
+  +filtered_connections AS (
+    SELECT * FROM demo_cds_assoc_spfli AS connections ),
+  +carriers AS (
+    SELECT * FROM demo_cds_expose_assoc AS carriers )
+    WITH ASSOCIATIONS (
+"   ^ keyword
+"        ^ keyword
+      carriers~\_spfli AS _filtered_connections
+"     ^ type
+"                         ^ type
+        REDIRECTED TO +filtered_connections VIA connections )
+"                         ^ type 
+"                                               ^ type 
+  SELECT * FROM +carriers INTO TABLE @results.
