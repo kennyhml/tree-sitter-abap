@@ -1460,12 +1460,20 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "FIELD",
-              "name": "left",
-              "content": {
-                "type": "SYMBOL",
-                "name": "cardinality"
-              }
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "left",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "cardinality"
+                  }
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "SYMBOL",
@@ -2219,42 +2227,68 @@
           "name": "_kw_associations"
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
             {
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "with_association_path"
+                  "type": "STRING",
+                  "value": "("
                 },
                 {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "with_association_path"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "__with_association"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "__with_association"
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
                 }
               ]
             },
             {
-              "type": "STRING",
-              "value": ")"
+              "type": "FIELD",
+              "name": "syntax",
+              "content": {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              }
             }
           ]
+        }
+      ]
+    },
+    "__with_association": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "with_association_path"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "with_defined_association"
         }
       ]
     },
@@ -2387,6 +2421,48 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "with_defined_association": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_join"
+        },
+        {
+          "type": "FIELD",
+          "name": "cardinality",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_association_cardinality"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cte_name"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "association_alias_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_join_condition_spec"
         }
       ]
     },
@@ -41687,6 +41763,19 @@
         "value": "via"
       }
     },
+    "_kw_join": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)join"
+        },
+        "named": false,
+        "value": "join"
+      }
+    },
     "_kw_endselect": {
       "type": "FIELD",
       "name": "keyword",
@@ -42101,19 +42190,6 @@
         },
         "named": false,
         "value": "on"
-      }
-    },
-    "_kw_join": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)join"
-        },
-        "named": false,
-        "value": "join"
       }
     },
     "_kw_cross": {

@@ -338,3 +338,25 @@ WITH
 "                         ^ type 
 "                                               ^ type 
   SELECT * FROM +carriers INTO TABLE @results.
+
+WITH
+  +connections AS (
+    SELECT carrid FROM spfli )
+    WITH ASSOCIATIONS (
+      JOIN MANY TO ONE
+        scarr AS _carrier
+"       ^ type
+"                ^ type
+        ON +connections~carrid = _carrier~carrid )
+"           ^ type
+"                       ^ variable.member
+"                                ^ type
+"                                         ^ variable.member
+  SELECT * FROM +connections INTO TABLE @results.
+
+WITH
+  +dynamic_connections AS (
+    SELECT carrid FROM spfli )
+    WITH ASSOCIATIONS (association_syntax)
+"                      ^ variable
+  SELECT * FROM +dynamic_connections INTO TABLE @results.

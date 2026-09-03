@@ -101,17 +101,24 @@ module.exports = {
     ),
 
   /**
-   * Expose existing associations of a CTE's data sources.
+   * Expose existing associations or define new associations for a CTE.
    *
-   * ... WITH ASSOCIATIONS ( path [, path ...] ) ...
+   * ... WITH ASSOCIATIONS ( path | join [, path | join ...] )
+   *                     | (assoc_syntax) ...
    *
    * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPWITH_ASSOCIATIONS.html
    */
   with_associations_spec: $ =>
     seq(
       ...gen.kws("with", "associations"),
-      gen.parenthesized(gen.commaSep1($.with_association_path)),
+      choice(
+        gen.parenthesized(gen.commaSep1($.__with_association)),
+        field("syntax", $.dynamic_spec),
+      ),
     ),
+
+  __with_association: $ =>
+    choice($.with_association_path, $.with_defined_association),
 
   /**
    * ... sql_path [AS alias] [REDIRECTED TO +cte VIA target] ...
@@ -140,5 +147,19 @@ module.exports = {
       field("cte", $.cte_name),
       gen.kw("via"),
       field("target", choice($.identifier, $.cte_name)),
+    ),
+
+  /**
+   * ... JOIN cardinality target AS _assoc ON sql_cond ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPWITH_ASSOCIATIONS_DEFINING.html
+   */
+  with_defined_association: $ =>
+    seq(
+      gen.kw("join"),
+      field("cardinality", $.sql_association_cardinality),
+      field("target", choice($.identifier, $.cte_name)),
+      $.association_alias_spec,
+      $.sql_join_condition_spec,
     ),
 };

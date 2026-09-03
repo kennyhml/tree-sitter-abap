@@ -42289,14 +42289,28 @@
             "named": false
           }
         ]
+      },
+      "syntax": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "with_association_path",
+          "named": true
+        },
+        {
+          "type": "with_defined_association",
           "named": true
         }
       ]
@@ -42388,6 +42402,60 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "with_defined_association",
+    "named": true,
+    "fields": {
+      "cardinality": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_association_cardinality",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "join",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cte_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "association_alias_spec",
+          "named": true
+        },
+        {
+          "type": "sql_join_condition_spec",
+          "named": true
+        }
+      ]
     }
   },
   {

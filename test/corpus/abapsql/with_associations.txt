@@ -63,6 +63,120 @@ WITH
             variable: (identifier)))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ASSOCIATIONS ] Defined associations
+=================================================================================
+WITH
+  +connections AS (
+    SELECT FROM spfli
+      FIELDS carrid, airpfrom, fltime )
+    WITH ASSOCIATIONS (
+      JOIN MANY TO ONE scarr AS _carrier
+        ON +connections~carrid = _carrier~carrid,
+      JOIN TO MANY +connections AS _same_carrier
+        ON +connections~carrid = _same_carrier~carrid )
+  SELECT * FROM +connections
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (from_database_source_spec
+            source: (identifier))
+          (select_fields_spec
+            (select_list
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier))))))
+      (with_associations_spec
+        (with_defined_association
+          cardinality: (sql_association_cardinality
+            left: (cardinality)
+            right: (cardinality))
+          target: (identifier)
+          (association_alias_spec
+            alias: (identifier))
+          (sql_join_condition_spec
+            condition: (comparison_expression
+              left: (qualified_field
+                source: (cte_name
+                  name: (identifier))
+                target: (identifier))
+              right: (qualified_field
+                source: (identifier)
+                target: (identifier)))))
+        (with_defined_association
+          cardinality: (sql_association_cardinality
+            right: (cardinality))
+          target: (cte_name
+            name: (identifier))
+          (association_alias_spec
+            alias: (identifier))
+          (sql_join_condition_spec
+            condition: (comparison_expression
+              left: (qualified_field
+                source: (cte_name
+                  name: (identifier))
+                target: (identifier))
+              right: (qualified_field
+                source: (identifier)
+                target: (identifier)))))))
+    query: (sql_main_query
+      (select_list
+        (select_wildcard))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ASSOCIATIONS ] Dynamic associations
+=================================================================================
+WITH
+  +connections AS (
+    SELECT carrid FROM spfli )
+    WITH ASSOCIATIONS (association_syntax)
+  SELECT * FROM +connections
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier))))
+      (with_associations_spec
+        syntax: (dynamic_spec
+          value: (identifier))))
+    query: (sql_main_query
+      (select_list
+        (select_wildcard))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / WITH ASSOCIATIONS ] Redirected path
 =================================================================================
 WITH

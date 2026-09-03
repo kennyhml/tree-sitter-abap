@@ -857,10 +857,8 @@
 (sql_cast_type name: (identifier) @type.builtin)
 (sql_null) @constant.builtin
 (sql_column_spec/identifier) @variable.member
-(qualified_field
-  source: (identifier) @type
-  target: (identifier)? @variable.member
-)
+(qualified_field source: (identifier) @type)
+(qualified_field target: (identifier) @variable.member)
 (sql_path_element
   source: (identifier)? @type
   component: (identifier) @variable.member)
@@ -868,6 +866,7 @@
   "\\" @operator
   association: (identifier) @type)
 (with_association_path source: (identifier) @type)
+(with_defined_association target: (identifier) @type)
 (association_alias_spec alias: (identifier) @type)
 (association_redirected_to_spec target: (identifier) @type)
 (sql_source_alias_spec alias: (identifier) @type)

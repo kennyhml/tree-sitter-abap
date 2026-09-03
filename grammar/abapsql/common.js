@@ -194,7 +194,7 @@ module.exports = {
 
   /*
    * Cardinality Syntax Written in Words
-   * ... [ {{EXACT ONE} | MANY | ONE} TO {{EXACT ONE} | MANY | ONE} ] ...
+   * ... [ [{{EXACT ONE} | MANY | ONE}] TO {{EXACT ONE} | MANY | ONE} ] ...
    *
    * Numeric Syntax
    * ... [ (1) / (2) / (*) ] ...
@@ -202,7 +202,7 @@ module.exports = {
   sql_association_cardinality: $ =>
     choice(
       seq(
-        field("left", $.cardinality),
+        optional(field("left", $.cardinality)),
         gen.kw("to"),
         field("right", $.cardinality),
       ),
