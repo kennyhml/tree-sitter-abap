@@ -1,0 +1,133 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / OPEN CURSOR ] Static query
+=================================================================================
+OPEN CURSOR @DATA(dbcur) FOR
+  SELECT carrid, carrname FROM scarr
+  ORDER BY carrid
+  UP TO 10 ROWS
+  OPTIONS USING CLIENT @client BYPASSING BUFFER.
+---
+
+(source
+  (open_cursor_statement
+    cursor: (sql_host_variable
+      variable: (declaration_expression
+        name: (identifier)))
+    (cursor_for_query_spec
+      query: (cursor_query
+        (select_list
+          (select_list_item
+            expression: (identifier))
+          (select_list_item
+            expression: (identifier)))
+        (from_database_source_spec
+          source: (identifier))
+        (select_order_by_spec
+          (order_by_list
+            (order_by_field
+              (identifier)))))
+      (select_up_to_spec
+        count: (number))
+      (sql_options_spec
+        (sql_using_client_spec
+          (single_client
+            client: (sql_host_variable
+              variable: (identifier))))
+        (bypassing_buffer)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / OPEN CURSOR ] Dynamic query
+=================================================================================
+OPEN CURSOR WITH HOLD @dbcur FOR (select_syntax)
+  UP TO @limit ROWS OFFSET @skip
+  OPTIONS CONNECTION @connection.
+---
+
+(source
+  (open_cursor_statement
+    (with_hold)
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (cursor_for_query_spec
+      query: (dynamic_spec
+        value: (identifier))
+      (select_up_to_spec
+        count: (sql_host_variable
+          variable: (identifier)))
+      (select_offset_spec
+        offset: (sql_host_variable
+          variable: (identifier)))
+      (sql_options_spec
+        (connection_spec
+          connection: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / OPEN CURSOR ] CTE set query
+=================================================================================
+OPEN CURSOR @dbcur FOR
+  WITH +carriers AS ( SELECT carrid FROM scarr )
+  SELECT carrid FROM +carriers
+  UNION DISTINCT SELECT carrid FROM spfli
+  ORDER BY carrid.
+---
+
+(source
+  (open_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (cursor_for_query_spec
+      with: (with_spec
+        (common_table_expression
+          name: (cte_name
+            name: (identifier))
+          (cte_as_subquery_spec
+            (sql_subquery
+              (select_list
+                (select_list_item
+                  expression: (identifier)))
+              (from_database_source_spec
+                source: (identifier))))))
+      query: (cursor_query
+        (sql_set_expression
+          query: (sql_set_query
+            (select_list
+              (select_list_item
+                expression: (identifier)))
+            (from_database_source_spec
+              source: (cte_name
+                name: (identifier))))
+          (sql_union_spec
+            quantifier: (sql_set_quantifier)
+            query: (sql_set_query
+              (select_list
+                (select_list_item
+                  expression: (identifier)))
+              (from_database_source_spec
+                source: (identifier)))))
+        (sql_set_order_by_spec
+          (sql_set_order_by_list
+            (sql_set_order_by_field
+              column: (identifier))))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / OPEN CURSOR ] Source-level client handling
+=================================================================================
+OPEN CURSOR @dbcur FOR
+  SELECT * FROM scarr USING CLIENT @client.
+---
+
+(source
+  (open_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (cursor_for_query_spec
+      query: (cursor_query
+        (select_list
+          (select_wildcard))
+        (from_database_source_spec
+          source: (identifier)
+          (sql_using_client_spec
+            (single_client
+              client: (sql_host_variable
+                variable: (identifier)))))))))

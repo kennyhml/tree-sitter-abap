@@ -373,18 +373,20 @@ module.exports = {
 
   // ... FROM source ...
   from_database_source_spec: $ =>
-    seq(
-      gen.kw("from"),
-      choice(
-        seq(
-          field("source", $.__sql_static_data_source),
-          optional($.sql_source_alias_spec),
-          optional($.sql_declare_client_spec),
+    prec.right(
+      seq(
+        gen.kw("from"),
+        choice(
+          seq(
+            field("source", $.__sql_static_data_source),
+            optional($.sql_source_alias_spec),
+            optional($.sql_declare_client_spec),
+          ),
+          field("source", $.dynamic_spec),
+          field("source", $.sql_join_expression),
         ),
-        field("source", $.dynamic_spec),
-        field("source", $.sql_join_expression),
+        optional($.sql_using_client_spec),
       ),
-      optional($.sql_using_client_spec),
     ),
 
   __sql_static_data_source: $ =>

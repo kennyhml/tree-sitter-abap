@@ -388,3 +388,11 @@ WITH
 "                                ^ variable
 "                               ^ punctuation.special
          INTO TABLE @FINAL(result).
+
+OPEN CURSOR WITH HOLD @DATA(dbcur) FOR
+"<- keyword
+"                     ^ punctuation.special
+"                           ^ variable
+  SELECT carrid FROM scarr.
+"        ^ variable.member
+"                    ^ type

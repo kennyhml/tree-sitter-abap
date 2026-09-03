@@ -754,6 +754,10 @@
         "named": true
       },
       {
+        "type": "open_cursor_statement",
+        "named": true
+      },
+      {
         "type": "open_dataset_statement",
         "named": true
       },
@@ -9204,6 +9208,138 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "cursor_for_query_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      },
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cursor_query",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
+      },
+      "with": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "with_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "select_offset_spec",
+          "named": true
+        },
+        {
+          "type": "select_up_to_spec",
+          "named": true
+        },
+        {
+          "type": "sql_options_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cursor_query",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "select",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_all_entries_in_spec",
+          "named": true
+        },
+        {
+          "type": "for_update",
+          "named": true
+        },
+        {
+          "type": "from_database_source_spec",
+          "named": true
+        },
+        {
+          "type": "having_condition_spec",
+          "named": true
+        },
+        {
+          "type": "select_fields_spec",
+          "named": true
+        },
+        {
+          "type": "select_group_by_spec",
+          "named": true
+        },
+        {
+          "type": "select_list",
+          "named": true
+        },
+        {
+          "type": "select_order_by_spec",
+          "named": true
+        },
+        {
+          "type": "single",
+          "named": true
+        },
+        {
+          "type": "sql_database_hints_spec",
+          "named": true
+        },
+        {
+          "type": "sql_set_expression",
+          "named": true
+        },
+        {
+          "type": "sql_set_order_by_spec",
+          "named": true
+        },
+        {
+          "type": "where_condition_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -27744,6 +27880,50 @@
     }
   },
   {
+    "type": "open_cursor_statement",
+    "named": true,
+    "fields": {
+      "cursor": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "cursor",
+            "named": false
+          },
+          {
+            "type": "open",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cursor_for_query_spec",
+          "named": true
+        },
+        {
+          "type": "with_hold",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "open_dataset_statement",
     "named": true,
     "fields": {
@@ -42645,6 +42825,26 @@
     }
   },
   {
+    "type": "with_hold",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "hold",
+            "named": false
+          },
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "with_key_spec",
     "named": true,
     "fields": {
@@ -42956,6 +43156,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "with_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "with",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "common_table_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -43871,6 +44097,10 @@
     "named": false
   },
   {
+    "type": "cursor",
+    "named": false
+  },
+  {
     "type": "dangerous",
     "named": false
   },
@@ -44416,6 +44646,10 @@
   },
   {
     "type": "high",
+    "named": false
+  },
+  {
+    "type": "hold",
     "named": false
   },
   {

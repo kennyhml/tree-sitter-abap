@@ -283,6 +283,7 @@ module.exports = grammar({
           // abap sql
           $.select_statement,
           $.with_statement,
+          $.open_cursor_statement,
 
           $._empty_statement,
         ),
