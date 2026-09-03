@@ -3985,17 +3985,8 @@
                   "type": "FIELD",
                   "name": "source",
                   "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "identifier"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "cte_name"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "__sql_static_data_source"
                   }
                 },
                 {
@@ -4032,7 +4023,24 @@
         }
       ]
     },
-    "sql_data_source": {
+    "__sql_static_data_source": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cte_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_path_data_source"
+        }
+      ]
+    },
+    "sql_path_data_source": {
       "type": "SEQ",
       "members": [
         {
@@ -4050,6 +4058,26 @@
                 "name": "cte_name"
               }
             ]
+          }
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_path_association"
+          }
+        }
+      ]
+    },
+    "sql_data_source": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "__sql_static_data_source"
           }
         },
         {

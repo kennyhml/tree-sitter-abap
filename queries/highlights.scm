@@ -26,10 +26,12 @@
    (multi_line_comment)
 ] @comment
 
-[
-   (pragma)
-   (pseudo_comment)
-] @keyword.directive
+(pragma
+  code: (identifier) @keyword.directive
+  parameter: (identifier) @keyword.directive) @keyword.directive
+(pseudo_comment
+  kind: (identifier) @keyword.directive
+  code: (identifier) @keyword.directive) @keyword.directive
 
 
 (function_call 
@@ -862,6 +864,7 @@
 (sql_path_element
   source: (identifier)? @type
   component: (identifier) @variable.member)
+(sql_path_data_source source: (identifier) @type)
 (sql_path_association
   "\\" @operator
   association: (identifier) @type)

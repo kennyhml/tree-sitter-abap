@@ -360,3 +360,15 @@ WITH
     WITH ASSOCIATIONS (association_syntax)
 "                      ^ variable
   SELECT * FROM +dynamic_connections INTO TABLE @results.
+
+WITH
+  +association_source AS (
+    SELECT carrid FROM demo_cds_expose_assoc )
+    WITH ASSOCIATIONS ( demo_cds_expose_assoc~\_spfli )
+  SELECT * FROM +association_source\_spfli AS flights
+"               ^ operator
+"                ^ type
+"                                  ^ operator
+"                                   ^ type
+"                                             ^ type
+    INTO TABLE @results.

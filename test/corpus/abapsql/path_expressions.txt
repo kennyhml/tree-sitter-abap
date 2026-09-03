@@ -29,6 +29,91 @@ SELECT \_spfli-connid, source~\_spfli\_sairport-name
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] CTE association source
+=================================================================================
+WITH
+  +connections AS (
+    SELECT carrid FROM demo_cds_expose_assoc )
+    WITH ASSOCIATIONS ( demo_cds_expose_assoc~\_spfli )
+  SELECT *
+    FROM +connections\_spfli AS flights
+    INTO TABLE @results.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier))))
+      (with_associations_spec
+        (with_association_path
+          source: (identifier)
+          (sql_path_association
+            association: (identifier)))))
+    query: (sql_main_query
+      (select_list
+        (select_wildcard))
+      (from_database_source_spec
+        source: (sql_path_data_source
+          source: (cte_name
+            name: (identifier))
+          (sql_path_association
+            association: (identifier)))
+        (sql_source_alias_spec
+          alias: (identifier)))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Path Expressions ] Association join source
+=================================================================================
+SELECT *
+  FROM demo_cds_expose_assoc\_spfli AS flights
+  INNER JOIN scarr AS carriers ON flights~carrid = carriers~carrid
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (sql_join_expression
+        left: (sql_data_source
+          source: (sql_path_data_source
+            source: (identifier)
+            (sql_path_association
+              association: (identifier)))
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        kind: (join_kind)
+        right: (sql_data_source
+          source: (identifier)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_join_condition_spec
+          condition: (comparison_expression
+            left: (qualified_field
+              source: (identifier)
+              target: (identifier))
+            right: (qualified_field
+              source: (identifier)
+              target: (identifier))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / Path Expressions ] Source and field aliases
 =================================================================================
 SELECT scarr~carrname AS carrier_name, \_spfli-connid AS connection

@@ -18306,6 +18306,10 @@
           {
             "type": "sql_join_expression",
             "named": true
+          },
+          {
+            "type": "sql_path_data_source",
+            "named": true
           }
         ]
       }
@@ -35960,6 +35964,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "sql_path_data_source",
+            "named": true
           }
         ]
       }
@@ -36888,6 +36896,36 @@
         },
         {
           "type": "sql_view_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_path_data_source",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cte_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_path_association",
           "named": true
         }
       ]

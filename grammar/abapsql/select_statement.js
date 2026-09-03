@@ -377,7 +377,7 @@ module.exports = {
       gen.kw("from"),
       choice(
         seq(
-          field("source", choice($.identifier, $.cte_name)),
+          field("source", $.__sql_static_data_source),
           optional($.sql_source_alias_spec),
         ),
         field("source", $.dynamic_spec),
@@ -385,9 +385,18 @@ module.exports = {
       ),
     ),
 
-  sql_data_source: $ =>
+  __sql_static_data_source: $ =>
+    choice($.identifier, $.cte_name, $.sql_path_data_source),
+
+  sql_path_data_source: $ =>
     seq(
       field("source", choice($.identifier, $.cte_name)),
+      repeat1($.sql_path_association),
+    ),
+
+  sql_data_source: $ =>
+    seq(
+      field("source", $.__sql_static_data_source),
       optional(field("alias", $.sql_source_alias_spec)),
     ),
 
