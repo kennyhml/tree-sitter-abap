@@ -4000,6 +4000,18 @@
                       "type": "BLANK"
                     }
                   ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "sql_declare_client_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 }
               ]
             },
@@ -4018,6 +4030,18 @@
                 "type": "SYMBOL",
                 "name": "sql_join_expression"
               }
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_using_client_spec"
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
@@ -4090,6 +4114,18 @@
                 "type": "SYMBOL",
                 "name": "sql_source_alias_spec"
               }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_declare_client_spec"
             },
             {
               "type": "BLANK"
@@ -4985,6 +5021,27 @@
         {
           "type": "SYMBOL",
           "name": "_kw_clients"
+        }
+      ]
+    },
+    "sql_declare_client_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_declare"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_client"
+        },
+        {
+          "type": "FIELD",
+          "name": "column",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         }
       ]
     },
@@ -42283,6 +42340,19 @@
         },
         "named": false,
         "value": "clients"
+      }
+    },
+    "_kw_declare": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)declare"
+        },
+        "named": false,
+        "value": "declare"
       }
     },
     "_kw_privileged": {

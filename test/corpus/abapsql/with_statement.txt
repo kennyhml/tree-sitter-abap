@@ -305,3 +305,51 @@ ENDWITH.
       (calculation_assignment
         left: (identifier)
         right: (number)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / WITH ] Client handling
+=================================================================================
+WITH
+  +cte AS ( SELECT mandt, carrid, carrname
+                   FROM scarr USING ALL CLIENTS )
+  SELECT *
+         FROM +cte DECLARE CLIENT mandt
+                   USING CLIENT @client
+         INTO TABLE @FINAL(result).
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (select_list
+            (select_list_item
+              expression: (identifier))
+            (select_list_item
+              expression: (identifier))
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier)
+            (sql_using_client_spec
+              (all_clients))))))
+    query: (sql_main_query
+      (select_list
+        (select_wildcard))
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier))
+        (sql_declare_client_spec
+          column: (identifier))
+        (sql_using_client_spec
+          (single_client
+            client: (sql_host_variable
+              variable: (identifier)))))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (declaration_expression
+              name: (identifier))))))))

@@ -372,3 +372,19 @@ WITH
 "                                   ^ type
 "                                             ^ type
     INTO TABLE @results.
+
+WITH
+  +cte AS ( SELECT mandt, carrid, carrname
+" ^ operator
+"  ^ type
+                   FROM scarr USING ALL CLIENTS )
+"                       ^ type
+  SELECT *
+         FROM +cte DECLARE CLIENT mandt
+"             ^ operator
+"              ^ type
+"                                 ^ variable.member
+                   USING CLIENT @client
+"                                ^ variable
+"                               ^ punctuation.special
+         INTO TABLE @FINAL(result).

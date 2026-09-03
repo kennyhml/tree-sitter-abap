@@ -53,6 +53,17 @@ module.exports = {
 
   all_clients: _ => seq(...gen.kws("all", "clients")),
 
+  /**
+   * ... DECLARE CLIENT clnt_col ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_DECLARE_CLIENT.html
+   */
+  sql_declare_client_spec: $ =>
+    seq(
+      ...gen.kws("declare", "client"),
+      field("column", $.identifier),
+    ),
+
   _sql_client_operand: $ =>
     choice($.sql_host_expression, $.sql_host_variable, $._simple_operand),
 

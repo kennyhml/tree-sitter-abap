@@ -877,6 +877,7 @@
 (sql_set_order_by_field column: (identifier) @variable.member)
 (cte_name name: (identifier) @type)
 (cte_field_list (identifier) @variable.member)
+(sql_declare_client_spec column: (identifier) @variable.member)
 (view_argument name: (identifier) @variable.parameter)
 (sql_database_hint database: (identifier) @constant)
 (clients_in source: (identifier) @type)

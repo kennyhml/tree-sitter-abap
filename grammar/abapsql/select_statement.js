@@ -379,10 +379,12 @@ module.exports = {
         seq(
           field("source", $.__sql_static_data_source),
           optional($.sql_source_alias_spec),
+          optional($.sql_declare_client_spec),
         ),
         field("source", $.dynamic_spec),
         field("source", $.sql_join_expression),
       ),
+      optional($.sql_using_client_spec),
     ),
 
   __sql_static_data_source: $ =>
@@ -398,6 +400,7 @@ module.exports = {
     seq(
       field("source", $.__sql_static_data_source),
       optional(field("alias", $.sql_source_alias_spec)),
+      optional($.sql_declare_client_spec),
     ),
 
   sql_source_alias_spec: $ => seq(gen.kw("as"), field("alias", $.identifier)),
