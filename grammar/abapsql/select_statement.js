@@ -382,7 +382,10 @@ module.exports = {
             optional($.sql_source_alias_spec),
             optional($.sql_declare_client_spec),
           ),
-          field("source", $.dynamic_spec),
+          seq(
+            field("source", $.dynamic_spec),
+            optional($.sql_source_alias_spec),
+          ),
           field("source", $.sql_join_expression),
         ),
         optional($.sql_using_client_spec),

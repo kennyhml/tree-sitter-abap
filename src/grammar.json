@@ -4379,12 +4379,29 @@
                 ]
               },
               {
-                "type": "FIELD",
-                "name": "source",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "dynamic_spec"
-                }
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "source",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "dynamic_spec"
+                    }
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "sql_source_alias_spec"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "FIELD",

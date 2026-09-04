@@ -23,6 +23,12 @@ SELECT (columns) FROM source
 "                  ^ variable
 "                                        ^ variable
 
+SELECT * FROM (source_name) AS source
+"              ^ variable
+"                              ^ type
+  INTO TABLE @results.
+"             ^ variable
+
 SELECT field FROM source INTO (@first_result, @second_result).
 "      ^ variable.member
 "                 ^ type

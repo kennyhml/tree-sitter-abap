@@ -834,7 +834,7 @@ SELECT (columns) FROM source INTO @result.
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Dynamic database source
 =================================================================================
-SELECT * FROM (source_name) INTO TABLE @results.
+SELECT * FROM (source_name) AS source INTO TABLE @results.
 ---
 
 (source
@@ -843,7 +843,9 @@ SELECT * FROM (source_name) INTO TABLE @results.
       (select_wildcard))
     (from_database_source_spec
       source: (dynamic_spec
-        value: (identifier)))
+        value: (identifier))
+      (sql_source_alias_spec
+        alias: (identifier)))
     (select_into_spec
       (select_result_table
         table: (sql_host_variable
