@@ -5975,7 +5975,7 @@
           "name": "left",
           "content": {
             "type": "SYMBOL",
-            "name": "sql_operand"
+            "name": "_sql_expression"
           }
         },
         {
@@ -5993,7 +5993,7 @@
                   "name": "right",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "sql_operand"
+                    "name": "_sql_expression"
                   }
                 }
               ]
@@ -6109,45 +6109,6 @@
         }
       ]
     },
-    "sql_operand": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "sql_column_spec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "sql_host_variable"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "sql_host_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_sql_arithmetic_expression"
-          },
-          "named": true,
-          "value": "arithmetic_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "__sql_parenthesized_expression"
-          },
-          "named": true,
-          "value": "parenthesized_expression"
-        }
-      ]
-    },
     "sql_between_spec": {
       "type": "SEQ",
       "members": [
@@ -6172,7 +6133,7 @@
           "name": "low",
           "content": {
             "type": "SYMBOL",
-            "name": "sql_operand"
+            "name": "_sql_expression"
           }
         },
         {
@@ -6184,7 +6145,7 @@
           "name": "high",
           "content": {
             "type": "SYMBOL",
-            "name": "sql_operand"
+            "name": "_sql_expression"
           }
         }
       ]
@@ -6230,7 +6191,7 @@
           "name": "pattern",
           "content": {
             "type": "SYMBOL",
-            "name": "sql_operand"
+            "name": "_sql_expression"
           }
         },
         {
@@ -6248,7 +6209,7 @@
                   "name": "escape",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "sql_operand"
+                    "name": "_sql_expression"
                   }
                 }
               ]
@@ -6359,7 +6320,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "sql_operand"
+                  "name": "_sql_expression"
                 },
                 {
                   "type": "REPEAT",
@@ -6372,7 +6333,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "sql_operand"
+                        "name": "_sql_expression"
                       }
                     ]
                   }
@@ -6436,7 +6397,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "sql_operand"
+                  "name": "_sql_expression"
                 }
               ]
             },
@@ -6451,7 +6412,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "sql_operand"
+                    "name": "_sql_expression"
                   }
                 ]
               }
@@ -6511,7 +6472,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "sql_operand"
+                      "name": "_sql_expression"
                     },
                     {
                       "type": "REPEAT",
@@ -6524,7 +6485,7 @@
                           },
                           {
                             "type": "SYMBOL",
-                            "name": "sql_operand"
+                            "name": "_sql_expression"
                           }
                         ]
                       }
@@ -52439,7 +52400,6 @@
     "calculation_expression",
     "string_expression",
     "itab_comp",
-    "sql_operand",
     "sql_column_spec"
   ],
   "reserved": {}

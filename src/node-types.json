@@ -1010,36 +1010,6 @@
     ]
   },
   {
-    "type": "sql_operand",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "arithmetic_expression",
-        "named": true
-      },
-      {
-        "type": "literal",
-        "named": true
-      },
-      {
-        "type": "parenthesized_expression",
-        "named": true
-      },
-      {
-        "type": "sql_column_spec",
-        "named": true
-      },
-      {
-        "type": "sql_host_expression",
-        "named": true
-      },
-      {
-        "type": "sql_host_variable",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "string_expression",
     "named": true,
     "subtypes": [
@@ -7193,6 +7163,10 @@
         "required": true,
         "types": [
           {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
             "type": "expression",
             "named": true
           },
@@ -7201,11 +7175,39 @@
             "named": true
           },
           {
-            "type": "sql_operand",
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
             "named": true
           },
           {
             "type": "sql_operand_list",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -7229,6 +7231,10 @@
             "named": true
           },
           {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
             "type": "between_spec",
             "named": true
           },
@@ -7237,7 +7243,27 @@
             "named": true
           },
           {
+            "type": "literal",
+            "named": true
+          },
+          {
             "type": "sql_between_spec",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
             "named": true
           },
           {
@@ -7253,11 +7279,11 @@
             "named": true
           },
           {
-            "type": "sql_null_spec",
+            "type": "sql_null",
             "named": true
           },
           {
-            "type": "sql_operand",
+            "type": "sql_null_spec",
             "named": true
           },
           {
@@ -7266,6 +7292,14 @@
           },
           {
             "type": "sql_subquery",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -36126,7 +36160,43 @@
         "required": true,
         "types": [
           {
-            "type": "sql_operand",
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -36154,7 +36224,43 @@
         "required": true,
         "types": [
           {
-            "type": "sql_operand",
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -36654,11 +36760,47 @@
       "required": true,
       "types": [
         {
-          "type": "sql_operand",
+          "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
+          "named": true
+        },
+        {
+          "type": "sql_function_call",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_null",
           "named": true
         },
         {
           "type": "sql_subquery",
+          "named": true
+        },
+        {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
+          "type": "string_concatenation",
           "named": true
         }
       ]
@@ -36867,7 +37009,43 @@
         "required": false,
         "types": [
           {
-            "type": "sql_operand",
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -36895,7 +37073,43 @@
         "required": true,
         "types": [
           {
-            "type": "sql_operand",
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
             "named": true
           }
         ]
@@ -37111,11 +37325,43 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "arithmetic_expression",
           "named": true
         },
         {
-          "type": "sql_operand",
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
+          "named": true
+        },
+        {
+          "type": "sql_function_call",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_null",
+          "named": true
+        },
+        {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
+          "type": "string_concatenation",
           "named": true
         }
       ]
@@ -37141,7 +37387,35 @@
       "required": true,
       "types": [
         {
-          "type": "sql_operand",
+          "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_column_spec",
+          "named": true
+        },
+        {
+          "type": "sql_function_call",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_null",
           "named": true
         },
         {
@@ -37150,6 +37424,14 @@
         },
         {
           "type": "sql_subquery",
+          "named": true
+        },
+        {
+          "type": "sql_window_expression",
+          "named": true
+        },
+        {
+          "type": "string_concatenation",
           "named": true
         }
       ]

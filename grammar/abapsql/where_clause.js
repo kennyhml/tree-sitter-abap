@@ -86,9 +86,9 @@ module.exports = {
    */
   __sql_comparison_expression: $ =>
     seq(
-      field("left", $.sql_operand),
+      field("left", $._sql_expression),
       choice(
-        seq($._sql_comparison_operator, field("right", $.sql_operand)),
+        seq($._sql_comparison_operator, field("right", $._sql_expression)),
         // ... > [ALL|ANY|SOME] ( SELECT ... )
         seq(
           $._sql_comparison_operator,
@@ -109,25 +109,13 @@ module.exports = {
       field("right", $.sql_operand_list_in_spec),
     ),
 
-  // An operand valid in an sql logical expression, the main reason we had to build
-  // this duplication layer.
-  sql_operand: $ =>
-    choice(
-      $.sql_column_spec,
-      $.literal,
-      $.sql_host_variable,
-      $.sql_host_expression,
-      alias($._sql_arithmetic_expression, $.arithmetic_expression),
-      alias($.__sql_parenthesized_expression, $.parenthesized_expression),
-    ),
-
   sql_between_spec: $ =>
     seq(
       optional(gen.kw("not")),
       gen.kw("between"),
-      field("low", $.sql_operand),
+      field("low", $._sql_expression),
       gen.kw("and"),
-      field("high", $.sql_operand),
+      field("high", $._sql_expression),
     ),
 
   sql_comparison_quantifier: _ => choice(...gen.kws("all", "any", "some")),
@@ -136,8 +124,8 @@ module.exports = {
     seq(
       optional(gen.kw("not")),
       gen.kw("like"),
-      field("pattern", $.sql_operand),
-      optional(seq(gen.kw("escape"), field("escape", $.sql_operand))),
+      field("pattern", $._sql_expression),
+      optional(seq(gen.kw("escape"), field("escape", $._sql_expression))),
     ),
 
   sql_null_spec: _ =>
@@ -162,7 +150,7 @@ module.exports = {
 
   // ... IN (@foo, @bar) / ( SELECT subquery ) ...
   sql_in_list: $ =>
-    gen.parenthesized(choice(gen.commaSep1($.sql_operand), $.sql_subquery)),
+    gen.parenthesized(choice(gen.commaSep1($._sql_expression), $.sql_subquery)),
 
   // ... EXISTS ( SELECT subquery_clauses [UNION|INTERSECT|EXCEPT) ...
   sql_exists_spec: $ =>
@@ -171,8 +159,8 @@ module.exports = {
   sql_operand_list: $ =>
     gen.parenthesized(
       seq(
-        choice($._immediate_identifier, $.sql_operand),
-        repeat1(seq(",", $.sql_operand)),
+        choice($._immediate_identifier, $._sql_expression),
+        repeat1(seq(",", $._sql_expression)),
       ),
     ),
 
@@ -182,7 +170,7 @@ module.exports = {
       gen.parenthesized(
         choice(
           gen.commaSep1($.sql_operand_list),
-          gen.commaSep1($.sql_operand),
+          gen.commaSep1($._sql_expression),
           $.sql_subquery,
         ),
       ),

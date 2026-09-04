@@ -85,7 +85,6 @@ module.exports = grammar({
     $.calculation_expression,
     $.string_expression,
     $.itab_comp,
-    $.sql_operand,
     $.sql_column_spec,
   ],
 

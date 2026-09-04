@@ -144,3 +144,32 @@ SELECT * FROM scarr
       (select_result_table
         table: (sql_host_variable
           variable: (identifier))))))
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / HAVING ] Aggregate expression
+=================================================================================
+SELECT carrid FROM spfli
+  GROUP BY carrid
+  HAVING COUNT(*) > 1
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_group_by_spec
+      (group_by_list
+        (identifier)))
+    (having_condition_spec
+      condition: (comparison_expression
+        left: (sql_function_call
+          name: (identifier)
+          argument: (select_wildcard))
+        right: (number)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

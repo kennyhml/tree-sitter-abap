@@ -315,3 +315,31 @@ SELECT SINGLE
         work_area: (sql_host_variable
           variable: (declaration_expression
             name: (identifier)))))))
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Function calls ] Condition operands
+=================================================================================
+SELECT name FROM people
+  WHERE UPPER( name ) = UPPER( @name )
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (where_condition_spec
+      condition: (comparison_expression
+        left: (sql_function_call
+          name: (identifier)
+          argument: (identifier))
+        right: (sql_function_call
+          name: (identifier)
+          argument: (sql_host_variable
+            variable: (identifier)))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
