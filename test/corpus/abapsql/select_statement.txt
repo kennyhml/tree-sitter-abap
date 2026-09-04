@@ -17,6 +17,31 @@ SELECT foo FROM baz INTO @result.
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Parameterized root data source
+=================================================================================
+SELECT * FROM parameter_view( p = @argument ) AS source INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (sql_parameterized_data_source
+        source: (identifier)
+        (sql_view_arguments
+          (view_argument
+            name: (identifier)
+            value: (sql_host_variable
+              variable: (identifier)))))
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Where comparison
 =================================================================================
 SELECT * FROM scarr WHERE scarr~carrid = @carrier INTO TABLE @results.

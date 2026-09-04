@@ -390,11 +390,17 @@ module.exports = {
     ),
 
   __sql_static_data_source: $ =>
-    choice($.identifier, $.cte_name, $.sql_path_data_source),
+    choice($._sql_root_data_source, $.sql_path_data_source),
+
+  _sql_root_data_source: $ =>
+    choice($.identifier, $.cte_name, $.sql_parameterized_data_source),
+
+  sql_parameterized_data_source: $ =>
+    seq(field("source", $.identifier), $.sql_view_arguments),
 
   sql_path_data_source: $ =>
     seq(
-      field("source", choice($.identifier, $.cte_name)),
+      field("source", $._sql_root_data_source),
       repeat1($.sql_path_association),
     ),
 

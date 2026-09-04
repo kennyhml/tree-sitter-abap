@@ -18564,6 +18564,10 @@
             "named": true
           },
           {
+            "type": "sql_parameterized_data_source",
+            "named": true
+          },
+          {
             "type": "sql_path_data_source",
             "named": true
           }
@@ -36354,6 +36358,10 @@
             "named": true
           },
           {
+            "type": "sql_parameterized_data_source",
+            "named": true
+          },
+          {
             "type": "sql_path_data_source",
             "named": true
           }
@@ -37476,6 +37484,32 @@
     }
   },
   {
+    "type": "sql_parameterized_data_source",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_view_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sql_path_association",
     "named": true,
     "fields": {
@@ -37519,6 +37553,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "sql_parameterized_data_source",
             "named": true
           }
         ]

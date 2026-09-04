@@ -160,6 +160,10 @@ SELECT \_assoc(p_arg = @argument)-field FROM source INTO TABLE @results.
 "                       ^ variable
 "                                 ^ variable.member
 
+SELECT * FROM parameter_view( p = @argument ) AS source INTO TABLE @result.
+"             ^ type
+"                             ^ variable.parameter
+
 SELECT scarr~carrname AS carrier_name
 "      ^ type
 "            ^ variable.member

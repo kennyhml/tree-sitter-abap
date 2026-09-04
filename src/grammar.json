@@ -4412,6 +4412,19 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "_sql_root_data_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_path_data_source"
+        }
+      ]
+    },
+    "_sql_root_data_source": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
           "name": "identifier"
         },
         {
@@ -4420,7 +4433,24 @@
         },
         {
           "type": "SYMBOL",
-          "name": "sql_path_data_source"
+          "name": "sql_parameterized_data_source"
+        }
+      ]
+    },
+    "sql_parameterized_data_source": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_view_arguments"
         }
       ]
     },
@@ -4431,17 +4461,8 @@
           "type": "FIELD",
           "name": "source",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "cte_name"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_sql_root_data_source"
           }
         },
         {
