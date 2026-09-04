@@ -284,6 +284,8 @@ module.exports = grammar({
           $.select_statement,
           $.with_statement,
           $.open_cursor_statement,
+          $.fetch_next_cursor_statement,
+          $.close_cursor_statement,
 
           $._empty_statement,
         ),

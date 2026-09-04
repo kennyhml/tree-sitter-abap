@@ -1,0 +1,10 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / CLOSE CURSOR ] Basic form
+=================================================================================
+CLOSE CURSOR @dbcur.
+---
+
+(source
+  (close_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))))

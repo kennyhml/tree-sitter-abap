@@ -396,3 +396,22 @@ OPEN CURSOR WITH HOLD @DATA(dbcur) FOR
   SELECT carrid FROM scarr.
 "        ^ variable.member
 "                    ^ type
+
+FETCH NEXT CURSOR @dbcur INTO @row.
+"<- keyword
+"                 ^ punctuation.special
+"                  ^ variable
+"                             ^ punctuation.special
+"                              ^ variable
+
+FETCH NEXT CURSOR @dbcur
+  APPENDING TABLE @rows PACKAGE SIZE @package_size.
+"                 ^ punctuation.special
+"                  ^ variable
+"                                    ^ punctuation.special
+"                                     ^ variable
+
+CLOSE CURSOR @dbcur.
+"<- keyword
+"            ^ punctuation.special
+"             ^ variable

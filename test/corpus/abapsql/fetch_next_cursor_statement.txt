@@ -1,0 +1,69 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / FETCH NEXT CURSOR ] Work area
+=================================================================================
+FETCH NEXT CURSOR @dbcur INTO @row.
+---
+
+(source
+  (fetch_next_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / FETCH NEXT CURSOR ] Target list
+=================================================================================
+FETCH NEXT CURSOR @dbcur INTO (@carrier, @connection).
+---
+
+(source
+  (fetch_next_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (select_into_spec
+      (select_result_targets
+        (sql_host_variable
+          variable: (identifier))
+        (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / FETCH NEXT CURSOR ] Table package
+=================================================================================
+FETCH NEXT CURSOR @dbcur
+  INTO CORRESPONDING FIELDS OF TABLE @rows PACKAGE SIZE @package_size.
+---
+
+(source
+  (fetch_next_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (select_into_spec
+      (select_result_table
+        (corresponding_fields_of)
+        table: (sql_host_variable
+          variable: (identifier))
+        (package_size_spec
+          size: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / FETCH NEXT CURSOR ] Append package
+=================================================================================
+FETCH NEXT CURSOR @dbcur
+  APPENDING TABLE @rows PACKAGE SIZE 10.
+---
+
+(source
+  (fetch_next_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (select_appending_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))
+        (package_size_spec
+          size: (number))))))

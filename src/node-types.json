@@ -486,6 +486,10 @@
         "named": true
       },
       {
+        "type": "close_cursor_statement",
+        "named": true
+      },
+      {
         "type": "close_dataset_statement",
         "named": true
       },
@@ -599,6 +603,10 @@
       },
       {
         "type": "export_statement",
+        "named": true
+      },
+      {
+        "type": "fetch_next_cursor_statement",
         "named": true
       },
       {
@@ -6615,6 +6623,36 @@
           {
             "type": "table_body_access",
             "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "close_cursor_statement",
+    "named": true,
+    "fields": {
+      "cursor": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "close",
+            "named": false
+          },
+          {
+            "type": "cursor",
+            "named": false
           }
         ]
       }
@@ -16412,6 +16450,54 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "fetch_next_cursor_statement",
+    "named": true,
+    "fields": {
+      "cursor": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "cursor",
+            "named": false
+          },
+          {
+            "type": "fetch",
+            "named": false
+          },
+          {
+            "type": "next",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "select_appending_spec",
+          "named": true
+        },
+        {
+          "type": "select_into_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -28399,6 +28485,14 @@
           },
           {
             "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
             "named": true
           },
           {
@@ -44474,6 +44568,10 @@
   },
   {
     "type": "features",
+    "named": false
+  },
+  {
+    "type": "fetch",
     "named": false
   },
   {

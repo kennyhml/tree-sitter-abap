@@ -409,7 +409,13 @@ module.exports = {
 
   // ... PACKAGE SIZE n ...
   package_size_spec: $ =>
-    seq(...gen.kws("package", "size"), field("size", $._simple_operand)),
+    seq(
+      ...gen.kws("package", "size"),
+      field(
+        "size",
+        choice($.sql_host_expression, $.sql_host_variable, $._simple_operand),
+      ),
+    ),
 
   // ... UP TO n ROWS ...
   select_up_to_spec: $ =>
