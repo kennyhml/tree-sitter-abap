@@ -158,7 +158,10 @@ module.exports = {
     seq(
       field("name", $.identifier),
       "=",
-      field("value", choice($.sql_host_expression, $.sql_host_variable)),
+      field(
+        "value",
+        choice($.sql_host_expression, $.sql_host_variable, $.literal),
+      ),
     ),
 
   /*

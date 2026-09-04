@@ -1346,6 +1346,10 @@
               {
                 "type": "SYMBOL",
                 "name": "sql_host_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "literal"
               }
             ]
           }

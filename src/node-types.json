@@ -42387,6 +42387,10 @@
         "required": true,
         "types": [
           {
+            "type": "literal",
+            "named": true
+          },
+          {
             "type": "sql_host_expression",
             "named": true
           },

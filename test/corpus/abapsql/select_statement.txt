@@ -19,7 +19,8 @@ SELECT foo FROM baz INTO @result.
 =================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Parameterized root data source
 =================================================================================
-SELECT * FROM parameter_view( p = @argument ) AS source INTO TABLE @result.
+SELECT * FROM parameter_view( p = @argument, p_text = 'X' ) AS source
+  INTO TABLE @result.
 ---
 
 (source
@@ -33,7 +34,10 @@ SELECT * FROM parameter_view( p = @argument ) AS source INTO TABLE @result.
           (view_argument
             name: (identifier)
             value: (sql_host_variable
-              variable: (identifier)))))
+              variable: (identifier)))
+          (view_argument
+            name: (identifier)
+            value: (string_literal))))
       (sql_source_alias_spec
         alias: (identifier)))
     (select_into_spec
