@@ -29,6 +29,13 @@ SELECT * FROM (source_name) AS source
   INTO TABLE @results.
 "             ^ variable
 
+SELECT * FROM @itab AS source
+"             ^ punctuation.special
+"              ^ variable
+"                      ^ type
+  INTO TABLE @result.
+"             ^ variable
+
 SELECT field FROM source INTO (@first_result, @second_result).
 "      ^ variable.member
 "                 ^ type

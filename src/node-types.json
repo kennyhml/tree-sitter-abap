@@ -18560,6 +18560,10 @@
             "named": true
           },
           {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
             "type": "sql_join_expression",
             "named": true
           },
@@ -36355,6 +36359,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
             "named": true
           },
           {

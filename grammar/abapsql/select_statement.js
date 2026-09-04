@@ -393,7 +393,11 @@ module.exports = {
     ),
 
   __sql_static_data_source: $ =>
-    choice($._sql_root_data_source, $.sql_path_data_source),
+    choice(
+      $._sql_root_data_source,
+      $.sql_path_data_source,
+      $.sql_host_variable,
+    ),
 
   _sql_root_data_source: $ =>
     choice($.identifier, $.cte_name, $.sql_parameterized_data_source),

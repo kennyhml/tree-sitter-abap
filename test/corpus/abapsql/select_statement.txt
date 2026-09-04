@@ -17,6 +17,26 @@ SELECT foo FROM baz INTO @result.
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Internal table data source
+=================================================================================
+SELECT * FROM @itab AS source INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (sql_host_variable
+        variable: (identifier))
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / SELECT ] Parameterized root data source
 =================================================================================
 SELECT * FROM parameter_view( p = @argument, p_text = 'X' ) AS source

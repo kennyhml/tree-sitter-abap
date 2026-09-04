@@ -4438,6 +4438,10 @@
         {
           "type": "SYMBOL",
           "name": "sql_path_data_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_host_variable"
         }
       ]
     },
