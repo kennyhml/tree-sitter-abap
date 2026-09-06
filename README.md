@@ -7,7 +7,7 @@
 # tree-sitter-abap
 **ABAP grammar for [Tree-sitter](https://github.com/tree-sitter/tree-sitter)**, based on the [official ABAP keyword documentation](https://help.sap.com/doc/abapdocu_latest_index_htm/latest).
 
-The grammar is designed for `.abap` files. You can refer to the [ABAB File Formats](https://github.com/SAP/abap-file-formats) to find out which objects that applies to.
+The grammar is designed for `.abap` files. Refer to the [ABAB File Formats](https://github.com/SAP/abap-file-formats) to find out which objects that applies to.
 ### See also:
 - [ABAP CDS grammar](https://github.com/kennyhml/tree-sitter-acds) for ABAP CDS definitions
 - [ABAP BDL grammar](https://github.com/kennyhml/tree-sitter-abdl) for ABAP behavior definitions
