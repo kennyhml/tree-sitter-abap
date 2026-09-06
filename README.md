@@ -1,11 +1,18 @@
 > [!WARNING]
-> The grammar is still very much work in progress and still missing a large if not most of the language features as of July 2026.
-> The structure of the CST is bound to change multiple times over and as such is not to be considered stable by any means.
+> The grammar is still very much work in progress. While the majority of language features are supported,
+> the structure of the CST is bound to change multiple times over and as such is not to be considered stable by any means.
 >
 > You can check the current state of the parser at the bottom of this introduction.
 
 # tree-sitter-abap
 **ABAP grammar for [Tree-sitter](https://github.com/tree-sitter/tree-sitter)**, based on the [official ABAP keyword documentation](https://help.sap.com/doc/abapdocu_latest_index_htm/latest).
+
+The grammar is designed for `.abap` files. You can refer to the [ABAB File Formats](https://github.com/SAP/abap-file-formats) to find out which objects that applies to.
+### See also:
+- [ABAP CDS grammar](https://github.com/kennyhml/tree-sitter-acds) for ABAP CDS definitions
+- [ABAP BDL grammar](https://github.com/kennyhml/tree-sitter-abdl) for ABAP behavior definitions
+  
+Both are also work in progress, but significantly smaller in scope than the main ABAP grammar.
 
 > [!NOTE]  
 > This grammar is designed to parse a **superset** of valid ABAP syntax. Its goal is to produce a concrete syntax tree (CST) suitable 
