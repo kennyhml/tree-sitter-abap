@@ -4474,12 +4474,8 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "FIELD",
-                    "name": "source",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "__sql_static_data_source"
-                    }
+                    "type": "SYMBOL",
+                    "name": "__sql_static_data_source"
                   },
                   {
                     "type": "CHOICE",
@@ -4561,16 +4557,62 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_sql_root_data_source"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "source",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "sql_parameterized_data_source"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "with_privileged_access"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "sql_path_data_source"
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "cte_name"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "sql_host_variable"
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_path_data_source"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_host_variable"
+          }
         }
       ]
     },
@@ -4632,12 +4674,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "source",
-          "content": {
-            "type": "SYMBOL",
-            "name": "__sql_static_data_source"
-          }
+          "type": "SYMBOL",
+          "name": "__sql_static_data_source"
         },
         {
           "type": "CHOICE",
@@ -4666,6 +4704,23 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "with_privileged_access": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_with"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_privileged"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_access"
         }
       ]
     },
@@ -42773,6 +42828,32 @@
         "value": "from"
       }
     },
+    "_kw_privileged": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)privileged"
+        },
+        "named": false,
+        "value": "privileged"
+      }
+    },
+    "_kw_access": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)access"
+        },
+        "named": false,
+        "value": "access"
+      }
+    },
     "_kw_package": {
       "type": "FIELD",
       "name": "keyword",
@@ -42979,32 +43060,6 @@
         },
         "named": false,
         "value": "declare"
-      }
-    },
-    "_kw_privileged": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)privileged"
-        },
-        "named": false,
-        "value": "privileged"
-      }
-    },
-    "_kw_access": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)access"
-        },
-        "named": false,
-        "value": "access"
       }
     },
     "_kw_bypassing": {

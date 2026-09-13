@@ -324,6 +324,11 @@ SELECT * FROM scarr INTO TABLE @results
 "                  ^ keyword
 "                             ^ constant
 
+SELECT * FROM demo_cds WITH PRIVILEGED ACCESS INTO TABLE @results.
+"                      ^ keyword
+"                           ^ keyword
+"                                      ^ keyword
+
 SELECT * FROM scarr
   %_HINTS HDB 'USE INDEX' ORACLE @oracle_hint
 " ^ keyword

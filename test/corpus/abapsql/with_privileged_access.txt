@@ -1,0 +1,93 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Data Source ] Privileged CDS source
+=================================================================================
+SELECT * FROM demo_cds WITH PRIVILEGED ACCESS AS source
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (identifier)
+      (with_privileged_access)
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Data Source ] Parameterized privileged source
+=================================================================================
+SELECT * FROM parameter_view( p = @argument ) WITH PRIVILEGED ACCESS AS source
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_wildcard))
+    (from_database_source_spec
+      source: (sql_parameterized_data_source
+        source: (identifier)
+        (sql_view_arguments
+          (view_argument
+            name: (identifier)
+            value: (sql_host_variable
+              variable: (identifier)))))
+      (with_privileged_access)
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Data Source ] Privileged join sources
+=================================================================================
+SELECT a~id, b~text
+  FROM demo_a WITH PRIVILEGED ACCESS AS a
+  INNER JOIN demo_b WITH PRIVILEGED ACCESS AS b ON a~id = b~id
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
+    (from_database_source_spec
+      source: (sql_join_expression
+        left: (sql_data_source
+          source: (identifier)
+          (with_privileged_access)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        kind: (join_kind)
+        right: (sql_data_source
+          source: (identifier)
+          (with_privileged_access)
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_join_condition_spec
+          condition: (comparison_expression
+            left: (qualified_field
+              source: (identifier)
+              target: (identifier))
+            right: (qualified_field
+              source: (identifier)
+              target: (identifier))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

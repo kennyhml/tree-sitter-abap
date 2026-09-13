@@ -381,7 +381,7 @@ module.exports = {
         gen.kw("from"),
         choice(
           seq(
-            field("source", $.__sql_static_data_source),
+            $.__sql_static_data_source,
             optional($.sql_source_alias_spec),
             optional($.sql_declare_client_spec),
           ),
@@ -397,9 +397,16 @@ module.exports = {
 
   __sql_static_data_source: $ =>
     choice(
-      $._sql_root_data_source,
-      $.sql_path_data_source,
-      $.sql_host_variable,
+      seq(
+        field(
+          "source",
+          choice($.identifier, $.sql_parameterized_data_source),
+        ),
+        optional($.with_privileged_access),
+      ),
+      field("source", $.cte_name),
+      field("source", $.sql_path_data_source),
+      field("source", $.sql_host_variable),
     ),
 
   _sql_root_data_source: $ =>
@@ -416,10 +423,13 @@ module.exports = {
 
   sql_data_source: $ =>
     seq(
-      field("source", $.__sql_static_data_source),
+      $.__sql_static_data_source,
       optional(field("alias", $.sql_source_alias_spec)),
       optional($.sql_declare_client_spec),
     ),
+
+  with_privileged_access: _ =>
+    seq(...gen.kws("with", "privileged", "access")),
 
   sql_source_alias_spec: $ => seq(gen.kw("as"), field("alias", $.identifier)),
 
