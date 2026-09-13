@@ -3985,8 +3985,17 @@
           "name": "_kw_by"
         },
         {
-          "type": "SYMBOL",
-          "name": "sql_set_order_by_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_set_order_by_list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "dynamic_spec"
+            }
+          ]
         }
       ]
     },

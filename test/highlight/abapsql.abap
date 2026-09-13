@@ -328,6 +328,12 @@ SELECT carrid FROM scarr
 "          ^ variable.member
   INTO TABLE @results.
 
+SELECT carrid FROM scarr
+  UNION SELECT carrid FROM spfli
+  ORDER BY (ordering)
+"           ^ variable
+  INTO TABLE @results.
+
 WITH
 "<- keyword
   +connections( carrier, connection ) AS (

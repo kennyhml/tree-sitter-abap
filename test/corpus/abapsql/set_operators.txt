@@ -137,6 +137,39 @@ SELECT FROM scarr FIELDS carrid, carrname
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / Set Operators ] Dynamic ordering
+=================================================================================
+SELECT carrid FROM scarr
+  UNION SELECT carrid FROM spfli
+  ORDER BY (ordering)
+  INTO TABLE @results.
+---
+
+(source
+  (select_statement
+    (sql_set_expression
+      query: (sql_set_query
+        (select_list
+          (select_list_item
+            expression: (identifier)))
+        (from_database_source_spec
+          source: (identifier)))
+      (sql_union_spec
+        query: (sql_set_query
+          (select_list
+            (select_list_item
+              expression: (identifier)))
+          (from_database_source_spec
+            source: (identifier)))))
+    (sql_set_order_by_spec
+      (dynamic_spec
+        value: (identifier)))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / Set Operators ] Per-query database hints
 =================================================================================
 SELECT carrid FROM scarr %_HINTS HDB 'FIRST'

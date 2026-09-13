@@ -37835,6 +37835,10 @@
       "required": true,
       "types": [
         {
+          "type": "dynamic_spec",
+          "named": true
+        },
+        {
           "type": "sql_set_order_by_list",
           "named": true
         }

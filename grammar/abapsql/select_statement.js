@@ -299,7 +299,10 @@ module.exports = {
 
   // Set expressions can only be sorted by directly specified result columns.
   sql_set_order_by_spec: $ =>
-    seq(...gen.kws("order", "by"), $.sql_set_order_by_list),
+    seq(
+      ...gen.kws("order", "by"),
+      choice($.sql_set_order_by_list, $.dynamic_spec),
+    ),
 
   sql_set_order_by_list: $ => gen.commaSep1($.sql_set_order_by_field),
 
