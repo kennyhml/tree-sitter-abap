@@ -406,6 +406,8 @@ module.exports = {
       ),
       field("source", $.cte_name),
       field("source", $.sql_hierarchy_generator),
+      field("source", $.sql_hierarchy_node_navigator),
+      field("source", $.sql_hierarchy_aggregate_navigator),
       field("source", $.sql_path_data_source),
       field("source", $.sql_host_variable),
     ),

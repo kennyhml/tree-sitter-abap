@@ -354,6 +354,62 @@ SELECT FROM HIERARCHY(
 "   ^ keyword
   FIELDS id INTO TABLE @results.
 
+SELECT FROM HIERARCHY_DESCENDANTS(
+"           ^ keyword
+    SOURCE demo_cds_tree( p_id = @root_id )
+    START WHERE id = @node_id
+    DISTANCE FROM 1 TO @distance )
+"   ^ keyword
+"            ^ keyword
+"                   ^ keyword
+  FIELDS id INTO TABLE @results.
+
+SELECT FROM HIERARCHY_ANCESTORS(
+"           ^ keyword
+    SOURCE demo_cds_tree( p_id = @root_id )
+    START WHERE id = @node_id )
+  FIELDS id INTO TABLE @results.
+
+SELECT FROM HIERARCHY_SIBLINGS(
+"           ^ keyword
+    SOURCE demo_cds_tree( p_id = @root_id )
+    START WHERE id = @node_id )
+  FIELDS id INTO TABLE @results.
+
+SELECT FROM HIERARCHY_DESCENDANTS_AGGREGATE(
+"           ^ keyword
+    SOURCE demo_cds_tree( p_id = @root_id ) AS h
+    MEASURES SUM( h~amount ) AS amount_sum
+"   ^ keyword
+    WITH SUBTOTAL
+"   ^ keyword
+"        ^ keyword
+    WITH BALANCE
+"   ^ keyword
+"        ^ keyword
+    WITH NOT MATCHED
+"   ^ keyword
+"        ^ keyword
+"            ^ keyword
+    WITH TOTAL )
+"   ^ keyword
+"        ^ keyword
+  FIELDS id INTO TABLE @results.
+
+SELECT FROM HIERARCHY_ANCESTORS_AGGREGATE(
+"           ^ keyword
+    SOURCE demo_cds_tree( p_id = @root_id ) AS h
+    MEASURES PRODUCT( h~amount ) AS path_product )
+  FIELDS id INTO TABLE @results.
+
+WITH +tree AS (
+    SELECT FROM demo_cds_tree( p_id = @root_id ) FIELDS * )
+  WITH HIERARCHY demo_cds_tree
+" ^ keyword
+"      ^ keyword
+"                ^ type
+  SELECT FROM +tree FIELDS id INTO TABLE @results.
+
 SELECT * FROM scarr
   %_HINTS HDB 'USE INDEX' ORACLE @oracle_hint
 " ^ keyword

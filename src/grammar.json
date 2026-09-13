@@ -2101,6 +2101,18 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "with_hierarchy_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "with_associations_spec"
             },
             {
@@ -2194,6 +2206,40 @@
             {
               "type": "STRING",
               "value": ")"
+            }
+          ]
+        }
+      ]
+    },
+    "with_hierarchy_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_with"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_hierarchy"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "hierarchy",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "syntax",
+              "content": {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              }
             }
           ]
         }
@@ -4611,6 +4657,22 @@
           "name": "source",
           "content": {
             "type": "SYMBOL",
+            "name": "sql_hierarchy_node_navigator"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_hierarchy_aggregate_navigator"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
             "name": "sql_path_data_source"
           }
         },
@@ -5363,6 +5425,508 @@
         }
       ]
     },
+    "sql_hierarchy_node_navigator": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "kind",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_kw_hierarchy_descendants"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_kw_hierarchy_ancestors"
+                    }
+                  ]
+                },
+                "named": true,
+                "value": "sql_hierarchy_node_navigator_kind"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_navigator_source_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_start_spec"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_hierarchy_distance_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "kind",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_kw_hierarchy_siblings"
+                },
+                "named": true,
+                "value": "sql_hierarchy_node_navigator_kind"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_navigator_source_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_start_spec"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_hierarchy_navigator_source_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_source"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_hierarchy"
+          }
+        }
+      ]
+    },
+    "sql_hierarchy_distance_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_distance"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_from"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "from",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_sql_hierarchy_operand"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_kw_to"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "to",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_sql_hierarchy_operand"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_to"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "to",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_sql_hierarchy_operand"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "sql_hierarchy_aggregate_navigator": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "kind",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_kw_hierarchy_descendants_aggregate"
+                },
+                "named": true,
+                "value": "sql_hierarchy_aggregate_navigator_kind"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_aggregate_source_spec"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_hierarchy_aggregate_join_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_measures_spec"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_sql_where_condition_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_hierarchy_aggregate_with_spec"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "kind",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_kw_hierarchy_ancestors_aggregate"
+                },
+                "named": true,
+                "value": "sql_hierarchy_aggregate_navigator_kind"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_aggregate_source_spec"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_hierarchy_start_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_measures_spec"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_sql_where_condition_spec"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_hierarchy_aggregate_source_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_source"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_hierarchy"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_source_alias_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_hierarchy_aggregate_join_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_join"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "source",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_data_source"
+              }
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "source",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "dynamic_spec"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "FIELD",
+                      "name": "alias",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "sql_source_alias_spec"
+                      }
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_join_condition_spec"
+        }
+      ]
+    },
+    "sql_hierarchy_measures_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_measures"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_hierarchy_measure"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "sql_hierarchy_measure"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "sql_hierarchy_measure": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "function",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_function_call"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "alias",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_field_alias_spec"
+          }
+        }
+      ]
+    },
+    "sql_hierarchy_aggregate_with_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_with"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_subtotal"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_kw_balance"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_kw_total"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_not"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_matched"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "sql_hierarchy_association_spec": {
       "type": "SEQ",
       "members": [
@@ -5698,6 +6262,27 @@
         {
           "type": "SYMBOL",
           "name": "literal"
+        }
+      ]
+    },
+    "_sql_hierarchy": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_parameterized_data_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cte_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_hierarchy_generator"
         }
       ]
     },
@@ -42925,6 +43510,19 @@
         "value": "as"
       }
     },
+    "_kw_hierarchy": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)hierarchy"
+        },
+        "named": false,
+        "value": "hierarchy"
+      }
+    },
     "_kw_select": {
       "type": "FIELD",
       "name": "keyword",
@@ -43497,19 +44095,6 @@
         "value": "of"
       }
     },
-    "_kw_hierarchy": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)hierarchy"
-        },
-        "named": false,
-        "value": "hierarchy"
-      }
-    },
     "_kw_source": {
       "type": "FIELD",
       "name": "keyword",
@@ -43521,6 +44106,162 @@
         },
         "named": false,
         "value": "source"
+      }
+    },
+    "_kw_hierarchy_descendants": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)hierarchy_descendants"
+        },
+        "named": false,
+        "value": "hierarchy_descendants"
+      }
+    },
+    "_kw_hierarchy_ancestors": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)hierarchy_ancestors"
+        },
+        "named": false,
+        "value": "hierarchy_ancestors"
+      }
+    },
+    "_kw_hierarchy_siblings": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)hierarchy_siblings"
+        },
+        "named": false,
+        "value": "hierarchy_siblings"
+      }
+    },
+    "_kw_distance": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)distance"
+        },
+        "named": false,
+        "value": "distance"
+      }
+    },
+    "_kw_hierarchy_descendants_aggregate": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)hierarchy_descendants_aggregate"
+        },
+        "named": false,
+        "value": "hierarchy_descendants_aggregate"
+      }
+    },
+    "_kw_hierarchy_ancestors_aggregate": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)hierarchy_ancestors_aggregate"
+        },
+        "named": false,
+        "value": "hierarchy_ancestors_aggregate"
+      }
+    },
+    "_kw_measures": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)measures"
+        },
+        "named": false,
+        "value": "measures"
+      }
+    },
+    "_kw_subtotal": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)subtotal"
+        },
+        "named": false,
+        "value": "subtotal"
+      }
+    },
+    "_kw_balance": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)balance"
+        },
+        "named": false,
+        "value": "balance"
+      }
+    },
+    "_kw_total": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)total"
+        },
+        "named": false,
+        "value": "total"
+      }
+    },
+    "_kw_not": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)not"
+        },
+        "named": false,
+        "value": "not"
+      }
+    },
+    "_kw_matched": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)matched"
+        },
+        "named": false,
+        "value": "matched"
       }
     },
     "_kw_child": {
@@ -43651,19 +44392,6 @@
         },
         "named": false,
         "value": "parents"
-      }
-    },
-    "_kw_not": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)not"
-        },
-        "named": false,
-        "value": "not"
       }
     },
     "_kw_allowed": {
@@ -48633,19 +49361,6 @@
         },
         "named": false,
         "value": "describe"
-      }
-    },
-    "_kw_distance": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)distance"
-        },
-        "named": false,
-        "value": "distance"
       }
     },
     "__kw_output_length": {

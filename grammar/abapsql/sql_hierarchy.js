@@ -46,6 +46,145 @@ module.exports = {
       ),
     ),
 
+  /**
+   * ... HIERARCHY_DESCENDANTS|HIERARCHY_ANCESTORS(
+   *       SOURCE hierarchy START WHERE sql_cond [DISTANCE ...] )
+   *   | HIERARCHY_SIBLINGS(
+   *       SOURCE hierarchy START WHERE sql_cond ) ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENSELECT_HIERARCHY_NODE_NAVIS.html
+   */
+  sql_hierarchy_node_navigator: $ =>
+    choice(
+      seq(
+        field(
+          "kind",
+          alias(
+            choice(
+              gen.kw("hierarchy_descendants"),
+              gen.kw("hierarchy_ancestors"),
+            ),
+            $.sql_hierarchy_node_navigator_kind,
+          ),
+        ),
+        token.immediate("("),
+        $.sql_hierarchy_navigator_source_spec,
+        $.sql_hierarchy_start_spec,
+        optional($.sql_hierarchy_distance_spec),
+        ")",
+      ),
+      seq(
+        field(
+          "kind",
+          alias(
+            gen.kw("hierarchy_siblings"),
+            $.sql_hierarchy_node_navigator_kind,
+          ),
+        ),
+        token.immediate("("),
+        $.sql_hierarchy_navigator_source_spec,
+        $.sql_hierarchy_start_spec,
+        ")",
+      ),
+    ),
+
+  sql_hierarchy_navigator_source_spec: $ =>
+    seq(gen.kw("source"), field("source", $._sql_hierarchy)),
+
+  sql_hierarchy_distance_spec: $ =>
+    seq(
+      gen.kw("distance"),
+      choice(
+        seq(
+          gen.kw("from"),
+          field("from", $._sql_hierarchy_operand),
+          optional(
+            seq(gen.kw("to"), field("to", $._sql_hierarchy_operand)),
+          ),
+        ),
+        seq(gen.kw("to"), field("to", $._sql_hierarchy_operand)),
+      ),
+    ),
+
+  /**
+   * ... HIERARCHY_DESCENDANTS_AGGREGATE( ... )
+   *   | HIERARCHY_ANCESTORS_AGGREGATE( ... ) ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENSELECT_HIERARCHY_AGG_NAVIS.html
+   */
+  sql_hierarchy_aggregate_navigator: $ =>
+    choice(
+      seq(
+        field(
+          "kind",
+          alias(
+            gen.kw("hierarchy_descendants_aggregate"),
+            $.sql_hierarchy_aggregate_navigator_kind,
+          ),
+        ),
+        token.immediate("("),
+        $.sql_hierarchy_aggregate_source_spec,
+        optional($.sql_hierarchy_aggregate_join_spec),
+        $.sql_hierarchy_measures_spec,
+        optional($._sql_where_condition_spec),
+        repeat($.sql_hierarchy_aggregate_with_spec),
+        ")",
+      ),
+      seq(
+        field(
+          "kind",
+          alias(
+            gen.kw("hierarchy_ancestors_aggregate"),
+            $.sql_hierarchy_aggregate_navigator_kind,
+          ),
+        ),
+        token.immediate("("),
+        $.sql_hierarchy_aggregate_source_spec,
+        optional($.sql_hierarchy_start_spec),
+        $.sql_hierarchy_measures_spec,
+        optional($._sql_where_condition_spec),
+        ")",
+      ),
+    ),
+
+  sql_hierarchy_aggregate_source_spec: $ =>
+    seq(
+      gen.kw("source"),
+      field("source", $._sql_hierarchy),
+      optional($.sql_source_alias_spec),
+    ),
+
+  sql_hierarchy_aggregate_join_spec: $ =>
+    seq(
+      gen.kw("join"),
+      choice(
+        field("source", $.sql_data_source),
+        seq(
+          field("source", $.dynamic_spec),
+          optional(field("alias", $.sql_source_alias_spec)),
+        ),
+      ),
+      $.sql_join_condition_spec,
+    ),
+
+  sql_hierarchy_measures_spec: $ =>
+    seq(gen.kw("measures"), gen.commaSep1($.sql_hierarchy_measure)),
+
+  sql_hierarchy_measure: $ =>
+    seq(
+      field("function", $.sql_function_call),
+      field("alias", $.sql_field_alias_spec),
+    ),
+
+  sql_hierarchy_aggregate_with_spec: _ =>
+    seq(
+      gen.kw("with"),
+      choice(
+        ...gen.kws("subtotal", "balance", "total"),
+        seq(...gen.kws("not", "matched")),
+      ),
+    ),
+
   sql_hierarchy_association_spec: $ =>
     seq(
       ...gen.kws("child", "to", "parent", "association"),
@@ -112,4 +251,12 @@ module.exports = {
 
   _sql_hierarchy_operand: $ =>
     choice($.sql_host_expression, $.sql_host_variable, $.literal),
+
+  _sql_hierarchy: $ =>
+    choice(
+      $.identifier,
+      $.sql_parameterized_data_source,
+      $.cte_name,
+      $.sql_hierarchy_generator,
+    ),
 };

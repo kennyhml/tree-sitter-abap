@@ -36,6 +36,402 @@ SELECT FROM HIERARCHY(
           variable: (identifier))))))
 
 =================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Descendants navigator
+=================================================================================
+SELECT FROM HIERARCHY_DESCENDANTS(
+    SOURCE demo_cds_tree( p_id = @root_id )
+    START WHERE id = @node_id
+    DISTANCE FROM @minimum TO 3 ) AS nodes
+  FIELDS id, hierarchy_distance
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (sql_hierarchy_node_navigator
+        kind: (sql_hierarchy_node_navigator_kind)
+        (sql_hierarchy_navigator_source_spec
+          source: (sql_parameterized_data_source
+            source: (identifier)
+            (sql_view_arguments
+              (view_argument
+                name: (identifier)
+                value: (sql_host_variable
+                  variable: (identifier))))))
+        (sql_hierarchy_start_spec
+          condition: (comparison_expression
+            left: (identifier)
+            right: (sql_host_variable
+              variable: (identifier))))
+        (sql_hierarchy_distance_spec
+          from: (sql_host_variable
+            variable: (identifier))
+          to: (number)))
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Ancestors and siblings join
+=================================================================================
+SELECT a~id, s~id
+  FROM HIERARCHY_ANCESTORS(
+      SOURCE +tree
+      START WHERE id = @node_id
+      DISTANCE TO -1 ) AS a
+  INNER JOIN HIERARCHY_SIBLINGS(
+      SOURCE demo_cds_tree( p_id = @root_id )
+      START WHERE id = @node_id ) AS s
+    ON a~hierarchy_rank = s~hierarchy_rank
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier)))
+      (select_list_item
+        expression: (qualified_field
+          source: (identifier)
+          target: (identifier))))
+    (from_database_source_spec
+      source: (sql_join_expression
+        left: (sql_data_source
+          source: (sql_hierarchy_node_navigator
+            kind: (sql_hierarchy_node_navigator_kind)
+            (sql_hierarchy_navigator_source_spec
+              source: (cte_name
+                name: (identifier)))
+            (sql_hierarchy_start_spec
+              condition: (comparison_expression
+                left: (identifier)
+                right: (sql_host_variable
+                  variable: (identifier))))
+            (sql_hierarchy_distance_spec
+              to: (number)))
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        kind: (join_kind)
+        right: (sql_data_source
+          source: (sql_hierarchy_node_navigator
+            kind: (sql_hierarchy_node_navigator_kind)
+            (sql_hierarchy_navigator_source_spec
+              source: (sql_parameterized_data_source
+                source: (identifier)
+                (sql_view_arguments
+                  (view_argument
+                    name: (identifier)
+                    value: (sql_host_variable
+                      variable: (identifier))))))
+            (sql_hierarchy_start_spec
+              condition: (comparison_expression
+                left: (identifier)
+                right: (sql_host_variable
+                  variable: (identifier)))))
+          alias: (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_join_condition_spec
+          condition: (comparison_expression
+            left: (qualified_field
+              source: (identifier)
+              target: (identifier))
+            right: (qualified_field
+              source: (identifier)
+              target: (identifier))))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Descendants aggregate
+=================================================================================
+SELECT FROM HIERARCHY_DESCENDANTS_AGGREGATE(
+    SOURCE demo_cds_tree( p_id = @root_id ) AS h
+    JOIN @values AS v ON v~id = h~id
+    MEASURES SUM( v~amount ) AS amount_sum,
+             COUNT( DISTINCT h~id ) AS node_count
+    WHERE hierarchy_level > 1
+    WITH SUBTOTAL
+    WITH BALANCE
+    WITH NOT MATCHED
+    WITH TOTAL ) AS aggregates
+  FIELDS id, amount_sum, node_count, hierarchy_aggregate_type
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (sql_hierarchy_aggregate_navigator
+        kind: (sql_hierarchy_aggregate_navigator_kind)
+        (sql_hierarchy_aggregate_source_spec
+          source: (sql_parameterized_data_source
+            source: (identifier)
+            (sql_view_arguments
+              (view_argument
+                name: (identifier)
+                value: (sql_host_variable
+                  variable: (identifier)))))
+          (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_hierarchy_aggregate_join_spec
+          source: (sql_data_source
+            source: (sql_host_variable
+              variable: (identifier))
+            alias: (sql_source_alias_spec
+              alias: (identifier)))
+          (sql_join_condition_spec
+            condition: (comparison_expression
+              left: (qualified_field
+                source: (identifier)
+                target: (identifier))
+              right: (qualified_field
+                source: (identifier)
+                target: (identifier)))))
+        (sql_hierarchy_measures_spec
+          (sql_hierarchy_measure
+            function: (sql_function_call
+              name: (identifier)
+              argument: (qualified_field
+                source: (identifier)
+                target: (identifier)))
+            alias: (sql_field_alias_spec
+              alias: (identifier)))
+          (sql_hierarchy_measure
+            function: (sql_function_call
+              name: (identifier)
+              (distinct)
+              argument: (qualified_field
+                source: (identifier)
+                target: (identifier)))
+            alias: (sql_field_alias_spec
+              alias: (identifier))))
+        (where_condition_spec
+          condition: (comparison_expression
+            left: (identifier)
+            right: (number)))
+        (sql_hierarchy_aggregate_with_spec)
+        (sql_hierarchy_aggregate_with_spec)
+        (sql_hierarchy_aggregate_with_spec)
+        (sql_hierarchy_aggregate_with_spec))
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Ancestors aggregate
+=================================================================================
+SELECT FROM HIERARCHY_ANCESTORS_AGGREGATE(
+    SOURCE +tree AS h
+    START WHERE hierarchy_level = 1
+    MEASURES PRODUCT( h~amount ) AS path_product,
+             STRING_AGG( h~name, ';' ) AS path_text
+    WHERE id = @node_id ) AS aggregates
+  FIELDS id, path_product, path_text
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (sql_hierarchy_aggregate_navigator
+        kind: (sql_hierarchy_aggregate_navigator_kind)
+        (sql_hierarchy_aggregate_source_spec
+          source: (cte_name
+            name: (identifier))
+          (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_hierarchy_start_spec
+          condition: (comparison_expression
+            left: (identifier)
+            right: (number)))
+        (sql_hierarchy_measures_spec
+          (sql_hierarchy_measure
+            function: (sql_function_call
+              name: (identifier)
+              argument: (qualified_field
+                source: (identifier)
+                target: (identifier)))
+            alias: (sql_field_alias_spec
+              alias: (identifier)))
+          (sql_hierarchy_measure
+            function: (sql_function_call
+              name: (identifier)
+              argument: (sql_positional_argument_list
+                (qualified_field
+                  source: (identifier)
+                  target: (identifier))
+                (string_literal)))
+            alias: (sql_field_alias_spec
+              alias: (identifier))))
+        (where_condition_spec
+          condition: (comparison_expression
+            left: (identifier)
+            right: (sql_host_variable
+              variable: (identifier)))))
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Dynamic aggregate join source
+=================================================================================
+SELECT FROM HIERARCHY_DESCENDANTS_AGGREGATE(
+    SOURCE +tree AS h
+    JOIN (join_source) AS values ON values~id = h~id
+    MEASURES SUM( values~amount ) AS amount_sum )
+  FIELDS id, amount_sum
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (sql_hierarchy_aggregate_navigator
+        kind: (sql_hierarchy_aggregate_navigator_kind)
+        (sql_hierarchy_aggregate_source_spec
+          source: (cte_name
+            name: (identifier))
+          (sql_source_alias_spec
+            alias: (identifier)))
+        (sql_hierarchy_aggregate_join_spec
+          source: (dynamic_spec
+            value: (identifier))
+          alias: (sql_source_alias_spec
+            alias: (identifier))
+          (sql_join_condition_spec
+            condition: (comparison_expression
+              left: (qualified_field
+                source: (identifier)
+                target: (identifier))
+              right: (qualified_field
+                source: (identifier)
+                target: (identifier)))))
+        (sql_hierarchy_measures_spec
+          (sql_hierarchy_measure
+            function: (sql_function_call
+              name: (identifier)
+              argument: (qualified_field
+                source: (identifier)
+                target: (identifier)))
+            alias: (sql_field_alias_spec
+              alias: (identifier))))))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Static and dynamic CTE hierarchies
+=================================================================================
+WITH
+  +static_tree AS (
+    SELECT FROM demo_cds_tree( p_id = @root_id ) FIELDS * )
+    WITH HIERARCHY demo_cds_tree,
+  +dynamic_tree AS (
+    SELECT FROM demo_cds_tree( p_id = @root_id ) FIELDS * )
+    WITH HIERARCHY (hierarchy_syntax)
+  SELECT FROM +static_tree FIELDS id
+    INTO TABLE @result.
+---
+
+(source
+  (with_statement
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (from_database_source_spec
+            source: (sql_parameterized_data_source
+              source: (identifier)
+              (sql_view_arguments
+                (view_argument
+                  name: (identifier)
+                  value: (sql_host_variable
+                    variable: (identifier))))))
+          (select_fields_spec
+            (select_list
+              (select_wildcard)))))
+      (with_hierarchy_spec
+        hierarchy: (identifier)))
+    (common_table_expression
+      name: (cte_name
+        name: (identifier))
+      (cte_as_subquery_spec
+        (sql_subquery
+          (from_database_source_spec
+            source: (sql_parameterized_data_source
+              source: (identifier)
+              (sql_view_arguments
+                (view_argument
+                  name: (identifier)
+                  value: (sql_host_variable
+                    variable: (identifier))))))
+          (select_fields_spec
+            (select_list
+              (select_wildcard)))))
+      (with_hierarchy_spec
+        syntax: (dynamic_spec
+          value: (identifier))))
+    query: (sql_main_query
+      (from_database_source_spec
+        source: (cte_name
+          name: (identifier)))
+      (select_fields_spec
+        (select_list
+          (select_list_item
+            expression: (identifier))))
+      (select_into_spec
+        (select_result_table
+          table: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
 [ ABAP - Database Access / ABAP SQL / Hierarchies ] Generator additions
 =================================================================================
 SELECT FROM HIERARCHY(

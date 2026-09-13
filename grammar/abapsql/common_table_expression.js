@@ -62,6 +62,7 @@ module.exports = {
       field("name", $.cte_name),
       optional($.cte_field_list),
       $.cte_as_subquery_spec,
+      optional($.with_hierarchy_spec),
       optional($.with_associations_spec),
     ),
 
@@ -74,6 +75,20 @@ module.exports = {
     seq(
       gen.kw("as"),
       gen.parenthesized(alias($.__cte_subquery, $.sql_subquery)),
+    ),
+
+  /**
+   * ... WITH HIERARCHY hierarchy | (hierarchy_syntax) ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPWITH_HIERARCHY.html
+   */
+  with_hierarchy_spec: $ =>
+    seq(
+      ...gen.kws("with", "hierarchy"),
+      choice(
+        field("hierarchy", $.identifier),
+        field("syntax", $.dynamic_spec),
+      ),
     ),
 
   __cte_subquery: $ =>
