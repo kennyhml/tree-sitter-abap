@@ -603,6 +603,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "sql_modify_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "select_statement"
           },
           {
@@ -2989,6 +2993,188 @@
         {
           "type": "SYMBOL",
           "name": "_kw_hold"
+        }
+      ]
+    },
+    "sql_modify_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__sql_modify_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__sql_modify_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_modify"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_using_client_spec"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_client_specified_spec"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "connection_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "from",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_modify_from_spec"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "options",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sql_options_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "sql_client_specified_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_client"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_specified"
+        }
+      ]
+    },
+    "sql_modify_from_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_from"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_kw_table"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "sql_host_expression"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "sql_host_variable"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "mapping_from_entity"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_subquery"
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -44024,6 +44210,71 @@
         "value": "hold"
       }
     },
+    "_kw_modify": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)modify"
+        },
+        "named": false,
+        "value": "modify"
+      }
+    },
+    "_kw_client": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)client"
+        },
+        "named": false,
+        "value": "client"
+      }
+    },
+    "_kw_specified": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)specified"
+        },
+        "named": false,
+        "value": "specified"
+      }
+    },
+    "_kw_from": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)from"
+        },
+        "named": false,
+        "value": "from"
+      }
+    },
+    "_kw_table": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)table"
+        },
+        "named": false,
+        "value": "table"
+      }
+    },
     "_kw_endselect": {
       "type": "FIELD",
       "name": "keyword",
@@ -44271,19 +44522,6 @@
         "value": "appending"
       }
     },
-    "_kw_table": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)table"
-        },
-        "named": false,
-        "value": "table"
-      }
-    },
     "_kw_indicators": {
       "type": "FIELD",
       "name": "keyword",
@@ -44451,19 +44689,6 @@
         },
         "named": false,
         "value": "clob"
-      }
-    },
-    "_kw_from": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)from"
-        },
-        "named": false,
-        "value": "from"
       }
     },
     "_kw_privileged": {
@@ -45088,19 +45313,6 @@
         },
         "named": false,
         "value": "using"
-      }
-    },
-    "_kw_client": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)client"
-        },
-        "named": false,
-        "value": "client"
       }
     },
     "_kw_clients": {
@@ -50772,19 +50984,6 @@
         "value": "endat"
       }
     },
-    "_kw_modify": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)modify"
-        },
-        "named": false,
-        "value": "modify"
-      }
-    },
     "_kw_stable": {
       "type": "FIELD",
       "name": "keyword",
@@ -54533,6 +54732,10 @@
     ],
     [
       "with_statement"
+    ],
+    [
+      "__sql_modify_prefix",
+      "name_reference"
     ]
   ],
   "precedences": [],

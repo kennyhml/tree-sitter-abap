@@ -1,0 +1,168 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / MODIFY ] Work area sources
+=================================================================================
+MODIFY t100 FROM @message_wa.
+MODIFY demo_update FROM @( row ) MAPPING FROM ENTITY.
+---
+
+(source
+  (sql_modify_statement
+    target: (identifier)
+    from: (sql_modify_from_spec
+      (sql_host_variable
+        variable: (identifier))))
+  (sql_modify_statement
+    target: (identifier)
+    from: (sql_modify_from_spec
+      (sql_host_expression
+        expression: (identifier))
+      (mapping_from_entity))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / MODIFY ] Internal table sources
+=================================================================================
+MODIFY demo_update FROM TABLE @rows.
+MODIFY demo_update FROM TABLE @( rows ) MAPPING FROM ENTITY.
+---
+
+(source
+  (sql_modify_statement
+    target: (identifier)
+    from: (sql_modify_from_spec
+      (sql_host_variable
+        variable: (identifier))))
+  (sql_modify_statement
+    target: (identifier)
+    from: (sql_modify_from_spec
+      (sql_host_expression
+        expression: (identifier))
+      (mapping_from_entity))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / MODIFY ] Dynamic target and client handling
+=================================================================================
+MODIFY (target_name) USING CLIENT @client FROM @row.
+MODIFY demo_update CLIENT SPECIFIED FROM TABLE @rows.
+---
+
+(source
+  (sql_modify_statement
+    target: (dynamic_spec
+      value: (identifier))
+    (sql_using_client_spec
+      (single_client
+        client: (sql_host_variable
+          variable: (identifier))))
+    from: (sql_modify_from_spec
+      (sql_host_variable
+        variable: (identifier))))
+  (sql_modify_statement
+    target: (identifier)
+    (sql_client_specified_spec)
+    from: (sql_modify_from_spec
+      (sql_host_variable
+        variable: (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / MODIFY ] Direct connection
+=================================================================================
+MODIFY demo_update CONNECTION @connection FROM @row.
+---
+
+(source
+  (sql_modify_statement
+    target: (identifier)
+    (connection_spec
+      connection: (sql_host_variable
+        variable: (identifier)))
+    from: (sql_modify_from_spec
+      (sql_host_variable
+        variable: (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / MODIFY ] DML options
+=================================================================================
+MODIFY demo_update FROM @row
+  OPTIONS PRIVILEGED ACCESS CONNECTION R/3*MY_CONN.
+---
+
+(source
+  (sql_modify_statement
+    target: (identifier)
+    from: (sql_modify_from_spec
+      (sql_host_variable
+        variable: (identifier)))
+    options: (sql_options_spec
+      (privileged_access)
+      (connection_spec
+        connection: (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / MODIFY ] Subquery source
+=================================================================================
+MODIFY demo_join1 FROM (
+  SELECT i, j, k, l FROM demo_join3
+).
+---
+
+(source
+  (sql_modify_statement
+    target: (identifier)
+    from: (sql_modify_from_spec
+      (sql_subquery
+        (select_list
+          (select_list_item
+            expression: (identifier))
+          (select_list_item
+            expression: (identifier))
+          (select_list_item
+            expression: (identifier))
+          (select_list_item
+            expression: (identifier)))
+        (from_database_source_spec
+          source: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / MODIFY ] Set expression source
+=================================================================================
+MODIFY demo_join1 FROM (
+  SELECT i, j, k, l FROM demo_join3
+  UNION
+  SELECT a, b, c, d FROM demo_join2
+) OPTIONS CONNECTION DEFAULT.
+---
+
+(source
+  (sql_modify_statement
+    target: (identifier)
+    from: (sql_modify_from_spec
+      (sql_subquery
+        (sql_set_expression
+          query: (sql_set_query
+            (select_list
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier)))
+            (from_database_source_spec
+              source: (identifier)))
+          (sql_union_spec
+            query: (sql_set_query
+              (select_list
+                (select_list_item
+                  expression: (identifier))
+                (select_list_item
+                  expression: (identifier))
+                (select_list_item
+                  expression: (identifier))
+                (select_list_item
+                  expression: (identifier)))
+              (from_database_source_spec
+                source: (identifier)))))))
+    options: (sql_options_spec
+      (connection_spec
+        connection: (identifier)))))

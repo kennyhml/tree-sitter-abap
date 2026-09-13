@@ -914,6 +914,10 @@
         "named": true
       },
       {
+        "type": "sql_modify_statement",
+        "named": true
+      },
+      {
         "type": "statics_declaration",
         "named": true
       },
@@ -36646,6 +36650,26 @@
     }
   },
   {
+    "type": "sql_client_specified_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "client",
+            "named": false
+          },
+          {
+            "type": "specified",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_comparison_quantifier",
     "named": true,
     "fields": {
@@ -38798,6 +38822,116 @@
         },
         {
           "type": "where_condition_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_modify_from_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "mapping_from_entity",
+          "named": true
+        },
+        {
+          "type": "sql_host_expression",
+          "named": true
+        },
+        {
+          "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_modify_statement",
+    "named": true,
+    "fields": {
+      "from": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_modify_from_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "modify",
+            "named": false
+          }
+        ]
+      },
+      "options": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_options_spec",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "connection_spec",
+          "named": true
+        },
+        {
+          "type": "sql_client_specified_spec",
+          "named": true
+        },
+        {
+          "type": "sql_using_client_spec",
           "named": true
         }
       ]
@@ -47325,11 +47459,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "numbering",
@@ -47869,6 +48003,10 @@
   },
   {
     "type": "spantree",
+    "named": false
+  },
+  {
+    "type": "specified",
     "named": false
   },
   {

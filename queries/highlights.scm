@@ -853,6 +853,9 @@
 
 
 ; ABAP SQL
+(sql_modify_statement target: (identifier) @type)
+(sql_modify_statement
+  target: (dynamic_spec value: (identifier) @type))
 (from_database_source_spec (identifier) @type )
 (sql_data_source source: (identifier) @type)
 (sql_parameterized_data_source source: (identifier) @type)

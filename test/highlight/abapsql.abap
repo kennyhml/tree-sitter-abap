@@ -1,3 +1,26 @@
+MODIFY demo_update FROM TABLE @rows
+"<- keyword
+"      ^ type
+"                  ^ keyword
+"                       ^ keyword
+"                             ^ punctuation.special
+"                              ^ variable
+  OPTIONS PRIVILEGED ACCESS CONNECTION @connection.
+" ^ keyword
+"         ^ keyword
+"                    ^ keyword
+"                           ^ keyword
+"                                      ^ punctuation.special
+"                                       ^ variable
+
+MODIFY (target_name) CLIENT SPECIFIED FROM @row.
+"       ^ type
+"                    ^ keyword
+"                           ^ keyword
+"                                     ^ keyword
+"                                          ^ punctuation.special
+"                                           ^ variable
+
 SELECT SINGLE FOR UPDATE source~field, source~*
 "<- keyword
 "                 ^ keyword
