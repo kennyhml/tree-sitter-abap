@@ -848,6 +848,10 @@
           "name": "sql_window_expression"
         },
         {
+          "type": "SYMBOL",
+          "name": "sql_case_distinction"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -933,6 +937,122 @@
           }
         ]
       }
+    },
+    "sql_case_distinction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_case"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "subject",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_sql_expression"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_case"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_else_case"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_sql_case_end"
+            },
+            "named": false,
+            "value": "end"
+          }
+        }
+      ]
+    },
+    "sql_case": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_when"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "value",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_sql_expression"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "condition",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_sql_logical_expression"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_then"
+        },
+        {
+          "type": "FIELD",
+          "name": "consequence",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_expression"
+          }
+        }
+      ]
+    },
+    "sql_else_case": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_else"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_sql_expression"
+          }
+        }
+      ]
     },
     "_sql_arithmetic_expression": {
       "type": "CHOICE",
@@ -41977,6 +42097,45 @@
         "value": "null"
       }
     },
+    "_kw_when": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)when"
+        },
+        "named": false,
+        "value": "when"
+      }
+    },
+    "_kw_then": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)then"
+        },
+        "named": false,
+        "value": "then"
+      }
+    },
+    "_kw_else": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)else"
+        },
+        "named": false,
+        "value": "else"
+      }
+    },
     "_kw_where": {
       "type": "FIELD",
       "name": "keyword",
@@ -45264,19 +45423,6 @@
         },
         "named": false,
         "value": "zone"
-      }
-    },
-    "_kw_else": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)else"
-        },
-        "named": false,
-        "value": "else"
       }
     },
     "_kw_unassign": {
@@ -48710,32 +48856,6 @@
         },
         "named": false,
         "value": "shortdump"
-      }
-    },
-    "_kw_when": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)when"
-        },
-        "named": false,
-        "value": "when"
-      }
-    },
-    "_kw_then": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)then"
-        },
-        "named": false,
-        "value": "then"
       }
     },
     "_kw_throw": {
@@ -52427,6 +52547,10 @@
     {
       "type": "SYMBOL",
       "name": "doctag_text"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_sql_case_end"
     },
     {
       "type": "SYMBOL",

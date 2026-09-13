@@ -1,0 +1,120 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / CASE Expressions ] Simple case
+=================================================================================
+SELECT CASE status
+         WHEN 'A' THEN 'Active'
+         WHEN 'I' THEN 'Inactive'
+         ELSE 'Unknown'
+       END AS status_text
+  FROM accounts
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_case_distinction
+          subject: (identifier)
+          (sql_case
+            value: (string_literal)
+            consequence: (string_literal))
+          (sql_case
+            value: (string_literal)
+            consequence: (string_literal))
+          (sql_else_case
+            value: (string_literal)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / CASE Expressions ] Complex case
+=================================================================================
+SELECT CASE
+         WHEN status = 'A' AND valid_to IS NULL THEN amount + @bonus
+         WHEN amount > 0 THEN amount
+         ELSE NULL
+       eNd AS adjusted_amount
+  FROM accounts
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_case_distinction
+          (sql_case
+            condition: (logical_expression
+              left: (comparison_expression
+                left: (identifier)
+                right: (string_literal))
+              right: (comparison_expression
+                left: (identifier)
+                right: (sql_null_spec)))
+            consequence: (arithmetic_expression
+              left: (identifier)
+              right: (sql_host_variable
+                variable: (identifier))))
+          (sql_case
+            condition: (comparison_expression
+              left: (identifier)
+              right: (number))
+            consequence: (identifier))
+          (sql_else_case
+            value: (sql_null)))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / CASE Expressions ] Nested without else
+=================================================================================
+SELECT CASE category
+         WHEN 'A' THEN CASE WHEN score > 90 THEN 1 ELSE 0 END
+         WHEN 'B' THEN 2
+* A comment before the closing keyword must remain an extra.
+       END AS ranking
+  FROM results
+  INTO TABLE @rankings.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (sql_case_distinction
+          subject: (identifier)
+          (sql_case
+            value: (string_literal)
+            consequence: (sql_case_distinction
+              (sql_case
+                condition: (comparison_expression
+                  left: (identifier)
+                  right: (number))
+                consequence: (number))
+              (sql_else_case
+                value: (number))))
+          (sql_case
+            value: (string_literal)
+            consequence: (number))
+          (line_comment))
+        alias: (sql_field_alias_spec
+          alias: (identifier))))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

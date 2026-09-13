@@ -85,6 +85,27 @@ SELECT CAST( amount AS DEC( 15, 2 ) ) AS converted,
 SELECT NULL AS missing_value FROM source INTO TABLE @result.
 "      ^ constant.builtin
 
+SELECT CASE status
+"           ^ variable.member
+         WHEN 'A' THEN amount
+"             ^ string
+"                      ^ variable.member
+         ELSE NULL
+"             ^ constant.builtin
+       END AS status_value
+"             ^ variable.member
+  FROM accounts
+"      ^ type
+  INTO TABLE @result.
+"             ^ variable
+
+SELECT CASE WHEN amount > @minimum THEN amount ELSE 0 END AS positive_amount
+"                ^ variable.member
+"                          ^ variable
+"                                       ^ variable.member
+"                                                                     ^ variable.member
+  FROM accounts INTO TABLE @result.
+
 SELECT c~carrid, p~connid
   FROM scarr AS c
 "      ^ type

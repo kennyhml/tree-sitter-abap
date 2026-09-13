@@ -22,6 +22,7 @@ module.exports = {
       $.sql_null,
       $.sql_function_call,
       $.sql_window_expression,
+      $.sql_case_distinction,
       alias($._sql_string_expression, $.string_concatenation),
       alias($._sql_arithmetic_expression, $.arithmetic_expression),
       alias($.__sql_parenthesized_expression, $.parenthesized_expression),
@@ -47,6 +48,44 @@ module.exports = {
         field("right", $._sql_expression),
       ),
     ),
+
+  /**
+   * ... CASE sql_exp
+   *       WHEN sql_exp1 THEN result1
+   *     [ WHEN sql_exp2 THEN result2 ]
+   *     ...
+   *     [ ELSE resultn|NULL ]
+   *     END
+   *   | CASE
+   *       WHEN sql_cond1 THEN result1
+   *     [ WHEN sql_cond2 THEN result2 ]
+   *     ...
+   *     [ ELSE resultn|NULL ]
+   *     END ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENSQL_CASE.html
+   */
+  sql_case_distinction: $ =>
+    seq(
+      gen.kw("case"),
+      optional(field("subject", $._sql_expression)),
+      repeat1($.sql_case),
+      optional($.sql_else_case),
+      field("keyword", alias($._sql_case_end, "end")),
+    ),
+
+  sql_case: $ =>
+    seq(
+      gen.kw("when"),
+      choice(
+        field("value", $._sql_expression),
+        field("condition", $._sql_logical_expression),
+      ),
+      gen.kw("then"),
+      field("consequence", $._sql_expression),
+    ),
+
+  sql_else_case: $ => seq(gen.kw("else"), field("value", $._sql_expression)),
 
   /**
    * ... [-] sql_exp1 +|-|*|/ [-] sql_exp2 [+|-|*|/ [-] sql_exp3 ... ] ...

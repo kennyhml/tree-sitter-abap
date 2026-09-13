@@ -13,6 +13,8 @@ enum Token
 
     DOCTAG_TEXT,
 
+    SQL_CASE_END,
+
     /**
      * Message type can be the prefix of a message number, and this conflicts
      * with the word rule. There might be a better way to work around this, but
@@ -172,6 +174,27 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
                     lines > 1 ? MULTI_LINE_COMMENT : LINE_COMMENT;
             return true;
         }
+    }
+
+    if (valid_symbols[SQL_CASE_END]) {
+        advance_whitespaces_and_newlines(lexer, false);
+
+        const char* keyword = "end";
+        for (unsigned i = 0; keyword[i] != '\0'; i++) {
+            if (towlower(lexer->lookahead) != keyword[i]) {
+                return false;
+            }
+            lexer->advance(lexer, false);
+        }
+        lexer->mark_end(lexer);
+
+        if (iswalnum(lexer->lookahead) || lexer->lookahead == '_' ||
+            lexer->lookahead == '/' || lexer->lookahead == '%') {
+            return false;
+        }
+
+        lexer->result_symbol = SQL_CASE_END;
+        return true;
     }
     return false;
 }

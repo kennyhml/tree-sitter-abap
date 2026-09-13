@@ -1983,6 +1983,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -2063,6 +2067,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -2106,6 +2114,10 @@
           },
           {
             "type": "literal",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
             "named": true
           },
           {
@@ -7179,6 +7191,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -7248,6 +7264,10 @@
           },
           {
             "type": "sql_between_spec",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
             "named": true
           },
           {
@@ -20124,6 +20144,10 @@
           "named": true
         },
         {
+          "type": "sql_case_distinction",
+          "named": true
+        },
+        {
           "type": "sql_column_spec",
           "named": true
         },
@@ -20353,6 +20377,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_case_distinction",
           "named": true
         },
         {
@@ -28245,6 +28273,10 @@
           "named": true
         },
         {
+          "type": "sql_case_distinction",
+          "named": true
+        },
+        {
           "type": "sql_column_spec",
           "named": true
         },
@@ -28931,6 +28963,10 @@
         },
         {
           "type": "requested_predicate",
+          "named": true
+        },
+        {
+          "type": "sql_case_distinction",
           "named": true
         },
         {
@@ -33384,6 +33420,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -36180,6 +36220,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -36244,6 +36288,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -36273,6 +36321,236 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "sql_case",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_exists_spec",
+            "named": true
+          }
+        ]
+      },
+      "consequence": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "then",
+            "named": false
+          },
+          {
+            "type": "when",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_case_distinction",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "case",
+            "named": false
+          },
+          {
+            "type": "end",
+            "named": false
+          }
+        ]
+      },
+      "subject": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_case",
+          "named": true
+        },
+        {
+          "type": "sql_else_case",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -36486,6 +36764,72 @@
     }
   },
   {
+    "type": "sql_else_case",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "else",
+            "named": false
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_except_spec",
     "named": true,
     "fields": {
@@ -36599,6 +36943,10 @@
           },
           {
             "type": "select_wildcard",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
             "named": true
           },
           {
@@ -36785,6 +37133,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_case_distinction",
           "named": true
         },
         {
@@ -37037,6 +37389,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -37098,6 +37454,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
             "named": true
           },
           {
@@ -37257,6 +37617,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -37353,6 +37717,10 @@
           "named": true
         },
         {
+          "type": "sql_case_distinction",
+          "named": true
+        },
+        {
           "type": "sql_column_spec",
           "named": true
         },
@@ -37412,6 +37780,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_case_distinction",
           "named": true
         },
         {
@@ -37691,6 +38063,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "sql_case_distinction",
           "named": true
         },
         {
@@ -38461,6 +38837,10 @@
             "named": true
           },
           {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
             "type": "sql_column_spec",
             "named": true
           },
@@ -38504,6 +38884,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
             "named": true
           },
           {
@@ -42806,6 +43190,10 @@
           "named": true
         },
         {
+          "type": "sql_case_distinction",
+          "named": true
+        },
+        {
           "type": "sql_column_spec",
           "named": true
         },
@@ -45530,11 +45918,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "numbering",
