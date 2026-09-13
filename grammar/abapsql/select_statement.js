@@ -405,6 +405,7 @@ module.exports = {
         optional($.with_privileged_access),
       ),
       field("source", $.cte_name),
+      field("source", $.sql_hierarchy_generator),
       field("source", $.sql_path_data_source),
       field("source", $.sql_host_variable),
     ),

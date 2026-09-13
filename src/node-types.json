@@ -18580,6 +18580,10 @@
             "named": true
           },
           {
+            "type": "sql_hierarchy_generator",
+            "named": true
+          },
+          {
             "type": "sql_host_variable",
             "named": true
           },
@@ -36644,6 +36648,10 @@
             "named": true
           },
           {
+            "type": "sql_hierarchy_generator",
+            "named": true
+          },
+          {
             "type": "sql_host_variable",
             "named": true
           },
@@ -37069,6 +37077,505 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "sql_hierarchy_association_spec",
+    "named": true,
+    "fields": {
+      "association": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "association",
+            "named": false
+          },
+          {
+            "type": "child",
+            "named": false
+          },
+          {
+            "type": "parent",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_cycles_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "breakup",
+            "named": false
+          },
+          {
+            "type": "cycles",
+            "named": false
+          },
+          {
+            "type": "error",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_depth_spec",
+    "named": true,
+    "fields": {
+      "depth": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "depth",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_generator",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "hierarchy",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_hierarchy_association_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_cycles_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_depth_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_multiple_parents_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_orphans_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_period_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_siblings_order_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_source_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_spantree_spec",
+          "named": true
+        },
+        {
+          "type": "sql_hierarchy_start_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_hierarchy_multiple_parents_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "allowed",
+            "named": false
+          },
+          {
+            "type": "leaves",
+            "named": false
+          },
+          {
+            "type": "multiple",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "only",
+            "named": false
+          },
+          {
+            "type": "parents",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_order_by_field",
+    "named": true,
+    "fields": {
+      "column": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "direction": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ascending",
+            "named": true
+          },
+          {
+            "type": "descending",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_order_by_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_hierarchy_order_by_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_hierarchy_orphans_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "error",
+            "named": false
+          },
+          {
+            "type": "ignore",
+            "named": false
+          },
+          {
+            "type": "orphans",
+            "named": false
+          },
+          {
+            "type": "root",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_period_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "period",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "valid",
+            "named": false
+          }
+        ]
+      },
+      "period_from": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "period_to": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "valid_from": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      },
+      "valid_to": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_siblings_order_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "by",
+            "named": false
+          },
+          {
+            "type": "order",
+            "named": false
+          },
+          {
+            "type": "siblings",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_hierarchy_order_by_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_hierarchy_source_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "source",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "cte_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "sql_hierarchy_generator",
+            "named": true
+          },
+          {
+            "type": "sql_parameterized_data_source",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "with_privileged_access",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_hierarchy_spantree_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "generate",
+            "named": false
+          },
+          {
+            "type": "spantree",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_hierarchy_start_spec",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_exists_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "start",
+            "named": false
+          },
+          {
+            "type": "where",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -44527,6 +45034,10 @@
     "named": false
   },
   {
+    "type": "allowed",
+    "named": false
+  },
+  {
     "type": "amdp",
     "named": false
   },
@@ -44584,6 +45095,10 @@
   },
   {
     "type": "assigning",
+    "named": false
+  },
+  {
+    "type": "association",
     "named": false
   },
   {
@@ -44695,6 +45210,10 @@
     "named": false
   },
   {
+    "type": "breakup",
+    "named": false
+  },
+  {
     "type": "bt",
     "named": false
   },
@@ -44776,6 +45295,10 @@
   },
   {
     "type": "checkbox",
+    "named": false
+  },
+  {
+    "type": "child",
     "named": false
   },
   {
@@ -44951,6 +45474,10 @@
     "named": false
   },
   {
+    "type": "cycles",
+    "named": false
+  },
+  {
     "type": "dangerous",
     "named": false
   },
@@ -45036,6 +45563,10 @@
   },
   {
     "type": "dependent",
+    "named": false
+  },
+  {
+    "type": "depth",
     "named": false
   },
   {
@@ -45252,6 +45783,10 @@
   },
   {
     "type": "equiv",
+    "named": false
+  },
+  {
+    "type": "error",
     "named": false
   },
   {
@@ -45683,6 +46218,10 @@
     "named": false
   },
   {
+    "type": "leaves",
+    "named": false
+  },
+  {
     "type": "left",
     "named": false
   },
@@ -45885,6 +46424,10 @@
     "extra": true
   },
   {
+    "type": "multiple",
+    "named": false
+  },
+  {
     "type": "na",
     "named": false
   },
@@ -45950,11 +46493,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "numbering",
@@ -46041,6 +46584,10 @@
     "named": false
   },
   {
+    "type": "orphans",
+    "named": false
+  },
+  {
     "type": "others",
     "named": false
   },
@@ -46081,6 +46628,14 @@
     "named": false
   },
   {
+    "type": "parent",
+    "named": false
+  },
+  {
+    "type": "parents",
+    "named": false
+  },
+  {
     "type": "partially",
     "named": false
   },
@@ -46098,6 +46653,10 @@
   },
   {
     "type": "performing",
+    "named": false
+  },
+  {
+    "type": "period",
     "named": false
   },
   {
@@ -46313,6 +46872,10 @@
     "named": false
   },
   {
+    "type": "root",
+    "named": false
+  },
+  {
     "type": "round",
     "named": false
   },
@@ -46413,6 +46976,10 @@
     "named": false
   },
   {
+    "type": "siblings",
+    "named": false
+  },
+  {
     "type": "sign",
     "named": false
   },
@@ -46461,6 +47028,10 @@
     "named": false
   },
   {
+    "type": "spantree",
+    "named": false
+  },
+  {
     "type": "split",
     "named": false
   },
@@ -46486,6 +47057,10 @@
   },
   {
     "type": "standard",
+    "named": false
+  },
+  {
+    "type": "start",
     "named": false
   },
   {
@@ -46758,6 +47333,10 @@
   },
   {
     "type": "utclong",
+    "named": false
+  },
+  {
+    "type": "valid",
     "named": false
   },
   {

@@ -329,6 +329,31 @@ SELECT * FROM demo_cds WITH PRIVILEGED ACCESS INTO TABLE @results.
 "                           ^ keyword
 "                                      ^ keyword
 
+SELECT FROM HIERARCHY(
+"           ^ keyword
+    SOURCE demo_cds_tree_source WITH PRIVILEGED ACCESS
+"   ^ keyword
+"          ^ type
+"                               ^ keyword
+    CHILD TO PARENT ASSOCIATION _tree
+"   ^ keyword
+"         ^ keyword
+"            ^ keyword
+"                   ^ keyword
+"                               ^ type
+    START WHERE id = @root_id
+"   ^ keyword
+"         ^ keyword
+    SIBLINGS ORDER BY id DESCENDING
+"   ^ keyword
+"            ^ keyword
+"                  ^ keyword
+"                        ^ variable.member
+"                           ^ keyword
+    DEPTH 3 )
+"   ^ keyword
+  FIELDS id INTO TABLE @results.
+
 SELECT * FROM scarr
   %_HINTS HDB 'USE INDEX' ORACLE @oracle_hint
 " ^ keyword

@@ -1,0 +1,148 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Generator
+=================================================================================
+SELECT FROM HIERARCHY(
+    SOURCE demo_cds_tree_source
+    CHILD TO PARENT ASSOCIATION _tree
+    START WHERE id = @root_id ) AS tree
+  FIELDS id, hierarchy_level
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (sql_hierarchy_generator
+        (sql_hierarchy_source_spec
+          source: (identifier))
+        (sql_hierarchy_association_spec
+          association: (identifier))
+        (sql_hierarchy_start_spec
+          condition: (comparison_expression
+            left: (identifier)
+            right: (sql_host_variable
+              variable: (identifier)))))
+      (sql_source_alias_spec
+        alias: (identifier)))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))
+        (select_list_item
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] Generator additions
+=================================================================================
+SELECT FROM HIERARCHY(
+    SOURCE demo_cds_tree_source WITH PRIVILEGED ACCESS
+    CHILD TO PARENT ASSOCIATION _tree
+    PERIOD FROM valid_from TO valid_to VALID FROM @lower TO @( upper )
+    START WHERE id BETWEEN @first_id AND @last_id
+    SIBLINGS ORDER BY parent, id DESCENDING
+    DEPTH @depth
+    MULTIPLE PARENTS LEAVES ONLY
+    ORPHANS ROOT
+    CYCLES BREAKUP
+    GENERATE SPANTREE )
+  FIELDS id
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (sql_hierarchy_generator
+        (sql_hierarchy_source_spec
+          source: (identifier)
+          (with_privileged_access))
+        (sql_hierarchy_association_spec
+          association: (identifier))
+        (sql_hierarchy_period_spec
+          period_from: (identifier)
+          period_to: (identifier)
+          valid_from: (sql_host_variable
+            variable: (identifier))
+          valid_to: (sql_host_expression
+            expression: (identifier)))
+        (sql_hierarchy_start_spec
+          condition: (comparison_expression
+            left: (identifier)
+            right: (sql_between_spec
+              low: (sql_host_variable
+                variable: (identifier))
+              high: (sql_host_variable
+                variable: (identifier)))))
+        (sql_hierarchy_siblings_order_spec
+          (sql_hierarchy_order_by_list
+            (sql_hierarchy_order_by_field
+              column: (identifier))
+            (sql_hierarchy_order_by_field
+              column: (identifier)
+              direction: (descending))))
+        (sql_hierarchy_depth_spec
+          depth: (sql_host_variable
+            variable: (identifier)))
+        (sql_hierarchy_multiple_parents_spec)
+        (sql_hierarchy_orphans_spec)
+        (sql_hierarchy_cycles_spec)
+        (sql_hierarchy_spantree_spec)))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / Hierarchies ] CTE and nested sources
+=================================================================================
+SELECT FROM HIERARCHY(
+    SOURCE HIERARCHY(
+      SOURCE +tree
+      CHILD TO PARENT ASSOCIATION _tree
+      START WHERE id = 1
+      DEPTH 2 )
+    CHILD TO PARENT ASSOCIATION _tree
+    START WHERE id = 5 )
+  FIELDS id
+  INTO TABLE @result.
+---
+
+(source
+  (select_statement
+    (from_database_source_spec
+      source: (sql_hierarchy_generator
+        (sql_hierarchy_source_spec
+          source: (sql_hierarchy_generator
+            (sql_hierarchy_source_spec
+              source: (cte_name
+                name: (identifier)))
+            (sql_hierarchy_association_spec
+              association: (identifier))
+            (sql_hierarchy_start_spec
+              condition: (comparison_expression
+                left: (identifier)
+                right: (number)))
+            (sql_hierarchy_depth_spec
+              depth: (number))))
+        (sql_hierarchy_association_spec
+          association: (identifier))
+        (sql_hierarchy_start_spec
+          condition: (comparison_expression
+            left: (identifier)
+            right: (number)))))
+    (select_fields_spec
+      (select_list
+        (select_list_item
+          expression: (identifier))))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))))))

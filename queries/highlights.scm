@@ -856,6 +856,9 @@
 (from_database_source_spec (identifier) @type )
 (sql_data_source source: (identifier) @type)
 (sql_parameterized_data_source source: (identifier) @type)
+(sql_hierarchy_source_spec source: (identifier) @type)
+(sql_hierarchy_association_spec association: (identifier) @type)
+(sql_hierarchy_order_by_field column: (identifier) @variable.member)
 (sql_function_call name: (identifier) @function.call)
 (sql_cast_type name: (identifier) @type.builtin)
 (sql_null) @constant.builtin
