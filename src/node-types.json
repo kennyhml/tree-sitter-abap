@@ -914,6 +914,10 @@
         "named": true
       },
       {
+        "type": "sql_delete_statement",
+        "named": true
+      },
+      {
         "type": "sql_modify_statement",
         "named": true
       },
@@ -36896,6 +36900,212 @@
     }
   },
   {
+    "type": "sql_delete_conditions_spec",
+    "named": true,
+    "fields": {
+      "hints": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_database_hints_spec",
+            "named": true
+          }
+        ]
+      },
+      "limit": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "select_up_to_spec",
+            "named": true
+          }
+        ]
+      },
+      "order": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_set_order_by_spec",
+            "named": true
+          }
+        ]
+      },
+      "where": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "where_condition_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "select_offset_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_delete_from_source_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "mapping_from_entity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_delete_from_target_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_delete_statement",
+    "named": true,
+    "fields": {
+      "from": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_delete_from_source_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "delete",
+            "named": false
+          }
+        ]
+      },
+      "options": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_options_spec",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "connection_spec",
+          "named": true
+        },
+        {
+          "type": "sql_client_specified_spec",
+          "named": true
+        },
+        {
+          "type": "sql_delete_conditions_spec",
+          "named": true
+        },
+        {
+          "type": "sql_delete_from_target_spec",
+          "named": true
+        },
+        {
+          "type": "sql_using_client_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sql_else_case",
     "named": true,
     "fields": {
@@ -47459,11 +47669,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "numbering",

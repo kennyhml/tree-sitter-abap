@@ -1,0 +1,152 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / DELETE ] Target and condition
+=================================================================================
+DELETE FROM demo_update.
+DELETE FROM (target_name) WHERE id = @id.
+---
+
+(source
+  (sql_delete_statement
+    (sql_delete_from_target_spec
+      (identifier)))
+  (sql_delete_statement
+    (sql_delete_from_target_spec
+      (dynamic_spec
+        (identifier)))
+    (sql_delete_conditions_spec
+      (where_condition_spec
+        (comparison_expression
+          (identifier)
+          (sql_host_variable
+            (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / DELETE ] Client and direct connection
+=================================================================================
+DELETE FROM demo_update USING CLIENT @client WHERE id = @id.
+DELETE FROM (target_name) CLIENT SPECIFIED CONNECTION @connection
+  WHERE id = @id.
+---
+
+(source
+  (sql_delete_statement
+    (sql_delete_from_target_spec
+      (identifier))
+    (sql_using_client_spec
+      (single_client
+        (sql_host_variable
+          (identifier))))
+    (sql_delete_conditions_spec
+      (where_condition_spec
+        (comparison_expression
+          (identifier)
+          (sql_host_variable
+            (identifier))))))
+  (sql_delete_statement
+    (sql_delete_from_target_spec
+      (dynamic_spec
+        (identifier)))
+    (sql_client_specified_spec)
+    (connection_spec
+      (sql_host_variable
+        (identifier)))
+    (sql_delete_conditions_spec
+      (where_condition_spec
+        (comparison_expression
+          (identifier)
+          (sql_host_variable
+            (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / DELETE ] Hints, ordering, and row limits
+=================================================================================
+DELETE FROM demo_update
+  WHERE status = 'X'
+  %_HINTS HDB 'INDEX("DEMO_UPDATE" "I1")'
+  ORDER BY id DESCENDING OFFSET @offset
+  UP TO @count ROWS.
+DELETE FROM demo_update UP TO 100 ROWS.
+---
+
+(source
+  (sql_delete_statement
+    (sql_delete_from_target_spec
+      (identifier))
+    (sql_delete_conditions_spec
+      (where_condition_spec
+        (comparison_expression
+          (identifier)
+          (string_literal)))
+      (sql_database_hints_spec
+        (sql_database_hint
+          (identifier)
+          (string_literal)))
+      (sql_set_order_by_spec
+        (sql_set_order_by_list
+          (sql_set_order_by_field
+            (identifier)
+            (descending))))
+      (select_offset_spec
+        (sql_host_variable
+          (identifier)))
+      (select_up_to_spec
+        (sql_host_variable
+          (identifier)))))
+  (sql_delete_statement
+    (sql_delete_from_target_spec
+      (identifier))
+    (sql_delete_conditions_spec
+      (select_up_to_spec
+        (number)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / DELETE ] Work area and table sources
+=================================================================================
+DELETE demo_update FROM @row.
+DELETE demo_update FROM TABLE @( rows ) MAPPING FROM ENTITY.
+---
+
+(source
+  (sql_delete_statement
+    (identifier)
+    (sql_delete_from_source_spec
+      (sql_host_variable
+        (identifier))))
+  (sql_delete_statement
+    (identifier)
+    (sql_delete_from_source_spec
+      (sql_host_expression
+        (identifier))
+      (mapping_from_entity))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / DELETE ] Dynamic target and options
+=================================================================================
+DELETE (target_name) CONNECTION @connection FROM @row
+  OPTIONS PRIVILEGED ACCESS.
+DELETE demo_update CLIENT SPECIFIED FROM TABLE @rows
+  BYPASSING BUFFER CONNECTION DEFAULT.
+---
+
+(source
+  (sql_delete_statement
+    (dynamic_spec
+      (identifier))
+    (connection_spec
+      (sql_host_variable
+        (identifier)))
+    (sql_delete_from_source_spec
+      (sql_host_variable
+        (identifier)))
+    (sql_options_spec
+      (privileged_access)))
+  (sql_delete_statement
+    (identifier)
+    (sql_client_specified_spec)
+    (sql_delete_from_source_spec
+      (sql_host_variable
+        (identifier)))
+    (sql_options_spec
+      (bypassing_buffer)
+      (connection_spec
+        (identifier)))))

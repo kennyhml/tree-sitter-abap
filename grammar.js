@@ -54,6 +54,7 @@ module.exports = grammar({
     [$.select_statement],
     [$.with_statement],
     [$.__sql_modify_prefix, $.name_reference],
+    [$.__sql_delete_prefix, $.name_reference],
   ],
 
   extras: $ => [
@@ -283,6 +284,7 @@ module.exports = grammar({
           $.read_entities_statement,
 
           // abap sql
+          $.sql_delete_statement,
           $.sql_modify_statement,
           $.select_statement,
           $.with_statement,

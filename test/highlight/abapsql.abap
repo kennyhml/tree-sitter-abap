@@ -1,3 +1,35 @@
+DELETE FROM demo_update WHERE id = @id.
+"<- keyword
+"      ^ keyword
+"           ^ type
+"                       ^ keyword
+"                             ^ variable.member
+"                                  ^ punctuation.special
+"                                   ^ variable
+
+DELETE FROM (target_name) CLIENT SPECIFIED CONNECTION @connection
+"            ^ type
+"                         ^ keyword
+"                                ^ keyword
+"                                          ^ keyword
+"                                                     ^ punctuation.special
+"                                                      ^ variable
+  WHERE id = @id.
+" ^ keyword
+"       ^ variable.member
+"            ^ punctuation.special
+"             ^ variable
+
+DELETE demo_update FROM TABLE @( rows ) MAPPING FROM ENTITY.
+"      ^ type
+"                  ^ keyword
+"                       ^ keyword
+"                             ^ punctuation.special
+"                                ^ variable
+"                                       ^ keyword
+"                                               ^ keyword
+"                                                    ^ keyword
+
 MODIFY demo_update FROM TABLE @rows
 "<- keyword
 "      ^ type

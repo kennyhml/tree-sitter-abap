@@ -853,6 +853,12 @@
 
 
 ; ABAP SQL
+(sql_delete_statement target: (identifier) @type)
+(sql_delete_statement
+  target: (dynamic_spec value: (identifier) @type))
+(sql_delete_from_target_spec target: (identifier) @type)
+(sql_delete_from_target_spec
+  target: (dynamic_spec value: (identifier) @type))
 (sql_modify_statement target: (identifier) @type)
 (sql_modify_statement
   target: (dynamic_spec value: (identifier) @type))
