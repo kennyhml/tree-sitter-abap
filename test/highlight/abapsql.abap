@@ -309,6 +309,38 @@ SELECT * FROM flights ORDER BY flight_date INTO TABLE @results
 "                              ^ punctuation.special
 "                                 ^ variable
 
+SELECT SINGLE carrid FROM scarr
+  INTO NEW @FINAL(row_ref) INDICATORS NULL STRUCTURE nulls
+"      ^ keyword
+"          ^ punctuation.special
+"           ^ keyword
+"                          ^ keyword
+"                                     ^ keyword
+"                                          ^ keyword
+"                                                    ^ variable.member
+  EXTENDED RESULT @extended_result
+" ^ keyword
+"          ^ keyword
+"                 ^ punctuation.special
+"                  ^ variable
+  CREATING READER FOR COLUMNS carrid.
+" ^ keyword
+"          ^ keyword
+"                 ^ keyword
+"                     ^ keyword
+"                             ^ variable.member
+
+SELECT picture FROM demo_blob_table
+  APPENDING TABLE @rows
+  CREATING LOCATOR FOR ALL OTHER BLOB COLUMNS.
+" ^ keyword
+"          ^ keyword
+"                  ^ keyword
+"                      ^ keyword
+"                          ^ keyword
+"                                ^ keyword
+"                                     ^ keyword
+
 SELECT * FROM scarr INTO TABLE @results
   OPTIONS USING CLIENTS IN T000 PRIVILEGED ACCESS
 " ^ keyword

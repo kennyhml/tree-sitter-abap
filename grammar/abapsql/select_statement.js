@@ -350,19 +350,28 @@ module.exports = {
         $.select_result_struct,
         $.select_result_table,
       ),
+      optional($.sql_extended_result_spec),
+      optional($.sql_creating_spec),
     ),
 
-  select_appending_spec: $ => seq(gen.kw("appending"), $.select_result_table),
+  select_appending_spec: $ =>
+    seq(
+      gen.kw("appending"),
+      $.select_result_table,
+      optional($.sql_extended_result_spec),
+      optional($.sql_creating_spec),
+    ),
 
   // ... (@elem1, @elem2, ... ) ...
   select_result_targets: $ =>
-    gen.parenthesized(gen.commaSep1($.sql_host_variable)),
+    gen.parenthesized(gen.commaSep1($._sql_into_target)),
 
   // ... [CORRESPONDING FIELDS OF] wa [indicators] ...
   select_result_struct: $ =>
     seq(
       optional($.corresponding_fields_of),
-      field("work_area", $.sql_host_variable),
+      field("work_area", $._sql_into_target),
+      optional($.sql_indicators_spec),
     ),
 
   // ... [CORRESPONDING FIELDS OF] TABLE itab [indicators] [PACKAGE SIZE n] ...
@@ -370,8 +379,86 @@ module.exports = {
     seq(
       optional($.corresponding_fields_of),
       gen.kw("table"),
-      field("table", $.sql_host_variable),
+      field("table", $._sql_into_target),
+      optional($.sql_indicators_spec),
       optional($.package_size_spec),
+    ),
+
+  _sql_into_target: $ => choice($.sql_host_variable, $.sql_new_target),
+
+  sql_new_target: $ =>
+    seq(gen.kw("new"), field("reference", $.sql_host_variable)),
+
+  /**
+   * ... INDICATORS {[NOT] NULL STRUCTURE null_ind}
+   *              | {[NOT] NULL BITFIELD null_ind}
+   *              | (indicator_syntax) ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPSELECT_INDICATORS.html
+   */
+  sql_indicators_spec: $ =>
+    seq(
+      gen.kw("indicators"),
+      choice(
+        seq(
+          optional(gen.kw("not")),
+          gen.kw("null"),
+          choice(gen.kw("structure"), gen.kw("bitfield")),
+          field("indicator", $.identifier),
+        ),
+        field("syntax", $.dynamic_spec),
+      ),
+    ),
+
+  // ... EXTENDED RESULT @oref ...
+  sql_extended_result_spec: $ =>
+    seq(
+      ...gen.kws("extended", "result"),
+      field("result", $.sql_host_variable),
+    ),
+
+  /**
+   * ... CREATING {READER|LOCATOR FOR columns} [READER|LOCATOR FOR columns]
+   *            | (creating_syntax) ...
+   *
+   * @see https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABAPSELECT_CREATING.html
+   */
+  sql_creating_spec: $ =>
+    seq(
+      gen.kw("creating"),
+      choice(
+        seq($.sql_lob_handle_spec, optional($.sql_lob_handle_spec)),
+        field("syntax", $.dynamic_spec),
+      ),
+    ),
+
+  sql_lob_handle_spec: $ =>
+    seq(
+      field(
+        "kind",
+        alias(
+          choice(gen.kw("reader"), gen.kw("locator")),
+          $.sql_lob_handle_kind,
+        ),
+      ),
+      gen.kw("for"),
+      $.sql_lob_columns_spec,
+    ),
+
+  sql_lob_columns_spec: $ =>
+    choice(
+      seq(gen.kw("columns"), repeat1(field("column", $.identifier))),
+      seq(
+        gen.kw("all"),
+        optional(gen.kw("other")),
+        optional(
+          field(
+            "type",
+            alias(choice(gen.kw("blob"), gen.kw("clob")), $.sql_lob_type),
+          ),
+        ),
+        gen.kw("columns"),
+      ),
     ),
 
   // ... FROM source ...

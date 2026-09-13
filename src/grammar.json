@@ -4383,6 +4383,30 @@
               "name": "select_result_table"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_extended_result_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_creating_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -4396,6 +4420,30 @@
         {
           "type": "SYMBOL",
           "name": "select_result_table"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_extended_result_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_creating_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -4411,7 +4459,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "sql_host_variable"
+              "name": "_sql_into_target"
             },
             {
               "type": "REPEAT",
@@ -4424,7 +4472,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "sql_host_variable"
+                    "name": "_sql_into_target"
                   }
                 ]
               }
@@ -4457,8 +4505,20 @@
           "name": "work_area",
           "content": {
             "type": "SYMBOL",
-            "name": "sql_host_variable"
+            "name": "_sql_into_target"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_indicators_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -4486,8 +4546,20 @@
           "name": "table",
           "content": {
             "type": "SYMBOL",
-            "name": "sql_host_variable"
+            "name": "_sql_into_target"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sql_indicators_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -4498,6 +4570,279 @@
             },
             {
               "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_sql_into_target": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sql_host_variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_new_target"
+        }
+      ]
+    },
+    "sql_new_target": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_new"
+        },
+        {
+          "type": "FIELD",
+          "name": "reference",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_host_variable"
+          }
+        }
+      ]
+    },
+    "sql_indicators_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_indicators"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_kw_not"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_null"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_kw_structure"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_kw_bitfield"
+                    }
+                  ]
+                },
+                {
+                  "type": "FIELD",
+                  "name": "indicator",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "FIELD",
+              "name": "syntax",
+              "content": {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "sql_extended_result_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_extended"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_result"
+        },
+        {
+          "type": "FIELD",
+          "name": "result",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sql_host_variable"
+          }
+        }
+      ]
+    },
+    "sql_creating_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_creating"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_lob_handle_spec"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "sql_lob_handle_spec"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "FIELD",
+              "name": "syntax",
+              "content": {
+                "type": "SYMBOL",
+                "name": "dynamic_spec"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "sql_lob_handle_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "kind",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_reader"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_locator"
+                }
+              ]
+            },
+            "named": true,
+            "value": "sql_lob_handle_kind"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sql_lob_columns_spec"
+        }
+      ]
+    },
+    "sql_lob_columns_spec": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_columns"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "FIELD",
+                "name": "column",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_all"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_other"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "type",
+                  "content": {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_kw_blob"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_kw_clob"
+                        }
+                      ]
+                    },
+                    "named": true,
+                    "value": "sql_lob_type"
+                  }
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_kw_columns"
             }
           ]
         }
@@ -43939,6 +44284,175 @@
         "value": "table"
       }
     },
+    "_kw_indicators": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)indicators"
+        },
+        "named": false,
+        "value": "indicators"
+      }
+    },
+    "_kw_not": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)not"
+        },
+        "named": false,
+        "value": "not"
+      }
+    },
+    "_kw_structure": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)structure"
+        },
+        "named": false,
+        "value": "structure"
+      }
+    },
+    "_kw_bitfield": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)bitfield"
+        },
+        "named": false,
+        "value": "bitfield"
+      }
+    },
+    "_kw_extended": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)extended"
+        },
+        "named": false,
+        "value": "extended"
+      }
+    },
+    "_kw_result": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)result"
+        },
+        "named": false,
+        "value": "result"
+      }
+    },
+    "_kw_creating": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)creating"
+        },
+        "named": false,
+        "value": "creating"
+      }
+    },
+    "_kw_reader": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)reader"
+        },
+        "named": false,
+        "value": "reader"
+      }
+    },
+    "_kw_locator": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)locator"
+        },
+        "named": false,
+        "value": "locator"
+      }
+    },
+    "_kw_columns": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)columns"
+        },
+        "named": false,
+        "value": "columns"
+      }
+    },
+    "_kw_other": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)other"
+        },
+        "named": false,
+        "value": "other"
+      }
+    },
+    "_kw_blob": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)blob"
+        },
+        "named": false,
+        "value": "blob"
+      }
+    },
+    "_kw_clob": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)clob"
+        },
+        "named": false,
+        "value": "clob"
+      }
+    },
     "_kw_from": {
       "type": "FIELD",
       "name": "keyword",
@@ -44236,19 +44750,6 @@
         },
         "named": false,
         "value": "total"
-      }
-    },
-    "_kw_not": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)not"
-        },
-        "named": false,
-        "value": "not"
       }
     },
     "_kw_matched": {
@@ -45266,19 +45767,6 @@
         },
         "named": false,
         "value": "ignoring"
-      }
-    },
-    "_kw_structure": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)structure"
-        },
-        "named": false,
-        "value": "structure"
       }
     },
     "_kw_boundaries": {
@@ -46966,19 +47454,6 @@
         },
         "named": false,
         "value": "xml"
-      }
-    },
-    "_kw_result": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)result"
-        },
-        "named": false,
-        "value": "result"
       }
     },
     "_kw_character": {

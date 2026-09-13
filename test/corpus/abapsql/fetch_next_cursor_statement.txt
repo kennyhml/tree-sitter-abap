@@ -67,3 +67,23 @@ FETCH NEXT CURSOR @dbcur
           variable: (identifier))
         (package_size_spec
           size: (number))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / FETCH NEXT CURSOR ] Anonymous table
+=================================================================================
+FETCH NEXT CURSOR @dbcur
+  INTO TABLE NEW @FINAL(rows_ref) INDICATORS NULL STRUCTURE nulls.
+---
+
+(source
+  (fetch_next_cursor_statement
+    cursor: (sql_host_variable
+      variable: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_new_target
+          reference: (sql_host_variable
+            variable: (declaration_expression
+              name: (identifier))))
+        (sql_indicators_spec
+          indicator: (identifier))))))

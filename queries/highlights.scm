@@ -862,6 +862,8 @@
 (sql_hierarchy_association_spec association: (identifier) @type)
 (sql_hierarchy_order_by_field column: (identifier) @variable.member)
 (with_hierarchy_spec hierarchy: (identifier) @type)
+(sql_indicators_spec indicator: (identifier) @variable.member)
+(sql_lob_columns_spec column: (identifier) @variable.member)
 (sql_function_call name: (identifier) @function.call)
 (sql_cast_type name: (identifier) @type.builtin)
 (sql_null) @constant.builtin

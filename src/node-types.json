@@ -33278,11 +33278,19 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "select_result_table",
+          "named": true
+        },
+        {
+          "type": "sql_creating_spec",
+          "named": true
+        },
+        {
+          "type": "sql_extended_result_spec",
           "named": true
         }
       ]
@@ -33364,7 +33372,7 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -33377,6 +33385,14 @@
         },
         {
           "type": "select_result_targets",
+          "named": true
+        },
+        {
+          "type": "sql_creating_spec",
+          "named": true
+        },
+        {
+          "type": "sql_extended_result_spec",
           "named": true
         }
       ]
@@ -33736,16 +33752,24 @@
           {
             "type": "sql_host_variable",
             "named": true
+          },
+          {
+            "type": "sql_new_target",
+            "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "corresponding_fields_of",
+          "named": true
+        },
+        {
+          "type": "sql_indicators_spec",
           "named": true
         }
       ]
@@ -33772,6 +33796,10 @@
           {
             "type": "sql_host_variable",
             "named": true
+          },
+          {
+            "type": "sql_new_target",
+            "named": true
           }
         ]
       }
@@ -33787,6 +33815,10 @@
         {
           "type": "package_size_spec",
           "named": true
+        },
+        {
+          "type": "sql_indicators_spec",
+          "named": true
         }
       ]
     }
@@ -33801,6 +33833,10 @@
       "types": [
         {
           "type": "sql_host_variable",
+          "named": true
+        },
+        {
+          "type": "sql_new_target",
           "named": true
         }
       ]
@@ -36634,6 +36670,42 @@
     }
   },
   {
+    "type": "sql_creating_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "creating",
+            "named": false
+          }
+        ]
+      },
+      "syntax": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "sql_lob_handle_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sql_data_source",
     "named": true,
     "fields": {
@@ -36929,6 +37001,36 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "sql_extended_result_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "extended",
+            "named": false
+          },
+          {
+            "type": "result",
+            "named": false
+          }
+        ]
+      },
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -38152,6 +38254,58 @@
     }
   },
   {
+    "type": "sql_indicators_spec",
+    "named": true,
+    "fields": {
+      "indicator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "bitfield",
+            "named": false
+          },
+          {
+            "type": "indicators",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "null",
+            "named": false
+          },
+          {
+            "type": "structure",
+            "named": false
+          }
+        ]
+      },
+      "syntax": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_initial_spec",
     "named": true,
     "fields": {
@@ -38436,6 +38590,126 @@
     }
   },
   {
+    "type": "sql_lob_columns_spec",
+    "named": true,
+    "fields": {
+      "column": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "all",
+            "named": false
+          },
+          {
+            "type": "columns",
+            "named": false
+          },
+          {
+            "type": "other",
+            "named": false
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_lob_type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_lob_handle_kind",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "locator",
+            "named": false
+          },
+          {
+            "type": "reader",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_lob_handle_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "for",
+            "named": false
+          }
+        ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_lob_handle_kind",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sql_lob_columns_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_lob_type",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "blob",
+            "named": false
+          },
+          {
+            "type": "clob",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "sql_main_query",
     "named": true,
     "fields": {
@@ -38608,6 +38882,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "sql_new_target",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "new",
+            "named": false
+          }
+        ]
+      },
+      "reference": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -45658,7 +45958,15 @@
     "named": false
   },
   {
+    "type": "bitfield",
+    "named": false
+  },
+  {
     "type": "blanks",
+    "named": false
+  },
+  {
+    "type": "blob",
     "named": false
   },
   {
@@ -45806,6 +46114,10 @@
     "named": false
   },
   {
+    "type": "clob",
+    "named": false
+  },
+  {
     "type": "clock",
     "named": false
   },
@@ -45827,6 +46139,10 @@
   },
   {
     "type": "collect",
+    "named": false
+  },
+  {
+    "type": "columns",
     "named": false
   },
   {
@@ -45919,6 +46235,10 @@
   },
   {
     "type": "create",
+    "named": false
+  },
+  {
+    "type": "creating",
     "named": false
   },
   {
@@ -46322,6 +46642,10 @@
     "named": false
   },
   {
+    "type": "extended",
+    "named": false
+  },
+  {
     "type": "fail",
     "named": false
   },
@@ -46594,6 +46918,10 @@
     "named": false
   },
   {
+    "type": "indicators",
+    "named": false
+  },
+  {
     "type": "inheriting",
     "named": false
   },
@@ -46772,6 +47100,10 @@
   },
   {
     "type": "local",
+    "named": false
+  },
+  {
+    "type": "locator",
     "named": false
   },
   {
@@ -47088,6 +47420,10 @@
     "named": false
   },
   {
+    "type": "other",
+    "named": false
+  },
+  {
     "type": "others",
     "named": false
   },
@@ -47241,6 +47577,10 @@
   },
   {
     "type": "read",
+    "named": false
+  },
+  {
+    "type": "reader",
     "named": false
   },
   {

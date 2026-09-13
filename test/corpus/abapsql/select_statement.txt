@@ -914,3 +914,177 @@ ENDSELECT.
       (assignment
         left: (identifier)
         right: (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Anonymous result targets
+=================================================================================
+SELECT carrid, carrname, url FROM scarr
+  INTO (NEW @carrier_id, @DATA(name), NEW @FINAL(url_ref)).
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_targets
+        (sql_new_target
+          reference: (sql_host_variable
+            variable: (identifier)))
+        (sql_host_variable
+          variable: (declaration_expression
+            name: (identifier)))
+        (sql_new_target
+          reference: (sql_host_variable
+            variable: (declaration_expression
+              name: (identifier))))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Structure null indicators and extended result
+=================================================================================
+SELECT SINGLE carrid, carrname FROM scarr
+  INTO NEW @FINAL(row_ref) INDICATORS NULL STRUCTURE nulls
+  EXTENDED RESULT @extended_result.
+---
+
+(source
+  (select_statement
+    (single)
+    (select_list
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_new_target
+          reference: (sql_host_variable
+            variable: (declaration_expression
+              name: (identifier))))
+        (sql_indicators_spec
+          indicator: (identifier)))
+      (sql_extended_result_spec
+        result: (sql_host_variable
+          variable: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Table bitfield indicators
+=================================================================================
+SELECT carrid, carrname FROM scarr
+  INTO TABLE @rows INDICATORS NOT NULL BITFIELD null_bits
+  PACKAGE SIZE @package_size.
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier))
+        (sql_indicators_spec
+          indicator: (identifier))
+        (package_size_spec
+          size: (sql_host_variable
+            variable: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Dynamic indicators
+=================================================================================
+SELECT SINGLE (columns) FROM (source)
+  INTO NEW @DATA(row_ref) INDICATORS (indicator_syntax).
+---
+
+(source
+  (select_statement
+    (single)
+    (select_list
+      (dynamic_spec
+        value: (identifier)))
+    (from_database_source_spec
+      source: (dynamic_spec
+        value: (identifier)))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_new_target
+          reference: (sql_host_variable
+            variable: (declaration_expression
+              name: (identifier))))
+        (sql_indicators_spec
+          syntax: (dynamic_spec
+            value: (identifier)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Static LOB handle creation
+=================================================================================
+SELECT SINGLE picture, description FROM demo_blob_table
+  INTO @row
+  CREATING READER FOR COLUMNS picture
+           LOCATOR FOR ALL OTHER CLOB COLUMNS.
+---
+
+(source
+  (select_statement
+    (single)
+    (select_list
+      (select_list_item
+        expression: (identifier))
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_into_spec
+      (select_result_struct
+        work_area: (sql_host_variable
+          variable: (identifier)))
+      (sql_creating_spec
+        (sql_lob_handle_spec
+          kind: (sql_lob_handle_kind)
+          (sql_lob_columns_spec
+            column: (identifier)))
+        (sql_lob_handle_spec
+          kind: (sql_lob_handle_kind)
+          (sql_lob_columns_spec
+            type: (sql_lob_type)))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / SELECT ] Appending with result additions
+=================================================================================
+SELECT picture FROM demo_blob_table
+  APPENDING TABLE @rows
+  EXTENDED RESULT @extended_result
+  CREATING (creating_syntax).
+---
+
+(source
+  (select_statement
+    (select_list
+      (select_list_item
+        expression: (identifier)))
+    (from_database_source_spec
+      source: (identifier))
+    (select_appending_spec
+      (select_result_table
+        table: (sql_host_variable
+          variable: (identifier)))
+      (sql_extended_result_spec
+        result: (sql_host_variable
+          variable: (identifier)))
+      (sql_creating_spec
+        syntax: (dynamic_spec
+          value: (identifier))))))
