@@ -80,6 +80,7 @@ The rules and documentation are still written manually - with actual thought put
 
 ## Completion rate
 The following language features are currently implemented:
+- [x] ABAP SQL, including cursor statements and Native SQL
 - [x] Declaration of data objects (data, final, constants, class-data..)
 - [x] Declarations of types (tables, enums, builtins, references..)
 - [x] Selection screens statements
@@ -112,7 +113,6 @@ The following language features are currently implemented:
 Partially completed categories are not mentioned here.
 For a more detailed look, you can refer to the test cases in the `test/corpus/` directory.
 ### Significant language features the grammar is **missing**:
-- [ ] **ABAP SQL**, including cursor statements and Native SQL
 - [ ] Dynpro interaction statements
 - [ ] Classical list processing and spool statements
 - [ ] Language environment statements (set country, set language, set/get locale language)
