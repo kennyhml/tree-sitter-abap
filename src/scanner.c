@@ -1,6 +1,5 @@
 #include "tree_sitter/parser.h"
 #include "tree_sitter/alloc.h"
-#include "tree_sitter/array.h"
 #include <wctype.h>
 
 enum Token
@@ -14,6 +13,8 @@ enum Token
     DOCTAG_TEXT,
 
     SQL_CASE_END,
+
+    EXEC_SQL_BODY,
 
     /**
      * Message type can be the prefix of a message number, and this conflicts
@@ -37,6 +38,47 @@ typedef struct
 // a: terminate message
 // x: exit message
 static const char* valid_message_types = "isewaxISEWAX";
+
+static bool scan_exec_sql_body(TSLexer* lexer)
+{
+    bool has_content = false;
+
+    while (!lexer->eof(lexer)) {
+        if (towlower(lexer->lookahead) == 'e') {
+            const char* keyword = "endexec";
+            unsigned i = 0;
+
+            lexer->mark_end(lexer);
+            while (keyword[i] != '\0' &&
+                   towlower(lexer->lookahead) ==
+                           (wint_t)(unsigned char)keyword[i]) {
+                lexer->advance(lexer, false);
+                i++;
+            }
+
+            if (keyword[i] == '\0') {
+                if (!has_content) {
+                    return false;
+                }
+                lexer->result_symbol = EXEC_SQL_BODY;
+                return true;
+            }
+
+            has_content = true;
+            continue;
+        }
+
+        has_content |= !iswspace(lexer->lookahead);
+        lexer->advance(lexer, false);
+    }
+
+    if (has_content) {
+        lexer->mark_end(lexer);
+        lexer->result_symbol = EXEC_SQL_BODY;
+        return true;
+    }
+    return false;
+}
 
 int32_t advance_whitespaces(TSLexer* lexer, bool include)
 {
@@ -153,6 +195,10 @@ bool tree_sitter_abap_external_scanner_scan(void* payload, TSLexer* lexer,
             lexer->result_symbol = DOCTAG_TEXT;
         }
         return start_capture;
+    }
+
+    if (valid_symbols[EXEC_SQL_BODY]) {
+        return scan_exec_sql_body(lexer);
     }
 
     if (valid_symbols[LINE_COMMENT]) {

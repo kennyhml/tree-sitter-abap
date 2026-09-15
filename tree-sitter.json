@@ -11,7 +11,8 @@
       ],
       "injection-regex": "^abap$",
       "class-name": "TreeSitterAbap",
-      "highlights": "queries/highlights.scm"
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm"
     }
   ],
   "metadata": {

@@ -598,6 +598,10 @@
         "named": true
       },
       {
+        "type": "exec_sql_statement",
+        "named": true
+      },
+      {
         "type": "exit_statement",
         "named": true
       },
@@ -15789,6 +15793,54 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "exec_sql_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "exec_sql_body",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "endexec",
+            "named": false
+          },
+          {
+            "type": "exec",
+            "named": false
+          },
+          {
+            "type": "performing",
+            "named": false
+          },
+          {
+            "type": "sql",
+            "named": false
+          }
+        ]
+      },
+      "routine": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -47354,6 +47406,10 @@
     "named": false
   },
   {
+    "type": "endexec",
+    "named": false
+  },
+  {
     "type": "endform",
     "named": false
   },
@@ -47476,6 +47532,14 @@
   {
     "type": "exceptions",
     "named": false
+  },
+  {
+    "type": "exec",
+    "named": false
+  },
+  {
+    "type": "exec_sql_body",
+    "named": true
   },
   {
     "type": "execute",
@@ -48189,11 +48253,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "numbering",

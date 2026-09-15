@@ -639,6 +639,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "exec_sql_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_empty_statement"
           }
         ]
@@ -11370,6 +11374,72 @@
         {
           "type": "SYMBOL",
           "name": "data_cluster_id_spec"
+        }
+      ]
+    },
+    "exec_sql_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_exec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_sql"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_performing"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "routine",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "exec_sql_body"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_endexec"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -44828,6 +44898,45 @@
         "value": "methods"
       }
     },
+    "_kw_exec": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)exec"
+        },
+        "named": false,
+        "value": "exec"
+      }
+    },
+    "_kw_sql": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)sql"
+        },
+        "named": false,
+        "value": "sql"
+      }
+    },
+    "_kw_endexec": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)endexec"
+        },
+        "named": false,
+        "value": "endexec"
+      }
+    },
     "_kw_output": {
       "type": "FIELD",
       "name": "keyword",
@@ -47218,6 +47327,19 @@
         },
         "named": false,
         "value": "directory"
+      }
+    },
+    "_kw_performing": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)performing"
+        },
+        "named": false,
+        "value": "performing"
       }
     },
     "_kw_task": {
@@ -52621,19 +52743,6 @@
         "value": "calling"
       }
     },
-    "_kw_performing": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)performing"
-        },
-        "named": false,
-        "value": "performing"
-      }
-    },
     "_kw_background": {
       "type": "FIELD",
       "name": "keyword",
@@ -53520,19 +53629,6 @@
         },
         "named": false,
         "value": "ddl"
-      }
-    },
-    "_kw_sql": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)sql"
-        },
-        "named": false,
-        "value": "sql"
       }
     },
     "_kw_service": {
@@ -55694,6 +55790,18 @@
             {
               "type": "PATTERN",
               "value": "(?i)methods"
+            },
+            {
+              "type": "PATTERN",
+              "value": "(?i)exec"
+            },
+            {
+              "type": "PATTERN",
+              "value": "(?i)sql"
+            },
+            {
+              "type": "PATTERN",
+              "value": "(?i)endexec"
             }
           ]
         }
@@ -55849,6 +55957,10 @@
     {
       "type": "SYMBOL",
       "name": "_sql_case_end"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "exec_sql_body"
     },
     {
       "type": "SYMBOL",

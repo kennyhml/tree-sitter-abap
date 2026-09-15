@@ -33,6 +33,8 @@ module.exports = grammar({
 
     $._sql_case_end,
 
+    $.exec_sql_body,
+
     /**
      * Message type can be the prefix of a message number, and this conflicts
      * with the word rule. There might be a better way to work around this, but
@@ -293,6 +295,9 @@ module.exports = grammar({
           $.open_cursor_statement,
           $.fetch_next_cursor_statement,
           $.close_cursor_statement,
+
+          // Native SQL
+          $.exec_sql_statement,
 
           $._empty_statement,
         ),
@@ -662,11 +667,14 @@ module.exports = grammar({
               "sort",
               "insert",
               "delete",
-              "append",
-              "interfaces",
-              "interface",
-              "methods",
-            ),
+               "append",
+               "interfaces",
+               "interface",
+               "methods",
+               "exec",
+               "sql",
+               "endexec",
+             ),
           ),
         ),
         $.identifier,

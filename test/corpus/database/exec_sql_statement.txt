@@ -1,0 +1,99 @@
+=================================================================================
+[ ABAP - Database / Native SQL / EXEC SQL ] Basic statement
+=================================================================================
+EXEC SQL.
+  SELECT carrid, connid
+    INTO :wa-carrid, :wa-connid
+    FROM spfli
+    WHERE carrid = :carrier
+ENDEXEC.
+---
+
+(source
+  (exec_sql_statement
+    body: (exec_sql_body)))
+
+=================================================================================
+[ ABAP - Database / Native SQL / EXEC SQL ] Multiple statements
+=================================================================================
+EXEC SQL.
+  CREATE TABLE native_demo (id INTEGER, value VARCHAR(100));
+  INSERT INTO native_demo VALUES (1, 'first');
+  * is SQL content here, not an ABAP full-line comment
+  UPDATE native_demo SET value = 'second' WHERE id = 1
+ENDEXEC.
+---
+
+(source
+  (exec_sql_statement
+    body: (exec_sql_body)))
+
+=================================================================================
+[ ABAP - Database / Native SQL / EXEC SQL ] Mixed case
+=================================================================================
+exec sql.
+  SELECT employee_name FROM engineering_staff
+endexec.
+---
+
+(source
+  (exec_sql_statement
+    body: (exec_sql_body)))
+
+=================================================================================
+[ ABAP - Database / Native SQL / EXEC SQL ] Obsolete PERFORMING addition
+=================================================================================
+EXEC SQL PERFORMING evaluate.
+  SELECT carrid INTO :carrier FROM spfli
+ENDEXEC.
+---
+
+(source
+  (exec_sql_statement
+    routine: (identifier)
+    body: (exec_sql_body)))
+
+=================================================================================
+[ ABAP - Database / Native SQL / EXEC SQL ] Empty
+=================================================================================
+EXEC SQL.
+ENDEXEC.
+---
+
+(source
+  (exec_sql_statement))
+
+=================================================================================
+[ ABAP - Database / Native SQL / EXEC SQL ] Nested in an ABAP statement block
+=================================================================================
+DO.
+  EXEC SQL.
+    DELETE FROM native_demo WHERE id = :id
+  ENDEXEC.
+ENDDO.
+---
+
+(source
+  (do_statement
+    body: (statement_block
+      (exec_sql_statement
+        body: (exec_sql_body)))))
+
+=================================================================================
+[ ABAP - Database / Native SQL / EXEC SQL ] Keywords used as identifiers
+=================================================================================
+exec = 1.
+sql = 2.
+endexec = 3.
+---
+
+(source
+  (assignment
+    left: (identifier)
+    right: (number))
+  (assignment
+    left: (identifier)
+    right: (number))
+  (assignment
+    left: (identifier)
+    right: (number)))
