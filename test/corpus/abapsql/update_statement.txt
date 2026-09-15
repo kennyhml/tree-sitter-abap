@@ -1,0 +1,111 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / UPDATE ] Set expressions
+=================================================================================
+UPDATE demo_update
+  SET col1 = 100,
+      col2 = demo_update~col1 + @offset
+  WHERE id = @id
+  %_HINTS HDB 'INDEX("DEMO_UPDATE" "I1")'.
+---
+
+(source
+  (sql_update_statement
+    target: (identifier)
+    set: (sql_update_set_spec
+      (sql_update_set_expression
+        field: (identifier)
+        value: (number))
+      (sql_update_set_expression
+        field: (identifier)
+        value: (arithmetic_expression
+          left: (qualified_field
+            source: (identifier)
+            target: (identifier))
+          right: (sql_host_variable
+            variable: (identifier))))
+      where: (where_condition_spec
+        condition: (comparison_expression
+          left: (identifier)
+          right: (sql_host_variable
+            variable: (identifier))))
+      hints: (sql_database_hints_spec
+        (sql_database_hint
+          database: (identifier)
+          hint: (string_literal))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / UPDATE ] Dynamic target and set expression
+=================================================================================
+UPDATE (target_name) USING CLIENT @client CONNECTION @connection
+  SET (set_syntax).
+---
+
+(source
+  (sql_update_statement
+    target: (dynamic_spec
+      value: (identifier))
+    (sql_using_client_spec
+      (single_client
+        client: (sql_host_variable
+          variable: (identifier))))
+    (connection_spec
+      connection: (sql_host_variable
+        variable: (identifier)))
+    set: (sql_update_set_spec
+      (dynamic_spec
+        value: (identifier)))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / UPDATE ] Work area and indicators
+=================================================================================
+UPDATE demo_update FROM @row
+  INDICATORS SET STRUCTURE col_ind
+  MAPPING FROM ENTITY.
+UPDATE demo_update FROM @row INDICATORS (indicator_syntax).
+---
+
+(source
+  (sql_update_statement
+    target: (identifier)
+    from: (sql_update_from_spec
+      source: (sql_host_variable
+        variable: (identifier))
+      indicators: (sql_update_indicators_spec
+        indicator: (identifier))
+      (mapping_from_entity)))
+  (sql_update_statement
+    target: (identifier)
+    from: (sql_update_from_spec
+      source: (sql_host_variable
+        variable: (identifier))
+      indicators: (sql_update_indicators_spec
+        syntax: (dynamic_spec
+          value: (identifier))))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / UPDATE ] Internal table and options
+=================================================================================
+UPDATE demo_update FROM TABLE @( rows )
+  INDICATORS NOT SET STRUCTURE col_ind.
+UPDATE demo_update CLIENT SPECIFIED FROM TABLE @rows
+  OPTIONS PRIVILEGED ACCESS CONNECTION DEFAULT.
+---
+
+(source
+  (sql_update_statement
+    target: (identifier)
+    from: (sql_update_from_spec
+      source: (sql_host_expression
+        expression: (identifier))
+      indicators: (sql_update_indicators_spec
+        indicator: (identifier))))
+  (sql_update_statement
+    target: (identifier)
+    (sql_client_specified_spec)
+    from: (sql_update_from_spec
+      source: (sql_host_variable
+        variable: (identifier)))
+    options: (sql_options_spec
+      (privileged_access)
+      (connection_spec
+        connection: (identifier)))))

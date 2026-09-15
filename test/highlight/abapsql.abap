@@ -53,6 +53,31 @@ MODIFY (target_name) CLIENT SPECIFIED FROM @row.
 "                                          ^ punctuation.special
 "                                           ^ variable
 
+UPDATE demo_update SET col1 = @value WHERE id = @id.
+"<- keyword
+"      ^ type
+"                  ^ keyword
+"                      ^ variable.member
+"                             ^ punctuation.special
+"                              ^ variable
+"                                    ^ keyword
+"                                          ^ variable.member
+"                                               ^ punctuation.special
+"                                                ^ variable
+
+UPDATE (target_name) FROM TABLE @rows
+"       ^ type
+"                    ^ keyword
+"                         ^ keyword
+"                               ^ punctuation.special
+"                                ^ variable
+  INDICATORS NOT SET STRUCTURE col_ind.
+" ^ keyword
+"            ^ keyword
+"                ^ keyword
+"                    ^ keyword
+"                              ^ variable
+
 SELECT SINGLE FOR UPDATE source~field, source~*
 "<- keyword
 "                 ^ keyword

@@ -922,6 +922,10 @@
         "named": true
       },
       {
+        "type": "sql_update_statement",
+        "named": true
+      },
+      {
         "type": "statics_declaration",
         "named": true
       },
@@ -40020,6 +40024,302 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "sql_update_from_spec",
+    "named": true,
+    "fields": {
+      "indicators": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_update_indicators_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "table",
+            "named": false
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "mapping_from_entity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_update_indicators_spec",
+    "named": true,
+    "fields": {
+      "indicator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "name_reference",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "indicators",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          },
+          {
+            "type": "structure",
+            "named": false
+          }
+        ]
+      },
+      "syntax": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_update_set_expression",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sql_column_spec",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "sql_case_distinction",
+            "named": true
+          },
+          {
+            "type": "sql_column_spec",
+            "named": true
+          },
+          {
+            "type": "sql_function_call",
+            "named": true
+          },
+          {
+            "type": "sql_host_expression",
+            "named": true
+          },
+          {
+            "type": "sql_host_variable",
+            "named": true
+          },
+          {
+            "type": "sql_null",
+            "named": true
+          },
+          {
+            "type": "sql_window_expression",
+            "named": true
+          },
+          {
+            "type": "string_concatenation",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sql_update_set_spec",
+    "named": true,
+    "fields": {
+      "hints": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_database_hints_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "set",
+            "named": false
+          }
+        ]
+      },
+      "where": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "where_condition_spec",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dynamic_spec",
+          "named": true
+        },
+        {
+          "type": "sql_update_set_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sql_update_statement",
+    "named": true,
+    "fields": {
+      "from": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_update_from_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "update",
+            "named": false
+          }
+        ]
+      },
+      "options": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_options_spec",
+            "named": true
+          }
+        ]
+      },
+      "set": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sql_update_set_spec",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dynamic_spec",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "connection_spec",
+          "named": true
+        },
+        {
+          "type": "sql_client_specified_spec",
+          "named": true
+        },
+        {
+          "type": "sql_using_client_spec",
+          "named": true
+        }
+      ]
     }
   },
   {
