@@ -1,3 +1,21 @@
+INSERT INTO demo_update VALUES @row.
+"<- keyword
+"      ^ keyword
+"           ^ type
+"                       ^ keyword
+"                              ^ punctuation.special
+"                               ^ variable
+
+INSERT (target_name) FROM TABLE @rows ACCEPTING DUPLICATE KEYS.
+"       ^ type
+"                    ^ keyword
+"                         ^ keyword
+"                               ^ punctuation.special
+"                                ^ variable
+"                                     ^ keyword
+"                                               ^ keyword
+"                                                         ^ keyword
+
 DELETE FROM demo_update WHERE id = @id.
 "<- keyword
 "      ^ keyword

@@ -1,0 +1,121 @@
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / INSERT ] Values sources
+=================================================================================
+INSERT INTO demo_update VALUES @row.
+INSERT INTO (target_name) CLIENT SPECIFIED CONNECTION @connection
+  VALUES @( row ) MAPPING FROM ENTITY.
+---
+
+(source
+  (sql_insert_statement
+    target: (identifier)
+    values: (sql_insert_values_spec
+      source: (sql_host_variable
+        variable: (identifier))))
+  (sql_insert_statement
+    target: (dynamic_spec
+      value: (identifier))
+    (sql_client_specified_spec)
+    (connection_spec
+      connection: (sql_host_variable
+        variable: (identifier)))
+    values: (sql_insert_values_spec
+      source: (sql_host_expression
+        expression: (identifier))
+      (mapping_from_entity))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / INSERT ] Work area sources
+=================================================================================
+INSERT demo_update FROM @row.
+INSERT demo_update USING CLIENT @client FROM @( row ) MAPPING FROM ENTITY.
+---
+
+(source
+  (sql_insert_statement
+    target: (identifier)
+    from: (sql_insert_from_spec
+      source: (sql_host_variable
+        variable: (identifier))))
+  (sql_insert_statement
+    target: (identifier)
+    (sql_using_client_spec
+      (single_client
+        client: (sql_host_variable
+          variable: (identifier))))
+    from: (sql_insert_from_spec
+      source: (sql_host_expression
+        expression: (identifier))
+      (mapping_from_entity))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / INSERT ] Internal table sources
+=================================================================================
+INSERT demo_update FROM TABLE @rows.
+INSERT (target_name) CONNECTION @connection FROM TABLE @( rows )
+  MAPPING FROM ENTITY ACCEPTING DUPLICATE KEYS.
+---
+
+(source
+  (sql_insert_statement
+    target: (identifier)
+    from: (sql_insert_from_spec
+      source: (sql_host_variable
+        variable: (identifier))))
+  (sql_insert_statement
+    target: (dynamic_spec
+      value: (identifier))
+    (connection_spec
+      connection: (sql_host_variable
+        variable: (identifier)))
+    from: (sql_insert_from_spec
+      source: (sql_host_expression
+        expression: (identifier))
+      (mapping_from_entity)
+      (accepting_duplicate_keys))))
+
+=================================================================================
+[ ABAP - Database Access / ABAP SQL / INSERT ] Subquery and options
+=================================================================================
+INSERT demo_join3 FROM (
+  SELECT i, j, k, l FROM demo_join1
+  UNION
+  SELECT a, b, c, d FROM demo_join2
+) OPTIONS PRIVILEGED ACCESS CONNECTION DEFAULT.
+---
+
+(source
+  (sql_insert_statement
+    target: (identifier)
+    from: (sql_insert_from_spec
+      query: (sql_subquery
+        (sql_set_expression
+          query: (sql_set_query
+            (select_list
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier))
+              (select_list_item
+                expression: (identifier)))
+            (from_database_source_spec
+              source: (identifier)))
+          (sql_union_spec
+            query: (sql_set_query
+              (select_list
+                (select_list_item
+                  expression: (identifier))
+                (select_list_item
+                  expression: (identifier))
+                (select_list_item
+                  expression: (identifier))
+                (select_list_item
+                  expression: (identifier)))
+              (from_database_source_spec
+                source: (identifier)))))))
+    options: (sql_options_spec
+      (privileged_access)
+      (connection_spec
+        connection: (identifier)))))
