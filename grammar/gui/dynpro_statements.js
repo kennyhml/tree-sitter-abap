@@ -31,6 +31,21 @@ module.exports = {
       optional(field("excluding", $.excluding_function_code_spec)),
     ),
 
+  /*
+   * SET PF-STATUS status [OF PROGRAM prog] [EXCLUDING fcode].
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPGET_PF-STATUS_DYNPRO.html
+   */
+  get_pf_status_statement: $ => seq($.__get_pf_status_statement_prefix, "."),
+
+  __get_pf_status_statement_prefix: $ =>
+    seq(
+      ...gen.kws("get", "pf-status"),
+      field("status", $._modifiable_target),
+      optional(field("program", $.of_program_spec)),
+      optional(field("excluding", $.excluding_function_code_spec)),
+    ),
+
   of_program_spec: $ =>
     seq(...gen.kws("of", "program"), field("program", $._simple_operand)),
 

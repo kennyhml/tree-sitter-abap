@@ -375,6 +375,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "get_pf_status_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "try_statement"
           },
           {
@@ -12628,6 +12632,72 @@
           "content": {
             "type": "SYMBOL",
             "name": "_simple_operand"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "program",
+              "content": {
+                "type": "SYMBOL",
+                "name": "of_program_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "excluding",
+              "content": {
+                "type": "SYMBOL",
+                "name": "excluding_function_code_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "get_pf_status_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__get_pf_status_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__get_pf_status_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_pf_status"
+        },
+        {
+          "type": "FIELD",
+          "name": "status",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_modifiable_target"
           }
         },
         {
