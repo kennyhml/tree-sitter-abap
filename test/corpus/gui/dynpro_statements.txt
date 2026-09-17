@@ -47,3 +47,18 @@ GET PF-STATUS status OF PROGRAM 'ZMYPROG' EXCLUDING fcode.
       program: (string_literal))
     excluding: (excluding_function_code_spec
       fcode: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] SET TITLEBAR
+=================================================================================
+SET TITLEBAR title OF PROGRAM prog WITH p1 p2.
+---
+
+(source
+  (set_titlebar_statement
+    title: (identifier)
+    program: (of_program_spec
+      program: (identifier))
+    with: (with_arguments_spec
+      (identifier)
+      (identifier))))

@@ -219,6 +219,7 @@ module.exports = grammar({
           $.call_screen_statement,
           $.set_pf_status_statement,
           $.get_pf_status_statement,
+          $.set_titlebar_statement,
 
           // Control flow
           $.try_statement,

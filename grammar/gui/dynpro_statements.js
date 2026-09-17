@@ -45,6 +45,22 @@ module.exports = {
       optional(field("program", $.of_program_spec)),
       optional(field("excluding", $.excluding_function_code_spec)),
     ),
+  /*
+   *
+   * SET TITLEBAR title [OF PROGRAM prog]
+   *               [WITH text1 ... text9].
+   *
+   * @see https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_TITLEBAR_DYNPRO.html
+   */
+  set_titlebar_statement: $ => seq($.__set_titlebar_statement_prefix, "."),
+
+  __set_titlebar_statement_prefix: $ =>
+    seq(
+      ...gen.kws("set", "titlebar"),
+      field("title", $._simple_operand),
+      optional(field("program", $.of_program_spec)),
+      optional(field("with", $.with_arguments_spec)),
+    ),
 
   of_program_spec: $ =>
     seq(...gen.kws("of", "program"), field("program", $._simple_operand)),

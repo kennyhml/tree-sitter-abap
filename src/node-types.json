@@ -914,6 +914,10 @@
         "named": true
       },
       {
+        "type": "set_titlebar_statement",
+        "named": true
+      },
+      {
         "type": "set_update_task_local_statement",
         "named": true
       },
@@ -35207,6 +35211,72 @@
     }
   },
   {
+    "type": "set_titlebar_statement",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "set",
+            "named": false
+          },
+          {
+            "type": "titlebar",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "of_program_spec",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      },
+      "with": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "with_arguments_spec",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "set_update_task_local_statement",
     "named": true,
     "fields": {
@@ -49296,6 +49366,10 @@
   },
   {
     "type": "title",
+    "named": false
+  },
+  {
+    "type": "titlebar",
     "named": false
   },
   {

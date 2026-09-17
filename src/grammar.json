@@ -379,6 +379,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "set_titlebar_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "try_statement"
           },
           {
@@ -12725,6 +12729,72 @@
               "content": {
                 "type": "SYMBOL",
                 "name": "excluding_function_code_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "set_titlebar_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__set_titlebar_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__set_titlebar_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_titlebar"
+        },
+        {
+          "type": "FIELD",
+          "name": "title",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "program",
+              "content": {
+                "type": "SYMBOL",
+                "name": "of_program_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "with",
+              "content": {
+                "type": "SYMBOL",
+                "name": "with_arguments_spec"
               }
             },
             {
@@ -48236,6 +48306,19 @@
         },
         "named": false,
         "value": "pf-status"
+      }
+    },
+    "_kw_titlebar": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)titlebar"
+        },
+        "named": false,
+        "value": "titlebar"
       }
     },
     "_kw_program": {
