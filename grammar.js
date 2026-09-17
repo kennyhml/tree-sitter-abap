@@ -217,6 +217,7 @@ module.exports = grammar({
           // Dynpro
           $.call_sel_screen_statement,
           $.call_screen_statement,
+          $.set_pf_status_statement,
 
           // Control flow
           $.try_statement,

@@ -371,6 +371,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "set_pf_status_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "try_statement"
           },
           {
@@ -12591,6 +12595,110 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "set_pf_status_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__set_pf_status_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__set_pf_status_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_pf_status"
+        },
+        {
+          "type": "FIELD",
+          "name": "status",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "program",
+              "content": {
+                "type": "SYMBOL",
+                "name": "of_program_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "excluding",
+              "content": {
+                "type": "SYMBOL",
+                "name": "excluding_function_code_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "of_program_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_of"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_program"
+        },
+        {
+          "type": "FIELD",
+          "name": "program",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
+        }
+      ]
+    },
+    "excluding_function_code_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_excluding"
+        },
+        {
+          "type": "FIELD",
+          "name": "fcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
         }
       ]
     },
@@ -48031,6 +48139,61 @@
         "value": "screen"
       }
     },
+    "__kw_pf_status": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(?i)pf"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "(?i)-status"
+          }
+        }
+      ]
+    },
+    "_kw_pf_status": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "__kw_pf_status"
+        },
+        "named": false,
+        "value": "pf-status"
+      }
+    },
+    "_kw_program": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)program"
+        },
+        "named": false,
+        "value": "program"
+      }
+    },
+    "_kw_excluding": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)excluding"
+        },
+        "named": false,
+        "value": "excluding"
+      }
+    },
     "_kw_radiobutton": {
       "type": "FIELD",
       "name": "keyword",
@@ -48538,19 +48701,6 @@
         },
         "named": false,
         "value": "lines"
-      }
-    },
-    "_kw_program": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)program"
-        },
-        "named": false,
-        "value": "program"
       }
     },
     "_kw_window": {

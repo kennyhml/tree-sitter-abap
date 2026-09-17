@@ -898,6 +898,10 @@
         "named": true
       },
       {
+        "type": "set_pf_status_statement",
+        "named": true
+      },
+      {
         "type": "set_run_time_analyzer_statement",
         "named": true
       },
@@ -15866,6 +15870,48 @@
     }
   },
   {
+    "type": "excluding_function_code_spec",
+    "named": true,
+    "fields": {
+      "fcode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "excluding",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "exec_sql_statement",
     "named": true,
     "fields": {
@@ -27890,6 +27936,52 @@
     }
   },
   {
+    "type": "of_program_spec",
+    "named": true,
+    "fields": {
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "of",
+            "named": false
+          },
+          {
+            "type": "program",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "off",
     "named": true,
     "fields": {
@@ -29406,6 +29498,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "pf-status",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "positional_argument",
@@ -34879,6 +34976,72 @@
         "types": [
           {
             "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "set_pf_status_statement",
+    "named": true,
+    "fields": {
+      "excluding": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "excluding_function_code_spec",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "pf-status",
+            "named": false
+          },
+          {
+            "type": "set",
+            "named": false
+          }
+        ]
+      },
+      "program": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "of_program_spec",
+            "named": true
+          }
+        ]
+      },
+      "status": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "component_selection",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "name_reference",
+            "named": true
+          },
+          {
+            "type": "substring_access",
+            "named": true
+          },
+          {
+            "type": "table_body_access",
             "named": true
           }
         ]
@@ -47601,6 +47764,10 @@
   },
   {
     "type": "exceptions",
+    "named": false
+  },
+  {
+    "type": "excluding",
     "named": false
   },
   {

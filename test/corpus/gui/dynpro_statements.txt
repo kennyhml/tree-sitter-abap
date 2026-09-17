@@ -1,0 +1,35 @@
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] Plain SET PF-STATUS
+=================================================================================
+SET PF-STATUS 'FOO'.
+---
+
+(source
+  (set_pf_status_statement
+    status: (string_literal)))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] SET PF-STATUS exluding
+=================================================================================
+SET PF-STATUS 'STATUS_0100' EXCLUDING fcode.
+---
+
+(source
+  (set_pf_status_statement
+    status: (string_literal)
+    excluding: (excluding_function_code_spec
+      fcode: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] SET PF-STATUS of program
+=================================================================================
+SET PF-STATUS 'STATUS_0100' OF PROGRAM 'ZMYPROG' EXCLUDING fcode.
+---
+
+(source
+  (set_pf_status_statement
+    status: (string_literal)
+    program: (of_program_spec
+      program: (string_literal))
+    excluding: (excluding_function_code_spec
+      fcode: (identifier))))
