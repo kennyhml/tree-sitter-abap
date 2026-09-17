@@ -216,6 +216,7 @@ module.exports = grammar({
 
           // Dynpro
           $.call_sel_screen_statement,
+          $.call_screen_statement,
 
           // Control flow
           $.try_statement,
@@ -667,14 +668,14 @@ module.exports = grammar({
               "sort",
               "insert",
               "delete",
-               "append",
-               "interfaces",
-               "interface",
-               "methods",
-               "exec",
-               "sql",
-               "endexec",
-             ),
+              "append",
+              "interfaces",
+              "interface",
+              "methods",
+              "exec",
+              "sql",
+              "endexec",
+            ),
           ),
         ),
         $.identifier,

@@ -1,5 +1,5 @@
 =================================================================================
-[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] CALL SCREEN
+[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] CALL SELECTION-SCREEN
 =================================================================================
 CALL SELECTION-SCREEN '0500' STARTING AT 10 10 
                              ending at 20 10 
@@ -17,3 +17,29 @@ CALL SELECTION-SCREEN '0500' STARTING AT 10 10
       line: (number))
     (using_selection_set_spec
       name: (identifier))))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] CALL SCREEN
+=================================================================================
+CALL SCREEN dynnr.
+---
+
+(source
+  (call_screen_statement
+    dynnr: (identifier)))
+
+=================================================================================
+[ ABAP - SAP GUI User Dialogs / General Dynpros / ABAP Statements ] CALL SCREEN with starting
+=================================================================================
+CALL SCREEN dynnr STARTING AT 10 200 ENDING AT 20 300.
+---
+
+(source
+  (call_screen_statement
+    dynnr: (identifier)
+    start: (starting_at_spec
+      column: (number)
+      line: (number))
+    end: (ending_at_spec
+      column: (number)
+      line: (number))))

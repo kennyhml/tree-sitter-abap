@@ -367,6 +367,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "call_screen_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "try_statement"
           },
           {
@@ -12523,6 +12527,72 @@
     "no_display": {
       "type": "SYMBOL",
       "name": "_kw_no_display"
+    },
+    "call_screen_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__call_screen_statement_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "__call_screen_statement_prefix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_kw_screen"
+        },
+        {
+          "type": "FIELD",
+          "name": "dynnr",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_operand"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "start",
+              "content": {
+                "type": "SYMBOL",
+                "name": "starting_at_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "end",
+              "content": {
+                "type": "SYMBOL",
+                "name": "ending_at_spec"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "parameters_declaration": {
       "type": "SEQ",
@@ -47948,6 +48018,19 @@
         "value": "no-display"
       }
     },
+    "_kw_screen": {
+      "type": "FIELD",
+      "name": "keyword",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "PATTERN",
+          "value": "(?i)screen"
+        },
+        "named": false,
+        "value": "screen"
+      }
+    },
     "_kw_radiobutton": {
       "type": "FIELD",
       "name": "keyword",
@@ -48247,19 +48330,6 @@
         },
         "named": false,
         "value": "begin"
-      }
-    },
-    "_kw_screen": {
-      "type": "FIELD",
-      "name": "keyword",
-      "content": {
-        "type": "ALIAS",
-        "content": {
-          "type": "PATTERN",
-          "value": "(?i)screen"
-        },
-        "named": false,
-        "value": "screen"
       }
     },
     "_kw_subscreen": {
